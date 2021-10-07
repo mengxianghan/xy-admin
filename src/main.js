@@ -1,6 +1,16 @@
-import { createApp } from 'vue'
+import {createApp} from 'vue'
 import App from './App.vue'
-import router from './router'
-import store from './store'
+import {setupRouter} from './router'
+import {setupStore} from './store'
+import Antd from 'ant-design-vue'
+import 'ant-design-vue/dist/antd.less'
 
-createApp(App).use(store).use(router).mount('#app')
+const bootstrap = () => {
+    const app = createApp(App)
+    setupStore(app)
+    setupRouter(app)
+    app.use(Antd)
+    app.mount('#app')
+}
+
+bootstrap()
