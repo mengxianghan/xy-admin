@@ -1,8 +1,8 @@
 <template>
     <div v-if="visible"
          class="x-loading">
-        <a-spin size="large"
-                :tip="message"></a-spin>
+        <spin size="large"
+              :tip="message"></spin>
     </div>
 </template>
 
@@ -13,15 +13,17 @@
  * @property {string} message 文案
  */
 import {ref} from 'vue';
+import {Spin} from 'ant-design-vue';
 
 export default {
     name: 'XLoading',
+    components: {Spin},
     setup() {
         const visible = ref(false);
         const message = ref('加载中');
 
-        function show(content) {
-            message.value = content;
+        function show(content = '') {
+            if ('' !== content) message.value = content;
             visible.value = true;
         }
 

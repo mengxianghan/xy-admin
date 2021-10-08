@@ -3,7 +3,7 @@ import {setupRouter} from '@/router';
 import {setupStore} from '@/store';
 
 import App from '@/App.vue';
-import Antd from 'ant-design-vue';
+import antd from 'ant-design-vue';
 import XLoading from '@/plugins/XLoading';
 
 import 'ant-design-vue/dist/antd.less';
@@ -13,8 +13,7 @@ if ('true' === process.env.VUE_APP_MOCK_ENABLE) require('@/mock');
 
 const bootstrap = () => {
     const app = createApp(App);
-    console.log(app.version);
-    app.use(Antd);
+    app.use(antd);
     app.use(XLoading);
     setupStore(app);
     setupRouter(app);

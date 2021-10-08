@@ -24,9 +24,9 @@ const assetsCDN = {
             'jschardet': 'jschardet'
         },
         production: {
-            'vue': 'Vue',
-            'vuex': 'Vuex',
-            'vue-router': 'VueRouter',
+            //'vue': 'Vue',
+            //'vuex': 'Vuex',
+            //'vue-router': 'VueRouter',
             'axios': 'axios',
             'ant-design-vue': 'antd'
         }
@@ -38,12 +38,12 @@ const assetsCDN = {
         env: [
             '//cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js',
             '//cdn.jsdelivr.net/npm/bignumber.js@9.0.1/bignumber.min.js',
-            '//cdn.jsdelivr.net/npm/jschardet@2.1.1/dist/jschardet.min.js'
+            '//cdn.jsdelivr.net/npm/jschardet@3.0.0/dist/jschardet.min.js'
         ],
         production: [
-            '//cdn.jsdelivr.net/npm/vue@3.2.19/dist/vue.global.min.js',
-            '//cdn.jsdelivr.net/npm/vue-router@3.5.2/dist/vue-router.min.js',
-            '//cdn.jsdelivr.net/npm/vuex@4.0.2/dist/vuex.global.min.js',
+            //'//cdn.jsdelivr.net/npm/vue@3.2.19/dist/vue.global.min.js',
+            //'//cdn.jsdelivr.net/npm/vue-router@3.5.2/dist/vue-router.min.js',
+            //'//cdn.jsdelivr.net/npm/vuex@4.0.2/dist/vuex.global.min.js',
             '//cdn.jsdelivr.net/npm/axios@0.22.0/dist/axios.min.js',
             '//cdn.jsdelivr.net/npm/ant-design-vue@2.2.8/dist/antd.min.js'
         ]
