@@ -21,12 +21,12 @@
 export default {
     name: 'BaseLayout',
     setup() {
-        const title = process.env.VUE_APP_TITLE
+        const title = process.env.VUE_APP_TITLE;
         return {
             title
-        }
+        };
     }
-}
+};
 </script>
 
 <style lang="scss"
@@ -34,12 +34,8 @@ export default {
 .user-layout {
     &-container {
         min-height: 100%;
-        background: #f0f2f5 url('/images/login_bg.svg') no-repeat center;
-        background-size: cover;
-    }
-
-    &-content {
-        padding: 72px 0 24px;
+        background: url('/images/login_bg.svg') no-repeat center 110px / 100%;
+        padding: 110px 0 144px;
     }
 
     &-top {

@@ -1,0 +1,52 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+html, body, #app {
+    height: 100%;
+    word-break: break-word;
+    hyphens: auto;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+}
+
+#app {
+    position: relative;
+}
+
+body {
+    font: normal normal normal 14px/1.5 $font-family;
+    color: rgba(0, 0, 0, .85);
+}
+
+img, video, audio {
+    max-width: 100%;
+    vertical-align: middle;
+}
+
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+    background-color: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: rgba(69, 90, 100, 0.2);
+    border-radius: 6px;
+}
+
+input:-internal-autofill-previewed,
+input:-internal-autofill-selected {
+    transition: background-color 5000s ease-in-out 0s !important;
+}
+
+ul, ol, li {
+    list-style: none;
+}
+
+.i-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}

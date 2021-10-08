@@ -1,5 +1,5 @@
-import {createRouter, createWebHistory} from 'vue-router'
-import {constantRouterMap} from '@/router/router.config'
+import {createRouter, createWebHistory} from 'vue-router';
+import {constantRouterMap} from '@/router/router.config';
 
 const router = createRouter({
     history: createWebHistory(process.env.BASE_URL),
@@ -7,10 +7,10 @@ const router = createRouter({
     routes: [
         ...constantRouterMap
     ]
-})
+});
 
 export function setupRouter(app) {
-    app.use(router)
+    app.use(router);
 }
 
-export default router
+export default router;

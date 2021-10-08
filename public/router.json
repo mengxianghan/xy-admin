@@ -1,0 +1,87 @@
+{
+  "code": "200",
+  "msg": "",
+  "data": {
+    "format": false,
+    "list": [
+      {
+        "path": "dashboard",
+        "name": "dashboard",
+        "component": "RouterViewLayout",
+        "redirect": "/dashboard/workplace",
+        "meta": {
+          "icon": "dashboard",
+          "title": "仪表盘",
+          "isMenu": true,
+          "keepAlive": true,
+          "target": "_blank",
+          "permission": [
+            "*"
+          ]
+        },
+        "children": [
+          {
+            "path": "workplace",
+            "name": "workplace",
+            "component": "dashboard/workplace",
+            "meta": {
+              "title": "工作台",
+              "isMenu": true,
+              "keepAlive": true
+            }
+          },
+          {
+            "path": "https://www.baidu.com",
+            "name": "baidu",
+            "meta": {
+              "title": "百度",
+              "isMenu": true,
+              "target": "_blank"
+            }
+          },
+          {
+            "path": "iframe",
+            "name": "iframe",
+            "component": "iframe",
+            "meta": {
+              "iframeUrl": "https://163.com",
+              "title": "网易",
+              "isMenu": true,
+              "keepAlive": true
+            }
+          }
+        ]
+      },
+      {
+        "path": "examples",
+        "name": "examples",
+        "component": "RouterViewLayout",
+        "meta": {
+          "icon": "appstore",
+          "title": "组件展示",
+          "isMenu": true,
+          "keepAlive": true,
+          "permission": [
+            "list",
+            "paper"
+          ]
+        },
+        "children": [
+          {
+            "path": "list",
+            "name": "list",
+            "component": "examples/list",
+            "meta": {
+              "title": "列表",
+              "isMenu": true,
+              "keepAlive": true,
+              "permission": [
+                "list"
+              ]
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

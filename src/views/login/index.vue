@@ -1,0 +1,121 @@
+<template>
+    <div>
+        <a-form :model="form"
+                ref="formRef"
+                :rules="rules">
+            <a-form-item name="username">
+                <a-input v-model:value="form.username"
+                         size="large">
+                    <a-icon slot="prefix"
+                            type="user"/>
+                </a-input>
+            </a-form-item>
+            <a-form-item name="password">
+                <a-input v-model:value="form.password"
+                         size="large"
+                         type="password"
+                         @pressEnter="handleLogin">
+                    <a-icon slot="prefix"
+                            type="lock"/>
+                </a-input>
+            </a-form-item>
+            <a-form-item>
+                <a-button type="primary"
+                          size="large"
+                          block
+                          :loading="loading"
+                          @click="handleLogin">登录
+                </a-button>
+            </a-form-item>
+        </a-form>
+    </div>
+</template>
+
+<script>
+import {ref, reactive} from 'vue';
+import {useStore} from 'vuex';
+import {useRouter} from 'vue-router';
+import {message, Modal} from 'ant-design-vue';
+
+export default {
+    setup() {
+        const store = useStore();
+        const router = useRouter();
+        const rules = {
+            username: {required: true, message: '请输入用户名'},
+            password: {required: true, message: '请输入密码'}
+        };
+        const title = process.env.VUE_APP_TITLE;
+        const loading = ref(false);
+        const form = reactive({});
+        const formRef = ref();
+
+        /**
+         * 登录
+         * @return {Promise<void>}
+         */
+        async function handleLogin() {
+            try {
+                formRef.value.validate().then(async () => {
+                    loading.value = true;
+                    const {code} = await store.dispatch('user/login', {
+                        ...form
+                    }).catch(() => {
+                        throw new Error('登录失败');
+                    });
+                    loading.value = false;
+                    if (code === '200') {
+                        let indexRouter = null;
+                        // 加载完成
+                        if (store.getters['app/complete']) {
+                            indexRouter = getIndexRouter();
+                            if (!indexRouter) return;
+                            router.push(indexRouter);
+                        } else {
+                            store.dispatch('app/init').then(() => {
+                                indexRouter = getIndexRouter();
+                                if (!indexRouter) return;
+                                router.push(indexRouter);
+                            });
+                        }
+                    }
+                });
+            } catch (err) {
+                loading.value = false;
+                message.error(err.message);
+            }
+        }
+
+        /**
+         * 获取首页路由
+         * @return {*}
+         */
+        function getIndexRouter() {
+            const indexRouter = store.getters['router/indexRouter'];
+            if (!indexRouter) {
+                Modal.warning({
+                    title: '系统提示',
+                    content: '没有任何权限，请联系系统管理员',
+                    onOk: () => {
+                        window.location.reload();
+                    }
+                });
+            }
+            return indexRouter;
+        }
+
+        return {
+            rules,
+            form,
+            formRef,
+            title,
+            loading,
+            handleLogin
+        };
+    }
+};
+</script>
+
+<style lang="scss"
+       scoped>
+</style>

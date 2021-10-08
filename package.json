@@ -13,10 +13,17 @@
   },
   "dependencies": {
     "ant-design-vue": "^2.2.8",
+    "axios": "^0.22.0",
     "core-js": "^3.6.5",
+    "jschardet": "^3.0.0",
+    "json-bigint": "^1.0.0",
+    "lodash": "^4.17.21",
+    "mockjs": "^1.1.0",
     "vue": "^3.0.0",
     "vue-router": "^4.0.0-0",
-    "vuex": "^4.0.0-0"
+    "vuex": "^4.0.0-0",
+    "xy-enum": "^1.0.1",
+    "xy-storage": "^2.0.2"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",
@@ -24,6 +31,7 @@
     "@vue/cli-plugin-vuex": "~4.5.0",
     "@vue/cli-service": "~4.5.0",
     "@vue/compiler-sfc": "^3.0.0",
+    "compression-webpack-plugin": "^6.1.1",
     "less": "^3.13.1",
     "less-loader": "^5.0.0",
     "sass": "^1.26.5",
