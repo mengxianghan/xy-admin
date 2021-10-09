@@ -1,5 +1,6 @@
 <template>
-    <div class="x-layout-menu">
+    <div class="x-layout-menu"
+         :class="classes">
         <div class="x-layout-menu__logo">
             <img :src="require('@/assets/images/logo.png')">
             <h1>{{ title }}</h1>
@@ -14,11 +15,11 @@
                 <template v-if="item.meta.isMenu">
                     <a-menu-item v-if="!item.children"
                                  :key="item.name">
-                        <x-custom-link :data-source="item"></x-custom-link>
+                        <x-layout-menu-link :data-source="item"/>
                     </a-menu-item>
-                    <x-sub-menu v-else
-                                :key="item.name"
-                                :menu-info="item"/>
+                    <x-layout-menu-sub v-else
+                                       :key="item.name"
+                                       :data-source="item"/>
                 </template>
             </template>
         </a-menu>
@@ -26,101 +27,36 @@
 </template>
 
 <script>
-import {Menu} from 'ant-design-vue';
-import {computed, onMounted, ref, watch} from 'vue';
+import {computed, onMounted, ref, toRefs, watch} from 'vue';
 import {useStore} from 'vuex';
 import {useRoute} from 'vue-router';
-
-const XCustomLink = {
-    name: 'XCustomLink',
-    props: {
-        dataSource: {
-            type: Object,
-            default: () => ({})
-        }
-    },
-    template: `
-        <a v-if="dataSource.meta.isUrl"
-           :href="dataSource.path"
-           :target="dataSource.meta.target"
-           rel="opener">
-        <a-icon v-if="dataSource.meta.icon"
-                :type="dataSource.meta.icon"/>
-        <span>{{ dataSource.meta.title }}</span>
-        </a>
-        <router-link v-else
-                     :to="{
-                        name: dataSource.name,
-                        query: dataSource?.meta?.query ?? {}
-                     }"
-                     tag="a"
-                     :target="dataSource.meta.target"
-                     rel="opener">
-        <a-icon v-if="dataSource.meta.icon"
-                :type="dataSource.meta.icon"/>
-        <span>{{ dataSource.meta.title }}</span>
-        </router-link>
-    `
-};
-
-const XSubMenu = {
-    name: 'XSubMenu',
-    components: {
-        XCustomLink
-    },
-    template: `
-        <a-sub-menu :key="menuInfo.name"
-                    v-bind="$props"
-                    v-on="$listeners">
-        <template slot="title">
-            <a-icon v-if="menuInfo.meta && menuInfo.meta.icon"
-                    :type="menuInfo.meta.icon"/>
-            <span>{{ menuInfo.meta.title }}</span>
-        </template>
-        <template v-for="item in menuInfo.children">
-            <template v-if="item.meta.isMenu">
-                <a-menu-item v-if="!item.children"
-                             :key="item.name">
-                    <x-custom-link :data-source="item"></x-custom-link>
-                </a-menu-item>
-                <x-sub-menu v-else
-                            :key="item.name"
-                            :menu-info="item"/>
-            </template>
-        </template>
-        </a-sub-menu>
-    `,
-    isSubMenu: true,
-    props: {
-        ...Menu.SubMenu.props,
-        menuInfo: {
-            type: Object,
-            default: () => ({})
-        }
-    }
-};
+import XLayoutMenuLink from '@/components/XLayoutMenu/XLayoutMenuLink';
+import XLayoutMenuSub from '@/components/XLayoutMenu/XLayoutMenuSub';
 
 export default {
     name: 'XLayoutMenu',
-    components: {
-        XSubMenu,
-        XCustomLink
-    },
+    components: {XLayoutMenuSub, XLayoutMenuLink},
     props: {
         theme: {
             type: String,
             default: 'dark'
         }
     },
-    setup() {
+    setup(props) {
         const store = useStore();
         const route = useRoute();
+        const {theme} = toRefs(props);
         const title = process.env.VUE_APP_TITLE;
         const collapsed = ref(false);
         const openKeys = ref([]);
         const selectedKeys = ref([]);
         const menuList = computed(() => store.getters['router/menuList']);
-        const rootSubmenuKeys = computed(() => menuList.map(item => item.name));
+        const rootSubmenuKeys = computed(() => menuList.value.map(item => item.name));
+        const classes = computed(() => {
+            const classList = [];
+            classList.push(`x-layout-menu--${theme.value}`);
+            return classList;
+        });
         watch(route, () => setSelectedMenu());
 
         onMounted(() => {
@@ -142,7 +78,7 @@ export default {
          */
         function onOpenChange(value) {
             const latestOpenKey = value.find(key => openKeys.value.indexOf(key) === -1);
-            if (rootSubmenuKeys.indexOf(latestOpenKey) === -1) {
+            if (rootSubmenuKeys.value.indexOf(latestOpenKey) === -1) {
                 openKeys.value = value;
             } else {
                 openKeys.value = latestOpenKey ? [latestOpenKey] : [];
@@ -154,6 +90,8 @@ export default {
             collapsed,
             openKeys,
             selectedKeys,
+            menuList,
+            classes,
             onOpenChange
         };
     }
@@ -177,12 +115,23 @@ export default {
         }
 
         h1 {
-            color: #ffffff;
             font-size: 20px;
             margin: 0;
             padding: 0 12px;
             text-overflow: ellipsis;
             overflow: hidden;
+        }
+    }
+
+    &--dark {
+        h1 {
+            color: #ffffff;
+        }
+    }
+
+    &--light {
+        h1 {
+            color: #222222;
         }
     }
 

@@ -5,38 +5,60 @@
     "format": false,
     "list": [
       {
-        "path": "dashboard",
-        "name": "dashboard",
-        "component": "RouterViewLayout",
-        "redirect": "/dashboard/workplace",
+        "path": "home",
+        "name": "home",
+        "component": "home",
         "meta": {
-          "icon": "dashboard",
-          "title": "仪表盘",
+          "icon": "HomeOutlined",
+          "title": "首页",
+          "isMenu": true,
+          "permission": "*"
+        }
+      },
+      {
+        "path": "list",
+        "name": "list",
+        "component": "RouterViewLayout",
+        "meta": {
+          "icon": "AppstoreOutlined",
+          "title": "列表页",
           "isMenu": true,
           "keepAlive": true,
-          "target": "_blank",
-          "permission": [
-            "*"
-          ]
+          "permission": "*"
         },
         "children": [
           {
-            "path": "workplace",
-            "name": "workplace",
-            "component": "dashboard/workplace",
+            "path": "tableList",
+            "name": "tableList",
+            "component": "list/tableList",
             "meta": {
-              "title": "工作台",
+              "title": "查询表格",
               "isMenu": true,
-              "keepAlive": true
+              "permission": "*"
             }
-          },
+          }
+        ]
+      },
+      {
+        "path": "jump",
+        "name": "jump",
+        "component": "RouterViewLayout",
+        "meta": {
+          "icon": "AppstoreOutlined",
+          "title": "跳转",
+          "isMenu": true,
+          "keepAlive": false,
+          "permission": "*"
+        },
+        "children": [
           {
             "path": "https://www.baidu.com",
-            "name": "baidu",
+            "name": "externalLink",
             "meta": {
-              "title": "百度",
+              "title": "外链（百度）",
               "isMenu": true,
-              "target": "_blank"
+              "target": "_blank",
+              "permission": "*"
             }
           },
           {
@@ -44,40 +66,11 @@
             "name": "iframe",
             "component": "iframe",
             "meta": {
-              "iframeUrl": "https://163.com",
-              "title": "网易",
+              "iframeUrl": "https://www.bilibili.com/",
+              "title": "Iframe（B站）",
               "isMenu": true,
-              "keepAlive": true
-            }
-          }
-        ]
-      },
-      {
-        "path": "examples",
-        "name": "examples",
-        "component": "RouterViewLayout",
-        "meta": {
-          "icon": "appstore",
-          "title": "组件展示",
-          "isMenu": true,
-          "keepAlive": true,
-          "permission": [
-            "list",
-            "paper"
-          ]
-        },
-        "children": [
-          {
-            "path": "list",
-            "name": "list",
-            "component": "examples/list",
-            "meta": {
-              "title": "列表",
-              "isMenu": true,
-              "keepAlive": true,
-              "permission": [
-                "list"
-              ]
+              "keepAlive": false,
+              "permission": "*"
             }
           }
         ]

@@ -11,7 +11,7 @@ export const whiteList = [
  * @type {{redirect: string, path: string, hidden: boolean}}
  */
 export const notFoundRouter = {
-    path: '*',
+    path: '/:pathMatch(.*)*',
     redirect: '/exception/404',
     meta: {
         isLogin: false,

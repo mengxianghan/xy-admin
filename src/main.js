@@ -4,7 +4,8 @@ import {setupStore} from '@/store';
 
 import App from '@/App.vue';
 import antd from 'ant-design-vue';
-import XLoading from '@/plugins/XLoading';
+import {XLoading} from '@/plugins/XLoading';
+import '@/core/permission';
 
 import 'ant-design-vue/dist/antd.less';
 import '@/assets/styles/index.scss';

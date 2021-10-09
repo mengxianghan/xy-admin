@@ -1,7 +1,5 @@
 import {message} from 'ant-design-vue';
-import {useRouter} from 'vue-router';
-
-const router = useRouter()
+import router from '@/router';
 
 const state = {
     list: [],
@@ -140,7 +138,7 @@ const actions = {
      * @param route
      */
     push({dispatch, commit, state}, {route} = {}) {
-        route = route ?? router.currentRoute;
+        route = route ?? router.currentRoute.value;
         const index = state.list.findIndex((item) => item.path === route.path);
         // 标签页是否已存在
         if (index > -1) {
@@ -160,7 +158,7 @@ const actions = {
      * @param index
      */
     replace({commit}, {route, index} = {}) {
-        route = route ?? router.currentRoute;
+        route = route ?? router.currentRoute.value;
         index = index ?? state.list.findIndex((item) => item.name === route.name);
         commit('REPLACE', {route, index});
         commit('SET_CURRENT', index);
@@ -181,7 +179,7 @@ const actions = {
      * @param route
      */
     refresh({dispatch, commit, state}, {route, index} = {}) {
-        route = route ?? router.currentRoute;
+        route = route ?? router.currentRoute.value;
         index = index ?? state.list.findIndex((item) => item.name === route.name);
         commit('DELETE_CACHE_LIST', route);
         commit('SET_CURRENT', index);
@@ -200,7 +198,7 @@ const actions = {
      * @param index
      */
     close({dispatch, commit, state}, {route, index} = {}) {
-        route = route ?? router.currentRoute;
+        route = route ?? router.currentRoute.value;
         index = index ?? state.list.findIndex((item) => item.name === route.name);
         // 最后一个标签页
         if (state.list.length === 1) {
@@ -230,7 +228,7 @@ const actions = {
      * @param index
      */
     closeOther({commit, state}, {route, index} = {}) {
-        route = route ?? router.currentRoute;
+        route = route ?? router.currentRoute.value;
         index = index ?? state.list.findIndex((item) => item.name === route.name);
         // 不是当前页面
         if (state.current !== index) {
@@ -248,7 +246,7 @@ const actions = {
      * @param index
      */
     closeLeft({commit, state}, {route, index} = {}) {
-        route = route ?? router.currentRoute;
+        route = route ?? router.currentRoute.value;
         index = index ?? state.list.findIndex((item) => item.name === route.name);
         // 不是当前页
         if (state.current !== index) {
@@ -266,7 +264,7 @@ const actions = {
      * @param index
      */
     closeRight({commit, state}, {route, index} = {}) {
-        route = route ?? router.currentRoute;
+        route = route ?? router.currentRoute.value;
         index = index ?? state.list.findIndex((item) => item.name === route.name);
         // 是否关闭了当前页
         if (state.current > index) {

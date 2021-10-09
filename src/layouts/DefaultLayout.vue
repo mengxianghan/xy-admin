@@ -10,8 +10,9 @@
             <x-layout-menu :theme="theme"/>
         </a-layout-sider>
         <a-layout>
-            <a-layout-header :style="headerStyle">
-                <x-layout-header :collapsed.sync="collapsed"></x-layout-header>
+            <a-layout-header :style="headerStyle"
+                             :theme="theme">
+                <x-layout-header v-model:collapsed="collapsed"></x-layout-header>
             </a-layout-header>
             <x-multi-tab></x-multi-tab>
             <a-layout-content :style="contentStyle">
@@ -28,9 +29,9 @@
 
 <script>
 import XLayoutHeader from '@/components/XLayoutHeader';
-import XLayoutMenu from '@/components/XLayoutMenu';
+import XLayoutMenu from '@/components/XLayoutMenu/XLayoutMenu';
 import XMultiTab from '@/components/XMultiTab';
-import {computed} from 'vue';
+import {computed, ref} from 'vue';
 import {useStore} from 'vuex';
 
 export default {
@@ -53,16 +54,16 @@ export default {
             zIndex: 1000
         };
         const contentStyle = {
-            margin: '12px',
+            margin: '16px',
             minHeight: 'auto',
             position: 'relative'
         };
         const footerStyle = {
             textAlign: 'center'
         };
-        const collapsible = false;
-        const collapsed = false;
-        const refreshing = false;
+        const collapsible = ref(false);
+        const collapsed = ref(false);
+        const refreshing = ref(false);
         const theme = 'dark';
 
         const cacheList = computed(() => store.getters['multiTab/cacheList']);
@@ -89,13 +90,4 @@ export default {
 
 <style lang="scss"
        scoped>
-.ant-layout-sider {
-    &.ant-layout-sider-light {
-        :deep(.x-layout-menu__logo) {
-            h1 {
-                color: #222222;
-            }
-        }
-    }
-}
 </style>

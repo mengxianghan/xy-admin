@@ -1,2 +1,25 @@
+// Font
 $font-family: -apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, Hiragino Sans GB, Microsoft YaHei,
 Helvetica Neue, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol;
+
+// Border
+$border-color: #d9d9d9;
+$border-radius-base: 2px;
+
+// BoxShadow
+$box-shadow-base: 0 2px 8px rgba(0, 0, 0, 0.15);
+$box-shadow-primary: 0 0 0 2px rgb(24 144 255 / 20%);
+
+// Color
+$color-primary: #1890ff;
+$color-danger: #f5222d;
+$color-warning: #faad14;
+$color-success: #52c41a;
+$color-info: #1890ff;
+
+// Text
+$text-color-base: rgba(0, 0, 0, 0.65);
+$text-color-secondary: rgba(0, 0, 0, 0.45);
+$text-color-heading: rgba(0, 0, 0, 0.85);
+$text-color-disabled: rgba(0, 0, 0, 0.25);
+$text-color-placeholder: rgba(0, 0, 0, 0.25);

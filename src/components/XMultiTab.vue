@@ -7,24 +7,26 @@
                 @edit="onClose">
             <a-tab-pane v-for="(item,index) in list"
                         :key="index">
-                <a-dropdown slot="tab"
-                            :trigger="['contextmenu']">
-                    <span>{{ item.meta.title }}</span>
-                    <a-menu slot="overlay"
-                            @click="handleMenu($event,item,index)">
-                        <a-menu-item key="refresh">重新加载</a-menu-item>
-                        <a-menu-item key="close">关闭</a-menu-item>
-                        <a-menu-item v-if="list.length > 1"
-                                     key="closeOther">关闭其他
-                        </a-menu-item>
-                        <a-menu-item v-if="index > 0"
-                                     key="closeLeft">关闭左侧
-                        </a-menu-item>
-                        <a-menu-item v-if="index < list.length - 1"
-                                     key="closeRight">关闭右侧
-                        </a-menu-item>
-                    </a-menu>
-                </a-dropdown>
+                <template #tab>
+                    <a-dropdown :trigger="['contextmenu']">
+                        <span>{{ item.meta.title }}</span>
+                        <template #overlay>
+                            <a-menu @click="(menuInfo)=>handleMenu(menuInfo,item,index)">
+                                <a-menu-item key="refresh">重新加载</a-menu-item>
+                                <a-menu-item key="close">关闭</a-menu-item>
+                                <a-menu-item v-if="list.length > 1"
+                                             key="closeOther">关闭其他
+                                </a-menu-item>
+                                <a-menu-item v-if="index > 0"
+                                             key="closeLeft">关闭左侧
+                                </a-menu-item>
+                                <a-menu-item v-if="index < list.length - 1"
+                                             key="closeRight">关闭右侧
+                                </a-menu-item>
+                            </a-menu>
+                        </template>
+                    </a-dropdown>
+                </template>
             </a-tab-pane>
         </a-tabs>
     </div>
@@ -35,22 +37,24 @@
  * @name XMultiTab
  * @description 多标签页
  */
-import {watch, onMounted, computed} from 'vue';
+import {onMounted, computed} from 'vue';
 import {useStore} from 'vuex';
-import {useRoute} from 'vue-router';
+import {useRouter, onBeforeRouteUpdate} from 'vue-router';
 
 export default {
     name: 'XMultiTab',
     setup() {
         const store = useStore();
-        const route = useRoute();
+        const router = useRouter();
         const list = computed(() => store.getters['multiTab/list']);
         const current = computed(() => store.getters['multiTab/current']);
 
-        watch(route, (to) => onOpen(to));
+        onBeforeRouteUpdate((to) => {
+            onOpen(to);
+        });
 
         onMounted(() => {
-            onOpen(route);
+            onOpen(router.currentRoute.value);
         });
 
         /**
@@ -92,7 +96,7 @@ export default {
          */
         function onSwitch(index) {
             store.dispatch('multiTab/switch', {
-                route: list[index],
+                route: list.value[index],
                 index
             });
         }
@@ -106,7 +110,7 @@ export default {
             switch (action) {
                 case 'remove':
                     store.dispatch('multiTab/close', {
-                        route: list[index],
+                        route: list.value[index],
                         index
                     });
                     break;
@@ -139,7 +143,7 @@ export default {
     }
 
     :deep(.ant-tabs-nav) {
-        padding: 0 8px;
+        padding: 0 16px;
     }
 }
 </style>

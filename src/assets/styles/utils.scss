@@ -1,0 +1,70 @@
+@use "sass:math";
+
+//Align
+@each $value in (left center right) {
+    .align-#{$value} {
+        text-align: $value !important;
+    }
+}
+
+//Color
+@each $class, $value in (color, $text-color-base),
+        (secondary, $text-color-secondary),
+        (heading, $text-color-heading),
+        (disabled, $text-color-disabled),
+        (placeholder, $text-color-placeholder),
+        (primary, $color-primary),
+        (danger, $color-danger),
+        (success, $color-success),
+        (warning, $color-warning),
+        (info, $color-info), {
+    .text-#{'' + $class} {
+        color: $value !important;
+    }
+}
+
+//FontSize
+@each $value in (12, 14, 16, 24) {
+    .fs-#{$value} {
+        font-size: #{$value}px !important;
+    }
+}
+
+//Spacing
+@each $class, $property in (mt, margin-top),
+        (mb, margin-bottom),
+        (ml, margin-left),
+        (mr, margin-right),
+        (mx, margin-left margin-right),
+        (my, margin-top margin-bottom),
+        (ma, margin),
+        (pt, padding-top),
+        (pb, padding-bottom),
+        (pl, padding-left),
+        (pr, padding-right),
+        (px, padding-left padding-right),
+        (py, padding-top padding-bottom),
+        (pa, padding) {
+    .#{$class}-0 {
+        @each $prop in $property {
+            #{$prop}: 0 !important;
+        }
+    }
+    @each $value in (4, 8) {
+        @each $multi in (1 2 3 4 5 6) {
+            .#{$class}-#{$value}-#{$multi} {
+                @each $prop in $property {
+                    #{$prop}: $value * $multi + px !important;
+                }
+            }
+        }
+    }
+}
+
+// Margin
+@each $class, $value in (ml-auto, 0 0 0 auto),
+        (mr-auto, 0 auto 0 0) {
+    .#{$class} {
+        margin: $value;
+    }
+}

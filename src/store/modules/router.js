@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {useRouter} from 'vue-router';
+import router from '@/router';
 import {
     notFoundRouter,
     formatRouteList,
@@ -7,9 +7,7 @@ import {
     getIndexRouter,
     listToTree,
     generateRouteListByPermission
-} from '@/router/router.config';
-
-const router = useRouter();
+} from '@/config/router';
 
 const state = {
     routeList: [],

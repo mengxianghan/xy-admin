@@ -1,0 +1,44 @@
+<template>
+    <a v-if="dataSource.meta.isUrl"
+       :href="dataSource.path"
+       :target="dataSource.meta.target"
+       rel="opener">
+        <x-layout-menu-icon v-if="dataSource.meta.icon"
+                            :name="dataSource.meta.icon"/>
+        <span>{{ dataSource.meta.title }}</span>
+    </a>
+    <router-link v-else
+                 :to="{
+                        name: dataSource.name,
+                        query: dataSource?.meta?.query ?? {}
+                     }"
+                 tag="a"
+                 :target="dataSource.meta.target"
+                 rel="opener">
+        <x-layout-menu-icon v-if="dataSource.meta.icon"
+                            :name="dataSource.meta.icon"/>
+        <span>{{ dataSource.meta.title }}</span>
+    </router-link>
+</template>
+
+<script>
+import XLayoutMenuIcon from './XLayoutMenuIcon';
+
+export default {
+    name: 'XLayoutMenuLink',
+    components: {XLayoutMenuIcon},
+    props: {
+        dataSource: {
+            type: Object,
+            default: () => ({})
+        }
+    },
+    setup() {
+    }
+};
+</script>
+
+<style lang="scss"
+       scoped>
+
+</style>

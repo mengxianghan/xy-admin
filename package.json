@@ -12,6 +12,7 @@
     "build:report": "vue-cli-service build --mode prod --report"
   },
   "dependencies": {
+    "@ant-design/icons-vue": "^6.0.1",
     "ant-design-vue": "^2.2.8",
     "axios": "^0.22.0",
     "core-js": "^3.6.5",
