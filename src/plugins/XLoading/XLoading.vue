@@ -12,23 +12,23 @@
  * @property {boolean} visible 状态
  * @property {string} message 文案
  */
-import {ref} from 'vue';
-import {Spin} from 'ant-design-vue';
+import {ref} from 'vue'
+import {Spin} from 'ant-design-vue'
 
 export default {
     name: 'XLoading',
     components: {Spin},
     setup() {
-        const visible = ref(false);
-        const message = ref('加载中');
+        const visible = ref(false)
+        const message = ref('加载中')
 
         function show(content = '') {
-            if ('' !== content) message.value = content;
-            visible.value = true;
+            if ('' !== content) message.value = content
+            visible.value = true
         }
 
         function hide() {
-            visible.value = false;
+            visible.value = false
         }
 
         return {
@@ -36,9 +36,9 @@ export default {
             message,
             show,
             hide
-        };
+        }
     }
-};
+}
 </script>
 
 <style lang="scss"

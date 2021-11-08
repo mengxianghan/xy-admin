@@ -7,7 +7,7 @@ const responseBody = {
     msg: 'success',
     timestamp: 0,
     data: null
-};
+}
 
 /**
  * 构建返回的数据结构
@@ -17,19 +17,19 @@ const responseBody = {
  * @returns {{msg: string, code: string, data: null, timestamp: number}}
  */
 export const builder = (data = {}, code = '200', message = 'success') => {
-    responseBody.data = data;
+    responseBody.data = data
 
     if (code !== undefined && code !== 0) {
-        responseBody.code = code;
+        responseBody.code = code
     }
 
     if (message !== undefined && message !== null) {
-        responseBody.msg = message;
+        responseBody.msg = message
     }
 
-    responseBody.timestamp = new Date().getTime();
-    return responseBody;
-};
+    responseBody.timestamp = new Date().getTime()
+    return responseBody
+}
 
 /**
  * 获取地址栏参数
@@ -37,14 +37,14 @@ export const builder = (data = {}, code = '200', message = 'success') => {
  * @returns {{}|any}
  */
 export const getQueryParams = (options) => {
-    const url = options.url;
-    const search = url.split('?')[1];
+    const url = options.url
+    const search = url.split('?')[1]
     if (!search) {
-        return {};
+        return {}
     }
     return JSON.parse('{"' + decodeURIComponent(search).replace(/"/g, '\\"').replace(/&/g, '","')
-        .replace(/=/g, '":"') + '"}');
-};
+        .replace(/=/g, '":"') + '"}')
+}
 
 /**
  * 获取body参数
@@ -52,5 +52,5 @@ export const getQueryParams = (options) => {
  * @returns {*}
  */
 export const getBody = (options) => {
-    return options.body && JSON.parse(options.body);
-};
+    return options.body && JSON.parse(options.body)
+}

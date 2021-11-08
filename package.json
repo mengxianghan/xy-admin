@@ -14,14 +14,14 @@
   "dependencies": {
     "@ant-design/icons-vue": "^6.0.1",
     "ant-design-vue": "^2.2.8",
-    "axios": "^0.22.0",
+    "axios": "^0.24.0",
     "core-js": "^3.6.5",
     "jschardet": "^3.0.0",
     "json-bigint": "^1.0.0",
     "lodash": "^4.17.21",
     "mockjs": "^1.1.0",
-    "vue": "^3.0.0",
-    "vue-router": "^4.0.0-0",
+    "vue": "^3.2.21",
+    "vue-router": "^4.0.12",
     "vuex": "^4.0.0-0",
     "xy-enum": "^1.0.1",
     "xy-storage": "^2.0.2"

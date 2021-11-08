@@ -5,7 +5,7 @@
 <script>
 export default {
     name: 'RouteViewLayout'
-};
+}
 </script>
 
 <style lang="scss"

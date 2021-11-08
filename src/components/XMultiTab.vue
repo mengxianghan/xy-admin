@@ -37,25 +37,25 @@
  * @name XMultiTab
  * @description 多标签页
  */
-import {onMounted, computed} from 'vue';
-import {useStore} from 'vuex';
-import {useRouter, onBeforeRouteUpdate} from 'vue-router';
+import {onMounted, computed} from 'vue'
+import {useStore} from 'vuex'
+import {useRouter, onBeforeRouteUpdate} from 'vue-router'
 
 export default {
     name: 'XMultiTab',
     setup() {
-        const store = useStore();
-        const router = useRouter();
-        const list = computed(() => store.getters['multiTab/list']);
-        const current = computed(() => store.getters['multiTab/current']);
+        const store = useStore()
+        const router = useRouter()
+        const list = computed(() => store.getters['multiTab/list'])
+        const current = computed(() => store.getters['multiTab/current'])
 
         onBeforeRouteUpdate((to) => {
-            onOpen(to);
-        });
+            onOpen(to)
+        })
 
         onMounted(() => {
-            onOpen(router.currentRoute.value);
-        });
+            onOpen(router.currentRoute.value)
+        })
 
         /**
          * 菜单
@@ -65,20 +65,20 @@ export default {
         function handleMenu({key}, route, index) {
             switch (key) {
                 case 'refresh': // 刷新
-                    store.dispatch('multiTab/refresh', {route, index});
-                    break;
+                    store.dispatch('multiTab/refresh', {route, index})
+                    break
                 case 'close': // 关闭
-                    store.dispatch('multiTab/close', {route, index});
-                    break;
+                    store.dispatch('multiTab/close', {route, index})
+                    break
                 case 'closeOther': // 关闭其他
-                    store.dispatch('multiTab/closeOther', {route, index});
-                    break;
+                    store.dispatch('multiTab/closeOther', {route, index})
+                    break
                 case 'closeLeft': // 关闭左侧
-                    store.dispatch('multiTab/closeLeft', {route, index});
-                    break;
+                    store.dispatch('multiTab/closeLeft', {route, index})
+                    break
                 case 'closeRight': // 关闭右侧
-                    store.dispatch('multiTab/closeRight', {route, index});
-                    break;
+                    store.dispatch('multiTab/closeRight', {route, index})
+                    break
             }
         }
 
@@ -87,7 +87,7 @@ export default {
          * @param {object} route 路由
          */
         function onOpen(route) {
-            store.dispatch('multiTab/push', {route});
+            store.dispatch('multiTab/push', {route})
         }
 
         /**
@@ -98,7 +98,7 @@ export default {
             store.dispatch('multiTab/switch', {
                 route: list.value[index],
                 index
-            });
+            })
         }
 
         /**
@@ -112,8 +112,8 @@ export default {
                     store.dispatch('multiTab/close', {
                         route: list.value[index],
                         index
-                    });
-                    break;
+                    })
+                    break
             }
         }
 
@@ -123,9 +123,9 @@ export default {
             handleMenu,
             onSwitch,
             onClose
-        };
+        }
     }
-};
+}
 </script>
 
 <style lang="scss"
@@ -143,7 +143,7 @@ export default {
     }
 
     :deep(.ant-tabs-nav) {
-        padding: 0 16px;
+        padding: 0 12px;
     }
 }
 </style>

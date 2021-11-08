@@ -104,7 +104,10 @@ module.exports = {
                     // Button
                     'btn-shadow': 'none',
                     'btn-primary-shadow': 'none',
-                    'btn-text-shadow': 'none'
+                    'btn-text-shadow': 'none',
+
+                    // Card
+                    'card-padding-base': '16px'
                 },
                 javascriptEnabled: true
             },

@@ -1,20 +1,20 @@
-import api from '@/api';
-import {useSessionStorage} from '@/utils/storage';
-import {STORE_IS_LOGIN, STORE_USER_INFO, STORE_TOKEN, STORE_PERMISSION} from '@/constants/storage';
+import api from '@/api'
+import {useSessionStorage} from '@/utils/storage'
+import {STORE_IS_LOGIN, STORE_USER_INFO, STORE_TOKEN, STORE_PERMISSION} from '@/constants/storage'
 
 const state = {
     isLogin: useSessionStorage().get(STORE_IS_LOGIN, false),
     userInfo: useSessionStorage().get(STORE_USER_INFO, null),
     token: useSessionStorage().get(STORE_TOKEN, ''),
     permission: useSessionStorage().get(STORE_PERMISSION, [])
-};
+}
 
 const getters = {
     isLogin: state => state.isLogin,
     userInfo: state => state.userInfo,
     token: state => state.token,
     permission: state => state.permission
-};
+}
 
 const mutations = {
     /**
@@ -24,10 +24,10 @@ const mutations = {
      * @constructor
      */
     SET_IS_LOGIN(state, isLogin = false) {
-        state.isLogin = isLogin;
+        state.isLogin = isLogin
         isLogin
             ? useSessionStorage().set(STORE_IS_LOGIN, isLogin)
-            : useSessionStorage().remove(STORE_IS_LOGIN);
+            : useSessionStorage().remove(STORE_IS_LOGIN)
     },
     /**
      * 设置用户信息
@@ -36,10 +36,10 @@ const mutations = {
      * @constructor
      */
     SET_USER_INFO(state, userInfo = null) {
-        state.userInfo = userInfo;
+        state.userInfo = userInfo
         userInfo
             ? useSessionStorage().set(STORE_USER_INFO, userInfo)
-            : useSessionStorage().remove(STORE_USER_INFO);
+            : useSessionStorage().remove(STORE_USER_INFO)
     },
     /**
      * 设置 token
@@ -48,10 +48,10 @@ const mutations = {
      * @constructor
      */
     SET_TOKEN(state, token = '') {
-        state.token = token;
+        state.token = token
         token
             ? useSessionStorage().set(STORE_TOKEN, token)
-            : useSessionStorage().remove(STORE_TOKEN);
+            : useSessionStorage().remove(STORE_TOKEN)
     },
     /**
      * 设置权限列表
@@ -60,12 +60,12 @@ const mutations = {
      * @constructor
      */
     SET_PERMISSION(state, permission = null) {
-        state.permission = permission;
+        state.permission = permission
         permission
             ? useSessionStorage().set(STORE_PERMISSION, permission)
-            : useSessionStorage().remove(STORE_PERMISSION);
+            : useSessionStorage().remove(STORE_PERMISSION)
     }
-};
+}
 
 const actions = {
     /**
@@ -77,19 +77,18 @@ const actions = {
      */
     login({commit, dispatch, rootState}, params) {
         return new Promise(async (resolve, reject) => {
-            const result = await api.user.login(params);
-            const {code, data} = result;
-            console.log(result);
+            const result = await api.user.login(params)
+            const {code, data} = result
             if ('200' === code) {
-                const {username, token} = data;
+                const {username, token} = data
                 commit('SET_USER_INFO', {
                     username
-                });
-                commit('SET_TOKEN', token);
-                commit('SET_IS_LOGIN', true);
+                })
+                commit('SET_TOKEN', token)
+                commit('SET_IS_LOGIN', true)
             }
-            resolve(result);
-        });
+            resolve(result)
+        })
     },
     /**
      * 退出登录
@@ -97,14 +96,14 @@ const actions = {
      */
     logout({commit}) {
         return new Promise((resolve) => {
-            commit('SET_IS_LOGIN', false);
-            commit('SET_TOKEN', '');
-            commit('SET_USER_INFO', null);
-            commit('app/SET_COMPLETE', false, {root: true});
-            resolve();
-        });
+            commit('SET_IS_LOGIN', false)
+            commit('SET_TOKEN', '')
+            commit('SET_USER_INFO', null)
+            commit('app/SET_COMPLETE', false, {root: true})
+            resolve()
+        })
     }
-};
+}
 
 export default {
     namespaced: true,
@@ -112,4 +111,4 @@ export default {
     getters,
     mutations,
     actions
-};
+}

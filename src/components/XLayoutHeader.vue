@@ -46,10 +46,10 @@
  * @description 顶部布局
  * @property {boolean} collapsed 左侧菜单收起状态
  */
-import {computed, toRefs, ref} from 'vue';
-import {useStore} from 'vuex';
-import {useRouter} from 'vue-router';
-import {Modal} from 'ant-design-vue';
+import {computed, toRefs, ref} from 'vue'
+import {useStore} from 'vuex'
+import {useRouter} from 'vue-router'
+import {Modal} from 'ant-design-vue'
 import {
     LoginOutlined,
     DownOutlined,
@@ -58,7 +58,7 @@ import {
     RollbackOutlined,
     UserOutlined,
     BellOutlined
-} from '@ant-design/icons-vue';
+} from '@ant-design/icons-vue'
 
 export default {
     name: 'XLayoutHeader',
@@ -78,11 +78,11 @@ export default {
         }
     },
     setup(props, {emit}) {
-        const {collapsed} = toRefs(props);
-        const store = useStore();
-        const router = useRouter();
-        const isLogin = computed(() => store.getters['user/isLogin']);
-        const userInfo = computed(() => store.getters['user/userInfo']);
+        const {collapsed} = toRefs(props)
+        const store = useStore()
+        const router = useRouter()
+        const isLogin = computed(() => store.getters['user/isLogin'])
+        const userInfo = computed(() => store.getters['user/userInfo'])
 
         const handleLogout = () => {
             Modal.confirm({
@@ -93,24 +93,24 @@ export default {
                     store.dispatch('user/logout').then(() => {
                         router.push({
                             name: 'login'
-                        });
-                    });
+                        })
+                    })
                 }
-            });
-        };
+            })
+        }
 
         const handleToggleCollapsed = () => {
-            emit('update:collapsed', !collapsed.value);
-        };
+            emit('update:collapsed', !collapsed.value)
+        }
 
         return {
             isLogin,
             userInfo,
             handleLogout,
             handleToggleCollapsed
-        };
+        }
     }
-};
+}
 </script>
 
 <style lang="scss"

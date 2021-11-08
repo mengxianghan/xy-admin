@@ -4,7 +4,7 @@
 </template>
 
 <script>
-import {AppstoreOutlined, DashboardOutlined, HomeOutlined} from '@ant-design/icons-vue';
+import {AppstoreOutlined, DashboardOutlined, HomeOutlined} from '@ant-design/icons-vue'
 
 export default {
     name: 'XIcon',
@@ -21,7 +21,7 @@ export default {
     },
     setup() {
     }
-};
+}
 </script>
 
 <style lang="scss"

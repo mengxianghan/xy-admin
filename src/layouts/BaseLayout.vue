@@ -21,12 +21,12 @@
 export default {
     name: 'BaseLayout',
     setup() {
-        const title = process.env.VUE_APP_TITLE;
+        const title = process.env.VUE_APP_TITLE
         return {
             title
-        };
+        }
     }
-};
+}
 </script>
 
 <style lang="scss"

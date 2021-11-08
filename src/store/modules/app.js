@@ -1,12 +1,12 @@
-import {XLoading} from '@/plugins/XLoading';
+import {XLoading} from '@/plugins/XLoading'
 
 const state = {
     complete: false
-};
+}
 
 const getters = {
     complete: state => state.complete
-};
+}
 
 const mutations = {
     /**
@@ -16,9 +16,9 @@ const mutations = {
      * @constructor
      */
     SET_COMPLETE(state, complete = false) {
-        state.complete = complete;
+        state.complete = complete
     }
-};
+}
 
 const actions = {
     /**
@@ -28,19 +28,19 @@ const actions = {
      */
     init({commit, dispatch}) {
         return new Promise((resolve) => {
-            XLoading.show();
+            XLoading.show()
             Promise.all([
                 dispatch('router/getRouterList', null, {root: true})
             ]).then(() => {
-                XLoading.hide();
-                commit('SET_COMPLETE', true);
-                resolve();
+                XLoading.hide()
+                commit('SET_COMPLETE', true)
+                resolve()
             }).catch(() => {
-                XLoading.hide();
-            });
-        });
+                XLoading.hide()
+            })
+        })
     }
-};
+}
 
 export default {
     namespaced: true,
@@ -48,4 +48,4 @@ export default {
     getters,
     mutations,
     actions
-};
+}

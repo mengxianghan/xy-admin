@@ -32,23 +32,23 @@
 </template>
 
 <script>
-import {ref, reactive, onMounted} from 'vue';
-import {useStore} from 'vuex';
-import {useRouter} from 'vue-router';
-import {message, Modal} from 'ant-design-vue';
+import {ref, reactive, onMounted} from 'vue'
+import {useStore} from 'vuex'
+import {useRouter} from 'vue-router'
+import {message, Modal} from 'ant-design-vue'
 
 export default {
     setup() {
-        const store = useStore();
-        const router = useRouter();
+        const store = useStore()
+        const router = useRouter()
         const rules = {
             username: {required: true, message: '请输入用户名'},
             password: {required: true, message: '请输入密码'}
-        };
-        const title = process.env.VUE_APP_TITLE;
-        const loading = ref(false);
-        const form = reactive({});
-        const formRef = ref();
+        }
+        const title = process.env.VUE_APP_TITLE
+        const loading = ref(false)
+        const form = reactive({})
+        const formRef = ref()
 
         /**
          * 登录
@@ -57,32 +57,32 @@ export default {
         async function handleLogin() {
             try {
                 formRef.value.validate().then(async () => {
-                    loading.value = true;
+                    loading.value = true
                     const {code} = await store.dispatch('user/login', {
                         ...form
                     }).catch(() => {
-                        throw new Error('登录失败');
-                    });
-                    loading.value = false;
+                        throw new Error('登录失败')
+                    })
+                    loading.value = false
                     if (code === '200') {
-                        let indexRouter = null;
+                        let indexRouter = null
                         // 加载完成
                         if (store.getters['app/complete']) {
-                            indexRouter = getIndexRouter();
-                            if (!indexRouter) return;
-                            router.push(indexRouter);
+                            indexRouter = getIndexRouter()
+                            if (!indexRouter) return
+                            router.push(indexRouter)
                         } else {
                             store.dispatch('app/init').then(() => {
-                                indexRouter = getIndexRouter();
-                                if (!indexRouter) return;
-                                router.push(indexRouter);
-                            });
+                                indexRouter = getIndexRouter()
+                                if (!indexRouter) return
+                                router.push(indexRouter)
+                            })
                         }
                     }
-                });
+                })
             } catch (err) {
-                loading.value = false;
-                message.error(err.message);
+                loading.value = false
+                message.error(err.message)
             }
         }
 
@@ -91,17 +91,17 @@ export default {
          * @return {*}
          */
         function getIndexRouter() {
-            const indexRouter = store.getters['router/indexRouter'];
+            const indexRouter = store.getters['router/indexRouter']
             if (!indexRouter) {
                 Modal.warning({
                     title: '系统提示',
                     content: '没有任何权限，请联系系统管理员',
                     onOk: () => {
-                        window.location.reload();
+                        window.location.reload()
                     }
-                });
+                })
             }
-            return indexRouter;
+            return indexRouter
         }
 
         return {
@@ -111,9 +111,9 @@ export default {
             title,
             loading,
             handleLogin
-        };
+        }
     }
-};
+}
 </script>
 
 <style lang="scss"

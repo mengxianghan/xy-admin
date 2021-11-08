@@ -27,11 +27,11 @@
 </template>
 
 <script>
-import {computed, onMounted, ref, toRefs, watch} from 'vue';
-import {useStore} from 'vuex';
-import {useRoute} from 'vue-router';
-import XLayoutMenuLink from '@/components/XLayoutMenu/XLayoutMenuLink';
-import XLayoutMenuSub from '@/components/XLayoutMenu/XLayoutMenuSub';
+import {computed, onMounted, ref, toRefs, watch} from 'vue'
+import {useStore} from 'vuex'
+import {useRoute} from 'vue-router'
+import XLayoutMenuLink from '@/components/XLayoutMenu/XLayoutMenuLink'
+import XLayoutMenuSub from '@/components/XLayoutMenu/XLayoutMenuSub'
 
 export default {
     name: 'XLayoutMenu',
@@ -43,33 +43,33 @@ export default {
         }
     },
     setup(props) {
-        const store = useStore();
-        const route = useRoute();
-        const {theme} = toRefs(props);
-        const title = process.env.VUE_APP_TITLE;
-        const collapsed = ref(false);
-        const openKeys = ref([]);
-        const selectedKeys = ref([]);
-        const menuList = computed(() => store.getters['router/menuList']);
-        const rootSubmenuKeys = computed(() => menuList.value.map(item => item.name));
+        const store = useStore()
+        const route = useRoute()
+        const {theme} = toRefs(props)
+        const title = process.env.VUE_APP_TITLE
+        const collapsed = ref(false)
+        const openKeys = ref([])
+        const selectedKeys = ref([])
+        const menuList = computed(() => store.getters['router/menuList'])
+        const rootSubmenuKeys = computed(() => menuList.value.map(item => item.name))
         const classes = computed(() => {
-            const classList = [];
-            classList.push(`x-layout-menu--${theme.value}`);
-            return classList;
-        });
-        watch(route, () => setSelectedMenu());
+            const classList = []
+            classList.push(`x-layout-menu--${theme.value}`)
+            return classList
+        })
+        watch(route, () => setSelectedMenu())
 
         onMounted(() => {
-            setSelectedMenu();
-        });
+            setSelectedMenu()
+        })
 
         /**
          * 设置选中菜单
          */
         function setSelectedMenu() {
-            const {name, meta} = route || {};
-            openKeys.value = meta?.openKeys || [];
-            selectedKeys.value = [meta?.active ?? name];
+            const {name, meta} = route || {}
+            openKeys.value = meta?.openKeys || []
+            selectedKeys.value = [meta?.active ?? name]
         }
 
         /**
@@ -77,11 +77,11 @@ export default {
          * @param value
          */
         function onOpenChange(value) {
-            const latestOpenKey = value.find(key => openKeys.value.indexOf(key) === -1);
+            const latestOpenKey = value.find(key => openKeys.value.indexOf(key) === -1)
             if (rootSubmenuKeys.value.indexOf(latestOpenKey) === -1) {
-                openKeys.value = value;
+                openKeys.value = value
             } else {
-                openKeys.value = latestOpenKey ? [latestOpenKey] : [];
+                openKeys.value = latestOpenKey ? [latestOpenKey] : []
             }
         }
 
@@ -93,9 +93,9 @@ export default {
             menuList,
             classes,
             onOpenChange
-        };
+        }
     }
-};
+}
 </script>
 
 <style lang="scss"

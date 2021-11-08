@@ -12,21 +12,21 @@
 </template>
 
 <script>
-import {useRouter} from 'vue-router';
+import {useRouter} from 'vue-router'
 
 export default {
     setup() {
-        const router = useRouter();
+        const router = useRouter()
 
         const handleBack = () => {
-            router.back();
-        };
+            router.back()
+        }
 
         return {
             handleBack
-        };
+        }
     }
-};
+}
 </script>
 
 <style lang="scss"

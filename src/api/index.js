@@ -1,15 +1,15 @@
-const api = {};
+const api = {}
 const register = (req) => {
     req.keys().forEach(filename => {
-        const name = filename.replace(/^\.\/(.*)\.\w+$/, '$1');
+        const name = filename.replace(/^\.\/(.*)\.\w+$/, '$1')
         const options = () => {
-            const config = req(filename);
-            return config.default || config;
-        };
-        api[name] = options();
-    });
-};
+            const config = req(filename)
+            return config.default || config
+        }
+        api[name] = options()
+    })
+}
 
-register(require.context('./modules', false, /[A-Za-z]+\.(js)$/));
+register(require.context('./modules', false, /[A-Za-z]+\.(js)$/))
 
-export default api;
+export default api

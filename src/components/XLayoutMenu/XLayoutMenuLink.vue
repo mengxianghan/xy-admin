@@ -22,7 +22,7 @@
 </template>
 
 <script>
-import XLayoutMenuIcon from './XLayoutMenuIcon';
+import XLayoutMenuIcon from './XLayoutMenuIcon'
 
 export default {
     name: 'XLayoutMenuLink',
@@ -35,7 +35,7 @@ export default {
     },
     setup() {
     }
-};
+}
 </script>
 
 <style lang="scss"

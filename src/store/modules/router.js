@@ -1,5 +1,5 @@
-import axios from 'axios';
-import router from '@/router';
+import axios from 'axios'
+import router from '@/router'
 import {
     notFoundRouter,
     formatRouteList,
@@ -7,18 +7,18 @@ import {
     getIndexRouter,
     listToTree,
     generateRouteListByPermission
-} from '@/config/router';
+} from '@/config/router'
 
 const state = {
     routeList: [],
     menuList: [],
     indexRouter: {}
-};
+}
 
 const getters = {
     menuList: state => state.menuList,
     indexRouter: state => state.indexRouter
-};
+}
 
 const mutations = {
     /**
@@ -28,7 +28,7 @@ const mutations = {
      * @constructor
      */
     SET_ROUTE_LIST(state, routeList) {
-        state.routeList = routeList;
+        state.routeList = routeList
     },
     /**
      * 设置菜单
@@ -37,7 +37,7 @@ const mutations = {
      * @constructor
      */
     SET_MENU_LIST(state, menuList) {
-        state.menuList = menuList;
+        state.menuList = menuList
     },
     /**
      * 设置首页路由
@@ -46,9 +46,9 @@ const mutations = {
      * @constructor
      */
     SET_INDEX_ROUTER(state, indexRouter) {
-        state.indexRouter = indexRouter;
+        state.indexRouter = indexRouter
     }
-};
+}
 
 const actions = {
     /**
@@ -65,27 +65,27 @@ const actions = {
             }).then(res => {
                 const {
                     data: {format, list}
-                } = res.data;
-                let menuList = format ? listToTree(list) : list;
+                } = res.data
+                let menuList = format ? listToTree(list) : list
                 menuList = process.env.VUE_APP_PERMISSION === 'true'
                     ? generateRouteListByPermission(formatRouteList(menuList), rootState.user.permission)
-                    : formatRouteList(menuList);
+                    : formatRouteList(menuList)
                 const routeList = [
                     ...generateDynamicRouteList(menuList),
                     notFoundRouter
-                ];
-                const indexRouter = getIndexRouter(menuList);
+                ]
+                const indexRouter = getIndexRouter(menuList)
                 routeList.forEach(route => {
-                    router.addRoute(route);
-                });
-                commit('SET_ROUTE_LIST', routeList);
-                commit('SET_MENU_LIST', menuList);
-                commit('SET_INDEX_ROUTER', indexRouter);
-                resolve();
-            });
-        });
+                    router.addRoute(route)
+                })
+                commit('SET_ROUTE_LIST', routeList)
+                commit('SET_MENU_LIST', menuList)
+                commit('SET_INDEX_ROUTER', indexRouter)
+                resolve()
+            })
+        })
     }
-};
+}
 
 export default {
     namespaced: true,
@@ -93,4 +93,4 @@ export default {
     getters,
     mutations,
     actions
-};
+}

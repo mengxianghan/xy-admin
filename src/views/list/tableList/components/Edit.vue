@@ -12,12 +12,12 @@
 </template>
 
 <script>
-import {useModal} from '@/hooks/modal';
+import {useModal} from '@/hooks/modal'
 
 export default {
     name: 'Edit',
     setup() {
-        const {modal, showModal, hideModal} = useModal();
+        const {modal, showModal, hideModal} = useModal()
 
         /**
          * 新建
@@ -25,7 +25,7 @@ export default {
         function handleCreate() {
             showModal({
                 title: '新建'
-            });
+            })
         }
 
         /**
@@ -45,8 +45,7 @@ export default {
          * 取消
          */
         function handleCancel() {
-            console.log('cancel');
-            hideModal();
+            hideModal()
         }
 
         /**
@@ -61,9 +60,9 @@ export default {
             handleOk,
             handleCancel,
             onAfterClose
-        };
+        }
     }
-};
+}
 </script>
 
 <style lang="scss"

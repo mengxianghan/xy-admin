@@ -28,17 +28,17 @@
 </template>
 
 <script>
-import XLayoutHeader from '@/components/XLayoutHeader';
-import XLayoutMenu from '@/components/XLayoutMenu/XLayoutMenu';
-import XMultiTab from '@/components/XMultiTab';
-import {computed, ref} from 'vue';
-import {useStore} from 'vuex';
+import XLayoutHeader from '@/components/XLayoutHeader'
+import XLayoutMenu from '@/components/XLayoutMenu/XLayoutMenu'
+import XMultiTab from '@/components/XMultiTab'
+import {computed, ref} from 'vue'
+import {useStore} from 'vuex'
 
 export default {
     name: 'DefaultLayout',
     components: {XMultiTab, XLayoutHeader, XLayoutMenu},
     setup() {
-        const store = useStore();
+        const store = useStore()
         const headerStyle = {
             background: '#ffffff',
             //boxShadow: '0 1px 4px rgba(0, 21, 41, .08)',
@@ -47,29 +47,29 @@ export default {
             top: '0',
             zIndex: 999,
             height: '48px'
-        };
+        }
         const siderStyle = {
             boxShadow: '2px 0 8px 0 rgb(29 35 41 / 5%)',
             position: 'relative',
             zIndex: 1000
-        };
+        }
         const contentStyle = {
-            margin: '16px',
+            margin: '12px',
             minHeight: 'auto',
             position: 'relative'
-        };
+        }
         const footerStyle = {
             textAlign: 'center'
-        };
-        const collapsible = ref(false);
-        const collapsed = ref(false);
-        const refreshing = ref(false);
-        const theme = 'dark';
+        }
+        const collapsible = ref(false)
+        const collapsed = ref(false)
+        const refreshing = ref(false)
+        const theme = 'dark'
 
-        const cacheList = computed(() => store.getters['multiTab/cacheList']);
+        const cacheList = computed(() => store.getters['multiTab/cacheList'])
 
         function handleToggleCollapsed() {
-            this.collapsed = !this.collapsed;
+            this.collapsed = !this.collapsed
         }
 
         return {
@@ -83,9 +83,9 @@ export default {
             theme,
             cacheList,
             handleToggleCollapsed
-        };
+        }
     }
-};
+}
 </script>
 
 <style lang="scss"

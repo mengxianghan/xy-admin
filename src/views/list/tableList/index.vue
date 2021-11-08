@@ -1,8 +1,8 @@
 <template>
-    <a-card :bordered="false"
-            :body-style="{padding: '0'}">
-        <x-list-toolbar>
-            <a-button type="primary" @click="$refs.editRef.handleCreate()">
+    <a-card :bordered="false">
+        <x-list-toolbar class="mb-8-2">
+            <a-button type="primary"
+                      @click="$refs.editRef.handleCreate()">
                 <template #icon>
                     <plus-outlined/>
                 </template>
@@ -11,18 +11,17 @@
         </x-list-toolbar>
         <a-table :columns="columns"
                  :pagination="pagination"
-                 :data-source="data"
-                 size="middle"></a-table>
+                 :data-source="data"></a-table>
     </a-card>
 
     <edit ref="editRef"></edit>
 </template>
 
 <script>
-import XListToolbar from '@/components/XListToolbar';
-import {PlusOutlined} from '@ant-design/icons-vue';
-import Edit from '@/views/list/tableList/components/Edit';
-import {ref} from 'vue';
+import XListToolbar from '@/components/XListToolbar'
+import {PlusOutlined} from '@ant-design/icons-vue'
+import Edit from '@/views/list/tableList/components/Edit'
+import {ref} from 'vue'
 
 export default {
     name: 'baseList',
@@ -31,7 +30,7 @@ export default {
         const columns = [
             {title: '序号', dataIndex: 'key'},
             {title: '规则名称', dataIndex: 'name'}
-        ];
+        ]
         const data = [
             {
                 key: '1',
@@ -45,18 +44,18 @@ export default {
                 key: '3',
                 name: 'Joe Black'
             }
-        ];
-        const pagination = {};
-        const editRef = ref();
+        ]
+        const pagination = {}
+        const editRef = ref()
 
         return {
             columns,
             pagination,
             data,
             editRef
-        };
+        }
     }
-};
+}
 </script>
 
 <style lang="scss"

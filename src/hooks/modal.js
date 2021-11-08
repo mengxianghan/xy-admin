@@ -1,4 +1,4 @@
-import {ref, toRefs} from 'vue';
+import {ref, toRefs} from 'vue'
 
 export function useModal() {
     const modal = ref({
@@ -6,7 +6,7 @@ export function useModal() {
         title: '',
         visible: false,
         confirmLoading: false
-    });
+    })
 
     /**
      * 设置弹窗
@@ -16,7 +16,7 @@ export function useModal() {
         modal.value = {
             ...toRefs(modal),
             ...options
-        };
+        }
     }
 
     /**
@@ -28,7 +28,7 @@ export function useModal() {
             ...toRefs(modal),
             visible: true,
             ...options
-        });
+        })
     }
 
     /**
@@ -40,12 +40,12 @@ export function useModal() {
             type: '',
             visible: false,
             confirmLoading: false
-        });
+        })
     }
 
     return {
         modal,
         showModal,
         hideModal
-    };
+    }
 }

@@ -6,19 +6,19 @@
 </template>
 
 <script>
-import {ref} from 'vue';
-import {useRoute} from 'vue-router';
+import {ref} from 'vue'
+import {useRoute} from 'vue-router'
 
 export default {
     name: 'iframe',
     setup() {
-        const route = useRoute();
-        const src = ref(route.meta?.iframeUrl);
+        const route = useRoute()
+        const src = ref(route.meta?.iframeUrl)
         return {
             src
-        };
+        }
     }
-};
+}
 </script>
 
 <style lang="scss"

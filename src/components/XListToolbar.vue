@@ -14,7 +14,7 @@ export default {
     name: 'XToolbarTable',
     setup() {
     }
-};
+}
 </script>
 
 <style lang="scss"
@@ -22,7 +22,7 @@ export default {
 .x-list-toolbar {
     display: flex;
     align-items: center;
-    padding: 16px;
+    //padding: 16px;
 
     &__content,
     &__extra {

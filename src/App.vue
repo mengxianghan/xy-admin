@@ -5,16 +5,16 @@
 </template>
 
 <script>
-import zhCN from 'ant-design-vue/es/locale/zh_CN';
+import zhCN from 'ant-design-vue/es/locale/zh_CN'
 
 export default {
     setup() {
-        const locale = zhCN;
+        const locale = zhCN
         return {
             locale
-        };
+        }
     }
-};
+}
 </script>
 
 <style lang="scss">

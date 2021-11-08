@@ -1,10 +1,10 @@
-import * as layouts from '@/layouts';
-import {isUrl} from '@/utils/is';
+import * as layouts from '@/layouts'
+import {isUrl} from '@/utils/is'
 
 export const whiteList = [
     'login',
     '404'
-];
+]
 
 /**
  * 未找到页面路由
@@ -17,7 +17,7 @@ export const notFoundRouter = {
         isLogin: false,
         isMenu: false
     }
-};
+}
 
 /**
  * 基础路由
@@ -66,17 +66,17 @@ export const constantRouterMap = [
                 component: {
                     template: `<div></div>`,
                     created() {
-                        const {params: {name}, query} = this.$route;
+                        const {params: {name}, query} = this.$route
                         this.$router.replace({
                             name,
                             query
-                        });
+                        })
                     }
                 }
             }
         ]
     }
-];
+]
 
 /**
  * 线型结构转树型结构
@@ -85,22 +85,22 @@ export const constantRouterMap = [
  * @returns {[]}
  */
 export function listToTree(list, parentId) {
-    let result = [];
+    let result = []
     list.forEach(item => {
         // 判断是否为父级菜单
         if (item.parentId === parentId) {
-            const child = item;
+            const child = item
             // 迭代 list， 找到当前菜单相符合的所有子菜单
-            const children = listToTree(list, item.id);
+            const children = listToTree(list, item.id)
             // 删掉不存在 children 值的属性
             if (children.length) {
-                child.children = children;
+                child.children = children
             }
             // 加入到树中
-            result.push(child);
+            result.push(child)
         }
-    });
-    return result;
+    })
+    return result
 }
 
 /**
@@ -109,18 +109,18 @@ export function listToTree(list, parentId) {
  * @return {[]}
  */
 export function treeToList(list = []) {
-    let result = [];
+    let result = []
     list.forEach(item => {
         if (item.children && item.children.length) {
             result = [
                 ...result,
                 ...treeToList(item.children)
-            ];
+            ]
         } else {
-            result.push(item);
+            result.push(item)
         }
-    });
-    return result;
+    })
+    return result
 }
 
 /**
@@ -131,9 +131,9 @@ export function treeToList(list = []) {
  */
 export function formatRouteList(routeList = [], parent = {}) {
     return routeList.map(item => {
-        const {meta = {}} = item;
-        const externalLink = isUrl(item.path);
-        const component = item.component || 'exception/404';
+        const {meta = {}} = item
+        const externalLink = isUrl(item.path)
+        const component = item.component || 'exception/404'
         const route = {
             // 如果路由设置的 path 是 / 开头或是外链，则默认使用 path，否则动态拼接路由地址
             path: (new RegExp('^\\/.*').test(item.path) || externalLink) ? item.path : `${(parent?.path ?? '')}/${item.path}`,
@@ -153,15 +153,15 @@ export function formatRouteList(routeList = [], parent = {}) {
                 action: meta?.action ?? ['*'],
                 ...meta
             }
-        };
+        }
         // 重定向
-        item.redirect && (route.redirect = item.redirect);
+        item.redirect && (route.redirect = item.redirect)
         // 是否有子菜单，并递归处理
         if (item.children && item.children.length > 0) {
-            route.children = formatRouteList(item.children, route);
+            route.children = formatRouteList(item.children, route)
         }
-        return route;
-    }).filter(item => item);
+        return route
+    }).filter(item => item)
 }
 
 /**
@@ -169,27 +169,27 @@ export function formatRouteList(routeList = [], parent = {}) {
  * @param {array} routeList
  */
 export function generateDynamicRouteList(routeList) {
-    const result = [];
+    const result = []
     treeToList(routeList).forEach(item => {
-        const {meta: {layout = ''}} = item;
+        const {meta: {layout = ''}} = item
         // 是否有模板
         if (layout) {
-            let index = result.findIndex(o => o.name === layout);
+            let index = result.findIndex(o => o.name === layout)
             if (index === -1) {
                 result.push({
                     path: '',
                     name: layout,
                     component: layouts[layout] || (() => import(`@/layouts/${layout}`)),
                     children: []
-                });
-                index = result.length - 1;
+                })
+                index = result.length - 1
             }
-            result[index].children.push(item);
+            result[index].children.push(item)
         } else {
-            result.push(item);
+            result.push(item)
         }
-    });
-    return result;
+    })
+    return result
 }
 
 /**
@@ -198,20 +198,20 @@ export function generateDynamicRouteList(routeList) {
  * @return {null}
  */
 export function getIndexRouter(list) {
-    let index = null;
+    let index = null
     for (let item of list.filter(item => item?.meta?.isMenu)) {
         if (item.children && item.children.length) {
-            let temp = getIndexRouter(item.children);
+            let temp = getIndexRouter(item.children)
             if (temp && Object.keys(temp).length) {
-                index = temp;
-                break;
+                index = temp
+                break
             }
         } else {
-            index = item;
-            break;
+            index = item
+            break
         }
     }
-    return index;
+    return index
 }
 
 /**
@@ -222,16 +222,16 @@ export function getIndexRouter(list) {
  */
 export function generateRouteListByPermission(routeList, userPermission = []) {
     return routeList.filter(item => {
-        let permission = item?.meta?.permission ?? [];
-        permission = typeof permission === 'string' ? permission.split(',') : permission;
-        const index = userPermission.findIndex(o => permission.includes(o.permission));
-        const hasAuth = index > -1 || permission.includes('*') ? true : false;
+        let permission = item?.meta?.permission ?? []
+        permission = typeof permission === 'string' ? permission.split(',') : permission
+        const index = userPermission.findIndex(o => permission.includes(o.permission))
+        const hasAuth = index > -1 || permission.includes('*') ? true : false
         if (hasAuth) {
-            item.meta.action = index > -1 ? userPermission[index]['action'] : ['*'];
+            item.meta.action = index > -1 ? userPermission[index]['action'] : ['*']
             if (item.children && item.children.length > 0) {
-                item.children = generateRouteListByPermission(item.children, userPermission);
+                item.children = generateRouteListByPermission(item.children, userPermission)
             }
-            return item;
+            return item
         }
-    });
+    })
 }
