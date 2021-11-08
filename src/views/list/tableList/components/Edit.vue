@@ -2,7 +2,7 @@
     <a-modal :visible="modal.visible"
              :title="modal.title"
              :confirm-loading="modal.confirmLoading"
-             :after-colose="onAfterClose"
+             :after-close="onAfterClose"
              @ok="handleOk"
              @cancel="handleCancel">
         <p>Some contents...</p>
@@ -32,7 +32,9 @@ export default {
          * 编辑
          */
         function handleEdit(record) {
-
+            showModal({
+                title: '编辑'
+            })
         }
 
         /**
