@@ -5,9 +5,9 @@ import {
     formatRouteList,
     generateDynamicRouteList,
     getIndexRouter,
-    listToTree,
     generateRouteListByPermission
 } from '@/config/router'
+import {toTree} from '@/utils/to'
 
 const state = {
     routeList: [],
@@ -66,7 +66,7 @@ const actions = {
                 const {
                     data: {format, list}
                 } = res.data
-                let menuList = format ? listToTree(list) : list
+                let menuList = format ? toTree(list) : list
                 menuList = process.env.VUE_APP_PERMISSION === 'true'
                     ? generateRouteListByPermission(formatRouteList(menuList), rootState.user.permission)
                     : formatRouteList(menuList)

@@ -79,42 +79,17 @@ export const constantRouterMap = [
 ]
 
 /**
- * 线型结构转树型结构
- * @param {array} list
- * @param {string} parentId
- * @returns {[]}
- */
-export function listToTree(list, parentId) {
-    let result = []
-    list.forEach(item => {
-        // 判断是否为父级菜单
-        if (item.parentId === parentId) {
-            const child = item
-            // 迭代 list， 找到当前菜单相符合的所有子菜单
-            const children = listToTree(list, item.id)
-            // 删掉不存在 children 值的属性
-            if (children.length) {
-                child.children = children
-            }
-            // 加入到树中
-            result.push(child)
-        }
-    })
-    return result
-}
-
-/**
  * 树型结构转线型结构
  * @param {array} list
  * @return {[]}
  */
-export function treeToList(list = []) {
+export function toList(list = []) {
     let result = []
     list.forEach(item => {
         if (item.children && item.children.length) {
             result = [
                 ...result,
-                ...treeToList(item.children)
+                ...toList(item.children)
             ]
         } else {
             result.push(item)
@@ -170,7 +145,7 @@ export function formatRouteList(routeList = [], parent = {}) {
  */
 export function generateDynamicRouteList(routeList) {
     const result = []
-    treeToList(routeList).forEach(item => {
+    toList(routeList).forEach(item => {
         const {meta: {layout = ''}} = item
         // 是否有模板
         if (layout) {
