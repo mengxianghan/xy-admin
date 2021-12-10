@@ -16,10 +16,13 @@
             </a-layout-header>
             <x-multi-tab></x-multi-tab>
             <a-layout-content :style="contentStyle">
-                <keep-alive :include="cacheList">
-                    <router-view v-if="keepAlive"
-                                 :key="$route.name"/>
-                </keep-alive>
+                <router-view v-slot="{ Component }">
+                    <keep-alive :include="cacheList">
+                        <component v-if="keepAlive"
+                                   :is="Component"
+                                   :key="$route.name"/>
+                    </keep-alive>
+                </router-view>
             </a-layout-content>
         </a-layout>
     </a-layout>

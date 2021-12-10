@@ -178,6 +178,7 @@ export default {
         margin-left: 8px;
         color: @text-color-secondary;
         transition: color .3s;
+        line-height: 1;
 
         &:hover {
             color: @primary-color;

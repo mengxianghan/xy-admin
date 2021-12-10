@@ -72,7 +72,7 @@ import {ref} from 'vue'
 import XSearchBar from '@/components/XSearchBar'
 
 export default {
-    name: 'baseList',
+    name: 'tableList',
     components: {XSearchBar, XActionBar, XActionButton, Edit, PlusOutlined, DownOutlined},
     setup() {
         const columns = [
