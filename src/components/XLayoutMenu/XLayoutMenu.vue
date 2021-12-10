@@ -11,16 +11,14 @@
                 :open-keys="openKeys"
                 :selected-keys="selectedKeys"
                 @openChange="onOpenChange">
-            <template v-for="item in menuList">
-                <template v-if="item.meta.isMenu">
-                    <a-menu-item v-if="!item.children"
-                                 :key="item.name">
-                        <x-layout-menu-link :data-source="item"/>
-                    </a-menu-item>
-                    <x-layout-menu-sub v-else
-                                       :key="item.name"
-                                       :data-source="item"/>
-                </template>
+            <template v-for="item in menus">
+                <a-menu-item v-if="!item.children"
+                             :key="item.name">
+                    <x-layout-menu-link :data-source="item"/>
+                </a-menu-item>
+                <x-layout-menu-sub v-else
+                                   :key="item.name"
+                                   :data-source="item"/>
             </template>
         </a-menu>
     </div>
@@ -50,8 +48,8 @@ export default {
         const collapsed = ref(false)
         const openKeys = ref([])
         const selectedKeys = ref([])
-        const menuList = computed(() => store.getters['router/menuList'])
-        const rootSubmenuKeys = computed(() => menuList.value.map(item => item.name))
+        const menus = computed(() => store.getters['router/menus'])
+        const rootSubmenuKeys = computed(() => menus.value.map(item => item.name))
         const classes = computed(() => {
             const classList = []
             classList.push(`x-layout-menu--${theme.value}`)
@@ -90,7 +88,7 @@ export default {
             collapsed,
             openKeys,
             selectedKeys,
-            menuList,
+            menus,
             classes,
             onOpenChange
         }
@@ -98,7 +96,7 @@ export default {
 }
 </script>
 
-<style lang="scss"
+<style lang="less"
        scoped>
 .x-layout-menu {
     &__logo {

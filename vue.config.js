@@ -1,4 +1,5 @@
 const CompressionPlugin = require('compression-webpack-plugin');
+const path = require('path')
 const isProd = process.env.NODE_ENV !== 'development';
 
 /**
@@ -101,18 +102,9 @@ module.exports = {
         loaderOptions: {
             less: {
                 modifyVars: {
-                    // Button
-                    'btn-shadow': 'none',
-                    'btn-primary-shadow': 'none',
-                    'btn-text-shadow': 'none',
-
-                    // Card
-                    'card-padding-base': '16px'
+                    hack: `true; @import '${path.resolve(__dirname, 'src/assets/styles/vars.less')}'`
                 },
                 javascriptEnabled: true
-            },
-            sass: {
-                prependData: `@import '~@/assets/styles/vars.scss';`
             }
         }
     }

@@ -1,5 +1,5 @@
 <template>
-    <a v-if="dataSource.meta.isUrl"
+    <a v-if="dataSource.meta.type === 'link'"
        :href="dataSource.path"
        :target="dataSource.meta.target"
        rel="opener">
@@ -38,7 +38,7 @@ export default {
 }
 </script>
 
-<style lang="scss"
+<style lang="less"
        scoped>
 
 </style>

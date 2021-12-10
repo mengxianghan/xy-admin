@@ -2,7 +2,6 @@
   "code": "200",
   "msg": "",
   "data": {
-    "format": false,
     "list": [
       {
         "path": "home",
@@ -12,6 +11,7 @@
           "icon": "HomeOutlined",
           "title": "首页",
           "isMenu": true,
+          "keepAlive": true,
           "permission": "*"
         }
       },
@@ -34,18 +34,19 @@
             "meta": {
               "title": "查询表格",
               "isMenu": true,
+              "keepAlive": true,
               "permission": "*"
             }
           }
         ]
       },
       {
-        "path": "jump",
-        "name": "jump",
+        "path": "",
+        "name": "link",
         "component": "RouterViewLayout",
         "meta": {
-          "icon": "AppstoreOutlined",
-          "title": "跳转",
+          "icon": "LinkOutlined",
+          "title": "外部链接",
           "isMenu": true,
           "keepAlive": false,
           "permission": "*"
@@ -53,23 +54,52 @@
         "children": [
           {
             "path": "https://www.baidu.com",
-            "name": "externalLink",
+            "name": "baidu",
             "meta": {
-              "title": "外链（百度）",
-              "isMenu": true,
+              "type": "link",
+              "title": "百度",
               "target": "_blank",
+              "isMenu": true,
+              "permission": "*"
+            }
+          }
+        ]
+      },
+      {
+        "path": "iframe",
+        "name": "iframe",
+        "component": "RouterViewLayout",
+        "meta": {
+          "icon": "AppstoreOutlined",
+          "title": "iframe",
+          "isMenu": true,
+          "keepAlive": false,
+          "permission": "*"
+        },
+        "children": [
+          {
+            "path": "vue",
+            "name": "vue",
+            "component": "iframe",
+            "meta": {
+              "type": "iframe",
+              "iframeUrl": "https://cn.vuejs.org/",
+              "title": "Vue",
+              "isMenu": true,
+              "keepAlive": true,
               "permission": "*"
             }
           },
           {
-            "path": "iframe",
-            "name": "iframe",
+            "path": "antd",
+            "name": "antd",
             "component": "iframe",
             "meta": {
-              "iframeUrl": "https://www.bilibili.com/",
-              "title": "Iframe（B站）",
+              "type": "iframe",
+              "iframeUrl": "https://www.antdv.com/docs/vue/introduce-cn/",
+              "title": "Ant Design Vue",
               "isMenu": true,
-              "keepAlive": false,
+              "keepAlive": true,
               "permission": "*"
             }
           }

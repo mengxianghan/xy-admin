@@ -16,8 +16,8 @@ html, body, #app {
 }
 
 body {
-    font: normal normal normal 14px/1.5 $font-family;
-    color: rgba(0, 0, 0, .85);
+    font: normal normal normal 14px/1.5 @font-family;
+    color: @text-color;
 }
 
 img, video, audio {
@@ -45,8 +45,10 @@ ul, ol, li {
     list-style: none;
 }
 
-.i-icon {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
+#nprogress .bar {
+    background: @primary-color;
+}
+
+#nprogress .peg {
+    box-shadow: 0 0 10px @primary-color, 0 0 5px @primary-color;
 }

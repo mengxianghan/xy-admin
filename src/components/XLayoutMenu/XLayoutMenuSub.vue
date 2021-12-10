@@ -9,15 +9,13 @@
             <span>{{ dataSource.meta.title }}</span>
         </template>
         <template v-for="item in dataSource.children">
-            <template v-if="item.meta.isMenu">
-                <a-menu-item v-if="!item.children"
-                             :key="item.name">
-                    <x-layout-menu-link :data-source="item"/>
-                </a-menu-item>
-                <x-layout-menu-sub v-else
-                                   :key="item.name"
-                                   :data-source="item"/>
-            </template>
+            <a-menu-item v-if="!item.children"
+                         :key="item.name">
+                <x-layout-menu-link :data-source="item"/>
+            </a-menu-item>
+            <x-layout-menu-sub v-else
+                               :key="item.name"
+                               :data-source="item"/>
         </template>
     </a-sub-menu>
 </template>
@@ -40,7 +38,7 @@ export default {
 }
 </script>
 
-<style lang="scss"
+<style lang="less"
        scoped>
 
 </style>

@@ -15,14 +15,14 @@
         <div class="x-layout-header__right">
             <div class="x-layout-header__action">
                 <a-dropdown :trigger="['click']">
-                    <div class="user-info">
-                        <a-avatar>
+                    <div class="userinfo">
+                        <a-avatar class="mr-8-1">
                             <template #icon>
                                 <user-outlined/>
                             </template>
                         </a-avatar>
                         <span v-if="isLogin">{{ userInfo.username }}</span>
-                        <down-outlined/>
+                        <down-outlined class="ml-8-1"/>
                     </div>
                     <a-spin/>
                     <template #overlay>
@@ -41,11 +41,6 @@
 </template>
 
 <script>
-/**
- * @name XLayoutHeader
- * @description 顶部布局
- * @property {boolean} collapsed 左侧菜单收起状态
- */
 import {computed, toRefs, ref} from 'vue'
 import {useStore} from 'vuex'
 import {useRouter} from 'vue-router'
@@ -113,7 +108,7 @@ export default {
 }
 </script>
 
-<style lang="scss"
+<style lang="less"
        scoped>
 .x-layout-header {
     display: flex;
@@ -175,19 +170,11 @@ export default {
         }
     }
 
-    .user-info {
+    .userinfo {
         display: flex;
         align-items: center;
         height: 100%;
         line-height: 1.3;
-
-        .ant-avatar {
-            margin-right: 8px;
-        }
-
-        > .anticon {
-            margin-left: 8px;
-        }
     }
 }
 </style>

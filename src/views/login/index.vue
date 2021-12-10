@@ -91,17 +91,18 @@ export default {
          * @return {*}
          */
         function getIndexRouter() {
-            const indexRouter = store.getters['router/indexRouter']
-            if (!indexRouter) {
+            const indexRoute = store.getters['router/indexRoute']
+            if (!indexRoute) {
                 Modal.warning({
                     title: '系统提示',
                     content: '没有任何权限，请联系系统管理员',
+                    centered: true,
                     onOk: () => {
                         window.location.reload()
                     }
                 })
             }
-            return indexRouter
+            return indexRoute
         }
 
         return {
@@ -116,6 +117,6 @@ export default {
 }
 </script>
 
-<style lang="scss"
+<style lang="less"
        scoped>
 </style>

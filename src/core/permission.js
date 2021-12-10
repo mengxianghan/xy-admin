@@ -1,6 +1,6 @@
 import router from '@/router'
 import store from '@/store'
-import {whiteList} from '@/config/router'
+import {whiteList} from '@/router/router.config'
 
 router.beforeEach((to, form, next) => {
     if (whiteList.includes(to.name)) {

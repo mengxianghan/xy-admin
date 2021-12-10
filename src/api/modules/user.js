@@ -1,5 +1,4 @@
 import request from '@/utils/request'
 
-export default {
-    login: params => request.base.post('/user/login', params)
-}
+// 登录
+export const login = params => request.default.post('/user/login', params)

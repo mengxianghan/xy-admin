@@ -1,27 +1,44 @@
 <template>
     <div class="x-multi-tab">
         <a-tabs :active-key="current"
-                type="editable-card"
-                hide-add
-                @change="onSwitch"
-                @edit="onClose">
-            <a-tab-pane v-for="(item,index) in list"
+                type="card"
+                @change="handleChange">
+            <a-tab-pane v-for="(item,index) in multiTabList"
                         :key="index">
                 <template #tab>
                     <a-dropdown :trigger="['contextmenu']">
-                        <span>{{ item.meta.title }}</span>
+                        <div>
+                            {{ item.meta.title }}
+                            <span v-if="current === index"
+                                  class="x-multi-tab__reload-btn"
+                                  @click.stop="handleReload(item)">
+                                <reload-outlined class="ma-0"
+                                                 :class="{'anticon-spin': isReload}"/>
+                            </span>
+                            <span class="x-multi-tab__close-btn"
+                                  @click.stop="handleClose(item)">
+                                <close-outlined class="ma-0"/>
+                            </span>
+                        </div>
                         <template #overlay>
-                            <a-menu @click="(menuInfo)=>handleMenu(menuInfo,item,index)">
-                                <a-menu-item key="refresh">重新加载</a-menu-item>
-                                <a-menu-item key="close">关闭</a-menu-item>
-                                <a-menu-item v-if="list.length > 1"
-                                             key="closeOther">关闭其他
+                            <a-menu>
+                                <a-menu-item key="reload"
+                                             @click="handleReload(item)">重新加载
+                                </a-menu-item>
+                                <a-menu-item key="close"
+                                             @click="handleClose(item)">关闭
+                                </a-menu-item>
+                                <a-menu-item v-if="multiTabList.length > 1"
+                                             key="closeOther"
+                                             @click="handleCloseOther(item)">关闭其他
                                 </a-menu-item>
                                 <a-menu-item v-if="index > 0"
-                                             key="closeLeft">关闭左侧
+                                             key="closeLeft"
+                                             @click="handleCloseLeft(item)">关闭左侧
                                 </a-menu-item>
-                                <a-menu-item v-if="index < list.length - 1"
-                                             key="closeRight">关闭右侧
+                                <a-menu-item v-if="index < multiTabList.length - 1"
+                                             key="closeRight"
+                                             @click="handleCloseRight(item)">关闭右侧
                                 </a-menu-item>
                             </a-menu>
                         </template>
@@ -33,102 +50,90 @@
 </template>
 
 <script>
-/**
- * @name XMultiTab
- * @description 多标签页
- */
-import {onMounted, computed} from 'vue'
+import {CloseOutlined, ReloadOutlined} from '@ant-design/icons-vue'
+import {onMounted, computed, ref, nextTick} from 'vue'
 import {useStore} from 'vuex'
 import {useRouter, onBeforeRouteUpdate} from 'vue-router'
 
 export default {
     name: 'XMultiTab',
+    components: {
+        CloseOutlined,
+        ReloadOutlined
+    },
     setup() {
         const store = useStore()
         const router = useRouter()
-        const list = computed(() => store.getters['multiTab/list'])
+        const multiTabList = computed(() => store.getters['multiTab/list'])
         const current = computed(() => store.getters['multiTab/current'])
+        const isReload = ref(false)
+
+        function handleOpen(route) {
+            store.dispatch('multiTab/open', {route})
+        }
+
+        function handleClose(route) {
+            store.dispatch('multiTab/close', {route})
+        }
+
+        function handleCloseLeft(route) {
+            store.dispatch('multiTab/closeLeft', {route})
+        }
+
+        function handleCloseRight(route) {
+            store.dispatch('multiTab/closeRight', {route})
+        }
+
+        function handleCloseOther(route) {
+            store.dispatch('multiTab/closeOther', {route})
+        }
+
+        function handleReload(route) {
+            // 判断是否当前路由
+            if (route.fullPath !== router.currentRoute.value.fullPath) {
+                // 不是当前路由，跳转到指定路由
+                router.push(route)
+            }
+            this.isReload = true
+            setTimeout(() => {
+                isReload.value = false
+            }, 1000)
+            setTimeout(() => {
+                store.dispatch('multiTab/reload', {route})
+                nextTick(() => {
+                    store.dispatch('multiTab/reload', {route})
+                })
+            }, 0)
+        }
+
+        function handleChange(index) {
+            router.push(multiTabList.value[index])
+        }
 
         onBeforeRouteUpdate((to) => {
-            onOpen(to)
+            handleOpen(to)
         })
 
         onMounted(() => {
-            onOpen(router.currentRoute.value)
+            handleOpen(router.currentRoute.value)
         })
 
-        /**
-         * 菜单
-         * @param {string} key 操作类型
-         * @param {Number} route 路由
-         */
-        function handleMenu({key}, route, index) {
-            switch (key) {
-                case 'refresh': // 刷新
-                    store.dispatch('multiTab/refresh', {route, index})
-                    break
-                case 'close': // 关闭
-                    store.dispatch('multiTab/close', {route, index})
-                    break
-                case 'closeOther': // 关闭其他
-                    store.dispatch('multiTab/closeOther', {route, index})
-                    break
-                case 'closeLeft': // 关闭左侧
-                    store.dispatch('multiTab/closeLeft', {route, index})
-                    break
-                case 'closeRight': // 关闭右侧
-                    store.dispatch('multiTab/closeRight', {route, index})
-                    break
-            }
-        }
-
-        /**
-         * 打开
-         * @param {object} route 路由
-         */
-        function onOpen(route) {
-            store.dispatch('multiTab/push', {route})
-        }
-
-        /**
-         * 切换标签页
-         * @param {Number} index 索引
-         */
-        function onSwitch(index) {
-            store.dispatch('multiTab/switch', {
-                route: list.value[index],
-                index
-            })
-        }
-
-        /**
-         * 关闭标签页
-         * @param {Number} index 索引
-         * @param {string} action 操作
-         */
-        function onClose(index, action) {
-            switch (action) {
-                case 'remove':
-                    store.dispatch('multiTab/close', {
-                        route: list.value[index],
-                        index
-                    })
-                    break
-            }
-        }
-
         return {
-            list,
+            multiTabList,
             current,
-            handleMenu,
-            onSwitch,
-            onClose
+            isReload,
+            handleClose,
+            handleCloseLeft,
+            handleCloseRight,
+            handleCloseOther,
+            handleReload,
+            handleChange
         }
     }
 }
 </script>
 
-<style lang="scss"
+<style lang="less"
        scoped>
 .x-multi-tab {
     position: sticky;
@@ -136,14 +141,40 @@ export default {
     z-index: 100;
     box-shadow: 0 1px 4px rgba(0, 21, 41, .08);
 
-    :deep(.ant-tabs-bar) {
-        margin: 0;
-        border: 0;
+    &__reload-btn,
+    &__close-btn {
+        font-size: 12px;
+        margin-left: 8px;
+        color: @text-color-secondary;
+        transition: color .3s;
+
+        &:hover {
+            color: @primary-color;
+        }
+    }
+
+    :deep(.ant-tabs) {
         background: #ffffff;
     }
 
-    :deep(.ant-tabs-nav) {
-        padding: 0 12px;
+    :deep(.ant-tabs-top > .ant-tabs-nav) {
+        margin-bottom: 0;
+    }
+
+    :deep(.ant-tabs-top > .ant-tabs-nav::before) {
+        display: none;
+    }
+
+    :deep(.ant-dropdown-trigger) {
+        display: flex;
+        padding: 0 16px;
+        align-items: center;
+        font-weight: 400;
+    }
+
+    :deep(.ant-tabs-card > .ant-tabs-nav .ant-tabs-tab) {
+        height: 40px;
+        padding: 0;
     }
 }
 </style>

@@ -8,7 +8,7 @@ import {XLoading} from '@/plugins/XLoading'
 import '@/core/permission'
 
 import 'ant-design-vue/dist/antd.less'
-import '@/assets/styles/index.scss'
+import '@/assets/styles/index.less'
 
 if ('true' === process.env.VUE_APP_MOCK_ENABLE) require('@/mock')
 

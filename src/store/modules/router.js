@@ -1,52 +1,51 @@
-import axios from 'axios'
 import router from '@/router'
+import request from '@/utils/request'
 import {
     notFoundRouter,
     formatRouteList,
-    generateDynamicRouteList,
-    getIndexRouter,
-    generateRouteListByPermission
-} from '@/config/router'
-import {toTree} from '@/utils/to'
+    generateRoutes,
+    getIndexRoute,
+    filterRoutes, formatRoutes, generateMenus
+} from '@/router/router.config'
 
 const state = {
-    routeList: [],
-    menuList: [],
-    indexRouter: {}
+    routes: [],
+    menus: [],
+    indexRoute: {}
 }
 
 const getters = {
-    menuList: state => state.menuList,
-    indexRouter: state => state.indexRouter
+    menus: state => state.menus,
+    indexRoute: state => state.indexRoute
 }
 
 const mutations = {
     /**
      * 设置路由
      * @param state
-     * @param routeList
+     * @param routes
      * @constructor
      */
-    SET_ROUTE_LIST(state, routeList) {
-        state.routeList = routeList
+    SET_ROUTES(state, routes) {
+        state.routes = routes
     },
     /**
      * 设置菜单
      * @param state
-     * @param menuList
+     * @param menus
      * @constructor
      */
-    SET_MENU_LIST(state, menuList) {
-        state.menuList = menuList
+    SET_MENUS(state, menus) {
+        state.menus = menus
     },
     /**
      * 设置首页路由
      * @param state
-     * @param indexRouter
+     * @param indexRoute
      * @constructor
      */
-    SET_INDEX_ROUTER(state, indexRouter) {
-        state.indexRouter = indexRouter
+    SET_INDEX_ROUTE(state, indexRoute) {
+        state.indexRoute = indexRoute
     }
 }
 
@@ -57,32 +56,29 @@ const actions = {
      * @returns {Promise}
      */
     getRouterList({commit, rootState}) {
-        return new Promise(resolve => {
-            axios.get('/router.json', {
-                headers: {
-                    'cache-control': 'no-cache'
+        return new Promise(async (resolve) => {
+            const {code, data} = await request.api.get('/routes.json', {
+                params: {
+                    r: Math.random()
                 }
-            }).then(res => {
-                const {
-                    data: {format, list}
-                } = res.data
-                let menuList = format ? toTree(list) : list
-                menuList = process.env.VUE_APP_PERMISSION === 'true'
-                    ? generateRouteListByPermission(formatRouteList(menuList), rootState.user.permission)
-                    : formatRouteList(menuList)
-                const routeList = [
-                    ...generateDynamicRouteList(menuList),
+            })
+            if (code === '200') {
+                const {list} = data
+                const validRoutes = process.env.VUE_APP_PERMISSION === 'true' ? filterRoutes(formatRoutes(list), rootState.user.permission) : formatRoutes(list)
+                const menus = generateMenus(validRoutes)
+                const routes = [
+                    ...generateRoutes(validRoutes),
                     notFoundRouter
                 ]
-                const indexRouter = getIndexRouter(menuList)
-                routeList.forEach(route => {
+                const indexRoute = getIndexRoute(menus)
+                routes.forEach(route => {
                     router.addRoute(route)
                 })
-                commit('SET_ROUTE_LIST', routeList)
-                commit('SET_MENU_LIST', menuList)
-                commit('SET_INDEX_ROUTER', indexRouter)
+                commit('SET_ROUTES', routes)
+                commit('SET_MENUS', menus)
+                commit('SET_INDEX_ROUTE', indexRoute)
                 resolve()
-            })
+            }
         })
     }
 }

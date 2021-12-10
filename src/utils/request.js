@@ -1,9 +1,8 @@
 import jschardet from 'jschardet'
 import axios from 'axios'
-import {message} from 'ant-design-vue'
-//import {useStore} from 'vuex';
-import {merge} from 'lodash'
 import JSONbig from 'json-bigint'
+import {message} from 'ant-design-vue'
+import {merge} from 'lodash'
 
 const instance = axios.create()
 
@@ -187,6 +186,7 @@ class Api extends Http {
 
 export default {
     readFile: new ReadFile(),
-    base: new Api(`${process.env.VUE_APP_API_BASE}`)
+    api: new Api(),
+    default: new Api(`${process.env.VUE_APP_API_DEFAULT}`)
 }
 

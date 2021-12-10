@@ -4,7 +4,7 @@ const register = (req) => {
         const name = filename.replace(/^\.\/(.*)\.\w+$/, '$1')
         const options = () => {
             const config = req(filename)
-            return config.default || config
+            return config.default || {...config}
         }
         api[name] = options()
     })

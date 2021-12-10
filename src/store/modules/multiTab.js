@@ -1,276 +1,224 @@
-import {message} from 'ant-design-vue'
 import router from '@/router'
+import {message} from 'ant-design-vue'
+import {findIndex} from 'lodash'
 
 const state = {
     list: [],
     cacheList: [],
-    current: 0
+    current: 0,
+    keepAlive: true
 }
 
 const getters = {
     list: state => state.list,
     cacheList: state => state.cacheList,
-    current: state => state.current
+    current: state => state.current,
+    keepAlive: state => state.keepAlive
 }
 
 const mutations = {
     /**
-     * 设置当前
+     * 更新 current
      * @param state
      * @param current
      * @constructor
      */
-    SET_CURRENT(state, current) {
-        state.current = current < 0 ? 0 : current
+    UPDATE_CURRENT(state, current) {
+        state.current = current
     },
     /**
-     * 添加缓存
+     * 更新列表
      * @param state
-     * @param route
+     * @param index
+     * @param length
+     * @param value
      * @constructor
      */
-    ADD_CACHE_LIST(state, route) {
-        const {name} = route
-        if (!state.cacheList.includes(name)) {
-            state.cacheList.push(name)
+    UPDATE_LIST(state, {index, length, value}) {
+        // 判断是否第一个标签页
+        if (state.list.length) {
+            // 不是第一个标签页，判断是删除还是替换
+            if (value) {
+                // 替换
+                state.list.splice(index, length, value)
+            } else {
+                // 删除
+                state.list.splice(index, length)
+            }
+        } else {
+            // 是第一个标签页
+            state.list.push(value)
         }
+        // 更新缓存列表
+        state.cacheList = state.list
+            .filter(item => item?.meta?.keepAlive)
+            .map(item => item.name)
     },
     /**
-     * 删除缓存
+     * 更新缓存列表
      * @param state
      * @param route
      * @constructor
      */
-    DELETE_CACHE_LIST(state, route) {
-        const index = state.cacheList.indexOf(route.name)
+    UPDATE_CACHE_LIST(state, {route}) {
+        const index = findIndex(state.cacheList, o => o === route.name)
+        // 判断是移除或添加
         if (index > -1) {
+            // 已存在，执行移除操作
             state.cacheList.splice(index, 1)
+            state.keepAlive = false
+        } else {
+            // 不存在，执行添加操作
+            state.cacheList.push(route.name)
+            state.keepAlive = true
         }
-    },
-    /**
-     * PUSH
-     * @param state
-     * @param route
-     * @constructor
-     */
-    PUSH(state, route) {
-        state.list.push(route)
-    },
-    /**
-     * REPLACE
-     * @param state
-     * @param route
-     * @constructor
-     */
-    REPLACE(state, {route}) {
-        const index = state.list.findIndex((item) => item.path === route.path)
-        state.list.splice(index, 1, route)
-    },
-    /**
-     * 刷新
-     * @param state
-     * @param route
-     * @constructor
-     */
-    REFRESH(state, route) {
-        const index = state.list.findIndex((item) => item.name === route.name)
-        state.cacheList.splice(index, 1)
-    },
-    /**
-     * 关闭
-     * @param state
-     * @param route
-     * @constructor
-     */
-    CLOSE(state, {route, index}) {
-        state.list.splice(index, 1)
-        state.cacheList.splice(state.cacheList.findIndex((item) => item.name === route.name), 1)
-    },
-    /**
-     * 关闭其他
-     * @param state
-     * @param route
-     * @param index
-     * @constructor
-     */
-    CLOSE_OTHER(state, {route, index}) {
-        const list = []
-        const cacheList = []
-        list.push(state.list[index])
-        cacheList.push(route.name)
-        state.list = list
-        state.cacheList = cacheList
-    },
-    /**
-     * 关闭左侧
-     * @param state
-     * @param route
-     * @param index
-     * @constructor
-     */
-    CLOSE_LEFT(state, {route, index}) {
-        const waitCloseList = state.list.slice(0, index).map(item => item.name)
-        const cacheList = state.cacheList.filter(item => !waitCloseList.includes(item))
-        state.cacheList = cacheList
-        state.list.splice(0, index)
-    },
-    /**
-     * 关闭右侧
-     * @param state
-     * @param roure
-     * @param index
-     * @constructor
-     */
-    CLOSE_RIGHT(state, {route, index}) {
-        const waitCloseList = state.list.slice(index + 1).map(item => item.name)
-        const cacheList = state.cacheList.filter(item => !waitCloseList.includes(item))
-        state.cacheList = cacheList
-        state.list.splice(index + 1)
     }
 }
 
 const actions = {
     /**
-     * Push
-     * @param dispatch
+     * 打开
      * @param commit
      * @param state
      * @param route
      */
-    push({dispatch, commit, state}, {route} = {}) {
-        route = route ?? router.currentRoute.value
-        const index = state.list.findIndex((item) => item.path === route.path)
-        // 标签页是否已存在
+    open({commit, state}, {route} = {}) {
+        const index = findIndex(state.list, o => o.path === route.path)
+        // 判断是否已存在
         if (index > -1) {
-            // 存在
-            dispatch('replace', {route, index})
+            // 已存在
+            commit('UPDATE_CURRENT', index)
+            commit(
+                'UPDATE_LIST',
+                {
+                    index,
+                    length: 1,
+                    value: route
+                }
+            )
         } else {
-            // 不存在
-            commit('PUSH', route)
-            commit('SET_CURRENT', state.list.length - 1)
+            // 不存在，判断是否第一个标签页
+            if (state.list.length) {
+                // 不是第一个标签页
+                commit(
+                    'UPDATE_LIST',
+                    {
+                        index: state.current + 1,
+                        length: 0,
+                        value: route
+                    }
+                )
+                commit('UPDATE_CURRENT', state.current + 1)
+            } else {
+                // 是第一个标签页
+                commit(
+                    'UPDATE_LIST',
+                    {
+                        value: route
+                    }
+                )
+                commit('UPDATE_CURRENT', 0)
+            }
         }
-        commit('ADD_CACHE_LIST', route)
-    },
-    /**
-     * Replace
-     * @param commit
-     * @param route
-     * @param index
-     */
-    replace({commit}, {route, index} = {}) {
-        route = route ?? router.currentRoute.value
-        index = index ?? state.list.findIndex((item) => item.name === route.name)
-        commit('REPLACE', {route, index})
-        commit('SET_CURRENT', index)
-    },
-    /**
-     * 切换标签页
-     * @param dispatch
-     * @param route
-     */
-    switch({dispatch}, {route} = {}) {
-        router.replace(route)
-    },
-    /**
-     * 刷新
-     * @param dispatch
-     * @param commit
-     * @param state
-     * @param route
-     */
-    refresh({dispatch, commit, state}, {route, index} = {}) {
-        route = route ?? router.currentRoute.value
-        index = index ?? state.list.findIndex((item) => item.name === route.name)
-        commit('DELETE_CACHE_LIST', route)
-        commit('SET_CURRENT', index)
-
-        const {name, query} = state.list[index]
-        router.replace({
-            path: `/redirect/${name}`,
-            query
-        })
     },
     /**
      * 关闭
-     * @param dispatch
-     * @param commit
-     * @param state
-     * @param index
-     */
-    close({dispatch, commit, state}, {route, index} = {}) {
-        route = route ?? router.currentRoute.value
-        index = index ?? state.list.findIndex((item) => item.name === route.name)
-        // 最后一个标签页
-        if (state.list.length === 1) {
-            message.warning('至少保留一个标签页')
-            return
-        }
-        commit('CLOSE', {route, index})
-
-        // 关闭前面的标签
-        if (index < state.current) {
-            commit('SET_CURRENT', state.current - 1)
-            return
-        }
-
-        // 关闭当前标签
-        if (index === state.current) {
-            commit('SET_CURRENT', index - 1)
-            // 更新标签页
-            router.push(state.list[state.current])
-        }
-    },
-    /**
-     * 关闭其他
      * @param commit
      * @param state
      * @param route
-     * @param index
      */
-    closeOther({commit, state}, {route, index} = {}) {
-        route = route ?? router.currentRoute.value
-        index = index ?? state.list.findIndex((item) => item.name === route.name)
-        // 不是当前页面
-        if (state.current !== index) {
-            // 更新标签页
-            router.push(state.list[index])
+    close({commit, state}, {route} = {}) {
+        // 如果未传入路由，则默认当前路由
+        route = route || state.list[state.current]
+        const index = findIndex(state.list, o => o.path === route.path)
+        // 判断是否最后一个标签页
+        if (state.list.length === 1) {
+            // 是最后又给标签页，禁止删除
+            message.warning('至少保留一个标签页')
+            return
         }
-        commit('CLOSE_OTHER', {route, index})
-        commit('SET_CURRENT', 0)
+        commit(
+            'UPDATE_LIST',
+            {
+                index,
+                length: 1
+            }
+        )
+        // 关闭当前标签页
+        if (state.current === index) {
+            // 关闭最右侧标签页
+            if (state.current === state.list.length) {
+                commit('UPDATE_CURRENT', state.current - 1)
+            }
+            router.push(state.list[state.current])
+        }
+        // 关闭左侧标签页
+        if (state.current > index) {
+            commit('UPDATE_CURRENT', state.current - 1)
+        }
     },
     /**
      * 关闭左侧
      * @param commit
      * @param state
      * @param route
-     * @param index
      */
-    closeLeft({commit, state}, {route, index} = {}) {
-        route = route ?? router.currentRoute.value
-        index = index ?? state.list.findIndex((item) => item.name === route.name)
-        // 不是当前页
-        if (state.current !== index) {
-            // 更新标签页
-            router.push(state.list[index])
-        }
-        commit('CLOSE_LEFT', {route, index})
-        commit('SET_CURRENT', 0)
+    closeLeft({commit, state}, {route} = {}) {
+        const index = findIndex(state.list, o => o.path === route.path)
+        commit(
+            'UPDATE_LIST',
+            {
+                index: 1,
+                length: index
+            }
+        )
+        commit('UPDATE_CURRENT', 0)
     },
     /**
      * 关闭右侧
      * @param commit
      * @param state
      * @param route
-     * @param index
      */
-    closeRight({commit, state}, {route, index} = {}) {
-        route = route ?? router.currentRoute.value
-        index = index ?? state.list.findIndex((item) => item.name === route.name)
-        // 是否关闭了当前页
+    closeRight({commit, state}, {route} = {}) {
+        const index = findIndex(state.list, o => o.path === route.path)
+        const length = state.list.length - index
+        commit(
+            'UPDATE_LIST',
+            {
+                index: index + 1,
+                length
+            }
+        )
         if (state.current > index) {
-            router.push(state.list[index])
+            commit('UPDATE_CURRENT', index)
         }
-        commit('CLOSE_RIGHT', {route, index})
+    },
+    /**
+     * 关闭其他
+     * @param commit
+     * @param route
+     */
+    closeOther({commit}, {route} = {}) {
+        commit(
+            'UPDATE_LIST',
+            {
+                index: 0,
+                length: state.list.length,
+                value: route
+            }
+        )
+        commit('UPDATE_CURRENT', 0)
+    },
+    /**
+     * 刷新
+     * @param commit
+     * @param route
+     */
+    reload({commit}, {route}) {
+        if (route?.meta?.keepAlive) {
+            commit('UPDATE_CACHE_LIST', {route})
+        }
     }
 }
 
