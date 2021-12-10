@@ -43,9 +43,25 @@ export function useModal() {
         })
     }
 
+    function showLoading(){
+        modal.value = {
+            ...toRefs(modal),
+            confirmLoading: true
+        }
+    }
+
+    function hideLoading(){
+        modal.value = {
+            ...toRefs(modal),
+            confirmLoading: false
+        }
+    }
+
     return {
         modal,
         showModal,
-        hideModal
+        hideModal,
+        showLoading,
+        hideLoading
     }
 }

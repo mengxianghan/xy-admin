@@ -1,9 +1,9 @@
 <template>
-    <div class="x-list-toolbar">
-        <div class="x-list-toolbar__content">
+    <div class="x-action-bar">
+        <div class="x-action-bar__content">
             <slot></slot>
         </div>
-        <div class="x-list-toolbar__extra">
+        <div class="x-action-bar__extra">
             <slot name="extra"></slot>
         </div>
     </div>
@@ -11,7 +11,7 @@
 
 <script>
 export default {
-    name: 'XToolbarTable',
+    name: 'XActionBar',
     setup() {
     }
 }
@@ -19,7 +19,7 @@ export default {
 
 <style lang="less"
        scoped>
-.x-list-toolbar {
+.x-action-bar {
     display: flex;
     align-items: center;
     //padding: 16px;

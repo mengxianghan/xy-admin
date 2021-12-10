@@ -15,7 +15,7 @@ import {useModal} from '@/hooks/modal'
 export default {
     name: 'Edit',
     setup() {
-        const {modal, showModal, hideModal} = useModal()
+        const {modal, showModal, hideModal, showLoading} = useModal()
 
         /**
          * 新建
@@ -39,6 +39,7 @@ export default {
          * 确定
          */
         function handleOk() {
+            showLoading()
         }
 
         /**
@@ -57,6 +58,7 @@ export default {
         return {
             modal,
             handleCreate,
+            handleEdit,
             handleOk,
             handleCancel,
             onAfterClose

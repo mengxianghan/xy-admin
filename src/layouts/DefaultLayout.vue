@@ -17,11 +17,9 @@
             <x-multi-tab></x-multi-tab>
             <a-layout-content :style="contentStyle">
                 <keep-alive :include="cacheList">
-                    <router-view v-if="$route.meta.keepAlive"
+                    <router-view v-if="keepAlive"
                                  :key="$route.name"/>
                 </keep-alive>
-                <router-view v-if="!$route.meta.keepAlive"
-                             :key="$route.name"/>
             </a-layout-content>
         </a-layout>
     </a-layout>
@@ -67,6 +65,7 @@ export default {
         const theme = 'dark'
 
         const cacheList = computed(() => store.getters['multiTab/cacheList'])
+        const keepAlive = computed(() => store.getters['multiTab/keepAlive'])
 
         function handleToggleCollapsed() {
             this.collapsed = !this.collapsed
@@ -82,6 +81,7 @@ export default {
             refreshing,
             theme,
             cacheList,
+            keepAlive,
             handleToggleCollapsed
         }
     }

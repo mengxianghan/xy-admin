@@ -8,19 +8,18 @@ each(@align, {
 
 //Color
 @text-color: {
-    color: @text-color;
     secondary: @text-color-secondary;
-    heading: @header-color;
+    heading: @heading-color;
     disabled: @disabled-color;
     placeholder: @disabled-color;
     primary: @primary-color;
-    danger: @error-color;
+    error: @error-color;
     success: @success-color;
     warning: @warning-color;
 }
 
 each(@text-color, {
-    .text-@{key} {
+    .color-@{key} {
         color: @value !important;
     }
 })

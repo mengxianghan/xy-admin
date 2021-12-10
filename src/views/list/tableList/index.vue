@@ -1,6 +1,32 @@
 <template>
+    <x-search-bar class="mb-8-2">
+        <a-form layout="inline">
+            <a-row :gutter="8">
+                <a-col :span="6">
+                    <a-form-item label="标题">
+                        <a-input></a-input>
+                    </a-form-item>
+                </a-col>
+                <a-col :span="6">
+                    <a-form-item label="标题">
+                        <a-select></a-select>
+                    </a-form-item>
+                </a-col>
+                <a-col :span="6">
+                    <a-form-item label="标题">
+                        <a-range-picker></a-range-picker>
+                    </a-form-item>
+                </a-col>
+                <a-col :span="6">
+                    <a-button type="primary"
+                              ghost>搜索
+                    </a-button>
+                </a-col>
+            </a-row>
+        </a-form>
+    </x-search-bar>
     <a-card :bordered="false">
-        <x-list-toolbar class="mb-8-2">
+        <x-action-bar class="mb-8-2">
             <a-button type="primary"
                       @click="$refs.editRef.handleCreate()">
                 <template #icon>
@@ -8,28 +34,51 @@
                 </template>
                 新建
             </a-button>
-        </x-list-toolbar>
+        </x-action-bar>
         <a-table :columns="columns"
                  :pagination="pagination"
-                 :data-source="data"></a-table>
+                 :data-source="data">
+            <template #bodyCell="{column, record}">
+                <template v-if="column.key==='action'">
+                    <x-action-button @click="$refs.editRef.handleEdit()">编辑</x-action-button>
+                    <x-action-button>删除</x-action-button>
+                    <x-action-button tag="span">
+                        <a-dropdown :trigger="['click']">
+                            <a>
+                                更多
+                                <down-outlined/>
+                            </a>
+                            <template #overlay>
+                                <a-menu>
+                                    <a-menu-item>123</a-menu-item>
+                                </a-menu>
+                            </template>
+                        </a-dropdown>
+                    </x-action-button>
+                </template>
+            </template>
+        </a-table>
     </a-card>
 
     <edit ref="editRef"></edit>
 </template>
 
 <script>
-import XListToolbar from '@/components/XListToolbar'
-import {PlusOutlined} from '@ant-design/icons-vue'
-import Edit from '@/views/list/tableList/components/Edit'
+import XActionButton from '@/components/XActionButton'
+import XActionBar from '@/components/XActionBar'
+import Edit from './components/Edit'
+import {PlusOutlined, DownOutlined} from '@ant-design/icons-vue'
 import {ref} from 'vue'
+import XSearchBar from '@/components/XSearchBar'
 
 export default {
     name: 'baseList',
-    components: {Edit, XListToolbar, PlusOutlined},
+    components: {XSearchBar, XActionBar, XActionButton, Edit, PlusOutlined, DownOutlined},
     setup() {
         const columns = [
             {title: '序号', dataIndex: 'key'},
-            {title: '规则名称', dataIndex: 'name'}
+            {title: '规则名称', dataIndex: 'name'},
+            {title: '操作', key: 'action', width: 240}
         ]
         const data = [
             {
