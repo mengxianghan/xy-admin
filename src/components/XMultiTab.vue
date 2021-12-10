@@ -2,7 +2,7 @@
     <div class="x-multi-tab">
         <a-tabs :active-key="current"
                 type="card"
-                @change="handleChange">
+                @change="handleSwitch">
             <a-tab-pane v-for="(item,index) in multiTabList"
                         :key="index">
                 <template #tab>
@@ -68,26 +68,50 @@ export default {
         const current = computed(() => store.getters['multiTab/current'])
         const isReload = ref(false)
 
+        /**
+         * 打开
+         * @param route
+         */
         function handleOpen(route) {
             store.dispatch('multiTab/open', {route})
         }
 
+        /**
+         * 关闭
+         * @param route
+         */
         function handleClose(route) {
             store.dispatch('multiTab/close', {route})
         }
 
+        /**
+         * 关闭左侧
+         * @param route
+         */
         function handleCloseLeft(route) {
             store.dispatch('multiTab/closeLeft', {route})
         }
 
+        /**
+         * 关闭右侧
+         * @param route
+         */
         function handleCloseRight(route) {
             store.dispatch('multiTab/closeRight', {route})
         }
 
+        /**
+         * 关闭其他
+         * @param route
+         */
         function handleCloseOther(route) {
             store.dispatch('multiTab/closeOther', {route})
         }
 
+        /**
+         * 重新加载
+         * @param route
+         */
         function handleReload(route) {
             // 判断是否当前路由
             if (route.fullPath !== router.currentRoute.value.fullPath) {
@@ -106,10 +130,17 @@ export default {
             }, 0)
         }
 
-        function handleChange(index) {
+        /**
+         * 切换标签页
+         * @param index
+         */
+        function handleSwitch(index) {
             router.push(multiTabList.value[index])
         }
 
+        /**
+         * 路由发生变化
+         */
         onBeforeRouteUpdate((to) => {
             handleOpen(to)
         })
@@ -127,7 +158,7 @@ export default {
             handleCloseRight,
             handleCloseOther,
             handleReload,
-            handleChange
+            handleSwitch
         }
     }
 }
@@ -165,9 +196,13 @@ export default {
         display: none;
     }
 
+    //:deep(.ant-tabs > .ant-tabs-nav .ant-tabs-nav-list) {
+    //    padding-left: 16px;
+    //}
+
     :deep(.ant-dropdown-trigger) {
         display: flex;
-        padding: 0 16px;
+        padding: 0 12px;
         align-items: center;
         font-weight: 400;
     }

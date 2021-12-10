@@ -5,9 +5,7 @@
              :after-close="onAfterClose"
              @ok="handleOk"
              @cancel="handleCancel">
-        <p>Some contents...</p>
-        <p>Some contents...</p>
-        <p>Some contents...</p>
+
     </a-modal>
 </template>
 

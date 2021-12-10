@@ -11,6 +11,12 @@
                        @click="$router.back()">
                 <rollback-outlined/>
             </a-tooltip>
+
+            <a-breadcrumb class="ml-8-2">
+                <a-breadcrumb-item v-for="(item, index) in breadcrumb"
+                                   :key="index">{{ item.meta.title }}
+                </a-breadcrumb-item>
+            </a-breadcrumb>
         </div>
         <div class="x-layout-header__right">
             <div class="x-layout-header__action">
@@ -78,6 +84,7 @@ export default {
         const router = useRouter()
         const isLogin = computed(() => store.getters['user/isLogin'])
         const userInfo = computed(() => store.getters['user/userInfo'])
+        const breadcrumb = computed(() => router.currentRoute.value?.meta?.breadcrumb)
 
         const handleLogout = () => {
             Modal.confirm({
@@ -101,6 +108,7 @@ export default {
         return {
             isLogin,
             userInfo,
+            breadcrumb,
             handleLogout,
             handleToggleCollapsed
         }
@@ -141,6 +149,11 @@ export default {
             display: flex;
             align-items: center;
         }
+
+        :deep(.ant-breadcrumb) {
+            display: flex;
+            align-items: center;
+        }
     }
 
     &__right {
@@ -151,7 +164,7 @@ export default {
 
     &__action {
         height: 100%;
-        padding: 0 12px;
+        padding: 0 16px;
         display: flex;
         align-items: center;
         justify-content: center;
