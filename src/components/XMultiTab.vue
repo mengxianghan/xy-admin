@@ -13,7 +13,7 @@
                                   class="x-multi-tab__reload-btn"
                                   @click.stop="handleReload(item)">
                                 <reload-outlined class="ma-0"
-                                                 :class="{'anticon-spin': isReload}"/>
+                                                 :spin="spin"/>
                             </span>
                             <span class="x-multi-tab__close-btn"
                                   @click.stop="handleClose(item)">
@@ -66,7 +66,7 @@ export default {
         const router = useRouter()
         const multiTabList = computed(() => store.getters['multiTab/list'])
         const current = computed(() => store.getters['multiTab/current'])
-        const isReload = ref(false)
+        const spin = ref(false)
 
         /**
          * 打开
@@ -118,9 +118,9 @@ export default {
                 // 不是当前路由，跳转到指定路由
                 router.push(route)
             }
-            this.isReload = true
+            this.spin = true
             setTimeout(() => {
-                isReload.value = false
+                spin.value = false
             }, 1000)
             setTimeout(() => {
                 store.dispatch('multiTab/reload', {route})
@@ -152,7 +152,7 @@ export default {
         return {
             multiTabList,
             current,
-            isReload,
+            spin,
             handleClose,
             handleCloseLeft,
             handleCloseRight,
