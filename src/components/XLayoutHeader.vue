@@ -12,7 +12,8 @@
                 <rollback-outlined/>
             </a-tooltip>
 
-            <a-breadcrumb class="ml-8-2">
+            <a-breadcrumb v-if="breadcrumb.length > 1"
+                          class="ml-8-2">
                 <a-breadcrumb-item v-for="(item, index) in breadcrumb"
                                    :key="index">{{ item.meta.title }}
                 </a-breadcrumb-item>
@@ -190,4 +191,5 @@ export default {
         line-height: 1.3;
     }
 }
+
 </style>
