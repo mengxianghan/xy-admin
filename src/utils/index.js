@@ -40,6 +40,7 @@ export function mapping(list, structure = {}, expand = {}, treeField) {
     })
     return result
 }
+
 /**
  * 循环树型数据
  * @param {array }list
@@ -57,6 +58,7 @@ export function loopTreeData(list, value, callback, fields = {key: 'id', childre
         }
     })
 }
+
 /**
  * 数组最深层级
  * 查找一个树型结构最多有几级
