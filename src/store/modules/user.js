@@ -1,6 +1,6 @@
 import api from '@/api'
 import {useSessionStorage} from '@/utils/storage'
-import {STORE_IS_LOGIN, STORE_USER_INFO, STORE_TOKEN, STORE_PERMISSION} from '@/constants/storage'
+import {STORE_IS_LOGIN, STORE_USER_INFO, STORE_TOKEN, STORE_PERMISSION} from '@/config/const'
 
 const state = {
     isLogin: useSessionStorage().get(STORE_IS_LOGIN, false),

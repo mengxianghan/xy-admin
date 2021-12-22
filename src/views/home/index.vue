@@ -1,8 +1,6 @@
 <template>
     <div>
         欢迎使用{{ title }}
-        <a-button @click="handleMsg">Message</a-button>
-        <a-button @click="handleCloseMsg">关闭</a-button>
     </div>
 </template>
 
@@ -19,22 +17,8 @@ export default {
 
         })
 
-        function handleMsg() {
-            const load = loading({
-                message: `初始化${Math.random()}`
-            })
-
-            console.log(load)
-        }
-
-        function handleCloseMsg() {
-            loading.close()
-        }
-
         return {
-            title,
-            handleMsg,
-            handleCloseMsg
+            title
         }
     }
 }

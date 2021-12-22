@@ -20,7 +20,7 @@
         "name": "list",
         "component": "RouterViewLayout",
         "meta": {
-          "icon": "AppstoreOutlined",
+          "icon": "TableOutlined",
           "title": "列表页",
           "isMenu": true,
           "keepAlive": true,

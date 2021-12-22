@@ -4,6 +4,7 @@ import {setupStore} from '@/store'
 
 import App from '@/App.vue'
 import antd from 'ant-design-vue'
+import XComponent from '@/components'
 import {XLoading} from '@/plugins/XLoading'
 import '@/core/permission'
 
@@ -15,6 +16,7 @@ if ('true' === process.env.VUE_APP_MOCK_ENABLE) require('@/mock')
 const bootstrap = () => {
     const app = createApp(App)
     app.use(antd)
+    app.use(XComponent)
     app.use(XLoading)
     setupStore(app)
     setupRouter(app)
