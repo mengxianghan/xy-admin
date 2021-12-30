@@ -23,11 +23,11 @@
             <div class="x-layout-header__action">
                 <a-dropdown :trigger="['click']">
                     <div class="userinfo">
-                        <a-avatar class="mr-8-1">
+                        <!--<a-avatar class="mr-8-1">
                             <template #icon>
                                 <user-outlined/>
                             </template>
-                        </a-avatar>
+                        </a-avatar>-->
                         <span v-if="isLogin">{{ userInfo.username }}</span>
                         <down-outlined class="ml-8-1"/>
                     </div>
@@ -59,7 +59,7 @@ import {
     MenuUnfoldOutlined,
     RollbackOutlined,
     UserOutlined,
-    BellOutlined
+    BellOutlined,
 } from '@ant-design/icons-vue'
 
 export default {
@@ -71,13 +71,13 @@ export default {
         MenuUnfoldOutlined,
         RollbackOutlined,
         UserOutlined,
-        BellOutlined
+        BellOutlined,
     },
     props: {
         collapsed: {
             type: Boolean,
-            default: false
-        }
+            default: false,
+        },
     },
     setup(props, {emit}) {
         const {collapsed} = toRefs(props)
@@ -95,10 +95,10 @@ export default {
                 onOk: () => {
                     store.dispatch('user/logout').then(() => {
                         router.push({
-                            name: 'login'
+                            name: 'login',
                         })
                     })
-                }
+                },
             })
         }
 
@@ -111,9 +111,9 @@ export default {
             userInfo,
             breadcrumb,
             handleLogout,
-            handleToggleCollapsed
+            handleToggleCollapsed,
         }
-    }
+    },
 }
 </script>
 
@@ -121,10 +121,13 @@ export default {
        scoped>
 .x-layout-header {
     display: flex;
+    align-items: center;
     height: 100%;
+    padding: @padding-sm;
 
     &__left {
         display: flex;
+        align-items: center;
         height: 100%;
 
         :deep(.ant-menu) {
@@ -160,18 +163,21 @@ export default {
     &__right {
         margin-left: auto;
         display: flex;
+        align-items: center;
         height: 100%;
     }
 
     &__action {
-        height: 100%;
-        padding: 0 16px;
+        min-width: @height-base;
+        height: @height-base;
+        padding: 0 @padding-sm;
         display: flex;
         align-items: center;
         justify-content: center;
         cursor: pointer;
         transition: all .3s;
         color: rgba(0, 0, 0, .65);
+        border-radius: @border-radius-base;
 
         &:hover {
             background: rgba(0, 0, 0, .025);

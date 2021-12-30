@@ -3,6 +3,11 @@ import store from '@/store'
 import {whiteList} from '@/router/config'
 
 router.beforeEach((to, form, next) => {
+    const {meta} = to
+    const {title} = meta
+
+    document.title = `${title} - ${process.env.VUE_APP_TITLE}`
+
     if (whiteList.includes(to.name)) {
         // 在白名单
         next()

@@ -55,7 +55,7 @@ export default {
             zIndex: 1000
         }
         const contentStyle = {
-            margin: '16px',
+            margin: '12px',
             minHeight: 'auto',
             position: 'relative'
         }

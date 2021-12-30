@@ -59,7 +59,7 @@ export default {
     name: 'XMultiTab',
     components: {
         CloseOutlined,
-        ReloadOutlined
+        ReloadOutlined,
     },
     setup() {
         const store = useStore()
@@ -158,9 +158,9 @@ export default {
             handleCloseRight,
             handleCloseOther,
             handleReload,
-            handleSwitch
+            handleSwitch,
         }
-    }
+    },
 }
 </script>
 
@@ -187,6 +187,7 @@ export default {
 
     :deep(.ant-tabs) {
         background: #ffffff;
+        padding: 0 @padding-sm;
     }
 
     :deep(.ant-tabs-top > .ant-tabs-nav) {

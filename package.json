@@ -13,7 +13,7 @@
   },
   "dependencies": {
     "@ant-design/icons-vue": "^6.0.1",
-    "ant-design-vue": "^3.0.0-alpha.14",
+    "ant-design-vue": "^3.0.0-beta.4",
     "axios": "^0.24.0",
     "core-js": "^3.6.5",
     "jschardet": "^3.0.0",
