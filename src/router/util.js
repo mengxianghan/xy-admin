@@ -1,63 +1,6 @@
 import * as layouts from '@/layouts'
 import {isFunction, omit} from 'lodash'
 
-export const whiteList = [
-    'login',
-    '404'
-]
-
-/**
- * 未找到页面路由
- * @type {{redirect: string, path: string, hidden: boolean}}
- */
-export const notFoundRouter = {
-    path: '/:pathMatch(.*)*',
-    redirect: '/exception/404',
-    meta: {
-        isLogin: false,
-        isMenu: false
-    }
-}
-
-/**
- * 基础路由
- * 关键字：index,login,exception,404,redirect
- * @type {*[]}
- */
-export const constantRouterMap = [
-    {
-        path: '/',
-        name: 'index',
-        redirect: '/login'
-    },
-    {
-        path: '/base',
-        component: layouts.BaseLayout,
-        children: [
-            {
-                path: '/login',
-                name: 'login',
-                component: () => import('@/views/login'),
-                mata: {
-                    title: '登录'
-                }
-            }
-        ]
-    },
-    {
-        path: '/exception',
-        name: 'exception',
-        component: layouts.RouteViewLayout,
-        children: [
-            {
-                path: '404',
-                name: '404',
-                component: () => import('@/views/exception/404')
-            }
-        ]
-    }
-]
-
 /**
  * 格式化路由
  * 格式化成符合 vue-router 标准的路由结构
@@ -197,11 +140,11 @@ export function generateMenus(routes) {
  * @param {array} menus
  * @return {null}
  */
-export function getIndexRoute(menus) {
+export function getIndexRouter(menus) {
     let index = null
     for (let item of menus) {
         if (item.children && item.children.length) {
-            let temp = getIndexRoute(item.children)
+            let temp = getIndexRouter(item.children)
             if (temp && Object.keys(temp).length) {
                 index = temp
                 break

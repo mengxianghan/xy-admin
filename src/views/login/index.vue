@@ -32,7 +32,7 @@
 </template>
 
 <script>
-import {ref, reactive, onMounted} from 'vue'
+import {ref, reactive} from 'vue'
 import {useStore} from 'vuex'
 import {useRouter} from 'vue-router'
 import {message, Modal} from 'ant-design-vue'
@@ -91,8 +91,8 @@ export default {
          * @return {*}
          */
         function getIndexRouter() {
-            const indexRoute = store.getters['router/indexRoute']
-            if (!indexRoute) {
+            const indexRouter = store.getters['router/indexRouter']
+            if (!indexRouter) {
                 Modal.warning({
                     title: '系统提示',
                     content: '没有任何权限，请联系系统管理员',
@@ -102,7 +102,7 @@ export default {
                     }
                 })
             }
-            return indexRoute
+            return indexRouter
         }
 
         return {

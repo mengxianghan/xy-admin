@@ -1,22 +1,22 @@
 import router from '@/router'
-import request from '@/utils/request'
+import {notFoundRouter, asyncRouterMap} from '@/router/config'
 import {
-    notFoundRouter,
-    formatRouteList,
     generateRoutes,
-    getIndexRoute,
-    filterRoutes, formatRoutes, generateMenus
-} from '@/router/router.config'
+    getIndexRouter,
+    filterRoutes,
+    formatRoutes,
+    generateMenus,
+} from '@/router/util'
 
 const state = {
     routes: [],
     menus: [],
-    indexRoute: {}
+    indexRouter: {},
 }
 
 const getters = {
     menus: state => state.menus,
-    indexRoute: state => state.indexRoute
+    indexRouter: state => state.indexRouter,
 }
 
 const mutations = {
@@ -41,12 +41,12 @@ const mutations = {
     /**
      * 设置首页路由
      * @param state
-     * @param indexRoute
+     * @param indexRouter
      * @constructor
      */
-    SET_INDEX_ROUTE(state, indexRoute) {
-        state.indexRoute = indexRoute
-    }
+    SET_INDEX_ROUTER(state, indexRouter) {
+        state.indexRouter = indexRouter
+    },
 }
 
 const actions = {
@@ -57,30 +57,23 @@ const actions = {
      */
     getRouterList({commit, rootState}) {
         return new Promise(async (resolve) => {
-            const {code, data} = await request.api.get('/routes.json', {
-                params: {
-                    r: Math.random()
-                }
+            const list = asyncRouterMap
+            const validRoutes = process.env.VUE_APP_PERMISSION === 'true' ? filterRoutes(formatRoutes(list), rootState.user.permission) : formatRoutes(list)
+            const menus = generateMenus(validRoutes)
+            const routes = [
+                ...generateRoutes(validRoutes),
+                notFoundRouter,
+            ]
+            const indexRouter = getIndexRouter(menus)
+            routes.forEach(route => {
+                router.addRoute(route)
             })
-            if (code === '200') {
-                const {list} = data
-                const validRoutes = process.env.VUE_APP_PERMISSION === 'true' ? filterRoutes(formatRoutes(list), rootState.user.permission) : formatRoutes(list)
-                const menus = generateMenus(validRoutes)
-                const routes = [
-                    ...generateRoutes(validRoutes),
-                    notFoundRouter
-                ]
-                const indexRoute = getIndexRoute(menus)
-                routes.forEach(route => {
-                    router.addRoute(route)
-                })
-                commit('SET_ROUTES', routes)
-                commit('SET_MENUS', menus)
-                commit('SET_INDEX_ROUTE', indexRoute)
-                resolve()
-            }
+            commit('SET_ROUTES', routes)
+            commit('SET_MENUS', menus)
+            commit('SET_INDEX_ROUTER', indexRouter)
+            resolve()
         })
-    }
+    },
 }
 
 export default {
@@ -88,5 +81,5 @@ export default {
     state,
     getters,
     mutations,
-    actions
+    actions,
 }
