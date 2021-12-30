@@ -43,7 +43,7 @@ export default {
         const router = useRouter()
         const rules = {
             username: {required: true, message: '请输入用户名'},
-            password: {required: true, message: '请输入密码'}
+            password: {required: true, message: '请输入密码'},
         }
         const title = process.env.VUE_APP_TITLE
         const loading = ref(false)
@@ -59,23 +59,18 @@ export default {
                 formRef.value.validate().then(async () => {
                     loading.value = true
                     const {code} = await store.dispatch('user/login', {
-                        ...form
+                        ...form,
                     }).catch(() => {
                         throw new Error('登录失败')
                     })
                     loading.value = false
                     if (code === '200') {
-                        let indexRouter = null
                         // 加载完成
                         if (store.getters['app/complete']) {
-                            indexRouter = getIndexRouter()
-                            if (!indexRouter) return
-                            router.push(indexRouter)
+                            goIndex()
                         } else {
                             store.dispatch('app/init').then(() => {
-                                indexRouter = getIndexRouter()
-                                if (!indexRouter) return
-                                router.push(indexRouter)
+                                goIndex()
                             })
                         }
                     }
@@ -99,10 +94,19 @@ export default {
                     centered: true,
                     onOk: () => {
                         window.location.reload()
-                    }
+                    },
                 })
             }
             return indexRouter
+        }
+
+        /**
+         * 去首页
+         */
+        function goIndex() {
+            const indexRouter = getIndexRouter()
+            if (!indexRouter) return
+            router.push(indexRouter)
         }
 
         return {
@@ -111,9 +115,9 @@ export default {
             formRef,
             title,
             loading,
-            handleLogin
+            handleLogin,
         }
-    }
+    },
 }
 </script>
 
