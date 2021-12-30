@@ -1,5 +1,4 @@
 import XLayoutMenu from '@/components/XLayoutMenu/XLayoutMenu';
-import {XLoading} from '@/plugins/XLoading';
 import XActionBar from '@/components/XActionBar';
 import XActionButton from '@/components/XActionButton';
 import XLayoutHeader from '@/components/XLayoutHeader';

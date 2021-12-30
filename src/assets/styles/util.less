@@ -7,7 +7,7 @@ each(@align, {
 })
 
 //Color
-@text-color: {
+@color: {
     secondary: @text-color-secondary;
     heading: @heading-color;
     disabled: @disabled-color;
@@ -18,7 +18,7 @@ each(@align, {
     warning: @warning-color;
 }
 
-each(@text-color, {
+each(@color, {
     .color-@{key} {
         color: @value !important;
     }
