@@ -1,8 +1,8 @@
 <template>
     <div>
         <a-form :model="form"
-                ref="formRef"
-                :rules="rules">
+                :rules="rules"
+                ref="formRef">
             <a-form-item name="username">
                 <a-input v-model:value="form.username"
                          size="large">
@@ -32,15 +32,16 @@
 </template>
 
 <script>
-import {ref, reactive} from 'vue'
+import {ref, reactive, computed} from 'vue'
 import {useStore} from 'vuex'
-import {useRouter} from 'vue-router'
+import {useRoute, useRouter} from 'vue-router'
 import {message, Modal} from 'ant-design-vue'
 
 export default {
     setup() {
         const store = useStore()
         const router = useRouter()
+        const route = useRoute()
         const rules = {
             username: {required: true, message: '请输入用户名'},
             password: {required: true, message: '请输入密码'},
@@ -49,6 +50,7 @@ export default {
         const loading = ref(false)
         const form = reactive({})
         const formRef = ref()
+        const redirect = computed(() => decodeURIComponent(route.query?.redirect ?? ''))
 
         /**
          * 登录
@@ -104,9 +106,13 @@ export default {
          * 去首页
          */
         function goIndex() {
-            const indexRouter = getIndexRouter()
-            if (!indexRouter) return
-            router.push(indexRouter)
+            if (redirect.value) {
+                location.href = redirect.value
+            } else {
+                const indexRouter = getIndexRouter()
+                if (!indexRouter) return
+                router.push(indexRouter)
+            }
         }
 
         return {

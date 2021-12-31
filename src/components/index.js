@@ -4,6 +4,7 @@ import XActionButton from '@/components/XActionButton';
 import XLayoutHeader from '@/components/XLayoutHeader';
 import XMultiTab from '@/components/XMultiTab';
 import XSearchBar from '@/components/XSearchBar';
+import {XLoading} from '@/plugins/XLoading';
 
 export default {
     install(app) {
@@ -13,7 +14,6 @@ export default {
         app.component(XLayoutHeader.name, XLayoutHeader)
         app.component(XMultiTab.name, XMultiTab)
         app.component(XSearchBar.name, XSearchBar)
-        app.component(XLayoutMenu.name, XLayoutMenu)
-        return app
+        app.component(XLoading)
     },
 }

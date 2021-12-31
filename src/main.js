@@ -5,7 +5,6 @@ import {setupStore} from '@/store'
 import App from '@/App.vue'
 import antd from 'ant-design-vue'
 import Component from '@/components'
-import {XLoading} from '@/plugins/XLoading'
 import '@/core/permission'
 
 import 'ant-design-vue/dist/antd.less'
@@ -19,7 +18,6 @@ const bootstrap = () => {
     const app = createApp(App)
     app.use(antd)
     app.use(Component)
-    app.use(XLoading)
     setupStore(app)
     setupRouter(app)
     app.mount('#app')

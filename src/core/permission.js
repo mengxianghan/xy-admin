@@ -26,7 +26,11 @@ router.beforeEach((to, form, next) => {
             }
         } else {
             // 未登录
-            next({name: 'login', replace: true})
+            next({
+                name: 'login',
+                replace: true,
+                query: {redirect: encodeURIComponent(location.href)},
+            })
         }
     }
 })
