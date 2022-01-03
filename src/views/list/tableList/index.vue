@@ -1,7 +1,7 @@
 <template>
     <x-search-bar class="mb-8-2">
         <a-form layout="inline">
-            <a-row :gutter="8">
+            <a-row :gutter="12">
                 <a-col :span="6">
                     <a-form-item label="标题">
                         <a-input></a-input>
@@ -34,6 +34,25 @@
                 </template>
                 新建
             </a-button>
+            <template #extra>
+                <x-search-bar :body-style="{padding: 0}">
+                    <a-form layout="inline">
+                        <a-row :gutter="12"
+                               type="flex">
+                            <a-col>
+                                <a-form-item>
+                                    <a-input></a-input>
+                                </a-form-item>
+                            </a-col>
+                            <a-col>
+                                <a-button type="primary"
+                                          ghost>搜索
+                                </a-button>
+                            </a-col>
+                        </a-row>
+                    </a-form>
+                </x-search-bar>
+            </template>
         </x-action-bar>
         <a-table :columns="columns"
                  :pagination="pagination"
@@ -67,9 +86,9 @@
 import XActionButton from '@/components/XActionButton'
 import XActionBar from '@/components/XActionBar'
 import Edit from './components/Edit'
+import XSearchBar from '@/components/XSearchBar'
 import {PlusOutlined, DownOutlined} from '@ant-design/icons-vue'
 import {ref} from 'vue'
-import XSearchBar from '@/components/XSearchBar'
 
 export default {
     name: 'tableList',
@@ -78,21 +97,21 @@ export default {
         const columns = [
             {title: '序号', dataIndex: 'key'},
             {title: '规则名称', dataIndex: 'name'},
-            {title: '操作', key: 'action', width: 240}
+            {title: '操作', key: 'action', width: 240},
         ]
         const data = [
             {
                 key: '1',
-                name: 'John Brown'
+                name: 'John Brown',
             },
             {
                 key: '2',
-                name: 'Jim Green'
+                name: 'Jim Green',
             },
             {
                 key: '3',
-                name: 'Joe Black'
-            }
+                name: 'Joe Black',
+            },
         ]
         const pagination = {}
         const editRef = ref()
@@ -101,9 +120,9 @@ export default {
             columns,
             pagination,
             data,
-            editRef
+            editRef,
         }
-    }
+    },
 }
 </script>
 

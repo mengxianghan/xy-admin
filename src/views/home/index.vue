@@ -6,7 +6,6 @@
 
 <script>
 import {onMounted} from 'vue'
-import {loading} from '@/components/XLoading'
 
 export default {
     name: 'home',
@@ -14,13 +13,12 @@ export default {
         const title = process.env.VUE_APP_TITLE
 
         onMounted(() => {
-
         })
 
         return {
-            title
+            title,
         }
-    }
+    },
 }
 </script>
 

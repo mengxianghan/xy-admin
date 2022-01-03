@@ -92,6 +92,7 @@ export default {
                 title: '注销登录？',
                 okText: '确认',
                 cancelText: '取消',
+                centered: true,
                 onOk: () => {
                     store.dispatch('user/logout').then(() => {
                         router.push({

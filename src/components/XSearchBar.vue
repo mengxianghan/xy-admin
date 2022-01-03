@@ -8,7 +8,7 @@
 export default {
     name: 'XSearchBar',
     setup() {
-    }
+    },
 }
 </script>
 
@@ -16,6 +16,10 @@ export default {
        scoped>
 :deep(.ant-form) {
     display: block;
+}
+
+:deep(.ant-form-inline .ant-form-item) {
+    margin-right: 0;
 }
 
 :deep(.ant-form-item-control-input-content) {

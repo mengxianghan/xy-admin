@@ -1,0 +1,20 @@
+import antd from 'ant-design-vue'
+import Component from '@/components'
+import {setupStore} from '@/store'
+import {setupRouter} from '@/router'
+
+import './permission'
+
+import 'ant-design-vue/dist/antd.less'
+import '@/assets/styles/index.less'
+
+if ('true' === process.env.VUE_APP_MOCK) {
+    require('@/mock')
+}
+
+export const useCore = (app) => {
+    app.use(antd)
+    app.use(Component)
+    setupStore(app)
+    setupRouter(app)
+}

@@ -1,21 +1,21 @@
-import {ref, toRefs} from 'vue'
+import {ref} from 'vue'
 
 export function useModal() {
     const modal = ref({
         type: '',
         title: '',
         visible: false,
-        confirmLoading: false
+        confirmLoading: false,
     })
 
     /**
      * 设置弹窗
      * @param options
      */
-    function setModal(options = {}) {
+    const setModal = (options = {}) => {
         modal.value = {
-            ...toRefs(modal),
-            ...options
+            ...modal.value,
+            ...options,
         }
     }
 
@@ -23,38 +23,40 @@ export function useModal() {
      * 显示弹窗
      * @param options
      */
-    function showModal(options = {}) {
+    const showModal = (options = {}) => {
         setModal({
-            ...toRefs(modal),
             visible: true,
-            ...options
+            ...options,
         })
     }
 
     /**
      * 隐藏弹窗
      */
-    function hideModal() {
+    const hideModal = () => {
         setModal({
-            ...toRefs(modal),
             type: '',
             visible: false,
-            confirmLoading: false
+            confirmLoading: false,
         })
     }
 
-    function showLoading(){
-        modal.value = {
-            ...toRefs(modal),
-            confirmLoading: true
-        }
+    /**
+     * 显示 loading
+     */
+    const showLoading = () => {
+        setModal({
+            confirmLoading: true,
+        })
     }
 
-    function hideLoading(){
-        modal.value = {
-            ...toRefs(modal),
-            confirmLoading: false
-        }
+    /**
+     * 隐藏 loading
+     */
+    const hideLoading = () => {
+        setModal({
+            confirmLoading: false,
+        })
     }
 
     return {
@@ -62,6 +64,6 @@ export function useModal() {
         showModal,
         hideModal,
         showLoading,
-        hideLoading
+        hideLoading,
     }
 }
