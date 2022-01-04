@@ -3,9 +3,9 @@ import {reactive, ref, toRefs} from 'vue'
 export function useForm() {
     const formRef = ref({})
     const form = reactive({
-        formModel: {},
-        formRules: {},
-        formRecord: {},
+        model: {},
+        rules: {},
+        record: {},
     })
 
     const formLayout = {

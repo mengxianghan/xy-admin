@@ -6,19 +6,19 @@
              @ok="handleOk"
              @cancel="handleCancel">
         <a-form ref="formRef"
-                :model="formModel"
-                :rules="formRules">
+                :model="model"
+                :rules="rules">
             <a-form-item label="字段 1"
                          name="txt1">
-                <a-input v-model:value="formModel.txt1"></a-input>
+                <a-input v-model:value="model.txt1"></a-input>
             </a-form-item>
             <a-form-item label="字段 2"
                          name="txt2">
-                <a-input v-model:value="formModel.txt2"></a-input>
+                <a-input v-model:value="model.txt2"></a-input>
             </a-form-item>
             <a-form-item label="字段 3"
                          name="txt3">
-                <a-input v-model:value="formModel.txt3"></a-input>
+                <a-input v-model:value="model.txt3"></a-input>
             </a-form-item>
         </a-form>
     </a-modal>
@@ -32,9 +32,9 @@ export default {
     name: 'Edit',
     setup() {
         const {modal, showModal, hideModal, showLoading, hideLoading} = useModal()
-        const {formRef, formRules, formModel, form} = useForm()
+        const {formRef, rules, model, form} = useForm()
 
-        form.formRules = {
+        form.rules = {
             txt1: {required: true, message: '请输入字段 1'},
         }
 
@@ -93,8 +93,8 @@ export default {
             handleCancel,
             onAfterClose,
             formRef,
-            formRules,
-            formModel,
+            rules,
+            model,
         }
     },
 }
