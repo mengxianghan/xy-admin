@@ -1,0 +1,45 @@
+{
+  "name": "admin",
+  "version": "1.0.0",
+  "description": "管理系统",
+  "private": true,
+  "scripts": {
+    "serve": "vue-cli-service serve --mode local",
+    "build:dev": "vue-cli-service build --mode dev",
+    "build:test": "vue-cli-service build --mode test",
+    "build:pre": "vue-cli-service build --mode pre",
+    "build:prod": "vue-cli-service build --mode prod",
+    "build:report": "vue-cli-service build --mode prod --report"
+  },
+  "dependencies": {
+    "@tinymce/tinymce-vue": "^3.2.8",
+    "ali-oss": "^6.16.0",
+    "ant-design-vue": "^1.7.8",
+    "axios": "^0.24.0",
+    "core-js": "^3.6.5",
+    "js-cookie": "^3.0.1",
+    "jschardet": "^3.0.0",
+    "json-bigint": "^1.0.0",
+    "lodash": "^4.17.21",
+    "mockjs": "^1.1.0",
+    "moment": "^2.29.1",
+    "nprogress": "^0.2.0",
+    "vue": "^2.6.14",
+    "vue-router": "^3.5.3",
+    "vuex": "^3.6.2",
+    "xy-ali-oss": "^1.0.4",
+    "xy-enum": "^1.0.1",
+    "xy-storage": "^2.0.2"
+  },
+  "devDependencies": {
+    "@vue/cli-plugin-babel": "^4.5.15",
+    "@vue/cli-plugin-router": "4.5.15",
+    "@vue/cli-plugin-vuex": "~4.5.15",
+    "@vue/cli-service": "^3.12.1",
+    "babel-plugin-import": "^1.13.3",
+    "compression-webpack-plugin": "^4.0.0",
+    "less": "^3.11.1",
+    "less-loader": "^5.0.0",
+    "vue-template-compiler": "^2.6.14"
+  }
+}
