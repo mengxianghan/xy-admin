@@ -95,7 +95,7 @@ npm run build:report
 ```
 location /api/ {
     rewrite /api/(.*?)$ /$1 break;
-    proxy_pass https://zsback-test.53zaixian.com;
+    proxy_pass https://域名;
 }
 ```
 
