@@ -6,7 +6,7 @@ router.beforeEach((to, form, next) => {
     const {meta} = to
     const {title} = meta
 
-    document.title = `${title} - ${process.env.VUE_APP_TITLE}`
+    document.title = title ? `${title} - ${process.env.VUE_APP_TITLE}` : process.env.VUE_APP_TITLE
 
     if (whiteList.includes(to.name)) {
         // 在白名单
