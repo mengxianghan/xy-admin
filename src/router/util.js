@@ -110,10 +110,10 @@ export function generateRoutes(routes) {
 }
 
 /**
- * 生成菜单
+ * 生成菜单列表
  * @param routes
  */
-export function generateMenus(routes) {
+export function generateMenuList(routes) {
     return routes.filter(item => item?.meta?.isMenu).map(item => {
         const menuItem = {
             path: item.path,
@@ -126,7 +126,7 @@ export function generateMenus(routes) {
                 target: item?.meta?.target ?? '_self'
             }
         }
-        const children = generateMenus(item?.children ?? [])
+        const children = generateMenuList(item?.children ?? [])
         if (children.length) {
             menuItem.children = children
         }
@@ -137,12 +137,12 @@ export function generateMenus(routes) {
 
 /**
  * 获取首页路由
- * @param {array} menus
+ * @param {array} menuList
  * @return {null}
  */
-export function getIndexRouter(menus) {
+export function getIndexRouter(menuList) {
     let index = null
-    for (let item of menus) {
+    for (let item of menuList) {
         if (item.children && item.children.length) {
             let temp = getIndexRouter(item.children)
             if (temp && Object.keys(temp).length) {

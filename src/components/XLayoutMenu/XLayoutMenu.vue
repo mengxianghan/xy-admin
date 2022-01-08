@@ -11,7 +11,7 @@
                 :open-keys="openKeys"
                 :selected-keys="selectedKeys"
                 @openChange="onOpenChange">
-            <template v-for="item in menus">
+            <template v-for="item in menuList">
                 <a-menu-item v-if="!item.children"
                              :key="item.name">
                     <x-layout-menu-link :data-source="item"/>
@@ -48,8 +48,8 @@ export default {
         const collapsed = ref(false)
         const openKeys = ref([])
         const selectedKeys = ref([])
-        const menus = computed(() => store.getters['router/menus'])
-        const rootSubmenuKeys = computed(() => menus.value.map(item => item.name))
+        const menuList = computed(() => store.getters['router/menuList'])
+        const rootSubmenuKeys = computed(() => menuList.value.map(item => item.name))
         const classes = computed(() => {
             const classList = []
             classList.push(`x-layout-menu--${theme.value}`)
@@ -88,7 +88,7 @@ export default {
             collapsed,
             openKeys,
             selectedKeys,
-            menus,
+            menuList,
             classes,
             onOpenChange
         }

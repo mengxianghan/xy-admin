@@ -89,7 +89,9 @@ export default {
          * @param route
          */
         function handleCloseLeft(route) {
-            store.dispatch('multiTab/closeLeft', {route})
+            store.dispatch('multiTab/closeLeft', {route}).then(({route}) => {
+                router.push(route)
+            })
         }
 
         /**
@@ -97,7 +99,9 @@ export default {
          * @param route
          */
         function handleCloseRight(route) {
-            store.dispatch('multiTab/closeRight', {route})
+            store.dispatch('multiTab/closeRight', {route}).then(({route}) => {
+                router.push(route)
+            })
         }
 
         /**
@@ -179,6 +183,7 @@ export default {
         color: @text-color-secondary;
         transition: color .3s;
         line-height: 1;
+        height: 12px;
 
         &:hover {
             color: @primary-color;
@@ -186,7 +191,7 @@ export default {
     }
 
     :deep(.ant-tabs) {
-        background: #ffffff;
+        background: #fff;
         padding: 0 @padding-sm;
     }
 
@@ -198,20 +203,22 @@ export default {
         display: none;
     }
 
-    //:deep(.ant-tabs > .ant-tabs-nav .ant-tabs-nav-list) {
-    //    padding-left: 16px;
-    //}
+    :deep(.ant-tabs-tab-btn) {
+        height: 100%;
+    }
 
     :deep(.ant-dropdown-trigger) {
         display: flex;
         padding: 0 12px;
         align-items: center;
         font-weight: 400;
+        height: 100%;
     }
 
     :deep(.ant-tabs-card > .ant-tabs-nav .ant-tabs-tab) {
         height: 40px;
         padding: 0;
+        border-bottom: 0;
     }
 }
 </style>

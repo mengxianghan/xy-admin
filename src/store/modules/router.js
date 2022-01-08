@@ -5,17 +5,17 @@ import {
     getIndexRouter,
     filterRoutes,
     formatRoutes,
-    generateMenus,
+    generateMenuList,
 } from '@/router/util'
 
 const state = {
     routes: [],
-    menus: [],
+    menuList: [],
     indexRouter: {},
 }
 
 const getters = {
-    menus: state => state.menus,
+    menuList: state => state.menuList,
     indexRouter: state => state.indexRouter,
 }
 
@@ -32,11 +32,11 @@ const mutations = {
     /**
      * 设置菜单
      * @param state
-     * @param menus
+     * @param menuList
      * @constructor
      */
-    SET_MENUS(state, menus) {
-        state.menus = menus
+    SET_MENU_LIST(state, menuList) {
+        state.menuList = menuList
     },
     /**
      * 设置首页路由
@@ -59,17 +59,17 @@ const actions = {
         return new Promise(async (resolve) => {
             const list = asyncRouterMap
             const validRoutes = process.env.VUE_APP_PERMISSION === 'true' ? filterRoutes(formatRoutes(list), rootState.user.permission) : formatRoutes(list)
-            const menus = generateMenus(validRoutes)
+            const menuList = generateMenuList(validRoutes)
             const routes = [
                 ...generateRoutes(validRoutes),
                 notFoundRouter,
             ]
-            const indexRouter = getIndexRouter(menus)
+            const indexRouter = getIndexRouter(menuList)
             routes.forEach(route => {
                 router.addRoute(route)
             })
             commit('SET_ROUTES', routes)
-            commit('SET_MENUS', menus)
+            commit('SET_MENU_LIST', menuList)
             commit('SET_INDEX_ROUTER', indexRouter)
             resolve()
         })
