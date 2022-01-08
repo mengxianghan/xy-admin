@@ -19,6 +19,7 @@
                     <router-view v-if="keepAlive"
                                  :key="$route.name"/>
                 </keep-alive>
+                <iframe-view/>
             </a-layout-content>
         </a-layout>
     </a-layout>
@@ -29,51 +30,52 @@ import XLayoutHeader from '@/components/XLayoutHeader'
 import XLayoutMenu from '@/components/XLayoutMenu'
 import XMultiTab from '@/components/XMultiTab'
 import {mapGetters} from 'vuex'
+import IframeView from '@/layouts/IframeView'
 
 export default {
     name: 'DefaultLayout',
-    components: {XMultiTab, XLayoutHeader, XLayoutMenu},
+    components: {IframeView, XMultiTab, XLayoutHeader, XLayoutMenu},
     data() {
         return {
             headerStyle: {
-                background: '#ffffff',
+                background: '#fff',
                 //boxShadow: '0 1px 4px rgba(0, 21, 41, .08)',
                 padding: '0',
                 position: 'sticky',
                 top: '0',
                 zIndex: 999,
-                height: '48px'
+                height: '48px',
             },
             siderStyle: {
                 boxShadow: '2px 0 8px 0 rgb(29 35 41 / 5%)',
                 position: 'relative',
-                zIndex: 1000
+                zIndex: 1000,
             },
             contentStyle: {
                 margin: '12px',
                 minHeight: 'auto',
-                position: 'relative'
+                position: 'relative',
             },
             footerStyle: {
-                textAlign: 'center'
+                textAlign: 'center',
             },
             collapsible: false,
             collapsed: false,
             refreshing: false,
-            theme: 'dark'
+            theme: 'dark',
         }
     },
     computed: {
         ...mapGetters({
             cacheList: 'multiTab/cacheList',
-            keepAlive: 'multiTab/keepAlive'
-        })
+            keepAlive: 'multiTab/keepAlive',
+        }),
     },
     methods: {
         handleToggleCollapsed() {
             this.collapsed = !this.collapsed
-        }
-    }
+        },
+    },
 }
 </script>
 

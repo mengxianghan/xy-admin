@@ -55,19 +55,19 @@ export default {
     name: 'XMultiTab',
     data() {
         return {
-            spin: false
+            spin: false,
         }
     },
     computed: {
         ...mapGetters({
             multiTabList: 'multiTab/list',
-            current: 'multiTab/current'
-        })
+            current: 'multiTab/current',
+        }),
     },
     watch: {
         '$route'(to) {
             this.handleOpen(to)
-        }
+        },
     },
     created() {
     },
@@ -81,7 +81,7 @@ export default {
             closeLeft: 'multiTab/closeLeft',
             closeRight: 'multiTab/closeRight',
             closeOther: 'multiTab/closeOther',
-            reload: 'multiTab/reload'
+            reload: 'multiTab/reload',
         }),
         /**
          * 打开
@@ -102,14 +102,18 @@ export default {
          * @param route
          */
         handleCloseLeft(route) {
-            this.closeLeft({route})
+            this.closeLeft({route}).then(({route}) => {
+                this.$router.push(route)
+            })
         },
         /**
          * 关闭右侧
          * @param route
          */
         handleCloseRight(route) {
-            this.closeRight({route})
+            this.closeRight({route}).then(({route}) => {
+                this.$router.push(route)
+            })
         },
         /**
          * 关闭其他
@@ -119,7 +123,7 @@ export default {
             this.closeOther({route})
         },
         /**
-         * 刷新
+         * 重新加载
          * @param route
          */
         handleReload(route) {
@@ -145,8 +149,8 @@ export default {
          */
         handleChange(index) {
             this.$router.push(this.multiTabList[index])
-        }
-    }
+        },
+    },
 }
 </script>
 
@@ -181,7 +185,7 @@ export default {
         .ant-tabs-bar {
             margin: 0;
             border: 0;
-            background: #ffffff;
+            background: #fff;
         }
 
         .ant-tabs-nav {

@@ -1,19 +1,21 @@
 import router from '@/router'
 import {message} from 'ant-design-vue'
-import {findIndex} from 'lodash'
+import {cloneDeep, findIndex} from 'lodash'
 
 const state = {
     list: [],
     cacheList: [],
+    iframeList: [],
     current: 0,
-    keepAlive: true
+    keepAlive: true,
 }
 
 const getters = {
     list: state => state.list,
     cacheList: state => state.cacheList,
+    iframeList: state => state.iframeList,
     current: state => state.current,
-    keepAlive: state => state.keepAlive
+    keepAlive: state => state.keepAlive,
 }
 
 const mutations = {
@@ -50,9 +52,7 @@ const mutations = {
             state.list.push(value)
         }
         // 更新缓存列表
-        state.cacheList = state.list
-            .filter(item => item?.meta?.keepAlive)
-            .map(item => item.name)
+        state.cacheList = state.list.filter(item => item?.meta?.keepAlive).map(item => item.name)
     },
     /**
      * 更新缓存列表
@@ -72,7 +72,29 @@ const mutations = {
             state.cacheList.push(route.name)
             state.keepAlive = true
         }
-    }
+        // 如果刷新的是 iframe
+        if ('iframe' === route?.meta?.type) {
+            const iframeIndex = findIndex(state.iframeList, {path: route?.path})
+            state.iframeList[iframeIndex].meta.url = ''
+            setTimeout(() => {
+                state.iframeList[iframeIndex].meta.url = route?.meta?.url
+            }, 200)
+        }
+    },
+    /**
+     * 更新 iframe 列表
+     * @param state
+     * @constructor
+     */
+    UPDATE_IFRAME_LIST(state) {
+        state.iframeList = state.list.filter(item => 'iframe' === item?.meta?.type).map(item => ({
+            path: item.path,
+            meta: {
+                type: item.meta.type,
+                url: item.meta.url,
+            },
+        }))
+    },
 }
 
 const actions = {
@@ -83,7 +105,7 @@ const actions = {
      * @param route
      */
     open({commit, state}, {route} = {}) {
-        const index = findIndex(state.list, o => o.path === route.path)
+        const index = findIndex(state.list, {path: route?.path})
         // 判断是否已存在
         if (index > -1) {
             // 已存在
@@ -93,8 +115,8 @@ const actions = {
                 {
                     index,
                     length: 1,
-                    value: route
-                }
+                    value: route,
+                },
             )
         } else {
             // 不存在，判断是否第一个标签页
@@ -105,8 +127,8 @@ const actions = {
                     {
                         index: state.current + 1,
                         length: 0,
-                        value: route
-                    }
+                        value: route,
+                    },
                 )
                 commit('UPDATE_CURRENT', state.current + 1)
             } else {
@@ -114,12 +136,13 @@ const actions = {
                 commit(
                     'UPDATE_LIST',
                     {
-                        value: route
-                    }
+                        value: route,
+                    },
                 )
                 commit('UPDATE_CURRENT', 0)
             }
         }
+        commit('UPDATE_IFRAME_LIST')
     },
     /**
      * 关闭
@@ -130,7 +153,7 @@ const actions = {
     close({commit, state}, {route} = {}) {
         // 如果未传入路由，则默认当前路由
         route = route || state.list[state.current]
-        const index = findIndex(state.list, o => o.path === route.path)
+        const index = findIndex(state.list, {path: route?.path})
         // 判断是否最后一个标签页
         if (state.list.length === 1) {
             // 是最后又给标签页，禁止删除
@@ -141,8 +164,8 @@ const actions = {
             'UPDATE_LIST',
             {
                 index,
-                length: 1
-            }
+                length: 1,
+            },
         )
         // 关闭当前标签页
         if (state.current === index) {
@@ -156,6 +179,7 @@ const actions = {
         if (state.current > index) {
             commit('UPDATE_CURRENT', state.current - 1)
         }
+        commit('UPDATE_IFRAME_LIST')
     },
     /**
      * 关闭左侧
@@ -164,15 +188,25 @@ const actions = {
      * @param route
      */
     closeLeft({commit, state}, {route} = {}) {
-        const index = findIndex(state.list, o => o.path === route.path)
-        commit(
-            'UPDATE_LIST',
-            {
-                index: 1,
-                length: index
+        return new Promise((resolve) => {
+            const index = findIndex(state.list, {path: route?.path})
+            commit(
+                'UPDATE_LIST',
+                {
+                    index: 0,
+                    length: index,
+                },
+            )
+            if (state.current <= index) {
+                commit('UPDATE_CURRENT', 0)
+            } else {
+                commit('UPDATE_CURRENT', state.current - index)
             }
-        )
-        commit('UPDATE_CURRENT', 0)
+            commit('UPDATE_IFRAME_LIST')
+            if (state.current < index) {
+                resolve({route})
+            }
+        })
     },
     /**
      * 关闭右侧
@@ -181,18 +215,22 @@ const actions = {
      * @param route
      */
     closeRight({commit, state}, {route} = {}) {
-        const index = findIndex(state.list, o => o.path === route.path)
-        const length = state.list.length - index
-        commit(
-            'UPDATE_LIST',
-            {
-                index: index + 1,
-                length
+        return new Promise((resolve) => {
+            const index = findIndex(state.list, {path: route?.path})
+            const length = state.list.length - index
+            commit(
+                'UPDATE_LIST',
+                {
+                    index: index + 1,
+                    length,
+                },
+            )
+            commit('UPDATE_IFRAME_LIST')
+            if (state.current > index) {
+                commit('UPDATE_CURRENT', index)
+                resolve({route})
             }
-        )
-        if (state.current > index) {
-            commit('UPDATE_CURRENT', index)
-        }
+        })
     },
     /**
      * 关闭其他
@@ -205,10 +243,11 @@ const actions = {
             {
                 index: 0,
                 length: state.list.length,
-                value: route
-            }
+                value: route,
+            },
         )
         commit('UPDATE_CURRENT', 0)
+        commit('UPDATE_IFRAME_LIST')
     },
     /**
      * 刷新
@@ -219,7 +258,7 @@ const actions = {
         if (route?.meta?.keepAlive) {
             commit('UPDATE_CACHE_LIST', {route})
         }
-    }
+    },
 }
 
 export default {
@@ -227,5 +266,5 @@ export default {
     state,
     getters,
     mutations,
-    actions
+    actions,
 }

@@ -37,7 +37,7 @@ export const constantRouterMap = [
                 path: '/login',
                 name: 'login',
                 component: () => import('@/views/login'),
-                mata: {
+                meta: {
                     title: '登录',
                 },
             },
@@ -131,17 +131,17 @@ export const asyncRouterMap = [
             icon: 'layout',
             title: 'iframe',
             isMenu: true,
-            keepAlive: false,
+            keepAlive: true,
             permission: '*',
         },
         children: [
             {
                 path: 'vue',
                 name: 'vue',
-                component: 'iframe',
+                component: 'RouteViewLayout',
                 meta: {
                     type: 'iframe',
-                    iframeUrl: 'https://cn.vuejs.org/',
+                    url: 'https://cn.vuejs.org',
                     title: 'Vue',
                     isMenu: true,
                     keepAlive: true,
@@ -151,10 +151,10 @@ export const asyncRouterMap = [
             {
                 path: 'antd',
                 name: 'antd',
-                component: 'iframe',
+                component: 'RouteViewLayout',
                 meta: {
                     type: 'iframe',
-                    iframeUrl: 'https://www.antdv.com/docs/vue/introduce-cn/',
+                    url: 'https://www.antdv.com/docs/vue/introduce-cn',
                     title: 'Ant Design Vue',
                     isMenu: true,
                     keepAlive: true,
