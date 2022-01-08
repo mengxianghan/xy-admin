@@ -72,15 +72,22 @@ const mutations = {
             state.cacheList.push(route.name)
             state.keepAlive = true
         }
+        // 如果刷新的是 iframe
+        if ('iframe' === route?.meta?.type) {
+            const iframeIndex = findIndex(state.iframeList, {path: route?.path})
+            state.iframeList[iframeIndex].meta.url = ''
+            setTimeout(() => {
+                state.iframeList[iframeIndex].meta.url = route?.meta?.url
+            }, 200)
+        }
     },
     /**
      * 更新 iframe 列表
      * @param state
-     * @param iframeList
      * @constructor
      */
-    UPDATE_IFRAME_LIST(state, {iframeList}) {
-        state.iframeList = iframeList
+    UPDATE_IFRAME_LIST(state) {
+        state.iframeList = cloneDeep(state.list).filter(item => 'iframe' === item?.meta?.type)
     },
 }
 
@@ -128,16 +135,8 @@ const actions = {
                 )
                 commit('UPDATE_CURRENT', 0)
             }
-            // 打开的标签页是 iframe
-            //if ('iframe' === route?.meta?.type) {
-            //    commit(
-            //        'UPDATE_IFRAME_LIST',
-            //        {
-            //            iframeList: [...state.iframeList, route],
-            //        },
-            //    )
-            //}
         }
+        commit('UPDATE_IFRAME_LIST')
     },
     /**
      * 关闭
@@ -174,29 +173,15 @@ const actions = {
         if (state.current > index) {
             commit('UPDATE_CURRENT', state.current - 1)
         }
-        // 关闭的标签页是 iframe
-        //if ('iframe' === route?.meta?.type) {
-        //    const iframeIndex = findIndex(state.iframeList, {path: route?.path})
-        //    const iframeList = cloneDeep(state.iframeList)
-        //    if (iframeIndex > -1) {
-        //        iframeList.splice(iframeIndex, 1)
-        //    }
-        //    commit(
-        //        'UPDATE_IFRAME_LIST',
-        //        {
-        //            iframeList,
-        //        },
-        //    )
-        //}
+        commit('UPDATE_IFRAME_LIST')
     },
     /**
      * 关闭左侧
-     * @param state
      * @param commit
-     * @param dispatch
+     * @param state
      * @param route
      */
-    closeLeft({state, commit, dispatch}, {route} = {}) {
+    closeLeft({commit, state}, {route} = {}) {
         return new Promise((resolve) => {
             const index = findIndex(state.list, {path: route?.path})
             commit(
@@ -211,12 +196,11 @@ const actions = {
             } else {
                 commit('UPDATE_CURRENT', state.current - index)
             }
+            commit('UPDATE_IFRAME_LIST')
             if (state.current < index) {
                 resolve({route})
             }
         })
-        // 关闭的标签页中是否包含 iframe
-        //const closeTabList = state.list.slice(1, index)
     },
     /**
      * 关闭右侧
@@ -235,6 +219,7 @@ const actions = {
                     length,
                 },
             )
+            commit('UPDATE_IFRAME_LIST')
             if (state.current > index) {
                 commit('UPDATE_CURRENT', index)
                 resolve({route})
@@ -256,6 +241,7 @@ const actions = {
             },
         )
         commit('UPDATE_CURRENT', 0)
+        commit('UPDATE_IFRAME_LIST')
     },
     /**
      * 刷新

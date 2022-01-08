@@ -23,6 +23,7 @@
                                    :key="$route.name"/>
                     </keep-alive>
                 </router-view>
+                <iframe-view/>
             </a-layout-content>
         </a-layout>
     </a-layout>
@@ -34,33 +35,34 @@ import XLayoutMenu from '@/components/XLayoutMenu/XLayoutMenu'
 import XMultiTab from '@/components/XMultiTab'
 import {computed, ref} from 'vue'
 import {useStore} from 'vuex'
+import IframeView from '@/layouts/IframeView'
 
 export default {
     name: 'DefaultLayout',
-    components: {XMultiTab, XLayoutHeader, XLayoutMenu},
+    components: {IframeView, XMultiTab, XLayoutHeader, XLayoutMenu},
     setup() {
         const store = useStore()
         const headerStyle = {
-            background: '#ffffff',
+            background: '#fff',
             //boxShadow: '0 1px 4px rgba(0, 21, 41, .08)',
             padding: '0',
             position: 'sticky',
             top: '0',
             zIndex: 999,
-            height: '48px'
+            height: '48px',
         }
         const siderStyle = {
             boxShadow: '2px 0 8px 0 rgb(29 35 41 / 5%)',
             position: 'relative',
-            zIndex: 1000
+            zIndex: 1000,
         }
         const contentStyle = {
             margin: '12px',
             minHeight: 'auto',
-            position: 'relative'
+            position: 'relative',
         }
         const footerStyle = {
-            textAlign: 'center'
+            textAlign: 'center',
         }
         const collapsible = ref(false)
         const collapsed = ref(false)
@@ -85,9 +87,9 @@ export default {
             theme,
             cacheList,
             keepAlive,
-            handleToggleCollapsed
+            handleToggleCollapsed,
         }
-    }
+    },
 }
 </script>
 

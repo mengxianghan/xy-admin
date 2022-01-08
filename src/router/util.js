@@ -1,5 +1,5 @@
 import * as layouts from '@/layouts'
-import {isFunction, omit} from 'lodash'
+import {isFunction, omit, has} from 'lodash'
 
 /**
  * 格式化路由
@@ -12,7 +12,7 @@ export function formatRoutes(routes = [], parent = {}) {
     return routes.map(item => {
         const {meta = {}} = item
         const isLink = item?.meta?.type === 'link'
-        const component = item.component || 'exception/404'
+        const component = item?.component || 'exception/404'
         const route = {
             // 如果路由设置的 path 是 / 开头或是外链，则默认使用 path，否则动态拼接路由地址
             path: (new RegExp('^\\/.*').test(item.path) || isLink) ? item.path : `${(parent?.path ?? '')}/${item.path}`,
@@ -27,8 +27,8 @@ export function formatRoutes(routes = [], parent = {}) {
                 openKeys: isLink ? [] : [...parent?.meta?.openKeys ?? [], meta?.active ?? item?.name],
                 actions: meta?.actions ?? ['*'],
                 breadcrumb: [...parent?.meta?.breadcrumb ?? [], item],
-                ...meta
-            }
+                ...meta,
+            },
         }
         // 重定向
         item.redirect && (route.redirect = item.redirect)
@@ -77,7 +77,7 @@ export function flattenRoutes(routes = []) {
             }
             data = [
                 ...data,
-                ...flattenRoutes(item.children)
+                ...flattenRoutes(item.children),
             ]
         } else {
             data.push(item)
@@ -100,7 +100,7 @@ export function generateRoutes(routes) {
                 path: '',
                 name: layout,
                 component: layouts[layout] || (() => import(`@/layouts/${layout}`)),
-                children: []
+                children: [],
             })
             index = result.length - 1
         }
@@ -123,8 +123,8 @@ export function generateMenuList(routes) {
                 icon: item?.meta?.icon ?? '',
                 title: item?.meta?.title ?? '未命名菜单',
                 openKeys: item?.meta?.openKeys ?? [],
-                target: item?.meta?.target ?? '_self'
-            }
+                target: item?.meta?.target ?? '_self',
+            },
         }
         const children = generateMenuList(item?.children ?? [])
         if (children.length) {

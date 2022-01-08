@@ -136,14 +136,14 @@ export const asyncRouterMap = [
             icon: 'AppstoreOutlined',
             title: 'iframe',
             isMenu: true,
-            keepAlive: false,
+            keepAlive: true,
             permission: '*',
         },
         children: [
             {
                 path: 'vue',
                 name: 'vue',
-                component: 'iframe',
+                component: 'RouteViewLayout',
                 meta: {
                     type: 'iframe',
                     url: 'https://cn.vuejs.org',
@@ -156,7 +156,7 @@ export const asyncRouterMap = [
             {
                 path: 'antd',
                 name: 'antd',
-                component: 'iframe',
+                component: 'RouteViewLayout',
                 meta: {
                     type: 'iframe',
                     url: 'https://www.antdv.com/docs/vue/introduce-cn',

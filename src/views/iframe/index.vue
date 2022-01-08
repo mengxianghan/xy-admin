@@ -1,23 +1,30 @@
 <template>
     <div class="iframe-container">
-        <iframe :src="url"
-                class="iframe"></iframe>
+        <template v-for="(item) in iframeList">
+            <iframe v-show="url === item.meta.url"
+                    :src="item.meta.url"
+                    class="iframe"></iframe>
+        </template>
     </div>
 </template>
 
 <script>
-import {ref} from 'vue'
+import {computed, ref} from 'vue'
 import {useRoute} from 'vue-router'
+import {useStore} from 'vuex'
 
 export default {
     name: 'iframe',
     setup() {
+        const store = useStore()
+        const iframeList = computed(() => store.getters['multiTab/iframeList'])
         const route = useRoute()
         const url = ref(route.meta?.url)
         return {
-            url
+            url,
+            iframeList,
         }
-    }
+    },
 }
 </script>
 
