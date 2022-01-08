@@ -1,6 +1,6 @@
 <template>
     <div class="iframe-container">
-        <iframe :src="src"
+        <iframe :src="url"
                 class="iframe"></iframe>
     </div>
 </template>
@@ -13,9 +13,9 @@ export default {
     name: 'iframe',
     setup() {
         const route = useRoute()
-        const src = ref(route.meta?.iframeUrl)
+        const url = ref(route.meta?.url)
         return {
-            src
+            url
         }
     }
 }

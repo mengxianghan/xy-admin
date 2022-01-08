@@ -18,7 +18,7 @@ VUE_APP_PERMISSION=true/false
   "component": "必填，页面",
   "redirect": "选填，跳转地址",
   "meta": {
-    "type": "菜单类型【link=链接，iframe=iframe】",
+    "type": "菜单类型【link=外部链接，iframe=iframe】",
     "icon": "选填，菜单icon",
     "title": "必填，菜单名称",
     "isMenu": "必填，boolean类型，是否在菜单上显示，true=显示；false=不显示",
@@ -32,7 +32,7 @@ VUE_APP_PERMISSION=true/false
     "action": [
       "选填，根据业务需要"
     ],
-    "iframeUrl": "内嵌 iframe 时，component 需指向 iframe 的视图，即：views/iframe/index.vue"
+    "url": "内嵌 iframe 时，component 需指向 iframe 的视图，即：views/iframe/index.vue"
   },
   "children": []
 }

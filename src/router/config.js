@@ -63,7 +63,7 @@ export const constantRouterMap = [
 
 /**
  * 动态路由
- * @type {[{path: string, component: string, meta: {keepAlive: boolean, icon: string, permission: string, title: string, isMenu: boolean}, name: string}, {path: string, component: string, children: [{path: string, component: string, meta: {keepAlive: boolean, permission: string, title: string, isMenu: boolean}, name: string}], meta: {keepAlive: boolean, icon: string, permission: string, title: string, isMenu: boolean}, name: string}, {path: string, component: string, children: [{path: string, meta: {permission: string, type: string, title: string, isMenu: boolean, target: string}, name: string}], meta: {keepAlive: boolean, icon: string, permission: string, title: string, isMenu: boolean}, name: string}, {path: string, component: string, children: [{path: string, component: string, meta: {keepAlive: boolean, permission: string, type: string, title: string, isMenu: boolean, iframeUrl: string}, name: string}, {path: string, component: string, meta: {keepAlive: boolean, permission: string, type: string, title: string, isMenu: boolean, iframeUrl: string}, name: string}], meta: {keepAlive: boolean, icon: string, permission: string, title: string, isMenu: boolean}, name: string}]}
+ * @type {[{path: string, component: string, meta: {keepAlive: boolean, icon: string, permission: string, title: string, isMenu: boolean}, name: string}, {path: string, component: string, children: [{path: string, component: string, meta: {keepAlive: boolean, permission: string, title: string, isMenu: boolean}, name: string}], meta: {keepAlive: boolean, icon: string, permission: string, title: string, isMenu: boolean}, name: string}, {path: string, component: string, children: [{path: string, meta: {permission: string, type: string, title: string, isMenu: boolean, target: string}, name: string}], meta: {keepAlive: boolean, icon: string, permission: string, title: string, isMenu: boolean}, name: string}, {path: string, component: string, children: [{path: string, component: string, meta: {keepAlive: boolean, permission: string, type: string, title: string, isMenu: boolean, url: string}, name: string}, {path: string, component: string, meta: {keepAlive: boolean, permission: string, type: string, title: string, isMenu: boolean, url: string}, name: string}], meta: {keepAlive: boolean, icon: string, permission: string, title: string, isMenu: boolean}, name: string}]}
  */
 export const asyncRouterMap = [
     {
@@ -146,7 +146,7 @@ export const asyncRouterMap = [
                 component: 'iframe',
                 meta: {
                     type: 'iframe',
-                    iframeUrl: 'https://cn.vuejs.org/',
+                    url: 'https://cn.vuejs.org',
                     title: 'Vue',
                     isMenu: true,
                     keepAlive: true,
@@ -159,7 +159,7 @@ export const asyncRouterMap = [
                 component: 'iframe',
                 meta: {
                     type: 'iframe',
-                    iframeUrl: 'https://www.antdv.com/docs/vue/introduce-cn/',
+                    url: 'https://www.antdv.com/docs/vue/introduce-cn',
                     title: 'Ant Design Vue',
                     isMenu: true,
                     keepAlive: true,

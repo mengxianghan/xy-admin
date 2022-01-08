@@ -3,11 +3,14 @@
              :title="modal.title"
              :confirm-loading="modal.confirmLoading"
              :after-close="onAfterClose"
+             centered
              @ok="handleOk"
              @cancel="handleCancel">
         <a-form ref="formRef"
                 :model="model"
-                :rules="rules">
+                :rules="rules"
+                scroll-to-first-error
+                layout="vertical">
             <a-form-item label="字段 1"
                          name="txt1">
                 <a-input v-model:value="model.txt1"></a-input>
@@ -32,7 +35,7 @@ export default {
     name: 'Edit',
     setup() {
         const {modal, showModal, hideModal, showLoading, hideLoading} = useModal()
-        const {formRef, rules, model, form} = useForm()
+        const {formRef, rules, model, form, reset} = useForm()
 
         form.rules = {
             txt1: {required: true, message: '请输入字段 1'},
@@ -82,7 +85,7 @@ export default {
          * 完全关闭后回调
          */
         const onAfterClose = () => {
-
+            reset()
         }
 
         return {

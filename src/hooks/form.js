@@ -25,6 +25,14 @@ export function useForm() {
     }
 
     /**
+     * 重置表单
+     */
+    const reset = () => {
+        formRef.value.resetFields()
+        formRef.value.clearValidate()
+    }
+
+    /**
      * 筛选输入项
      * @param input
      * @param option
@@ -42,6 +50,7 @@ export function useForm() {
         formRef,
         formLayout,
         formButtonLayout,
+        reset,
         filterOption,
     }
 }
