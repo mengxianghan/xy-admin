@@ -9,7 +9,7 @@
             :style="siderStyle">
             <x-layout-menu :theme="theme"/>
         </a-layout-sider>
-        <a-layout>
+        <a-layout :style="{overflow: 'hidden', overflowY: 'auto'}">
             <a-layout-header :style="headerStyle"
                              :theme="theme">
                 <x-layout-header v-model:collapsed="collapsed"></x-layout-header>

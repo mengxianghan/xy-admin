@@ -3,7 +3,7 @@
         <div class="user-layout-content">
             <div class="user-layout-top">
                 <div class="user-layout-header">
-                    <img :src="require('@/assets/images/logo.png')">
+                    <img :src="require('@/assets/logo.png')">
                     <h1>{{ title }}</h1>
                 </div>
                 <div class="user-layout-desc">

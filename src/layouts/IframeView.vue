@@ -1,5 +1,6 @@
 <template>
-    <div class="iframe-container">
+    <div v-show="'iframe' === $route.meta.type"
+         class="iframe-view">
         <iframe v-for="(item) in iframeList"
                 v-show="$route.meta.url === item.meta.url"
                 :src="item.meta.url"
@@ -29,15 +30,16 @@ export default {
 .iframe {
     width: 100%;
     height: 100%;
-    border: 0;
+    border: none;
 
-    &-container {
+    @space: 12px;
+
+    &-view {
         position: absolute;
-        left: 0;
-        right: 0;
-        top: 0;
-        bottom: 0;
-        margin: -16px;
+        left: -@space;
+        right: -@space;
+        top: -@space;
+        bottom: -@space;
     }
 }
 </style>
