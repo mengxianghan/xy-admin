@@ -5,7 +5,7 @@ import {setupRouter} from '@/router'
 import './permission'
 
 import 'ant-design-vue/dist/antd.less'
-import '@/assets/styles/index.less'
+import '@/styles/index.less'
 
 if ('true' === process.env.VUE_APP_MOCK) {
     require('@/mock')
