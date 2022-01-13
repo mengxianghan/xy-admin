@@ -1,12 +1,12 @@
 import api from '@/api'
 import {useSessionStorage} from '@/utils/storage'
-import {STORE_IS_LOGIN, STORE_USER_INFO, STORE_TOKEN, STORE_PERMISSION} from '@/config/const'
+import {STORAGE_IS_LOGIN, STORAGE_USER_INFO, STORAGE_TOKEN, STORAGE_PERMISSION} from '@/constants/storage'
 
 const state = {
-    isLogin: useSessionStorage().get(STORE_IS_LOGIN, false),
-    userInfo: useSessionStorage().get(STORE_USER_INFO, null),
-    token: useSessionStorage().get(STORE_TOKEN, ''),
-    permission: useSessionStorage().get(STORE_PERMISSION, [])
+    isLogin: useSessionStorage().get(STORAGE_IS_LOGIN, false),
+    userInfo: useSessionStorage().get(STORAGE_USER_INFO, null),
+    token: useSessionStorage().get(STORAGE_TOKEN, ''),
+    permission: useSessionStorage().get(STORAGE_PERMISSION, [])
 }
 
 const getters = {
@@ -26,8 +26,8 @@ const mutations = {
     SET_IS_LOGIN(state, isLogin = false) {
         state.isLogin = isLogin
         isLogin
-            ? useSessionStorage().set(STORE_IS_LOGIN, isLogin)
-            : useSessionStorage().remove(STORE_IS_LOGIN)
+            ? useSessionStorage().set(STORAGE_IS_LOGIN, isLogin)
+            : useSessionStorage().remove(STORAGE_IS_LOGIN)
     },
     /**
      * 设置用户信息
@@ -38,8 +38,8 @@ const mutations = {
     SET_USER_INFO(state, userInfo = null) {
         state.userInfo = userInfo
         userInfo
-            ? useSessionStorage().set(STORE_USER_INFO, userInfo)
-            : useSessionStorage().remove(STORE_USER_INFO)
+            ? useSessionStorage().set(STORAGE_USER_INFO, userInfo)
+            : useSessionStorage().remove(STORAGE_USER_INFO)
     },
     /**
      * 设置 token
@@ -50,8 +50,8 @@ const mutations = {
     SET_TOKEN(state, token = '') {
         state.token = token
         token
-            ? useSessionStorage().set(STORE_TOKEN, token)
-            : useSessionStorage().remove(STORE_TOKEN)
+            ? useSessionStorage().set(STORAGE_TOKEN, token)
+            : useSessionStorage().remove(STORAGE_TOKEN)
     },
     /**
      * 设置权限列表
@@ -62,8 +62,8 @@ const mutations = {
     SET_PERMISSION(state, permission = null) {
         state.permission = permission
         permission
-            ? useSessionStorage().set(STORE_PERMISSION, permission)
-            : useSessionStorage().remove(STORE_PERMISSION)
+            ? useSessionStorage().set(STORAGE_PERMISSION, permission)
+            : useSessionStorage().remove(STORAGE_PERMISSION)
     }
 }
 
