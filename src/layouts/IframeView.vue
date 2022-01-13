@@ -32,14 +32,13 @@ export default {
     height: 100%;
     border: none;
 
-    @space: 12px;
 
     &-view {
         position: absolute;
-        left: -@space;
-        right: -@space;
-        top: -@space;
-        bottom: -@space;
+        left: -@margin-sm;
+        right: -@margin-sm;
+        top: -@margin-sm;
+        bottom: -@margin-sm;
     }
 }
 </style>
