@@ -108,7 +108,7 @@ module.exports = {
         loaderOptions: {
             less: {
                 modifyVars: {
-                    hack: `true; @import '${path.resolve(__dirname, 'src/assets/styles/vars.less')}'`,
+                    hack: `true; @import '${path.resolve(__dirname, 'src/styles/vars.less')}'`,
                 },
                 javascriptEnabled: true,
             },
