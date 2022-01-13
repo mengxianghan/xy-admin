@@ -56,7 +56,7 @@
         </x-action-bar>
         <a-table :columns="columns"
                  :pagination="pagination"
-                 :data-source="data">
+                 :data-source="list">
             <template #bodyCell="{column, record}">
                 <template v-if="column.key==='action'">
                     <x-action-button @click="$refs.editRef.handleEdit()">编辑</x-action-button>
@@ -99,27 +99,16 @@ export default {
             {title: '规则名称', dataIndex: 'name'},
             {title: '操作', key: 'action', width: 240},
         ]
-        const data = [
-            {
-                key: '1',
-                name: 'John Brown',
-            },
-            {
-                key: '2',
-                name: 'Jim Green',
-            },
-            {
-                key: '3',
-                name: 'Joe Black',
-            },
-        ]
-        const pagination = {}
+        const list = []
+        const pagination = {
+            pageSize: 20,
+        }
         const editRef = ref()
 
         return {
             columns,
             pagination,
-            data,
+            list,
             editRef,
         }
     },
