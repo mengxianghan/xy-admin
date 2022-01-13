@@ -1,7 +1,7 @@
 <template>
     <div class="x-layout-menu"
          :class="classes">
-        <div class="x-layout-menu__logo">
+        <div class="x-layout-menu__brand">
             <img :src="require('@/assets/logo.png')">
             <h1>{{ title }}</h1>
         </div>
@@ -37,8 +37,8 @@ export default {
     props: {
         theme: {
             type: String,
-            default: 'dark'
-        }
+            default: 'dark',
+        },
     },
     setup(props) {
         const store = useStore()
@@ -90,21 +90,24 @@ export default {
             selectedKeys,
             menuList,
             classes,
-            onOpenChange
+            onOpenChange,
         }
-    }
+    },
 }
 </script>
 
 <style lang="less"
        scoped>
 .x-layout-menu {
-    &__logo {
+
+    &__brand {
         display: flex;
         align-items: center;
         justify-content: center;
         height: 48px;
         white-space: nowrap;
+        position: relative;
+        z-index: 10;
 
         img {
             height: 32px;
@@ -123,13 +126,19 @@ export default {
 
     &--dark {
         h1 {
-            color: #ffffff;
+            color: #fff;
         }
     }
 
     &--light {
+        box-shadow: 0 0 0 1px @border-color-split;
+
+        .x-layout-menu__brand {
+            box-shadow: 0 0 0 1px @border-color-split;
+        }
+
         h1 {
-            color: #222222;
+            color: #222;
         }
     }
 
