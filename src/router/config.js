@@ -81,7 +81,7 @@ export const asyncRouterMap = [
     {
         path: 'list',
         name: 'list',
-        component: 'RouterViewLayout',
+        component: 'RouteViewLayout',
         meta: {
             icon: 'TableOutlined',
             title: '列表页',
@@ -106,7 +106,7 @@ export const asyncRouterMap = [
     {
         path: '',
         name: 'link',
-        component: 'RouterViewLayout',
+        component: 'RouteViewLayout',
         meta: {
             icon: 'LinkOutlined',
             title: '外部链接',
@@ -131,7 +131,7 @@ export const asyncRouterMap = [
     {
         path: 'iframe',
         name: 'iframe',
-        component: 'RouterViewLayout',
+        component: 'RouteViewLayout',
         meta: {
             icon: 'AppstoreOutlined',
             title: 'iframe',

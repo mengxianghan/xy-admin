@@ -1,4 +1,4 @@
-import {XLoading} from '@/plugins/XLoading'
+import {loading} from '@/components/XLoading'
 
 const state = {
     complete: false
@@ -28,15 +28,15 @@ const actions = {
      */
     init({commit, dispatch}) {
         return new Promise((resolve) => {
-            XLoading.show()
+            loading()
             Promise.all([
                 dispatch('router/getRouterList', null, {root: true})
             ]).then(() => {
-                XLoading.hide()
+                loading.close()
                 commit('SET_COMPLETE', true)
                 resolve()
             }).catch(() => {
-                XLoading.hide()
+                loading.close()
             })
         })
     }
