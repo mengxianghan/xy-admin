@@ -69,7 +69,7 @@ export const asyncRouterMap = [
     {
         path: 'home',
         name: 'home',
-        component: 'home',
+        component: 'home/index.vue',
         meta: {
             icon: 'HomeOutlined',
             title: '首页',
@@ -91,11 +91,11 @@ export const asyncRouterMap = [
         },
         children: [
             {
-                path: 'tableList',
-                name: 'tableList',
-                component: 'list/tableList',
+                path: 'base',
+                name: 'listBase',
+                component: 'list/base/index.vue',
                 meta: {
-                    title: '查询表格',
+                    title: '基础列表',
                     isMenu: true,
                     keepAlive: true,
                     permission: '*',
@@ -117,7 +117,7 @@ export const asyncRouterMap = [
         children: [
             {
                 path: 'https://www.baidu.com',
-                name: 'baidu',
+                name: 'linkBaidu',
                 meta: {
                     type: 'link',
                     title: '百度',
@@ -142,7 +142,7 @@ export const asyncRouterMap = [
         children: [
             {
                 path: 'vue',
-                name: 'vue',
+                name: 'iframeVue',
                 component: 'RouteViewLayout',
                 meta: {
                     type: 'iframe',
@@ -155,7 +155,7 @@ export const asyncRouterMap = [
             },
             {
                 path: 'antd',
-                name: 'antd',
+                name: 'iframeAntd',
                 component: 'RouteViewLayout',
                 meta: {
                     type: 'iframe',

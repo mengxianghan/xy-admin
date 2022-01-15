@@ -16,7 +16,7 @@
             </a-layout-header>
             <x-multi-tab></x-multi-tab>
             <a-layout-content class="layout-content">
-                <a-breadcrumb v-if="breadcrumb.length > 1"
+                <a-breadcrumb v-if="breadcrumb.length > 1 && pageType!=='iframe'"
                               class="mb-4-3">
                     <a-breadcrumb-item v-for="(item, index) in breadcrumb"
                                        :key="index">{{ item.meta.title }}
@@ -39,10 +39,10 @@
 import XLayoutHeader from '@/components/XLayoutHeader'
 import XLayoutMenu from '@/components/XLayoutMenu/XLayoutMenu'
 import XMultiTab from '@/components/XMultiTab'
+import IframeView from '@/layouts/IframeView'
 import {computed, ref} from 'vue'
 import {useStore} from 'vuex'
-import IframeView from '@/layouts/IframeView'
-import {useRouter} from 'vue-router'
+import {useRouter, onBeforeRouteUpdate} from 'vue-router'
 
 export default {
     name: 'DefaultLayout',
@@ -54,10 +54,14 @@ export default {
         const collapsed = ref(false)
         const refreshing = ref(false)
         const theme = 'dark'
-
         const cacheList = computed(() => store.getters['multiTab/cacheList'])
         const keepAlive = computed(() => store.getters['multiTab/keepAlive'])
         const breadcrumb = computed(() => router.currentRoute.value?.meta?.breadcrumb)
+        const pageType = ref('')
+
+        onBeforeRouteUpdate((to) => {
+            pageType.value = to?.meta?.type
+        })
 
         function handleToggleCollapsed() {
             collapsed.value = !collapsed.value
@@ -71,6 +75,7 @@ export default {
             cacheList,
             keepAlive,
             breadcrumb,
+            pageType,
             handleToggleCollapsed,
         }
     },

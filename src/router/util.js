@@ -1,5 +1,5 @@
 import * as layouts from '@/layouts'
-import {isFunction, omit, has} from 'lodash'
+import {isFunction, omit} from 'lodash'
 
 /**
  * 格式化路由
