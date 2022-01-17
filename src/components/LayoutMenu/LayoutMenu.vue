@@ -14,23 +14,26 @@
             <template v-for="item in menuList">
                 <a-menu-item v-if="!item.children"
                              :key="item.name">
-                    <x-layout-menu-link :data-source="item"/>
+                    <layout-menu-link :data-source="item"/>
                 </a-menu-item>
-                <x-layout-menu-sub v-else
-                                   :key="item.name"
-                                   :data-source="item"/>
+                <layout-menu-sub v-else
+                                 :key="item.name"
+                                 :data-source="item"/>
             </template>
         </a-menu>
     </div>
 </template>
 
 <script>
+import LayoutMenuLink from './LayoutMenuLink'
+import LayoutMenuSub from './LayoutMenuSub'
 import {computed, onMounted, ref, toRefs, watch} from 'vue'
 import {useStore} from 'vuex'
 import {useRoute} from 'vue-router'
 
 export default {
     name: 'LayoutMenu',
+    components: {LayoutMenuLink, LayoutMenuSub},
     props: {
         theme: {
             type: String,

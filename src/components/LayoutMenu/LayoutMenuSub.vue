@@ -2,7 +2,7 @@
     <a-sub-menu :key="dataSource.name">
         <template v-if="dataSource.meta && dataSource.meta.icon"
                   #icon>
-            <x-layout-menu-icon :name="dataSource.meta.icon"></x-layout-menu-icon>
+            <layout-menu-icon :name="dataSource.meta.icon"></layout-menu-icon>
         </template>
         <template v-if="dataSource.meta && dataSource.meta.title"
                   #title>
@@ -11,9 +11,9 @@
         <template v-for="item in dataSource.children">
             <a-menu-item v-if="!item.children"
                          :key="item.name">
-                <x-layout-menu-link :data-source="item"/>
+                <layout-menu-link :data-source="item"/>
             </a-menu-item>
-            <x-layout-menu-sub v-else
+            <layout-menu-sub v-else
                                :key="item.name"
                                :data-source="item"/>
         </template>
@@ -21,16 +21,20 @@
 </template>
 
 <script>
+import LayoutMenuIcon from './LayoutMenuIcon'
+import LayoutMenuLink from './LayoutMenuLink'
+
 export default {
     name: 'LayoutMenuSub',
+    components: {LayoutMenuIcon, LayoutMenuLink},
     props: {
         dataSource: {
             type: Object,
-            default: () => ({})
-        }
+            default: () => ({}),
+        },
     },
     setup() {
-    }
+    },
 }
 </script>
 
