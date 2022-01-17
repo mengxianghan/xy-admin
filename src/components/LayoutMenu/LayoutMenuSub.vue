@@ -21,12 +21,8 @@
 </template>
 
 <script>
-import XLayoutMenuLink from './XLayoutMenuLink'
-import XLayoutMenuIcon from './XLayoutMenuIcon'
-
 export default {
-    name: 'XLayoutMenuSub',
-    components: {XLayoutMenuLink, XLayoutMenuIcon},
+    name: 'LayoutMenuSub',
     props: {
         dataSource: {
             type: Object,

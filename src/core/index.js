@@ -1,4 +1,6 @@
 import antd from 'ant-design-vue'
+import icon from '@/plugins/icon'
+import component from '@/plugins/component'
 import {setupStore} from '@/store'
 import {setupRouter} from '@/router'
 
@@ -13,6 +15,8 @@ if ('true' === process.env.VUE_APP_MOCK) {
 
 export const useCore = (app) => {
     app.use(antd)
+    app.use(icon)
+    app.use(component)
     setupStore(app)
     setupRouter(app)
 }

@@ -12,12 +12,12 @@
                             <span v-if="current === index"
                                   class="x-multi-tab__reload-btn"
                                   @click.stop="handleReload(item)">
-                                <reload-outlined class="ma-0"
+                                <icon-reload-outlined class="ma-0"
                                                  :spin="spin"/>
                             </span>
                             <span class="x-multi-tab__close-btn"
                                   @click.stop="handleClose(item)">
-                                <close-outlined class="ma-0"/>
+                                <icon-close-outlined class="ma-0"/>
                             </span>
                         </div>
                         <template #overlay>
@@ -50,17 +50,12 @@
 </template>
 
 <script>
-import {CloseOutlined, ReloadOutlined} from '@ant-design/icons-vue'
 import {onMounted, computed, ref, nextTick} from 'vue'
 import {useStore} from 'vuex'
 import {useRouter, onBeforeRouteUpdate} from 'vue-router'
 
 export default {
-    name: 'XMultiTab',
-    components: {
-        CloseOutlined,
-        ReloadOutlined,
-    },
+    name: 'MultiTab',
     setup() {
         const store = useStore()
         const router = useRouter()

@@ -6,7 +6,7 @@
 
 <script>
 export default {
-    name: 'XSearchBar',
+    name: 'SearchBar',
     setup() {
     },
 }

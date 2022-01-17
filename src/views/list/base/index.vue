@@ -30,7 +30,7 @@
             <a-button type="primary"
                       @click="$refs.editRef.handleCreate()">
                 <template #icon>
-                    <plus-outlined/>
+                    <icon-plus-outlined/>
                 </template>
                 新建
             </a-button>
@@ -65,7 +65,7 @@
                         <a-dropdown :trigger="['click']">
                             <a>
                                 更多
-                                <down-outlined/>
+                                <icon-down-outlined/>
                             </a>
                             <template #overlay>
                                 <a-menu>
@@ -83,16 +83,12 @@
 </template>
 
 <script>
-import XActionButton from '@/components/XActionButton'
-import XActionBar from '@/components/XActionBar'
 import Edit from './components/Edit'
-import XSearchBar from '@/components/XSearchBar'
-import {PlusOutlined, DownOutlined} from '@ant-design/icons-vue'
 import {ref} from 'vue'
 
 export default {
     name: 'listBase',
-    components: {XSearchBar, XActionBar, XActionButton, Edit, PlusOutlined, DownOutlined},
+    components: {Edit},
     setup() {
         const columns = [
             {title: '序号', dataIndex: 'key'},

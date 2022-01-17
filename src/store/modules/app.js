@@ -1,4 +1,4 @@
-import {loading} from '@/components/XLoading'
+import {loading} from '@/plugins/loading'
 
 const state = {
     complete: false,

@@ -10,7 +10,7 @@
 
 <script>
 export default {
-    name: 'XActionButton',
+    name: 'ActionButton',
     props: {
         tag: {
             type: String,

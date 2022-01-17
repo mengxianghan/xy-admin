@@ -28,12 +28,9 @@
 import {computed, onMounted, ref, toRefs, watch} from 'vue'
 import {useStore} from 'vuex'
 import {useRoute} from 'vue-router'
-import XLayoutMenuLink from '@/components/XLayoutMenu/XLayoutMenuLink'
-import XLayoutMenuSub from '@/components/XLayoutMenu/XLayoutMenuSub'
 
 export default {
-    name: 'XLayoutMenu',
-    components: {XLayoutMenuSub, XLayoutMenuLink},
+    name: 'LayoutMenu',
     props: {
         theme: {
             type: String,

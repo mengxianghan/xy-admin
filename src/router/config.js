@@ -67,12 +67,12 @@ export const constantRouterMap = [
  */
 export const asyncRouterMap = [
     {
-        path: 'home',
-        name: 'home',
-        component: 'home/index.vue',
+        path: 'welcome',
+        name: 'welcome',
+        component: 'welcome/index.vue',
         meta: {
-            icon: 'HomeOutlined',
-            title: '首页',
+            icon: 'HistoryOutlined',
+            title: '欢迎页',
             isMenu: true,
             keepAlive: true,
             permission: '*',

@@ -2,14 +2,14 @@
     <header class="x-layout-header">
         <div class="x-layout-header__left">
             <div class="x-layout-header__action">
-                <component :is="collapsed ? 'menu-unfold-outlined' : 'menu-fold-outlined'"
+                <component :is="collapsed ? 'icon-menu-unfold-outlined' : 'icon-menu-fold-outlined'"
                            @click="handleToggleCollapsed"></component>
             </div>
             <a-tooltip title="返回"
                        placement="bottom"
                        class="x-layout-header__action"
                        @click="$router.back()">
-                <rollback-outlined/>
+                <icon-rollback-outlined/>
             </a-tooltip>
         </div>
         <div class="x-layout-header__right">
@@ -22,14 +22,14 @@
                             </template>
                         </a-avatar>-->
                         <span v-if="isLogin">{{ userInfo.username }}</span>
-                        <down-outlined class="ml-8-1"/>
+                        <icon-down-outlined class="ml-8-1"/>
                     </div>
                     <a-spin/>
                     <template #overlay>
                         <a-menu>
                             <a-menu-item key="logout"
                                          @click="handleLogout">
-                                <login-outlined></login-outlined>
+                                <icon-login-outlined></icon-login-outlined>
                                 退出登录
                             </a-menu-item>
                         </a-menu>
@@ -45,27 +45,9 @@ import {computed, toRefs, ref} from 'vue'
 import {useStore} from 'vuex'
 import {useRouter} from 'vue-router'
 import {Modal} from 'ant-design-vue'
-import {
-    LoginOutlined,
-    DownOutlined,
-    MenuFoldOutlined,
-    MenuUnfoldOutlined,
-    RollbackOutlined,
-    UserOutlined,
-    BellOutlined,
-} from '@ant-design/icons-vue'
 
 export default {
-    name: 'XLayoutHeader',
-    components: {
-        LoginOutlined,
-        DownOutlined,
-        MenuFoldOutlined,
-        MenuUnfoldOutlined,
-        RollbackOutlined,
-        UserOutlined,
-        BellOutlined,
-    },
+    name: 'LayoutHeader',
     props: {
         collapsed: {
             type: Boolean,

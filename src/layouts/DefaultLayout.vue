@@ -36,9 +36,6 @@
 </template>
 
 <script>
-import XLayoutHeader from '@/components/XLayoutHeader'
-import XLayoutMenu from '@/components/XLayoutMenu/XLayoutMenu'
-import XMultiTab from '@/components/XMultiTab'
 import IframeView from '@/layouts/IframeView'
 import {computed, ref} from 'vue'
 import {useStore} from 'vuex'
@@ -46,7 +43,7 @@ import {useRouter, onBeforeRouteUpdate} from 'vue-router'
 
 export default {
     name: 'DefaultLayout',
-    components: {IframeView, XMultiTab, XLayoutHeader, XLayoutMenu},
+    components: {IframeView},
     setup() {
         const store = useStore()
         const router = useRouter()

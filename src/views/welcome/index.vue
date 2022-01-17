@@ -8,7 +8,7 @@
 import {onMounted} from 'vue'
 
 export default {
-    name: 'home',
+    name: 'welcome',
     setup() {
         const title = process.env.VUE_APP_TITLE
 

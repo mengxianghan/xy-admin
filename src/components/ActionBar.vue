@@ -11,7 +11,7 @@
 
 <script>
 export default {
-    name: 'XActionBar',
+    name: 'ActionBar',
     setup() {
     }
 }
