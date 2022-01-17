@@ -1,6 +1,7 @@
 import LayoutMenu from '@/components/LayoutMenu/LayoutMenu'
 import ActionBar from '@/components/ActionBar'
 import ActionButton from '@/components/ActionButton'
+import Breadcrumb from '@/components/Breadcrumb'
 import LayoutHeader from '@/components/LayoutHeader'
 import MultiTab from '@/components/MultiTab'
 import SearchBar from '@/components/SearchBar'
@@ -10,6 +11,7 @@ export default {
         app.component('XLayoutMenu', LayoutMenu)
         app.component('XActionBar', ActionBar)
         app.component('XActionButton', ActionButton)
+        app.component('XBreadcrumb', Breadcrumb)
         app.component('XLayoutHeader', LayoutHeader)
         app.component('XMultiTab', MultiTab)
         app.component('XSearchBar', SearchBar)

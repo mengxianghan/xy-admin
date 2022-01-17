@@ -14,14 +14,11 @@
                              class="layout-header">
                 <x-layout-header v-model:collapsed="collapsed"></x-layout-header>
             </a-layout-header>
-            <x-multi-tab></x-multi-tab>
+            <!--多标签页，建议和面包屑二选一-->
+            <x-multi-tab/>
+            <!--面包屑-->
+            <!--<x-breadcrumb/>-->
             <a-layout-content class="layout-content">
-                <a-breadcrumb v-if="breadcrumb.length > 1 && pageType!=='iframe'"
-                              class="mb-4-3">
-                    <a-breadcrumb-item v-for="(item, index) in breadcrumb"
-                                       :key="index">{{ item.meta.title }}
-                    </a-breadcrumb-item>
-                </a-breadcrumb>
                 <router-view v-slot="{ Component }">
                     <keep-alive :include="cacheList">
                         <component v-if="keepAlive"
@@ -46,14 +43,12 @@ export default {
     components: {IframeView},
     setup() {
         const store = useStore()
-        const router = useRouter()
         const collapsible = ref(false)
         const collapsed = ref(false)
         const refreshing = ref(false)
         const theme = 'dark'
         const cacheList = computed(() => store.getters['multiTab/cacheList'])
         const keepAlive = computed(() => store.getters['multiTab/keepAlive'])
-        const breadcrumb = computed(() => router.currentRoute.value?.meta?.breadcrumb)
         const pageType = ref('')
 
         onBeforeRouteUpdate((to) => {
@@ -71,7 +66,6 @@ export default {
             theme,
             cacheList,
             keepAlive,
-            breadcrumb,
             pageType,
             handleToggleCollapsed,
         }
