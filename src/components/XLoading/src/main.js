@@ -6,6 +6,7 @@ let instance = null
 const close = () => {
     if (instance) {
         instance.el.parentNode.parentNode.removeChild(instance.el.parentNode)
+        instance = null
     }
 }
 
@@ -17,7 +18,7 @@ const Loading = (props) => {
     const container = document.createElement('div')
     render(instance, container)
     document.body.appendChild(container)
-    return instance
+    return Loading
 }
 
 Loading.close = () => {
