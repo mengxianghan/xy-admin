@@ -1,11 +1,11 @@
 import {loading} from '@/components/XLoading'
 
 const state = {
-    complete: false
+    complete: false,
 }
 
 const getters = {
-    complete: state => state.complete
+    complete: state => state.complete,
 }
 
 const mutations = {
@@ -17,7 +17,7 @@ const mutations = {
      */
     SET_COMPLETE(state, complete = false) {
         state.complete = complete
-    }
+    },
 }
 
 const actions = {
@@ -30,7 +30,7 @@ const actions = {
         return new Promise((resolve) => {
             loading()
             Promise.all([
-                dispatch('router/getRouterList', null, {root: true})
+                dispatch('router/getRouterList', null, {root: true}),
             ]).then(() => {
                 loading.close()
                 commit('SET_COMPLETE', true)
@@ -39,7 +39,7 @@ const actions = {
                 loading.close()
             })
         })
-    }
+    },
 }
 
 export default {
@@ -47,5 +47,5 @@ export default {
     state,
     getters,
     mutations,
-    actions
+    actions,
 }
