@@ -13,6 +13,8 @@ import {
     UserOutlined,
     BellOutlined,
     PlusOutlined,
+    ReloadOutlined,
+    CloseOutlined,
 } from '@ant-design/icons-vue'
 
 export default {
@@ -31,6 +33,8 @@ export default {
         app.component('IconUserOutlined', UserOutlined)
         app.component('IconBellOutlined', BellOutlined)
         app.component('IconPlusOutlined', PlusOutlined)
+        app.component('IconReloadOutlined', ReloadOutlined)
+        app.component('IconCloseOutlined', CloseOutlined)
         return app
     },
 }

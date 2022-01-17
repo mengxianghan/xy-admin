@@ -1,7 +1,7 @@
 {
   "name": "admin-template-next",
-  "version": "1.0.0",
-  "description": "管理系统",
+  "version": "2.0.0",
+  "description": "Admin",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve --mode local",

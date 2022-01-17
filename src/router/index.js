@@ -1,12 +1,12 @@
 import {createRouter, createWebHistory} from 'vue-router'
-import {constantRouterMap} from './config'
+import {constantRouterMap} from '@/config/router'
 
 const router = createRouter({
     history: createWebHistory(process.env.BASE_URL),
     base: process.env.VUE_APP_ROUTER_BASE,
     routes: [
-        ...constantRouterMap
-    ]
+        ...constantRouterMap,
+    ],
 })
 
 export function setupRouter(app) {

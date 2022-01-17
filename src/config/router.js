@@ -90,9 +90,9 @@ export const asyncRouterMap = [
         },
         children: [
             {
-                path: 'base',
-                name: 'listBase',
-                component: 'list/base/index.vue',
+                path: 'basic',
+                name: 'listBasic',
+                component: 'list/basic/index.vue',
                 meta: {
                     title: '基础列表',
                     isMenu: true,
@@ -115,11 +115,11 @@ export const asyncRouterMap = [
         },
         children: [
             {
-                path: 'https://www.baidu.com',
+                path: 'https://github.com/mengxianghan/xy-admin',
                 name: 'linkBaidu',
                 meta: {
                     type: 'link',
-                    title: '百度',
+                    title: 'Github',
                     target: '_blank',
                     isMenu: true,
                     permission: '*',
