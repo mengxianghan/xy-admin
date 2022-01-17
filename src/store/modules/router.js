@@ -1,5 +1,5 @@
 import router from '@/router'
-import {notFoundRouter, asyncRouterMap} from '@/config/route'
+import {notFoundRouter, asyncRouterMap} from '@/config/router'
 import {
     generateRoutes,
     getIndexRouter,

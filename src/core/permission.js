@@ -1,6 +1,6 @@
 import router from '@/router'
 import store from '@/store'
-import {whiteList} from '@/router/config'
+import {whiteList} from '@/config/router'
 
 router.beforeEach((to, form, next) => {
     const {meta} = to
