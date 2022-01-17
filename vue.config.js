@@ -1,6 +1,6 @@
-const CompressionPlugin = require('compression-webpack-plugin');
+const CompressionPlugin = require('compression-webpack-plugin')
 const path = require('path')
-const isProd = process.env.NODE_ENV !== 'development';
+const isProd = process.env.NODE_ENV !== 'development'
 
 /**
  * 获取对应的 CDN 资源
@@ -9,27 +9,27 @@ const isProd = process.env.NODE_ENV !== 'development';
  * @returns {[]}
  */
 const getAssetsCDN = (key, defaults = []) => {
-    const data = assetsCDN[key];
-    let res = data.env || defaults;
+    const data = assetsCDN[key]
+    let res = data.env || defaults
     if (data[process.env.NODE_ENV]) {
-        res = res instanceof Array ? [...res, ...data[process.env.NODE_ENV]] : {...res, ...data[process.env.NODE_ENV]};
+        res = res instanceof Array ? [...res, ...data[process.env.NODE_ENV]] : {...res, ...data[process.env.NODE_ENV]}
     }
-    return res;
-};
+    return res
+}
 
 const assetsCDN = {
     externals: {
         env: {
-            'lodash': '_',
-            'bignumber.js': 'BigNumber',
-            'jschardet': 'jschardet',
+            //'lodash': '_',
+            //'bignumber.js': 'BigNumber',
+            //'jschardet': 'jschardet',
         },
         production: {
             //'vue': 'Vue',
             //'vuex': 'Vuex',
             //'vue-router': 'VueRouter',
-            'axios': 'axios',
-            'ant-design-vue': 'antd',
+            //'axios': 'axios',
+            //'ant-design-vue': 'antd',
         },
     },
     css: {
@@ -37,19 +37,19 @@ const assetsCDN = {
     },
     js: {
         env: [
-            '//cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js',
-            '//cdn.jsdelivr.net/npm/bignumber.js@9.0.1/bignumber.min.js',
-            '//cdn.jsdelivr.net/npm/jschardet@3.0.0/dist/jschardet.min.js',
+            //'//cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js',
+            //'//cdn.jsdelivr.net/npm/bignumber.js@9.0.1/bignumber.min.js',
+            //'//cdn.jsdelivr.net/npm/jschardet@3.0.0/dist/jschardet.min.js',
         ],
         production: [
             //'//cdn.jsdelivr.net/npm/vue@3.2.19/dist/vue.global.min.js',
             //'//cdn.jsdelivr.net/npm/vue-router@3.5.2/dist/vue-router.min.js',
             //'//cdn.jsdelivr.net/npm/vuex@4.0.2/dist/vuex.global.min.js',
-            '//cdn.jsdelivr.net/npm/axios@0.22.0/dist/axios.min.js',
-            '//cdn.jsdelivr.net/npm/ant-design-vue@2.2.8/dist/antd.min.js',
+            //'//cdn.jsdelivr.net/npm/axios@0.22.0/dist/axios.min.js',
+            //'//cdn.jsdelivr.net/npm/ant-design-vue@2.2.8/dist/antd.min.js',
         ],
     },
-};
+}
 
 module.exports = {
     publicPath: process.env.VUE_APP_PUBLIC_PATH,
@@ -90,10 +90,10 @@ module.exports = {
     },
     chainWebpack: (config) => {
         config.plugin('html').tap(options => {
-            options[0].title = process.env.VUE_APP_TITLE;
-            options[0].cdn = {};
-            options[0].cdn.css = getAssetsCDN('css');
-            options[0].cdn.js = getAssetsCDN('js');
+            options[0].title = process.env.VUE_APP_TITLE
+            options[0].cdn = {}
+            options[0].cdn.css = getAssetsCDN('css')
+            options[0].cdn.js = getAssetsCDN('js')
             return options
         })
         config.module.rule('vue').use('vue-loader').tap(options => ({
@@ -114,4 +114,4 @@ module.exports = {
             },
         },
     },
-};
+}

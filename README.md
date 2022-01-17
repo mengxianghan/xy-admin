@@ -13,7 +13,7 @@ VUE_APP_PERMISSION=true/false
 #### 完整的路由结构
 ```json
 {
-  "path": "必填，路径，允许填写http://",
+  "path": "必填，路径，允许填写 http://",
   "name": "必填，路由名称，唯一",
   "component": "必填，页面",
   "redirect": "选填，跳转地址",
@@ -32,7 +32,7 @@ VUE_APP_PERMISSION=true/false
     "action": [
       "选填，根据业务需要"
     ],
-    "url": "内嵌 iframe 时，component 需指向 iframe 的视图，即：views/iframe/index.vue"
+    "url": "iframe url"
   },
   "children": []
 }
