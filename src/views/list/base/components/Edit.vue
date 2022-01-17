@@ -28,8 +28,8 @@
 </template>
 
 <script>
-import {useModal} from '@/hooks/modal'
-import {useForm} from '@/hooks/form'
+import {useModal} from '@/hooks/useModal'
+import {useForm} from '@/hooks/useForm'
 
 export default {
     name: 'Edit',
