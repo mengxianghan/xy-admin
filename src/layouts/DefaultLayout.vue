@@ -91,6 +91,18 @@ export default {
         box-shadow: 2px 0 8px 0 rgb(29 35 41 / 5%);
         position: relative;
         z-index: 1000;
+
+        &.ant-layout-sider-collapsed {
+            :deep(.x-layout-menu__brand) {
+                h1 {
+                    display: none;
+                }
+
+                img {
+                    display: block;
+                }
+            }
+        }
     }
 
     &-main {
