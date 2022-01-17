@@ -69,7 +69,7 @@ export const asyncRouterMap = [
     {
         path: 'home',
         name: 'home',
-        component: 'home',
+        component: 'home/index.vue',
         meta: {
             icon: 'HomeOutlined',
             title: '首页',
@@ -81,7 +81,7 @@ export const asyncRouterMap = [
     {
         path: 'list',
         name: 'list',
-        component: 'RouterViewLayout',
+        component: 'RouteViewLayout',
         meta: {
             icon: 'TableOutlined',
             title: '列表页',
@@ -91,11 +91,11 @@ export const asyncRouterMap = [
         },
         children: [
             {
-                path: 'tableList',
-                name: 'tableList',
-                component: 'list/tableList',
+                path: 'base',
+                name: 'listBase',
+                component: 'list/base/index.vue',
                 meta: {
-                    title: '查询表格',
+                    title: '基础列表',
                     isMenu: true,
                     keepAlive: true,
                     permission: '*',
@@ -106,7 +106,7 @@ export const asyncRouterMap = [
     {
         path: '',
         name: 'link',
-        component: 'RouterViewLayout',
+        component: 'RouteViewLayout',
         meta: {
             icon: 'LinkOutlined',
             title: '外部链接',
@@ -117,7 +117,7 @@ export const asyncRouterMap = [
         children: [
             {
                 path: 'https://www.baidu.com',
-                name: 'baidu',
+                name: 'linkBaidu',
                 meta: {
                     type: 'link',
                     title: '百度',
@@ -131,7 +131,7 @@ export const asyncRouterMap = [
     {
         path: 'iframe',
         name: 'iframe',
-        component: 'RouterViewLayout',
+        component: 'RouteViewLayout',
         meta: {
             icon: 'AppstoreOutlined',
             title: 'iframe',
@@ -142,7 +142,7 @@ export const asyncRouterMap = [
         children: [
             {
                 path: 'vue',
-                name: 'vue',
+                name: 'iframeVue',
                 component: 'RouteViewLayout',
                 meta: {
                     type: 'iframe',
@@ -155,7 +155,7 @@ export const asyncRouterMap = [
             },
             {
                 path: 'antd',
-                name: 'antd',
+                name: 'iframeAntd',
                 component: 'RouteViewLayout',
                 meta: {
                     type: 'iframe',

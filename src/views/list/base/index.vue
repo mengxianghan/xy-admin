@@ -91,7 +91,7 @@ import {PlusOutlined, DownOutlined} from '@ant-design/icons-vue'
 import {ref} from 'vue'
 
 export default {
-    name: 'tableList',
+    name: 'listBase',
     components: {XSearchBar, XActionBar, XActionButton, Edit, PlusOutlined, DownOutlined},
     setup() {
         const columns = [

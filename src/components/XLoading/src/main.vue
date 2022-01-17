@@ -7,7 +7,6 @@
 </template>
 
 <script>
-import {ref} from 'vue'
 import {Spin} from 'ant-design-vue'
 
 export default {
@@ -19,12 +18,6 @@ export default {
         }
     },
     setup() {
-        function test() {
-        }
-
-        return {
-            test
-        }
     }
 }
 </script>
