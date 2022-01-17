@@ -97,7 +97,7 @@ export default {
     display: flex;
     align-items: center;
     height: 100%;
-    padding: @padding-sm;
+    padding: @padding-md;
 
     &__left {
         display: flex;
@@ -144,7 +144,7 @@ export default {
     &__action {
         min-width: @height-base;
         height: @height-base;
-        padding: 0 @padding-sm;
+        padding: 0 @padding-md;
         display: flex;
         align-items: center;
         justify-content: center;

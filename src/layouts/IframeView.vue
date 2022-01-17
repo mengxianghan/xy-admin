@@ -35,10 +35,10 @@ export default {
 
     &-view {
         position: absolute;
-        left: -@margin-sm;
-        right: -@margin-sm;
-        top: -@margin-sm;
-        bottom: -@margin-sm;
+        left: -@margin-md;
+        right: -@margin-md;
+        top: -@margin-md;
+        bottom: -@margin-md;
     }
 }
 </style>

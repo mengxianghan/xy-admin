@@ -187,7 +187,7 @@ export default {
 
     :deep(.ant-tabs) {
         background: #fff;
-        padding: 0 @padding-sm;
+        padding: 0 @padding-md;
     }
 
     :deep(.ant-tabs-top > .ant-tabs-nav) {

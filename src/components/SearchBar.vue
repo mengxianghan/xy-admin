@@ -1,5 +1,5 @@
 <template>
-    <a-card :bordered="false">
+    <a-card v-bind="$attrs">
         <slot></slot>
     </a-card>
 </template>

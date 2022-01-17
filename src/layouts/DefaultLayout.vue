@@ -112,7 +112,7 @@ export default {
     }
 
     &-content {
-        margin: @margin-sm;
+        margin: @margin-md;
         min-height: auto;
         position: relative;
     }

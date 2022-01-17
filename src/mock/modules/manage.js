@@ -1,9 +1,7 @@
 import Mock from 'mockjs'
 import {builder} from '../util'
 
-/**
- * 登录
- */
+// 获取动态列表
 Mock.mock(new RegExp('/manage/getDynamicList'), 'post', options => {
     const data = Mock.mock({
         'list|5': [{

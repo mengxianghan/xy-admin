@@ -100,6 +100,17 @@ export const asyncRouterMap = [
                     permission: '*',
                 },
             },
+            {
+                path: 'card',
+                name: 'listCard',
+                component: 'list/card/index.vue',
+                meta: {
+                    title: '卡片列表',
+                    isMenu: true,
+                    keepAlive: true,
+                    permission: '*',
+                },
+            },
         ],
     },
     {

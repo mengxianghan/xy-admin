@@ -1,7 +1,7 @@
 <template>
     <x-search-bar class="mb-8-2">
         <a-form layout="inline">
-            <a-row :gutter="12">
+            <a-row :gutter="16">
                 <a-col :span="6">
                     <a-form-item label="标题">
                         <a-input></a-input>
@@ -25,7 +25,7 @@
             </a-row>
         </a-form>
     </x-search-bar>
-    <a-card :bordered="false">
+    <a-card>
         <x-action-bar class="mb-8-2">
             <a-button type="primary"
                       @click="$refs.editRef.handleCreate()">
@@ -56,11 +56,20 @@
         </x-action-bar>
         <a-table :columns="columns"
                  :pagination="pagination"
-                 :data-source="list">
-            <template #bodyCell="{column, record}">
-                <template v-if="column.key==='action'">
+                 :data-source="list"
+                 :loading="loading"
+                 row-key="id"
+                 @change="onTableChange">
+            <template #bodyCell="{column, record, index}">
+                <template v-if="'no' === column.key">{{ index + 1 }}</template>
+                <template v-if="'action' === column.key">
                     <x-action-button @click="$refs.editRef.handleEdit()">编辑</x-action-button>
-                    <x-action-button>删除</x-action-button>
+                    <x-action-button>
+                        <a-popconfirm title="确认删除？"
+                                      @confirm="onDeleteConfirm">
+                            删除
+                        </a-popconfirm>
+                    </x-action-button>
                     <x-action-button tag="span">
                         <a-dropdown :trigger="['click']">
                             <a>
@@ -69,7 +78,9 @@
                             </a>
                             <template #overlay>
                                 <a-menu>
-                                    <a-menu-item>123</a-menu-item>
+                                    <a-menu-item>菜单 1</a-menu-item>
+                                    <a-menu-item>菜单 2</a-menu-item>
+                                    <a-menu-item>菜单 3</a-menu-item>
                                 </a-menu>
                             </template>
                         </a-dropdown>
@@ -84,28 +95,85 @@
 
 <script>
 import Edit from './components/Edit'
-import {ref} from 'vue'
+import {getCurrentInstance, onMounted, ref} from 'vue'
+import {usePagination} from '@/hooks/usePagination'
+import {message} from 'ant-design-vue'
 
 export default {
     name: 'listBase',
     components: {Edit},
-    setup() {
+    setup(ctx) {
         const columns = [
-            {title: '序号', dataIndex: 'key'},
-            {title: '规则名称', dataIndex: 'name'},
-            {title: '操作', key: 'action', width: 240},
+            {title: '序号', key: 'no', width: 64, align: 'center'},
+            {title: '标题', dataIndex: 'title'},
+            {title: '操作', key: 'action', width: 180},
         ]
-        const list = []
-        const pagination = {
-            pageSize: 20,
-        }
+        const {$api} = getCurrentInstance().appContext.config.globalProperties
+        const {list, pagination, loading} = usePagination()
         const editRef = ref()
+
+        /**
+         * 获取分页列表
+         */
+        async function getPageList() {
+            try {
+                const {pageSize, current} = pagination
+                loading.value = true
+                const {code, data} = await $api.data.getPageList({
+                    pageSize,
+                    pageIndex: current,
+                }).catch(() => {
+                    loading.value = false
+                })
+                loading.value = false
+                if ('200' === code) {
+                    list.value = data.list
+                    pagination.value = {
+                        ...pagination.value,
+                        total: data.total,
+                    }
+                }
+            } catch (err) {
+                loading.value = false
+            }
+        }
+
+        /**
+         * 表格发生改变
+         * @param current
+         * @param pageSize
+         */
+        function onTableChange({current, pageSize}) {
+            pagination.value = {
+                ...pagination.value,
+                current,
+                pageSize,
+            }
+            getPageList()
+        }
+
+        /**
+         * 删除确认
+         */
+        function onDeleteConfirm() {
+            message.success('删除成功')
+            getPageList()
+        }
+
+        onMounted(() => {
+            getPageList()
+
+            console.log(ctx)
+        })
 
         return {
             columns,
+            editRef,
             pagination,
             list,
-            editRef,
+            loading,
+            onTableChange,
+            onDeleteConfirm,
         }
     },
 }

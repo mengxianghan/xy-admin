@@ -15,6 +15,9 @@ import {
     PlusOutlined,
     ReloadOutlined,
     CloseOutlined,
+    SettingOutlined,
+    EllipsisOutlined,
+    EditOutlined
 } from '@ant-design/icons-vue'
 
 export default {
@@ -35,6 +38,9 @@ export default {
         app.component('IconPlusOutlined', PlusOutlined)
         app.component('IconReloadOutlined', ReloadOutlined)
         app.component('IconCloseOutlined', CloseOutlined)
+        app.component('IconSettingOutlined', SettingOutlined)
+        app.component('IconEllipsisOutlined', EllipsisOutlined)
+        app.component('IconEditOutlined', EditOutlined)
         return app
     },
 }
