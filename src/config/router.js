@@ -128,6 +128,17 @@ export const asyncRouterMap = [
                     permission: '*',
                 },
             },
+            {
+                path: 'search',
+                name: 'listSearch',
+                component: 'list/search/index.vue',
+                meta: {
+                    title: '搜索列表',
+                    isMenu: true,
+                    keepAlive: true,
+                    permission: '*',
+                },
+            },
         ],
     },
     {
