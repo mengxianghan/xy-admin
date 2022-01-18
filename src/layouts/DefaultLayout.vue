@@ -3,6 +3,7 @@
         <a-layout-sider
             :collapsed="collapsed"
             :collapsible="collapsible"
+            :collapsed-width="48"
             breakpoint="lg"
             :theme="theme"
             :width="208"

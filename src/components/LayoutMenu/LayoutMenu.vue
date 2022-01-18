@@ -116,7 +116,7 @@ export default {
         }
 
         h1 {
-            font-size: 20px;
+            font-size: 18px;
             margin: 0;
             padding: 0 12px;
             text-overflow: ellipsis;
@@ -159,6 +159,11 @@ export default {
     :deep(.ant-menu-submenu-title) {
         display: flex;
         align-items: center;
+    }
+
+    :deep(.ant-menu.ant-menu-inline-collapsed > .ant-menu-submenu > .ant-menu-submenu-title),
+    :deep(.ant-menu.ant-menu-inline-collapsed > .ant-menu-item) {
+        padding: 0 @padding-md;
     }
 }
 

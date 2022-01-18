@@ -1,9 +1,9 @@
 <template>
     <header class="x-layout-header">
         <div class="x-layout-header__left">
-            <div class="x-layout-header__action">
-                <component :is="collapsed ? 'icon-menu-unfold-outlined' : 'icon-menu-fold-outlined'"
-                           @click="handleToggleCollapsed"></component>
+            <div class="x-layout-header__action"
+                 @click="handleToggleCollapsed">
+                <component :is="collapsed ? 'icon-menu-unfold-outlined' : 'icon-menu-fold-outlined'"></component>
             </div>
             <a-tooltip title="返回"
                        placement="bottom"
@@ -41,7 +41,7 @@
 </template>
 
 <script>
-import {computed, toRefs, ref} from 'vue'
+import {computed, toRefs} from 'vue'
 import {useStore} from 'vuex'
 import {useRouter} from 'vue-router'
 import {Modal} from 'ant-design-vue'
