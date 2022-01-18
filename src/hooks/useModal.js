@@ -1,6 +1,6 @@
 import {ref} from 'vue'
 
-export function useModal() {
+export default () => {
     const modal = ref({
         type: '',
         title: '',

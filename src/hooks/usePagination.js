@@ -1,6 +1,6 @@
 import {ref} from 'vue'
 
-export function usePagination() {
+export default (options = {}) => {
     const loading = ref(false)
     const list = ref([])
     const pagination = ref({
@@ -11,6 +11,7 @@ export function usePagination() {
         showQuickJumper: true,
         showTotal: (total, range) => `总 ${total} 条数据`,
         pageSizeOptions: ['10', '20', '30', '40'],
+        ...options ?? {},
     })
 
     /**
@@ -19,9 +20,7 @@ export function usePagination() {
     function resetPagination() {
         pagination.value = {
             ...pagination.value,
-            total: 0,
             current: 1,
-            pageSize: 10,
         }
     }
 
@@ -29,5 +28,6 @@ export function usePagination() {
         loading,
         list,
         pagination,
+        resetPagination,
     }
 }

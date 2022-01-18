@@ -65,14 +65,15 @@
 </template>
 
 <script>
-import {computed, onMounted, getCurrentInstance, ref} from 'vue'
+import {computed, onMounted, ref} from 'vue'
 import {useStore} from 'vuex'
 import {timeFix} from '@/utils'
+
+import * as dataApi from '@/api/modules/data'
 
 export default {
     name: 'welcome',
     setup() {
-        const {$api} = getCurrentInstance().appContext.config.globalProperties
         const store = useStore()
         const title = process.env.VUE_APP_TITLE
         const userInfo = computed(() => store.getters['user/userInfo'])
@@ -80,7 +81,7 @@ export default {
         const dynamicList = ref([])
 
         const getDynamicList = async () => {
-            const {code, data} = await $api.manage.getDynamicList()
+            const {code, data} = await dataApi.getDynamicList()
             if ('200' === code) {
                 dynamicList.value = data
             }

@@ -28,14 +28,14 @@
 </template>
 
 <script>
-import {useModal} from '@/hooks/useModal'
-import {useForm} from '@/hooks/useForm'
+import useModal from '@/hooks/useModal'
+import useForm from '@/hooks/useForm'
 
 export default {
     name: 'Edit',
     setup() {
         const {modal, showModal, hideModal, showLoading, hideLoading} = useModal()
-        const {formRef, rules, model, form, reset} = useForm()
+        const {formRef, rules, model, form, resetForm} = useForm()
 
         form.rules = {
             txt1: {required: true, message: '请输入字段 1'},
@@ -85,7 +85,7 @@ export default {
          * 完全关闭后回调
          */
         const onAfterClose = () => {
-            reset()
+            resetForm()
         }
 
         return {

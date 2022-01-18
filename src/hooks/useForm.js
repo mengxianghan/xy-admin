@@ -1,6 +1,6 @@
 import {reactive, ref, toRefs} from 'vue'
 
-export function useForm() {
+export default () => {
     const formRef = ref({})
     const form = reactive({
         model: {},
@@ -27,7 +27,7 @@ export function useForm() {
     /**
      * 重置表单
      */
-    const reset = () => {
+    const resetForm = () => {
         formRef.value.resetFields()
         formRef.value.clearValidate()
     }
@@ -50,7 +50,7 @@ export function useForm() {
         formRef,
         formLayout,
         formButtonLayout,
-        reset,
+        resetForm,
         filterOption,
     }
 }

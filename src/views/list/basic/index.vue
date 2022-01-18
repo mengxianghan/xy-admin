@@ -19,7 +19,8 @@
                 </a-col>
                 <a-col :span="6">
                     <a-button type="primary"
-                              ghost>搜索
+                              ghost
+                              @click="handleSearch">搜索
                     </a-button>
                 </a-col>
             </a-row>
@@ -46,7 +47,8 @@
                             </a-col>
                             <a-col>
                                 <a-button type="primary"
-                                          ghost>搜索
+                                          ghost
+                                          @click="handleSearch">搜索
                                 </a-button>
                             </a-col>
                         </a-row>
@@ -94,13 +96,14 @@
 </template>
 
 <script>
-import Edit from './components/Edit'
-import {getCurrentInstance, onMounted, ref} from 'vue'
-import {usePagination} from '@/hooks/usePagination'
+import {onMounted, ref} from 'vue'
 import {message} from 'ant-design-vue'
+import Edit from './components/Edit'
+import usePagination from '@/hooks/usePagination'
+import * as dataApi from '@/api/modules/data'
 
 export default {
-    name: 'listBase',
+    name: 'listBasic',
     components: {Edit},
     setup(ctx) {
         const columns = [
@@ -108,8 +111,7 @@ export default {
             {title: '标题', dataIndex: 'title'},
             {title: '操作', key: 'action', width: 180},
         ]
-        const {$api} = getCurrentInstance().appContext.config.globalProperties
-        const {list, pagination, loading} = usePagination()
+        const {list, pagination, loading, resetPagination} = usePagination()
         const editRef = ref()
 
         /**
@@ -119,23 +121,28 @@ export default {
             try {
                 const {pageSize, current} = pagination
                 loading.value = true
-                const {code, data} = await $api.data.getPageList({
+                const {code, data} = await dataApi.getPageList({
                     pageSize,
-                    pageIndex: current,
+                    page: current,
                 }).catch(() => {
                     loading.value = false
                 })
                 loading.value = false
                 if ('200' === code) {
                     list.value = data.list
-                    pagination.value = {
-                        ...pagination.value,
-                        total: data.total,
-                    }
+                    pagination.value.total = data.total
                 }
             } catch (err) {
                 loading.value = false
             }
+        }
+
+        /**
+         * 搜索
+         */
+        function handleSearch() {
+            resetPagination()
+            getPageList()
         }
 
         /**
@@ -144,11 +151,8 @@ export default {
          * @param pageSize
          */
         function onTableChange({current, pageSize}) {
-            pagination.value = {
-                ...pagination.value,
-                current,
-                pageSize,
-            }
+            pagination.value.current = current
+            pagination.value.pageSize = pageSize
             getPageList()
         }
 
@@ -167,11 +171,12 @@ export default {
         })
 
         return {
-            columns,
             editRef,
-            pagination,
-            list,
+            columns,
             loading,
+            list,
+            pagination,
+            handleSearch,
             onTableChange,
             onDeleteConfirm,
         }

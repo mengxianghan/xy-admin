@@ -1,50 +1,77 @@
 <template>
-    <a-list :grid="{gutter: 16, column: 4}"
-            :data-source="list">
+    <a-list :data-source="list"
+            :grid="{ gutter: 16, sm: 1, md: 2, lg: 4, xl: 6, xxl: 6 }"
+            :loading="loading">
         <template #renderItem="{item}">
-            <a-list-item>
-                <a-card hoverable>
-                    <a-card-meta :title="item.title">
-                        <template #avatar>
-                            <a-avatar :src="item.avatar"/>
+            <template v-if="!item.id">
+                <a-list-item>
+                    <a-card :body-style="{padding: 0}">
+                        <a-button type="dashed"
+                                  class="create-btn">
+                            <icon-plus-outlined/>
+                            新增
+                        </a-button>
+                    </a-card>
+                </a-list-item>
+            </template>
+            <template v-else>
+                <a-list-item>
+                    <a-card>
+                        <a-card-meta :title="item.title">
+                            <template #avatar>
+                                <a-avatar :src="item.avatar"/>
+                            </template>
+                            <template #description>
+                                <a-typography-paragraph :ellipsis="{rows: 3}"
+                                                        :content="item.desc"/>
+                            </template>
+                        </a-card-meta>
+                        <template #actions>
+                            <icon-setting-outlined key="setting"/>
+                            <icon-edit-outlined key="edit"/>
+                            <a-dropdown :trigger="['click']">
+                                <icon-ellipsis-outlined key="ellipsis"/>
+                                <template #overlay>
+                                    <a-menu>
+                                        <a-menu-item>菜单 1</a-menu-item>
+                                        <a-menu-item>菜单 2</a-menu-item>
+                                        <a-menu-item>菜单 3</a-menu-item>
+                                    </a-menu>
+                                </template>
+                            </a-dropdown>
                         </template>
-                        <template #description>
-                            <a-typography-paragraph :ellipsis="{rows: 3}">
-                                {{item.desc}}
-                            </a-typography-paragraph>
-                        </template>
-                    </a-card-meta>
-                    <template #actions>
-                        <icon-setting-outlined key="setting"/>
-                        <icon-edit-outlined key="edit"/>
-                        <icon-ellipsis-outlined key="ellipsis"/>
-                    </template>
-                </a-card>
-            </a-list-item>
+                    </a-card>
+                </a-list-item>
+            </template>
         </template>
     </a-list>
 </template>
 
 <script>
-import {getCurrentInstance, onMounted, ref} from 'vue'
+import {onMounted} from 'vue'
+import * as dataApi from '@/api/modules/data'
+import usePagination from '@/hooks/usePagination'
 
 export default {
     name: 'listCard',
     setup() {
-        const {$api} = getCurrentInstance().appContext.config.globalProperties
-        const list = ref([])
+        const {loading, list} = usePagination()
 
         /**
          * 获取分页列表
          */
         const getPageList = async () => {
             try {
-                const {code, data} = await $api.data.getPageList()
+                loading.value = true
+                const {code, data} = await dataApi.getPageList().catch(() => {
+                    throw new Error()
+                })
+                loading.value = false
                 if ('200' === code) {
-                    list.value = data.list
+                    list.value = [{}, ...data.list]
                 }
             } catch (err) {
-
+                loading.value = false
             }
         }
 
@@ -53,12 +80,17 @@ export default {
         })
 
         return {
+            loading,
             list,
         }
     },
 }
 </script>
 
-<style scoped>
-
+<style lang="less"
+       scoped>
+.create-btn {
+    width: 100%;
+    height: 187px;
+}
 </style>
