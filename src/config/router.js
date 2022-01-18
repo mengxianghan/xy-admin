@@ -62,7 +62,7 @@ export const asyncRouterMap = [
         name: 'welcome',
         component: 'welcome/index.vue',
         meta: {
-            icon: 'HeartOutlined',
+            icon: 'SmileOutlined',
             title: '欢迎页',
             isMenu: true,
             keepAlive: true,
@@ -181,6 +181,31 @@ export const asyncRouterMap = [
                 component: 'exception/500.vue',
                 meta: {
                     title: '500',
+                    isMenu: true,
+                    keepAlive: true,
+                    permission: '*',
+                },
+            },
+        ],
+    },
+    {
+        path: 'user',
+        name: 'user',
+        component: 'RouteViewLayout',
+        meta: {
+            icon: 'UserOutlined',
+            title: '个人页',
+            isMenu: true,
+            keepAlive: true,
+            permission: '*',
+        },
+        children: [
+            {
+                path: 'setting',
+                name: 'userSetting',
+                component: 'user/setting/index.vue',
+                meta: {
+                    title: '个人设置',
                     isMenu: true,
                     keepAlive: true,
                     permission: '*',
