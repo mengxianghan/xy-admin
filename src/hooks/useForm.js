@@ -3,7 +3,7 @@ import {reactive, ref, toRefs} from 'vue'
 export default () => {
     const formRef = ref({})
     const form = reactive({
-        model: {},
+        formState: {},
         rules: {},
         record: {},
     })

@@ -7,21 +7,21 @@
              @ok="handleOk"
              @cancel="handleCancel">
         <a-form ref="formRef"
-                :model="model"
+                :model="formState"
                 :rules="rules"
                 scroll-to-first-error
                 layout="vertical">
             <a-form-item label="字段 1"
                          name="txt1">
-                <a-input v-model:value="model.txt1"></a-input>
+                <a-input v-model:value="formState.txt1"></a-input>
             </a-form-item>
             <a-form-item label="字段 2"
                          name="txt2">
-                <a-input v-model:value="model.txt2"></a-input>
+                <a-input v-model:value="formState.txt2"></a-input>
             </a-form-item>
             <a-form-item label="字段 3"
                          name="txt3">
-                <a-input v-model:value="model.txt3"></a-input>
+                <a-input v-model:value="formState.txt3"></a-input>
             </a-form-item>
         </a-form>
     </a-modal>
@@ -35,7 +35,7 @@ export default {
     name: 'Edit',
     setup() {
         const {modal, showModal, hideModal, showLoading, hideLoading} = useModal()
-        const {formRef, rules, model, form, resetForm} = useForm()
+        const {formRef, rules, formState, form, resetForm} = useForm()
 
         form.rules = {
             txt1: {required: true, message: '请输入字段 1'},
@@ -97,7 +97,7 @@ export default {
             onAfterClose,
             formRef,
             rules,
-            model,
+            formState,
         }
     },
 }

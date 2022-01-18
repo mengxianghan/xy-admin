@@ -20,7 +20,8 @@ import {
     EditOutlined,
     WarningOutlined,
     HeartOutlined,
-    FormOutlined
+    FormOutlined,
+    InfoCircleOutlined
 } from '@ant-design/icons-vue'
 
 export default {
@@ -47,6 +48,7 @@ export default {
         app.component('IconWarningOutlined', WarningOutlined)
         app.component('IconHeartOutlined', HeartOutlined)
         app.component('IconFormOutlined', FormOutlined)
+        app.component('IconInfoCircleOutlined', InfoCircleOutlined)
         return app
     },
 }
