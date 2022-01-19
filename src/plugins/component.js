@@ -1,4 +1,4 @@
-import LayoutMenu from '@/components/LayoutMenu/LayoutMenu'
+import LayoutMenu from '@/components/LayoutMenu'
 import ActionBar from '@/components/ActionBar'
 import ActionButton from '@/components/ActionButton'
 import Breadcrumb from '@/components/Breadcrumb'
