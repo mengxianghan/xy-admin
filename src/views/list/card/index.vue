@@ -1,6 +1,6 @@
 <template>
     <a-list :data-source="list"
-            :grid="{ gutter: 16, sm: 1, md: 2, lg: 4, xl: 6, xxl: 6 }"
+            :grid="{ gutter: 16, sm: 1, md: 2, lg: 4, xl: 4, xxl: 6 }"
             :loading="loading">
         <template #renderItem="{item}">
             <template v-if="!item.id">

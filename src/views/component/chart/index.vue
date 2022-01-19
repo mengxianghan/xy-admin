@@ -3,37 +3,37 @@
         <a-col :span="8">
             <a-card class="mb-8-2">
                 <x-chart :option="option"
-                         :height="400"></x-chart>
+                         :height="320"></x-chart>
             </a-card>
         </a-col>
         <a-col :span="8">
             <a-card class="mb-8-2">
                 <x-chart :option="option2"
-                         :height="400"></x-chart>
+                         :height="320"></x-chart>
             </a-card>
         </a-col>
         <a-col :span="8">
             <a-card class="mb-8-2">
                 <x-chart :option="option3"
-                         :height="400"></x-chart>
+                         :height="320"></x-chart>
             </a-card>
         </a-col>
         <a-col :span="8">
             <a-card class="mb-8-2">
                 <x-chart :option="option4"
-                         :height="400"></x-chart>
+                         :height="320"></x-chart>
             </a-card>
         </a-col>
         <a-col :span="8">
             <a-card class="mb-8-2">
                 <x-chart :option="option5"
-                         :height="400"></x-chart>
+                         :height="320"></x-chart>
             </a-card>
         </a-col>
         <a-col :span="8">
             <a-card class="mb-8-2">
                 <x-chart :option="option6"
-                         :height="400"></x-chart>
+                         :height="320"></x-chart>
             </a-card>
         </a-col>
     </a-row>
