@@ -2,6 +2,7 @@ import LayoutMenu from '@/components/LayoutMenu'
 import ActionBar from '@/components/ActionBar'
 import ActionButton from '@/components/ActionButton'
 import Breadcrumb from '@/components/Breadcrumb'
+import Chart from '@/components/Chart'
 import Filter from '@/components/Filter'
 import FilterItem from '@/components/FilterItem'
 import LayoutHeader from '@/components/LayoutHeader'
@@ -14,6 +15,7 @@ export default {
         app.component('XActionBar', ActionBar)
         app.component('XActionButton', ActionButton)
         app.component('XBreadcrumb', Breadcrumb)
+        app.component('XChart', Chart)
         app.component('XFilter', Filter)
         app.component('XFilterItem', FilterItem)
         app.component('XLayoutHeader', LayoutHeader)

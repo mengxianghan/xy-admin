@@ -314,4 +314,29 @@ export const asyncRouterMap = [
             },
         ],
     },
+    {
+        path: 'component',
+        name: 'component',
+        component: 'RouteViewLayout',
+        meta: {
+            icon: 'IconAppstoreAddOutlined',
+            title: '组件',
+            isMenu: true,
+            keepAlive: true,
+            permission: '*',
+        },
+        children: [
+            {
+                path: 'chart',
+                name: 'componentChart',
+                component: 'component/chart/index.vue',
+                meta: {
+                    title: '图表 Echarts',
+                    isMenu: true,
+                    keepAlive: true,
+                    permission: '*',
+                },
+            },
+        ],
+    },
 ]

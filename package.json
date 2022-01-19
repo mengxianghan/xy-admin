@@ -17,6 +17,7 @@
     "axios": "^0.24.0",
     "core-js": "^3.6.5",
     "dayjs": "^1.10.7",
+    "echarts": "^5.2.2",
     "jschardet": "^3.0.0",
     "json-bigint": "^1.0.0",
     "lodash": "^4.17.21",
