@@ -337,6 +337,17 @@ export const asyncRouterMap = [
                     permission: '*',
                 },
             },
+            {
+                path: 'editor',
+                name: 'componentEditor',
+                component: 'component/editor/index.vue',
+                meta: {
+                    title: '富文本编辑器',
+                    isMenu: true,
+                    keepAlive: true,
+                    permission: '*',
+                },
+            },
         ],
     },
 ]
