@@ -189,6 +189,42 @@ export const asyncRouterMap = [
         ],
     },
     {
+        path: 'result',
+        name: 'result',
+        component: 'RouteViewLayout',
+        meta: {
+            icon: 'UserOutlined',
+            title: '结果页',
+            isMenu: true,
+            keepAlive: true,
+            permission: '*',
+        },
+        children: [
+            {
+                path: 'success',
+                name: 'resultSuccess',
+                component: 'result/success/index.vue',
+                meta: {
+                    title: '成功页',
+                    isMenu: true,
+                    keepAlive: true,
+                    permission: '*',
+                },
+            },
+            {
+                path: 'fail',
+                name: 'resultFail',
+                component: 'result/fail/index.vue',
+                meta: {
+                    title: '失败页',
+                    isMenu: true,
+                    keepAlive: true,
+                    permission: '*',
+                },
+            },
+        ],
+    },
+    {
         path: 'user',
         name: 'user',
         component: 'RouteViewLayout',
