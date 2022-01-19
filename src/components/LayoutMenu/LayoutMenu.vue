@@ -25,11 +25,12 @@
 </template>
 
 <script>
-import LayoutMenuLink from './LayoutMenuLink'
-import LayoutMenuSub from './LayoutMenuSub'
 import {computed, onMounted, ref, toRefs, watch} from 'vue'
 import {useStore} from 'vuex'
 import {useRoute} from 'vue-router'
+
+import LayoutMenuLink from './LayoutMenuLink'
+import LayoutMenuSub from './LayoutMenuSub'
 
 export default {
     name: 'LayoutMenu',

@@ -3,8 +3,8 @@
        :href="dataSource.path"
        :target="dataSource.meta.target"
        rel="opener">
-        <layout-menu-icon v-if="dataSource.meta.icon"
-                            :name="dataSource.meta.icon"/>
+        <component v-if="dataSource.meta.icon"
+                   :is="dataSource.meta.icon"/>
         <span>{{ dataSource.meta.title }}</span>
     </a>
     <router-link v-else
@@ -15,25 +15,23 @@
                  tag="a"
                  :target="dataSource.meta.target"
                  rel="opener">
-        <layout-menu-icon v-if="dataSource.meta.icon"
-                            :name="dataSource.meta.icon"/>
+        <component v-if="dataSource.meta.icon"
+                   :is="dataSource.meta.icon"/>
         <span>{{ dataSource.meta.title }}</span>
     </router-link>
 </template>
 
 <script>
-import LayoutMenuIcon from './LayoutMenuIcon'
 export default {
     name: 'LayoutMenuLink',
-    components:{LayoutMenuIcon},
     props: {
         dataSource: {
             type: Object,
-            default: () => ({})
-        }
+            default: () => ({}),
+        },
     },
     setup() {
-    }
+    },
 }
 </script>
 

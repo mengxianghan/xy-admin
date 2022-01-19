@@ -25,6 +25,7 @@ import {
     SmileOutlined,
     CloseCircleOutlined,
     RightOutlined,
+    CheckCircleOutlined
 } from '@ant-design/icons-vue'
 
 export default {
@@ -55,6 +56,7 @@ export default {
         app.component('IconSmileOutlined', SmileOutlined)
         app.component('IconCloseCircleOutlined', CloseCircleOutlined)
         app.component('IconRightOutlined', RightOutlined)
+        app.component('IconCheckCircleOutlined', CheckCircleOutlined)
         return app
     },
 }

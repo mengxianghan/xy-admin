@@ -62,7 +62,7 @@ export const asyncRouterMap = [
         name: 'welcome',
         component: 'welcome/index.vue',
         meta: {
-            icon: 'SmileOutlined',
+            icon: 'IconSmileOutlined',
             title: '欢迎页',
             isMenu: true,
             keepAlive: true,
@@ -74,7 +74,7 @@ export const asyncRouterMap = [
         name: 'form',
         component: 'RouteViewLayout',
         meta: {
-            icon: 'FormOutlined',
+            icon: 'IconFormOutlined',
             title: '表单页',
             isMenu: true,
             keepAlive: true,
@@ -99,7 +99,7 @@ export const asyncRouterMap = [
         name: 'list',
         component: 'RouteViewLayout',
         meta: {
-            icon: 'TableOutlined',
+            icon: 'IconTableOutlined',
             title: '列表页',
             isMenu: true,
             keepAlive: true,
@@ -146,7 +146,7 @@ export const asyncRouterMap = [
         name: 'exception',
         component: 'RouteViewLayout',
         meta: {
-            icon: 'WarningOutlined',
+            icon: 'IconWarningOutlined',
             title: '异常页',
             isMenu: true,
             keepAlive: true,
@@ -193,7 +193,7 @@ export const asyncRouterMap = [
         name: 'result',
         component: 'RouteViewLayout',
         meta: {
-            icon: 'UserOutlined',
+            icon: 'IconCheckCircleOutlined',
             title: '结果页',
             isMenu: true,
             keepAlive: true,
@@ -229,7 +229,7 @@ export const asyncRouterMap = [
         name: 'user',
         component: 'RouteViewLayout',
         meta: {
-            icon: 'UserOutlined',
+            icon: 'IconUserOutlined',
             title: '个人页',
             isMenu: true,
             keepAlive: true,
@@ -254,7 +254,7 @@ export const asyncRouterMap = [
         name: 'link',
         component: 'RouteViewLayout',
         meta: {
-            icon: 'LinkOutlined',
+            icon: 'IconLinkOutlined',
             title: '外部链接',
             isMenu: true,
             keepAlive: false,
@@ -279,7 +279,7 @@ export const asyncRouterMap = [
         name: 'iframe',
         component: 'RouteViewLayout',
         meta: {
-            icon: 'AppstoreOutlined',
+            icon: 'IconAppstoreOutlined',
             title: 'iframe',
             isMenu: true,
             keepAlive: true,

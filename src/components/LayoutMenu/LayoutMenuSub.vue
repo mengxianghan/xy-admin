@@ -2,7 +2,7 @@
     <a-sub-menu :key="dataSource.name">
         <template v-if="dataSource.meta && dataSource.meta.icon"
                   #icon>
-            <layout-menu-icon :name="dataSource.meta.icon"></layout-menu-icon>
+            <component :is="dataSource.meta.icon"/>
         </template>
         <template v-if="dataSource.meta && dataSource.meta.title"
                   #title>
@@ -14,19 +14,18 @@
                 <layout-menu-link :data-source="item"/>
             </a-menu-item>
             <layout-menu-sub v-else
-                               :key="item.name"
-                               :data-source="item"/>
+                             :key="item.name"
+                             :data-source="item"/>
         </template>
     </a-sub-menu>
 </template>
 
 <script>
-import LayoutMenuIcon from './LayoutMenuIcon'
 import LayoutMenuLink from './LayoutMenuLink'
 
 export default {
     name: 'LayoutMenuSub',
-    components: {LayoutMenuIcon, LayoutMenuLink},
+    components: {LayoutMenuLink},
     props: {
         dataSource: {
             type: Object,
