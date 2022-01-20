@@ -100,8 +100,12 @@ export default {
 <style lang="less"
        scoped>
 .x-layout-menu {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
 
     &__brand {
+        flex-shrink: 0;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -143,14 +147,36 @@ export default {
         }
     }
 
-    .ant-menu {
-        height: calc(100vh - 48px);
+    :deep(.ant-menu) {
+        flex-grow: 1;
         overflow: hidden;
         overflow-y: auto;
         border: none;
+
+        &-dark {
+            &::-webkit-scrollbar-thumb {
+                background-color: rgba(255, 255, 255, .2)
+            }
+        }
+
+        &-light {
+            &::-webkit-scrollbar-thumb {
+                background-color: rgba(0, 0, 0, 0.2);
+            }
+        }
+
+        &::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+            background-color: transparent;
+        }
+
+        &::-webkit-scrollbar-thumb {
+            border-radius: 6px;
+        }
     }
 
-    .ant-menu-item {
+    :deep(.ant-menu-item) {
         a {
             display: flex;
             align-items: center;
