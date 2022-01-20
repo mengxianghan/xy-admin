@@ -166,8 +166,6 @@ export default {
 
         onMounted(() => {
             getPageList()
-
-            console.log(ctx)
         })
 
         return {

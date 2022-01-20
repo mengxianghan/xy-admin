@@ -13,7 +13,7 @@
                                   class="x-multi-tab__reload-btn"
                                   @click.stop="handleReload(item)">
                                 <icon-reload-outlined class="ma-0"
-                                                 :spin="spin"/>
+                                                      :spin="spin"/>
                             </span>
                             <span class="x-multi-tab__close-btn"
                                   @click.stop="handleClose(item)">
@@ -138,14 +138,25 @@ export default {
         }
 
         /**
+         * 获取简易路由
+         * @param route
+         * @return {{fullPath, path, meta, query, name, href, params, hash}}
+         * @private
+         */
+        function _getSimpleRoute(route) {
+            const {fullPath, hash, href, meta, name, params, path, query} = route
+            return {fullPath, hash, href, meta, name, params, path, query}
+        }
+
+        /**
          * 路由发生变化
          */
         onBeforeRouteUpdate((to) => {
-            handleOpen(to)
+            handleOpen(_getSimpleRoute(to))
         })
 
         onMounted(() => {
-            handleOpen(router.currentRoute.value)
+            handleOpen(_getSimpleRoute(router.currentRoute.value))
         })
 
         return {
