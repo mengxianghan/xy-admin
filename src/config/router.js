@@ -279,8 +279,8 @@ export const asyncRouterMap = [
         name: 'iframe',
         component: 'RouteViewLayout',
         meta: {
-            icon: 'IconAppstoreOutlined',
-            title: 'iframe',
+            icon: 'IconLayoutOutlined',
+            title: 'Iframe',
             isMenu: true,
             keepAlive: true,
             permission: '*',
