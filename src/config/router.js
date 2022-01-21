@@ -348,6 +348,17 @@ export const asyncRouterMap = [
                     permission: '*',
                 },
             },
+            {
+                path: 'cropper',
+                name: 'componentCropper',
+                component: 'component/cropper/index.vue',
+                meta: {
+                    title: '裁剪图片',
+                    isMenu: true,
+                    keepAlive: true,
+                    permission: '*',
+                },
+            },
         ],
     },
 ]

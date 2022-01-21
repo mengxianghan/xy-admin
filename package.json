@@ -17,6 +17,7 @@
     "ant-design-vue": "^3.0.0-beta.6",
     "axios": "^0.24.0",
     "core-js": "^3.6.5",
+    "cropperjs": "^1.5.12",
     "dayjs": "^1.10.7",
     "echarts": "^5.2.2",
     "jschardet": "^3.0.0",
