@@ -20,6 +20,8 @@
     "cropperjs": "^1.5.12",
     "dayjs": "^1.10.7",
     "echarts": "^5.2.2",
+    "filesize": "^8.0.7",
+    "filesize-parser": "^1.5.0",
     "jschardet": "^3.0.0",
     "json-bigint": "^1.0.0",
     "lodash": "^4.17.21",

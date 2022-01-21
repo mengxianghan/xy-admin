@@ -10,7 +10,7 @@ import FilterItem from '@/components/FilterItem'
 import LayoutHeader from '@/components/LayoutHeader'
 import MultiTab from '@/components/MultiTab'
 import SearchBar from '@/components/SearchBar'
-import UploadImage from '@/components/UploadImage'
+import UploadImage from '@/components/Upload/UploadImage'
 
 export default {
     install(app) {
