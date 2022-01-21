@@ -359,6 +359,17 @@ export const asyncRouterMap = [
                     permission: '*',
                 },
             },
+            {
+                path: 'upload',
+                name: 'componentUpload',
+                component: 'component/upload/index.vue',
+                meta: {
+                    title: '上传',
+                    isMenu: true,
+                    keepAlive: true,
+                    permission: '*',
+                },
+            },
         ],
     },
 ]

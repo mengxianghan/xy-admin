@@ -10,6 +10,7 @@ import FilterItem from '@/components/FilterItem'
 import LayoutHeader from '@/components/LayoutHeader'
 import MultiTab from '@/components/MultiTab'
 import SearchBar from '@/components/SearchBar'
+import UploadImage from '@/components/UploadImage'
 
 export default {
     install(app) {
@@ -25,6 +26,7 @@ export default {
         app.component('XLayoutHeader', LayoutHeader)
         app.component('XMultiTab', MultiTab)
         app.component('XSearchBar', SearchBar)
+        app.component('XUploadImage', UploadImage)
         return app
     },
 }

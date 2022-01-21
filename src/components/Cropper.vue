@@ -9,8 +9,6 @@
             <div class="x-cropper__preview-img"
                  ref="previewRef"></div>
         </div>
-
-        <a-button @click="getData">点击</a-button>
     </div>
 </template>
 
@@ -20,6 +18,12 @@ import {onMounted, ref, toRefs, watch} from 'vue'
 import Cropper from 'cropperjs'
 import 'cropperjs/dist/cropper.min.css'
 
+/**
+ * 图片裁剪
+ * @property {string} src，图片地址
+ * @property {number} aspect-ratio 比例
+ * @property {number} quality 图片质量，取值范围：0-1，默认：1
+ */
 export default {
     name: 'Cropper',
     props: {
@@ -31,9 +35,13 @@ export default {
             type: Number,
             default: 0,
         },
+        quality: {
+            type: Number,
+            default: 1,
+        },
     },
     setup(props) {
-        const {aspectRatio} = toRefs(props)
+        const {aspectRatio, quality} = toRefs(props)
         const imgRef = ref()
         const previewRef = ref()
         const crop = ref(null)
@@ -48,8 +56,44 @@ export default {
             })
         }
 
-        function getData() {
-            console.log(crop.value.getCanvasData())
+        /**
+         * base64
+         * @param type
+         * @return {Promise<string>}
+         */
+        function getBase64(type = 'image/jpeg') {
+            return new Promise((resolve) => {
+                const base64 = crop.value.getCroppedCanvas().toDataURL(type, quality.value)
+                resolve(base64)
+            })
+        }
+
+        /**
+         * 文件流
+         * @param type
+         * @return {Promise<void>}
+         */
+        async function getBlob(type = 'image/jpeg') {
+            return new Promise((resolve => {
+                crop.value.getCroppedCanvas().toBlob((blob) => {
+                    resolve(blob)
+                }, type, quality.value)
+            }))
+        }
+
+        /**
+         * 文件对象
+         * @param fileName
+         * @param type
+         * @return {Promise<void>}
+         */
+        function getFile(fileName, type = 'image/jpeg') {
+            return new Promise((resolve) => {
+                crop.value.getCroppedCanvas().toBlob((blob) => {
+                    const file = new File([blob], fileName, {type})
+                    resolve(file)
+                }, type, quality.value)
+            })
         }
 
         watch(() => aspectRatio.value, (val) => crop.value.setAspectRatio(val))
@@ -61,7 +105,9 @@ export default {
         return {
             imgRef,
             previewRef,
-            getData,
+            getBase64,
+            getBlob,
+            getFile,
         }
     },
 }
