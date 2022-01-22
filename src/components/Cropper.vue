@@ -21,7 +21,7 @@ import 'cropperjs/dist/cropper.min.css'
 /**
  * 图片裁剪
  * @property {string} src，图片地址
- * @property {number} aspect-ratio 比例
+ * @property {number} aspect-ratio 比例，默认：自由裁剪
  * @property {number} quality 图片质量，取值范围：0-1，默认：1
  */
 export default {
@@ -121,6 +121,7 @@ export default {
 
     &__img {
         width: 400px;
+        flex: 0 0 400px;
         height: 100%;
         background: @background-color-base;
         margin: 0 @margin-md 0 0;
@@ -133,6 +134,7 @@ export default {
 
     &__preview {
         width: 120px;
+        flex: 0 0 120px;
 
         h4 {
             font-weight: normal;
@@ -141,7 +143,7 @@ export default {
         }
 
         &-img {
-            width: 120px;
+            width: 100%;
             height: 120px;
             border: 1px solid @border-color-base;
             overflow: hidden;

@@ -1,10 +1,14 @@
 <template>
-    <div class="x-upload">
+    <div class="x-upload"
+         :class="{
+            'x-upload--round': round
+         }">
         <a-upload v-if="showUploadBtn"
                   :show-upload-list="false"
                   :multiple="multiple"
                   :before-upload="onBeforeUpload"
-                  :custom-request="onUpload">
+                  :custom-request="({file})=>onUpload(file)"
+                  :accept="accept">
             <slot v-if="$slots.default"></slot>
             <template v-else>
                 <div class="x-upload-btn"
@@ -15,31 +19,24 @@
                     <component :is="icon"
                                class="x-upload-btn__icon"/>
                     <div v-if="text"
-                         class="x-upload-btn__txt">{{ text }}
+                         class="x-upload-btn__txt">
+                        {{ text }}
                     </div>
                 </div>
             </template>
         </a-upload>
-        <div v-for="(item,index) in allList"
+        <div v-for="(item,index) in list"
              :key="item.key"
              class="x-upload-item"
              :class="{
-                     'x-upload-item--error': STATUS_ENUM.is('error', item.status)
+                     'x-upload-item--error': STATUS_ENUM.is('error', item.status),
                  }"
              :style="{
                      width: `${width}px`,
                      height: `${height}px`
                 }">
             <img :src="item.src">
-            <template v-if="STATUS_ENUM.is('uploading', item.status)">
-                <div class="x-upload-status">
-                    <div>{{ item.percent }}%</div>
-                    <a-progress :show-info="false"
-                                :stroke-width="4"
-                                :percent="item.percent"/>
-                </div>
-            </template>
-            <template v-else>
+            <template v-if="['error', 'done'].includes(STATUS_ENUM.getKey(item.status))">
                 <div class="x-upload-actions">
                     <div v-if="STATUS_ENUM.is('done', item.status)"
                          class="x-upload-action">
@@ -51,20 +48,43 @@
                     </div>
                 </div>
             </template>
+            <template v-else>
+                <div class="x-upload-status">
+                    <template v-if="STATUS_ENUM.is('uploading', item.status)">
+                        <div>{{ item.percent }}%</div>
+                        <a-progress :show-info="false"
+                                    :stroke-width="4"
+                                    :percent="item.percent"/>
+                    </template>
+                    <template v-if="STATUS_ENUM.is('wait', item.status)">
+                        <div>{{ STATUS_ENUM.getDesc(item.status) }}</div>
+                        <span class="x-upload-action"
+                              @click="handleCancel(item)">取消上传</span>
+                    </template>
+                </div>
+            </template>
         </div>
     </div>
+
+    <!--裁剪-->
+    <cropper-image v-if="cropper && !multiple"
+                   ref="cropperImageRef"
+                   :aspect-ratio="aspectRatio"
+                   :quality="quality"
+                   @ok="(file)=>onUpload(file)"/>
 </template>
 
 <script>
 import {computed, onMounted, ref, toRefs, watch} from 'vue'
-import {STATUS_ENUM} from './enums'
-import {findIndex, head} from 'lodash'
+import {STATUS_ENUM} from './enum'
 import {mergeDeep} from '@/utils'
 import {v4 as uuidv4} from 'uuid'
-import {message} from 'ant-design-vue'
+import {Form, message} from 'ant-design-vue'
 
 import filesizeParser from 'filesize-parser'
 import filesize from 'filesize'
+
+import CropperImage from './CropperImage'
 
 /**
  * 图片上传
@@ -74,10 +94,15 @@ import filesize from 'filesize'
  * @property {number} height 高，默认：120，单位：px
  * @property {string} icon 图标
  * @property {string} text 文案
- * @property {string | number} max 最大限制，默认：2M
+ * @property {string | number} max-size 最大限制，默认：2M
+ * @property {boolean} round 圆角
+ * @property {boolean} cropper 裁剪，仅支持单文件上传，默认：false，
+ * @property {number} aspect-ratio 比例，默认：自由裁剪
+ * @property {number} quality 图片质量，取值范围：0-1，默认：1
  */
 export default {
     name: 'UploadImage',
+    components: {CropperImage},
     props: {
         modelValue: {
             type: [String, Array],
@@ -103,17 +128,40 @@ export default {
             type: String,
             default: '',
         },
-        max: {
+        maxSize: {
             type: [String, Number],
             default: '2M',
         },
+        accept: {
+            type: String,
+            default: 'image/*',
+        },
+        round: {
+            type: Boolean,
+            default: false,
+        },
+        cropper: {
+            type: Boolean,
+            default: false,
+        },
+        aspectRatio: {
+            type: Number,
+            default: 0,
+        },
+        quality: {
+            type: Number,
+            default: 1,
+        },
     },
     setup(props, ctx) {
-        const {multiple, max, modelValue} = toRefs(props)
-        const list = ref([])
+        const {multiple, maxSize, modelValue, cropper} = toRefs(props)
+        const fileList = ref([])
         const queue = ref([])
+        const {onFieldChange} = Form.useInjectFormItemContext()
+        const loading = ref(false)
+        const cropperImageRef = ref()
 
-        const allList = computed(() => [...list.value, ...queue.value])
+        const list = computed(() => [...fileList.value, ...queue.value])
 
         const showUploadBtn = computed(() => {
             return multiple.value || !list.value.length
@@ -133,7 +181,7 @@ export default {
                     ? modelValue.value
                     : [modelValue.value]
                 : []
-            list.value = currentValue.map((item) => _getItem({src: item}))
+            fileList.value = currentValue.map((item) => _getItem({src: item}))
         }
 
         /**
@@ -141,48 +189,44 @@ export default {
          * @param index
          */
         function handleRemove(index) {
-            list.value.splice(index, 1)
+            fileList.value.splice(index, 1)
             _trigger()
+        }
+
+        /**
+         * 取消上传
+         */
+        function handleCancel({key}) {
+            const index = queue.value.findIndex(o => o.key === key)
+            queue.value.splice(index, 1)
         }
 
         /**
          * 上传前
          */
         function onBeforeUpload(file) {
-            const maxFileSize = max.value instanceof Number ? max.value : filesizeParser(max.value, {base: 10.24})
+            const maxFileSize = maxSize.value instanceof Number ? maxSize.value : filesizeParser(maxSize.value, {base: 10.24})
             const checkFileSize = file?.size < maxFileSize
             if (!checkFileSize) {
                 message.warning(`已忽略超过 ${filesize(maxFileSize, {base: 10.24})} 的文件`)
             }
-            return checkFileSize
+            const checkCropper = cropper.value
+                ? multiple.value ? true : false
+                : true
+            if (cropper.value && !multiple.value) {
+                cropperImageRef.value?.handleOpen(file)
+            }
+            return checkFileSize && checkCropper
         }
 
         /**
          * 上传
          */
-        function onUpload({file}) {
-            _updateList(file)
-            const times = setInterval(() => {
-                const index = findIndex(queue.value, {key: file?.uid})
-                if (queue.value[index].percent === 100) {
-                    clearInterval(times)
-                    queue.value[index].status = STATUS_ENUM.getValue('done')
-                    list.value.push(...queue.value.splice(index, 1))
-                    _trigger()
-                    return
-                }
-                queue.value[index].percent += 1
-            }, 10)
-        }
-
-        /**
-         * 更新上传列表
-         */
-        function _updateList(file) {
+        function onUpload(file) {
             const record = _getItem({
                 key: file.uid,
                 src: URL.createObjectURL(file),
-                status: STATUS_ENUM.getValue('uploading'),
+                status: STATUS_ENUM.getValue('wait'),
                 percent: 0,
             })
             // 判断是否批量上传
@@ -193,6 +237,41 @@ export default {
                 // 单文件上传
                 queue.value = [record]
             }
+            if (!loading.value) {
+                _doUpload()
+            }
+        }
+
+        /**
+         * 取消裁剪
+         */
+        function onCropperCancel() {
+
+        }
+
+        /**
+         * 上传
+         */
+        function _doUpload() {
+            if (!queue.value.length) {
+                loading.value = false
+                return
+            }
+            loading.value = true
+            const index = 0
+            const file = queue.value[index]
+            file.status = STATUS_ENUM.getValue('uploading')
+            const times = setInterval(() => {
+                if (file.percent === 100) {
+                    clearInterval(times)
+                    file.status = STATUS_ENUM.getValue('done')
+                    fileList.value.push(...queue.value.splice(index, 1))
+                    _trigger()
+                    _doUpload()
+                    return
+                }
+                file.percent += 1
+            }, 50)
         }
 
         /**
@@ -213,21 +292,25 @@ export default {
             // 判断是否多选
             if (multiple.value) {
                 // 多选
-                value = list.value.map(item => {
+                value = fileList.value.map(item => {
                     return item?.src ?? item
                 })
             } else {
                 // 单选
-                value = list.value.length ? list.value[0]?.src : list.value[0]
+                value = (fileList.value.length ? fileList.value[0]?.src : fileList.value[0]) ?? ''
             }
             ctx.emit('update:modelValue', value)
+            onFieldChange()
         }
 
         return {
             STATUS_ENUM,
-            allList,
+            list,
             showUploadBtn,
+            cropperImageRef,
+            multiple,
             handleRemove,
+            handleCancel,
             onBeforeUpload,
             onUpload,
         }
@@ -241,6 +324,13 @@ export default {
     display: flex;
     flex-wrap: wrap;
     gap: @margin-sm;
+
+    &--round {
+        .x-upload-btn,
+        .x-upload-item {
+            border-radius: @border-radius-round;
+        }
+    }
 
     &-btn {
         border: @border-color-base dashed 1px;
@@ -270,6 +360,7 @@ export default {
         align-items: center;
         justify-content: center;
         position: relative;
+        overflow: hidden;
 
         img {
             width: 100%;
@@ -312,7 +403,7 @@ export default {
     }
 
     &-action {
-        width: 24px;
+        min-width: 24px;
         height: 24px;
         display: flex;
         align-items: center;
@@ -322,6 +413,8 @@ export default {
         cursor: pointer;
         background: rgba(0, 0, 0, .25);
         transition: all .15s;
+        font-size: 12px;
+        padding: 0 4px;
 
         &:hover {
             background: rgba(0, 0, 0, .5);

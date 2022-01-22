@@ -30,6 +30,7 @@ import {
     LayoutOutlined,
     DeleteOutlined,
     EyeOutlined,
+    PictureOutlined
 } from '@ant-design/icons-vue'
 
 export default {
@@ -65,6 +66,7 @@ export default {
         app.component('IconLayoutOutlined', LayoutOutlined)
         app.component('IconDeleteOutlined', DeleteOutlined)
         app.component('IconEyeOutlined', EyeOutlined)
+        app.component('IconPictureOutlined', PictureOutlined)
         return app
     },
 }
