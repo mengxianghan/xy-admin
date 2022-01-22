@@ -8,7 +8,7 @@
              @ok="handleOk"
              @cancel="handleCancel">
         <cropper ref="cropperRef"
-                 :src="src"
+                 :src="imgSrc"
                  :aspect-ratio="aspectRatio"
                  :quality="quality"/>
     </a-modal>
@@ -17,7 +17,7 @@
 <script>
 import {ref} from 'vue'
 
-import Cropper from '../Cropper'
+import Cropper from './Cropper'
 
 /**
  * 裁剪图片弹窗
@@ -25,7 +25,7 @@ import Cropper from '../Cropper'
  * @property {number} quality 图片质量，取值范围：0-1，默认：1
  */
 export default {
-    name: 'CropperImage',
+    name: 'CropperModal',
     components: {Cropper},
     props: {
         aspectRatio: {
@@ -41,19 +41,15 @@ export default {
     setup(props, ctx) {
         const visible = ref(false)
         const cropperRef = ref()
-        const src = ref('')
+        const imgSrc = ref('')
 
         /**
          * 打开
-         * @param file
+         * @param src
          */
-        function handleOpen(file) {
-            const fileReader = new FileReader()
-            fileReader.readAsDataURL(file)
-            fileReader.onload = (e) => {
-                src.value = e.target.result
-                visible.value = true
-            }
+        function handleOpen(src) {
+            imgSrc.value = src
+            visible.value = true
         }
 
         /**
@@ -77,13 +73,13 @@ export default {
          * 关闭后
          */
         function onAfterClose() {
-            src.value = ''
+            imgSrc.value = ''
         }
 
         return {
             visible,
             cropperRef,
-            src,
+            imgSrc,
             handleOpen,
             handleOk,
             handleCancel,

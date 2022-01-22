@@ -67,8 +67,8 @@
     </div>
 
     <!--裁剪-->
-    <cropper-image v-if="cropper && !multiple"
-                   ref="cropperImageRef"
+    <cropper-modal v-if="cropper && !multiple"
+                   ref="cropperModalRef"
                    :aspect-ratio="aspectRatio"
                    :quality="quality"
                    @ok="(file)=>onUpload(file)"/>
@@ -84,7 +84,7 @@ import {Form, message} from 'ant-design-vue'
 import filesizeParser from 'filesize-parser'
 import filesize from 'filesize'
 
-import CropperImage from './CropperImage'
+import CropperModal from '../CropperModal'
 
 /**
  * 图片上传
@@ -102,7 +102,7 @@ import CropperImage from './CropperImage'
  */
 export default {
     name: 'UploadImage',
-    components: {CropperImage},
+    components: {CropperModal},
     props: {
         modelValue: {
             type: [String, Array],
@@ -159,7 +159,7 @@ export default {
         const queue = ref([])
         const {onFieldChange} = Form.useInjectFormItemContext()
         const loading = ref(false)
-        const cropperImageRef = ref()
+        const cropperModalRef = ref()
 
         const list = computed(() => [...fileList.value, ...queue.value])
 
@@ -214,7 +214,11 @@ export default {
                 ? multiple.value ? true : false
                 : true
             if (cropper.value && !multiple.value) {
-                cropperImageRef.value?.handleOpen(file)
+                const fileReader = new FileReader()
+                fileReader.readAsDataURL(file)
+                fileReader.onload = (e) => {
+                    cropperModalRef.value?.handleOpen(e.target.result)
+                }
             }
             return checkFileSize && checkCropper
         }
@@ -240,13 +244,6 @@ export default {
             if (!loading.value) {
                 _doUpload()
             }
-        }
-
-        /**
-         * 取消裁剪
-         */
-        function onCropperCancel() {
-
         }
 
         /**
@@ -307,7 +304,7 @@ export default {
             STATUS_ENUM,
             list,
             showUploadBtn,
-            cropperImageRef,
+            cropperModalRef,
             multiple,
             handleRemove,
             handleCancel,

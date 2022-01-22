@@ -4,6 +4,7 @@ import ActionButton from '@/components/ActionButton'
 import Breadcrumb from '@/components/Breadcrumb'
 import Chart from '@/components/Chart'
 import Cropper from '@/components/Cropper'
+import CropperModal from '@/components/CropperModal'
 import Editor from '@/components/Editor'
 import Filter from '@/components/Filter'
 import FilterItem from '@/components/FilterItem'
@@ -20,6 +21,7 @@ export default {
         app.component('XBreadcrumb', Breadcrumb)
         app.component('XChart', Chart)
         app.component('XCropper', Cropper)
+        app.component('XCropperModal', CropperModal)
         app.component('XEditor', Editor)
         app.component('XFilter', Filter)
         app.component('XFilterItem', FilterItem)
