@@ -158,10 +158,10 @@ export default {
         const fileList = ref([])
         const queue = ref([])
         const {onFieldChange} = Form.useInjectFormItemContext()
-        const loading = ref(false)
         const cropperModalRef = ref()
 
         const list = computed(() => [...fileList.value, ...queue.value])
+        const loading = computed(()=>queue.value.some(o=>STATUS_ENUM.is('uploading', o.status)))
 
         const showUploadBtn = computed(() => {
             return multiple.value || !list.value.length
@@ -251,10 +251,8 @@ export default {
          */
         function _doUpload() {
             if (!queue.value.length) {
-                loading.value = false
                 return
             }
-            loading.value = true
             const index = 0
             const file = queue.value[index]
             file.status = STATUS_ENUM.getValue('uploading')
