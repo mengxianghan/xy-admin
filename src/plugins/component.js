@@ -6,8 +6,7 @@ import Chart from '@/components/Chart'
 import Cropper from '@/components/Cropper'
 import CropperModal from '@/components/CropperModal'
 import Editor from '@/components/Editor'
-import Filter from '@/components/Filter'
-import FilterItem from '@/components/FilterItem'
+import Filter from '@/components/Filter/Filter'
 import LayoutHeader from '@/components/LayoutHeader'
 import MultiTab from '@/components/MultiTab'
 import SearchBar from '@/components/SearchBar'
@@ -24,7 +23,6 @@ export default {
         app.component('XCropperModal', CropperModal)
         app.component('XEditor', Editor)
         app.component('XFilter', Filter)
-        app.component('XFilterItem', FilterItem)
         app.component('XLayoutHeader', LayoutHeader)
         app.component('XMultiTab', MultiTab)
         app.component('XSearchBar', SearchBar)

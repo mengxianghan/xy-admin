@@ -54,14 +54,14 @@
                         <a-form-item name="field1">
                             <x-upload-image v-model="formState.field1"
                                             text="人像面"
-                                            :width="200"></x-upload-image>
+                                            :width="191"></x-upload-image>
                         </a-form-item>
                     </a-col>
                     <a-col>
                         <a-form-item name="field2">
                             <x-upload-image v-model="formState.field2"
                                             text="国徽面"
-                                            :width="200"></x-upload-image>
+                                            :width="191"></x-upload-image>
                         </a-form-item>
                     </a-col>
                 </a-row>
