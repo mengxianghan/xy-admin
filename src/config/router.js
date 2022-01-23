@@ -128,7 +128,7 @@ export const asyncRouterMap = [
                     permission: '*',
                 },
             },
-            {
+            /*{
                 path: 'search',
                 name: 'listSearch',
                 component: 'list/search/index.vue',
@@ -138,7 +138,7 @@ export const asyncRouterMap = [
                     keepAlive: true,
                     permission: '*',
                 },
-            },
+            },*/
         ],
     },
     {
@@ -365,6 +365,17 @@ export const asyncRouterMap = [
                 component: 'component/upload/index.vue',
                 meta: {
                     title: '上传',
+                    isMenu: true,
+                    keepAlive: true,
+                    permission: '*',
+                },
+            },
+            {
+                path: 'filter',
+                name: 'componentFilter',
+                component: 'component/filter/index.vue',
+                meta: {
+                    title: '筛选',
                     isMenu: true,
                     keepAlive: true,
                     permission: '*',
