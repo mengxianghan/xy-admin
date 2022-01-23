@@ -100,7 +100,7 @@ class Http {
         return this.request({
             url: url,
             method: 'get',
-            params: params,
+            params,
             ...config
         })
     }
@@ -170,7 +170,7 @@ class ReadFile extends Http {
             let reader = new FileReader()
             reader.readAsBinaryString(data)
             reader.onload = function (e) {
-                resolve(jschardet.detect(reader.result).encoding)
+                resolve(jschardet.detect(reader?.result).encoding)
             }
         })
     }

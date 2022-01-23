@@ -6,14 +6,14 @@ const state = {
     isLogin: useSessionStorage().get(STORAGE_IS_LOGIN, false),
     userInfo: useSessionStorage().get(STORAGE_USER_INFO, null),
     token: useSessionStorage().get(STORAGE_TOKEN, ''),
-    permission: useSessionStorage().get(STORAGE_PERMISSION, [])
+    permission: useSessionStorage().get(STORAGE_PERMISSION, []),
 }
 
 const getters = {
     isLogin: state => state.isLogin,
     userInfo: state => state.userInfo,
     token: state => state.token,
-    permission: state => state.permission
+    permission: state => state.permission,
 }
 
 const mutations = {
@@ -64,7 +64,7 @@ const mutations = {
         permission
             ? useSessionStorage().set(STORAGE_PERMISSION, permission)
             : useSessionStorage().remove(STORAGE_PERMISSION)
-    }
+    },
 }
 
 const actions = {
@@ -76,14 +76,12 @@ const actions = {
      * @returns {Promise<unknown>}
      */
     login({commit, dispatch, rootState}, params) {
-        return new Promise(async (resolve, reject) => {
+        return new Promise(async (resolve) => {
             const result = await api.user.login(params)
             const {code, data} = result
             if ('200' === code) {
-                const {username, token} = data
-                commit('SET_USER_INFO', {
-                    username
-                })
+                const {token, ...others} = data
+                commit('SET_USER_INFO', others)
                 commit('SET_TOKEN', token)
                 commit('SET_IS_LOGIN', true)
             }
@@ -102,7 +100,7 @@ const actions = {
             commit('app/SET_COMPLETE', false, {root: true})
             resolve()
         })
-    }
+    },
 }
 
 export default {
@@ -110,5 +108,5 @@ export default {
     state,
     getters,
     mutations,
-    actions
+    actions,
 }

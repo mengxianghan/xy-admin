@@ -58,10 +58,10 @@ export default {
          */
         async function handleLogin() {
             try {
-                formRef.value.validate().then(async () => {
+                formRef.value.validate().then(async (values) => {
                     loading.value = true
                     const {code} = await store.dispatch('user/login', {
-                        ...form,
+                        ...values,
                     }).catch(() => {
                         throw new Error('登录失败')
                     })
