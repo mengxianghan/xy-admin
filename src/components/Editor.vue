@@ -60,4 +60,9 @@ export default {
 
 <style lang="less"
        scoped>
+.x-editor {
+    textarea {
+        display: none;
+    }
+}
 </style>

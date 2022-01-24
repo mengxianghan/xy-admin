@@ -128,7 +128,7 @@ export const asyncRouterMap = [
                     permission: '*',
                 },
             },
-            /*{
+            {
                 path: 'search',
                 name: 'listSearch',
                 component: 'list/search/index.vue',
@@ -138,7 +138,7 @@ export const asyncRouterMap = [
                     keepAlive: true,
                     permission: '*',
                 },
-            },*/
+            },
         ],
     },
     {
