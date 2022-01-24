@@ -250,6 +250,31 @@ export const asyncRouterMap = [
         ],
     },
     {
+        path: 'system',
+        name: 'system',
+        component: 'RouteViewLayout',
+        meta: {
+            icon: 'IconSettingOutlined',
+            title: '系统管理',
+            isMenu: true,
+            keepAlive: true,
+            permission: '*',
+        },
+        children: [
+            {
+                path: 'user',
+                name: 'systemUser',
+                component: 'system/user/index.vue',
+                meta: {
+                    title: '用户管理',
+                    isMenu: true,
+                    keepAlive: true,
+                    permission: '*',
+                },
+            },
+        ],
+    },
+    {
         path: '',
         name: 'link',
         component: 'RouteViewLayout',
