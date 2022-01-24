@@ -286,71 +286,6 @@ export const asyncRouterMap = [
         ],
     },
     {
-        path: '',
-        name: 'link',
-        component: 'RouteViewLayout',
-        meta: {
-            icon: 'IconLinkOutlined',
-            title: '外部链接',
-            isMenu: true,
-            keepAlive: false,
-            permission: '*',
-        },
-        children: [
-            {
-                path: 'https://github.com/mengxianghan/xy-admin',
-                name: 'linkBaidu',
-                meta: {
-                    type: 'link',
-                    title: 'Github',
-                    target: '_blank',
-                    isMenu: true,
-                    permission: '*',
-                },
-            },
-        ],
-    },
-    {
-        path: 'iframe',
-        name: 'iframe',
-        component: 'RouteViewLayout',
-        meta: {
-            icon: 'IconLayoutOutlined',
-            title: 'Iframe',
-            isMenu: true,
-            keepAlive: true,
-            permission: '*',
-        },
-        children: [
-            {
-                path: 'vue',
-                name: 'iframeVue',
-                component: 'RouteViewLayout',
-                meta: {
-                    type: 'iframe',
-                    url: 'https://cn.vuejs.org',
-                    title: 'Vue',
-                    isMenu: true,
-                    keepAlive: true,
-                    permission: '*',
-                },
-            },
-            {
-                path: 'antd',
-                name: 'iframeAntd',
-                component: 'RouteViewLayout',
-                meta: {
-                    type: 'iframe',
-                    url: 'https://www.antdv.com/docs/vue/introduce-cn',
-                    title: 'Ant Design Vue',
-                    isMenu: true,
-                    keepAlive: true,
-                    permission: '*',
-                },
-            },
-        ],
-    },
-    {
         path: 'component',
         name: 'component',
         component: 'RouteViewLayout',
@@ -412,6 +347,71 @@ export const asyncRouterMap = [
                 component: 'component/filter/index.vue',
                 meta: {
                     title: '筛选',
+                    isMenu: true,
+                    keepAlive: true,
+                    permission: '*',
+                },
+            },
+        ],
+    },
+    {
+        path: '',
+        name: 'link',
+        component: 'RouteViewLayout',
+        meta: {
+            icon: 'IconLinkOutlined',
+            title: '外部链接',
+            isMenu: true,
+            keepAlive: false,
+            permission: '*',
+        },
+        children: [
+            {
+                path: 'https://github.com/mengxianghan/xy-admin',
+                name: 'linkBaidu',
+                meta: {
+                    type: 'link',
+                    title: 'Github',
+                    target: '_blank',
+                    isMenu: true,
+                    permission: '*',
+                },
+            },
+        ],
+    },
+    {
+        path: 'iframe',
+        name: 'iframe',
+        component: 'RouteViewLayout',
+        meta: {
+            icon: 'IconLayoutOutlined',
+            title: 'Iframe',
+            isMenu: true,
+            keepAlive: true,
+            permission: '*',
+        },
+        children: [
+            {
+                path: 'vue',
+                name: 'iframeVue',
+                component: 'RouteViewLayout',
+                meta: {
+                    type: 'iframe',
+                    url: 'https://cn.vuejs.org',
+                    title: 'Vue',
+                    isMenu: true,
+                    keepAlive: true,
+                    permission: '*',
+                },
+            },
+            {
+                path: 'antd',
+                name: 'iframeAntd',
+                component: 'RouteViewLayout',
+                meta: {
+                    type: 'iframe',
+                    url: 'https://www.antdv.com/docs/vue/introduce-cn',
+                    title: 'Ant Design Vue',
                     isMenu: true,
                     keepAlive: true,
                     permission: '*',
