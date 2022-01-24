@@ -5,7 +5,7 @@ import {builder} from '../util'
 Mock.mock(new RegExp('/welcome/getData'), 'get', options => {
     return builder(Mock.mock({
         'dynamicRows|5': [{
-            'id': '@id',
+            'id': '@increment',
             'avatar': '@image(32, @color, @cfirst)',
             'title': '@cparagraph(1, 2)',
             'time': '@datetime',
@@ -17,7 +17,7 @@ Mock.mock(new RegExp('/welcome/getData'), 'get', options => {
 Mock.mock(new RegExp('/common/getPageList'), 'get', options => {
     return builder(Mock.mock({
         'rows|10': [{
-            'id|+1': 1,
+            'id': '@increment',
             'avatar': '@image(60, @color, @cfirst)',
             'title': '@ctitle',
             'desc': '@cparagraph(3)',

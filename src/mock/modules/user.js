@@ -6,7 +6,7 @@ Mock.mock(new RegExp('/user/login'), 'post', options => {
     const {username} = getBody(options)
 
     return builder(Mock.mock({
-        'id': '@id',
+        'id': '@increment',
         'username': username,
         'avatar': '@dataImage',
         'token': '@guid',

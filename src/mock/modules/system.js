@@ -6,43 +6,43 @@ Mock.mock(new RegExp('/system/getUserRoleList'), 'get', options => {
     return builder(Mock.mock({
         'rows': [{
             'title': '全部',
-            'key': '@id',
+            'key': '@increment',
         },
             {
                 'title': '超级管理员',
-                'key': '@id',
+                'key': '@increment',
             },
             {
                 'title': '管理员',
-                'key': '@id',
+                'key': '@increment',
                 'children': [{
                     'title': '系统管理员',
-                    'key': '@id',
+                    'key': '@increment',
                 },
                     {
                         'title': '业务管理员',
-                        'key': '@id',
+                        'key': '@increment',
                     },
                     {
                         'title': '数据管理员',
-                        'key': '@id',
+                        'key': '@increment',
                     },
                 ],
             },
             {
                 'title': '操作员',
-                'key': '@id',
+                'key': '@increment',
                 'children': [{
                     'title': '公告维护员',
-                    'key': '@id',
+                    'key': '@increment',
                 },
                     {
                         'title': '审核员',
-                        'key': '@id',
+                        'key': '@increment',
                     },
                     {
                         'title': '复审员',
-                        'key': '@id',
+                        'key': '@increment',
                     },
                 ],
             },
@@ -54,7 +54,7 @@ Mock.mock(new RegExp('/system/getUserRoleList'), 'get', options => {
 Mock.mock(new RegExp('/system/getUserPageList'), 'get', options => {
     return builder(Mock.mock({
         'rows|10': [{
-            'id|+1': 1,
+            'id': '@increment',
             'avatar': '@image(60x60, @color, @cfirst)',
             'email': '@email',
             'name': '@cname',
