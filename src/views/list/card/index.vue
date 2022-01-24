@@ -49,7 +49,8 @@
 
 <script>
 import {onMounted} from 'vue'
-import * as dataApi from '@/api/modules/data'
+import {commonApi} from '@/api'
+
 import usePagination from '@/hooks/usePagination'
 
 export default {
@@ -63,12 +64,12 @@ export default {
         const getPageList = async () => {
             try {
                 loading.value = true
-                const {code, data} = await dataApi.getPageList().catch(() => {
+                const {code, data} = await commonApi.getPageList().catch(() => {
                     throw new Error()
                 })
                 loading.value = false
                 if ('200' === code) {
-                    list.value = [{}, ...data.list]
+                    list.value = [{}, ...data.rows]
                 }
             } catch (err) {
                 loading.value = false

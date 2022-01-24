@@ -1,15 +1,9 @@
-const api = {}
-const register = (req) => {
-    req.keys().forEach(filename => {
-        const name = filename.replace(/^\.\/(.*)\.\w+$/, '$1')
-        const options = () => {
-            const config = req(filename)
-            return config.default || {...config}
-        }
-        api[name] = options()
-    })
+import * as commonApi from './modules/common'
+import * as systemApi from './modules/system'
+import * as userApi from './modules/user'
+
+export {
+    commonApi,
+    systemApi,
+    userApi,
 }
-
-register(require.context('./modules', false, /[A-Za-z]+\.(js)$/))
-
-export default api

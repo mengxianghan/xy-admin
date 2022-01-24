@@ -1,39 +1,44 @@
 <template>
-    <x-search-bar class="mb-8-2">
-        <a-form layout="inline">
-            <a-row :gutter="16">
-                <a-col :span="6">
-                    <a-form-item label="标题">
-                        <a-input></a-input>
-                    </a-form-item>
-                </a-col>
-                <a-col :span="6">
-                    <a-form-item label="标题">
-                        <a-select></a-select>
-                    </a-form-item>
-                </a-col>
-                <a-col :span="6">
-                    <a-form-item label="标题">
-                        <a-range-picker></a-range-picker>
-                    </a-form-item>
-                </a-col>
-                <a-col :span="6">
-                    <a-button type="primary"
-                              ghost
-                              @click="handleSearch">搜索
-                    </a-button>
-                </a-col>
-            </a-row>
-        </a-form>
-    </x-search-bar>
-
     <a-card>
+        <x-filter :data-source="filterData"
+                  :label-width="100"
+                  :model-value="searchForm"
+                  @change="handleSearch"></x-filter>
+    </a-card>
+
+    <a-card class="mt-8-2">
         <a-table :columns="columns"
                  :pagination="pagination"
                  :data-source="list"
                  :loading="loading"
                  row-key="id"
                  @change="onTableChange">
+            <template #bodyCell="{column, record, index}">
+                <template v-if="'action' === column.key">
+                    <x-action-button>编辑</x-action-button>
+                    <x-action-button>
+                        <a-popconfirm title="确认删除？"
+                                      @confirm="onDeleteConfirm">
+                            删除
+                        </a-popconfirm>
+                    </x-action-button>
+                    <x-action-button tag="span">
+                        <a-dropdown :trigger="['click']">
+                            <a>
+                                更多
+                                <icon-down-outlined/>
+                            </a>
+                            <template #overlay>
+                                <a-menu>
+                                    <a-menu-item>菜单 1</a-menu-item>
+                                    <a-menu-item>菜单 2</a-menu-item>
+                                    <a-menu-item>菜单 3</a-menu-item>
+                                </a-menu>
+                            </template>
+                        </a-dropdown>
+                    </x-action-button>
+                </template>
+            </template>
         </a-table>
     </a-card>
 </template>
@@ -41,19 +46,33 @@
 <script>
 import {onMounted, ref} from 'vue'
 import {message} from 'ant-design-vue'
+import {commonApi} from '@/api'
 
 import usePagination from '@/hooks/usePagination'
-import * as dataApi from '@/api/modules/data'
 
 export default {
     name: 'listSearch',
-    setup(ctx) {
+    setup() {
         const columns = [
-            {title: '序号', key: 'no', width: 64, align: 'center'},
+            {title: 'ID', dataIndex: 'id', width: 64, align: 'center'},
             {title: '标题', dataIndex: 'title'},
+            {title: '操作', key: 'action', width: 180},
         ]
-        const {list, pagination, loading, resetPagination} = usePagination()
+        const {list, pagination, loading, resetPagination, searchForm} = usePagination()
         const editRef = ref()
+        const filterData = ref([
+            {
+                label: '所属类目', key: 'type', type: 'tag',
+                children: [
+                    {label: '全部', value: 0},
+                    {label: '类目2', value: 2},
+                    {label: '类目3', value: 3},
+                    {label: '类目4', value: 4},
+                    {label: '类目5', value: 5},
+                ],
+            },
+            {label: 'owner', key: 'owner', type: 'input'},
+        ])
 
         /**
          * 获取分页列表
@@ -62,7 +81,7 @@ export default {
             try {
                 const {pageSize, current} = pagination
                 loading.value = true
-                const {code, data} = await dataApi.getPageList({
+                const {code, data} = await commonApi.getPageList({
                     pageSize,
                     page: current,
                 }).catch(() => {
@@ -70,7 +89,7 @@ export default {
                 })
                 loading.value = false
                 if ('200' === code) {
-                    list.value = data.list
+                    list.value = data.rows
                     pagination.value.total = data.total
                 }
             } catch (err) {
@@ -111,9 +130,11 @@ export default {
 
         return {
             editRef,
+            filterData,
             columns,
             loading,
             list,
+            searchForm,
             pagination,
             handleSearch,
             onTableChange,

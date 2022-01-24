@@ -61,7 +61,7 @@ module.exports = {
         port: 8080,
         proxy: {
             '/api': {
-                target: 'https://www.fastmock.site/mock/45ffc2a3114dfca35d743befe7631d98/admin',
+                target: '/', // 接口地址
                 changeOrigin: true, // 允许 webSockets 跨域
                 secure: false,
                 pathRewrite: {

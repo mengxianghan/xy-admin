@@ -4,8 +4,6 @@
         <p class="mb-0">某某某公司－某某某部门－某某某岗位</p>
     </a-card>
 
-
-
     <a-row :gutter="12">
         <a-col :lg="18">
             <a-card class="mb-4-3">
@@ -71,8 +69,7 @@
 import {computed, onMounted, ref} from 'vue'
 import {useStore} from 'vuex'
 import {timeFix} from '@/utils'
-
-import * as dataApi from '@/api/modules/data'
+import {commonApi} from '@/api'
 
 export default {
     name: 'welcome',
@@ -83,15 +80,16 @@ export default {
         const userName = computed(() => `${timeFix()}，${userInfo.value?.username}`)
         const dynamicList = ref([])
 
-        const getDynamicList = async () => {
-            const {code, data} = await dataApi.getDynamicList()
+        const getData = async () => {
+            const {code, data} = await commonApi.getWelcomeData()
             if ('200' === code) {
-                dynamicList.value = data
+                const {dynamicRows} = data
+                dynamicList.value = dynamicRows
             }
         }
 
         onMounted(() => {
-            getDynamicList()
+            getData()
         })
 
         return {

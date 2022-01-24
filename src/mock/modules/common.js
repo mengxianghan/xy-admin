@@ -1,24 +1,23 @@
 import Mock from 'mockjs'
 import {builder} from '../util'
 
-// 获取动态列表
-Mock.mock(new RegExp('/manage/getDynamicList'), 'post', options => {
-    const data = Mock.mock({
-        'list|5': [{
+// 获取欢迎页数据
+Mock.mock(new RegExp('/welcome/getData'), 'get', options => {
+    return builder(Mock.mock({
+        'dynamicRows|5': [{
             'id': '@id',
             'avatar': '@image(32, @color, @cfirst)',
             'title': '@cparagraph(1, 2)',
             'time': '@datetime',
         }],
-    })
-    return builder(data.list)
+    }))
 })
 
 // 获取分页列表
-Mock.mock(new RegExp('/data/getPageList'), 'post', options => {
+Mock.mock(new RegExp('/common/getPageList'), 'get', options => {
     return builder(Mock.mock({
-        'list|10': [{
-            'id': '@id',
+        'rows|10': [{
+            'id|+1': 1,
             'avatar': '@image(60, @color, @cfirst)',
             'title': '@ctitle',
             'desc': '@cparagraph(3)',

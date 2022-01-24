@@ -63,7 +63,6 @@
                  row-key="id"
                  @change="onTableChange">
             <template #bodyCell="{column, record, index}">
-                <template v-if="'no' === column.key">{{ index + 1 }}</template>
                 <template v-if="'action' === column.key">
                     <x-action-button @click="$refs.editRef.handleEdit()">编辑</x-action-button>
                     <x-action-button>
@@ -98,16 +97,18 @@
 <script>
 import {onMounted, ref} from 'vue'
 import {message} from 'ant-design-vue'
+import {commonApi} from '@/api'
+
 import Edit from './components/Edit'
+
 import usePagination from '@/hooks/usePagination'
-import * as dataApi from '@/api/modules/data'
 
 export default {
     name: 'listBasic',
     components: {Edit},
-    setup(ctx) {
+    setup() {
         const columns = [
-            {title: '序号', key: 'no', width: 64, align: 'center'},
+            {title: 'ID', dataIndex: 'id', width: 64, align: 'center'},
             {title: '标题', dataIndex: 'title'},
             {title: '操作', key: 'action', width: 180},
         ]
@@ -121,7 +122,7 @@ export default {
             try {
                 const {pageSize, current} = pagination
                 loading.value = true
-                const {code, data} = await dataApi.getPageList({
+                const {code, data} = await commonApi.getPageList({
                     pageSize,
                     page: current,
                 }).catch(() => {
@@ -129,7 +130,7 @@ export default {
                 })
                 loading.value = false
                 if ('200' === code) {
-                    list.value = data.list
+                    list.value = data.rows
                     pagination.value.total = data.total
                 }
             } catch (err) {

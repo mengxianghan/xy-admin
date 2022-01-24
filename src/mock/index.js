@@ -10,5 +10,5 @@ const register = (req) => {
 register(require.context('./modules', false, /[A-Za-z]+\.(js)$/))
 
 Mock.setup({
-    timeout: 100
+    timeout: 200,
 })

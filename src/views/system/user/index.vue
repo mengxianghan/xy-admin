@@ -67,8 +67,7 @@
 
 <script>
 import {onMounted, ref} from 'vue'
-
-import * as systemApi from '@/api/modules/system'
+import {systemApi} from '@/api'
 
 import usePagination from '@/hooks/usePagination'
 
@@ -129,8 +128,12 @@ export default {
                 })
                 loading.value = false
                 if ('200' === code) {
-                    const {rows} = data
+                    const {rows, total} = data
                     userList.value = rows
+                    pagination.value = {
+                        ...pagination.value,
+                        total
+                    }
                 }
             } catch (err) {
                 loading.value = false

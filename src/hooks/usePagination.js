@@ -3,6 +3,7 @@ import {ref} from 'vue'
 export default (options = {}) => {
     const loading = ref(false)
     const list = ref([])
+    const searchForm = ref({})
     const pagination = ref({
         total: 0,
         current: 1,
@@ -27,6 +28,7 @@ export default (options = {}) => {
     return {
         loading,
         list,
+        searchForm,
         pagination,
         resetPagination,
     }
