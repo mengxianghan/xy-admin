@@ -1,7 +1,7 @@
 <template>
     <a-row :gutter="16"
            type="flex">
-        <a-col flex="0 0 200px">
+        <a-col flex="0 0 240px">
             <a-card>
                 <a-spin :spinning="roleLoading">
                     <a-tree :tree-data="roleList"
@@ -53,7 +53,8 @@
                             <x-action-button>查看</x-action-button>
                             <x-action-button>编辑</x-action-button>
                             <x-action-button>
-                                <a-popconfirm title="确认删除？">
+                                <a-popconfirm title="确认删除？"
+                                              @confirm="handleDelete">
                                     删除
                                 </a-popconfirm>
                             </x-action-button>
@@ -70,6 +71,7 @@ import {onMounted, ref} from 'vue'
 import {systemApi} from '@/api'
 
 import usePagination from '@/hooks/usePagination'
+import {message} from 'ant-design-vue'
 
 export default {
     name: 'systemUser',
@@ -80,7 +82,7 @@ export default {
         const columns = ref([
             {title: 'ID', dataIndex: 'id'},
             {title: '头像', key: 'avatar'},
-            {title: '登录帐号', dataIndex: 'userName'},
+            {title: '登录帐号', dataIndex: 'email'},
             {title: '姓名', dataIndex: 'name'},
             {title: '所属角色', dataIndex: 'roleName'},
             {title: '加入时间', dataIndex: 'date'},
@@ -130,10 +132,7 @@ export default {
                 if ('200' === code) {
                     const {rows, total} = data
                     userList.value = rows
-                    pagination.value = {
-                        ...pagination.value,
-                        total
-                    }
+                    pagination.value.total = total
                 }
             } catch (err) {
                 loading.value = false
@@ -145,6 +144,14 @@ export default {
          */
         function handleRole() {
             resetPagination()
+            getUserPageList()
+        }
+
+        /**
+         * 删除
+         */
+        function handleDelete() {
+            message.success('删除成功！')
             getUserPageList()
         }
 
@@ -168,6 +175,7 @@ export default {
             roleLoading,
             loading,
             handleRole,
+            handleDelete,
             onTableChange,
         }
     },

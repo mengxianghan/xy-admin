@@ -26,3 +26,10 @@ Mock.mock(new RegExp('/common/getPageList'), 'get', options => {
     }))
 })
 
+// 保存/删除
+Mock.mock(new RegExp(/(save|delete)/), 'get', options => {
+    return builder(Mock.mock({
+        'result': true,
+    }))
+})
+
