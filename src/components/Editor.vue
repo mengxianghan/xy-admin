@@ -28,7 +28,7 @@ export default {
     components: {
         'tiny-editor': Editor,
     },
-    setup(props, ctx) {
+    setup(props, {emit}) {
         const {modelValue, option} = toRefs(props)
         const content = ref('')
         const opts = mergeDeep({
@@ -44,7 +44,7 @@ export default {
         }, option.value)
 
         watch(() => modelValue.value, (val) => content.value = val)
-        watch(() => content.value, (val) => ctx.emit('update:modelValue', val))
+        watch(() => content.value, (val) => emit('update:modelValue', val))
 
         onMounted(() => {
             content.value = modelValue.value

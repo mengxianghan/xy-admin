@@ -38,7 +38,7 @@ export default {
         },
     },
     emits: ['ok', 'cancel'],
-    setup(props, ctx) {
+    setup(props, {emit}) {
         const visible = ref(false)
         const cropperRef = ref()
         const imgSrc = ref('')
@@ -58,7 +58,7 @@ export default {
         async function handleOk() {
             const file = await cropperRef.value?.getFile()
             visible.value = false
-            ctx.emit('ok', file)
+            emit('ok', file)
         }
 
         /**
@@ -66,7 +66,7 @@ export default {
          */
         function handleCancel() {
             visible.value = false
-            ctx.emit('cancel')
+            emit('cancel')
         }
 
         /**

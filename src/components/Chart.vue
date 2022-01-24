@@ -24,7 +24,8 @@ export default {
             default: 'auto',
         },
     },
-    setup(props, ctx) {
+    emits:['ready'],
+    setup(props, {emit}) {
         const {option, width, height} = toRefs(props)
         const chart = ref(null)
         const chartRef = ref()
@@ -64,7 +65,7 @@ export default {
                 chart.value.resize()
             }, 100)
 
-            ctx.emit('complete', chart.value)
+            emit('ready', chart.value)
         }
 
         return {

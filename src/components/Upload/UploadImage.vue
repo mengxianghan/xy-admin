@@ -153,7 +153,7 @@ export default {
             default: 1,
         },
     },
-    setup(props, ctx) {
+    setup(props, {emit}) {
         const {multiple, maxSize, modelValue, cropper} = toRefs(props)
         const fileList = ref([])
         const queue = ref([])
@@ -294,7 +294,7 @@ export default {
                 // 单选
                 value = (fileList.value.length ? fileList.value[0]?.src : fileList.value[0]) ?? ''
             }
-            ctx.emit('update:modelValue', value)
+            emit('update:modelValue', value)
             onFieldChange()
         }
 

@@ -123,7 +123,7 @@ export default {
         },
     },
     emits: ['change', 'update:modelValue', 'ok', 'reset'],
-    setup(props, ctx) {
+    setup(props, {emit}) {
         const {dataSource, modelValue, useButton} = toRefs(props)
         const list = ref({})
 
@@ -164,14 +164,14 @@ export default {
          */
         function handleOk() {
             const value = _getValue()
-            ctx.emit('ok', value)
+            emit('ok', value)
         }
 
         /**
          * 取消
          */
         function handleReset() {
-            ctx.emit('reset', {})
+            emit('reset', {})
         }
 
         /**
@@ -258,8 +258,8 @@ export default {
             }
             console.log(1234)
             const value = _getValue()
-            ctx.emit('update:modelValue', value)
-            ctx.emit('change', value)
+            emit('update:modelValue', value)
+            emit('change', value)
         }
 
         return {
