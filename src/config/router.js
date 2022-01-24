@@ -92,6 +92,17 @@ export const asyncRouterMap = [
                     permission: '*',
                 },
             },
+            {
+                path: 'step',
+                name: 'formStep',
+                component: 'form/step/index.vue',
+                meta: {
+                    title: '分步表单',
+                    isMenu: true,
+                    keepAlive: true,
+                    permission: '*',
+                },
+            },
         ],
     },
     {
