@@ -1,4 +1,4 @@
-import api from '@/api'
+import {userApi} from '@/api'
 import {useSessionStorage} from '@/utils/storage'
 import {STORAGE_IS_LOGIN, STORAGE_USER_INFO, STORAGE_TOKEN, STORAGE_PERMISSION} from '@/config/const'
 
@@ -77,7 +77,7 @@ const actions = {
      */
     login({commit, dispatch, rootState}, params) {
         return new Promise(async (resolve) => {
-            const result = await api.user.login(params)
+            const result = await userApi.login(params)
             const {code, data} = result
             if ('200' === code) {
                 const {token, ...others} = data

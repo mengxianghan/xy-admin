@@ -283,6 +283,17 @@ export const asyncRouterMap = [
                     permission: '*',
                 },
             },
+            {
+                path: 'role',
+                name: 'systemRole',
+                component: 'system/role/index.vue',
+                meta: {
+                    title: '角色管理',
+                    isMenu: true,
+                    keepAlive: true,
+                    permission: '*',
+                },
+            },
         ],
     },
     {

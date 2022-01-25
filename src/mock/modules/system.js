@@ -4,44 +4,59 @@ import {builder, getQueryParams} from '../util'
 // 获取角色列表
 Mock.mock(new RegExp('/system/getUserRoleList'), 'get', options => {
     return builder(Mock.mock({
-        'rows': [{
-            'title': '全部',
-            'key': '@id',
-        },
+        'rows': [
             {
                 'title': '超级管理员',
+                'alias': '@word(2,4)',
+                'sort|1-100': 1,
                 'key': '@id',
             },
             {
                 'title': '管理员',
+                'alias': '@word(2,4)',
+                'sort|1-100': 1,
                 'key': '@id',
                 'children': [{
                     'title': '系统管理员',
+                    'alias': '@word(2,4)',
+                    'sort|1-100': 1,
                     'key': '@id',
                 },
                     {
                         'title': '业务管理员',
+                        'alias': '@word(2,4)',
+                        'sort|1-100': 1,
                         'key': '@id',
                     },
                     {
                         'title': '数据管理员',
+                        'alias': '@word(2,4)',
+                        'sort|1-100': 1,
                         'key': '@id',
                     },
                 ],
             },
             {
                 'title': '操作员',
+                'alias': '@word(2,4)',
+                'sort|1-100': 1,
                 'key': '@id',
                 'children': [{
                     'title': '公告维护员',
+                    'alias': '@word(2,4)',
+                    'sort|1-100': 1,
                     'key': '@id',
                 },
                     {
                         'title': '审核员',
+                        'alias': '@word(2,4)',
+                        'sort|1-100': 1,
                         'key': '@id',
                     },
                     {
                         'title': '复审员',
+                        'alias': '@word(2,4)',
+                        'sort|1-100': 1,
                         'key': '@id',
                     },
                 ],

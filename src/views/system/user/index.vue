@@ -4,7 +4,8 @@
         <a-col flex="0 0 240px">
             <a-card>
                 <a-spin :spinning="roleLoading">
-                    <a-tree :tree-data="roleList"
+                    <a-tree :selected-keys="selectedKeys"
+                            :tree-data="roleList"
                             block-node
                             default-expand-all
                             @select="handleRole"></a-tree>
@@ -68,10 +69,10 @@
 
 <script>
 import {onMounted, ref} from 'vue'
+import {message} from 'ant-design-vue'
 import {systemApi} from '@/api'
 
 import usePagination from '@/hooks/usePagination'
-import {message} from 'ant-design-vue'
 
 export default {
     name: 'systemUser',
@@ -79,6 +80,7 @@ export default {
         const {loading, pagination, resetPagination} = usePagination()
         const roleLoading = ref(false)
         const roleList = ref([])
+        const selectedKeys = ref([])
         const columns = ref([
             {title: 'ID', dataIndex: 'id'},
             {title: '头像', key: 'avatar'},
@@ -107,7 +109,10 @@ export default {
                 })
                 roleLoading.value = false
                 if ('200' === code) {
-                    roleList.value = data.rows
+                    roleList.value = [{
+                        'title': '全部',
+                        'key': '0',
+                    }, ...data.rows]
                 }
             } catch (err) {
                 roleLoading.value = false
@@ -142,7 +147,11 @@ export default {
         /**
          * 切换角色
          */
-        function handleRole() {
+        function handleRole(keys) {
+            if (!keys.length) {
+                return
+            }
+            selectedKeys.value = keys
             resetPagination()
             getUserPageList()
         }
@@ -174,6 +183,7 @@ export default {
             pagination,
             roleLoading,
             loading,
+            selectedKeys,
             handleRole,
             handleDelete,
             onTableChange,
