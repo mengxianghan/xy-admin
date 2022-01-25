@@ -160,7 +160,7 @@ export default {
          * 删除
          */
         function handleDelete() {
-            message.success('删除成功！')
+            message.success('删除成功')
             getUserPageList()
         }
 

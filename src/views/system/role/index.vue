@@ -15,6 +15,9 @@
                  :pagination="false"
                  :expand-icon-column-index="1">
             <template #bodyCell="{column, record, index}">
+                <template v-if="'no' === column.key">
+                    {{ index + 1 }}
+                </template>
                 <template v-if="'action' === column.key">
                     <x-action-button>查看</x-action-button>
                     <x-action-button>编辑</x-action-button>
