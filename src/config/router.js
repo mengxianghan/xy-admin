@@ -364,11 +364,11 @@ export const asyncRouterMap = [
                 },
             },
             {
-                path: 'export',
-                name: 'componentExport',
-                component: 'component/export/index.vue',
+                path: 'excel',
+                name: 'componentExcel',
+                component: 'component/excel/index.vue',
                 meta: {
-                    title: '导出 excel',
+                    title: 'Excel',
                     isMenu: true,
                     keepAlive: true,
                     permission: '*',
