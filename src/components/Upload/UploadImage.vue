@@ -8,7 +8,8 @@
                   :multiple="multiple"
                   :before-upload="onBeforeUpload"
                   :custom-request="({file})=>onUpload(file)"
-                  :accept="accept">
+                  :accept="accept"
+                  :disabled="disabled">
             <slot v-if="$slots.default"></slot>
             <template v-else>
                 <div class="x-upload-btn"
@@ -29,12 +30,12 @@
              :key="item.key"
              class="x-upload-item"
              :class="{
-                     'x-upload-item--error': STATUS_ENUM.is('error', item.status),
-                 }"
+                 'x-upload-item--error': STATUS_ENUM.is('error', item.status),
+             }"
              :style="{
-                     width: `${width}px`,
-                     height: `${height}px`
-                }">
+                 width: `${width}px`,
+                 height: `${height}px`
+             }">
             <img :src="item.src">
             <template v-if="['error', 'done'].includes(STATUS_ENUM.getKey(item.status))">
                 <div class="x-upload-actions">
@@ -42,7 +43,8 @@
                          class="x-upload-action">
                         <icon-eye-outlined/>
                     </div>
-                    <div class="x-upload-action"
+                    <div v-if="!disabled"
+                         class="x-upload-action"
                          @click="handleRemove(index)">
                         <icon-delete-outlined/>
                     </div>
@@ -95,6 +97,8 @@ import CropperModal from '../CropperModal'
  * @property {string} icon 图标
  * @property {string} text 文案
  * @property {string | number} max-size 最大限制，默认：2M
+ * @property {string} accept 允许上传文件类型，默认：image/*
+ * @property {boolean} disabled 禁用，默认：false
  * @property {boolean} round 圆角
  * @property {boolean} cropper 裁剪，仅支持单文件上传，默认：false，
  * @property {number} aspect-ratio 比例，默认：自由裁剪
@@ -136,6 +140,10 @@ export default {
             type: String,
             default: 'image/*',
         },
+        disabled: {
+            type: Boolean,
+            default: false,
+        },
         round: {
             type: Boolean,
             default: false,
@@ -161,7 +169,7 @@ export default {
         const cropperModalRef = ref()
 
         const list = computed(() => [...fileList.value, ...queue.value])
-        const loading = computed(()=>queue.value.some(o=>STATUS_ENUM.is('uploading', o.status)))
+        const loading = computed(() => queue.value.some(o => STATUS_ENUM.is('uploading', o.status)))
 
         const showUploadBtn = computed(() => {
             return multiple.value || !list.value.length
