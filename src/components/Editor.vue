@@ -1,9 +1,11 @@
 <template>
     <div class="x-editor">
-        <tiny-editor v-model="content"
-                     v-bind="$attrs"
-                     api-key="d6vzo7lwm6my7lu42uk2jhnhui7cdk842rb0tzc6sfxgffgm"
-                     :init="opts"></tiny-editor>
+        <a-spin :spinning="spinning">
+            <tiny-editor v-model="content"
+                         v-bind="$attrs"
+                         api-key="d6vzo7lwm6my7lu42uk2jhnhui7cdk842rb0tzc6sfxgffgm"
+                         :init="opts"></tiny-editor>
+        </a-spin>
     </div>
 </template>
 
@@ -29,6 +31,7 @@ export default {
         'tiny-editor': Editor,
     },
     setup(props, {emit}) {
+        const spinning = ref(true)
         const {modelValue, option} = toRefs(props)
         const content = ref('')
         const opts = mergeDeep({
@@ -41,6 +44,11 @@ export default {
                 body {font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Helvetica, Segoe UI, Arial, Roboto, 'PingFang SC', 'miui', 'Hiragino Sans GB', 'Microsoft Yahei', sans-serif}
                 .mce-content-body {margin: 12px;}
             `,
+            setup: (editor) => {
+                editor.on('init', () => {
+                    spinning.value = false
+                })
+            },
         }, option.value)
 
         watch(() => modelValue.value, (val) => content.value = val)
@@ -51,6 +59,7 @@ export default {
         })
 
         return {
+            spinning,
             content,
             opts,
         }
