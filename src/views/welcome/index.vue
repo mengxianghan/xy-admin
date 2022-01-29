@@ -54,8 +54,8 @@
                 <div>高性能 / 精致 / 优雅。基于 vue3 + ant-design-vue 的中后台前端解决方案。</div>
             </a-card>
             <a-card title="版本信息">
-                <a-result title="Admin 2.0.0"
-                          sub-title="最新版本 2.0.0">
+                <a-result :title="`${title} ${version}`"
+                          :sub-title="`最新版本 ${version}`">
                     <template #icon>
                         <img :src="require('@/assets/ver.svg')"/>
                     </template>
@@ -76,6 +76,7 @@ export default {
     setup() {
         const store = useStore()
         const title = process.env.VUE_APP_TITLE
+        const version = '2.0.0'
         const userInfo = computed(() => store.getters['user/userInfo'])
         const userName = computed(() => `${timeFix()}，${userInfo.value?.username}`)
         const dynamicList = ref([])
@@ -94,6 +95,7 @@ export default {
 
         return {
             title,
+            version,
             userName,
             dynamicList,
         }
