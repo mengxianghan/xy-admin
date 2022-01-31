@@ -33,7 +33,8 @@ import useForm from '@/hooks/useForm'
 
 export default {
     name: 'Edit',
-    setup() {
+    emits: ['ok'],
+    setup(props, {emit}) {
         const {modal, showModal, hideModal, showLoading, hideLoading} = useModal()
         const {formRef, rules, formState, form, resetForm} = useForm()
 
@@ -68,6 +69,7 @@ export default {
                 setTimeout(() => {
                     hideLoading()
                     hideModal()
+                    emit('ok')
                 }, 3000)
             }).catch((err) => {
                 hideLoading()

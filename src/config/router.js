@@ -363,17 +363,6 @@ export const asyncRouterMap = [
                     permission: '*',
                 },
             },
-            {
-                path: 'excel',
-                name: 'componentExcel',
-                component: 'component/excel/index.vue',
-                meta: {
-                    title: 'Excel',
-                    isMenu: true,
-                    keepAlive: true,
-                    permission: '*',
-                },
-            },
         ],
     },
     {

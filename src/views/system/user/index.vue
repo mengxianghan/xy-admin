@@ -15,7 +15,8 @@
         <a-col flex="1">
             <a-card>
                 <x-action-bar class="mb-8-2">
-                    <a-button type="primary">
+                    <a-button type="primary"
+                              @click="$refs.editRef.handleCreate()">
                         <template #icon>
                             <icon-plus-outlined/>
                         </template>
@@ -51,8 +52,8 @@
                             <a-avatar :src="record.avatar"/>
                         </template>
                         <template v-if="'action' === column.key">
-                            <x-action-button>查看</x-action-button>
-                            <x-action-button>编辑</x-action-button>
+                            <x-action-button @click="$refs.editRef.handlePreview(record)">查看</x-action-button>
+                            <x-action-button @click="$refs.editRef.handleEdit(record)">编辑</x-action-button>
                             <x-action-button>
                                 <a-popconfirm title="确认删除？"
                                               @confirm="handleDelete">
@@ -65,6 +66,8 @@
             </a-card>
         </a-col>
     </a-row>
+
+    <edit ref="editRef"></edit>
 </template>
 
 <script>
@@ -74,23 +77,27 @@ import {systemApi} from '@/api'
 
 import usePagination from '@/hooks/usePagination'
 
+import Edit from './component/Edit'
+
 export default {
     name: 'systemUser',
+    components: {Edit},
     setup() {
         const {loading, pagination, resetPagination} = usePagination()
         const roleLoading = ref(false)
         const roleList = ref([])
-        const selectedKeys = ref([])
+        const selectedKeys = ref(['0'])
         const columns = ref([
             {title: 'ID', dataIndex: 'id'},
             {title: '头像', key: 'avatar'},
-            {title: '登录帐号', dataIndex: 'email'},
+            {title: '登录帐号', dataIndex: 'userName'},
             {title: '姓名', dataIndex: 'name'},
             {title: '所属角色', dataIndex: 'roleName'},
             {title: '加入时间', dataIndex: 'date'},
             {title: '操作', key: 'action', fixed: 'right', width: 160},
         ])
         const userList = ref([])
+        const editRef = ref()
 
         onMounted(() => {
             getUserRoleList()
@@ -184,6 +191,7 @@ export default {
             roleLoading,
             loading,
             selectedKeys,
+            editRef,
             handleRole,
             handleDelete,
             onTableChange,

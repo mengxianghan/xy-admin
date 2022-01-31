@@ -71,7 +71,7 @@ Mock.mock(new RegExp('/system/getUserPageList'), 'get', options => {
         'rows|10': [{
             'id|+1': 1,
             'avatar': '@image(60x60, @color, @cfirst)',
-            'email': '@email',
+            'userName': '@email',
             'name': '@cname',
             'roleName|+1': ['超级管理员', '业务管理员', '数据管理员'],
             'date': '@date',

@@ -5,7 +5,7 @@ export default () => {
     const form = reactive({
         formState: {},
         rules: {},
-        record: {},
+        row: {},
     })
 
     const formLayout = {
@@ -28,6 +28,8 @@ export default () => {
      * 重置表单
      */
     const resetForm = () => {
+        form.formState = {}
+        form.row = {}
         formRef.value.resetFields()
         formRef.value.clearValidate()
     }

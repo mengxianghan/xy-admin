@@ -5,7 +5,8 @@
                 ref="formRef">
             <a-form-item name="username">
                 <a-input v-model:value="form.username"
-                         size="large">
+                         size="large"
+                         placeholder="admin">
                     <a-icon slot="prefix"
                             type="user"/>
                 </a-input>
@@ -14,6 +15,7 @@
                 <a-input v-model:value="form.password"
                          size="large"
                          type="password"
+                         placeholder="123456"
                          @pressEnter="handleLogin">
                     <a-icon slot="prefix"
                             type="lock"/>
