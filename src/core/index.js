@@ -1,6 +1,6 @@
 import antd from 'ant-design-vue'
-import icon from '@/plugins/icon'
-import component from '@/plugins/component'
+import component from '@/components'
+import icon from '@/components/icon'
 import {setupStore} from '@/store'
 import {setupRouter} from '@/router'
 

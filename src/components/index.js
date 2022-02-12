@@ -1,17 +1,23 @@
-import LayoutMenu from '@/components/LayoutMenu'
-import ActionBar from '@/components/ActionBar'
-import ActionButton from '@/components/ActionButton'
-import Breadcrumb from '@/components/Breadcrumb'
-import Chart from '@/components/Chart'
-import Cropper from '@/components/Cropper'
-import CropperModal from '@/components/CropperModal'
-import Editor from '@/components/Editor'
-import FormTable from '@/components/FormTable'
-import Filter from '@/components/Filter/Filter'
-import LayoutHeader from '@/components/LayoutHeader'
-import MultiTab from '@/components/MultiTab'
-import SearchBar from '@/components/SearchBar'
-import UploadImage from '@/components/Upload/UploadImage'
+import LayoutMenu from './LayoutMenu'
+import ActionBar from './ActionBar'
+import ActionButton from './ActionButton'
+import Breadcrumb from './Breadcrumb'
+import Chart from './Chart'
+import Cropper from './Cropper'
+import CropperModal from './CropperModal'
+import Editor from './Editor'
+import FormTable from './FormTable'
+import Filter from './Filter/Filter'
+import LayoutHeader from './LayoutHeader'
+import MultiTab from './MultiTab'
+import SearchBar from './SearchBar'
+import UploadImage from './Upload/UploadImage'
+
+import Loading from './Loading'
+import Preview from './Preview'
+
+export const loading = Loading
+export const preview = Preview
 
 export default {
     install(app) {
@@ -30,5 +36,5 @@ export default {
         app.component('XSearchBar', SearchBar)
         app.component('XUploadImage', UploadImage)
         return app
-    }
+    },
 }
