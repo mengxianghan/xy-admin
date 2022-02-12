@@ -54,7 +54,6 @@ import {computed, ref, toRefs, watch} from 'vue'
 import {ACTION_ENUM} from './preview'
 import {Modal} from 'ant-design-vue'
 import {LeftOutlined, RightOutlined} from '@ant-design/icons-vue'
-import {isFunction} from 'lodash'
 import Preview from './index'
 
 /**
@@ -77,8 +76,6 @@ export default {
         const nextBtn = ref(true)
         const url = computed(() => urls.value[current.value])
         const visible = ref(false)
-        const onClear = ref(() => {
-        })
 
         watch(() => urls, (val) => {
             prevBtn.value = val.value.length > 0 && current.value > 0
@@ -88,9 +85,8 @@ export default {
         /**
          * 打开
          */
-        function handleOpen(clear) {
+        function handleOpen() {
             visible.value = true
-            onClear.value = clear
         }
 
         /**
@@ -98,9 +94,7 @@ export default {
          */
         function handleClose() {
             visible.value = false
-            if (isFunction(onClear.value)) {
-                onClear.value.call()
-            }
+            Preview.close()
         }
 
         /**

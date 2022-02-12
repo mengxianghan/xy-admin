@@ -17,12 +17,15 @@ const Preview = (props = {}) => {
     container = document.createElement('div')
     render(vm, container)
     document.body.appendChild(container)
-    vm.component.ctx.handleOpen(clear)
+    vm.component.ctx.handleOpen()
     return Preview
 }
 
 Preview.close = () => {
-    vm.component.ctx.handleClose()
+    if (vm.component.ctx.visible) {
+        vm.component.ctx.handleClose()
+    }
+    clear()
 }
 
 export default Preview
