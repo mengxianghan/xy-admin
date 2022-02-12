@@ -1,22 +1,22 @@
-import Main from './main.vue'
+import LoadingConstructor from './loading.vue'
 import {createVNode, render} from 'vue'
 
-let instance = null
+let vm = null
 
 const close = () => {
-    if (instance) {
-        instance.el.parentNode.parentNode.removeChild(instance.el.parentNode)
-        instance = null
+    if (vm) {
+        vm.el.parentNode.parentNode.removeChild(vm.el.parentNode)
+        vm = null
     }
 }
 
 const Loading = (props) => {
-    if (instance) {
+    if (vm) {
         close()
     }
-    instance = createVNode(Main, props)
+    vm = createVNode(LoadingConstructor, props)
     const container = document.createElement('div')
-    render(instance, container)
+    render(vm, container)
     document.body.appendChild(container)
     return Loading
 }

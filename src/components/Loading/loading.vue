@@ -9,16 +9,20 @@
 <script>
 import {Spin} from 'ant-design-vue'
 
+/**
+ * Loading
+ * @property {string} message 提示信息，默认：加载中
+ */
 export default {
     components: {Spin},
     props: {
         message: {
             type: String,
-            default: '加载中'
-        }
+            default: '加载中',
+        },
     },
     setup() {
-    }
+    },
 }
 </script>
 
@@ -42,5 +46,4 @@ export default {
         margin-top: 12px;
     }
 }
-
 </style>
