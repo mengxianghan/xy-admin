@@ -294,6 +294,17 @@ export const asyncRouterMap = [
                     permission: '*',
                 },
             },
+            {
+                path: 'menu',
+                name: 'systemMenu',
+                component: 'system/menu/index.vue',
+                meta: {
+                    title: '菜单管理',
+                    isMenu: true,
+                    keepAlive: true,
+                    permission: '*',
+                },
+            },
         ],
     },
     {

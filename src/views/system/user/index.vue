@@ -8,7 +8,6 @@
                             :tree-data="roleList"
                             :field-names="{title: 'name', children: 'children', key: 'key'}"
                             block-node
-                            default-expand-all
                             @select="handleRole"></a-tree>
                 </a-spin>
             </a-card>
@@ -78,7 +77,7 @@ import {systemApi} from '@/api'
 
 import usePagination from '@/hooks/usePagination'
 
-import Edit from './component/Edit'
+import Edit from './components/Edit'
 
 export default {
     name: 'systemUser',
