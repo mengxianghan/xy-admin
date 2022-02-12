@@ -24,13 +24,21 @@ import {
     InfoCircleOutlined,
     SmileOutlined,
     CloseCircleOutlined,
+    LeftOutlined,
     RightOutlined,
     CheckCircleOutlined,
     AppstoreAddOutlined,
     LayoutOutlined,
     DeleteOutlined,
     EyeOutlined,
-    PictureOutlined
+    PictureOutlined,
+    ZoomOutOutlined,
+    ZoomInOutlined,
+    FullscreenOutlined,
+    UndoOutlined,
+    RedoOutlined,
+    RotateRightOutlined,
+    RotateLeftOutlined,
 } from '@ant-design/icons-vue'
 
 export default {
@@ -60,6 +68,7 @@ export default {
         app.component('IconInfoCircleOutlined', InfoCircleOutlined)
         app.component('IconSmileOutlined', SmileOutlined)
         app.component('IconCloseCircleOutlined', CloseCircleOutlined)
+        app.component('IconLeftOutlined', LeftOutlined)
         app.component('IconRightOutlined', RightOutlined)
         app.component('IconCheckCircleOutlined', CheckCircleOutlined)
         app.component('IconAppstoreAddOutlined', AppstoreAddOutlined)
@@ -67,6 +76,13 @@ export default {
         app.component('IconDeleteOutlined', DeleteOutlined)
         app.component('IconEyeOutlined', EyeOutlined)
         app.component('IconPictureOutlined', PictureOutlined)
+        app.component('IconZoomOutOutlined', ZoomOutOutlined)
+        app.component('IconZoomInOutlined', ZoomInOutlined)
+        app.component('IconFullscreenOutlined', FullscreenOutlined)
+        app.component('IconUndoOutlined', UndoOutlined)
+        app.component('IconRedoOutlined', RedoOutlined)
+        app.component('IconRotateRightOutlined', RotateRightOutlined)
+        app.component('IconRotateLeftOutlined', RotateLeftOutlined)
         return app
     },
 }

@@ -63,6 +63,7 @@
             </a-card>
         </a-col>
     </a-row>
+
 </template>
 
 <script>
@@ -70,6 +71,7 @@ import {computed, onMounted, ref} from 'vue'
 import {useStore} from 'vuex'
 import {timeFix} from '@/utils'
 import {commonApi} from '@/api'
+import Preview from '@/components/Preview'
 
 export default {
     name: 'welcome',
@@ -91,6 +93,8 @@ export default {
 
         onMounted(() => {
             getData()
+
+            Preview()
         })
 
         return {
