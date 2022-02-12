@@ -1,7 +1,8 @@
 <template>
     <a-card>
         <x-action-bar class="mb-8-2">
-            <a-button type="primary">
+            <a-button type="primary"
+                      @click="$refs.editRef.handleCreate()">
                 <template #icon>
                     <icon-plus-outlined/>
                 </template>
@@ -19,8 +20,8 @@
                     {{ index + 1 }}
                 </template>
                 <template v-if="'action' === column.key">
-                    <x-action-button>查看</x-action-button>
-                    <x-action-button>编辑</x-action-button>
+                    <x-action-button @click="$refs.editRef.handlePreview(record)">查看</x-action-button>
+                    <x-action-button @click="$refs.editRef.handleEdit(record)">编辑</x-action-button>
                     <x-action-button>
                         <a-popconfirm title="确认删除？">
                             删除
@@ -30,25 +31,30 @@
             </template>
         </a-table>
     </a-card>
+
+    <edit ref="editRef"/>
 </template>
 
 <script>
 import {onMounted, ref} from 'vue'
-
-import usePagination from '@/hooks/usePagination'
 import {systemApi} from '@/api'
+
+import Edit from './components/Edit'
+import usePagination from '@/hooks/usePagination'
 
 export default {
     name: 'systemRole',
+    components: {Edit},
     setup() {
         const columns = ref([
-            {title: '#', key: 'no', width: 60},
-            {title: '角色名称', dataIndex: 'title'},
+            {title: '#', key: 'no', width: 60, align: 'center'},
+            {title: '名称', dataIndex: 'name'},
             {title: '别名', dataIndex: 'alias'},
-            {title: '排序', dataIndex: 'sort', width: 120, align: 'right'},
+            {title: '排序', dataIndex: 'sort', width: 80},
             {title: '操作', key: 'action', width: 160},
         ])
         const {list, loading} = usePagination()
+        const editRef = ref()
 
         onMounted(() => {
             getUserRoleList()
@@ -78,6 +84,7 @@ export default {
             columns,
             list,
             loading,
+            editRef,
         }
     },
 }

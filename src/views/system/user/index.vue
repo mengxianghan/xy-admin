@@ -6,6 +6,7 @@
                 <a-spin :spinning="roleLoading">
                     <a-tree :selected-keys="selectedKeys"
                             :tree-data="roleList"
+                            :field-names="{title: 'name', children: 'children', key: 'key'}"
                             block-node
                             default-expand-all
                             @select="handleRole"></a-tree>
@@ -94,7 +95,7 @@ export default {
             {title: '姓名', dataIndex: 'name'},
             {title: '所属角色', dataIndex: 'roleName'},
             {title: '加入时间', dataIndex: 'date'},
-            {title: '操作', key: 'action', fixed: 'right', width: 160},
+            {title: '操作', key: 'action', fixed: 'right', width: 160}
         ])
         const userList = ref([])
         const editRef = ref()
@@ -117,8 +118,8 @@ export default {
                 roleLoading.value = false
                 if ('200' === code) {
                     roleList.value = [{
-                        'title': '全部',
-                        'key': '0',
+                        'name': '全部',
+                        'key': '0'
                     }, ...data.rows]
                 }
             } catch (err) {
@@ -136,7 +137,7 @@ export default {
                 const {pageSize, current} = pagination.value
                 const {code, data} = await systemApi.getUserPageList({
                     pageSize,
-                    page: current,
+                    page: current
                 }).catch(() => {
                     throw new Error()
                 })
@@ -178,7 +179,7 @@ export default {
             pagination.value = {
                 ...pagination.value,
                 current,
-                pageSize,
+                pageSize
             }
             getUserPageList()
         }
@@ -194,9 +195,9 @@ export default {
             editRef,
             handleRole,
             handleDelete,
-            onTableChange,
+            onTableChange
         }
-    },
+    }
 }
 </script>
 

@@ -1,13 +1,13 @@
 <template>
     <div>
-        <a-form :model="form"
+        <a-form :model="formState"
                 :label-col="{ lg: { span: 5 }, sm: { span: 5 } }"
                 :wrapper-col="{ lg: { span: 19 }, sm: { span: 19 } }"
                 ref="formRef"
                 :rules="rules">
             <a-form-item label="付款账户"
                          name="paymentUser">
-                <a-select v-model:value="form.paymentUser"
+                <a-select v-model:value="formState.paymentUser"
                           placeholder="******@***.com">
                     <a-select-option value="1">******@***.com</a-select-option>
                 </a-select>
@@ -23,17 +23,17 @@
                             <a-select-option value="wexinpay">微信</a-select-option>
                         </a-select>
                     </a-form-item-rest>
-                    <a-input v-model:value="form.payType"
+                    <a-input v-model:value="formState.payType"
                              :style="{width: 'calc(100% - 100px)'}"/>
                 </a-input-group>
             </a-form-item>
             <a-form-item label="收款人姓名"
                          name="name">
-                <a-input v-model:value="form.name"/>
+                <a-input v-model:value="formState.name"/>
             </a-form-item>
             <a-form-item label="转账金额"
                          name="money">
-                <a-input v-model:value="form.money"
+                <a-input v-model:value="formState.money"
                          prefix="￥"/>
             </a-form-item>
             <a-form-item :wrapper-col="{span: 19, offset: 5}">
@@ -60,7 +60,7 @@ export default {
     name: 'Step1',
     emits: ['next'],
     setup(props, {emit}) {
-        const {form, formRef, rules} = useForm()
+        const {formState, formRef, rules} = useForm()
 
         rules.value = {
             paymentUser: [{required: true, message: '付款账户必须填写'}],
@@ -80,7 +80,7 @@ export default {
         }
 
         return {
-            form,
+            formState,
             formRef,
             rules,
             handleNext,

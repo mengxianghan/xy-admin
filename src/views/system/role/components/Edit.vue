@@ -17,30 +17,25 @@
                 :rules="rules"
                 ref="formRef"
                 :label-col="{ style: { width: '90px' } }">
-            <a-form-item label="头像"
-                         name="avatar">
-                <x-upload-image v-model="formState.avatar"
-                                :disabled="disabled"></x-upload-image>
+            <a-form-item label="所属上级"
+                         name="role">
+                <a-cascader v-model:value="formState.role"
+                            :disabled="disabled"></a-cascader>
             </a-form-item>
-            <a-form-item label="登录帐号"
-                         name="userName">
-                <a-input v-model:value="formState.userName"
-                         :disabled="disabled"></a-input>
-            </a-form-item>
-            <a-form-item label="姓名"
+            <a-form-item label="名称"
                          name="name">
                 <a-input v-model:value="formState.name"
                          :disabled="disabled"></a-input>
             </a-form-item>
-            <a-form-item label="所属角色"
-                         name="role">
-                <a-cascader v-model:value="formState.role"
-                            placeholder=""
-                            :options="roleList"
-                            :disabled="disabled"
-                            :field-names="{label: 'name', value: 'key', children: 'children'}"
-                            multiple
-                            max-tag-count="responsive"></a-cascader>
+            <a-form-item label="别名"
+                         name="userName">
+                <a-input v-model:value="formState.alias"
+                         :disabled="disabled"></a-input>
+            </a-form-item>
+            <a-form-item label="排序"
+                         name="sort">
+                <a-input v-model:value="formState.sort"
+                         :disabled="disabled"></a-input>
             </a-form-item>
         </a-form>
     </a-modal>
@@ -50,7 +45,6 @@
 import {ref} from 'vue'
 import {message} from 'ant-design-vue'
 import {cloneDeep} from 'lodash'
-import {systemApi} from '@/api'
 
 import useModal from '@/hooks/useModal'
 import useForm from '@/hooks/useForm'
@@ -63,29 +57,12 @@ export default {
         const {formRecord, formState, formRef, rules, formLayout, resetForm} = useForm()
         const disabled = ref(false)
         const cancelText = ref('取消')
-        const roleList = ref([])
 
         rules.value = {
-            avatar: {required: true, message: '请上传头像'},
-            userName: {required: true, message: '请输入登录帐号'},
-            name: {required: true, message: '请输入姓名'},
-            role: {required: true, message: '请选择所属角色'}
-        }
-
-        /**
-         * 获取角色列表
-         * @returns {Promise<void>}
-         */
-        async function getUserRoleList() {
-            try {
-                const {code, data} = await systemApi.getUserRoleList().catch(() => {
-                    throw new Error()
-                })
-                if ('200' === code) {
-                    roleList.value = data.rows
-                }
-            } catch (err) {
-            }
+            role: {required: true, message: '请选择所属上级'},
+            name: {required: true, message: '请输入名称'},
+            alias: {required: true, message: '请输入别名'},
+            sort: {required: true, message: '请输入排序'}
         }
 
         /**
@@ -94,9 +71,8 @@ export default {
         function handleCreate() {
             showModal({
                 type: 'create',
-                title: '新建用户'
+                title: '新建角色'
             })
-            getUserRoleList()
         }
 
         /**
@@ -105,14 +81,10 @@ export default {
         function handleEdit(record) {
             showModal({
                 type: 'edit',
-                title: '编辑用户'
+                title: '编辑角色'
             })
-            formState.value = {
-                ...cloneDeep(record),
-                role: []
-            }
+            formState.value = cloneDeep(record)
             formRecord.value = record
-            getUserRoleList()
         }
 
         /**
@@ -121,12 +93,11 @@ export default {
         function handlePreview(record) {
             showModal({
                 type: 'preview',
-                title: '查看用户'
+                title: '查看角色'
             })
             formState.value = cloneDeep(record)
             disabled.value = true
             cancelText.value = '关闭'
-            getUserRoleList()
         }
 
         /**
@@ -171,7 +142,6 @@ export default {
             formLayout,
             disabled,
             cancelText,
-            roleList,
             handleCreate,
             handleEdit,
             handlePreview,

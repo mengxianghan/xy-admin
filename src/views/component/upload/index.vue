@@ -100,9 +100,9 @@ export default {
         const cropper = ref('')
         const round = ref('')
         const multipleList = ref([])
-        const {form, formState, rules, formRef, resetForm} = useForm()
+        const {formState, rules, formRef, resetForm} = useForm()
 
-        form.rules = {
+        rules.value = {
             field1: {required: true, message: '请上传人像面'},
             field2: {required: true, message: '请上传国徽面'},
         }

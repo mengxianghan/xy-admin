@@ -1,12 +1,10 @@
-import {reactive, ref, toRefs} from 'vue'
+import {ref} from 'vue'
 
 export default () => {
     const formRef = ref({})
-    const form = reactive({
-        formState: {},
-        rules: {},
-        row: {},
-    })
+    const formRecord = ref({})
+    const rules = ref(null)
+    const formState = ref({})
 
     const formLayout = {
         labelCol: {
@@ -28,8 +26,8 @@ export default () => {
      * 重置表单
      */
     const resetForm = () => {
-        form.formState = {}
-        form.row = {}
+        formRecord.value = null
+        formState.value = {}
         formRef.value.resetFields()
         formRef.value.clearValidate()
     }
@@ -47,9 +45,10 @@ export default () => {
     }
 
     return {
-        ...toRefs(form),
-        form,
         formRef,
+        rules,
+        formRecord,
+        formState,
         formLayout,
         formButtonLayout,
         resetForm,

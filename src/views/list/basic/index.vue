@@ -64,7 +64,7 @@
                  @change="onTableChange">
             <template #bodyCell="{column, record, index}">
                 <template v-if="'action' === column.key">
-                    <x-action-button @click="$refs.editRef.handleEdit()">编辑</x-action-button>
+                    <x-action-button @click="$refs.editRef.handleEdit(record)">编辑</x-action-button>
                     <x-action-button>
                         <a-popconfirm title="确认删除？"
                                       @confirm="onDeleteConfirm">

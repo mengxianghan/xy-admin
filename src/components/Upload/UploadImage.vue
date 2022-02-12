@@ -110,56 +110,56 @@ export default {
     props: {
         modelValue: {
             type: [String, Array],
-            default: '',
+            default: ''
         },
         multiple: {
             type: Boolean,
-            default: false,
+            default: false
         },
         width: {
             type: Number,
-            default: 120,
+            default: 120
         },
         height: {
             type: Number,
-            default: 120,
+            default: 120
         },
         icon: {
             type: String,
-            default: 'icon-plus-outlined',
+            default: 'icon-plus-outlined'
         },
         text: {
             type: String,
-            default: '',
+            default: ''
         },
         maxSize: {
             type: [String, Number],
-            default: '2M',
+            default: '2M'
         },
         accept: {
             type: String,
-            default: 'image/*',
+            default: 'image/*'
         },
         disabled: {
             type: Boolean,
-            default: false,
+            default: false
         },
         round: {
             type: Boolean,
-            default: false,
+            default: false
         },
         cropper: {
             type: Boolean,
-            default: false,
+            default: false
         },
         aspectRatio: {
             type: Number,
-            default: 0,
+            default: 0
         },
         quality: {
             type: Number,
-            default: 1,
-        },
+            default: 1
+        }
     },
     setup(props, {emit}) {
         const {multiple, maxSize, modelValue, cropper} = toRefs(props)
@@ -239,7 +239,7 @@ export default {
                 key: file.uid,
                 src: URL.createObjectURL(file),
                 status: STATUS_ENUM.getValue('wait'),
-                percent: 0,
+                percent: 0
             })
             // 判断是否批量上传
             if (multiple.value) {
@@ -286,7 +286,7 @@ export default {
                 key: uuidv4(),
                 src: '',
                 status: STATUS_ENUM.getValue('done'),
-                percent: 100,
+                percent: 100
             }, obj)
         }
 
@@ -315,9 +315,9 @@ export default {
             handleRemove,
             handleCancel,
             onBeforeUpload,
-            onUpload,
+            onUpload
         }
-    },
+    }
 }
 </script>
 
@@ -364,6 +364,8 @@ export default {
         justify-content: center;
         position: relative;
         overflow: hidden;
+        background: @background-color-base;
+        border-radius: @border-radius-base;
 
         img {
             width: 100%;
@@ -411,7 +413,7 @@ export default {
         display: flex;
         align-items: center;
         justify-content: center;
-        color: #fff;
+        color: #ffffff;
         border-radius: 4px;
         cursor: pointer;
         background: rgba(0, 0, 0, .25);
@@ -436,7 +438,7 @@ export default {
         justify-content: center;
         background: rgba(0, 0, 0, .25);
         padding: 0 16px;
-        color: #fff;
+        color: #ffffff;
 
         &--error {
             color: @error-color;

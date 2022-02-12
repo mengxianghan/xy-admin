@@ -9,25 +9,18 @@
         <a-form ref="formRef"
                 :model="formState"
                 :rules="rules"
-                scroll-to-first-error
-                layout="vertical">
-            <a-form-item label="字段 1"
-                         name="txt1">
-                <a-input v-model:value="formState.txt1"></a-input>
-            </a-form-item>
-            <a-form-item label="字段 2"
-                         name="txt2">
-                <a-input v-model:value="formState.txt2"></a-input>
-            </a-form-item>
-            <a-form-item label="字段 3"
-                         name="txt3">
-                <a-input v-model:value="formState.txt3"></a-input>
+                scroll-to-first-error>
+            <a-form-item label="标题"
+                         name="title">
+                <a-input v-model:value="formState.title"></a-input>
             </a-form-item>
         </a-form>
     </a-modal>
 </template>
 
 <script>
+import {cloneDeep} from 'lodash'
+
 import useModal from '@/hooks/useModal'
 import useForm from '@/hooks/useForm'
 
@@ -36,10 +29,10 @@ export default {
     emits: ['ok'],
     setup(props, {emit}) {
         const {modal, showModal, hideModal, showLoading, hideLoading} = useModal()
-        const {formRef, rules, formState, form, resetForm} = useForm()
+        const {formRef, rules, formRecord, formState, resetForm} = useForm()
 
-        form.rules = {
-            txt1: {required: true, message: '请输入字段 1'},
+        rules.value = {
+            title: {required: true, message: '请输入标题'},
         }
 
         /**
@@ -58,6 +51,8 @@ export default {
             showModal({
                 title: '编辑',
             })
+            formState.value = cloneDeep(record)
+            formRecord.value = record
         }
 
         /**
@@ -84,7 +79,7 @@ export default {
         }
 
         /**
-         * 完全关闭后回调
+         * 关闭后
          */
         const onAfterClose = () => {
             resetForm()
@@ -92,14 +87,14 @@ export default {
 
         return {
             modal,
+            formRef,
+            rules,
+            formState,
             handleCreate,
             handleEdit,
             handleOk,
             handleCancel,
             onAfterClose,
-            formRef,
-            rules,
-            formState,
         }
     },
 }

@@ -6,30 +6,30 @@ Mock.mock(new RegExp('/system/getUserRoleList'), 'get', options => {
     return builder(Mock.mock({
         'rows': [
             {
-                'title': '超级管理员',
+                'name': '超级管理员',
                 'alias': '@word(2,4)',
                 'sort|1-100': 1,
                 'key': '@id',
             },
             {
-                'title': '管理员',
+                'name': '管理员',
                 'alias': '@word(2,4)',
                 'sort|1-100': 1,
                 'key': '@id',
                 'children': [{
-                    'title': '系统管理员',
+                    'name': '系统管理员',
                     'alias': '@word(2,4)',
                     'sort|1-100': 1,
                     'key': '@id',
                 },
                     {
-                        'title': '业务管理员',
+                        'name': '业务管理员',
                         'alias': '@word(2,4)',
                         'sort|1-100': 1,
                         'key': '@id',
                     },
                     {
-                        'title': '数据管理员',
+                        'name': '数据管理员',
                         'alias': '@word(2,4)',
                         'sort|1-100': 1,
                         'key': '@id',
@@ -37,24 +37,24 @@ Mock.mock(new RegExp('/system/getUserRoleList'), 'get', options => {
                 ],
             },
             {
-                'title': '操作员',
+                'name': '操作员',
                 'alias': '@word(2,4)',
                 'sort|1-100': 1,
                 'key': '@id',
                 'children': [{
-                    'title': '公告维护员',
+                    'name': '公告维护员',
                     'alias': '@word(2,4)',
                     'sort|1-100': 1,
                     'key': '@id',
                 },
                     {
-                        'title': '审核员',
+                        'name': '审核员',
                         'alias': '@word(2,4)',
                         'sort|1-100': 1,
                         'key': '@id',
                     },
                     {
-                        'title': '复审员',
+                        'name': '复审员',
                         'alias': '@word(2,4)',
                         'sort|1-100': 1,
                         'key': '@id',
@@ -69,7 +69,7 @@ Mock.mock(new RegExp('/system/getUserRoleList'), 'get', options => {
 Mock.mock(new RegExp('/system/getUserPageList'), 'get', options => {
     return builder(Mock.mock({
         'rows|10': [{
-            'id|+1': 1,
+            'id': '@id',
             'avatar': '@image(60x60, @color, @cfirst)',
             'userName': '@email',
             'name': '@cname',

@@ -1,6 +1,6 @@
 <template>
     <div>
-        <a-form :model="form"
+        <a-form :model="formState"
                 :label-col="{ lg: { span: 5 }, sm: { span: 5 } }"
                 :wrapper-col="{ lg: { span: 19 }, sm: { span: 19 } }"
                 :rules="rules"
@@ -25,7 +25,7 @@
             <a-divider/>
             <a-form-item label="支付密码"
                          name="paymentPassword">
-                <a-input v-model:value="form.paymentPassword"
+                <a-input v-model:value="formState.paymentPassword"
                          type="password"
                          style="width: 80%;"/>
             </a-form-item>
@@ -51,7 +51,7 @@ export default {
     name: 'Step2',
     emits: ['next', 'prev'],
     setup(props, {emit}) {
-        const {form, rules, formRef} = useForm()
+        const {formState, rules, formRef} = useForm()
         const loading = ref(false)
 
         rules.value = {
@@ -81,7 +81,7 @@ export default {
         }
 
         return {
-            form,
+            formState,
             rules,
             formRef,
             loading,

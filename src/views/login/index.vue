@@ -1,10 +1,10 @@
 <template>
     <div>
-        <a-form :model="form"
+        <a-form :model="formState"
                 :rules="rules"
                 ref="formRef">
             <a-form-item name="username">
-                <a-input v-model:value="form.username"
+                <a-input v-model:value="formState.username"
                          size="large"
                          placeholder="admin">
                     <a-icon slot="prefix"
@@ -12,7 +12,7 @@
                 </a-input>
             </a-form-item>
             <a-form-item name="password">
-                <a-input v-model:value="form.password"
+                <a-input v-model:value="formState.password"
                          size="large"
                          type="password"
                          placeholder="123456"
@@ -39,20 +39,27 @@ import {useStore} from 'vuex'
 import {useRoute, useRouter} from 'vue-router'
 import {message, Modal} from 'ant-design-vue'
 
+import useForm from '@/hooks/useForm'
+
 export default {
     setup() {
         const store = useStore()
         const router = useRouter()
         const route = useRoute()
-        const rules = {
+        const {formState, formRef, rules} = useForm()
+        const title = process.env.VUE_APP_TITLE
+        const loading = ref(false)
+        const redirect = computed(() => decodeURIComponent(route.query?.redirect ?? ''))
+
+        rules.value = {
             username: {required: true, message: '请输入用户名'},
             password: {required: true, message: '请输入密码'},
         }
-        const title = process.env.VUE_APP_TITLE
-        const loading = ref(false)
-        const form = reactive({})
-        const formRef = ref()
-        const redirect = computed(() => decodeURIComponent(route.query?.redirect ?? ''))
+
+        formState.value = {
+            username: 'admin',
+            password: '123456',
+        }
 
         /**
          * 登录
@@ -119,7 +126,7 @@ export default {
 
         return {
             rules,
-            form,
+            formState,
             formRef,
             title,
             loading,
