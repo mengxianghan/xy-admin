@@ -40,7 +40,8 @@
             <template v-if="['error', 'done'].includes(STATUS_ENUM.getKey(item.status))">
                 <div class="x-upload-actions">
                     <div v-if="STATUS_ENUM.is('done', item.status)"
-                         class="x-upload-action">
+                         class="x-upload-action"
+                         @click="handlePreview(item)">
                         <icon-eye-outlined/>
                     </div>
                     <div v-if="!disabled"
@@ -82,6 +83,7 @@ import {STATUS_ENUM} from './enum'
 import {mergeDeep} from '@/utils'
 import {v4 as uuidv4} from 'uuid'
 import {Form, message} from 'ant-design-vue'
+import Preview from '../Preview'
 
 import filesizeParser from 'filesize-parser'
 import filesize from 'filesize'
@@ -110,56 +112,56 @@ export default {
     props: {
         modelValue: {
             type: [String, Array],
-            default: ''
+            default: '',
         },
         multiple: {
             type: Boolean,
-            default: false
+            default: false,
         },
         width: {
             type: Number,
-            default: 120
+            default: 120,
         },
         height: {
             type: Number,
-            default: 120
+            default: 120,
         },
         icon: {
             type: String,
-            default: 'icon-plus-outlined'
+            default: 'icon-plus-outlined',
         },
         text: {
             type: String,
-            default: ''
+            default: '',
         },
         maxSize: {
             type: [String, Number],
-            default: '2M'
+            default: '2M',
         },
         accept: {
             type: String,
-            default: 'image/*'
+            default: 'image/*',
         },
         disabled: {
             type: Boolean,
-            default: false
+            default: false,
         },
         round: {
             type: Boolean,
-            default: false
+            default: false,
         },
         cropper: {
             type: Boolean,
-            default: false
+            default: false,
         },
         aspectRatio: {
             type: Number,
-            default: 0
+            default: 0,
         },
         quality: {
             type: Number,
-            default: 1
-        }
+            default: 1,
+        },
     },
     setup(props, {emit}) {
         const {multiple, maxSize, modelValue, cropper} = toRefs(props)
@@ -190,6 +192,12 @@ export default {
                     : [modelValue.value]
                 : []
             fileList.value = currentValue.map((item) => _getItem({src: item}))
+        }
+
+        function handlePreview(record) {
+            Preview({
+                urls: [record.src],
+            })
         }
 
         /**
@@ -239,7 +247,7 @@ export default {
                 key: file.uid,
                 src: URL.createObjectURL(file),
                 status: STATUS_ENUM.getValue('wait'),
-                percent: 0
+                percent: 0,
             })
             // 判断是否批量上传
             if (multiple.value) {
@@ -286,7 +294,7 @@ export default {
                 key: uuidv4(),
                 src: '',
                 status: STATUS_ENUM.getValue('done'),
-                percent: 100
+                percent: 100,
             }, obj)
         }
 
@@ -312,12 +320,13 @@ export default {
             showUploadBtn,
             cropperModalRef,
             multiple,
+            handlePreview,
             handleRemove,
             handleCancel,
             onBeforeUpload,
-            onUpload
+            onUpload,
         }
-    }
+    },
 }
 </script>
 
@@ -413,7 +422,7 @@ export default {
         display: flex;
         align-items: center;
         justify-content: center;
-        color: #ffffff;
+        color: #fff;
         border-radius: 4px;
         cursor: pointer;
         background: rgba(0, 0, 0, .25);
@@ -438,7 +447,7 @@ export default {
         justify-content: center;
         background: rgba(0, 0, 0, .25);
         padding: 0 16px;
-        color: #ffffff;
+        color: #fff;
 
         &--error {
             color: @error-color;
