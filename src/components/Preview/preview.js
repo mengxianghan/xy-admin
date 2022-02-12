@@ -1,6 +1,6 @@
 import Enum from 'xy-enum'
 
-export const TYPE_ENUM = new Enum([
+export const ACTION_ENUM = new Enum([
     {label: 'zoomOut', value: 'zoomOut', desc: '缩小'},
     {label: 'zoomIn', value: 'zoomIn', desc: '放大'},
     {label: 'fullscreen', value: 'fullscreen', desc: '全屏'},

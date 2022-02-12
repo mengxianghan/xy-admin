@@ -3,7 +3,8 @@
              width="100%"
              wrap-class-name="full-modal"
              :footer="false"
-             @cancel="handleHide">
+             destroy-on-close
+             @cancel="handleClose">
         <div class="x-preview__content">
             <img :src="url"
                  :style="styles"/>
@@ -12,36 +13,36 @@
         <template v-if="prevBtn || nextBtn">
             <div v-if="prevBtn"
                  class="x-preview__left-btn"
-                 @click="handleAction(TYPE_ENUM.getValue('prev'))">
-                <icon-left-outlined/>
+                 @click="handleAction(ACTION_ENUM.getValue('prev'))">
+                <left-outlined/>
             </div>
 
             <div v-if="nextBtn"
                  class="x-preview__right-btn"
-                 @click="handleAction(TYPE_ENUM.getValue('next'))">
-                <icon-right-outlined/>
+                 @click="handleAction(ACTION_ENUM.getValue('next'))">
+                <right-outlined/>
             </div>
         </template>
 
         <!--<div class="x-preview-action-bar">
             <div class="x-preview-action-bar-item"
-                 @click="handleAction(TYPE_ENUM.getValue('zoomOut'))">
+                 @click="handleAction(ACTION_ENUM.getValue('zoomOut'))">
                 <icon-zoom-out-outlined/>
             </div>
             <div class="x-preview-action-bar-item"
-                 @click="handleAction(TYPE_ENUM.getValue('zoomIn'))">
+                 @click="handleAction(ACTION_ENUM.getValue('zoomIn'))">
                 <icon-zoom-in-outlined/>
             </div>
             <div class="x-preview-action-bar-item"
-                 @click="handleAction(TYPE_ENUM.getValue('fullscreen'))">
+                 @click="handleAction(ACTION_ENUM.getValue('fullscreen'))">
                 <icon-fullscreen-outlined/>
             </div>
             <div class="x-preview-action-bar-item"
-                 @click="handleAction(TYPE_ENUM.getValue('rotateLeft'))">
+                 @click="handleAction(ACTION_ENUM.getValue('rotateLeft'))">
                 <icon-rotate-left-outlined/>
             </div>
             <div class="x-preview-action-bar-item"
-                 @click="handleAction(TYPE_ENUM.getValue('rotateRight'))">
+                 @click="handleAction(ACTION_ENUM.getValue('rotateRight'))">
                 <icon-rotate-right-outlined/>
             </div>
         </div>-->
@@ -50,45 +51,56 @@
 
 <script>
 import {computed, ref, toRefs, watch} from 'vue'
-import {TYPE_ENUM} from './types'
+import {ACTION_ENUM} from './preview'
+import {Modal} from 'ant-design-vue'
+import {LeftOutlined, RightOutlined} from '@ant-design/icons-vue'
+import {isFunction} from 'lodash'
+import Preview from './index'
 
 /**
  * @property {array} url-list
  */
 export default {
     name: 'Preview',
+    components: {AModal: Modal, LeftOutlined, RightOutlined},
     props: {
-        urlList: {
+        urls: {
             type: Array,
             default: () => [],
         },
     },
     setup(props) {
-        const {urlList} = toRefs(props)
-        const visible = ref(false)
+        const {urls} = toRefs(props)
         const styles = ref({})
         const current = ref(0)
         const prevBtn = ref(true)
         const nextBtn = ref(true)
-        const url = computed(() => urlList.value[current.value])
+        const url = computed(() => urls.value[current.value])
+        const visible = ref(false)
+        const onClear = ref(() => {
+        })
 
-        watch(() => urlList, (val) => {
+        watch(() => urls, (val) => {
             prevBtn.value = val.value.length > 0 && current.value > 0
             nextBtn.value = val.value.length > 0 && current.value < val.value.length - 1
         }, {immediate: true})
 
         /**
-         * 显示
+         * 打开
          */
-        function handleShow() {
+        function handleOpen(clear) {
             visible.value = true
+            onClear.value = clear
         }
 
         /**
          * 关闭
          */
-        function handleHide() {
+        function handleClose() {
             visible.value = false
+            if (isFunction(onClear.value)) {
+                onClear.value.call()
+            }
         }
 
         /**
@@ -98,31 +110,31 @@ export default {
         function handleAction(type) {
             switch (type) {
                 // 缩小
-                case TYPE_ENUM.getValue('zoomOut'):
+                case ACTION_ENUM.getValue('zoomOut'):
                     break
                 // 放大
-                case TYPE_ENUM.getValue('zoomIn'):
+                case ACTION_ENUM.getValue('zoomIn'):
                     break
                 // 全屏
-                case TYPE_ENUM.getValue('fullscreen'):
+                case ACTION_ENUM.getValue('fullscreen'):
                     console.log('全屏')
                     break
                 // 向左旋转
-                case TYPE_ENUM.getValue('rotateLeft'):
+                case ACTION_ENUM.getValue('rotateLeft'):
                     break
                 // 向右旋转
-                case TYPE_ENUM.getValue('rotateRight'):
+                case ACTION_ENUM.getValue('rotateRight'):
                     break
                 // 上一个
-                case TYPE_ENUM.getValue('prev'):
+                case ACTION_ENUM.getValue('prev'):
                     if (current.value > 0) {
                         current.value -= 1
                     }
                     onCurrentChange()
                     break
                 // 下一个
-                case TYPE_ENUM.getValue('next'):
-                    if (current.value < urlList.value.length - 1) {
+                case ACTION_ENUM.getValue('next'):
+                    if (current.value < urls.value.length - 1) {
                         current.value += 1
                     }
                     onCurrentChange()
@@ -135,18 +147,18 @@ export default {
          */
         function onCurrentChange() {
             prevBtn.value = current.value > 0
-            nextBtn.value = current.value < urlList.value.length - 1
+            nextBtn.value = current.value < urls.value.length - 1
         }
 
         return {
-            TYPE_ENUM,
+            ACTION_ENUM,
             visible,
             styles,
             url,
             prevBtn,
             nextBtn,
-            handleShow,
-            handleHide,
+            handleOpen,
+            handleClose,
             handleAction,
         }
     },
