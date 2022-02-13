@@ -47,13 +47,30 @@
 }
 
 // Tabs
-.ant-tabs-dropdown-content{
-    .ant-dropdown-trigger{
+.ant-tabs-dropdown-content {
+    .ant-dropdown-trigger {
         display: flex;
         align-items: center;
 
-        .x-multi-tab__close-btn{
+        .x-multi-tab__close-btn {
             margin: 0 0 0 auto;
         }
+    }
+}
+
+// Card
+.ant-card-type-flex {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+
+    .ant-card-head {
+        margin-bottom: 0;
+    }
+
+    .ant-card-body {
+        flex: 1 0 0;
+        overflow: hidden;
+        overflow-y: auto;
     }
 }

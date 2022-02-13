@@ -3,7 +3,7 @@
            type="flex"
            class="hp-100">
         <a-col flex="0 0 300px">
-            <a-card class="hp-100 flex direction-column tree-wrap">
+            <a-card type="flex">
                 <template #title>
                     <a-input-search v-model:value="searchValue"
                                     allow-clear
@@ -49,7 +49,7 @@
         </a-col>
         <template v-if="!selectedKeys.length">
             <a-col flex="1">
-                <a-card class="hp-100">
+                <a-card type="flex">
                     <a-empty description="请选择左侧菜单后操作"></a-empty>
                 </a-card>
             </a-col>
@@ -57,7 +57,7 @@
         <template v-else>
             <a-col flex="1">
                 <a-card :title="selectedNode.name"
-                        class="hp-100">
+                        type="flex">
                     <a-form :model="formState"
                             :label-col="{style:{width: '100px'}}">
                         <a-form-item label="名称"
@@ -115,9 +115,10 @@
             </a-col>
             <a-col flex="1">
                 <a-card title="权限按钮"
-                        class="hp-100">
+                        type="flex">
                     <x-form-table v-model="authList"
-                                  :row-tpl="{name: '', alias: ''}">
+                                  :row-tpl="{name: '', alias: ''}"
+                                  bordered>
                         <a-table-column title="名称"
                                         data-index="name">
                             <template #default="{record}">
@@ -155,7 +156,7 @@ export default {
         const checkedKeys = ref([])
         const searchValue = ref('')
         const authList = ref([
-            {name: '新增', alias: 'insert'}
+            {name: '新增', alias: 'insert'},
         ])
 
         onMounted(() => {
@@ -217,26 +218,14 @@ export default {
             formState,
             authList,
             handleMenu,
-            handleDelete
+            handleDelete,
         }
-    }
+    },
 }
 </script>
 
 <style lang="less"
        scoped>
-.tree-wrap {
-    :deep(.ant-card-head) {
-        margin-bottom: 0;
-    }
-
-    :deep(.ant-card-body) {
-        flex: 1 0 0;
-        overflow: hidden;
-        overflow-y: auto;
-    }
-}
-
 .tree-row {
     display: flex;
     align-items: center;
