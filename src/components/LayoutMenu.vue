@@ -192,6 +192,11 @@ export default {
     :deep(.ant-menu.ant-menu-inline-collapsed > .ant-menu-item) {
         padding: 0 @padding-md;
     }
+
+    :deep(.ant-menu.ant-menu-inline-collapsed .anticon),
+    :deep(.ant-menu-dark .ant-menu-item-selected .ant-menu-item-icon) {
+        display: inline-flex;
+    }
 }
 
 .ant-layout-sider-collapsed {
