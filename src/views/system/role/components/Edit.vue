@@ -34,8 +34,10 @@
             </a-form-item>
             <a-form-item label="排序"
                          name="sort">
-                <a-input v-model:value="formState.sort"
-                         :disabled="disabled"></a-input>
+                <a-input-number v-model:value="formState.sort"
+                                :disabled="disabled"
+                                :min="1"
+                                :precision="0"></a-input-number>
             </a-form-item>
         </a-form>
     </a-modal>
@@ -62,7 +64,7 @@ export default {
             role: {required: true, message: '请选择所属上级'},
             name: {required: true, message: '请输入名称'},
             alias: {required: true, message: '请输入别名'},
-            sort: {required: true, message: '请输入排序'}
+            sort: {required: true, message: '请输入排序'},
         }
 
         /**
@@ -71,7 +73,7 @@ export default {
         function handleCreate() {
             showModal({
                 type: 'create',
-                title: '新建角色'
+                title: '新建角色',
             })
         }
 
@@ -81,7 +83,7 @@ export default {
         function handleEdit(record) {
             showModal({
                 type: 'edit',
-                title: '编辑角色'
+                title: '编辑角色',
             })
             formState.value = cloneDeep(record)
             formRecord.value = record
@@ -93,7 +95,7 @@ export default {
         function handlePreview(record) {
             showModal({
                 type: 'preview',
-                title: '查看角色'
+                title: '查看角色',
             })
             formState.value = cloneDeep(record)
             disabled.value = true
@@ -147,9 +149,9 @@ export default {
             handlePreview,
             handleOk,
             handleCancel,
-            onAfterClose
+            onAfterClose,
         }
-    }
+    },
 }
 </script>
 

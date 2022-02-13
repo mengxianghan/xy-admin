@@ -21,12 +21,15 @@
                     </span>
                 </template>
                 <a-spin :spinning="loading">
-                    <a-tree v-model:checked-keys="checkedKeys"
+                    <a-tree v-if="!loading"
+                            v-model:checked-keys="checkedKeys"
                             :selected-keys="selectedKeys"
-                            :tree-data="list"
+                            :tree-data="menuList"
                             :field-names="{title: 'name', children: 'children', key: 'key'}"
+                            default-expand-all
                             block-node
                             checkable
+                            check-strictly
                             @select="handleMenu">
                         <template #title="record">
                             <div class="tree-row">
@@ -66,7 +69,7 @@
                         </a-form-item>
                         <a-form-item label="所属上级">
                             <a-tree-select v-model:value="formState.parent_id"
-                                           :tree-data="list"
+                                           :tree-data="formMenuList"
                                            :field-names="{children: 'children', label: 'name', key: 'key', value: 'key'}"
                                            tree-default-expand-all></a-tree-select>
                         </a-form-item>
@@ -139,7 +142,7 @@
 </template>
 
 <script>
-import {onMounted, ref} from 'vue'
+import {computed, onMounted, ref} from 'vue'
 import {systemApi} from '@/api'
 import {message} from 'ant-design-vue'
 
@@ -149,7 +152,7 @@ import useForm from '@/hooks/useForm'
 export default {
     name: 'systemMenu',
     setup() {
-        const {list, loading} = usePagination()
+        const {list: menuList, loading} = usePagination()
         const {formState} = useForm()
         const selectedKeys = ref([])
         const selectedNode = ref({})
@@ -158,6 +161,12 @@ export default {
         const authList = ref([
             {name: '新增', alias: 'insert'},
         ])
+        const formMenuList = computed(() => {
+            return [
+                {name: '顶级菜单', key: 0},
+                ...menuList.value,
+            ]
+        })
 
         onMounted(() => {
             getMenuList()
@@ -176,7 +185,7 @@ export default {
                 loading.value = false
                 if ('200' === code) {
                     const {rows} = data
-                    list.value = rows
+                    menuList.value = rows
                 }
             } catch (err) {
                 loading.value = false
@@ -209,7 +218,7 @@ export default {
         }
 
         return {
-            list,
+            menuList,
             loading,
             selectedKeys,
             selectedNode,
@@ -217,6 +226,7 @@ export default {
             searchValue,
             formState,
             authList,
+            formMenuList,
             handleMenu,
             handleDelete,
         }
