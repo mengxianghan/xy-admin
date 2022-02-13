@@ -39,6 +39,7 @@ import {
     RedoOutlined,
     RotateRightOutlined,
     RotateLeftOutlined,
+    DingdingOutlined
 } from '@ant-design/icons-vue'
 
 export default {
@@ -83,6 +84,7 @@ export default {
         app.component('IconRedoOutlined', RedoOutlined)
         app.component('IconRotateRightOutlined', RotateRightOutlined)
         app.component('IconRotateLeftOutlined', RotateLeftOutlined)
+        app.component('IconDingdingOutlined', DingdingOutlined)
         return app
     },
 }

@@ -22,7 +22,9 @@
                     <a-step title="创建项目">
                         <template #description>
                             <div class="mt-8-1 fs-12">
-                                <div>曲丽丽</div>
+                                <div>曲丽丽
+                                    <icon-dingding-outlined/>
+                                </div>
                                 <div>2016-12-12 12:32</div>
                             </div>
                         </template>
@@ -30,7 +32,9 @@
                     <a-step title="部门初审">
                         <template #description>
                             <div class="mt-8-1 fs-12">
-                                <div>周毛毛</div>
+                                <div>周毛毛
+                                    <icon-dingding-outlined class="color-primary"/>
+                                </div>
                                 <div class="color-primary">催一下</div>
                             </div>
                         </template>
