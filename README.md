@@ -2,7 +2,6 @@
 
 ## 预览
 
-![登录](http://cdn.xuanyunet.com/xy-admin/login.png)
 ![欢迎页](http://cdn.xuanyunet.com/xy-admin/welcome.png)
 ![基础表单](http://cdn.xuanyunet.com/xy-admin/form-basic.png)
 ![基础列表](http://cdn.xuanyunet.com/xy-admin/list-basic.png)
