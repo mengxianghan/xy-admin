@@ -1,5 +1,6 @@
 <template>
-    <a-table :data-source="list"
+    <a-table v-bind="$attrs"
+             :data-source="list"
              size="middle"
              :pagination="false"
              class="x-form-table">
@@ -46,12 +47,12 @@ export default {
     props: {
         modelValue: {
             type: Array,
-            default: () => []
+            default: () => [],
         },
         rowTpl: {
             type: Object,
-            default: () => ({})
-        }
+            default: () => ({}),
+        },
     },
     emits: ['update:modelValue'],
     setup(props, {emit}) {
@@ -63,7 +64,7 @@ export default {
                 emit('update:modelValue', val)
             },
             {
-                deep: true
+                deep: true,
             })
 
         onMounted(() => {
@@ -87,9 +88,9 @@ export default {
         return {
             list,
             handleAdd,
-            handleDelete
+            handleDelete,
         }
-    }
+    },
 }
 </script>
 
