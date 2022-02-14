@@ -6,7 +6,7 @@ import * as layouts from '@/layouts'
  */
 export const whiteList = [
     'login',
-    '404',
+    '404'
 ]
 
 /**
@@ -18,8 +18,8 @@ export const notFoundRouter = {
     redirect: '/exception/404',
     meta: {
         isLogin: false,
-        isMenu: false,
-    },
+        isMenu: false
+    }
 }
 
 /**
@@ -31,7 +31,7 @@ export const constantRouterMap = [
     {
         path: '/',
         name: 'index',
-        redirect: '/login',
+        redirect: '/login'
     },
     {
         path: '/base',
@@ -42,15 +42,15 @@ export const constantRouterMap = [
                 name: 'login',
                 component: () => import('@/views/login'),
                 meta: {
-                    title: '登录',
-                },
-            },
-        ],
+                    title: '登录'
+                }
+            }
+        ]
     },
     {
         path: '/404',
-        component: () => import('@/views/exception/404'),
-    },
+        component: () => import('@/views/exception/404')
+    }
 ]
 
 /**
@@ -66,8 +66,8 @@ export const asyncRouterMap = [
             title: '欢迎页',
             isMenu: true,
             keepAlive: true,
-            permission: '*',
-        },
+            permission: '*'
+        }
     },
     {
         path: 'form',
@@ -78,7 +78,7 @@ export const asyncRouterMap = [
             title: '表单页',
             isMenu: true,
             keepAlive: true,
-            permission: '*',
+            permission: '*'
         },
         children: [
             {
@@ -89,8 +89,8 @@ export const asyncRouterMap = [
                     title: '基础表单',
                     isMenu: true,
                     keepAlive: true,
-                    permission: '*',
-                },
+                    permission: '*'
+                }
             },
             {
                 path: 'step',
@@ -100,10 +100,10 @@ export const asyncRouterMap = [
                     title: '分步表单',
                     isMenu: true,
                     keepAlive: true,
-                    permission: '*',
-                },
-            },
-        ],
+                    permission: '*'
+                }
+            }
+        ]
     },
     {
         path: 'list',
@@ -114,7 +114,7 @@ export const asyncRouterMap = [
             title: '列表页',
             isMenu: true,
             keepAlive: true,
-            permission: '*',
+            permission: '*'
         },
         children: [
             {
@@ -125,8 +125,8 @@ export const asyncRouterMap = [
                     title: '基础列表',
                     isMenu: true,
                     keepAlive: true,
-                    permission: '*',
-                },
+                    permission: '*'
+                }
             },
             {
                 path: 'card',
@@ -136,8 +136,8 @@ export const asyncRouterMap = [
                     title: '卡片列表',
                     isMenu: true,
                     keepAlive: true,
-                    permission: '*',
-                },
+                    permission: '*'
+                }
             },
             {
                 path: 'search',
@@ -147,10 +147,10 @@ export const asyncRouterMap = [
                     title: '搜索列表',
                     isMenu: true,
                     keepAlive: true,
-                    permission: '*',
-                },
-            },
-        ],
+                    permission: '*'
+                }
+            }
+        ]
     },
     {
         path: 'exception',
@@ -161,7 +161,7 @@ export const asyncRouterMap = [
             title: '异常页',
             isMenu: true,
             keepAlive: true,
-            permission: '*',
+            permission: '*'
         },
         children: [
             {
@@ -172,8 +172,8 @@ export const asyncRouterMap = [
                     title: '403',
                     isMenu: true,
                     keepAlive: true,
-                    permission: '*',
-                },
+                    permission: '*'
+                }
             },
             {
                 path: '404',
@@ -183,8 +183,8 @@ export const asyncRouterMap = [
                     title: '404',
                     isMenu: true,
                     keepAlive: true,
-                    permission: '*',
-                },
+                    permission: '*'
+                }
             },
             {
                 path: '500',
@@ -194,10 +194,10 @@ export const asyncRouterMap = [
                     title: '500',
                     isMenu: true,
                     keepAlive: true,
-                    permission: '*',
-                },
-            },
-        ],
+                    permission: '*'
+                }
+            }
+        ]
     },
     {
         path: 'result',
@@ -208,7 +208,7 @@ export const asyncRouterMap = [
             title: '结果页',
             isMenu: true,
             keepAlive: true,
-            permission: '*',
+            permission: '*'
         },
         children: [
             {
@@ -219,8 +219,8 @@ export const asyncRouterMap = [
                     title: '成功页',
                     isMenu: true,
                     keepAlive: true,
-                    permission: '*',
-                },
+                    permission: '*'
+                }
             },
             {
                 path: 'fail',
@@ -230,10 +230,10 @@ export const asyncRouterMap = [
                     title: '失败页',
                     isMenu: true,
                     keepAlive: true,
-                    permission: '*',
-                },
-            },
-        ],
+                    permission: '*'
+                }
+            }
+        ]
     },
     {
         path: 'user',
@@ -244,7 +244,7 @@ export const asyncRouterMap = [
             title: '个人页',
             isMenu: true,
             keepAlive: true,
-            permission: '*',
+            permission: '*'
         },
         children: [
             {
@@ -255,10 +255,10 @@ export const asyncRouterMap = [
                     title: '个人设置',
                     isMenu: true,
                     keepAlive: true,
-                    permission: '*',
-                },
-            },
-        ],
+                    permission: '*'
+                }
+            }
+        ]
     },
     {
         path: 'system',
@@ -269,7 +269,7 @@ export const asyncRouterMap = [
             title: '系统管理',
             isMenu: true,
             keepAlive: true,
-            permission: '*',
+            permission: '*'
         },
         children: [
             {
@@ -280,8 +280,8 @@ export const asyncRouterMap = [
                     title: '用户管理',
                     isMenu: true,
                     keepAlive: true,
-                    permission: '*',
-                },
+                    permission: '*'
+                }
             },
             {
                 path: 'role',
@@ -291,8 +291,8 @@ export const asyncRouterMap = [
                     title: '角色管理',
                     isMenu: true,
                     keepAlive: true,
-                    permission: '*',
-                },
+                    permission: '*'
+                }
             },
             {
                 path: 'menu',
@@ -302,10 +302,10 @@ export const asyncRouterMap = [
                     title: '菜单管理',
                     isMenu: true,
                     keepAlive: true,
-                    permission: '*',
-                },
-            },
-        ],
+                    permission: '*'
+                }
+            }
+        ]
     },
     {
         path: 'component',
@@ -316,7 +316,7 @@ export const asyncRouterMap = [
             title: '组件',
             isMenu: true,
             keepAlive: true,
-            permission: '*',
+            permission: '*'
         },
         children: [
             {
@@ -327,8 +327,8 @@ export const asyncRouterMap = [
                     title: '图表 Echarts',
                     isMenu: true,
                     keepAlive: true,
-                    permission: '*',
-                },
+                    permission: '*'
+                }
             },
             {
                 path: 'editor',
@@ -338,8 +338,8 @@ export const asyncRouterMap = [
                     title: '富文本编辑器',
                     isMenu: true,
                     keepAlive: true,
-                    permission: '*',
-                },
+                    permission: '*'
+                }
             },
             {
                 path: 'cropper',
@@ -349,8 +349,8 @@ export const asyncRouterMap = [
                     title: '裁剪图片',
                     isMenu: true,
                     keepAlive: true,
-                    permission: '*',
-                },
+                    permission: '*'
+                }
             },
             {
                 path: 'upload',
@@ -360,8 +360,8 @@ export const asyncRouterMap = [
                     title: '上传',
                     isMenu: true,
                     keepAlive: true,
-                    permission: '*',
-                },
+                    permission: '*'
+                }
             },
             {
                 path: 'filter',
@@ -371,10 +371,21 @@ export const asyncRouterMap = [
                     title: '筛选',
                     isMenu: true,
                     keepAlive: true,
-                    permission: '*',
-                },
+                    permission: '*'
+                }
             },
-        ],
+            {
+                path: 'formTable',
+                name: 'componentFormTable',
+                component: 'component/formTable/index.vue',
+                meta: {
+                    title: '表单表格',
+                    isMenu: true,
+                    keepAlive: true,
+                    permission: '*'
+                }
+            }
+        ]
     },
     {
         path: '',
@@ -385,7 +396,7 @@ export const asyncRouterMap = [
             title: '外部链接',
             isMenu: true,
             keepAlive: false,
-            permission: '*',
+            permission: '*'
         },
         children: [
             {
@@ -396,10 +407,10 @@ export const asyncRouterMap = [
                     title: 'Github',
                     target: '_blank',
                     isMenu: true,
-                    permission: '*',
-                },
-            },
-        ],
+                    permission: '*'
+                }
+            }
+        ]
     },
     {
         path: 'iframe',
@@ -410,7 +421,7 @@ export const asyncRouterMap = [
             title: 'Iframe',
             isMenu: true,
             keepAlive: true,
-            permission: '*',
+            permission: '*'
         },
         children: [
             {
@@ -423,8 +434,8 @@ export const asyncRouterMap = [
                     title: 'Vue',
                     isMenu: true,
                     keepAlive: true,
-                    permission: '*',
-                },
+                    permission: '*'
+                }
             },
             {
                 path: 'antd',
@@ -436,9 +447,9 @@ export const asyncRouterMap = [
                     title: 'Ant Design Vue',
                     isMenu: true,
                     keepAlive: true,
-                    permission: '*',
-                },
-            },
-        ],
-    },
+                    permission: '*'
+                }
+            }
+        ]
+    }
 ]
