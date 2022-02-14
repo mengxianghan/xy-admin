@@ -133,7 +133,7 @@ export default {
         async function getUserPageList() {
             try {
                 loading.value = true
-                const {pageSize, current} = pagination.value
+                const {pageSize, current} = pagination
                 const {code, data} = await systemApi.getUserPageList({
                     pageSize,
                     page: current
@@ -144,7 +144,7 @@ export default {
                 if ('200' === code) {
                     const {rows, total} = data
                     userList.value = rows
-                    pagination.value.total = total
+                    pagination.total = total
                 }
             } catch (err) {
                 loading.value = false
@@ -175,11 +175,8 @@ export default {
          * 分页
          */
         function onTableChange({current, pageSize}) {
-            pagination.value = {
-                ...pagination.value,
-                current,
-                pageSize
-            }
+            pagination.current = current
+            pagination.pageSize = pageSize
             getUserPageList()
         }
 

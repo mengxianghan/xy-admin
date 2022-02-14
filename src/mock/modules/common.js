@@ -8,8 +8,8 @@ Mock.mock(new RegExp('/welcome/getData'), 'get', options => {
             'id': '@increment',
             'avatar': '@image(32, @color, @cfirst)',
             'title': '@cparagraph(1, 2)',
-            'time': '@datetime',
-        }],
+            'time': '@datetime'
+        }]
     }))
 })
 
@@ -20,16 +20,19 @@ Mock.mock(new RegExp('/common/getPageList'), 'get', options => {
             'id': '@increment',
             'avatar': '@image(60, @color, @cfirst)',
             'title': '@ctitle',
+            'name': '@ctitle',
             'desc': '@cparagraph(3)',
+            'valid|1': true,
+            'keyValue': '@word'
         }],
-        'total': 32,
+        'total': 32
     }))
 })
 
 // 保存/删除
 Mock.mock(new RegExp(/(save|delete)/), 'get', options => {
     return builder(Mock.mock({
-        'result': true,
+        'result': true
     }))
 })
 

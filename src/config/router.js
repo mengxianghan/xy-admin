@@ -304,6 +304,17 @@ export const asyncRouterMap = [
                     keepAlive: true,
                     permission: '*'
                 }
+            },
+            {
+                path: 'dict',
+                name: 'systemDict',
+                component: 'system/dict/index.vue',
+                meta: {
+                    title: '字典管理',
+                    isMenu: true,
+                    keepAlive: true,
+                    permission: '*'
+                }
             }
         ]
     },

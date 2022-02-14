@@ -90,7 +90,7 @@ export default {
                 loading.value = false
                 if ('200' === code) {
                     list.value = data.rows
-                    pagination.value.total = data.total
+                    pagination.total = data.total
                 }
             } catch (err) {
                 loading.value = false
@@ -111,8 +111,8 @@ export default {
          * @param pageSize
          */
         function onTableChange({current, pageSize}) {
-            pagination.value.current = current
-            pagination.value.pageSize = pageSize
+            pagination.current = current
+            pagination.pageSize = pageSize
             getPageList()
         }
 

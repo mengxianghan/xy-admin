@@ -141,3 +141,55 @@ Mock.mock(new RegExp('/system/getMenuList'), 'get', () => {
         ]
     }))
 })
+
+// 获取字典分类列表
+Mock.mock(new RegExp('/system/getDictTypeList'), 'get', () => {
+    return builder(Mock.mock({
+        'rows': [
+            {
+                'name': '通知类型',
+                'alias': '@word(2,4)',
+                'sort': '@increment',
+                'key': '@id',
+                'code': '@word'
+            },
+            {
+                'name': '性别',
+                'alias': '@word(2,4)',
+                'sort': '@increment',
+                'key': '@id',
+                'code': '@word'
+            },
+            {
+                'name': '菜单类型',
+                'alias': '@word(2,4)',
+                'sort': '@increment',
+                'key': '@id',
+                'code': '@word'
+            },
+            {
+                'name': '用户类型',
+                'alias': '@word(2,4)',
+                'sort': '@increment',
+                'key': '@id',
+                'code': '@word',
+                'children': [
+                    {
+                        'name': '移动端',
+                        'alias': '@word(2,4)',
+                        'sort': '@increment',
+                        'key': '@id',
+                        'code': '@word'
+                    },
+                    {
+                        'name': '桌面端',
+                        'alias': '@word(2,4)',
+                        'sort': '@increment',
+                        'key': '@id',
+                        'code': '@word'
+                    }
+                ]
+            }
+        ]
+    }))
+})
