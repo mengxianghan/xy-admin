@@ -2,7 +2,7 @@
     <a-row :gutter="12">
         <a-col :span="12">
             <a-card>
-                <x-cropper src="/images/avatar.jpg"
+                <x-cropper :src="imgSrc"
                            :aspect-ratio="aspectRatio"
                            :quality="quality"
                            ref="cropperRef"/>
@@ -62,6 +62,7 @@ import {ref} from 'vue'
 export default {
     name: 'componentCropper',
     setup() {
+        const imgSrc = ref('/images/avatar.jpg')
         const aspectRatio = ref(0)
         const quality = ref(1)
         const cropperRef = ref()
@@ -101,6 +102,7 @@ export default {
         }
 
         return {
+            imgSrc,
             aspectRatio,
             quality,
             cropperRef,
@@ -109,9 +111,9 @@ export default {
             loading,
             handleBase64,
             handleBlob,
-            handleFile,
+            handleFile
         }
-    },
+    }
 }
 </script>
 

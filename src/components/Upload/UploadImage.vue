@@ -79,7 +79,7 @@
 
 <script>
 import {computed, onMounted, ref, toRefs, watch} from 'vue'
-import {STATUS_ENUM} from './enum'
+import {STATUS_ENUM} from './config'
 import {mergeDeep} from '@/utils'
 import {v4 as uuidv4} from 'uuid'
 import {Form, message} from 'ant-design-vue'

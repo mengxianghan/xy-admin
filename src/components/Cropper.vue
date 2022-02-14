@@ -29,16 +29,16 @@ export default {
     props: {
         src: {
             type: String,
-            default: '',
+            default: ''
         },
         aspectRatio: {
             type: Number,
-            default: 0,
+            default: 0
         },
         quality: {
             type: Number,
-            default: 1,
-        },
+            default: 1
+        }
     },
     setup(props) {
         const {aspectRatio, quality} = toRefs(props)
@@ -46,13 +46,13 @@ export default {
         const previewRef = ref()
         const crop = ref(null)
 
-        function _init() {
+        function init() {
             crop.value = new Cropper(imgRef.value, {
                 viewMode: 2,
                 dragMode: 'move',
                 responsive: false,
                 aspectRatio: aspectRatio.value,
-                preview: previewRef.value,
+                preview: previewRef.value
             })
         }
 
@@ -99,7 +99,7 @@ export default {
         watch(() => aspectRatio.value, (val) => crop.value.setAspectRatio(val))
 
         onMounted(() => {
-            _init()
+            init()
         })
 
         return {
@@ -107,9 +107,9 @@ export default {
             previewRef,
             getBase64,
             getBlob,
-            getFile,
+            getFile
         }
-    },
+    }
 }
 </script>
 
