@@ -19,36 +19,16 @@ const getAssetsCDN = (key, defaults = []) => {
 
 const assetsCDN = {
     externals: {
-        env: {
-            //'lodash': '_',
-            //'bignumber.js': 'BigNumber',
-            //'jschardet': 'jschardet',
-        },
-        production: {
-            //'vue': 'Vue',
-            //'vuex': 'Vuex',
-            //'vue-router': 'VueRouter',
-            //'axios': 'axios',
-            //'ant-design-vue': 'antd',
-        },
+        env: {},
+        production: {}
     },
     css: {
-        env: [],
+        env: []
     },
     js: {
-        env: [
-            //'//cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js',
-            //'//cdn.jsdelivr.net/npm/bignumber.js@9.0.1/bignumber.min.js',
-            //'//cdn.jsdelivr.net/npm/jschardet@3.0.0/dist/jschardet.min.js',
-        ],
-        production: [
-            //'//cdn.jsdelivr.net/npm/vue@3.2.19/dist/vue.global.min.js',
-            //'//cdn.jsdelivr.net/npm/vue-router@3.5.2/dist/vue-router.min.js',
-            //'//cdn.jsdelivr.net/npm/vuex@4.0.2/dist/vuex.global.min.js',
-            //'//cdn.jsdelivr.net/npm/axios@0.22.0/dist/axios.min.js',
-            //'//cdn.jsdelivr.net/npm/ant-design-vue@2.2.8/dist/antd.min.js',
-        ],
-    },
+        env: [],
+        production: []
+    }
 }
 
 module.exports = {
@@ -65,14 +45,14 @@ module.exports = {
                 changeOrigin: true, // 允许 webSockets 跨域
                 secure: false,
                 pathRewrite: {
-                    '^/api': '',
-                },
-            },
+                    '^/api': ''
+                }
+            }
         },
         watchOptions: {
             ignored: /node_modules|dist|.git|.idea/,
-            poll: true,
-        },
+            poll: true
+        }
     },
     configureWebpack: {
         externals: getAssetsCDN('externals', {}),
@@ -81,12 +61,12 @@ module.exports = {
                 test: /\.(js|css)$/,
                 filename: '[path][base].gz',
                 threshold: 10240,
-                deleteOriginalAssets: false,
-            }),
+                deleteOriginalAssets: false
+            })
         ],
         performance: {
-            hints: false,
-        },
+            hints: false
+        }
     },
     chainWebpack: (config) => {
         config.plugin('html').tap(options => {
@@ -99,8 +79,8 @@ module.exports = {
         config.module.rule('vue').use('vue-loader').tap(options => ({
             ...options,
             compilerOptions: {
-                isCustomElement: tag => ['a-icon'].includes(tag),
-            },
+                isCustomElement: tag => ['a-icon'].includes(tag)
+            }
         }))
     },
     productionSourceMap: !isProd, // 生产环境是否生成 sourceMap 文件
@@ -108,10 +88,10 @@ module.exports = {
         loaderOptions: {
             less: {
                 modifyVars: {
-                    hack: `true; @import '${path.resolve(__dirname, 'src/styles/vars.less')}'`,
+                    hack: `true; @import '${path.resolve(__dirname, 'src/styles/vars.less')}'; @import '${path.resolve(__dirname, 'src/styles/util.less')}'`
                 },
-                javascriptEnabled: true,
-            },
-        },
-    },
+                javascriptEnabled: true
+            }
+        }
+    }
 }
