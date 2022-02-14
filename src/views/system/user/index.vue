@@ -1,8 +1,9 @@
 <template>
     <a-row :gutter="16"
-           type="flex">
+           type="flex"
+           class="hp-100">
         <a-col flex="0 0 240px">
-            <a-card>
+            <a-card type="flex">
                 <a-spin :spinning="roleLoading">
                     <a-tree :selected-keys="selectedKeys"
                             :tree-data="roleList"
@@ -13,7 +14,7 @@
             </a-card>
         </a-col>
         <a-col flex="1">
-            <a-card>
+            <a-card type="flex">
                 <x-action-bar class="mb-8-2">
                     <a-button type="primary"
                               @click="$refs.editRef.handleCreate()">
