@@ -144,9 +144,17 @@ export default {
             getPageList()
         }
 
-        function onSelectChange() {
+        /**
+         * 选择
+         */
+        function onSelectChange(keys) {
+            selectedRowKeys.value = keys
         }
 
+        /**
+         * 分类发生改变
+         * @param type
+         */
         function onDictTypeChange({type}) {
             searchForm.type = type
             getPageList()
