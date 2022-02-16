@@ -4,7 +4,9 @@
             <tiny-editor v-model="content"
                          v-bind="$attrs"
                          api-key="d6vzo7lwm6my7lu42uk2jhnhui7cdk842rb0tzc6sfxgffgm"
-                         :init="opts"></tiny-editor>
+                         :init="opts"
+                         :disabled="disabled"
+                         :placeholder="placeholder"></tiny-editor>
         </a-spin>
     </div>
 </template>
@@ -14,28 +16,46 @@ import {onMounted, ref, toRefs, watch} from 'vue'
 import {mergeDeep} from '@/utils'
 
 import Editor from '@tinymce/tinymce-vue'
+import tinymce from 'tinymce/tinymce'
+import 'tinymce/themes/silver'
+import 'tinymce/icons/default'
 
 export default {
     name: 'Editor',
     props: {
         modelValue: {
             type: String,
-            default: '',
+            default: ''
         },
         option: {
             type: Object,
-            default: () => ({}),
+            default: () => ({})
         },
+        height: {
+            type: Number,
+            default: 300
+        },
+        placeholder: {
+            type: String,
+            default: ''
+        },
+        disabled: {
+            type: Boolean,
+            default: false
+        }
     },
     components: {
-        'tiny-editor': Editor,
+        'tiny-editor': Editor
     },
     setup(props, {emit}) {
         const spinning = ref(true)
         const {modelValue, option} = toRefs(props)
         const content = ref('')
         const opts = mergeDeep({
+            language_url: '/libs/tinymce/langs/zh_CN.js',
             language: 'zh_CN',
+            skin_url: '/libs/tinymce/skins/ui/oxide',
+            content_css: '/libs/tinymce/skins/content/default/content.css',
             height: 480,
             branding: false,
             resize: false,
@@ -48,7 +68,7 @@ export default {
                 editor.on('init', () => {
                     spinning.value = false
                 })
-            },
+            }
         }, option.value)
 
         watch(() => modelValue.value, (val) => content.value = val)
@@ -56,14 +76,15 @@ export default {
 
         onMounted(() => {
             content.value = modelValue.value
+            tinymce.init({})
         })
 
         return {
             spinning,
             content,
-            opts,
+            opts
         }
-    },
+    }
 }
 </script>
 
