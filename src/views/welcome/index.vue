@@ -57,7 +57,7 @@
                 <a-result :title="`${title} ${version}`"
                           :sub-title="`最新版本 ${version}`">
                     <template #icon>
-                        <img :src="require('@/assets/ver.svg')"/>
+                        <img :src="require('@/assets/upgrade.svg')"/>
                     </template>
                 </a-result>
             </a-card>

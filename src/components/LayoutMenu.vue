@@ -2,7 +2,7 @@
     <div class="x-layout-menu"
          :class="classes">
         <div class="x-layout-menu__brand">
-            <img :src="require('@/assets/logo.png')">
+            <img src="/images/logo.png">
             <h1>{{ title }}</h1>
         </div>
         <a-menu mode="inline"
@@ -38,8 +38,8 @@ export default {
     props: {
         theme: {
             type: String,
-            default: 'dark',
-        },
+            default: 'dark'
+        }
     },
     setup(props) {
         const store = useStore()
@@ -91,9 +91,9 @@ export default {
             selectedKeys,
             menuList,
             classes,
-            onOpenChange,
+            onOpenChange
         }
-    },
+    }
 }
 </script>
 
@@ -131,7 +131,7 @@ export default {
 
     &--dark {
         h1 {
-            color: #fff;
+            color: #ffffff;
         }
     }
 
@@ -143,7 +143,7 @@ export default {
         }
 
         h1 {
-            color: #222;
+            color: #222222;
         }
     }
 
