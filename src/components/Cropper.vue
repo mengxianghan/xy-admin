@@ -20,7 +20,7 @@ import 'cropperjs/dist/cropper.min.css'
 
 /**
  * 图片裁剪
- * @property {string} src，图片地址
+ * @property {string} src 图片地址
  * @property {number} aspect-ratio 比例，默认：自由裁剪
  * @property {number} quality 图片质量，取值范围：0-1，默认：1
  */
@@ -45,6 +45,12 @@ export default {
         const imgRef = ref()
         const previewRef = ref()
         const crop = ref(null)
+
+        watch(() => aspectRatio.value, (val) => crop.value.setAspectRatio(val))
+
+        onMounted(() => {
+            init()
+        })
 
         function init() {
             crop.value = new Cropper(imgRef.value, {
@@ -73,7 +79,7 @@ export default {
          * @param type
          * @return {Promise<void>}
          */
-        async function getBlob(type = 'image/jpeg') {
+        function getBlob(type = 'image/jpeg') {
             return new Promise((resolve => {
                 crop.value.getCroppedCanvas().toBlob((blob) => {
                     resolve(blob)
@@ -95,12 +101,6 @@ export default {
                 }, type, quality.value)
             })
         }
-
-        watch(() => aspectRatio.value, (val) => crop.value.setAspectRatio(val))
-
-        onMounted(() => {
-            init()
-        })
 
         return {
             imgRef,
