@@ -1,6 +1,6 @@
 <template>
     <div class="x-filter">
-        <div v-for="(item, index) in list"
+        <div v-for="(item) in list"
              :key="item.key"
              class="x-filter-item">
             <div class="x-filter-item__label"
@@ -81,7 +81,7 @@
 
 <script>
 import {onMounted, ref, toRefs, watch} from 'vue'
-import {TYPE_ENUM} from './enum'
+import {TYPE_ENUM} from './config'
 import {cloneDeep} from 'lodash'
 
 /**
