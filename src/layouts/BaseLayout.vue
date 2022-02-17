@@ -3,7 +3,7 @@
         <div class="user-layout-content">
             <div class="user-layout-top">
                 <div class="user-layout-header">
-                    <img src="/images/logo.png">
+                    <img src="images/logo.png">
                     <h1>{{ title }}</h1>
                 </div>
                 <div class="user-layout-desc">
@@ -34,7 +34,7 @@ export default {
 .user-layout {
     &-container {
         min-height: 100%;
-        background: url('/images/login_bg.svg') no-repeat center 110px / 100%;
+        background: url('images/login_bg.svg') no-repeat center 110px / 100%;
         padding: 110px 0 144px;
     }
 
