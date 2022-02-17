@@ -3,7 +3,8 @@
            type="flex"
            class="hp-100">
         <a-col flex="0 0 300px">
-            <menu-tree @select="onMenuSelect"></menu-tree>
+            <menu-tree @select="onMenuSelect"
+                       @ready="onMenuReady"></menu-tree>
         </a-col>
         <template v-if="!menuInfo">
             <a-col flex="1">
@@ -112,11 +113,7 @@ export default {
         const authList = ref([
             {name: '新增', alias: 'insert'}
         ])
-        const menuList = computed(() => {
-            return [
-                {name: '顶级菜单', key: 0}
-            ]
-        })
+        const menuList = ref([])
         const menuInfo = ref(null)
 
         /**
@@ -127,12 +124,21 @@ export default {
             menuInfo.value = cloneDeep(info)
         }
 
+        /**
+         * 菜单准备完成
+         * @param info
+         */
+        function onMenuReady(info) {
+            menuList.value = [{name: '顶级菜单', key: 0}, ...info]
+        }
+
         return {
             formState,
             authList,
             menuList,
             menuInfo,
-            onMenuSelect
+            onMenuSelect,
+            onMenuReady
         }
     }
 }

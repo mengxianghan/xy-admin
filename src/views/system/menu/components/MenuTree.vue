@@ -8,7 +8,7 @@
         <template #actions>
             <div>
                 <icon-plus-outlined/>
-                新增菜单
+                新建菜单
             </div>
         </template>
         <a-spin :spinning="loading">
@@ -53,7 +53,7 @@ import usePagination from '@/hooks/usePagination'
 
 export default {
     name: 'MenuTree',
-    emits: ['select'],
+    emits: ['select', 'ready'],
     setup(props, {emit}) {
         const {list, loading} = usePagination()
         const selectedKeys = ref([])
@@ -76,6 +76,7 @@ export default {
                 if ('200' === code) {
                     const {rows} = data
                     list.value = rows
+                    emit('ready', rows)
                 }
             } catch (err) {
                 loading.value = false
