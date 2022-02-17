@@ -1,18 +1,8 @@
 # 后台模板
 
-## 预览
+## 演示
 
-![登录](http://cdn.xuanyunet.com/xy-admin/login.png)
-![欢迎页](http://cdn.xuanyunet.com/xy-admin/welcome.png)
-![基础表单](http://cdn.xuanyunet.com/xy-admin/form-basic.png)
-![基础列表](http://cdn.xuanyunet.com/xy-admin/list-basic.png)
-![个人设置](http://cdn.xuanyunet.com/xy-admin/user-setting.png)
-![菜单管理](http://cdn.xuanyunet.com/xy-admin/system-menu.png)
-![图表 Echarts](http://cdn.xuanyunet.com/xy-admin/chart.png)
-![富文本编辑器](http://cdn.xuanyunet.com/xy-admin/editor.png)
-![裁剪图片](http://cdn.xuanyunet.com/xy-admin/cropper.png)
-![上传图片](http://cdn.xuanyunet.com/xy-admin/upload.png)
-![筛选](http://cdn.xuanyunet.com/xy-admin/filter.png)
+[预览](https://mengxianghan.github.io/xy-admin-doc)
 
 ## 配置
 
