@@ -73,11 +73,6 @@ module.exports = {
                 automaticNameDelimiter: '~',
                 name: true,
                 cacheGroups: {
-                    vendor: {
-                        name: 'modules',
-                        test: /[\\/]node_modules[\\/]/,
-                        priority: -10
-                    },
                     tinymce: {
                         name: 'tinymce',
                         test: /[\\/]node_modules[\\/]tinymce[\\/]/
