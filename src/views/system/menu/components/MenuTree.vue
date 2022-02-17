@@ -1,15 +1,15 @@
 <template>
     <a-card type="flex">
         <template #title>
-            <a-input-search v-model:value="searchValue"
+            <a-input-search v-model:value="keyword"
                             allow-clear
                             placeholder="请输入关键词搜索"></a-input-search>
         </template>
         <template #actions>
-                    <span @click="$refs.editRef.handleCreate()">
-                        <icon-plus-outlined/>
-                        新建分类
-                    </span>
+            <div>
+                <icon-plus-outlined/>
+                新增菜单
+            </div>
         </template>
         <a-spin :spinning="loading">
             <a-tree v-if="!loading"
@@ -22,66 +22,60 @@
                 <template #title="record">
                     <div class="tree-row">
                         <div class="tree-row__name">
-                                    <span v-if="record.name.indexOf(searchValue) > -1">
-                                      {{ record.name.substr(0, record.name.indexOf(searchValue)) }}
-                                      <span class="color-error">{{ searchValue }}</span>
-                                      {{ record.name.substr(record.name.indexOf(searchValue) + searchValue.length) }}
-                                    </span>
+                            <span v-if="record.name.indexOf(keyword) > -1">
+                              {{ record.name.substr(0, record.name.indexOf(keyword)) }}
+                              <span class="color-error">{{ keyword }}</span>
+                              {{ record.name.substr(record.name.indexOf(keyword) + keyword.length) }}
+                            </span>
                             <span v-else>{{ record.name }}</span>
                         </div>
-                        <div class="tree-row__code">{{ record.code }}</div>
-                        <a-space class="tree-row__actions">
-                            <icon-edit-outlined @click.stop="$refs.editRef.handleEdit(record)"></icon-edit-outlined>
-                            <icon-delete-outlined @click.stop="handleDelete(record)"></icon-delete-outlined>
+                        <a-space class="tree-row__actions"
+                                 @click.stop="()=>{}">
+                            <icon-plus-outlined></icon-plus-outlined>
+                            <a-popconfirm title="确认删除？"
+                                          @confirm="handleDelete(record)">
+                                <icon-delete-outlined></icon-delete-outlined>
+                            </a-popconfirm>
                         </a-space>
                     </div>
                 </template>
             </a-tree>
         </a-spin>
     </a-card>
-
-    <dict-type-edit ref="editRef"/>
 </template>
 
 <script>
-import {ref, onMounted} from 'vue'
 import {systemApi} from '@/api'
-import {get, head} from 'lodash'
+import {onMounted, ref} from 'vue'
+import {message} from 'ant-design-vue'
 
 import usePagination from '@/hooks/usePagination'
-import {message} from 'ant-design-vue'
-import DictTypeEdit from '@/views/system/dict/components/DictTypeEdit'
 
 export default {
-    name: 'DictType',
-    components: {DictTypeEdit},
-    emits: ['change'],
+    name: 'MenuTree',
+    emits: ['select'],
     setup(props, {emit}) {
-        const {loading, list} = usePagination()
+        const {list, loading} = usePagination()
         const selectedKeys = ref([])
-        const searchValue = ref('')
-        const editRef = ref()
+        const keyword = ref('')
 
         onMounted(() => {
-            getDictTypeList()
+            getMenuList()
         })
 
         /**
-         * 获取字典分类列表
-         * @return {Promise<void>}
+         * 获取菜单列表
          */
-        async function getDictTypeList() {
+        async function getMenuList() {
             try {
                 loading.value = true
-                const {code, data} = await systemApi.getDictTypeList().catch(() => {
+                const {code, data} = await systemApi.getMenuList().catch(() => {
                     throw new Error()
                 })
                 loading.value = false
                 if ('200' === code) {
                     const {rows} = data
                     list.value = rows
-                    selectedKeys.value = [get(head(rows), 'key')]
-                    trigger({type: head(selectedKeys.value)})
                 }
             } catch (err) {
                 loading.value = false
@@ -89,7 +83,7 @@ export default {
         }
 
         /**
-         * 切换分类
+         * 选择菜单
          * @param keys
          */
         function handleSelect(keys, {node}) {
@@ -97,30 +91,26 @@ export default {
                 return
             }
             selectedKeys.value = keys
-            trigger({type: head(selectedKeys.value)})
+            emit('select', node)
         }
 
         /**
-         * 删除分类
+         * 删除菜单
          */
-        function handleDelete(record) {
-            message.info('点击了删除')
+        function handleDelete() {
+            try {
+                message.info('点击了删除')
+            } catch (err) {
+                message.warning(err.message)
+            }
         }
 
-        /**
-         * 触发
-         * @param value
-         */
-        function trigger(value) {
-            emit('change', value)
-        }
 
         return {
             list,
             loading,
             selectedKeys,
-            searchValue,
-            editRef,
+            keyword,
             handleSelect,
             handleDelete
         }
@@ -135,14 +125,8 @@ export default {
     align-items: center;
 
     &:hover {
-        .tree-row {
-            &__actions {
-                display: flex;
-            }
-
-            &__code {
-                display: none;
-            }
+        .tree-row__actions {
+            display: flex;
         }
     }
 
@@ -157,11 +141,6 @@ export default {
         > * {
             display: flex;
         }
-    }
-
-    &__code {
-        font-size: 12px;
-        color: @text-color-secondary;
     }
 
     &__actions {

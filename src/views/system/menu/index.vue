@@ -3,63 +3,18 @@
            type="flex"
            class="hp-100">
         <a-col flex="0 0 300px">
-            <a-card type="flex">
-                <template #title>
-                    <a-input-search v-model:value="searchValue"
-                                    allow-clear
-                                    placeholder="请输入关键词搜索"></a-input-search>
-                </template>
-                <template #actions>
-                    <span>
-                        <icon-plus-outlined/>
-                        新增
-                    </span>
-                    <span class="color-error"
-                          @click="handleDelete">
-                        <icon-delete-outlined/>
-                        删除
-                    </span>
-                </template>
-                <a-spin :spinning="loading">
-                    <a-tree v-if="!loading"
-                            v-model:checked-keys="checkedKeys"
-                            :selected-keys="selectedKeys"
-                            :tree-data="menuList"
-                            :field-names="{title: 'name', children: 'children', key: 'key'}"
-                            default-expand-all
-                            block-node
-                            checkable
-                            check-strictly
-                            @select="handleMenu">
-                        <template #title="record">
-                            <div class="tree-row">
-                                <div class="tree-row__name">
-                                    <span v-if="record.name.indexOf(searchValue) > -1">
-                                      {{ record.name.substr(0, record.name.indexOf(searchValue)) }}
-                                      <span class="color-error">{{ searchValue }}</span>
-                                      {{ record.name.substr(record.name.indexOf(searchValue) + searchValue.length) }}
-                                    </span>
-                                    <span v-else>{{ record.name }}</span>
-                                </div>
-                                <a-space class="tree-row__actions">
-                                    <icon-plus-outlined></icon-plus-outlined>
-                                </a-space>
-                            </div>
-                        </template>
-                    </a-tree>
-                </a-spin>
-            </a-card>
+            <menu-tree @select="onMenuSelect"></menu-tree>
         </a-col>
-        <template v-if="!selectedKeys.length">
+        <template v-if="!menuInfo">
             <a-col flex="1">
                 <a-card type="flex">
-                    <a-empty description="请选择左侧菜单后操作"></a-empty>
+                    <a-empty description="请选择菜单"></a-empty>
                 </a-card>
             </a-col>
         </template>
         <template v-else>
             <a-col flex="1">
-                <a-card :title="selectedNode.name"
+                <a-card :title="menuInfo.name"
                         type="flex">
                     <a-form :model="formState"
                             :label-col="{style:{width: '100px'}}">
@@ -69,7 +24,7 @@
                         </a-form-item>
                         <a-form-item label="所属上级">
                             <a-tree-select v-model:value="formState.parent_id"
-                                           :tree-data="formMenuList"
+                                           :tree-data="menuList"
                                            :field-names="{children: 'children', label: 'name', key: 'key', value: 'key'}"
                                            tree-default-expand-all></a-tree-select>
                         </a-form-item>
@@ -142,126 +97,48 @@
 </template>
 
 <script>
-import {computed, onMounted, ref} from 'vue'
-import {systemApi} from '@/api'
-import {message} from 'ant-design-vue'
+import {computed, ref} from 'vue'
+import {cloneDeep} from 'lodash'
 
-import usePagination from '@/hooks/usePagination'
 import useForm from '@/hooks/useForm'
+
+import MenuTree from './components/MenuTree'
 
 export default {
     name: 'systemMenu',
+    components: {MenuTree},
     setup() {
-        const {list: menuList, loading} = usePagination()
         const {formState} = useForm()
-        const selectedKeys = ref([])
-        const selectedNode = ref({})
-        const checkedKeys = ref([])
-        const searchValue = ref('')
         const authList = ref([
-            {name: '新增', alias: 'insert'},
+            {name: '新增', alias: 'insert'}
         ])
-        const formMenuList = computed(() => {
+        const menuList = computed(() => {
             return [
-                {name: '顶级菜单', key: 0},
-                ...menuList.value,
+                {name: '顶级菜单', key: 0}
             ]
         })
-
-        onMounted(() => {
-            getMenuList()
-        })
+        const menuInfo = ref(null)
 
         /**
-         * 获取菜单列表
-         * @return {Promise<void>}
+         * 选中菜单
+         * @param info
          */
-        async function getMenuList() {
-            try {
-                loading.value = true
-                const {code, data} = await systemApi.getMenuList().catch(() => {
-                    throw new Error()
-                })
-                loading.value = false
-                if ('200' === code) {
-                    const {rows} = data
-                    menuList.value = rows
-                }
-            } catch (err) {
-                loading.value = false
-            }
-        }
-
-        /**
-         * 切换菜单
-         * @param keys
-         */
-        function handleMenu(keys, {node}) {
-            if (!keys.length) {
-                return
-            }
-            selectedKeys.value = keys
-            selectedNode.value = node
-        }
-
-        /**
-         * 删除菜单
-         */
-        function handleDelete() {
-            try {
-                if (!checkedKeys.value.length) {
-                    throw new Error('请选择需要删除的数据')
-                }
-            } catch (err) {
-                message.warning(err.message)
-            }
+        function onMenuSelect(info) {
+            menuInfo.value = cloneDeep(info)
         }
 
         return {
-            menuList,
-            loading,
-            selectedKeys,
-            selectedNode,
-            checkedKeys,
-            searchValue,
             formState,
             authList,
-            formMenuList,
-            handleMenu,
-            handleDelete,
+            menuList,
+            menuInfo,
+            onMenuSelect
         }
-    },
+    }
 }
 </script>
 
 <style lang="less"
        scoped>
-.tree-row {
-    display: flex;
-    align-items: center;
 
-    &:hover {
-        .tree-row__actions {
-            display: flex;
-        }
-    }
-
-    &__name {
-        flex: 1;
-        width: 0;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-
-        &,
-        > * {
-            display: flex;
-        }
-    }
-
-    &__actions {
-        margin: 0 0 0 @margin-sm;
-        display: none;
-    }
-}
 </style>
