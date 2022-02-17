@@ -32,7 +32,7 @@
         </a-col>
         <a-col flex="1">
             <a-card title="结果">
-                {{ list }}
+                <pre>{{ list }}</pre>
             </a-card>
         </a-col>
     </a-row>

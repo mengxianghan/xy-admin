@@ -17,7 +17,7 @@
         </a-col>
         <a-col :span="6">
             <a-card title="结果">
-                {{ filterForm }}
+                <pre>{{ filterForm }}</pre>
             </a-card>
         </a-col>
     </a-row>
@@ -37,8 +37,8 @@ export default {
                     {label: '选项2', value: 2},
                     {label: '选项3', value: 3},
                     {label: '选项4', value: 4},
-                    {label: '选项5', value: 5},
-                ],
+                    {label: '选项5', value: 5}
+                ]
             },
             {
                 label: '多选', key: 'key1', type: 'tag', multiple: true,
@@ -47,13 +47,13 @@ export default {
                     {label: '选项2', value: 2},
                     {label: '选项3', value: 3},
                     {label: '选项4', value: 4},
-                    {label: '选项5', value: 5},
-                ],
+                    {label: '选项5', value: 5}
+                ]
             },
             {label: '自定义输入', key: 'key2', type: 'input'},
             {label: '自定义区间', key: 'key3', type: 'inputRange'},
             {label: '日期', key: 'key4', type: 'date', valueFormat: 'YYYY-MM-DD'},
-            {label: '日期区间', key: 'key5', type: 'dateRange', valueFormat: 'YYYY-MM-DD'},
+            {label: '日期区间', key: 'key5', type: 'dateRange', valueFormat: 'YYYY-MM-DD'}
         ])
         const filterForm = ref({})
 
@@ -69,9 +69,9 @@ export default {
             filterList,
             filterForm,
             handleOk,
-            handleReset,
+            handleReset
         }
-    },
+    }
 }
 </script>
 
