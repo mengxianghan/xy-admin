@@ -1,5 +1,6 @@
 <template>
-    <div class="user-layout-container">
+    <div class="user-layout-container"
+         :style="{backgroundImage: 'url(images/login_bg.svg)'}">
         <div class="user-layout-content">
             <div class="user-layout-top">
                 <div class="user-layout-header">
@@ -34,7 +35,9 @@ export default {
 .user-layout {
     &-container {
         min-height: 100%;
-        background: url('images/login_bg.svg') no-repeat center 110px / 100%;
+        background-repeat: no-repeat;
+        background-position: center 110px;
+        background-size: 100%;
         padding: 110px 0 144px;
     }
 

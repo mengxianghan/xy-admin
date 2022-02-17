@@ -52,10 +52,10 @@ export default {
         const {modelValue, option} = toRefs(props)
         const content = ref('')
         const opts = mergeDeep({
-            language_url: '/libs/tinymce/langs/zh_CN.js',
+            language_url: 'libs/tinymce/langs/zh_CN.js',
             language: 'zh_CN',
-            skin_url: '/libs/tinymce/skins/ui/oxide',
-            content_css: '/libs/tinymce/skins/content/default/content.css',
+            skin_url: 'libs/tinymce/skins/ui/oxide',
+            content_css: 'libs/tinymce/skins/content/default/content.css',
             height: 480,
             branding: false,
             resize: false,
