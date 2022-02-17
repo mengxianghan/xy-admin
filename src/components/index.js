@@ -1,4 +1,3 @@
-import LayoutMenu from './LayoutMenu'
 import ActionBar from './ActionBar'
 import ActionButton from './ActionButton'
 import Breadcrumb from './Breadcrumb'
@@ -9,7 +8,9 @@ import Editor from './Editor'
 import FormTable from './FormTable'
 import Filter from './Filter'
 import LayoutHeader from './LayoutHeader'
+import LayoutMenu from './LayoutMenu'
 import MultiTab from './MultiTab'
+import QrCode from './QrCode'
 import SearchBar from './SearchBar'
 import UploadImage from './Upload/UploadImage'
 
@@ -21,7 +22,6 @@ export const preview = Preview
 
 export default {
     install(app) {
-        app.component('XLayoutMenu', LayoutMenu)
         app.component('XActionBar', ActionBar)
         app.component('XActionButton', ActionButton)
         app.component('XBreadcrumb', Breadcrumb)
@@ -32,9 +32,11 @@ export default {
         app.component('XFormTable', FormTable)
         app.component('XFilter', Filter)
         app.component('XLayoutHeader', LayoutHeader)
+        app.component('XLayoutMenu', LayoutMenu)
         app.component('XMultiTab', MultiTab)
+        app.component('XQrCode', QrCode)
         app.component('XSearchBar', SearchBar)
         app.component('XUploadImage', UploadImage)
         return app
-    },
+    }
 }

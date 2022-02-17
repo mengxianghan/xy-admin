@@ -395,6 +395,17 @@ export const asyncRouterMap = [
                     keepAlive: true,
                     permission: '*'
                 }
+            },
+            {
+                path: 'qrCode',
+                name: 'componentQrCode',
+                component: 'component/qrCode/index.vue',
+                meta: {
+                    title: '二维码',
+                    isMenu: true,
+                    keepAlive: true,
+                    permission: '*'
+                }
             }
         ]
     },
