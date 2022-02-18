@@ -50,9 +50,11 @@
 </template>
 
 <script>
-import {onMounted, computed, ref, nextTick} from 'vue'
+import {onMounted, computed, ref} from 'vue'
 import {useStore} from 'vuex'
 import {useRouter, onBeforeRouteUpdate} from 'vue-router'
+
+import useMultiTab from '@/hooks/useMultiTab'
 
 export default {
     name: 'MultiTab',
@@ -62,71 +64,26 @@ export default {
         const multiTabList = computed(() => store.getters['multiTab/list'])
         const current = computed(() => store.getters['multiTab/current'])
         const spin = ref(false)
-
-        /**
-         * 打开
-         * @param route
-         */
-        function handleOpen(route) {
-            store.dispatch('multiTab/open', {route})
-        }
-
-        /**
-         * 关闭
-         * @param route
-         */
-        function handleClose(route) {
-            store.dispatch('multiTab/close', {route})
-        }
-
-        /**
-         * 关闭左侧
-         * @param route
-         */
-        function handleCloseLeft(route) {
-            store.dispatch('multiTab/closeLeft', {route}).then(({route}) => {
-                router.push(route)
-            })
-        }
-
-        /**
-         * 关闭右侧
-         * @param route
-         */
-        function handleCloseRight(route) {
-            store.dispatch('multiTab/closeRight', {route}).then(({route}) => {
-                router.push(route)
-            })
-        }
-
-        /**
-         * 关闭其他
-         * @param route
-         */
-        function handleCloseOther(route) {
-            store.dispatch('multiTab/closeOther', {route})
-        }
+        const {
+            getSimpleRoute,
+            open,
+            close: handleClose,
+            closeLeft: handleCloseLeft,
+            closeRight: handleCloseRight,
+            closeOther: handleCloseOther,
+            reload,
+        } = useMultiTab()
 
         /**
          * 重新加载
          * @param route
          */
         function handleReload(route) {
-            // 判断是否当前路由
-            if (route.fullPath !== router.currentRoute.value.fullPath) {
-                // 不是当前路由，跳转到指定路由
-                router.push(route)
-            }
-            this.spin = true
+            reload(route)
+            spin.value = true
             setTimeout(() => {
                 spin.value = false
             }, 1000)
-            setTimeout(() => {
-                store.dispatch('multiTab/reload', {route})
-                nextTick(() => {
-                    store.dispatch('multiTab/reload', {route})
-                })
-            }, 0)
         }
 
         /**
@@ -138,25 +95,14 @@ export default {
         }
 
         /**
-         * 获取简易路由
-         * @param route
-         * @return {{fullPath, path, meta, query, name, href, params, hash}}
-         * @private
-         */
-        function _getSimpleRoute(route) {
-            const {fullPath, hash, href, meta, name, params, path, query} = route
-            return {fullPath, hash, href, meta, name, params, path, query}
-        }
-
-        /**
          * 路由发生变化
          */
         onBeforeRouteUpdate((to) => {
-            handleOpen(_getSimpleRoute(to))
+            open(getSimpleRoute(to))
         })
 
         onMounted(() => {
-            handleOpen(_getSimpleRoute(router.currentRoute.value))
+            open(getSimpleRoute(router.currentRoute.value))
         })
 
         return {
@@ -197,7 +143,7 @@ export default {
     }
 
     :deep(.ant-tabs) {
-        background: #fff;
+        background: #ffffff;
         padding: 0 @padding-md;
     }
 

@@ -1,6 +1,6 @@
 import router from '@/router'
 import {message} from 'ant-design-vue'
-import {cloneDeep, findIndex} from 'lodash'
+import {cloneDeep, findIndex, isEmpty} from 'lodash'
 
 const state = {
     list: [],
@@ -88,6 +88,15 @@ const mutations = {
      */
     UPDATE_IFRAME_LIST(state) {
         state.iframeList = cloneDeep(state.list).filter(item => 'iframe' === item?.meta?.type)
+    },
+    /**
+     * 设置标题
+     * @param state
+     * @param payload
+     * @constructor
+     */
+    SET_TITLE(state, {index, title}) {
+        state.list[index].meta.title = title
     },
 }
 
@@ -252,6 +261,25 @@ const actions = {
         if (route?.meta?.keepAlive) {
             commit('UPDATE_CACHE_LIST', {route})
         }
+    },
+    /**
+     * 设置标题
+     * @param commit
+     * @param state
+     * @param {object} route
+     * @param {string} title
+     */
+    setTitle({commit, state}, {route, title}) {
+        if (isEmpty(title)) {
+            message.warning('标题不能为空')
+            return
+        }
+        const index = findIndex(state.list, {path: route.path})
+        if (index === -1) {
+            message.warning('标签页不存在')
+            return
+        }
+        commit('SET_TITLE', {index, title})
     },
 }
 
