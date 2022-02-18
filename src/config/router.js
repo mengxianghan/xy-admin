@@ -439,7 +439,7 @@ export const asyncRouterMap = [
         name: 'iframe',
         component: 'RouteViewLayout',
         meta: {
-            icon: 'IconLayoutOutlined',
+            icon: 'IconLinkOutlined',
             title: 'Iframe',
             isMenu: true,
             keepAlive: true,
@@ -473,5 +473,19 @@ export const asyncRouterMap = [
                 }
             }
         ]
+    },
+    {
+        path: 'customLayout',
+        name: 'customLayout',
+        component: 'list/basic/index.vue',
+        meta: {
+            icon: 'IconLayoutOutlined',
+            layout: 'CustomLayout',
+            title: '自定义框架',
+            isMenu: true,
+            target: '_blank',
+            keepAlive: true,
+            permission: '*'
+        }
     }
 ]
