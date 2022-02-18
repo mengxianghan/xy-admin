@@ -1,9 +1,19 @@
-# 后台模板
+<div style="text-align: center;">
+
+![logo](http://cdn.xuanyunet.com/xy-admin/logo.png)
+
+# XYAdmin
+
+</div>
+
+## 介绍
+
+XYAdmin 是一个中后台前端解决方案，基于VUE3和and-design-vue实现。 使用最新的前端技术栈，提供丰富的组件，并持续性提供丰富的业务模板快速搭建企业级中后台前端项目。
 
 ## 预览
 
-[演示地址（github）](https://mengxianghan.github.io/xy-admin-doc)  
-[演示地址（国内）](https://1056811341.gitee.io/xy-admin-doc)
+[演示地址1（github）](https://mengxianghan.github.io/xy-admin-doc)  
+[演示地址2（gitee）](https://1056811341.gitee.io/xy-admin-doc)
 
 ## 配置
 
