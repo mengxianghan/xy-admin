@@ -1,8 +1,9 @@
 # 后台模板
 
-## 演示
+## 预览
 
-[预览](https://mengxianghan.github.io/xy-admin-doc)
+[演示地址（github）](https://mengxianghan.github.io/xy-admin-doc)  
+[演示地址（国内）](https://1056811341.gitee.io/xy-admin-doc)
 
 ## 配置
 
