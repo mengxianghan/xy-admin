@@ -9,7 +9,8 @@
         <a-form ref="formRef"
                 :model="formState"
                 :rules="rules"
-                scroll-to-first-error>
+                scroll-to-first-error
+                layout="vertical">
             <a-form-item label="标题"
                          name="title">
                 <a-input v-model:value="formState.title"></a-input>
@@ -32,7 +33,7 @@ export default {
         const {formRef, rules, formRecord, formState, resetForm} = useForm()
 
         rules.value = {
-            title: {required: true, message: '请输入标题'},
+            title: {required: true, message: '请输入标题'}
         }
 
         /**
@@ -40,7 +41,7 @@ export default {
          */
         const handleCreate = () => {
             showModal({
-                title: '新建',
+                title: '新建'
             })
         }
 
@@ -49,7 +50,7 @@ export default {
          */
         const handleEdit = (record) => {
             showModal({
-                title: '编辑',
+                title: '编辑'
             })
             formState.value = cloneDeep(record)
             formRecord.value = record
@@ -94,9 +95,9 @@ export default {
             handleEdit,
             handleOk,
             handleCancel,
-            onAfterClose,
+            onAfterClose
         }
-    },
+    }
 }
 </script>
 
