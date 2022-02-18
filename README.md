@@ -1,8 +1,8 @@
-<div style="text-align: center;">
+<div align="center">
 
-![logo](http://cdn.xuanyunet.com/xy-admin/logo.png)
+![logo](https://1056811341.gitee.io/xy-admin-doc/images/logo.png)
 
-# XYAdmin
+<h1>XYAdmin</h1>
 
 </div>
 
