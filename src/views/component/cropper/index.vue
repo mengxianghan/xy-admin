@@ -62,7 +62,7 @@ import {ref} from 'vue'
 export default {
     name: 'componentCropper',
     setup() {
-        const imgSrc = ref(require('@/views/component/cropper/images/img.jpg'))
+        const imgSrc = ref(require('@/views/component/cropper/images/cropper.png'))
         const aspectRatio = ref(0)
         const quality = ref(1)
         const cropperRef = ref()
