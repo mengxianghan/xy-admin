@@ -510,6 +510,17 @@ export const asyncRouterMap = [
                     permission: '*',
                 },
             },
+            {
+                path: 'badge',
+                name: 'otherBadge',
+                component: 'other/badge/index.vue',
+                meta: {
+                    title: '菜单徽标',
+                    isMenu: true,
+                    keepAlive: true,
+                    permission: '*',
+                },
+            },
         ],
     },
 ]

@@ -7,6 +7,7 @@ import {
     formatRoutes,
     generateMenuList,
 } from '@/router/util'
+import {findTree} from '@/utils'
 
 const state = {
     routes: [],
@@ -47,6 +48,22 @@ const mutations = {
     SET_INDEX_ROUTER(state, indexRouter) {
         state.indexRouter = indexRouter
     },
+    /**
+     * 设置徽标
+     * @param state
+     * @param {string} name 名称
+     * @param {number} count 数量
+     * @constructor
+     */
+    SET_BADGE(state, {name, count}) {
+        let menuInfo = null
+        findTree(state.menuList, name, (item) => {
+            menuInfo = item
+        }, {key: 'name', children: 'children'})
+        if (menuInfo) {
+            menuInfo.meta.badge = count
+        }
+    },
 }
 
 const actions = {
@@ -73,6 +90,14 @@ const actions = {
             commit('SET_INDEX_ROUTER', indexRouter)
             resolve()
         })
+    },
+    /**
+     * 设置徽标
+     * @param {string} name 名称
+     * @param {number} count 数量
+     */
+    setBadge({commit}, {name, count} = {}) {
+        commit('SET_BADGE', {name, count})
     },
 }
 

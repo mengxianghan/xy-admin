@@ -38,5 +38,5 @@ export default {
         app.component('XSearchBar', SearchBar)
         app.component('XUploadImage', UploadImage)
         return app
-    }
+    },
 }

@@ -72,6 +72,8 @@ import {useStore} from 'vuex'
 import {timeFix} from '@/utils'
 import {commonApi} from '@/api'
 
+import useMenu from '@/hooks/useMenu'
+
 export default {
     name: 'welcome',
     setup() {

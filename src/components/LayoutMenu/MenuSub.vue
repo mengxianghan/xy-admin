@@ -1,31 +1,37 @@
 <template>
-    <a-sub-menu :key="dataSource.name">
+    <a-sub-menu :key="dataSource.name"
+                class="x-menu-sub">
         <template v-if="dataSource.meta && dataSource.meta.icon"
                   #icon>
             <component :is="dataSource.meta.icon"/>
         </template>
         <template v-if="dataSource.meta && dataSource.meta.title"
                   #title>
-            <span>{{ dataSource.meta.title }}</span>
+            <div class="x-layout-menu__title">
+                <span class="x-layout-menu__text">{{ dataSource.meta.title }}</span>
+                <a-badge v-if="dataSource.meta.badge"
+                         :count="dataSource.meta.badge"
+                         class="x-layout-menu__badge"/>
+            </div>
         </template>
         <template v-for="item in dataSource.children">
             <a-menu-item v-if="!item.children"
                          :key="item.name">
-                <layout-menu-link :data-source="item"/>
+                <menu-link :data-source="item"/>
             </a-menu-item>
-            <layout-menu-sub v-else
-                             :key="item.name"
-                             :data-source="item"/>
+            <menu-sub v-else
+                      :key="item.name"
+                      :data-source="item"/>
         </template>
     </a-sub-menu>
 </template>
 
 <script>
-import LayoutMenuLink from './LayoutMenuLink'
+import MenuLink from './MenuLink'
 
 export default {
-    name: 'LayoutMenuSub',
-    components: {LayoutMenuLink},
+    name: 'MenuSub',
+    components: {MenuLink},
     props: {
         dataSource: {
             type: Object,
@@ -39,5 +45,4 @@ export default {
 
 <style lang="less"
        scoped>
-
 </style>

@@ -124,6 +124,7 @@ export function generateMenuList(routes) {
                 title: item?.meta?.title ?? '未命名菜单',
                 openKeys: item?.meta?.openKeys ?? [],
                 target: item?.meta?.target ?? '_self',
+                ...item?.meta ?? {},
             },
         }
         const children = generateMenuList(item?.children ?? [])

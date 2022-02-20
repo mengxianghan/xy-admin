@@ -1,3 +1,5 @@
+import {isMatch, isString} from 'lodash'
+
 /**
  * 数据映射
  * @param {array} list 数据源
@@ -42,19 +44,19 @@ export function mapping(list, structure = {}, expand = {}, treeField) {
 }
 
 /**
- * 循环树型数据
- * @param {array }list
- * @param {string} value
+ * 从树型结构中查找对应数据
+ * @param {array } list
+ * @param {string | object} value
  * @param {function} callback
  * @param {object} fields
  */
-export function loopTreeData(list, value, callback, fields = {key: 'id', children: 'children'}) {
+export function findTree(list, value, callback, fields = {kye: 'id', children: 'children'}, path = []) {
     list.forEach((item, index, array) => {
-        if (item[fields.key] === value) {
-            return callback(item, index, array)
+        if (isString(value) ? item[fields.key] === value : isMatch(item, value)) {
+            return callback(item, index, array, [...path, item])
         }
         if (item[fields.children]) {
-            return loopTreeData(item[fields.children], value, callback)
+            return findTree(item[fields.children], value, callback, fields, [...path, item])
         }
     })
 }
@@ -95,7 +97,7 @@ export function mergeDeep(object, sources) {
     return object
 }
 
-export function timeFix () {
+export function timeFix() {
     const time = new Date()
     const hour = time.getHours()
     return hour < 9 ? '早上好' : hour <= 11 ? '上午好' : hour <= 13 ? '中午好' : hour < 20 ? '下午好' : '晚上好'

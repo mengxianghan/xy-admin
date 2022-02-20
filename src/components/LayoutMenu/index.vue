@@ -14,11 +14,11 @@
             <template v-for="item in menuList">
                 <a-menu-item v-if="!item.children"
                              :key="item.name">
-                    <layout-menu-link :data-source="item"/>
+                    <menu-link :data-source="item"/>
                 </a-menu-item>
-                <layout-menu-sub v-else
-                                 :key="item.name"
-                                 :data-source="item"/>
+                <menu-sub v-else
+                          :key="item.name"
+                          :data-source="item"/>
             </template>
         </a-menu>
     </div>
@@ -29,17 +29,17 @@ import {computed, onMounted, ref, toRefs, watch} from 'vue'
 import {useStore} from 'vuex'
 import {useRoute} from 'vue-router'
 
-import LayoutMenuLink from './LayoutMenuLink'
-import LayoutMenuSub from './LayoutMenuSub'
+import MenuLink from './MenuLink'
+import MenuSub from './MenuSub'
 
 export default {
     name: 'LayoutMenu',
-    components: {LayoutMenuLink, LayoutMenuSub},
+    components: {MenuLink, MenuSub},
     props: {
         theme: {
             type: String,
-            default: 'dark'
-        }
+            default: 'dark',
+        },
     },
     setup(props) {
         const store = useStore()
@@ -91,9 +91,9 @@ export default {
             selectedKeys,
             menuList,
             classes,
-            onOpenChange
+            onOpenChange,
         }
-    }
+    },
 }
 </script>
 
@@ -129,9 +129,28 @@ export default {
         }
     }
 
+    :deep(.x-layout-menu__title) {
+        display: flex;
+        align-items: center;
+    }
+
+    :deep(.x-layout-menu__text) {
+        flex: 1;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    :deep(.x-layout-menu__badge) {
+        .ant-badge-count,
+        .ant-badge-dot {
+            box-shadow: none;
+        }
+    }
+
     &--dark {
         h1 {
-            color: #ffffff;
+            color: #fff;
         }
     }
 
@@ -143,7 +162,7 @@ export default {
         }
 
         h1 {
-            color: #222222;
+            color: #222;
         }
     }
 
