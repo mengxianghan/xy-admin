@@ -104,9 +104,9 @@ export default {
                 const rectSize = logoSize.value + logoPadding.value
                 const rectPos = (size.value - rectSize) / 2
                 let ctx = qrcode.value.getElementsByTagName('canvas')[0].getContext('2d')
-                ctx.fillStyle = '#ffffff'
+                //ctx.fillStyle = '#ffffff'
                 img.onload = () => {
-                    ctx.fillRect(rectPos, rectPos, rectSize, rectSize)
+                    //ctx.fillRect(rectPos, rectPos, rectSize, rectSize)
                     ctx.drawImage(img, logoPos, logoPos, logoSize.value, logoSize.value)
                     resolve()
                 }
