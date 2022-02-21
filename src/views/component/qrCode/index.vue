@@ -8,7 +8,7 @@
         <a-col :span="6">
             <a-card title="带Logo">
                 <x-qr-code text="admin"
-                           logo="images/logo.png"></x-qr-code>
+                           logo="images/logo.svg"></x-qr-code>
             </a-card>
         </a-col>
         <a-col :span="6">
