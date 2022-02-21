@@ -4,7 +4,7 @@
         <div class="user-layout-content">
             <div class="user-layout-top">
                 <div class="user-layout-header">
-                    <img src="images/logo.png">
+                    <img src="images/logo.svg">
                     <h1>{{ title }}</h1>
                 </div>
                 <div class="user-layout-desc">

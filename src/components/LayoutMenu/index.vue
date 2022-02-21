@@ -2,7 +2,7 @@
     <div class="x-layout-menu"
          :class="classes">
         <div class="x-layout-menu__brand">
-            <img src="images/logo.png">
+            <img src="images/logo.svg">
             <h1>{{ title }}</h1>
         </div>
         <a-menu mode="inline"
