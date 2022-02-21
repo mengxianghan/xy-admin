@@ -24,36 +24,36 @@ export default {
         text: {
             type: String,
             required: true,
-            default: ''
+            default: '',
         },
         size: {
             type: Number,
-            default: 100
+            default: 100,
         },
         logo: {
             type: String,
-            default: ''
+            default: '',
         },
         logoSize: {
             type: Number,
-            default: 30
+            default: 30,
         },
         logoPadding: {
             type: Number,
-            default: 5
+            default: 5,
         },
         colorDark: {
             type: String,
-            default: '#000000'
+            default: '#000000',
         },
         colorLight: {
             type: String,
-            default: '#ffffff'
+            default: '#ffffff',
         },
         correctLevel: {
             type: Number,
-            default: 2
-        }
+            default: 2,
+        },
     },
     setup(props) {
         const {text, size, logo, logoSize, logoPadding, colorDark, colorLight, correctLevel} = toRefs(props)
@@ -63,7 +63,7 @@ export default {
         watch(() => toRefs(props), () => {
             draw()
         }, {
-            deep: true
+            deep: true,
         })
 
         onMounted(() => {
@@ -83,7 +83,7 @@ export default {
                     height: size.value,
                     colorDark: colorDark.value,
                     colorLight: colorLight.value,
-                    correctLevel: correctLevel.value
+                    correctLevel: correctLevel.value,
                 })
                 if (element.getElementsByTagName('canvas')[0]) {
                     qrcode.value = element
@@ -104,6 +104,7 @@ export default {
                 const rectSize = logoSize.value + logoPadding.value
                 const rectPos = (size.value - rectSize) / 2
                 let ctx = qrcode.value.getElementsByTagName('canvas')[0].getContext('2d')
+                ctx.fillStyle = '#ffffff'
                 img.onload = () => {
                     ctx.fillRect(rectPos, rectPos, rectSize, rectSize)
                     ctx.drawImage(img, logoPos, logoPos, logoSize.value, logoSize.value)
@@ -125,9 +126,9 @@ export default {
         }
 
         return {
-            imgRef
+            imgRef,
         }
-    }
+    },
 }
 </script>
 
