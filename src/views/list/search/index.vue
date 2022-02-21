@@ -63,7 +63,7 @@ export default {
         const filterData = ref([
             {
                 label: '所属类目', key: 'type', type: 'tag',
-                children: [
+                options: [
                     {label: '全部', value: 0},
                     {label: '类目2', value: 2},
                     {label: '类目3', value: 3},

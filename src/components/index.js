@@ -6,7 +6,8 @@ import Cropper from './Cropper'
 import CropperModal from './CropperModal'
 import Editor from './Editor'
 import FormTable from './FormTable'
-import Filter from './Filter'
+import Filter from './Filter/Filter'
+import FilterItem from './Filter/FilterItem'
 import LayoutHeader from './LayoutHeader'
 import LayoutMenu from './LayoutMenu'
 import MultiTab from './MultiTab'
@@ -31,6 +32,7 @@ export default {
         app.component('XEditor', Editor)
         app.component('XFormTable', FormTable)
         app.component('XFilter', Filter)
+        app.component('XFilterItem', FilterItem)
         app.component('XLayoutHeader', LayoutHeader)
         app.component('XLayoutMenu', LayoutMenu)
         app.component('XMultiTab', MultiTab)
