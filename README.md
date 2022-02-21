@@ -1,6 +1,6 @@
 <div align="center">
 
-![logo](https://1056811341.gitee.io/xy-admin-doc/images/logo.png)
+![logo](https://1056811341.gitee.io/xy-admin-doc/images/logo.svg)
 
 <h1>XYAdmin</h1>
 
@@ -8,12 +8,19 @@
 
 ## 介绍
 
-XYAdmin 是一个中后台前端解决方案，基于VUE3和and-design-vue实现。 使用最新的前端技术栈，提供丰富的组件，并持续性提供丰富的业务模板快速搭建企业级中后台前端项目。
+XYAdmin 是一个中后台前端解决方案，基于 vue3.x 和 and-design-vue 实现。 使用最新的前端技术栈，提供丰富的组件，并持续性提供丰富的业务模板快速搭建企业级中后台前端项目。
+
+## 特点
+**组件** 丰富的组件、业务模板快速制作页面  
+**权限** 完整的鉴权体系和高精度权限控制  
+**布局** 灵活布局方式，满足各种功能需求  
+**API** 完善的 API 管理，内置 MOCK 模块  
+**其他** 多功能视图标签、动态权限菜单、控制台组态化等等  
 
 ## 预览
 
-[演示地址1（github）](https://mengxianghan.github.io/xy-admin-doc)  
-[演示地址2（gitee）](https://1056811341.gitee.io/xy-admin-doc)
+<a href="https://mengxianghan.github.io/xy-admin-doc" target="_blank">演示地址1（github）</a>  
+<a href="https://1056811341.gitee.io/xy-admin-doc" target="_blank">演示地址2（gitee）</a>
 
 ## 配置
 
