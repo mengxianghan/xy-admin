@@ -137,6 +137,9 @@ export default {
         &__content {
             flex: 1;
             margin-left: @margin-xs;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
         }
     }
 
