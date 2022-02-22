@@ -14,6 +14,7 @@ import MultiTab from './MultiTab'
 import QrCode from './QrCode'
 import SearchBar from './SearchBar'
 import UploadImage from './Upload/UploadImage'
+import UploadInput from './Upload/UploadInput'
 
 import Loading from './Loading'
 import Preview from './Preview'
@@ -39,6 +40,7 @@ export default {
         app.component('XQrCode', QrCode)
         app.component('XSearchBar', SearchBar)
         app.component('XUploadImage', UploadImage)
+        app.component('XUploadInput', UploadInput)
         return app
     },
 }

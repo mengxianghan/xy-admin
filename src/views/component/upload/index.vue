@@ -41,49 +41,71 @@
     </a-card>
 
     <a-card class="mt-8-2"
-            title="表单示例">
-        <a-form :label-col="{style: {width: '100px'}}"
-                :model="formState"
-                :rules="rules"
-                ref="formRef">
-            <a-form-item label="身份证"
-                         class="mb-0"
-                         required>
-                <a-row :gutter="16">
-                    <a-col>
-                        <a-form-item name="field1">
-                            <x-upload-image v-model="formState.field1"
-                                            text="人像面"
-                                            :width="191"></x-upload-image>
-                        </a-form-item>
-                    </a-col>
-                    <a-col>
-                        <a-form-item name="field2">
-                            <x-upload-image v-model="formState.field2"
-                                            text="国徽面"
-                                            :width="191"></x-upload-image>
-                        </a-form-item>
-                    </a-col>
-                </a-row>
-            </a-form-item>
-            <a-form-item label="其他凭证"
-                         name="field3">
-                <x-upload-image v-model="formState.field3"></x-upload-image>
-            </a-form-item>
-            <a-form-item label="日期"
-                         name="field4">
-                <a-date-picker v-model="formState.field4"></a-date-picker>
-            </a-form-item>
-            <a-form-item :style="{paddingLeft: '100px'}">
-                <a-space>
-                    <a-button type="primary"
-                              @click="handleSubmit">提交
-                    </a-button>
-                    <a-button @click="handleReset">重置</a-button>
-                </a-space>
-            </a-form-item>
-        </a-form>
+            title="其他示例">
+        <a-row :gutter="16">
+            <a-col :span="8">
+                <x-upload-input></x-upload-input>
+            </a-col>
+        </a-row>
     </a-card>
+
+    <a-row :gutter="16"
+           class="mt-8-2">
+        <a-col :span="12">
+            <a-card title="表单示例">
+                <a-form :label-col="{style: {width: '100px'}}"
+                        :model="formState"
+                        :rules="rules"
+                        ref="formRef">
+                    <a-form-item label="身份证"
+                                 class="mb-0"
+                                 required>
+                        <a-row :gutter="16">
+                            <a-col>
+                                <a-form-item name="field1">
+                                    <x-upload-image v-model="formState.field1"
+                                                    text="人像面"
+                                                    :width="191"></x-upload-image>
+                                </a-form-item>
+                            </a-col>
+                            <a-col>
+                                <a-form-item name="field2">
+                                    <x-upload-image v-model="formState.field2"
+                                                    text="国徽面"
+                                                    :width="191"></x-upload-image>
+                                </a-form-item>
+                            </a-col>
+                        </a-row>
+                    </a-form-item>
+                    <a-form-item label="其他凭证"
+                                 name="field3">
+                        <x-upload-image v-model="formState.field3"></x-upload-image>
+                    </a-form-item>
+                    <a-form-item label="上传文件"
+                                 name="field5">
+                        <x-upload-input v-model="formState.field5"></x-upload-input>
+                    </a-form-item>
+                    <a-form-item label="日期"
+                                 name="field4">
+                        <a-date-picker v-model:value="formState.field4"></a-date-picker>
+                    </a-form-item>
+                    <a-form-item :style="{paddingLeft: '100px'}">
+                        <a-space>
+                            <a-button type="primary"
+                                      @click="handleSubmit">提交
+                            </a-button>
+                            <a-button @click="handleReset">重置</a-button>
+                        </a-space>
+                    </a-form-item>
+                </a-form>
+            </a-card>
+        </a-col>
+        <a-col :span="12">
+            <a-card title="输出结果">
+                <pre>{{ formState }}</pre>
+            </a-card>
+        </a-col>
+    </a-row>
 </template>
 
 <script>
@@ -105,6 +127,7 @@ export default {
         rules.value = {
             field1: {required: true, message: '请上传人像面'},
             field2: {required: true, message: '请上传国徽面'},
+            field5: {required: true, message: '请上传文件'},
         }
 
         function handleSubmit() {
