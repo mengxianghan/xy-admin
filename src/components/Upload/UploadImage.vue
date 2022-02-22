@@ -1,5 +1,5 @@
 <template>
-    <div class="x-upload"
+    <div class="x-upload x-upload-image"
          :class="{
             'x-upload--round': round
          }">
@@ -7,7 +7,7 @@
                   :show-upload-list="false"
                   :multiple="multiple"
                   :before-upload="onBeforeUpload"
-                  :custom-request="({file})=>onUpload(file)"
+                  :custom-request="({file})=>customRequest(file)"
                   :accept="accept"
                   :disabled="disabled">
             <slot v-if="$slots.default"></slot>
@@ -74,7 +74,7 @@
                    ref="cropperModalRef"
                    :aspect-ratio="aspectRatio"
                    :quality="quality"
-                   @ok="(file)=>onUpload(file)"/>
+                   @ok="(file)=>customRequest(file)"/>
 </template>
 
 <script>
@@ -191,7 +191,7 @@ export default {
                     ? modelValue.value
                     : [modelValue.value]
                 : []
-            fileList.value = currentValue.map((item) => _getItem({src: item}))
+            fileList.value = currentValue.map((item) => getItem({src: item}))
         }
 
         function handlePreview(record) {
@@ -206,7 +206,7 @@ export default {
          */
         function handleRemove(index) {
             fileList.value.splice(index, 1)
-            _trigger()
+            trigger()
         }
 
         /**
@@ -240,10 +240,10 @@ export default {
         }
 
         /**
-         * 上传
+         * 自定义上传
          */
-        function onUpload(file) {
-            const record = _getItem({
+        function customRequest(file) {
+            const record = getItem({
                 key: file.uid,
                 src: URL.createObjectURL(file),
                 status: STATUS_ENUM.getValue('wait'),
@@ -258,14 +258,14 @@ export default {
                 queue.value = [record]
             }
             if (!loading.value) {
-                _doUpload()
+                doUpload()
             }
         }
 
         /**
-         * 上传
+         * 执行上传
          */
-        function _doUpload() {
+        function doUpload() {
             if (!queue.value.length) {
                 return
             }
@@ -277,8 +277,8 @@ export default {
                     clearInterval(times)
                     file.status = STATUS_ENUM.getValue('done')
                     fileList.value.push(...queue.value.splice(index, 1))
-                    _trigger()
-                    _doUpload()
+                    trigger()
+                    doUpload()
                     return
                 }
                 file.percent += 1
@@ -289,7 +289,7 @@ export default {
          * 基础结构
          * @return {{}}
          */
-        function _getItem(obj) {
+        function getItem(obj) {
             return mergeDeep({
                 key: uuidv4(),
                 src: '',
@@ -298,7 +298,10 @@ export default {
             }, obj)
         }
 
-        function _trigger() {
+        /**
+         * 触发
+         */
+        function trigger() {
             let value = ''
             // 判断是否多选
             if (multiple.value) {
@@ -324,7 +327,7 @@ export default {
             handleRemove,
             handleCancel,
             onBeforeUpload,
-            onUpload,
+            customRequest,
         }
     },
 }
@@ -422,7 +425,7 @@ export default {
         display: flex;
         align-items: center;
         justify-content: center;
-        color: #fff;
+        color: #ffffff;
         border-radius: 4px;
         cursor: pointer;
         background: rgba(0, 0, 0, .25);
@@ -447,7 +450,7 @@ export default {
         justify-content: center;
         background: rgba(0, 0, 0, .25);
         padding: 0 16px;
-        color: #fff;
+        color: #ffffff;
 
         &--error {
             color: @error-color;
