@@ -178,14 +178,14 @@ export default {
         })
 
         watch(() => modelValue.value, () => {
-            _init()
+            init()
         })
 
         onMounted(() => {
-            _init()
+            init()
         })
 
-        function _init() {
+        function init() {
             const currentValue = modelValue.value
                 ? modelValue.value instanceof Array
                     ? modelValue.value

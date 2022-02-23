@@ -1,5 +1,5 @@
 <template>
-    <a-input v-model:value="inputValue"
+    <a-input v-model:value="currentValue"
              class="x-upload x-upload-input"
              @input="onInput">
         <template #addonAfter>
@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import {ref, toRefs} from 'vue'
+import {onMounted, ref, toRefs, watch} from 'vue'
 import {Form} from 'ant-design-vue'
 
 /**
@@ -35,9 +35,21 @@ export default {
     setup(props, {emit}) {
         const {modelValue} = toRefs(props)
         const loading = ref(false)
-        const inputValue = ref(modelValue?.value ?? '')
+        const currentValue = ref('')
         const {onFieldChange} = Form.useInjectFormItemContext()
 
+        watch(() => modelValue.value, (val) => {
+            currentValue.value = val
+        })
+
+        onMounted(() => {
+            currentValue.value = modelValue.value
+        })
+
+        /**
+         * 内容发生改变
+         * @param e
+         */
         function onInput(e) {
             trigger(e.target.value)
         }
@@ -51,8 +63,8 @@ export default {
             loading.value = true
             setTimeout(() => {
                 loading.value = false
-                inputValue.value = URL.createObjectURL(file)
-                trigger(inputValue.value)
+                currentValue.value = URL.createObjectURL(file)
+                trigger(currentValue.value)
             }, 3000)
         }
 
@@ -66,7 +78,7 @@ export default {
 
         return {
             loading,
-            inputValue,
+            currentValue,
             onInput,
             customRequest,
         }
