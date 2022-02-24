@@ -1,6 +1,6 @@
 <div align="center">
 
-![logo](https://1056811341.gitee.io/xy-admin-doc/images/logo.svg)
+![logo](https://mengxianghan.github.io/xy-admin-doc/images/logo.svg)
 
 <h1>XYAdmin</h1>
 
