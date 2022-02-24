@@ -1,7 +1,6 @@
 <div align="center">
 
-![logo](https://mengxianghan.github.io/xy-admin-doc/images/logo.svg)
-
+<img src="https://mengxianghan.github.io/xy-admin-doc/images/logo.svg" alt="logo" height="120">
 <h1>XYAdmin</h1>
 
 </div>
