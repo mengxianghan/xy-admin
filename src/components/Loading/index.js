@@ -1,4 +1,4 @@
-import LoadingConstructor from './loading.vue'
+import LoadingConstructor from './Loading.vue'
 import {createVNode, render} from 'vue'
 
 let vm = null

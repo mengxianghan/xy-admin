@@ -1,6 +1,6 @@
 import {createVNode, render} from 'vue'
 
-import PreviewConstructor from './preview.vue'
+import PreviewConstructor from './Preview.vue'
 
 let vm = null
 let container = null
