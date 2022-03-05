@@ -14,6 +14,7 @@
 <script>
 import {onMounted, ref, toRefs, watch} from 'vue'
 import {mergeDeep} from '@/utils'
+import {Form} from 'ant-design-vue'
 
 import Editor from '@tinymce/tinymce-vue'
 import tinymce from 'tinymce/tinymce'
@@ -25,27 +26,27 @@ export default {
     props: {
         modelValue: {
             type: String,
-            default: ''
+            default: '',
         },
         option: {
             type: Object,
-            default: () => ({})
+            default: () => ({}),
         },
         height: {
             type: Number,
-            default: 300
+            default: 300,
         },
         placeholder: {
             type: String,
-            default: ''
+            default: '',
         },
         disabled: {
             type: Boolean,
-            default: false
-        }
+            default: false,
+        },
     },
     components: {
-        'tiny-editor': Editor
+        'tiny-editor': Editor,
     },
     setup(props, {emit}) {
         const spinning = ref(true)
@@ -68,11 +69,15 @@ export default {
                 editor.on('init', () => {
                     spinning.value = false
                 })
-            }
+            },
         }, option.value)
+        const {onFieldChange} = Form.useInjectFormItemContext()
 
         watch(() => modelValue.value, (val) => content.value = val)
-        watch(() => content.value, (val) => emit('update:modelValue', val))
+        watch(() => content.value, (val) => {
+            emit('update:modelValue', val)
+            onFieldChange()
+        })
 
         onMounted(() => {
             content.value = modelValue.value
@@ -82,9 +87,9 @@ export default {
         return {
             spinning,
             content,
-            opts
+            opts,
         }
-    }
+    },
 }
 </script>
 
