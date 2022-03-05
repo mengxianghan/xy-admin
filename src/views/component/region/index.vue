@@ -22,7 +22,7 @@
                                   @change="onChange"></x-region>
                     </a-col>
                     <a-col :span="8">
-                        <pre class="my-8-2">{{ field3 }}</pre>
+                        <pre>{{ field3 }}</pre>
                     </a-col>
                     <a-col :span="8">
                         <pre>{{ field3SelectedOptions }}</pre>
