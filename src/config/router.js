@@ -407,6 +407,17 @@ export const asyncRouterMap = [
                     permission: '*',
                 },
             },
+            {
+                path: 'region',
+                name: 'componentRegion',
+                component: 'component/region/index.vue',
+                meta: {
+                    title: '地区联动',
+                    isMenu: true,
+                    keepAlive: true,
+                    permission: '*',
+                },
+            },
         ],
     },
     {

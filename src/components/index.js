@@ -12,6 +12,7 @@ import LayoutHeader from './LayoutHeader'
 import LayoutMenu from './LayoutMenu'
 import MultiTab from './MultiTab'
 import QrCode from './QrCode'
+import Region from './Region'
 import SearchBar from './SearchBar'
 import UploadImage from './Upload/UploadImage'
 import UploadInput from './Upload/UploadInput'
@@ -38,6 +39,7 @@ export default {
         app.component('XLayoutMenu', LayoutMenu)
         app.component('XMultiTab', MultiTab)
         app.component('XQrCode', QrCode)
+        app.component('XRegion', Region)
         app.component('XSearchBar', SearchBar)
         app.component('XUploadImage', UploadImage)
         app.component('XUploadInput', UploadInput)
