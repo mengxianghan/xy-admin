@@ -1,4 +1,4 @@
-import {isMatch, isString} from 'lodash'
+import {isMatch, isObject} from 'lodash'
 
 /**
  * 数据映射
@@ -50,9 +50,9 @@ export function mapping(list, structure = {}, expand = {}, treeField) {
  * @param {function} callback
  * @param {object} fields
  */
-export function findTree(list, value, callback, fields = {kye: 'id', children: 'children'}, path = []) {
+export function findTree(list, value, callback, fields = {key: 'id', children: 'children'}, path = []) {
     list.forEach((item, index, array) => {
-        if (isString(value) ? item[fields.key] === value : isMatch(item, value)) {
+        if (isObject(value) ? isMatch(item, value) : item[fields.key] === value) {
             return callback(item, index, array, [...path, item])
         }
         if (item[fields.children]) {
