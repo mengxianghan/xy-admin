@@ -12,7 +12,7 @@ import {findTree, mapping} from '@/utils'
 import {last, pick} from 'lodash'
 import {onMounted, ref, toRefs, watch} from 'vue'
 import {message, Form} from 'ant-design-vue'
-import {getRegionList as getRegionListApi} from '@/api/modules/common'
+import {commonApi} from '@/api'
 
 /**
  * 地区联动
@@ -132,7 +132,7 @@ export default {
          */
         function getRegionList(params) {
             return new Promise(async (resolve, reject) => {
-                const {code, data} = await getRegionListApi(params).catch(() => {
+                const {code, data} = await commonApi.getRegionList(params).catch(() => {
                     reject()
                 })
                 if ('200' === code) {
