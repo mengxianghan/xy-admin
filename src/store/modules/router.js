@@ -4,10 +4,11 @@ import {
     generateRoutes, getIndexRouter, filterRoutes, formatRoutes, generateMenuList,
 } from '@/router/util'
 import {findTree} from '@/utils'
-import {systemApi} from '@/api'
 
 const state = {
-    routes: [], menuList: [], indexRouter: {},
+    routes: [],
+    menuList: [],
+    indexRouter: null,
 }
 
 const getters = {
