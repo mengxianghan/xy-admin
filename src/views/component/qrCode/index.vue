@@ -38,9 +38,9 @@ export default {
         const text = ref('admin')
 
         return {
-            text
+            text,
         }
-    }
+    },
 }
 </script>
 

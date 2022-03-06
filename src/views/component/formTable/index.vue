@@ -54,9 +54,9 @@ export default {
 
         return {
             rowTpl,
-            list
+            list,
         }
-    }
+    },
 }
 </script>
 

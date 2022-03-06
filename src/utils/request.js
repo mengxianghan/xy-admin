@@ -49,7 +49,7 @@ class Http {
                     }
                 }
                 return data
-            }]
+            }],
         }, config)
     }
 
@@ -62,7 +62,7 @@ class Http {
         return new Promise((resolve, reject) => {
             instance.request({
                 ...this.config,
-                ...config
+                ...config,
             }).then(res => {
                 resolve(res.data)
             }, err => {
@@ -85,7 +85,7 @@ class Http {
             url: url,
             method: 'post',
             data,
-            ...config
+            ...config,
         })
     }
 
@@ -101,7 +101,7 @@ class Http {
             url: url,
             method: 'get',
             params,
-            ...config
+            ...config,
         })
     }
 
@@ -115,9 +115,9 @@ class Http {
     upload(url = '', formData = {}, config = {}) {
         return this.post(url, formData, {
             headers: {
-                'content-type': 'multipart/form-data'
+                'content-type': 'multipart/form-data',
             },
-            ...config
+            ...config,
         })
     }
 
@@ -133,7 +133,7 @@ class Http {
             baseURL: '',
             method: 'get',
             responseType: 'blob',
-            ...config
+            ...config,
         })
     }
 }
@@ -155,7 +155,7 @@ class ReadFile extends Http {
                         resolve(reader.result)
                     }
                 })
-            }]
+            }],
         })
     }
 
@@ -179,7 +179,7 @@ class ReadFile extends Http {
 class Api extends Http {
     constructor(baseURL) {
         super({
-            baseURL
+            baseURL,
         })
     }
 }
@@ -187,6 +187,6 @@ class Api extends Http {
 export default {
     readFile: new ReadFile(),
     api: new Api(),
-    default: new Api(`${process.env.VUE_APP_API_DEFAULT}`)
+    default: new Api(`${process.env.VUE_APP_API_DEFAULT}`),
 }
 

@@ -12,7 +12,7 @@ export default (options = {}) => {
         showQuickJumper: true,
         showTotal: (total, range) => `总 ${total} 条数据`,
         pageSizeOptions: ['10', '20', '30', '40'],
-        ...options ?? {}
+        ...options ?? {},
     })
 
     /**
@@ -28,6 +28,6 @@ export default (options = {}) => {
         list,
         searchForm,
         pagination,
-        resetPagination
+        resetPagination,
     }
 }

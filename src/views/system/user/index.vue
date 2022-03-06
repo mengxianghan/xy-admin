@@ -95,7 +95,7 @@ export default {
             {title: '姓名', dataIndex: 'name'},
             {title: '所属角色', dataIndex: 'roleName'},
             {title: '加入时间', dataIndex: 'date'},
-            {title: '操作', key: 'action', fixed: 'right', width: 160}
+            {title: '操作', key: 'action', fixed: 'right', width: 160},
         ])
         const userList = ref([])
         const editRef = ref()
@@ -119,7 +119,7 @@ export default {
                 if ('200' === code) {
                     roleList.value = [{
                         'name': '全部',
-                        'key': '0'
+                        'key': '0',
                     }, ...data.rows]
                 }
             } catch (err) {
@@ -137,7 +137,7 @@ export default {
                 const {pageSize, current} = pagination
                 const {code, data} = await systemApi.getUserPageList({
                     pageSize,
-                    page: current
+                    page: current,
                 }).catch(() => {
                     throw new Error()
                 })
@@ -192,9 +192,9 @@ export default {
             editRef,
             handleRole,
             handleDelete,
-            onTableChange
+            onTableChange,
         }
-    }
+    },
 }
 </script>
 

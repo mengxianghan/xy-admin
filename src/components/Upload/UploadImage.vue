@@ -425,7 +425,7 @@ export default {
         display: flex;
         align-items: center;
         justify-content: center;
-        color: #ffffff;
+        color: #fff;
         border-radius: 4px;
         cursor: pointer;
         background: rgba(0, 0, 0, .25);
@@ -450,7 +450,7 @@ export default {
         justify-content: center;
         background: rgba(0, 0, 0, .25);
         padding: 0 16px;
-        color: #ffffff;
+        color: #fff;
 
         &--error {
             color: @error-color;

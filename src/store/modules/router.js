@@ -1,23 +1,17 @@
 import router from '@/router'
 import {notFoundRouter, asyncRouterMap} from '@/config/router'
 import {
-    generateRoutes,
-    getIndexRouter,
-    filterRoutes,
-    formatRoutes,
-    generateMenuList,
+    generateRoutes, getIndexRouter, filterRoutes, formatRoutes, generateMenuList,
 } from '@/router/util'
 import {findTree} from '@/utils'
+import {systemApi} from '@/api'
 
 const state = {
-    routes: [],
-    menuList: [],
-    indexRouter: {},
+    routes: [], menuList: [], indexRouter: {},
 }
 
 const getters = {
-    menuList: state => state.menuList,
-    indexRouter: state => state.indexRouter,
+    menuList: state => state.menuList, indexRouter: state => state.indexRouter,
 }
 
 const mutations = {
@@ -29,8 +23,7 @@ const mutations = {
      */
     SET_ROUTES(state, routes) {
         state.routes = routes
-    },
-    /**
+    }, /**
      * 设置菜单
      * @param state
      * @param menuList
@@ -38,8 +31,7 @@ const mutations = {
      */
     SET_MENU_LIST(state, menuList) {
         state.menuList = menuList
-    },
-    /**
+    }, /**
      * 设置首页路由
      * @param state
      * @param indexRouter
@@ -47,8 +39,7 @@ const mutations = {
      */
     SET_INDEX_ROUTER(state, indexRouter) {
         state.indexRouter = indexRouter
-    },
-    /**
+    }, /**
      * 设置徽标
      * @param state
      * @param {string} name 名称
@@ -77,10 +68,7 @@ const actions = {
             const list = asyncRouterMap
             const validRoutes = process.env.VUE_APP_PERMISSION === 'true' ? filterRoutes(formatRoutes(list), rootState.user.permission) : formatRoutes(list)
             const menuList = generateMenuList(validRoutes)
-            const routes = [
-                ...generateRoutes(validRoutes),
-                notFoundRouter,
-            ]
+            const routes = [...generateRoutes(validRoutes), notFoundRouter]
             const indexRouter = getIndexRouter(menuList)
             routes.forEach(route => {
                 router.addRoute(route)
@@ -90,8 +78,7 @@ const actions = {
             commit('SET_INDEX_ROUTER', indexRouter)
             resolve()
         })
-    },
-    /**
+    }, /**
      * 设置徽标
      * @param {string} name 名称
      * @param {number} count 数量
@@ -102,9 +89,5 @@ const actions = {
 }
 
 export default {
-    namespaced: true,
-    state,
-    getters,
-    mutations,
-    actions,
+    namespaced: true, state, getters, mutations, actions,
 }

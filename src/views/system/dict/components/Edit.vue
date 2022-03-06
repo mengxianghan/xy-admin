@@ -48,11 +48,11 @@ export default {
         rules.value = {
             type: {required: true, message: '请选择所属分类'},
             name: {required: true, message: '请输入名称'},
-            keyValue: {required: true, message: '请输入键值'}
+            keyValue: {required: true, message: '请输入键值'},
         }
 
         formState.value = {
-            valid: true
+            valid: true,
         }
 
         /**
@@ -60,7 +60,7 @@ export default {
          */
         const handleCreate = () => {
             showModal({
-                title: '新建项'
+                title: '新建项',
             })
         }
 
@@ -69,7 +69,7 @@ export default {
          */
         const handleEdit = (record) => {
             showModal({
-                title: '编辑项'
+                title: '编辑项',
             })
             formState.value = cloneDeep(record)
             formRecord.value = record
@@ -114,9 +114,9 @@ export default {
             handleEdit,
             handleOk,
             handleCancel,
-            onAfterClose
+            onAfterClose,
         }
-    }
+    },
 }
 </script>
 

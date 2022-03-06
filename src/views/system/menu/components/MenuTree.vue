@@ -113,9 +113,9 @@ export default {
             selectedKeys,
             keyword,
             handleSelect,
-            handleDelete
+            handleDelete,
         }
-    }
+    },
 }
 </script>
 

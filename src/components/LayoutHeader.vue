@@ -153,7 +153,7 @@ export default {
         color: rgba(0, 0, 0, .65);
         border-radius: @border-radius-base;
 
-        &:not(:first-child){
+        &:not(:first-child) {
             margin-left: @margin-xs;
         }
 

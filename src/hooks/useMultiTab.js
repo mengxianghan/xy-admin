@@ -74,7 +74,7 @@ export default () => {
         store.dispatch('multiTab/closeOther', {
             route: getSimpleRoute(route),
         })
-        if(route.fullPath !== router.currentRoute.value.fullPath){
+        if (route.fullPath !== router.currentRoute.value.fullPath) {
             router.push(route)
         }
     }

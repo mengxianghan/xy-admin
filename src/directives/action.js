@@ -25,7 +25,7 @@ const actionDirective = {
                 el.setAttribute('disabled', 'disabled')
             }
         }
-    }
+    },
 }
 
 export function setupActionDirective(app) {

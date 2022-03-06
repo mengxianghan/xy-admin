@@ -16,7 +16,7 @@ const store = createStore({
     state: {},
     mutations: {},
     actions: {},
-    modules
+    modules,
 })
 
 export function setupStore(app) {

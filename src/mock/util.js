@@ -6,7 +6,7 @@ const responseBody = {
     code: '200',
     msg: 'success',
     timestamp: 0,
-    data: null
+    data: null,
 }
 
 /**
@@ -42,8 +42,7 @@ export const getQueryParams = (options) => {
     if (!search) {
         return {}
     }
-    return JSON.parse('{"' + decodeURIComponent(search).replace(/"/g, '\\"').replace(/&/g, '","')
-        .replace(/=/g, '":"') + '"}')
+    return JSON.parse('{"' + decodeURIComponent(search).replace(/"/g, '\\"').replace(/&/g, '","').replace(/=/g, '":"') + '"}')
 }
 
 /**

@@ -76,7 +76,7 @@ export default {
          */
         async function build() {
             return new Promise((resolve) => {
-                let element = document.createElement('div');
+                let element = document.createElement('div')
                 new QRcode(element, {
                     text: text.value,
                     width: size.value,

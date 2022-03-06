@@ -6,5 +6,5 @@ import RouteViewLayout from './RouteViewLayout'
 export {
     DefaultLayout,
     BaseLayout,
-    RouteViewLayout
+    RouteViewLayout,
 }

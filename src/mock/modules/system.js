@@ -9,7 +9,7 @@ Mock.mock(new RegExp('/system/getUserRoleList'), 'get', () => {
                 'name': '超级管理员',
                 'alias': '@word(2,4)',
                 'sort': '@increment',
-                'key': '@id'
+                'key': '@id',
             },
             {
                 'name': '管理员',
@@ -21,21 +21,21 @@ Mock.mock(new RegExp('/system/getUserRoleList'), 'get', () => {
                         'name': '系统管理员',
                         'alias': '@word(2,4)',
                         'sort': '@increment',
-                        'key': '@id'
+                        'key': '@id',
                     },
                     {
                         'name': '业务管理员',
                         'alias': '@word(2,4)',
                         'sort': '@increment',
-                        'key': '@id'
+                        'key': '@id',
                     },
                     {
                         'name': '数据管理员',
                         'alias': '@word(2,4)',
                         'sort': '@increment',
-                        'key': '@id'
-                    }
-                ]
+                        'key': '@id',
+                    },
+                ],
             },
             {
                 'name': '操作员',
@@ -47,23 +47,23 @@ Mock.mock(new RegExp('/system/getUserRoleList'), 'get', () => {
                         'name': '公告维护员',
                         'alias': '@word(2,4)',
                         'sort': '@increment',
-                        'key': '@id'
+                        'key': '@id',
                     },
                     {
                         'name': '审核员',
                         'alias': '@word(2,4)',
                         'sort': '@increment',
-                        'key': '@id'
+                        'key': '@id',
                     },
                     {
                         'name': '复审员',
                         'alias': '@word(2,4)',
                         'sort': '@increment',
-                        'key': '@id'
-                    }
-                ]
-            }
-        ]
+                        'key': '@id',
+                    },
+                ],
+            },
+        ],
     }))
 })
 
@@ -76,9 +76,9 @@ Mock.mock(new RegExp('/system/getUserPageList'), 'get', () => {
             'userName': '@email',
             'name': '@cname',
             'roleName|+1': ['超级管理员', '业务管理员', '数据管理员'],
-            'date': '@date'
+            'date': '@date',
         }],
-        'total': 40
+        'total': 40,
     }))
 })
 
@@ -90,7 +90,7 @@ Mock.mock(new RegExp('/system/getMenuList'), 'get', () => {
                 'name': '欢迎页',
                 'alias': '@word(2,4)',
                 'sort': '@increment',
-                'key': '@id'
+                'key': '@id',
             },
             {
                 'name': '表单页',
@@ -102,15 +102,15 @@ Mock.mock(new RegExp('/system/getMenuList'), 'get', () => {
                         'name': '基础表单',
                         'alias': '@word(2,4)',
                         'sort': '@increment',
-                        'key': '@id'
+                        'key': '@id',
                     },
                     {
                         'name': '分步表单',
                         'alias': '@word(2,4)',
                         'sort': '@increment',
-                        'key': '@id'
-                    }
-                ]
+                        'key': '@id',
+                    },
+                ],
             },
             {
                 'name': '列表页',
@@ -122,23 +122,23 @@ Mock.mock(new RegExp('/system/getMenuList'), 'get', () => {
                         'name': '基础列表',
                         'alias': '@word(2,4)',
                         'sort': '@increment',
-                        'key': '@id'
+                        'key': '@id',
                     },
                     {
                         'name': '卡片列表',
                         'alias': '@word(2,4)',
                         'sort': '@increment',
-                        'key': '@id'
+                        'key': '@id',
                     },
                     {
                         'name': '搜索列表',
                         'alias': '@word(2,4)',
                         'sort': '@increment',
-                        'key': '@id'
-                    }
-                ]
-            }
-        ]
+                        'key': '@id',
+                    },
+                ],
+            },
+        ],
     }))
 })
 
@@ -151,21 +151,21 @@ Mock.mock(new RegExp('/system/getDictTypeList'), 'get', () => {
                 'alias': '@word(2,4)',
                 'sort': '@increment',
                 'key': '@id',
-                'code': '@word'
+                'code': '@word',
             },
             {
                 'name': '性别',
                 'alias': '@word(2,4)',
                 'sort': '@increment',
                 'key': '@id',
-                'code': '@word'
+                'code': '@word',
             },
             {
                 'name': '菜单类型',
                 'alias': '@word(2,4)',
                 'sort': '@increment',
                 'key': '@id',
-                'code': '@word'
+                'code': '@word',
             },
             {
                 'name': '用户类型',
@@ -179,17 +179,17 @@ Mock.mock(new RegExp('/system/getDictTypeList'), 'get', () => {
                         'alias': '@word(2,4)',
                         'sort': '@increment',
                         'key': '@id',
-                        'code': '@word'
+                        'code': '@word',
                     },
                     {
                         'name': '桌面端',
                         'alias': '@word(2,4)',
                         'sort': '@increment',
                         'key': '@id',
-                        'code': '@word'
-                    }
-                ]
-            }
-        ]
+                        'code': '@word',
+                    },
+                ],
+            },
+        ],
     }))
 })

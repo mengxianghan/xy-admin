@@ -24,9 +24,9 @@ export default {
     setup() {
         const title = process.env.VUE_APP_TITLE
         return {
-            title
+            title,
         }
-    }
+    },
 }
 </script>
 

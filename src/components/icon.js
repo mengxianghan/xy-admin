@@ -40,7 +40,7 @@ import {
     RotateRightOutlined,
     RotateLeftOutlined,
     DingdingOutlined,
-    LoadingOutlined
+    LoadingOutlined,
 } from '@ant-design/icons-vue'
 
 export default {

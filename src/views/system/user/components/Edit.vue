@@ -69,7 +69,7 @@ export default {
             avatar: {required: true, message: '请上传头像'},
             userName: {required: true, message: '请输入登录帐号'},
             name: {required: true, message: '请输入姓名'},
-            role: {required: true, message: '请选择所属角色'}
+            role: {required: true, message: '请选择所属角色'},
         }
 
         /**
@@ -94,7 +94,7 @@ export default {
         function handleCreate() {
             showModal({
                 type: 'create',
-                title: '新建用户'
+                title: '新建用户',
             })
             getUserRoleList()
         }
@@ -105,11 +105,11 @@ export default {
         function handleEdit(record) {
             showModal({
                 type: 'edit',
-                title: '编辑用户'
+                title: '编辑用户',
             })
             formState.value = {
                 ...cloneDeep(record),
-                role: []
+                role: [],
             }
             formRecord.value = record
             getUserRoleList()
@@ -121,7 +121,7 @@ export default {
         function handlePreview(record) {
             showModal({
                 type: 'preview',
-                title: '查看用户'
+                title: '查看用户',
             })
             formState.value = cloneDeep(record)
             disabled.value = true
@@ -177,9 +177,9 @@ export default {
             handlePreview,
             handleOk,
             handleCancel,
-            onAfterClose
+            onAfterClose,
         }
-    }
+    },
 }
 </script>
 

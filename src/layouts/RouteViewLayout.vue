@@ -4,7 +4,7 @@
 
 <script>
 export default {
-    name: 'RouteViewLayout'
+    name: 'RouteViewLayout',
 }
 </script>
 

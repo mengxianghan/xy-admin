@@ -33,7 +33,7 @@ export default {
         const {formRef, rules, formRecord, formState, resetForm} = useForm()
 
         rules.value = {
-            title: {required: true, message: '请输入标题'}
+            title: {required: true, message: '请输入标题'},
         }
 
         /**
@@ -41,7 +41,7 @@ export default {
          */
         const handleCreate = () => {
             showModal({
-                title: '新建'
+                title: '新建',
             })
         }
 
@@ -50,7 +50,7 @@ export default {
          */
         const handleEdit = (record) => {
             showModal({
-                title: '编辑'
+                title: '编辑',
             })
             formState.value = cloneDeep(record)
             formRecord.value = record
@@ -95,9 +95,9 @@ export default {
             handleEdit,
             handleOk,
             handleCancel,
-            onAfterClose
+            onAfterClose,
         }
-    }
+    },
 }
 </script>
 

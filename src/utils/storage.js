@@ -1,7 +1,7 @@
 import Storage from 'xy-storage'
 
 const storage = new Storage({
-    namespace: process.env.VUE_APP_STORAGE_NAMESPACE
+    namespace: process.env.VUE_APP_STORAGE_NAMESPACE,
 })
 
 export function useStorage() {

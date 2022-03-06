@@ -14,11 +14,11 @@ export default {
     props: {
         tag: {
             type: String,
-            default: 'a'
-        }
+            default: 'a',
+        },
     },
     setup() {
-    }
+    },
 }
 </script>
 

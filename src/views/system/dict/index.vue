@@ -94,7 +94,7 @@ export default {
             {title: '名称', dataIndex: 'name'},
             {title: '键值', dataIndex: 'keyValue', width: 240},
             {title: '是否有效', key: 'valid', dataIndex: 'valid', width: 120},
-            {title: '操作', key: 'action', width: 120}
+            {title: '操作', key: 'action', width: 120},
         ]
 
         /**
@@ -107,7 +107,7 @@ export default {
                 const {code, data} = await commonApi.getPageList({
                     pageSize,
                     page: current,
-                    ...searchForm
+                    ...searchForm,
                 }).catch(() => {
                     loading.value = false
                 })
@@ -177,9 +177,9 @@ export default {
             handleDelete,
             onTableChange,
             onSelectChange,
-            onDictTypeSelect
+            onDictTypeSelect,
         }
-    }
+    },
 }
 </script>
 

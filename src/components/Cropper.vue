@@ -29,16 +29,16 @@ export default {
     props: {
         src: {
             type: String,
-            default: ''
+            default: '',
         },
         aspectRatio: {
             type: Number,
-            default: 0
+            default: 0,
         },
         quality: {
             type: Number,
-            default: 1
-        }
+            default: 1,
+        },
     },
     setup(props) {
         const {aspectRatio, quality} = toRefs(props)
@@ -58,7 +58,7 @@ export default {
                 dragMode: 'move',
                 responsive: false,
                 aspectRatio: aspectRatio.value,
-                preview: previewRef.value
+                preview: previewRef.value,
             })
         }
 
@@ -107,9 +107,9 @@ export default {
             previewRef,
             getBase64,
             getBlob,
-            getFile
+            getFile,
         }
-    }
+    },
 }
 </script>
 

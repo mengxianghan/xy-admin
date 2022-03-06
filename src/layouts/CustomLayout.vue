@@ -15,7 +15,7 @@
 export default {
     name: 'CustomLayout',
     setup() {
-    }
+    },
 }
 </script>
 

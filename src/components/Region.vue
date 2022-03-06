@@ -36,7 +36,7 @@ export default {
         const {modelValue} = toRefs(props)
         const maxLevel = ref(3)
         const options = ref([])
-        const currentValue = ref(modelValue.value)
+        const currentValue = ref([])
         const {onFieldChange} = Form.useInjectFormItemContext()
 
         watch(() => modelValue.value, (val) => {
@@ -46,6 +46,7 @@ export default {
         })
 
         onMounted(() => {
+            currentValue.value = modelValue.value
             getData(0, 1, modelValue.value)
         })
 

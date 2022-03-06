@@ -111,7 +111,7 @@ export default {
     setup() {
         const {formState} = useForm()
         const authList = ref([
-            {name: '新增', alias: 'insert'}
+            {name: '新增', alias: 'insert'},
         ])
         const menuList = ref([])
         const menuInfo = ref(null)
@@ -138,9 +138,9 @@ export default {
             menuList,
             menuInfo,
             onMenuSelect,
-            onMenuReady
+            onMenuReady,
         }
-    }
+    },
 }
 </script>
 

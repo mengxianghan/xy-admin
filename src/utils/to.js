@@ -31,7 +31,7 @@ export function toList(list = [], fields = {children: 'children'}) {
 export function toTree(list = [], parentValue = '0', fields = {
     key: 'id',
     children: 'children',
-    parentKey: 'parentId'
+    parentKey: 'parentId',
 }) {
     const result = []
     list.forEach(item => {

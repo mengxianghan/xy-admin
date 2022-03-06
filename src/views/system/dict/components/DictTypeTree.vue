@@ -128,9 +128,9 @@ export default {
             searchValue,
             editRef,
             handleSelect,
-            handleDelete
+            handleDelete,
         }
-    }
+    },
 }
 </script>
 

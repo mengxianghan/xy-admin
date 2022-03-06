@@ -143,7 +143,7 @@ export default {
     }
 
     :deep(.ant-tabs) {
-        background: #ffffff;
+        background: #fff;
         padding: 0 @padding-md;
     }
 

@@ -111,9 +111,9 @@ export default {
             loading,
             handleBase64,
             handleBlob,
-            handleFile
+            handleFile,
         }
-    }
+    },
 }
 </script>
 
