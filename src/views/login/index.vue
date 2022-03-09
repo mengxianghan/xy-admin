@@ -66,8 +66,8 @@ export default {
          * @return {Promise<void>}
          */
         async function handleLogin() {
-            try {
-                formRef.value.validate().then(async (values) => {
+            formRef.value.validate().then(async (values) => {
+                try {
                     loading.value = true
                     const {code} = await store.dispatch('user/login', {
                         ...values,
@@ -85,11 +85,11 @@ export default {
                             })
                         }
                     }
-                })
-            } catch (err) {
-                loading.value = false
-                message.error(err.message)
-            }
+                } catch (err) {
+                    loading.value = false
+                    message.error(err.message)
+                }
+            })
         }
 
         /**

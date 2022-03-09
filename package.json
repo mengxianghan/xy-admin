@@ -1,6 +1,6 @@
 {
   "name": "XYAdmin",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "Admin",
   "private": true,
   "scripts": {
@@ -15,7 +15,7 @@
   "dependencies": {
     "@ant-design/icons-vue": "^6.0.1",
     "@tinymce/tinymce-vue": "^4.0.5",
-    "ant-design-vue": "^3.0.0-beta.9",
+    "ant-design-vue": "^3.0.0-beta.13",
     "axios": "^0.24.0",
     "core-js": "^3.6.5",
     "cropperjs": "^1.5.12",

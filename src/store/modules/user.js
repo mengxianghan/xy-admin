@@ -76,8 +76,10 @@ const actions = {
      * @returns {Promise<unknown>}
      */
     login({commit, dispatch, rootState}, params) {
-        return new Promise(async (resolve) => {
-            const result = await userApi.login(params)
+        return new Promise(async (resolve, reject) => {
+            const result = await userApi.login(params).catch(() => {
+                reject()
+            })
             const {code, data} = result
             if ('200' === code) {
                 const {token, ...others} = data
