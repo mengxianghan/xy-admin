@@ -1,18 +1,44 @@
 <template>
-    <div class="x-action-bar">
+    <a-card class="x-action-bar"
+            :bordered="false"
+            :class="classNames">
         <div class="x-action-bar__content">
             <slot></slot>
         </div>
         <div class="x-action-bar__extra">
             <slot name="extra"></slot>
         </div>
-    </div>
+    </a-card>
 </template>
 
 <script>
+import {computed, toRefs} from 'vue'
+
+/**
+ * 操作条
+ * @property {string} type 类型，【default=默认，card=卡片】
+ */
 export default {
     name: 'ActionBar',
-    setup() {
+    props: {
+        type: {
+            type: String,
+            default: 'default',
+        },
+    },
+    setup(props) {
+        const {type} = toRefs(props)
+
+        const classNames = computed(() => {
+            return {
+                'x-action-bar--default': !type.value || 'default' === type.value,
+                'x-action-bar--card': 'card' === type.value,
+            }
+        })
+
+        return {
+            classNames,
+        }
     },
 }
 </script>
@@ -20,14 +46,26 @@ export default {
 <style lang="less"
        scoped>
 .x-action-bar {
-    display: flex;
-    align-items: center;
-    //padding: 16px;
+
+    &--default {
+        background: transparent;
+
+        :deep(.ant-card-body) {
+            padding: 0;
+        }
+    }
+
+    :deep(.ant-card-body) {
+        display: flex;
+        align-items: center;
+    }
 
     &__content,
     &__extra {
         > :deep(*) {
-            margin-right: 8px;
+            &:not(:first-child) {
+                margin-left: @margin-sm;
+            }
         }
     }
 
