@@ -70,7 +70,8 @@
 import {computed, onMounted, ref} from 'vue'
 import {useStore} from 'vuex'
 import {timeFix} from '@/utils'
-import {commonApi} from '@/api'
+
+import api from '@/api'
 
 export default {
     name: 'welcome',
@@ -83,7 +84,7 @@ export default {
         const dynamicList = ref([])
 
         const getData = async () => {
-            const {code, data} = await commonApi.getWelcomeData()
+            const {code, data} = await api.common.getWelcomeData()
             if ('200' === code) {
                 const {dynamicRows} = data
                 dynamicList.value = dynamicRows

@@ -37,10 +37,11 @@
 
 <script>
 import {onMounted, ref} from 'vue'
-import {systemApi} from '@/api'
+
+import api from '@/api'
+import usePagination from '@/hooks/usePagination'
 
 import Edit from './components/Edit'
-import usePagination from '@/hooks/usePagination'
 
 export default {
     name: 'systemRole',
@@ -67,7 +68,7 @@ export default {
         async function getUserRoleList() {
             try {
                 loading.value = true
-                const {code, data} = await systemApi.getUserRoleList().catch(() => {
+                const {code, data} = await api.system.getUserRoleList().catch(() => {
                     throw new Error()
                 })
                 loading.value = false

@@ -50,8 +50,8 @@
 import {ref} from 'vue'
 import {message} from 'ant-design-vue'
 import {cloneDeep} from 'lodash'
-import {systemApi} from '@/api'
 
+import api from '@/api'
 import useModal from '@/hooks/useModal'
 import useForm from '@/hooks/useForm'
 
@@ -78,7 +78,7 @@ export default {
          */
         async function getUserRoleList() {
             try {
-                const {code, data} = await systemApi.getUserRoleList().catch(() => {
+                const {code, data} = await api.system.getUserRoleList().catch(() => {
                     throw new Error()
                 })
                 if ('200' === code) {

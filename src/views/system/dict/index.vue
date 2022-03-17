@@ -73,9 +73,9 @@
 
 <script>
 import {ref} from 'vue'
-import {commonApi} from '@/api'
 import {message} from 'ant-design-vue'
 
+import api from '@/api'
 import usePagination from '@/hooks/usePagination'
 
 import Edit from './components/Edit'
@@ -104,7 +104,7 @@ export default {
             try {
                 const {pageSize, current} = pagination
                 loading.value = true
-                const {code, data} = await commonApi.getPageList({
+                const {code, data} = await api.common.getPageList({
                     pageSize,
                     page: current,
                     ...searchForm,

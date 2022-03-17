@@ -74,8 +74,8 @@
 <script>
 import {onMounted, ref} from 'vue'
 import {message} from 'ant-design-vue'
-import {systemApi} from '@/api'
 
+import api from '@/api'
 import usePagination from '@/hooks/usePagination'
 
 import Edit from './components/Edit'
@@ -112,7 +112,7 @@ export default {
         async function getUserRoleList() {
             try {
                 roleLoading.value = true
-                const {code, data} = await systemApi.getUserRoleList().catch(() => {
+                const {code, data} = await api.system.getUserRoleList().catch(() => {
                     throw new Error()
                 })
                 roleLoading.value = false
@@ -135,7 +135,7 @@ export default {
             try {
                 loading.value = true
                 const {pageSize, current} = pagination
-                const {code, data} = await systemApi.getUserPageList({
+                const {code, data} = await api.system.getUserPageList({
                     pageSize,
                     page: current,
                 }).catch(() => {

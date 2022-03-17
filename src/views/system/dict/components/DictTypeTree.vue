@@ -49,11 +49,11 @@
 
 <script>
 import {ref, onMounted} from 'vue'
-import {systemApi} from '@/api'
-import {get, head, find} from 'lodash'
+import {message} from 'ant-design-vue'
+
+import api from '@/api'
 
 import usePagination from '@/hooks/usePagination'
-import {message} from 'ant-design-vue'
 import DictTypeEdit from '@/views/system/dict/components/DictTypeEdit'
 
 export default {
@@ -77,7 +77,7 @@ export default {
         async function getDictTypeList() {
             try {
                 loading.value = true
-                const {code, data} = await systemApi.getDictTypeList().catch(() => {
+                const {code, data} = await api.system.getDictTypeList().catch(() => {
                     throw new Error()
                 })
                 loading.value = false

@@ -45,10 +45,10 @@
 </template>
 
 <script>
-import {systemApi} from '@/api'
 import {onMounted, ref} from 'vue'
 import {message} from 'ant-design-vue'
 
+import api from '@/api'
 import usePagination from '@/hooks/usePagination'
 
 export default {
@@ -69,7 +69,7 @@ export default {
         async function getMenuList() {
             try {
                 loading.value = true
-                const {code, data} = await systemApi.getMenuList().catch(() => {
+                const {code, data} = await api.system.getMenuList().catch(() => {
                     throw new Error()
                 })
                 loading.value = false

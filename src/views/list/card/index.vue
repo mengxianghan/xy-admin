@@ -49,7 +49,8 @@
 
 <script>
 import {onMounted} from 'vue'
-import {commonApi} from '@/api'
+
+import api from '@/api'
 
 import usePagination from '@/hooks/usePagination'
 
@@ -64,7 +65,7 @@ export default {
         const getPageList = async () => {
             try {
                 loading.value = true
-                const {code, data} = await commonApi.getPageList().catch(() => {
+                const {code, data} = await api.common.getPageList().catch(() => {
                     throw new Error()
                 })
                 loading.value = false

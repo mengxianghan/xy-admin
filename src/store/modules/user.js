@@ -1,6 +1,7 @@
-import {userApi} from '@/api'
 import {useSessionStorage} from '@/utils/storage'
 import {STORAGE_IS_LOGIN, STORAGE_USER_INFO, STORAGE_TOKEN, STORAGE_PERMISSION} from '@/config/const'
+
+import api from '@/api'
 
 const state = {
     isLogin: useSessionStorage().get(STORAGE_IS_LOGIN, false),
@@ -77,7 +78,7 @@ const actions = {
      */
     login({commit, dispatch, rootState}, params) {
         return new Promise(async (resolve, reject) => {
-            const result = await userApi.login(params).catch(() => {
+            const result = await api.user.login(params).catch(() => {
                 reject()
             })
             const {code, data} = result
