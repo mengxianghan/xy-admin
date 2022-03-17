@@ -25,7 +25,7 @@ export default () => {
     /**
      * 重置表单
      */
-    const resetForm = () => {
+    function resetForm() {
         formRecord.value = null
         formState.value = {}
         formRef.value.resetFields()
@@ -38,7 +38,7 @@ export default () => {
      * @param option
      * @returns {boolean}
      */
-    const filterOption = (input, option) => {
+    function filterOption(input, option) {
         return (
             option.componentOptions.children[0].text.toLowerCase().indexOf(input.toLowerCase()) >= 0
         )

@@ -61,7 +61,7 @@ export default {
         const isLogin = computed(() => store.getters['user/isLogin'])
         const userInfo = computed(() => store.getters['user/userInfo'])
 
-        const handleLogout = () => {
+        function handleLogout() {
             Modal.confirm({
                 title: '注销登录？',
                 okText: '确认',
@@ -77,7 +77,7 @@ export default {
             })
         }
 
-        const handleToggleCollapsed = () => {
+        function handleToggleCollapsed() {
             emit('update:collapsed', !collapsed.value)
         }
 

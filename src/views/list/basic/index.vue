@@ -91,7 +91,8 @@
         </a-table>
     </a-card>
 
-    <edit ref="editRef"/>
+    <edit ref="editRef"
+          @ok="onOk"/>
 </template>
 
 <script>
@@ -148,6 +149,14 @@ export default {
         }
 
         /**
+         * 删除
+         */
+        function handleDelete() {
+            message.success('删除成功')
+            getPageList()
+        }
+
+        /**
          * 表格发生改变
          * @param current
          * @param pageSize
@@ -159,10 +168,9 @@ export default {
         }
 
         /**
-         * 删除确认
+         * 完成
          */
-        function onDeleteConfirm() {
-            message.success('删除成功')
+        function onOk() {
             getPageList()
         }
 
@@ -177,8 +185,9 @@ export default {
             list,
             pagination,
             handleSearch,
+            handleDelete,
             onTableChange,
-            onDeleteConfirm,
+            onOk,
         }
     },
 }

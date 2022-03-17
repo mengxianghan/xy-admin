@@ -58,7 +58,7 @@ export default {
         /**
          * 新建
          */
-        const handleCreate = () => {
+        function handleCreate() {
             showModal({
                 title: '新建项',
             })
@@ -67,7 +67,7 @@ export default {
         /**
          * 编辑
          */
-        const handleEdit = (record) => {
+        function handleEdit(record) {
             showModal({
                 title: '编辑项',
             })
@@ -78,7 +78,7 @@ export default {
         /**
          * 确定
          */
-        const handleOk = () => {
+        function handleOk() {
             formRef.value.validateFields().then((values) => {
                 showLoading()
                 setTimeout(() => {
@@ -94,14 +94,14 @@ export default {
         /**
          * 取消
          */
-        const handleCancel = () => {
+        function handleCancel() {
             hideModal()
         }
 
         /**
          * 关闭后
          */
-        const onAfterClose = () => {
+        function onAfterClose() {
             resetForm()
         }
 

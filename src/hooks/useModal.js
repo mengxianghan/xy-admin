@@ -12,7 +12,7 @@ export default () => {
      * 设置弹窗
      * @param options
      */
-    const setModal = (options = {}) => {
+    function setModal(options = {}) {
         modal.value = {
             ...modal.value,
             ...options,
@@ -23,7 +23,7 @@ export default () => {
      * 显示弹窗
      * @param options
      */
-    const showModal = (options = {}) => {
+    function showModal(options = {}) {
         setModal({
             visible: true,
             ...options,
@@ -33,7 +33,7 @@ export default () => {
     /**
      * 隐藏弹窗
      */
-    const hideModal = () => {
+    function hideModal() {
         setModal({
             type: '',
             visible: false,
@@ -44,7 +44,7 @@ export default () => {
     /**
      * 显示 loading
      */
-    const showLoading = () => {
+    function showLoading() {
         setModal({
             confirmLoading: true,
         })
@@ -53,7 +53,7 @@ export default () => {
     /**
      * 隐藏 loading
      */
-    const hideLoading = () => {
+    function hideLoading() {
         setModal({
             confirmLoading: false,
         })
