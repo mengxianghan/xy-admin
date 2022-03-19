@@ -68,7 +68,8 @@
         </a-col>
     </a-row>
 
-    <edit ref="editRef"/>
+    <edit ref="editRef"
+          @ok="onOk"/>
 </template>
 
 <script>
@@ -130,6 +131,14 @@ export default {
         }
 
         /**
+         * 删除
+         */
+        function handleDelete() {
+            message.success('删除成功')
+            getPageList()
+        }
+
+        /**
          * 表格发生改变
          * @param current
          * @param pageSize
@@ -137,14 +146,6 @@ export default {
         function onTableChange({current, pageSize}) {
             pagination.current = current
             pagination.pageSize = pageSize
-            getPageList()
-        }
-
-        /**
-         * 删除
-         */
-        function handleDelete() {
-            message.success('删除成功')
             getPageList()
         }
 
@@ -165,6 +166,13 @@ export default {
             getPageList()
         }
 
+        /**
+         * 完成
+         */
+        function onOk() {
+            getPageList()
+        }
+
         return {
             columns,
             loading,
@@ -178,6 +186,7 @@ export default {
             onTableChange,
             onSelectChange,
             onDictTypeSelect,
+            onOk,
         }
     },
 }
