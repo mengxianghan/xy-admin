@@ -50,11 +50,12 @@
 </template>
 
 <script>
-import {onMounted, computed, ref} from 'vue'
+import {onMounted, computed, ref, nextTick} from 'vue'
 import {useStore} from 'vuex'
 import {useRouter, onBeforeRouteUpdate} from 'vue-router'
 
 import useMultiTab from '@/hooks/useMultiTab'
+import Sortable from 'sortablejs'
 
 export default {
     name: 'MultiTab',
@@ -95,6 +96,16 @@ export default {
         }
 
         /**
+         * 初始化拖拽
+         */
+        function initSortable() {
+            Sortable.create(document.querySelector('.ant-tabs-nav-list'), {
+                draggable: '.ant-tabs-tab',
+                animation: 300,
+            })
+        }
+
+        /**
          * 路由发生变化
          */
         onBeforeRouteUpdate((to) => {
@@ -103,6 +114,7 @@ export default {
 
         onMounted(() => {
             open(getSimpleRoute(router.currentRoute.value))
+            initSortable()
         })
 
         return {

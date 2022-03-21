@@ -1,6 +1,6 @@
 {
   "name": "XYAdmin",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "description": "Admin",
   "private": true,
   "scripts": {
@@ -28,6 +28,7 @@
     "lodash": "^4.17.21",
     "mockjs": "^1.1.0",
     "qrcodejs2": "^0.0.2",
+    "sortablejs": "^1.15.0",
     "tinymce": "^5.10.2",
     "uuid": "^8.3.2",
     "vue": "^3.2.21",
