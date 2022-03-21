@@ -23,11 +23,23 @@ export default (options = {}) => {
         pagination.current = 1
     }
 
+    /**
+     * 刷新分页
+     * 场景：删除
+     * @param {number} count 受影响数量
+     */
+    function refreshPagination(count = 1) {
+        const {total, current, pageSize} = pagination
+        const totalPage = Math.ceil((total - count) / pageSize)
+        pagination.current = current > totalPage ? totalPage : current
+    }
+
     return {
         loading,
         list,
         searchForm,
         pagination,
         resetPagination,
+        refreshPagination,
     }
 }
