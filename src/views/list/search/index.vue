@@ -18,7 +18,7 @@
                     <x-action-button>编辑</x-action-button>
                     <x-action-button>
                         <a-popconfirm title="确认删除？"
-                                      @confirm="onDeleteConfirm">
+                                      @confirm="handleDelete">
                             删除
                         </a-popconfirm>
                     </x-action-button>
@@ -107,6 +107,14 @@ export default {
         }
 
         /**
+         * 删除
+         */
+        function handleDelete() {
+            message.success('删除成功')
+            getPageList()
+        }
+
+        /**
          * 表格发生改变
          * @param current
          * @param pageSize
@@ -114,14 +122,6 @@ export default {
         function onTableChange({current, pageSize}) {
             pagination.current = current
             pagination.pageSize = pageSize
-            getPageList()
-        }
-
-        /**
-         * 删除确认
-         */
-        function onDeleteConfirm() {
-            message.success('删除成功')
             getPageList()
         }
 
@@ -138,8 +138,8 @@ export default {
             searchForm,
             pagination,
             handleSearch,
+            handleDelete,
             onTableChange,
-            onDeleteConfirm,
         }
     },
 }

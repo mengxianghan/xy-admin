@@ -67,7 +67,7 @@
                     <x-action-button @click="$refs.editRef.handleEdit(record)">编辑</x-action-button>
                     <x-action-button>
                         <a-popconfirm title="确认删除？"
-                                      @confirm="onDeleteConfirm">
+                                      @confirm="handleDelete">
                             删除
                         </a-popconfirm>
                     </x-action-button>
