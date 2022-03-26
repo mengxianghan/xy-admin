@@ -3,6 +3,7 @@ import component from '@/components'
 import icon from '@/components/icon'
 import {setupStore} from '@/store'
 import {setupRouter} from '@/router'
+import {setupActionDirective} from '@/directives/action'
 
 import './permission'
 
@@ -19,4 +20,5 @@ export const useCore = (app) => {
     app.use(component)
     setupStore(app)
     setupRouter(app)
+    setupActionDirective(app)
 }
