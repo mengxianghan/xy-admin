@@ -12,12 +12,12 @@ const instance = axios.create()
  * 请求拦截
  */
 instance.interceptors.request.use(request => {
-    //const isLogin = store.getters['user/isLogin'];
-    //const token = store.getters['user/token'];
+    const isLogin = store.getters['user/isLogin']
+    const token = store.getters['user/token']
 
-    //if (isLogin) {
-    //    request.headers['AUTH-TOKEN'] = `Bearer ${token}`;
-    //}
+    if (isLogin) {
+        request.headers['AUTH-TOKEN'] = token
+    }
 
     return request
 }, err => {
