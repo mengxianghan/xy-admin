@@ -25,6 +25,8 @@ import {cloneDeep} from 'lodash'
 import useModal from '@/hooks/useModal'
 import useForm from '@/hooks/useForm'
 
+import api from '@/api'
+
 export default {
     name: 'Edit',
     emits: ['ok'],
@@ -52,21 +54,29 @@ export default {
             showModal({
                 title: '编辑',
             })
-            formState.value = cloneDeep(record)
             formRecord.value = record
+            formState.value = cloneDeep(record)
         }
 
         /**
          * 确定
          */
         function handleOk() {
-            formRef.value.validateFields().then((values) => {
+            formRef.value.validateFields().then(async (values) => {
                 showLoading()
-                setTimeout(() => {
+                const params = {
+                    id: formState.value?.id,
+                    ...values,
+                }
+                let result = null
+                result = await api.common.saveData(params).catch(() => {
                     hideLoading()
+                })
+                hideLoading()
+                if ('200' === result?.code) {
                     hideModal()
                     emit('ok')
-                }, 3000)
+                }
             }).catch((err) => {
                 hideLoading()
             })

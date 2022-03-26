@@ -133,15 +133,22 @@ export default {
          * 确定
          */
         function handleOk() {
-            formRef.value.validate().then((values) => {
+            formRef.value.validateFields().then(async (values) => {
                 showLoading()
-                setTimeout(() => {
-                    message.success('保存成功')
+                const params = {
+                    id: formState.value?.id,
+                    ...values,
+                }
+                let result = null
+                result = await api.common.saveData(params).catch(() => {
                     hideLoading()
+                })
+                hideLoading()
+                if ('200' === result?.code) {
                     hideModal()
                     emit('ok')
-                }, 3000)
-            }).catch(err => {
+                }
+            }).catch((err) => {
                 hideLoading()
             })
         }

@@ -78,7 +78,7 @@ export default {
     setup() {
         const store = useStore()
         const title = process.env.VUE_APP_TITLE
-        const version = '2.0.0'
+        const version = '2.1.1'
         const userInfo = computed(() => store.getters['user/userInfo'])
         const userName = computed(() => `${timeFix()}，${userInfo.value?.username}`)
         const dynamicList = ref([])
