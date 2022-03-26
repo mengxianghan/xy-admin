@@ -102,7 +102,6 @@ export default {
                 Modal.warning({
                     title: '系统提示',
                     content: '没有任何权限，请联系系统管理员',
-                    centered: true,
                     onOk: () => {
                         window.location.reload()
                     },

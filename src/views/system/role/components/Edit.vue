@@ -2,7 +2,6 @@
     <a-modal :visible="modal.visible"
              :title="modal.title"
              :width="480"
-             centered
              :confirm-loading="modal.confirmLoading"
              :after-close="onAfterClose"
              :ok-button-props="{

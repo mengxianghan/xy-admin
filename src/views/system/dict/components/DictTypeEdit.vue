@@ -3,7 +3,6 @@
              :title="modal.title"
              :confirm-loading="modal.confirmLoading"
              :after-close="onAfterClose"
-             centered
              :width="480"
              @ok="handleOk"
              @cancel="handleCancel">

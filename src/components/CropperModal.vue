@@ -3,7 +3,6 @@
              destroy-on-close
              :after-close="onAfterClose"
              title="裁剪图片"
-             centered
              :width="568"
              @ok="handleOk"
              @cancel="handleCancel">

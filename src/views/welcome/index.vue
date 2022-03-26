@@ -63,7 +63,6 @@
             </a-card>
         </a-col>
     </a-row>
-
 </template>
 
 <script>

@@ -3,7 +3,6 @@
              :title="modal.title"
              :confirm-loading="modal.confirmLoading"
              :after-close="onAfterClose"
-             centered
              @ok="handleOk"
              @cancel="handleCancel">
         <a-form ref="formRef"
