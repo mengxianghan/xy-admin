@@ -16,13 +16,11 @@ const actionDirective = {
             // 多个权限
             if (!action.some((value) => actionName.includes(value))) {
                 el.parentNode && el.parentNode.removeChild(el) || (el.style.display = 'none')
-                el.setAttribute('disabled', 'disabled')
             }
         } else {
             // 一个权限，完全匹配
             if (!action.includes(actionName)) {
                 el.parentNode && el.parentNode.removeChild(el) || (el.style.display = 'none')
-                el.setAttribute('disabled', 'disabled')
             }
         }
     },
