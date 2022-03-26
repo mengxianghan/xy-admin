@@ -1,8 +1,10 @@
+import {message} from 'ant-design-vue'
+import {merge} from 'lodash'
+
 import jschardet from 'jschardet'
 import axios from 'axios'
 import JSONbig from 'json-bigint'
-import {message} from 'ant-design-vue'
-import {merge} from 'lodash'
+import store from '@/store'
 
 const instance = axios.create()
 
@@ -10,8 +12,8 @@ const instance = axios.create()
  * 请求拦截
  */
 instance.interceptors.request.use(request => {
-    //const isLogin = useStore().getters['user/isLogin'];
-    //const token = useStore().getters['user/token'];
+    //const isLogin = store.getters['user/isLogin'];
+    //const token = store.getters['user/token'];
 
     //if (isLogin) {
     //    request.headers['AUTH-TOKEN'] = `Bearer ${token}`;
@@ -28,7 +30,7 @@ instance.interceptors.request.use(request => {
 instance.interceptors.response.use(response => {
     // 错误处理
     const {code, msg = '系统错误'} = response.data || {}
-    if (!['200'].includes(code)) {
+    if (![200].includes(code)) {
         message.error(msg)
     }
     return response

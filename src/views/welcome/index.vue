@@ -84,7 +84,7 @@ export default {
 
         const getData = async () => {
             const {code, data} = await api.common.getWelcomeData()
-            if ('200' === code) {
+            if (200 === code) {
                 const {dynamicRows} = data
                 dynamicList.value = dynamicRows
             }

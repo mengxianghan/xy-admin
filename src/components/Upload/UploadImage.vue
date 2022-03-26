@@ -278,7 +278,7 @@ export default {
             const {code, data} = await api.common.upload({
                 file: record?.file,
             })
-            if ('200' === code) {
+            if (200 === code) {
                 // 上传进度，真实接口可改为真实数据
                 record.percent = 100
                 record.status = STATUS_ENUM.getValue('done')

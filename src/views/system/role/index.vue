@@ -72,7 +72,7 @@ export default {
                     throw new Error()
                 })
                 loading.value = false
-                if ('200' === code) {
+                if (200 === code) {
                     const {rows} = data
                     list.value = rows
                 }

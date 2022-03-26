@@ -3,7 +3,7 @@
  * @type {{msg: string, code: string, data: null, timestamp: number}}
  */
 const responseBody = {
-    code: '200',
+    code: 200,
     msg: 'success',
     timestamp: 0,
     data: null,
@@ -16,7 +16,7 @@ const responseBody = {
  * @param message
  * @returns {{msg: string, code: string, data: null, timestamp: number}}
  */
-export const builder = (data = {}, code = '200', message = 'success') => {
+export const builder = (data = {}, code = 200, message = 'success') => {
     responseBody.data = data
 
     if (code !== undefined && code !== 0) {

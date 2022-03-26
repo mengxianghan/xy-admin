@@ -82,7 +82,7 @@ const actions = {
                 reject()
             })
             const {code, data} = result
-            if ('200' === code) {
+            if (200 === code) {
                 const {token, ...others} = data
                 commit('SET_USER_INFO', others)
                 commit('SET_TOKEN', token)

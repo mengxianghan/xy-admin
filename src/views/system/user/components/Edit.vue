@@ -80,7 +80,7 @@ export default {
                 const {code, data} = await api.system.getUserRoleList().catch(() => {
                     throw new Error()
                 })
-                if ('200' === code) {
+                if (200 === code) {
                     roleList.value = data.rows
                 }
             } catch (err) {
@@ -143,7 +143,7 @@ export default {
                     hideLoading()
                 })
                 hideLoading()
-                if ('200' === result?.code) {
+                if (200 === result?.code) {
                     hideModal()
                     emit('ok')
                 }

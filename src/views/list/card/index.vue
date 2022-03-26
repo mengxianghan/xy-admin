@@ -69,7 +69,7 @@ export default {
                     throw new Error()
                 })
                 loading.value = false
-                if ('200' === code) {
+                if (200 === code) {
                     list.value = [{}, ...data.rows]
                 }
             } catch (err) {

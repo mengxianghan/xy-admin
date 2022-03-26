@@ -116,7 +116,7 @@ export default {
                     throw new Error()
                 })
                 roleLoading.value = false
-                if ('200' === code) {
+                if (200 === code) {
                     roleList.value = [{
                         'name': '全部',
                         'key': '0',
@@ -142,7 +142,7 @@ export default {
                     throw new Error()
                 })
                 loading.value = false
-                if ('200' === code) {
+                if (200 === code) {
                     const {rows, total} = data
                     userList.value = rows
                     pagination.total = total
@@ -174,7 +174,7 @@ export default {
             }).catch(() => {
                 loading.value = false
             })
-            if ('200' === code) {
+            if (200 === code) {
                 message.success('删除成功')
                 await getPageList()
             } else {

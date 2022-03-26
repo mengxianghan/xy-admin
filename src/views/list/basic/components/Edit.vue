@@ -72,7 +72,7 @@ export default {
                     hideLoading()
                 })
                 hideLoading()
-                if ('200' === result?.code) {
+                if (200 === result?.code) {
                     hideModal()
                     emit('ok')
                 }

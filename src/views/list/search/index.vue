@@ -89,7 +89,7 @@ export default {
                     loading.value = false
                 })
                 loading.value = false
-                if ('200' === code) {
+                if (200 === code) {
                     list.value = data.rows
                     pagination.total = data.total
                 }
@@ -116,7 +116,7 @@ export default {
             }).catch(() => {
                 loading.value = false
             })
-            if ('200' === code) {
+            if (200 === code) {
                 message.success('删除成功')
                 await getPageList()
             } else {

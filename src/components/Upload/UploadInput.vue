@@ -67,7 +67,7 @@ export default {
                 file,
             })
             loading.value = false
-            if ('200' === code) {
+            if (200 === code) {
                 currentValue.value = data?.src
                 trigger(currentValue.value)
             }

@@ -93,7 +93,7 @@ export default {
                 if (targetOption) {
                     targetOption.loading = false
                 }
-                if ('200' === code) {
+                if (200 === code) {
                     const list = data.map((item) => ({
                         ...item,
                         isLeaf: level === maxLevel.value,
@@ -137,7 +137,7 @@ export default {
                 const {code, data} = await api.common.getRegionList(params).catch(() => {
                     reject()
                 })
-                if ('200' === code) {
+                if (200 === code) {
                     const {rows} = data
                     resolve({
                         code,
