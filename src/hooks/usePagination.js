@@ -3,7 +3,7 @@ import {ref, reactive} from 'vue'
 export default (options = {}) => {
     const loading = ref(false)
     const list = ref([])
-    const searchForm = reactive({})
+    const searchForm = ref({})
     const pagination = reactive({
         total: 0,
         current: 1,

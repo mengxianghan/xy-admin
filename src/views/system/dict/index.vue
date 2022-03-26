@@ -109,7 +109,7 @@ export default {
                 const {code, data} = await api.common.getPageList({
                     pageSize,
                     page: current,
-                    ...searchForm,
+                    ...searchForm.value,
                 }).catch(() => {
                     loading.value = false
                 })
@@ -173,7 +173,7 @@ export default {
          */
         function onDictTypeSelect(info) {
             dictTypeInfo.value = info
-            searchForm.type = info.key
+            searchForm.value.type = info.key
             getPageList()
         }
 
