@@ -11,3 +11,6 @@ export const getRegionList = params => request.default.get('/common/getRegionLis
 export const saveData = params => request.default.post('/common/save', params)
 // 删除
 export const deleteData = params => request.default.post('/common/delete', params)
+
+// 文件上传
+export const upload = params => request.default.post('/comment/upload', params)

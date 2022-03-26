@@ -83,11 +83,13 @@ import {STATUS_ENUM} from './config'
 import {mergeDeep} from '@/utils'
 import {v4 as uuidv4} from 'uuid'
 import {Form, message} from 'ant-design-vue'
-import Preview from '../Preview'
 
 import filesizeParser from 'filesize-parser'
 import filesize from 'filesize'
 
+import api from '@/api'
+
+import Preview from '../Preview'
 import CropperModal from '../CropperModal'
 
 /**
@@ -248,6 +250,7 @@ export default {
                 src: URL.createObjectURL(file),
                 status: STATUS_ENUM.getValue('wait'),
                 percent: 0,
+                file,
             })
             // 判断是否批量上传
             if (multiple.value) {
@@ -265,24 +268,25 @@ export default {
         /**
          * 执行上传
          */
-        function doUpload() {
+        async function doUpload() {
             if (!queue.value.length) {
                 return
             }
             const index = 0
-            const file = queue.value[index]
-            file.status = STATUS_ENUM.getValue('uploading')
-            const times = setInterval(() => {
-                if (file.percent === 100) {
-                    clearInterval(times)
-                    file.status = STATUS_ENUM.getValue('done')
-                    fileList.value.push(...queue.value.splice(index, 1))
-                    trigger()
-                    doUpload()
-                    return
-                }
-                file.percent += 1
-            }, 50)
+            const record = queue.value[index]
+            record.status = STATUS_ENUM.getValue('uploading')
+            const {code, data} = await api.common.upload({
+                file: record?.file,
+            })
+            if ('200' === code) {
+                // 上传进度，真实接口可改为真实数据
+                record.percent = 100
+                record.status = STATUS_ENUM.getValue('done')
+                record.src = data?.src
+                fileList.value.push(...queue.value.splice(index, 1))
+                trigger()
+                await doUpload()
+            }
         }
 
         /**

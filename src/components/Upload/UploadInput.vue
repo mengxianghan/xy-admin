@@ -18,6 +18,8 @@
 <script>
 import {onMounted, ref, toRefs, watch} from 'vue'
 import {Form} from 'ant-design-vue'
+import api from '@/api'
+import {STATUS_ENUM} from '@/components/Upload/config'
 
 /**
  * 文件上传
@@ -58,14 +60,17 @@ export default {
          * 自定义上传
          * @param info
          */
-        function customRequest(info) {
+        async function customRequest(info) {
             const {file} = info
             loading.value = true
-            setTimeout(() => {
-                loading.value = false
-                currentValue.value = URL.createObjectURL(file)
+            const {code, data} = await api.common.upload({
+                file,
+            })
+            loading.value = false
+            if ('200' === code) {
+                currentValue.value = data?.src
                 trigger(currentValue.value)
-            }, 3000)
+            }
         }
 
         /**

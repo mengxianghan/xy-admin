@@ -36,6 +36,13 @@ Mock.mock(new RegExp(/(save|delete)/), 'post', options => {
     }))
 })
 
+// 文件上传
+Mock.mock(new RegExp('/comment/upload'), 'post', options => {
+    return builder(Mock.mock({
+        'src': '@image(80, @color)',
+    }))
+})
+
 // 获取地区列表
 Mock.mock(new RegExp('/common/getRegionList'), 'get', options => {
     const {parentId = 0} = getQueryParams(options)
