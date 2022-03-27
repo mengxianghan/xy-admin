@@ -27,6 +27,7 @@
     "json-bigint": "^1.0.0",
     "lodash": "^4.17.21",
     "mockjs": "^1.1.0",
+    "qiniu-js": "^3.4.0",
     "qrcodejs2": "^0.0.2",
     "sortablejs": "^1.15.0",
     "tinymce": "^5.10.2",
@@ -36,6 +37,7 @@
     "vuex": "^4.0.0-0",
     "xlsx": "^0.17.5",
     "xy-enum": "^1.0.1",
+    "xy-qiniu": "^1.0.0",
     "xy-storage": "^2.0.2"
   },
   "devDependencies": {
