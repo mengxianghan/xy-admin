@@ -1,5 +1,5 @@
 import {createRouter, createWebHistory, createWebHashHistory} from 'vue-router'
-import {constantRouterMap} from '@/config/router'
+import {constantRouterMap} from './config'
 
 const {VUE_APP_ROUTER_HISTORY, VUE_APP_ROUTER_BASE} = process.env
 
