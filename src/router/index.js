@@ -1,10 +1,10 @@
 import {createRouter, createWebHistory, createWebHashHistory} from 'vue-router'
 import {constantRouterMap} from './config'
 
-const {VUE_APP_ROUTER_HISTORY, VUE_APP_ROUTER_BASE} = process.env
+const {VUE_APP_ROUTER_HISTORY, VUE_APP_PUBLIC_PATH} = process.env
 
 const router = createRouter({
-    history: 'history' === VUE_APP_ROUTER_HISTORY ? createWebHistory(VUE_APP_ROUTER_BASE) : createWebHashHistory(VUE_APP_ROUTER_BASE),
+    history: 'history' === VUE_APP_ROUTER_HISTORY ? createWebHistory(VUE_APP_PUBLIC_PATH) : createWebHashHistory(VUE_APP_PUBLIC_PATH),
     routes: [
         ...constantRouterMap,
     ],
