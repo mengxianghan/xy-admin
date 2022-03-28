@@ -1,6 +1,8 @@
 const CompressionPlugin = require('compression-webpack-plugin')
 const path = require('path')
-const isProd = process.env.NODE_ENV !== 'development'
+
+const {NODE_ENV, VUE_APP_PUBLIC_PATH, VUE_APP_OUTPUT_DIR, VUE_APP_TITLE} = process.env
+const isProd = NODE_ENV !== 'development'
 
 /**
  * 获取对应的 CDN 资源
@@ -11,8 +13,8 @@ const isProd = process.env.NODE_ENV !== 'development'
 const getAssetsCDN = (key, defaults = []) => {
     const data = assetsCDN[key]
     let res = data.env || defaults
-    if (data[process.env.NODE_ENV]) {
-        res = res instanceof Array ? [...res, ...data[process.env.NODE_ENV]] : {...res, ...data[process.env.NODE_ENV]}
+    if (data[NODE_ENV]) {
+        res = res instanceof Array ? [...res, ...data[NODE_ENV]] : {...res, ...data[NODE_ENV]}
     }
     return res
 }
@@ -32,8 +34,8 @@ const assetsCDN = {
 }
 
 module.exports = {
-    publicPath: process.env.VUE_APP_PUBLIC_PATH,
-    outputDir: process.env.VUE_APP_OUTPUT_DIR,
+    publicPath: VUE_APP_PUBLIC_PATH,
+    outputDir: VUE_APP_OUTPUT_DIR,
     assetsDir: 'static',
     runtimeCompiler: true,
     devServer: {
@@ -87,11 +89,11 @@ module.exports = {
     },
     chainWebpack: (config) => {
         config.plugin('html').tap(options => {
-            options[0].title = process.env.VUE_APP_TITLE
+            options[0].title = VUE_APP_TITLE
             options[0].cdn = {}
             options[0].cdn.css = getAssetsCDN('css')
             options[0].cdn.js = getAssetsCDN('js')
-            options[0].publicPath = process.env.VUE_APP_PUBLIC_PATH
+            options[0].publicPath = VUE_APP_PUBLIC_PATH
             return options
         })
         config.module.rule('vue').use('vue-loader').tap(options => ({
