@@ -24,7 +24,8 @@
             <img src="<%= htmlWebpackPlugin.options.publicPath %>images/logo.svg"/>
         </div>
         <div class="app-loading__loader"></div>
-        <div class="app-loading__title"><%= htmlWebpackPlugin.options.title %></div>
+        <div class="app-loading__title">正在加载资源</div>
+        <div class="app-loading__desc">初次加载需要较长时间 请耐心等待</div>
     </div>
     <style>
         .app-loading {
@@ -45,7 +46,7 @@
         }
 
         .app-loading__logo img {
-            width: 90px;
+            height: 80px;
             vertical-align: bottom;
         }
 
@@ -75,9 +76,15 @@
         }
 
         .app-loading__title {
-            font-size: 24px;
+            font-size: 18px;
             color: rgba(0, 0, 0, .85);
             margin-top: 30px;
+        }
+
+        .app-loading__desc {
+            font-size: 14px;
+            color: rgba(0, 0, 0, .65);
+            margin-top: 8px;
         }
 
         @keyframes loader {
