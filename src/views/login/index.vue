@@ -75,7 +75,7 @@ export default {
                         throw new Error('登录失败')
                     })
                     loading.value = false
-                    if (code === '200') {
+                    if (200 === code) {
                         // 加载完成
                         if (store.getters['app/complete']) {
                             goIndex()
