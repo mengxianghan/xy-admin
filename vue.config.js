@@ -20,15 +20,15 @@ const getAssetsCDN = (key, defaults = []) => {
 const assetsCDN = {
     externals: {
         env: {},
-        production: {}
+        production: {},
     },
     css: {
-        env: []
+        env: [],
     },
     js: {
         env: [],
-        production: []
-    }
+        production: [],
+    },
 }
 
 module.exports = {
@@ -45,14 +45,14 @@ module.exports = {
                 changeOrigin: true, // 允许 webSockets 跨域
                 secure: false,
                 pathRewrite: {
-                    '^/api': ''
-                }
-            }
+                    '^/api': '',
+                },
+            },
         },
         watchOptions: {
             ignored: /node_modules|dist|.git|.idea/,
-            poll: true
-        }
+            poll: true,
+        },
     },
     configureWebpack: {
         externals: getAssetsCDN('externals', {}),
@@ -61,11 +61,11 @@ module.exports = {
                 test: /\.(js|css)$/,
                 filename: '[path][base].gz',
                 threshold: 10240,
-                deleteOriginalAssets: false
-            })
+                deleteOriginalAssets: false,
+            }),
         ],
         performance: {
-            hints: false
+            hints: false,
         },
         optimization: {
             splitChunks: {
@@ -75,15 +75,15 @@ module.exports = {
                 cacheGroups: {
                     tinymce: {
                         name: 'tinymce',
-                        test: /[\\/]node_modules[\\/]tinymce[\\/]/
+                        test: /[\\/]node_modules[\\/]tinymce[\\/]/,
                     },
                     echarts: {
                         name: 'echarts',
-                        test: /[\\/]node_modules[\\/]echarts[\\/]/
-                    }
-                }
-            }
-        }
+                        test: /[\\/]node_modules[\\/]echarts[\\/]/,
+                    },
+                },
+            },
+        },
     },
     chainWebpack: (config) => {
         config.plugin('html').tap(options => {
@@ -91,13 +91,14 @@ module.exports = {
             options[0].cdn = {}
             options[0].cdn.css = getAssetsCDN('css')
             options[0].cdn.js = getAssetsCDN('js')
+            options[0].publicPath = process.env.VUE_APP_PUBLIC_PATH
             return options
         })
         config.module.rule('vue').use('vue-loader').tap(options => ({
             ...options,
             compilerOptions: {
-                isCustomElement: tag => ['a-icon'].includes(tag)
-            }
+                isCustomElement: tag => ['a-icon'].includes(tag),
+            },
         }))
     },
     productionSourceMap: !isProd, // 生产环境是否生成 sourceMap 文件
@@ -105,10 +106,10 @@ module.exports = {
         loaderOptions: {
             less: {
                 modifyVars: {
-                    hack: `true; @import '${path.resolve(__dirname, 'src/styles/vars.less')}'; @import '${path.resolve(__dirname, 'src/styles/util.less')}'`
+                    hack: `true; @import '${path.resolve(__dirname, 'src/styles/vars.less')}'; @import '${path.resolve(__dirname, 'src/styles/util.less')}'`,
                 },
-                javascriptEnabled: true
-            }
-        }
-    }
+                javascriptEnabled: true,
+            },
+        },
+    },
 }
