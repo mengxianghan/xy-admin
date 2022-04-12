@@ -17,11 +17,6 @@ XYAdmin 是一个中后台前端解决方案，基于 vue3.x 和 and-design-vue 
 **API** 完善的 API 管理，多服务请求快速切换，内置 MOCK 模块  
 **其他** 多功能视图标签、动态权限菜单、控制台组态化等等
 
-## 预览
-
-<a href="https://mengxianghan.github.io/xy-admin-doc" target="_blank">演示地址1（github）</a>  
-<a href="https://1056811341.gitee.io/xy-admin-doc" target="_blank">演示地址2（gitee）</a>
-
 ## 配置
 
 ### MOCK
