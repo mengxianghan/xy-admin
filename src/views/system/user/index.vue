@@ -3,14 +3,13 @@
            type="flex"
            class="hp-100">
         <a-col flex="0 0 240px">
-            <a-card type="flex">
-                <a-spin :spinning="roleLoading">
-                    <a-tree :selected-keys="selectedKeys"
-                            :tree-data="roleList"
-                            :field-names="{title: 'name', children: 'children', key: 'key'}"
-                            block-node
-                            @select="handleRole"></a-tree>
-                </a-spin>
+            <a-card v-loading="roleLoading"
+                    type="flex">
+                <a-tree :selected-keys="selectedKeys"
+                        :tree-data="roleList"
+                        :field-names="{title: 'name', children: 'children', key: 'key'}"
+                        block-node
+                        @select="handleRole"></a-tree>
             </a-card>
         </a-col>
         <a-col flex="1">
@@ -112,9 +111,10 @@ export default {
         async function getUserRoleList() {
             try {
                 roleLoading.value = true
-                const {code, data} = await api.system.getUserRoleList().catch(() => {
-                    throw new Error()
-                })
+                const {code, data} = await api.system.getUserRoleList()
+                                              .catch(() => {
+                                                  throw new Error()
+                                              })
                 roleLoading.value = false
                 if (200 === code) {
                     roleList.value = [{
@@ -136,11 +136,12 @@ export default {
                 loading.value = true
                 const {pageSize, current} = pagination
                 const {code, data} = await api.system.getUserPageList({
-                    pageSize,
-                    page: current,
-                }).catch(() => {
-                    throw new Error()
-                })
+                                                  pageSize,
+                                                  page: current,
+                                              })
+                                              .catch(() => {
+                                                  throw new Error()
+                                              })
                 loading.value = false
                 if (200 === code) {
                     const {rows, total} = data
@@ -170,10 +171,11 @@ export default {
         async function handleDelete({id}) {
             loading.value = true
             const {code} = await api.common.deleteData({
-                id,
-            }).catch(() => {
-                loading.value = false
-            })
+                                        id,
+                                    })
+                                    .catch(() => {
+                                        loading.value = false
+                                    })
             if (200 === code) {
                 message.success('删除成功')
                 await getPageList()

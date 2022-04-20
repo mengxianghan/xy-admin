@@ -11,37 +11,35 @@
                         新建分类
                     </span>
         </template>
-        <a-spin :spinning="loading">
-            <a-tree v-if="!loading"
-                    :selected-keys="selectedKeys"
-                    :tree-data="list"
-                    :field-names="{title: 'name', children: 'children', key: 'key'}"
-                    default-expand-all
-                    block-node
-                    @select="handleSelect">
-                <template #title="record">
-                    <div class="tree-row">
-                        <div class="tree-row__name">
+        <a-tree v-if="!loading"
+                :selected-keys="selectedKeys"
+                :tree-data="list"
+                :field-names="{title: 'name', children: 'children', key: 'key'}"
+                default-expand-all
+                block-node
+                @select="handleSelect">
+            <template #title="record">
+                <div class="tree-row">
+                    <div class="tree-row__name">
                                     <span v-if="record.name.indexOf(searchValue) > -1">
                                       {{ record.name.substr(0, record.name.indexOf(searchValue)) }}
                                       <span class="color-error">{{ searchValue }}</span>
                                       {{ record.name.substr(record.name.indexOf(searchValue) + searchValue.length) }}
                                     </span>
-                            <span v-else>{{ record.name }}</span>
-                        </div>
-                        <div class="tree-row__code">{{ record.code }}</div>
-                        <a-space class="tree-row__actions"
-                                 @click.stop="()=>{}">
-                            <icon-edit-outlined @click.stop="$refs.editRef.handleEdit(record)"></icon-edit-outlined>
-                            <a-popconfirm title="确认删除？"
-                                          @confirm="handleDelete(record)">
-                                <icon-delete-outlined></icon-delete-outlined>
-                            </a-popconfirm>
-                        </a-space>
+                        <span v-else>{{ record.name }}</span>
                     </div>
-                </template>
-            </a-tree>
-        </a-spin>
+                    <div class="tree-row__code">{{ record.code }}</div>
+                    <a-space class="tree-row__actions"
+                             @click.stop="()=>{}">
+                        <icon-edit-outlined @click.stop="$refs.editRef.handleEdit(record)"></icon-edit-outlined>
+                        <a-popconfirm title="确认删除？"
+                                      @confirm="handleDelete(record)">
+                            <icon-delete-outlined></icon-delete-outlined>
+                        </a-popconfirm>
+                    </a-space>
+                </div>
+            </template>
+        </a-tree>
     </a-card>
 
     <dict-type-edit ref="editRef"/>
@@ -77,9 +75,10 @@ export default {
         async function getDictTypeList() {
             try {
                 loading.value = true
-                const {code, data} = await api.system.getDictTypeList().catch(() => {
-                    throw new Error()
-                })
+                const {code, data} = await api.system.getDictTypeList()
+                                              .catch(() => {
+                                                  throw new Error()
+                                              })
                 loading.value = false
                 if (200 === code) {
                     const {rows} = data

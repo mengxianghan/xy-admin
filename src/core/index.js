@@ -4,6 +4,7 @@ import icon from '@/components/icon'
 import {setupStore} from '@/store'
 import {setupRouter} from '@/router'
 import {setupActionDirective} from '@/directives/action'
+import {setupLoadingDirective} from '@/directives/loading'
 
 import './permission'
 
@@ -21,4 +22,5 @@ export const useCore = (app) => {
     setupStore(app)
     setupRouter(app)
     setupActionDirective(app)
+    setupLoadingDirective(app)
 }

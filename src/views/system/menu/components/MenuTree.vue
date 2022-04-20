@@ -1,5 +1,6 @@
 <template>
-    <a-card type="flex">
+    <a-card v-loading="loading"
+            type="flex">
         <template #title>
             <a-input-search v-model:value="keyword"
                             allow-clear
@@ -11,36 +12,34 @@
                 新建菜单
             </div>
         </template>
-        <a-spin :spinning="loading">
-            <a-tree v-if="!loading"
-                    :selected-keys="selectedKeys"
-                    :tree-data="list"
-                    :field-names="{title: 'name', children: 'children', key: 'key'}"
-                    default-expand-all
-                    block-node
-                    @select="handleSelect">
-                <template #title="record">
-                    <div class="tree-row">
-                        <div class="tree-row__name">
+        <a-tree v-if="!loading"
+                :selected-keys="selectedKeys"
+                :tree-data="list"
+                :field-names="{title: 'name', children: 'children', key: 'key'}"
+                default-expand-all
+                block-node
+                @select="handleSelect">
+            <template #title="record">
+                <div class="tree-row">
+                    <div class="tree-row__name">
                             <span v-if="record.name.indexOf(keyword) > -1">
                               {{ record.name.substr(0, record.name.indexOf(keyword)) }}
                               <span class="color-error">{{ keyword }}</span>
                               {{ record.name.substr(record.name.indexOf(keyword) + keyword.length) }}
                             </span>
-                            <span v-else>{{ record.name }}</span>
-                        </div>
-                        <a-space class="tree-row__actions"
-                                 @click.stop="()=>{}">
-                            <icon-plus-outlined></icon-plus-outlined>
-                            <a-popconfirm title="确认删除？"
-                                          @confirm="handleDelete(record)">
-                                <icon-delete-outlined></icon-delete-outlined>
-                            </a-popconfirm>
-                        </a-space>
+                        <span v-else>{{ record.name }}</span>
                     </div>
-                </template>
-            </a-tree>
-        </a-spin>
+                    <a-space class="tree-row__actions"
+                             @click.stop="()=>{}">
+                        <icon-plus-outlined></icon-plus-outlined>
+                        <a-popconfirm title="确认删除？"
+                                      @confirm="handleDelete(record)">
+                            <icon-delete-outlined></icon-delete-outlined>
+                        </a-popconfirm>
+                    </a-space>
+                </div>
+            </template>
+        </a-tree>
     </a-card>
 </template>
 
@@ -69,9 +68,10 @@ export default {
         async function getMenuList() {
             try {
                 loading.value = true
-                const {code, data} = await api.system.getMenuList().catch(() => {
-                    throw new Error()
-                })
+                const {code, data} = await api.system.getMenuList()
+                                              .catch(() => {
+                                                  throw new Error()
+                                              })
                 loading.value = false
                 if (200 === code) {
                     const {rows} = data

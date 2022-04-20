@@ -82,7 +82,7 @@ export default {
         const userName = computed(() => `${timeFix()}，${userInfo.value?.username}`)
         const dynamicList = ref([])
 
-        const getData = async () => {
+        async function getData() {
             const {code, data} = await api.common.getWelcomeData()
             if (200 === code) {
                 const {dynamicRows} = data
