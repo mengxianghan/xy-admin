@@ -25,7 +25,8 @@ const mutations = {
      */
     SET_ROUTES(state, routes) {
         state.routes = routes
-    }, /**
+    },
+    /**
      * 设置菜单
      * @param state
      * @param menuList
@@ -33,7 +34,8 @@ const mutations = {
      */
     SET_MENU_LIST(state, menuList) {
         state.menuList = menuList
-    }, /**
+    },
+    /**
      * 设置首页路由
      * @param state
      * @param indexRouter
@@ -41,7 +43,8 @@ const mutations = {
      */
     SET_INDEX_ROUTER(state, indexRouter) {
         state.indexRouter = indexRouter
-    }, /**
+    },
+    /**
      * 设置徽标
      * @param state
      * @param {string} name 名称
@@ -80,7 +83,8 @@ const actions = {
             commit('SET_INDEX_ROUTER', indexRouter)
             resolve()
         })
-    }, /**
+    },
+    /**
      * 设置徽标
      * @param {string} name 名称
      * @param {number} count 数量
