@@ -8,7 +8,7 @@ import '@/directives/action'
 import '@/core/permission'
 import 'ant-design-vue/dist/antd.less'
 import 'nprogress/nprogress.css'
-import '@/assets/styles/index.less'
+import '@/styles/index.less'
 
 Vue.use(antd)
 Vue.use(XPreview)

@@ -19,18 +19,7 @@ const getAssetsCDN = (key, defaults = []) => {
 
 const assetsCDN = {
     externals: {
-        production: {
-            'vue': 'Vue',
-            'vuex': 'Vuex',
-            'vue-router': 'VueRouter',
-            'axios': 'axios',
-            'moment': 'moment',
-            'ant-design-vue': 'antd',
-            'jschardet': 'jschardet',
-            'bignumber.js': 'BigNumber',
-            'ali-oss': 'OSS',
-            'lodash': '_'
-        }
+        production: {}
     },
     css: {
         env: []
@@ -40,19 +29,7 @@ const assetsCDN = {
             '//cdn.jsdelivr.net/npm/tinymce@5.7.1/tinymce.min.js',
             '//cdn.jsdelivr.net/npm/tinymce-i18n@20.12.25/langs5/zh_CN.js'
         ],
-        production: [
-            '//cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.min.js',
-            '//cdn.jsdelivr.net/npm/vuex@3.6.2/dist/vuex.min.js',
-            '//cdn.jsdelivr.net/npm/vue-router@3.5.3/dist/vue-router.min.js',
-            '//cdn.jsdelivr.net/npm/axios@0.24.0/dist/axios.min.js',
-            '//cdn.jsdelivr.net/npm/moment@2.29.1/min/moment.min.js',
-            '//cdn.jsdelivr.net/npm/moment@2.29.1/locale/zh-cn.js',
-            '//cdn.jsdelivr.net/npm/ant-design-vue@1.7.8/dist/antd.min.js',
-            '//cdn.jsdelivr.net/npm/jschardet@3.0.0/dist/jschardet.min.js',
-            '//cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js',
-            '//cdn.jsdelivr.net/npm/bignumber.js@9.0.1/bignumber.min.js',
-            '//cdn.jsdelivr.net/npm/ali-oss@6.16.0/dist/aliyun-oss-sdk.min.js'
-        ]
+        production: []
     }
 }
 
@@ -125,7 +102,7 @@ module.exports = {
         loaderOptions: {
             less: {
                 modifyVars: {
-                    hack: `true; @import '${path.resolve(__dirname, 'src/assets/styles/vars.less')}'`
+                    hack: `true; @import '${path.resolve(__dirname, 'src/styles/vars.less')}'`
                 },
                 javascriptEnabled: true
             }

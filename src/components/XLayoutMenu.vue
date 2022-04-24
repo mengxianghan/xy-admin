@@ -1,7 +1,7 @@
 <template>
     <div class="x-layout-menu">
         <div class="x-layout-menu__logo">
-            <img :src="require('@/assets/images/logo.png')">
+            <img :src="require('@/assets/logo.png')">
             <h1>{{ title }}</h1>
         </div>
         <a-menu mode="inline"
