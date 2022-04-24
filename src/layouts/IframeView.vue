@@ -1,5 +1,6 @@
 <template>
-    <div class="iframe-container">
+    <div v-show="'iframe' === $route.meta.type"
+         class="iframe-view">
         <iframe v-for="(item) in iframeList"
                 v-show="$route.meta.url === item.meta.url"
                 :src="item.meta.url"
@@ -9,15 +10,15 @@
 </template>
 
 <script>
-import {mapGetters} from 'vuex'
+import { mapGetters } from 'vuex'
 
 export default {
     name: 'IframeView',
     computed: {
         ...mapGetters({
-            iframeList: 'multiTab/iframeList',
-        }),
-    },
+            iframeList: 'multiTab/iframeList'
+        })
+    }
 }
 </script>
 
@@ -28,13 +29,13 @@ export default {
     height: 100%;
     border: 0;
 
-    &-container {
+    &-view {
         position: absolute;
         left: 0;
         right: 0;
         top: 0;
         bottom: 0;
-        margin: -16px;
+        margin: -12px;
     }
 }
 </style>
