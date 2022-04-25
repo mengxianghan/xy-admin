@@ -1,13 +1,12 @@
-//Align
-@align: left, center, right;
-each(@align, {
+// Align
+each(left center right, {
     .align-@{value} {
         text-align: @value !important;
     }
 })
 
-//Color
-@color: {
+// Color
+each({
     secondary: @text-color-secondary;
     heading: @heading-color;
     disabled: @disabled-color;
@@ -16,24 +15,21 @@ each(@align, {
     error: @error-color;
     success: @success-color;
     warning: @warning-color;
-}
-
-each(@color, {
+}, {
     .color-@{key} {
         color: @value !important;
     }
 })
 
-//FontSize
-@font-size: 12, 14, 16, 24;
-each(@font-size, {
+// FontSize
+each(12 14 16 18 24, {
     .fs-@{value} {
         font-size: @value * 1px !important;
     }
 })
 
-//Spacing
-@spacing: {
+// Spacing
+each({
     mt: margin-top;
     mb: margin-bottom;
     ml: margin-left;
@@ -48,19 +44,15 @@ each(@font-size, {
     px: padding-left, padding-right;
     py: padding-top, padding-bottom;
     pa: padding;
-}
-
-@values: 4, 5, 8;
-@multiple: 1, 2, 3, 4, 5;
-each(@spacing, .(@property, @class) {
+}, .(@property, @class) {
     .@{class}-0 {
         each(@property, .(@prop) {
                 @{prop}: 0 !important;
         })
     }
 
-    each(@values, .(@value) {
-        each(@multiple, .(@multi) {
+    each(4 5 8, .(@value) {
+        each(1 2 3 4 5, .(@multi) {
             .@{class}-@{value}-@{multi} {
                 each(@property, .(@prop) {
                         @{prop}: @value * @multi * 1px !important;
@@ -70,27 +62,61 @@ each(@spacing, .(@property, @class) {
     })
 })
 
-// Flex
-.flex {
+// Display
+each({
+    display: block;
     display: flex;
-}
-
-.items-center {
-    align-items: center;
-}
-
-.direction-column {
+    display: inline-bolck;
+    display: inline-flex;
     flex-direction: column;
-}
+    flex-direction: row;
+    align-items: center;
+    align-items: flex-end;
+    align-items: flex-start;
+    aling-items: stretch;
+    justify-content: center;
+    justify-content: start;
+    justify-content: end;
+    justify-content: flex-start;
+    justify-content: flex-end;
+    justify-content: left;
+    justify-content: right;
+}, {
+    .@{key}-@{value}{
+            @{key}: @value
+    }
+});
 
-.hp-100 {
-    height: 100%;
-}
+// Percentage
+each(1 2 3 4 5 6 7 8 9 10, {
+    @prop: @value * 10;
+    @v: @prop * 1%;
+    .wp-@{prop}{
+        width: @v;
+    }
+    .hp-@{prop}{
+        height: @v;
+    }
+});
 
-.wp-100 {
-    width: 100%;
-}
+// Overflow
+each({
+    overflow: hidden;
+    overflow: auto;
+    overflow: scroll;
+    overflow-x: hidden;
+    overflow-x: auto;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    overflow-y: auto;
+    overflow-y: scroll;
+}, .(@value, @prop){
+    .@{prop}-@{value} {
+            @{prop}: @value;
+    }
+});
 
+// Scrollbar
 .scrollbar {
     &::-webkit-scrollbar {
         width: 6px;
