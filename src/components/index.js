@@ -23,26 +23,32 @@ import Preview from './Preview'
 export const loading = Loading
 export const preview = Preview
 
+const compList = [
+    ActionBar,
+    ActionButton,
+    Breadcrumb,
+    Chart,
+    Cropper,
+    CropperModal,
+    Editor,
+    FormTable,
+    Filter,
+    FilterItem,
+    LayoutHeader,
+    LayoutMenu,
+    MultiTab,
+    QrCode,
+    Region,
+    SearchBar,
+    UploadImage,
+    UploadInput,
+]
+
 export default {
     install(app) {
-        app.component('XActionBar', ActionBar)
-        app.component('XActionButton', ActionButton)
-        app.component('XBreadcrumb', Breadcrumb)
-        app.component('XChart', Chart)
-        app.component('XCropper', Cropper)
-        app.component('XCropperModal', CropperModal)
-        app.component('XEditor', Editor)
-        app.component('XFormTable', FormTable)
-        app.component('XFilter', Filter)
-        app.component('XFilterItem', FilterItem)
-        app.component('XLayoutHeader', LayoutHeader)
-        app.component('XLayoutMenu', LayoutMenu)
-        app.component('XMultiTab', MultiTab)
-        app.component('XQrCode', QrCode)
-        app.component('XRegion', Region)
-        app.component('XSearchBar', SearchBar)
-        app.component('XUploadImage', UploadImage)
-        app.component('XUploadInput', UploadInput)
+        compList.forEach((comp) => {
+            app.component(`X${comp.name}`, comp)
+        })
         return app
     },
 }
