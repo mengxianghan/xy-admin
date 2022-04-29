@@ -86,13 +86,10 @@
 <script>
 import Edit from './components/Edit'
 import pagination from '@/mixins/pagination'
-import XSearch from '@/components/XSearch'
-import XActionBar from '@/components/XActionBar'
-import XActionButton from '@/components/XActionButton'
 
 export default {
     name: 'tableList',
-    components: {XActionButton, XActionBar, XSearch, Edit},
+    components: {Edit},
     mixins: [pagination],
     data() {
         const columns = [

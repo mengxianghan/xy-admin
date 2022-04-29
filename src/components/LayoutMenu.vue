@@ -32,16 +32,16 @@ const XCustomLink = {
     props: {
         dataSource: {
             type: Object,
-            default: () => ({})
-        }
+            default: () => ({}),
+        },
     },
     methods: {
         formatTo(value) {
             return {
                 name: value.name,
-                query: value?.meta?.query ?? {}
+                query: value?.meta?.query ?? {},
             }
-        }
+        },
     },
     template: `
         <a v-if="dataSource.meta.type==='link'"
@@ -61,13 +61,13 @@ const XCustomLink = {
                 :type="dataSource.meta.icon"/>
         <span>{{ dataSource.meta.title }}</span>
         </router-link>
-    `
+    `,
 }
 
 const XSubMenu = {
     name: 'XSubMenu',
     components: {
-        XCustomLink
+        XCustomLink,
     },
     template: `
         <a-sub-menu :key="menuInfo.name"
@@ -94,42 +94,42 @@ const XSubMenu = {
         ...Menu.SubMenu.props,
         menuInfo: {
             type: Object,
-            default: () => ({})
-        }
-    }
+            default: () => ({}),
+        },
+    },
 }
 export default {
     name: 'XLayoutMenu',
     components: {
         XSubMenu,
-        XCustomLink
+        XCustomLink,
     },
     props: {
         theme: {
             type: String,
-            default: 'dark'
-        }
+            default: 'dark',
+        },
     },
     data() {
         return {
             title: process.env.VUE_APP_TITLE,
             collapsed: false,
             openKeys: [],
-            selectedKeys: []
+            selectedKeys: [],
         }
     },
     computed: {
         ...mapGetters({
-            menus: 'router/menus'
+            menus: 'router/menus',
         }),
         rootSubmenuKeys() {
             return this.menus.map(item => item.name)
-        }
+        },
     },
     watch: {
         '$route'() {
             this.setSelectedMenu()
-        }
+        },
     },
     mounted() {
         this.setSelectedMenu()
@@ -154,8 +154,8 @@ export default {
             } else {
                 this.openKeys = latestOpenKey ? [latestOpenKey] : []
             }
-        }
-    }
+        },
+    },
 }
 </script>
 

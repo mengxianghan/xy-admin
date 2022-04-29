@@ -26,8 +26,6 @@ const assetsCDN = {
     },
     js: {
         env: [
-            '//cdn.jsdelivr.net/npm/tinymce@5.7.1/tinymce.min.js',
-            '//cdn.jsdelivr.net/npm/tinymce-i18n@20.12.25/langs5/zh_CN.js'
         ],
         production: []
     }

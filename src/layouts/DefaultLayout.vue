@@ -26,15 +26,12 @@
 </template>
 
 <script>
-import XLayoutHeader from '@/components/XLayoutHeader'
-import XLayoutMenu from '@/components/XLayoutMenu'
-import XMultiTab from '@/components/XMultiTab'
 import {mapGetters} from 'vuex'
 import IframeView from '@/layouts/IframeView'
 
 export default {
     name: 'DefaultLayout',
-    components: {IframeView, XMultiTab, XLayoutHeader, XLayoutMenu},
+    components: {IframeView},
     data() {
         return {
             headerStyle: {

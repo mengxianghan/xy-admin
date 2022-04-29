@@ -1,4 +1,4 @@
-import {useLoading} from '@/components/XLoading';
+import {useLoading} from '@/components/Loading';
 
 const state = {
     complete: false

@@ -30,10 +30,8 @@
 <script>
 import form from '@/mixins/form'
 import moment from 'moment'
-import XTinyEditor from '@/components/XTinyEditor'
 
 export default {
-    components: {XTinyEditor},
     mixins: [form],
     data() {
         const rules = {

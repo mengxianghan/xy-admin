@@ -1,40 +1,35 @@
 //Align
-@align: left, center, right;
-each(@align, {
+each(left center right, {
     .align-@{value} {
         text-align: @value !important;
     }
 })
 
 //Color
-@text-color: {
-    color: @text-color;
+each({
     secondary: @text-color-secondary;
-    heading: @header-color;
+    heading: @heading-color;
     disabled: @disabled-color;
     placeholder: @disabled-color;
     primary: @primary-color;
-    danger: @error-color;
+    error: @error-color;
     success: @success-color;
     warning: @warning-color;
-}
-
-each(@text-color, {
-    .text-@{key} {
+}, {
+    .color-@{key} {
         color: @value !important;
     }
-})
+});
 
 //FontSize
-@font-size: 12, 14, 16, 24;
-each(@font-size, {
+each(10 12 14 16 24, {
     .fs-@{value} {
         font-size: @value * 1px !important;
     }
-})
+});
 
 //Spacing
-@spacing: {
+each({
     mt: margin-top;
     mb: margin-bottom;
     ml: margin-left;
@@ -49,19 +44,16 @@ each(@font-size, {
     px: padding-left, padding-right;
     py: padding-top, padding-bottom;
     pa: padding;
-}
-
-@values: 4, 5, 8;
-@multiple: 1, 2, 3, 4, 5;
-each(@spacing, .(@property, @class) {
-    .@{class}-0 {
+}, .(@property, @class) {
+    @zero: 0;
+    .@{class}-@{zero} {
         each(@property, .(@prop) {
                 @{prop}: 0 !important;
         })
     }
 
-    each(@values, .(@value) {
-        each(@multiple, .(@multi) {
+    each(4 5 8, .(@value) {
+        each(1 2 3 4 5, .(@multi) {
             .@{class}-@{value}-@{multi} {
                 each(@property, .(@prop) {
                         @{prop}: @value * @multi * 1px !important;
@@ -69,4 +61,91 @@ each(@spacing, .(@property, @class) {
             }
         })
     })
+});
+
+// MarginAuto
+each({
+    ma: auto;
+    mx: 0 auto;
+    my: auto 0;
+    ml: 0 0 0 auto;
+    mr: 0 auto 0 0;
+    mt: auto 0 0 0;
+    mb: 0 0 auto;
+}, {
+    .@{key}-auto {
+        margin: @value;
+    }
 })
+
+// Cursor
+each(pointer not-allowed, {
+    .cursor-@{value}{
+        cursor: @value;
+    }
+});
+
+// Display
+each({
+    display: block;
+    display: flex;
+    display: inline-bolck;
+    display: inline-flex;
+    flex-direction: column;
+    flex-direction: row;
+    align-items: center;
+    align-items: flex-end;
+    align-items: flex-start;
+    aling-items: stretch;
+    justify-content: center;
+    justify-content: start;
+    justify-content: end;
+    justify-content: flex-start;
+    justify-content: flex-end;
+    justify-content: left;
+    justify-content: right;
+}, {
+    .@{key}-@{value}{
+            @{key}: @value
+    }
+});
+
+each(1 2 3 4 5 6 7 8 9 10, {
+    @prop: @value * 10;
+    @v: @prop * 1%;
+    .wp-@{prop}{
+        width: @v;
+    }
+    .hp-@{prop}{
+        height: @v;
+    }
+});
+
+each({
+    overflow: hidden;
+    overflow: auto;
+    overflow: scroll;
+    overflow-x: hidden;
+    overflow-x: auto;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    overflow-y: auto;
+    overflow-y: scroll;
+}, .(@value, @prop){
+    .@{prop}-@{value} {
+            @{prop}: @value;
+    }
+});
+
+.scrollbar {
+    &::-webkit-scrollbar {
+        width: 3px;
+        height: 3px;
+        background-color: transparent;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background-color: #d8d8d8;
+        border-radius: 10em;
+    }
+}
