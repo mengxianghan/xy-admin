@@ -9,7 +9,7 @@
     "build:test": "vue-cli-service build --mode test",
     "build:pre": "vue-cli-service build --mode pre",
     "build:prod": "vue-cli-service build --mode prod",
-    "build:preview": "vue-cli-service build --mode preview",
+    "build:demo": "vue-cli-service build --mode demo",
     "build:report": "vue-cli-service build --mode prod --report"
   },
   "dependencies": {
