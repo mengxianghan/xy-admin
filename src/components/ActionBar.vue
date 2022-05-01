@@ -19,7 +19,7 @@ import {computed, toRefs} from 'vue'
  * @property {string} type 类型，【default=默认，card=卡片】
  */
 export default {
-    name: 'ActionBar',
+    name: 'XActionBar',
     props: {
         type: {
             type: String,

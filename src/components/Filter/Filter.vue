@@ -48,7 +48,7 @@ import FilterItem from './FilterItem'
  * @property {boolean} use-button 使用按钮，默认：false
  */
 export default {
-    name: 'Filter',
+    name: 'XFilter',
     components: {FilterItem},
     props: {
         modelValue: {

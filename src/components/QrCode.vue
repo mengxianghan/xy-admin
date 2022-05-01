@@ -19,7 +19,7 @@ import QRcode from 'qrcodejs2'
  * @property {number} correct-level 容错级别，默认：2
  */
 export default {
-    name: 'QrCode',
+    name: 'XQrCode',
     props: {
         text: {
             type: String,

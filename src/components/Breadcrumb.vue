@@ -11,7 +11,7 @@ import {computed} from 'vue'
 import {useRouter} from 'vue-router'
 
 export default {
-    name: 'Breadcrumb',
+    name: 'XBreadcrumb',
     setup() {
         const router = useRouter()
         const list = computed(() => router.currentRoute.value?.meta?.breadcrumb)

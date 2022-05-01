@@ -21,7 +21,7 @@ import api from '@/api'
  * @property {string} placeholder
  */
 export default {
-    name: 'Region',
+    name: 'XRegion',
     props: {
         modelValue: {
             type: Array,

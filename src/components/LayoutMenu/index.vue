@@ -33,7 +33,7 @@ import MenuLink from './MenuLink'
 import MenuSub from './MenuSub'
 
 export default {
-    name: 'LayoutMenu',
+    name: 'XLayoutMenu',
     components: {MenuLink, MenuSub},
     props: {
         theme: {

@@ -22,7 +22,7 @@ import 'tinymce/themes/silver'
 import 'tinymce/icons/default'
 
 export default {
-    name: 'Editor',
+    name: 'XEditor',
     props: {
         modelValue: {
             type: String,

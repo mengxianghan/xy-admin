@@ -23,7 +23,7 @@ import Preview from './Preview'
 export const loading = Loading
 export const preview = Preview
 
-const compList = [
+const components = [
     ActionBar,
     ActionButton,
     Breadcrumb,
@@ -46,8 +46,8 @@ const compList = [
 
 export default {
     install(app) {
-        compList.forEach((comp) => {
-            app.component(`X${comp.name}`, comp)
+        components.forEach((component) => {
+            app.component(component.name, component)
         })
         return app
     },

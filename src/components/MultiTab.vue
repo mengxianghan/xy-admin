@@ -58,7 +58,7 @@ import useMultiTab from '@/hooks/useMultiTab'
 import Sortable from 'sortablejs'
 
 export default {
-    name: 'MultiTab',
+    name: 'XMultiTab',
     setup() {
         const store = useStore()
         const router = useRouter()

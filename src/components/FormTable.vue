@@ -43,7 +43,7 @@ import {cloneDeep} from 'lodash'
  * @property {object} row-tpl 行模板
  */
 export default {
-    name: 'FormTable',
+    name: 'XFormTable',
     props: {
         modelValue: {
             type: Array,

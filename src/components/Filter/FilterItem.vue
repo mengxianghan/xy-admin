@@ -71,7 +71,7 @@ import {computed, inject, toRefs} from 'vue'
 import {TYPE_ENUM} from './config'
 
 export default {
-    name: 'FilterItem',
+    name: 'XFilterItem',
     props: {
         dataSource: {
             type: Object,

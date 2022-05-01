@@ -26,7 +26,7 @@ import {STATUS_ENUM} from '@/components/Upload/config'
  * @property {string} model-value v-model
  */
 export default {
-    name: 'UploadInput',
+    name: 'XUploadInput',
     props: {
         modelValue: {
             type: String,

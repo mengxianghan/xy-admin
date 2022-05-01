@@ -109,7 +109,7 @@ import CropperModal from '../CropperModal'
  * @property {number} quality 图片质量，取值范围：0-1，默认：1
  */
 export default {
-    name: 'UploadImage',
+    name: 'XUploadImage',
     components: {CropperModal},
     props: {
         modelValue: {

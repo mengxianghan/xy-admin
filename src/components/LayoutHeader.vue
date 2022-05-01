@@ -47,7 +47,7 @@ import {useRouter} from 'vue-router'
 import {Modal} from 'ant-design-vue'
 
 export default {
-    name: 'LayoutHeader',
+    name: 'XLayoutHeader',
     props: {
         collapsed: {
             type: Boolean,

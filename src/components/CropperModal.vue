@@ -24,7 +24,7 @@ import Cropper from './Cropper'
  * @property {number} quality 图片质量，取值范围：0-1，默认：1
  */
 export default {
-    name: 'CropperModal',
+    name: 'XCropperModal',
     components: {Cropper},
     props: {
         aspectRatio: {

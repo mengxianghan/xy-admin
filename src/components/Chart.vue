@@ -9,7 +9,7 @@ import {onMounted, ref, toRefs, markRaw, watch} from 'vue'
 import * as echarts from 'echarts'
 
 export default {
-    name: 'Chart',
+    name: 'XChart',
     props: {
         option: {
             type: Object,
