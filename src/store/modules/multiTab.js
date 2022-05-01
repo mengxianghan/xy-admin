@@ -52,7 +52,8 @@ const mutations = {
             state.list.push(value)
         }
         // 更新缓存列表
-        state.cacheList = state.list.filter(item => item?.meta?.keepAlive).map(item => item.name)
+        state.cacheList = state.list.filter(item => item?.meta?.keepAlive)
+                               .map(item => item.name)
     },
     /**
      * 更新缓存列表
@@ -61,16 +62,23 @@ const mutations = {
      * @constructor
      */
     UPDATE_CACHE_LIST(state, {route}) {
-        const index = findIndex(state.cacheList, o => o === route.name)
-        // 判断是移除或添加
-        if (index > -1) {
-            // 已存在，执行移除操作
-            state.cacheList.splice(index, 1)
-            state.keepAlive = false
+        // 判断是否是需要缓存的页面
+        if (route?.meta?.keepAlive) {
+            // 是需要缓存的页面
+            const index = findIndex(state.cacheList, o => o === route.name)
+            // 判断是移除或添加
+            if (index > -1) {
+                // 已存在，执行移除操作
+                state.cacheList.splice(index, 1)
+                state.keepAlive = false
+            } else {
+                // 不存在，执行添加操作
+                state.cacheList.push(route.name)
+                state.keepAlive = true
+            }
         } else {
-            // 不存在，执行添加操作
-            state.cacheList.push(route.name)
-            state.keepAlive = true
+            // 不是需要缓存的页面
+            state.keepAlive = !state.keepAlive
         }
         // 如果刷新的是 iframe
         if ('iframe' === route?.meta?.type) {
@@ -87,7 +95,8 @@ const mutations = {
      * @constructor
      */
     UPDATE_IFRAME_LIST(state) {
-        state.iframeList = cloneDeep(state.list).filter(item => 'iframe' === item?.meta?.type)
+        state.iframeList = cloneDeep(state.list)
+            .filter(item => 'iframe' === item?.meta?.type)
     },
     /**
      * 设置标题
@@ -258,9 +267,7 @@ const actions = {
      * @param route
      */
     reload({commit}, {route}) {
-        if (route?.meta?.keepAlive) {
-            commit('UPDATE_CACHE_LIST', {route})
-        }
+        commit('UPDATE_CACHE_LIST', {route})
     },
     /**
      * 设置标题
