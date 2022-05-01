@@ -94,7 +94,6 @@ module.exports = {
             options[0].cdn.css = getAssetsCDN('css')
             options[0].cdn.js = getAssetsCDN('js')
             options[0].publicPath = VUE_APP_PUBLIC_PATH
-            options[0].logo = `${VUE_APP_PUBLIC_PATH}images/logo.svg`
             return options
         })
         config.module.rule('vue').use('vue-loader').tap(options => ({
