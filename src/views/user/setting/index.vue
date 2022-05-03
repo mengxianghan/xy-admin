@@ -22,7 +22,10 @@
 
 <script>
 import {computed, ref} from 'vue'
-import {get, head, find} from 'lodash'
+
+import get from 'lodash/get'
+import head from 'lodash/head'
+import find from 'lodash/find'
 
 import Basic from './components/Basic'
 import Safe from './components/Safe'

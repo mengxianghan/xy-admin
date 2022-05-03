@@ -28,7 +28,7 @@
 </template>
 
 <script>
-import {cloneDeep} from 'lodash'
+import cloneDeep from 'lodash/cloneDeep'
 
 import useModal from '@/hooks/useModal'
 import useForm from '@/hooks/useForm'

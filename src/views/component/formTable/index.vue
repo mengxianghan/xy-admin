@@ -40,7 +40,8 @@
 
 <script>
 import {onMounted, ref} from 'vue'
-import {cloneDeep} from 'lodash'
+
+import cloneDeep from 'lodash/cloneDeep'
 
 export default {
     name: 'componentFormTable',

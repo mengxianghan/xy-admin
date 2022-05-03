@@ -98,9 +98,8 @@
 </template>
 
 <script>
-import {computed, ref} from 'vue'
-import {cloneDeep} from 'lodash'
-
+import {ref} from 'vue'
+import cloneDeep from 'lodash/cloneDeep'
 import useForm from '@/hooks/useForm'
 
 import MenuTree from './components/MenuTree'

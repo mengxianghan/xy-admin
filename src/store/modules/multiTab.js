@@ -1,6 +1,9 @@
-import router from '@/router'
 import {message} from 'ant-design-vue'
-import {cloneDeep, findIndex, isEmpty} from 'lodash'
+
+import router from '@/router'
+import cloneDeep from 'lodash/cloneDeep'
+import findIndex from 'lodash/findIndex'
+import isEmpty from 'lodash/isEmpty'
 
 const state = {
     list: [],

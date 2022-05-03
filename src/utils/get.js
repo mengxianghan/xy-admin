@@ -1,4 +1,6 @@
-import {cloneDeep, pick, keys} from 'lodash'
+import cloneDeep from 'lodash/cloneDeep'
+import pick from 'lodash/pick'
+import keys from 'lodash/keys'
 
 /**
  * 获取文件后缀

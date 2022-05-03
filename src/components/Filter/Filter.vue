@@ -29,7 +29,8 @@
 <script>
 import {onMounted, ref, toRefs, watch, provide} from 'vue'
 import {TYPE_ENUM} from './config'
-import {cloneDeep} from 'lodash'
+
+import cloneDeep from 'lodash/cloneDeep'
 
 import FilterItem from './FilterItem'
 

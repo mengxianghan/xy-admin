@@ -44,9 +44,8 @@
 
 <script>
 import {ref} from 'vue'
-import {message} from 'ant-design-vue'
-import {cloneDeep} from 'lodash'
 
+import cloneDeep from 'lodash/cloneDeep'
 import useModal from '@/hooks/useModal'
 import useForm from '@/hooks/useForm'
 import api from '@/api'

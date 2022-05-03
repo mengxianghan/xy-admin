@@ -32,10 +32,9 @@
 </template>
 
 <script>
-import {cloneDeep} from 'lodash'
-
 import useModal from '@/hooks/useModal'
 import useForm from '@/hooks/useForm'
+import cloneDeep from 'lodash/cloneDeep'
 import api from '@/api'
 
 export default {

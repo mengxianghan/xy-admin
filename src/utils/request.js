@@ -1,6 +1,6 @@
 import {message} from 'ant-design-vue'
-import {merge} from 'lodash'
 
+import merge from 'lodash/merge'
 import jschardet from 'jschardet'
 import axios from 'axios'
 import JSONbig from 'json-bigint'

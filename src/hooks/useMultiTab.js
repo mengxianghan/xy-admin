@@ -1,7 +1,8 @@
 import {useRouter} from 'vue-router'
 import {nextTick} from 'vue'
 import {useStore} from 'vuex'
-import {cloneDeep} from 'lodash'
+
+import cloneDeep from 'lodash/cloneDeep'
 
 export default () => {
     const router = useRouter()

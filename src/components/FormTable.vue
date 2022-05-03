@@ -35,7 +35,8 @@
 
 <script>
 import {onMounted, ref, toRefs, watch} from 'vue'
-import {cloneDeep} from 'lodash'
+
+import cloneDeep from 'lodash/cloneDeep'
 
 /**
  * 表单表格

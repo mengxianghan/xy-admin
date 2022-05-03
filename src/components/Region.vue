@@ -9,10 +9,11 @@
 
 <script>
 import {findTree, mapping} from '@/utils'
-import {last, pick} from 'lodash'
 import {onMounted, ref, toRefs, watch} from 'vue'
 import {message, Form} from 'ant-design-vue'
 
+import last from 'lodash/last'
+import pick from 'lodash/pick'
 import api from '@/api'
 
 /**
