@@ -1,6 +1,6 @@
-import router from '@/router'
 import {message} from 'ant-design-vue'
-import {cloneDeep, findIndex} from 'lodash'
+import findIndex from 'lodash/findIndex'
+import router from '@/router'
 
 const state = {
     list: [],
@@ -64,6 +64,7 @@ const mutations = {
     UPDATE_CACHE_LIST(state, {route}) {
         // 判断是否是需要缓存的页面
         if (route?.meta?.keepAlive) {
+            // 是需要缓存的页面
             const index = findIndex(state.cacheList, o => o === route.name)
             // 判断是移除或添加
             if (index > -1) {
@@ -263,9 +264,7 @@ const actions = {
      * @param route
      */
     reload({commit}, {route}) {
-        if (route?.meta?.keepAlive) {
-            commit('UPDATE_CACHE_LIST', {route})
-        }
+        commit('UPDATE_CACHE_LIST', {route})
     },
 }
 

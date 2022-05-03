@@ -1,5 +1,5 @@
-import router from '@/router'
-import {notFoundRouter, asyncRouterMap} from '@/router/config'
+import {asyncRouterMap} from '@/config/router'
+import {notFoundRouter} from '@/router/config'
 import {
     generateRoutes,
     getIndexRouter,
@@ -7,6 +7,7 @@ import {
     formatRoutes,
     generateMenus,
 } from '@/router/util'
+import router from '@/router'
 
 const state = {
     routes: [],
