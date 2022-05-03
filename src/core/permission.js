@@ -24,9 +24,10 @@ router.beforeEach((to, form, next) => {
                 next()
             } else {
                 // 初始化未加载完成
-                store.dispatch('app/init').then(() => {
-                    next({...to, replace: true})
-                })
+                store.dispatch('app/init')
+                     .then(() => {
+                         next({...to, replace: true})
+                     })
             }
         } else {
             // 未登录

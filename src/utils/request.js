@@ -46,7 +46,8 @@ class Http {
             transformResponse: [function transformResponse(data) {
                 if (typeof data === 'string') {
                     try {
-                        data = JSONbig({storeAsString: true}).parse(data)
+                        data = JSONbig({storeAsString: true})
+                            .parse(data)
                     } catch (e) {
                     }
                 }
@@ -63,15 +64,17 @@ class Http {
     request(config = {}) {
         return new Promise((resolve, reject) => {
             instance.request({
-                ...this.config,
-                ...config,
-            }).then(res => {
-                resolve(res.data)
-            }, err => {
-                reject(err)
-            }).catch(err => {
-                reject(err)
-            })
+                        ...this.config,
+                        ...config,
+                    })
+                    .then(res => {
+                        resolve(res.data)
+                    }, err => {
+                        reject(err)
+                    })
+                    .catch(err => {
+                        reject(err)
+                    })
         })
     }
 

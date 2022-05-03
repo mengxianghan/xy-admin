@@ -30,14 +30,16 @@ const actions = {
         return new Promise((resolve) => {
             loading()
             Promise.all([
-                dispatch('router/getRouterList', null, {root: true}),
-            ]).then(() => {
-                loading.close()
-                commit('SET_COMPLETE', true)
-                resolve()
-            }).catch(() => {
-                loading.close()
-            })
+                       dispatch('router/getRouterList', null, {root: true}),
+                   ])
+                   .then(() => {
+                       loading.close()
+                       commit('SET_COMPLETE', true)
+                       resolve()
+                   })
+                   .catch(() => {
+                       loading.close()
+                   })
         })
     },
 }

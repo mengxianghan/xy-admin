@@ -73,16 +73,18 @@ export default {
          * 确定
          */
         function handleOk() {
-            formRef.value.validateFields().then((values) => {
-                showLoading()
-                setTimeout(() => {
-                    hideLoading()
-                    hideModal()
-                    emit('ok')
-                }, 3000)
-            }).catch((err) => {
-                hideLoading()
-            })
+            formRef.value.validateFields()
+                   .then((values) => {
+                       showLoading()
+                       setTimeout(() => {
+                           hideLoading()
+                           hideModal()
+                           emit('ok')
+                       }, 3000)
+                   })
+                   .catch((err) => {
+                       hideLoading()
+                   })
         }
 
         /**

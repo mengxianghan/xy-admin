@@ -87,9 +87,10 @@ export default {
                 //       }
                 result = await getRegionList({
                     parentId: value,
-                }).catch(() => {
-                    throw new Error('请求失败')
                 })
+                    .catch(() => {
+                        throw new Error('请求失败')
+                    })
                 const {code, data} = result
                 if (targetOption) {
                     targetOption.loading = false
@@ -135,9 +136,10 @@ export default {
          */
         function getRegionList(params) {
             return new Promise(async (resolve, reject) => {
-                const {code, data} = await api.common.getRegionList(params).catch(() => {
-                    reject()
-                })
+                const {code, data} = await api.common.getRegionList(params)
+                                              .catch(() => {
+                                                  reject()
+                                              })
                 if (200 === code) {
                     const {rows} = data
                     resolve({

@@ -67,11 +67,12 @@ export default {
                 okText: '确认',
                 cancelText: '取消',
                 onOk: () => {
-                    store.dispatch('user/logout').then(() => {
-                        router.push({
-                            name: 'login',
-                        })
-                    })
+                    store.dispatch('user/logout')
+                         .then(() => {
+                             router.push({
+                                 name: 'login',
+                             })
+                         })
                 },
             })
         }

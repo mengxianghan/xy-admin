@@ -66,30 +66,33 @@ export default {
          * @return {Promise<void>}
          */
         async function handleLogin() {
-            formRef.value.validate().then(async (values) => {
-                try {
-                    loading.value = true
-                    const {code} = await store.dispatch('user/login', {
-                        ...values,
-                    }).catch(() => {
-                        throw new Error('登录失败')
-                    })
-                    loading.value = false
-                    if (200 === code) {
-                        // 加载完成
-                        if (store.getters['app/complete']) {
-                            goIndex()
-                        } else {
-                            store.dispatch('app/init').then(() => {
-                                goIndex()
-                            })
-                        }
-                    }
-                } catch (err) {
-                    loading.value = false
-                    message.error(err.message)
-                }
-            })
+            formRef.value.validate()
+                   .then(async (values) => {
+                       try {
+                           loading.value = true
+                           const {code} = await store.dispatch('user/login', {
+                                                         ...values,
+                                                     })
+                                                     .catch(() => {
+                                                         throw new Error('登录失败')
+                                                     })
+                           loading.value = false
+                           if (200 === code) {
+                               // 加载完成
+                               if (store.getters['app/complete']) {
+                                   goIndex()
+                               } else {
+                                   store.dispatch('app/init')
+                                        .then(() => {
+                                            goIndex()
+                                        })
+                               }
+                           }
+                       } catch (err) {
+                           loading.value = false
+                           message.error(err.message)
+                       }
+                   })
         }
 
         /**

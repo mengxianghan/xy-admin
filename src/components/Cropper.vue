@@ -69,7 +69,8 @@ export default {
          */
         function getBase64(type = 'image/jpeg') {
             return new Promise((resolve) => {
-                const base64 = crop.value.getCroppedCanvas().toDataURL(type, quality.value)
+                const base64 = crop.value.getCroppedCanvas()
+                                   .toDataURL(type, quality.value)
                 resolve(base64)
             })
         }
@@ -81,9 +82,10 @@ export default {
          */
         function getBlob(type = 'image/jpeg') {
             return new Promise((resolve => {
-                crop.value.getCroppedCanvas().toBlob((blob) => {
-                    resolve(blob)
-                }, type, quality.value)
+                crop.value.getCroppedCanvas()
+                    .toBlob((blob) => {
+                        resolve(blob)
+                    }, type, quality.value)
             }))
         }
 
@@ -95,10 +97,11 @@ export default {
          */
         function getFile(fileName, type = 'image/jpeg') {
             return new Promise((resolve) => {
-                crop.value.getCroppedCanvas().toBlob((blob) => {
-                    const file = new File([blob], fileName, {type})
-                    resolve(file)
-                }, type, quality.value)
+                crop.value.getCroppedCanvas()
+                    .toBlob((blob) => {
+                        const file = new File([blob], fileName, {type})
+                        resolve(file)
+                    }, type, quality.value)
             })
         }
 

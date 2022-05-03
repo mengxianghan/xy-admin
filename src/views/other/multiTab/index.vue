@@ -47,7 +47,8 @@ export default {
         const title = ref('自定义名称')
 
         onMounted(() => {
-            date.value = dayjs().format('YYYY-MM-DD HH:mm:ss')
+            date.value = dayjs()
+                .format('YYYY-MM-DD HH:mm:ss')
         })
 
         /**

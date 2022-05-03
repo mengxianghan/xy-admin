@@ -73,25 +73,28 @@ export default {
         function handleBase64() {
             type.value = 'Base64'
             _setLoading()
-            cropperRef.value.getBase64().then((data) => {
-                src.value = data
-            })
+            cropperRef.value.getBase64()
+                      .then((data) => {
+                          src.value = data
+                      })
         }
 
         function handleBlob() {
             type.value = 'Blob'
             _setLoading()
-            cropperRef.value.getBlob().then((data) => {
-                src.value = URL.createObjectURL(data)
-            })
+            cropperRef.value.getBlob()
+                      .then((data) => {
+                          src.value = URL.createObjectURL(data)
+                      })
         }
 
         function handleFile() {
             type.value = 'File'
             _setLoading()
-            cropperRef.value.getFile('test.jpg').then(data => {
-                src.value = URL.createObjectURL(data)
-            })
+            cropperRef.value.getFile('test.jpg')
+                      .then(data => {
+                          src.value = URL.createObjectURL(data)
+                      })
         }
 
         function _setLoading() {

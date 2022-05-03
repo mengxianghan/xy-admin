@@ -91,9 +91,10 @@ export default {
          * 提交表单
          */
         function handleOk() {
-            formRef.value.validateFields().then(values => {
-                console.log(values)
-            })
+            formRef.value.validateFields()
+                   .then(values => {
+                       console.log(values)
+                   })
         }
 
         /**

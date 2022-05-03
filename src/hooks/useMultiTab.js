@@ -47,10 +47,11 @@ export default () => {
     function closeLeft(route) {
         route = route || router.currentRoute.value
         store.dispatch('multiTab/closeLeft', {
-            route: getSimpleRoute(route),
-        }).then(({route}) => {
-            router.push(route)
-        })
+                 route: getSimpleRoute(route),
+             })
+             .then(({route}) => {
+                 router.push(route)
+             })
     }
 
     /**
@@ -60,10 +61,11 @@ export default () => {
     function closeRight(route) {
         route = route || router.currentRoute.value
         store.dispatch('multiTab/closeRight', {
-            route: getSimpleRoute(route),
-        }).then(({route}) => {
-            router.push(route)
-        })
+                 route: getSimpleRoute(route),
+             })
+             .then(({route}) => {
+                 router.push(route)
+             })
     }
 
     /**

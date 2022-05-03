@@ -6,7 +6,9 @@ import keys from 'lodash/keys'
  * 获取文件后缀
  */
 export function getSuffix(filename) {
-    return filename.split('.').pop().toLowerCase()
+    return filename.split('.')
+                   .pop()
+                   .toLowerCase()
 }
 
 /**

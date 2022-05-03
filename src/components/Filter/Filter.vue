@@ -145,38 +145,39 @@ export default {
          * @private
          */
         function init() {
-            list.value = cloneDeep(dataSource.value).map((item) => {
-                const {key, type, multiple, scopedSlot, options} = item
-                // 判断是否自定义插槽
-                if (scopedSlot) {
-                    // 是自定义插槽
-                    item.value = modelValue?.value[key]
-                } else {
-                    // 不是自定义插槽，根据类型回填内容
-                    // tag
-                    if (TYPE_ENUM.is('tag', type) || Array.isArray(options)) {
-                        item.options = item?.options.map(tag => {
-                            return {
-                                ...tag,
-                                selected: multiple ? modelValue?.value[key]?.includes(tag.value) : modelValue?.value[key] === tag.value,
-                            }
-                        })
+            list.value = cloneDeep(dataSource.value)
+                .map((item) => {
+                    const {key, type, multiple, scopedSlot, options} = item
+                    // 判断是否自定义插槽
+                    if (scopedSlot) {
+                        // 是自定义插槽
+                        item.value = modelValue?.value[key]
+                    } else {
+                        // 不是自定义插槽，根据类型回填内容
+                        // tag
+                        if (TYPE_ENUM.is('tag', type) || Array.isArray(options)) {
+                            item.options = item?.options.map(tag => {
+                                return {
+                                    ...tag,
+                                    selected: multiple ? modelValue?.value[key]?.includes(tag.value) : modelValue?.value[key] === tag.value,
+                                }
+                            })
+                        }
+                        // 输入框
+                        if (TYPE_ENUM.is('input', type)) {
+                            item.value = modelValue?.value[key] ?? ''
+                        }
+                        // 输入区间
+                        if (TYPE_ENUM.is('inputRange', type)) {
+                            item.value = modelValue?.value[key] ?? []
+                        }
+                        // 日期 || 日期区间
+                        if (['date', 'dateRange'].includes(TYPE_ENUM.getKey(type))) {
+                            item.value = modelValue?.value[key] ?? null
+                        }
                     }
-                    // 输入框
-                    if (TYPE_ENUM.is('input', type)) {
-                        item.value = modelValue?.value[key] ?? ''
-                    }
-                    // 输入区间
-                    if (TYPE_ENUM.is('inputRange', type)) {
-                        item.value = modelValue?.value[key] ?? []
-                    }
-                    // 日期 || 日期区间
-                    if (['date', 'dateRange'].includes(TYPE_ENUM.getKey(type))) {
-                        item.value = modelValue?.value[key] ?? null
-                    }
-                }
-                return item
-            })
+                    return item
+                })
         }
 
         /**
@@ -198,7 +199,8 @@ export default {
                         // 判断是否多选
                         if (multiple) {
                             // 多选
-                            value[key] = item?.options?.filter(item => item.selected).map(item => item.value)
+                            value[key] = item?.options?.filter(item => item.selected)
+                                             .map(item => item.value)
                         } else {
                             // 单选
                             value[key] = item?.options?.find(o => o.selected)?.value ?? undefined

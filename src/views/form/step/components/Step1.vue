@@ -73,10 +73,12 @@ export default {
          * 下一步
          */
         function handleNext() {
-            formRef.value.validate().then((values) => {
-                emit('next')
-            }).catch((err) => {
-            })
+            formRef.value.validate()
+                   .then((values) => {
+                       emit('next')
+                   })
+                   .catch((err) => {
+                   })
         }
 
         return {

@@ -63,14 +63,16 @@ export default {
          */
         function handleNext() {
             loading.value = true
-            formRef.value.validate().then((values) => {
-                setTimeout(() => {
-                    loading.value = false
-                    emit('next')
-                }, 1500)
-            }).catch((err) => {
-                loading.value = false
-            })
+            formRef.value.validate()
+                   .then((values) => {
+                       setTimeout(() => {
+                           loading.value = false
+                           emit('next')
+                       }, 1500)
+                   })
+                   .catch((err) => {
+                       loading.value = false
+                   })
         }
 
         /**

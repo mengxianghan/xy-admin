@@ -65,9 +65,10 @@ export default {
         const getPageList = async () => {
             try {
                 loading.value = true
-                const {code, data} = await api.common.getPageList().catch(() => {
-                    throw new Error()
-                })
+                const {code, data} = await api.common.getPageList()
+                                              .catch(() => {
+                                                  throw new Error()
+                                              })
                 loading.value = false
                 if (200 === code) {
                     list.value = [{}, ...data.rows]

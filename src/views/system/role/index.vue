@@ -68,9 +68,10 @@ export default {
         async function getUserRoleList() {
             try {
                 loading.value = true
-                const {code, data} = await api.system.getUserRoleList().catch(() => {
-                    throw new Error()
-                })
+                const {code, data} = await api.system.getUserRoleList()
+                                              .catch(() => {
+                                                  throw new Error()
+                                              })
                 loading.value = false
                 if (200 === code) {
                     const {rows} = data

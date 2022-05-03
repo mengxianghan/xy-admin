@@ -107,12 +107,13 @@ export default {
                 const {pageSize, current} = pagination
                 loading.value = true
                 const {code, data} = await api.common.getPageList({
-                    pageSize,
-                    page: current,
-                    ...searchForm.value,
-                }).catch(() => {
-                    loading.value = false
-                })
+                                                  pageSize,
+                                                  page: current,
+                                                  ...searchForm.value,
+                                              })
+                                              .catch(() => {
+                                                  loading.value = false
+                                              })
                 loading.value = false
                 if (200 === code) {
                     list.value = data.rows
@@ -137,10 +138,11 @@ export default {
         async function handleDelete({id}) {
             loading.value = true
             const {code} = await api.common.deleteData({
-                id,
-            }).catch(() => {
-                loading.value = false
-            })
+                                        id,
+                                    })
+                                    .catch(() => {
+                                        loading.value = false
+                                    })
             if (200 === code) {
                 message.success('删除成功')
                 await getPageList()

@@ -7,7 +7,8 @@ import {zipObjectPlus} from '@/utils/index'
  * @return {string}
  */
 export function formatDatetime(datetime, def = null) {
-    return datetime ? moment(datetime).format('YYYY-MM-DD HH:mm:ss') : def
+    return datetime ? moment(datetime)
+        .format('YYYY-MM-DD HH:mm:ss') : def
 }
 
 /**
@@ -16,7 +17,9 @@ export function formatDatetime(datetime, def = null) {
  * @return {string}
  */
 export function formatStartTimeOfDay(datetime, def = null) {
-    return datetime ? moment(datetime).startOf('day').format('YYYY-MM-DD HH:mm:ss') : def
+    return datetime ? moment(datetime)
+        .startOf('day')
+        .format('YYYY-MM-DD HH:mm:ss') : def
 }
 
 /**
@@ -25,7 +28,9 @@ export function formatStartTimeOfDay(datetime, def = null) {
  * @return {string}
  */
 export function formatEndTimeOfDay(datetime, def = null) {
-    return datetime ? moment(datetime).endOf('day').format('YYYY-MM-DD HH:mm:ss') : def
+    return datetime ? moment(datetime)
+        .endOf('day')
+        .format('YYYY-MM-DD HH:mm:ss') : def
 }
 
 /**

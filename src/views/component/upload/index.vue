@@ -131,11 +131,13 @@ export default {
         }
 
         function handleSubmit() {
-            formRef.value.validate().then((values) => {
-                console.log(values)
-            }).catch(() => {
+            formRef.value.validate()
+                   .then((values) => {
+                       console.log(values)
+                   })
+                   .catch(() => {
 
-            })
+                   })
         }
 
         function handleReset() {

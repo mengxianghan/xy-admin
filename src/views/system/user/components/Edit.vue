@@ -76,9 +76,10 @@ export default {
          */
         async function getUserRoleList() {
             try {
-                const {code, data} = await api.system.getUserRoleList().catch(() => {
-                    throw new Error()
-                })
+                const {code, data} = await api.system.getUserRoleList()
+                                              .catch(() => {
+                                                  throw new Error()
+                                              })
                 if (200 === code) {
                     roleList.value = data.rows
                 }
@@ -131,24 +132,27 @@ export default {
          * 确定
          */
         function handleOk() {
-            formRef.value.validateFields().then(async (values) => {
-                showLoading()
-                const params = {
-                    id: formState.value?.id,
-                    ...values,
-                }
-                let result = null
-                result = await api.common.saveData(params).catch(() => {
-                    hideLoading()
-                })
-                hideLoading()
-                if (200 === result?.code) {
-                    hideModal()
-                    emit('ok')
-                }
-            }).catch((err) => {
-                hideLoading()
-            })
+            formRef.value.validateFields()
+                   .then(async (values) => {
+                       showLoading()
+                       const params = {
+                           id: formState.value?.id,
+                           ...values,
+                       }
+                       let result = null
+                       result = await api.common.saveData(params)
+                                         .catch(() => {
+                                             hideLoading()
+                                         })
+                       hideLoading()
+                       if (200 === result?.code) {
+                           hideModal()
+                           emit('ok')
+                       }
+                   })
+                   .catch((err) => {
+                       hideLoading()
+                   })
         }
 
         /**
