@@ -49,7 +49,6 @@
 
 <script>
 import {mapGetters, mapActions} from 'vuex'
-import {findIndex} from 'lodash'
 
 export default {
     name: 'XMultiTab',
@@ -102,18 +101,20 @@ export default {
          * @param route
          */
         handleCloseLeft(route) {
-            this.closeLeft({route}).then(({route}) => {
-                this.$router.push(route)
-            })
+            this.closeLeft({route})
+                .then(({route}) => {
+                    this.$router.push(route)
+                })
         },
         /**
          * 关闭右侧
          * @param route
          */
         handleCloseRight(route) {
-            this.closeRight({route}).then(({route}) => {
-                this.$router.push(route)
-            })
+            this.closeRight({route})
+                .then(({route}) => {
+                    this.$router.push(route)
+                })
         },
         /**
          * 关闭其他

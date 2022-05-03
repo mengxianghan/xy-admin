@@ -1,8 +1,8 @@
+import {message} from 'ant-design-vue'
 import jschardet from 'jschardet'
 import axios from 'axios'
-import {message} from 'ant-design-vue'
 import store from '@/store'
-import {merge} from 'lodash'
+import merge from 'lodash/merge'
 import JSONbig from 'json-bigint'
 
 const instance = axios.create()
@@ -45,12 +45,13 @@ class Http {
             transformResponse: [function transformResponse(data) {
                 if (typeof data === 'string') {
                     try {
-                        data = JSONbig({storeAsString: true}).parse(data)
+                        data = JSONbig({storeAsString: true})
+                            .parse(data)
                     } catch (e) {
                     }
                 }
                 return data
-            }]
+            }],
         }, config)
     }
 
@@ -62,15 +63,17 @@ class Http {
     request(config = {}) {
         return new Promise((resolve, reject) => {
             instance.request({
-                ...this.config,
-                ...config
-            }).then(res => {
-                resolve(res.data)
-            }, err => {
-                reject(err)
-            }).catch(err => {
-                reject(err)
-            })
+                        ...this.config,
+                        ...config,
+                    })
+                    .then(res => {
+                        resolve(res.data)
+                    }, err => {
+                        reject(err)
+                    })
+                    .catch(err => {
+                        reject(err)
+                    })
         })
     }
 
@@ -86,7 +89,7 @@ class Http {
             url: url,
             method: 'post',
             data,
-            ...config
+            ...config,
         })
     }
 
@@ -102,7 +105,7 @@ class Http {
             url: url,
             method: 'get',
             params: params,
-            ...config
+            ...config,
         })
     }
 
@@ -116,9 +119,9 @@ class Http {
     upload(url = '', formData = {}, config = {}) {
         return this.post(url, formData, {
             headers: {
-                'content-type': 'multipart/form-data'
+                'content-type': 'multipart/form-data',
             },
-            ...config
+            ...config,
         })
     }
 
@@ -134,7 +137,7 @@ class Http {
             baseURL: '',
             method: 'get',
             responseType: 'blob',
-            ...config
+            ...config,
         })
     }
 }
@@ -153,7 +156,7 @@ class ReadFile extends Http {
                         resolve(reader.result)
                     }
                 })
-            }]
+            }],
         })
     }
 
@@ -177,7 +180,7 @@ class ReadFile extends Http {
 class Api extends Http {
     constructor(baseURL) {
         super({
-            baseURL
+            baseURL,
         })
     }
 }
@@ -185,6 +188,6 @@ class Api extends Http {
 export default {
     readFile: new ReadFile(),
     api: new Api(),
-    default: new Api(`${process.env.VUE_APP_API_DEFAULT}`)
+    default: new Api(`${process.env.VUE_APP_API_DEFAULT}`),
 }
 
