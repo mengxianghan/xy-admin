@@ -8,7 +8,7 @@
         <a-col :span="6">
             <a-card title="带Logo">
                 <x-qr-code text="admin"
-                           logo="images/logo.svg"></x-qr-code>
+                           :logo="LOGO_URL"></x-qr-code>
             </a-card>
         </a-col>
         <a-col :span="6">
@@ -31,6 +31,7 @@
 
 <script>
 import {ref} from 'vue'
+import {LOGO_URL} from '@/config'
 
 export default {
     name: 'componentQrCode',
@@ -38,6 +39,7 @@ export default {
         const text = ref('admin')
 
         return {
+            LOGO_URL,
             text,
         }
     },

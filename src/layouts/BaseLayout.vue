@@ -4,7 +4,7 @@
         <div class="user-layout-content">
             <div class="user-layout-top">
                 <div class="user-layout-header">
-                    <img src="images/logo.svg">
+                    <img :src="LOGO_URL">
                     <h1>{{ title }}</h1>
                 </div>
                 <div class="user-layout-desc">
@@ -19,11 +19,14 @@
 </template>
 
 <script>
+import {LOGO_URL} from '@/config'
+
 export default {
     name: 'BaseLayout',
     setup() {
         const title = process.env.VUE_APP_TITLE
         return {
+            LOGO_URL,
             title,
         }
     },
