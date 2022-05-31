@@ -7,8 +7,9 @@
                 <a-input v-model:value="formState.username"
                          size="large"
                          placeholder="admin">
-                    <a-icon slot="prefix"
-                            type="user"/>
+                    <template #prefix>
+                        <icon-user-outlined></icon-user-outlined>
+                    </template>
                 </a-input>
             </a-form-item>
             <a-form-item name="password">
@@ -17,8 +18,9 @@
                          type="password"
                          placeholder="123456"
                          @pressEnter="handleLogin">
-                    <a-icon slot="prefix"
-                            type="lock"/>
+                    <template #prefix>
+                        <icon-lock-outlined></icon-lock-outlined>
+                    </template>
                 </a-input>
             </a-form-item>
             <a-form-item>

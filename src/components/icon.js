@@ -41,6 +41,7 @@ import {
     RotateLeftOutlined,
     DingdingOutlined,
     LoadingOutlined,
+    LockOutlined,
 } from '@ant-design/icons-vue'
 
 const components = [
@@ -86,6 +87,7 @@ const components = [
     RotateLeftOutlined,
     DingdingOutlined,
     LoadingOutlined,
+    LockOutlined,
 ]
 
 export default {
@@ -132,6 +134,7 @@ export default {
         app.component('IconRotateLeftOutlined', RotateLeftOutlined)
         app.component('IconDingdingOutlined', DingdingOutlined)
         app.component('IconLoadingOutlined', LoadingOutlined)
+        app.component('IconLockOutlined', LockOutlined)
         return app
     },
 }

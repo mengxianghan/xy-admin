@@ -32,10 +32,7 @@
                     <a-space class="tree-row__actions"
                              @click.stop="()=>{}">
                         <icon-edit-outlined @click.stop="$refs.editRef.handleEdit(record)"></icon-edit-outlined>
-                        <a-popconfirm title="确认删除？"
-                                      @confirm="handleDelete(record)">
-                            <icon-delete-outlined></icon-delete-outlined>
-                        </a-popconfirm>
+                        <icon-delete-outlined @click="handleDelete(record)"></icon-delete-outlined>
                     </a-space>
                 </div>
             </template>
@@ -47,7 +44,7 @@
 
 <script>
 import {ref, onMounted} from 'vue'
-import {message} from 'ant-design-vue'
+import {message, Modal} from 'ant-design-vue'
 
 import api from '@/api'
 
@@ -104,12 +101,14 @@ export default {
         /**
          * 删除分类
          */
-        function handleDelete(record) {
-            try {
-                message.info('点击了删除')
-            } catch (err) {
-                message.warning(err.message)
-            }
+        function handleDelete({id}) {
+            Modal.confirm({
+                title: '删除提示',
+                content: '确认删除？',
+                onOk: async () => {
+                    message.info('点击了删除')
+                },
+            })
         }
 
         /**
