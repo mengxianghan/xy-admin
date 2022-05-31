@@ -65,12 +65,7 @@
             <template #bodyCell="{column, record, index}">
                 <template v-if="'action' === column.key">
                     <x-action-button @click="$refs.editRef.handleEdit(record)">编辑</x-action-button>
-                    <x-action-button>
-                        <a-popconfirm title="确认删除？"
-                                      @confirm="handleDelete(record)">
-                            删除
-                        </a-popconfirm>
-                    </x-action-button>
+                    <x-action-button @click="handleDelete(record)">删除</x-action-button>
                     <x-action-button tag="span">
                         <a-dropdown :trigger="['click']">
                             <a>
@@ -97,7 +92,7 @@
 
 <script>
 import {onMounted, ref} from 'vue'
-import {message} from 'ant-design-vue'
+import {message, Modal} from 'ant-design-vue'
 
 import api from '@/api'
 
@@ -152,20 +147,24 @@ export default {
         /**
          * 删除
          */
-        async function handleDelete({id}) {
-            loading.value = true
-            const {code} = await api.common.deleteData({
-                                        id,
-                                    })
-                                    .catch(() => {
-                                        loading.value = false
-                                    })
-            if (200 === code) {
-                message.success('删除成功')
-                await getPageList()
-            } else {
-                loading.value = false
-            }
+        function handleDelete({id}) {
+            Modal.confirm({
+                title: '删除提示',
+                content: '确认删除？',
+                onOk: async () => {
+                    loading.value = true
+                    const {code} = await api.common.deleteData({id})
+                                            .catch(() => {
+                                                loading.value = false
+                                            })
+                    if (200 === code) {
+                        message.success('删除成功')
+                        await getPageList()
+                    } else {
+                        loading.value = false
+                    }
+                },
+            })
         }
 
         /**

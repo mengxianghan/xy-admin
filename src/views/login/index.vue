@@ -7,8 +7,9 @@
                 <a-input v-model:value="formState.username"
                          size="large"
                          placeholder="admin">
-                    <a-icon slot="prefix"
-                            type="user"/>
+                    <template #prefix>
+                        <icon-user-outlined></icon-user-outlined>
+                    </template>
                 </a-input>
             </a-form-item>
             <a-form-item name="password">
@@ -17,8 +18,9 @@
                          type="password"
                          placeholder="123456"
                          @pressEnter="handleLogin">
-                    <a-icon slot="prefix"
-                            type="lock"/>
+                    <template #prefix>
+                        <icon-lock-outlined></icon-lock-outlined>
+                    </template>
                 </a-input>
             </a-form-item>
             <a-form-item>
@@ -37,7 +39,8 @@
 import {ref, computed} from 'vue'
 import {useStore} from 'vuex'
 import {useRoute, useRouter} from 'vue-router'
-import {message, Modal} from 'ant-design-vue'
+import {message, Modal, notification} from 'ant-design-vue'
+import {timeFix} from '@/utils'
 
 import useForm from '@/hooks/useForm'
 
@@ -82,10 +85,8 @@ export default {
                                if (store.getters['app/complete']) {
                                    goIndex()
                                } else {
-                                   store.dispatch('app/init')
-                                        .then(() => {
-                                            goIndex()
-                                        })
+                                   await store.dispatch('app/init')
+                                   goIndex()
                                }
                            }
                        } catch (err) {
@@ -124,6 +125,10 @@ export default {
                 if (!indexRouter) return
                 router.push(indexRouter)
             }
+            notification.success({
+                message: '欢迎',
+                description: `${timeFix()}，欢迎回来`,
+            })
         }
 
         return {

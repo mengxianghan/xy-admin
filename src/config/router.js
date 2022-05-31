@@ -251,6 +251,17 @@ export const asyncRouterMap = [
                 },
             },
             {
+                path: 'newMenu',
+                name: 'systemNewMenu',
+                component: 'system/newMenu/index.vue',
+                meta: {
+                    title: '新版菜单管理',
+                    isMenu: true,
+                    keepAlive: true,
+                    permission: '*',
+                },
+            },
+            {
                 path: 'dict',
                 name: 'systemDict',
                 component: 'system/dict/index.vue',
