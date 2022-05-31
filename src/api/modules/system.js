@@ -6,5 +6,7 @@ export const getUserRoleList = params => request.default.get('/system/getUserRol
 export const getUserPageList = params => request.default.get('/system/getUserPageList', params)
 // 获取菜单列表
 export const getMenuList = params => request.default.get('/system/getMenuList', params)
+// 获取新版菜单列表
+export const getNewMenuList = params => request.default.get('/system/getNewMenuList', params)
 // 获取字典分类列表
 export const getDictTypeList = params => request.default.get('/system/getDictTypeList', params)

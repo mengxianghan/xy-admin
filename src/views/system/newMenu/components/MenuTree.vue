@@ -65,7 +65,7 @@ export default {
         async function getMenuList() {
             try {
                 loading.value = true
-                const {code, data} = await api.system.getMenuList()
+                const {code, data} = await api.system.getNewMenuList()
                                               .catch(() => {
                                                   throw new Error()
                                               })
