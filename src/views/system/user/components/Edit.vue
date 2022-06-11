@@ -37,7 +37,7 @@
                             placeholder=""
                             :options="roleList"
                             :disabled="disabled"
-                            :field-names="{label: 'name', value: 'key', children: 'children'}"
+                            :field-names="{ label: 'name', value: 'key', children: 'children' }"
                             multiple
                             max-tag-count="responsive"></a-cascader>
             </a-form-item>
@@ -46,7 +46,7 @@
 </template>
 
 <script>
-import {ref} from 'vue'
+import { ref } from 'vue'
 
 import cloneDeep from 'lodash/cloneDeep'
 import api from '@/api'
@@ -56,18 +56,18 @@ import useForm from '@/hooks/useForm'
 export default {
     name: 'Edit',
     emits: ['ok'],
-    setup(props, {emit}) {
-        const {modal, showModal, hideModal, showLoading, hideLoading} = useModal()
-        const {formRecord, formState, formRef, rules, formLayout, resetForm} = useForm()
+    setup(props, { emit }) {
+        const { modal, showModal, hideModal, showLoading, hideLoading } = useModal()
+        const { formRecord, formState, formRef, rules, formLayout, resetForm } = useForm()
         const disabled = ref(false)
         const cancelText = ref('取消')
         const roleList = ref([])
 
         rules.value = {
-            avatar: {required: true, message: '请上传头像'},
-            userName: {required: true, message: '请输入登录帐号'},
-            name: {required: true, message: '请输入姓名'},
-            role: {required: true, message: '请选择所属角色'},
+            avatar: { required: true, message: '请上传头像' },
+            userName: { required: true, message: '请输入登录帐号' },
+            name: { required: true, message: '请输入姓名' },
+            role: { required: true, message: '请选择所属角色' },
         }
 
         /**
@@ -75,15 +75,12 @@ export default {
          * @returns {Promise<void>}
          */
         async function getUserRoleList() {
-            try {
-                const {code, data} = await api.system.getUserRoleList()
-                                              .catch(() => {
-                                                  throw new Error()
-                                              })
-                if (200 === code) {
-                    roleList.value = data.rows
-                }
-            } catch (err) {
+            const { code, data } = await api.system.getUserRoleList()
+                .catch(() => {
+
+                })
+            if (200 === code) {
+                roleList.value = data.rows
             }
         }
 
@@ -133,26 +130,26 @@ export default {
          */
         function handleOk() {
             formRef.value.validateFields()
-                   .then(async (values) => {
-                       showLoading()
-                       const params = {
-                           id: formState.value?.id,
-                           ...values,
-                       }
-                       let result = null
-                       result = await api.common.saveData(params)
-                                         .catch(() => {
-                                             hideLoading()
-                                         })
-                       hideLoading()
-                       if (200 === result?.code) {
-                           hideModal()
-                           emit('ok')
-                       }
-                   })
-                   .catch((err) => {
-                       hideLoading()
-                   })
+                .then(async (values) => {
+                    showLoading()
+                    const params = {
+                        id: formState.value?.id,
+                        ...values,
+                    }
+                    let result = null
+                    result = await api.common.saveData(params)
+                        .catch(() => {
+                            hideLoading()
+                        })
+                    hideLoading()
+                    if (200 === result?.code) {
+                        hideModal()
+                        emit('ok')
+                    }
+                })
+                .catch((err) => {
+                    hideLoading()
+                })
         }
 
         /**
@@ -193,5 +190,4 @@ export default {
 </script>
 
 <style scoped>
-
 </style>

@@ -13,7 +13,7 @@
                  :loading="loading"
                  row-key="id"
                  @change="onTableChange">
-            <template #bodyCell="{column, record, index}">
+            <template #bodyCell="{ column, record, index }">
                 <template v-if="'action' === column.key">
                     <x-action-button>编辑</x-action-button>
                     <x-action-button @click="handleDelete(record)">
@@ -23,7 +23,7 @@
                         <a-dropdown :trigger="['click']">
                             <a>
                                 更多
-                                <icon-down-outlined/>
+                                <icon-down-outlined />
                             </a>
                             <template #overlay>
                                 <a-menu>
@@ -41,8 +41,8 @@
 </template>
 
 <script>
-import {onMounted, ref} from 'vue'
-import {message, Modal} from 'ant-design-vue'
+import { onMounted, ref } from 'vue'
+import { message, Modal } from 'ant-design-vue'
 
 import api from '@/api'
 
@@ -52,47 +52,43 @@ export default {
     name: 'listSearch',
     setup() {
         const columns = [
-            {title: 'ID', dataIndex: 'id', width: 64, align: 'center'},
-            {title: '标题', dataIndex: 'title'},
-            {title: '操作', key: 'action', width: 180},
+            { title: 'ID', dataIndex: 'id', width: 64, align: 'center' },
+            { title: '标题', dataIndex: 'title' },
+            { title: '操作', key: 'action', width: 180 },
         ]
-        const {list, pagination, loading, resetPagination, searchForm} = usePagination()
+        const { list, pagination, loading, resetPagination, searchForm } = usePagination()
         const editRef = ref()
         const filterData = ref([
             {
                 label: '所属类目', key: 'type', type: 'tag',
                 options: [
-                    {label: '全部', value: 0},
-                    {label: '类目2', value: 2},
-                    {label: '类目3', value: 3},
-                    {label: '类目4', value: 4},
-                    {label: '类目5', value: 5},
+                    { label: '全部', value: 0 },
+                    { label: '类目2', value: 2 },
+                    { label: '类目3', value: 3 },
+                    { label: '类目4', value: 4 },
+                    { label: '类目5', value: 5 },
                 ],
             },
-            {label: 'owner', key: 'owner', type: 'input'},
+            { label: 'owner', key: 'owner', type: 'input' },
         ])
 
         /**
          * 获取分页列表
          */
         async function getPageList() {
-            try {
-                const {pageSize, current} = pagination
-                loading.value = true
-                const {code, data} = await api.common.getPageList({
-                                                  pageSize,
-                                                  page: current,
-                                              })
-                                              .catch(() => {
-                                                  loading.value = false
-                                              })
-                loading.value = false
-                if (200 === code) {
-                    list.value = data.rows
-                    pagination.total = data.total
-                }
-            } catch (err) {
-                loading.value = false
+            const { pageSize, current } = pagination
+            loading.value = true
+            const { code, data } = await api.common.getPageList({
+                pageSize,
+                page: current,
+            })
+                .catch(() => {
+                    loading.value = false
+                })
+            loading.value = false
+            if (200 === code) {
+                list.value = data.rows
+                pagination.total = data.total
             }
         }
 
@@ -107,16 +103,16 @@ export default {
         /**
          * 删除
          */
-        function handleDelete({id}) {
+        function handleDelete({ id }) {
             Modal.confirm({
                 title: '删除提示',
                 content: '确认删除？',
                 onOk: async () => {
                     loading.value = true
-                    const {code} = await api.common.deleteData({id})
-                                            .catch(() => {
-                                                loading.value = false
-                                            })
+                    const { code } = await api.common.deleteData({ id })
+                        .catch(() => {
+                            loading.value = false
+                        })
                     if (200 === code) {
                         message.success('删除成功')
                         await getPageList()
@@ -132,7 +128,7 @@ export default {
          * @param current
          * @param pageSize
          */
-        function onTableChange({current, pageSize}) {
+        function onTableChange({ current, pageSize }) {
             pagination.current = current
             pagination.pageSize = pageSize
             getPageList()
@@ -160,5 +156,4 @@ export default {
 
 <style lang="less"
        scoped>
-
 </style>
