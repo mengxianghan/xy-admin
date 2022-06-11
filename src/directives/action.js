@@ -15,12 +15,12 @@ const actionDirective = {
         if (Array.isArray(actionName)) {
             // 多个权限
             if (!action.some((value) => actionName.includes(value))) {
-                el.parentNode && el.parentNode.removeChild(el) || (el.style.display = 'none')
+                ;(el.parentNode && el.parentNode.removeChild(el)) || (el.style.display = 'none')
             }
         } else {
             // 一个权限，完全匹配
             if (!action.includes(actionName)) {
-                el.parentNode && el.parentNode.removeChild(el) || (el.style.display = 'none')
+                ;(el.parentNode && el.parentNode.removeChild(el)) || (el.style.display = 'none')
             }
         }
     },
@@ -28,6 +28,8 @@ const actionDirective = {
 
 export function setupActionDirective(app) {
     app.directive('action', actionDirective)
+
+    return app
 }
 
 export default actionDirective

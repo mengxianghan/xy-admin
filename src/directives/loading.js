@@ -1,5 +1,5 @@
-import {Spin} from 'ant-design-vue'
-import {createVNode, render} from 'vue'
+import { Spin } from 'ant-design-vue'
+import { createVNode, render } from 'vue'
 
 const INSTANCE_KEY = Symbol('vloading')
 
@@ -22,7 +22,10 @@ const loadingDirective = {
         })
         const elContainer = document.createElement('div')
         render(vm, elContainer)
-        elContainer.setAttribute('style', 'position: absolute; left: 0; right: 0; top: 0; bottom: 0; display: flex; align-items: center; justify-content: center; z-index: 100; background: rgba(255, 255, 255, .65)')
+        elContainer.setAttribute(
+            'style',
+            'position: absolute; left: 0; right: 0; top: 0; bottom: 0; display: flex; align-items: center; justify-content: center; z-index: 100; background: rgba(255, 255, 255, .65)'
+        )
         el[INSTANCE_KEY] = elContainer
         if (binding?.value) {
             append(el)
@@ -35,9 +38,10 @@ const loadingDirective = {
     },
 }
 
-
 export function setupLoadingDirective(app) {
     app.directive('loading', loadingDirective)
+
+    return app
 }
 
 export default loadingDirective
