@@ -7,8 +7,8 @@
 </template>
 
 <script>
-import {computed} from 'vue'
-import {useRouter} from 'vue-router'
+import { computed } from 'vue'
+import { useRouter } from 'vue-router'
 
 export default {
     name: 'XBreadcrumb',

@@ -9,6 +9,9 @@
 </template>
 
 <script>
+/**
+ * @property {string} tag html标签，默认：a
+ */
 export default {
     name: 'XActionButton',
     props: {

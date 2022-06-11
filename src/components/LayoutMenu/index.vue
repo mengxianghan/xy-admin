@@ -14,28 +14,31 @@
             <template v-for="item in menuList">
                 <a-menu-item v-if="!item.children"
                              :key="item.name">
-                    <menu-link :data-source="item"/>
+                    <menu-link :data-source="item" />
                 </a-menu-item>
                 <menu-sub v-else
                           :key="item.name"
-                          :data-source="item"/>
+                          :data-source="item" />
             </template>
         </a-menu>
     </div>
 </template>
 
 <script>
-import {computed, onMounted, ref, toRefs, watch} from 'vue'
-import {useStore} from 'vuex'
-import {useRoute} from 'vue-router'
-import {LOGO_URL} from '@/config'
+import { computed, onMounted, ref, toRefs, watch } from 'vue'
+import { useStore } from 'vuex'
+import { useRoute } from 'vue-router'
+import { LOGO_URL } from '@/config'
 
 import MenuLink from './MenuLink'
 import MenuSub from './MenuSub'
 
+/**
+ * @property {string} theme 主题【light=亮色，dark=暗色】，默认：dark
+ */
 export default {
     name: 'XLayoutMenu',
-    components: {MenuLink, MenuSub},
+    components: { MenuLink, MenuSub },
     props: {
         theme: {
             type: String,
@@ -45,7 +48,7 @@ export default {
     setup(props) {
         const store = useStore()
         const route = useRoute()
-        const {theme} = toRefs(props)
+        const { theme } = toRefs(props)
         const title = process.env.VUE_APP_TITLE
         const collapsed = ref(false)
         const openKeys = ref([])
@@ -67,7 +70,7 @@ export default {
          * 设置选中菜单
          */
         function setSelectedMenu() {
-            const {name, meta} = route || {}
+            const { name, meta } = route || {}
             openKeys.value = meta?.openKeys || []
             selectedKeys.value = [meta?.active ?? name]
         }
@@ -144,6 +147,7 @@ export default {
     }
 
     :deep(.x-layout-menu__badge) {
+
         .ant-badge-count,
         .ant-badge-dot {
             box-shadow: none;

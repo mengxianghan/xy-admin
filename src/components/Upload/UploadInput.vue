@@ -16,14 +16,14 @@
 </template>
 
 <script>
-import {onMounted, ref, toRefs, watch} from 'vue'
-import {Form} from 'ant-design-vue'
+import { onMounted, ref, toRefs, watch } from 'vue'
+import { Form } from 'ant-design-vue'
+
 import api from '@/api'
-import {STATUS_ENUM} from '@/components/Upload/config'
 
 /**
  * 文件上传
- * @property {string} model-value v-model
+ * @property {string} modelValue v-model
  */
 export default {
     name: 'XUploadInput',
@@ -34,11 +34,11 @@ export default {
         },
     },
     emit: ['update:modelValue'],
-    setup(props, {emit}) {
-        const {modelValue} = toRefs(props)
+    setup(props, { emit }) {
+        const { modelValue } = toRefs(props)
         const loading = ref(false)
         const currentValue = ref('')
-        const {onFieldChange} = Form.useInjectFormItemContext()
+        const { onFieldChange } = Form.useInjectFormItemContext()
 
         watch(() => modelValue.value, (val) => {
             currentValue.value = val
@@ -61,9 +61,9 @@ export default {
          * @param info
          */
         async function customRequest(info) {
-            const {file} = info
+            const { file } = info
             loading.value = true
-            const {code, data} = await api.common.upload({
+            const { code, data } = await api.common.upload({
                 file,
             })
             loading.value = false

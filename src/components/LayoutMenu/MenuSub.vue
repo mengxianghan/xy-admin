@@ -29,6 +29,9 @@
 <script>
 import MenuLink from './MenuLink'
 
+/**
+ * @property {object} dataSource
+ */
 export default {
     name: 'MenuSub',
     components: {MenuLink},

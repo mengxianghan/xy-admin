@@ -1,24 +1,24 @@
 <template>
     <div class="x-upload x-upload-image"
          :class="{
-            'x-upload--round': round
+             'x-upload--round': round
          }">
         <a-upload v-if="showUploadBtn"
                   :show-upload-list="false"
                   :multiple="multiple"
                   :before-upload="onBeforeUpload"
-                  :custom-request="({file})=>customRequest(file)"
+                  :custom-request="({ file }) => customRequest(file)"
                   :accept="accept"
                   :disabled="disabled">
             <slot v-if="$slots.default"></slot>
             <template v-else>
                 <div class="x-upload-btn"
                      :style="{
-                        width: `${width}px`,
-                        height: `${height}px`
-                    }">
+                         width: `${width}px`,
+                         height: `${height}px`
+                     }">
                     <component :is="icon"
-                               class="x-upload-btn__icon"/>
+                               class="x-upload-btn__icon" />
                     <div v-if="text"
                          class="x-upload-btn__txt">
                         {{ text }}
@@ -26,7 +26,7 @@
                 </div>
             </template>
         </a-upload>
-        <div v-for="(item,index) in list"
+        <div v-for="(item, index) in list"
              :key="item.key"
              class="x-upload-item"
              :class="{
@@ -42,12 +42,12 @@
                     <div v-if="STATUS_ENUM.is('done', item.status)"
                          class="x-upload-action"
                          @click="handlePreview(item)">
-                        <icon-eye-outlined/>
+                        <icon-eye-outlined />
                     </div>
                     <div v-if="!disabled"
                          class="x-upload-action"
                          @click="handleRemove(index)">
-                        <icon-delete-outlined/>
+                        <icon-delete-outlined />
                     </div>
                 </div>
             </template>
@@ -57,7 +57,7 @@
                         <div>{{ item.percent }}%</div>
                         <a-progress :show-info="false"
                                     :stroke-width="4"
-                                    :percent="item.percent"/>
+                                    :percent="item.percent" />
                     </template>
                     <template v-if="STATUS_ENUM.is('wait', item.status)">
                         <div>{{ STATUS_ENUM.getDesc(item.status) }}</div>
@@ -74,15 +74,15 @@
                    ref="cropperModalRef"
                    :aspect-ratio="aspectRatio"
                    :quality="quality"
-                   @ok="(file)=>customRequest(file)"/>
+                   @ok="(file) => customRequest(file)" />
 </template>
 
 <script>
-import {computed, onMounted, ref, toRefs, watch} from 'vue'
-import {STATUS_ENUM} from './config'
-import {mergeDeep} from '@/utils'
-import {v4 as uuidv4} from 'uuid'
-import {Form, message} from 'ant-design-vue'
+import { computed, onMounted, ref, toRefs, watch } from 'vue'
+import { STATUS_ENUM } from './config'
+import { mergeDeep } from '@/utils'
+import { v4 as uuidv4 } from 'uuid'
+import { Form, message } from 'ant-design-vue'
 
 import filesizeParser from 'filesize-parser'
 import filesize from 'filesize'
@@ -94,23 +94,23 @@ import CropperModal from '../CropperModal'
 
 /**
  * 图片上传
- * @property {string | array} model-value v-model
+ * @property {string | array} modelValue v-model
  * @property {boolean} multiple 批量上传，默认：false
  * @property {number} width 宽，默认：120，单位：px
  * @property {number} height 高，默认：120，单位：px
  * @property {string} icon 图标
  * @property {string} text 文案
- * @property {string | number} max-size 最大限制，默认：2M
+ * @property {string | number} maxSize 最大限制，默认：2M
  * @property {string} accept 允许上传文件类型，默认：image/*
  * @property {boolean} disabled 禁用，默认：false
  * @property {boolean} round 圆角
  * @property {boolean} cropper 裁剪，仅支持单文件上传，默认：false，
- * @property {number} aspect-ratio 比例，默认：自由裁剪
+ * @property {number} aspectRatio 比例，默认：自由裁剪
  * @property {number} quality 图片质量，取值范围：0-1，默认：1
  */
 export default {
     name: 'XUploadImage',
-    components: {CropperModal},
+    components: { CropperModal },
     props: {
         modelValue: {
             type: [String, Array],
@@ -165,11 +165,11 @@ export default {
             default: 1,
         },
     },
-    setup(props, {emit}) {
-        const {multiple, maxSize, modelValue, cropper} = toRefs(props)
+    setup(props, { emit }) {
+        const { multiple, maxSize, modelValue, cropper } = toRefs(props)
         const fileList = ref([])
         const queue = ref([])
-        const {onFieldChange} = Form.useInjectFormItemContext()
+        const { onFieldChange } = Form.useInjectFormItemContext()
         const cropperModalRef = ref()
 
         const list = computed(() => [...fileList.value, ...queue.value])
@@ -193,7 +193,7 @@ export default {
                     ? modelValue.value
                     : [modelValue.value]
                 : []
-            fileList.value = currentValue.map((item) => getItem({src: item}))
+            fileList.value = currentValue.map((item) => getItem({ src: item }))
         }
 
         function handlePreview(record) {
@@ -214,7 +214,7 @@ export default {
         /**
          * 取消上传
          */
-        function handleCancel({key}) {
+        function handleCancel({ key }) {
             const index = queue.value.findIndex(o => o.key === key)
             queue.value.splice(index, 1)
         }
@@ -223,10 +223,10 @@ export default {
          * 上传前
          */
         function onBeforeUpload(file) {
-            const maxFileSize = maxSize.value instanceof Number ? maxSize.value : filesizeParser(maxSize.value, {base: 10.24})
+            const maxFileSize = maxSize.value instanceof Number ? maxSize.value : filesizeParser(maxSize.value, { base: 10.24 })
             const checkFileSize = file?.size < maxFileSize
             if (!checkFileSize) {
-                message.warning(`已忽略超过 ${filesize(maxFileSize, {base: 10.24})} 的文件`)
+                message.warning(`已忽略超过 ${filesize(maxFileSize, { base: 10.24 })} 的文件`)
             }
             const checkCropper = cropper.value
                 ? multiple.value ? true : false
@@ -275,7 +275,7 @@ export default {
             const index = 0
             const record = queue.value[index]
             record.status = STATUS_ENUM.getValue('uploading')
-            const {code, data} = await api.common.upload({
+            const { code, data } = await api.common.upload({
                 file: record?.file,
             })
             if (200 === code) {
@@ -345,6 +345,7 @@ export default {
     gap: @margin-sm;
 
     &--round {
+
         .x-upload-btn,
         .x-upload-item {
             border-radius: @border-radius-round;

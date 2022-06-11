@@ -13,10 +13,10 @@
                           shape="circle"
                           class="fs-12"
                           @click="handleAdd">
-                    <icon-plus-outlined/>
+                    <icon-plus-outlined />
                 </a-button>
             </template>
-            <template #default="{text, record, index}">
+            <template #default="{ text, record, index }">
                 <div class="action">
                     <span class="action__txt">{{ index + 1 }}</span>
                     <a-button size="small"
@@ -24,7 +24,7 @@
                               shape="circle"
                               class="fs-12 action__btn"
                               @click="handleDelete(index)">
-                        <icon-delete-outlined/>
+                        <icon-delete-outlined />
                     </a-button>
                 </div>
             </template>
@@ -34,14 +34,14 @@
 </template>
 
 <script>
-import {onMounted, ref, toRefs, watch} from 'vue'
+import { onMounted, ref, toRefs, watch } from 'vue'
 
 import cloneDeep from 'lodash/cloneDeep'
 
 /**
  * 表单表格
- * @property {array} model-value v-model
- * @property {object} row-tpl 行模板
+ * @property {array} modelValue v-model
+ * @property {object} rowTpl 行模板
  */
 export default {
     name: 'XFormTable',
@@ -56,8 +56,8 @@ export default {
         },
     },
     emits: ['update:modelValue'],
-    setup(props, {emit}) {
-        const {modelValue, rowTpl} = toRefs(props)
+    setup(props, { emit }) {
+        const { modelValue, rowTpl } = toRefs(props)
         const list = ref([])
 
         watch(list,

@@ -8,9 +8,9 @@
 </template>
 
 <script>
-import {findTree, mapping} from '@/utils'
-import {onMounted, ref, toRefs, watch} from 'vue'
-import {message, Form} from 'ant-design-vue'
+import { findTree, mapping } from '@/utils'
+import { onMounted, ref, toRefs, watch } from 'vue'
+import { message, Form } from 'ant-design-vue'
 
 import last from 'lodash/last'
 import pick from 'lodash/pick'
@@ -18,7 +18,7 @@ import api from '@/api'
 
 /**
  * 地区联动
- * @property {array} model-value v-model
+ * @property {array} modelValue v-model
  * @property {string} placeholder
  */
 export default {
@@ -34,12 +34,12 @@ export default {
         },
     },
     emits: ['change', 'update:modelValue'],
-    setup(props, {emit}) {
-        const {modelValue} = toRefs(props)
+    setup(props, { emit }) {
+        const { modelValue } = toRefs(props)
         const maxLevel = ref(3)
         const options = ref([])
         const currentValue = ref([])
-        const {onFieldChange} = Form.useInjectFormItemContext()
+        const { onFieldChange } = Form.useInjectFormItemContext()
 
         watch(() => modelValue.value, (val) => {
             if (val !== currentValue.value) {
@@ -70,7 +70,7 @@ export default {
                         (item) => {
                             targetOption = item
                         },
-                        {key: 'value', children: 'children'},
+                        { key: 'value', children: 'children' },
                     )
                     targetOption.loading = true
                 }
@@ -91,7 +91,7 @@ export default {
                     .catch(() => {
                         throw new Error('请求失败')
                     })
-                const {code, data} = result
+                const { code, data } = result
                 if (targetOption) {
                     targetOption.loading = false
                 }
@@ -136,12 +136,12 @@ export default {
          */
         function getRegionList(params) {
             return new Promise(async (resolve, reject) => {
-                const {code, data} = await api.common.getRegionList(params)
-                                              .catch(() => {
-                                                  reject()
-                                              })
+                const { code, data } = await api.common.getRegionList(params)
+                    .catch(() => {
+                        reject()
+                    })
                 if (200 === code) {
-                    const {rows} = data
+                    const { rows } = data
                     resolve({
                         code,
                         data: mapping(rows, {
