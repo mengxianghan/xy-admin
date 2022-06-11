@@ -1,24 +1,20 @@
-import {useSessionStorage} from '@/utils/storage'
-import {STORAGE_IS_LOGIN, STORAGE_USER_INFO, STORAGE_TOKEN, STORAGE_PERMISSION} from '@/config/const'
+import { useSessionStorage } from '@/utils/storage'
+import { STORAGE_IS_LOGIN, STORAGE_USER_INFO, STORAGE_TOKEN, STORAGE_PERMISSION } from '@/config/index'
 
 import api from '@/api'
 
 const state = {
-    isLogin: useSessionStorage()
-        .get(STORAGE_IS_LOGIN, false),
-    userInfo: useSessionStorage()
-        .get(STORAGE_USER_INFO, null),
-    token: useSessionStorage()
-        .get(STORAGE_TOKEN, ''),
-    permission: useSessionStorage()
-        .get(STORAGE_PERMISSION, []),
+    isLogin: useSessionStorage().get(STORAGE_IS_LOGIN, false),
+    userInfo: useSessionStorage().get(STORAGE_USER_INFO, null),
+    token: useSessionStorage().get(STORAGE_TOKEN, ''),
+    permission: useSessionStorage().get(STORAGE_PERMISSION, []),
 }
 
 const getters = {
-    isLogin: state => state.isLogin,
-    userInfo: state => state.userInfo,
-    token: state => state.token,
-    permission: state => state.permission,
+    isLogin: (state) => state.isLogin,
+    userInfo: (state) => state.userInfo,
+    token: (state) => state.token,
+    permission: (state) => state.permission,
 }
 
 const mutations = {
@@ -30,11 +26,7 @@ const mutations = {
      */
     SET_IS_LOGIN(state, isLogin = false) {
         state.isLogin = isLogin
-        isLogin
-            ? useSessionStorage()
-                .set(STORAGE_IS_LOGIN, isLogin)
-            : useSessionStorage()
-                .remove(STORAGE_IS_LOGIN)
+        isLogin ? useSessionStorage().set(STORAGE_IS_LOGIN, isLogin) : useSessionStorage().remove(STORAGE_IS_LOGIN)
     },
     /**
      * 设置用户信息
@@ -44,11 +36,7 @@ const mutations = {
      */
     SET_USER_INFO(state, userInfo = null) {
         state.userInfo = userInfo
-        userInfo
-            ? useSessionStorage()
-                .set(STORAGE_USER_INFO, userInfo)
-            : useSessionStorage()
-                .remove(STORAGE_USER_INFO)
+        userInfo ? useSessionStorage().set(STORAGE_USER_INFO, userInfo) : useSessionStorage().remove(STORAGE_USER_INFO)
     },
     /**
      * 设置 token
@@ -58,11 +46,7 @@ const mutations = {
      */
     SET_TOKEN(state, token = '') {
         state.token = token
-        token
-            ? useSessionStorage()
-                .set(STORAGE_TOKEN, token)
-            : useSessionStorage()
-                .remove(STORAGE_TOKEN)
+        token ? useSessionStorage().set(STORAGE_TOKEN, token) : useSessionStorage().remove(STORAGE_TOKEN)
     },
     /**
      * 设置权限列表
@@ -73,10 +57,8 @@ const mutations = {
     SET_PERMISSION(state, permission = null) {
         state.permission = permission
         permission
-            ? useSessionStorage()
-                .set(STORAGE_PERMISSION, permission)
-            : useSessionStorage()
-                .remove(STORAGE_PERMISSION)
+            ? useSessionStorage().set(STORAGE_PERMISSION, permission)
+            : useSessionStorage().remove(STORAGE_PERMISSION)
     },
 }
 
@@ -88,15 +70,14 @@ const actions = {
      * @param {string} password
      * @returns {Promise<unknown>}
      */
-    login({commit, dispatch, rootState}, params) {
+    login({ commit, dispatch, rootState }, params) {
         return new Promise(async (resolve, reject) => {
-            const result = await api.user.login(params)
-                                    .catch(() => {
-                                        reject()
-                                    })
-            const {code, data} = result
+            const result = await api.user.login(params).catch(() => {
+                reject()
+            })
+            const { code, data } = result
             if (200 === code) {
-                const {token, ...others} = data
+                const { token, ...others } = data
                 commit('SET_USER_INFO', others)
                 commit('SET_TOKEN', token)
                 commit('SET_IS_LOGIN', true)
@@ -108,12 +89,12 @@ const actions = {
      * 退出登录
      * @param commit
      */
-    logout({commit}) {
+    logout({ commit }) {
         return new Promise((resolve) => {
             commit('SET_IS_LOGIN', false)
             commit('SET_TOKEN', '')
             commit('SET_USER_INFO', null)
-            commit('app/SET_COMPLETE', false, {root: true})
+            commit('app/SET_COMPLETE', false, { root: true })
             resolve()
         })
     },

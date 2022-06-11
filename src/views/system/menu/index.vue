@@ -1,149 +1,144 @@
 <template>
-    <a-row :gutter="16"
-           type="flex"
-           class="hp-100">
-        <a-col flex="0 0 300px">
-            <menu-tree @select="onMenuSelect"
-                       @ready="onMenuReady"></menu-tree>
-        </a-col>
-        <template v-if="!menuInfo">
-            <a-col flex="1">
-                <a-card type="flex">
-                    <a-empty description="请选择菜单"></a-empty>
-                </a-card>
-            </a-col>
-        </template>
-        <template v-else>
-            <a-col flex="1">
-                <a-card :title="menuInfo.name"
-                        type="flex">
-                    <a-form :model="formState"
-                            :label-col="{style:{width: '100px'}}">
-                        <a-form-item label="名称"
-                                     name="name">
-                            <a-input v-model:value="formState.name"></a-input>
-                        </a-form-item>
-                        <a-form-item label="所属上级">
-                            <a-tree-select v-model:value="formState.parent_id"
-                                           :tree-data="menuList"
-                                           :field-names="{children: 'children', label: 'name', key: 'key', value: 'key'}"
-                                           tree-default-expand-all></a-tree-select>
-                        </a-form-item>
-                        <a-form-item label="类型"
-                                     name="type">
-                            <a-radio-group v-model:value="formState.type"
-                                           :options="[
-                                           {label: '菜单', value: 1},
-                                           {label: 'iframe', value: 2},
-                                           {label: '外链', value: 3},
-                                       ]"></a-radio-group>
-                        </a-form-item>
-                        <a-form-item label="别名"
-                                     name="alias"
-                                     extra="系统唯一且与内置组件名一致，否则导致缓存失效">
-                            <a-input v-model:value="formState.alias"></a-input>
-                        </a-form-item>
-                        <a-form-item label="图标"
-                                     name="icon">
-                            <a-input v-model:value="formState.icon"></a-input>
-                        </a-form-item>
-                        <a-form-item label="路由地址"
-                                     name="path">
-                            <a-input v-model:value="formState.path"></a-input>
-                        </a-form-item>
-                        <a-form-item label="重定向"
-                                     name="redirect">
-                            <a-input v-model:value="formState.redirect"></a-input>
-                        </a-form-item>
-                        <a-form-item label="菜单高亮"
-                                     name="active"
-                                     extra="子节点或详情页需要高亮的上级菜单别名">
-                            <a-input v-model:value="formState.active"></a-input>
-                        </a-form-item>
-                        <a-form-item label="隐藏"
-                                     name="is_menu"
-                                     extra="不显示在导航中，但依然可以访问，例如详情页">
-                            <a-switch v-model:checked="formState.is_menu"></a-switch>
-                        </a-form-item>
-                        <a-form-item label="&nbsp;"
-                                     :colon="false">
-                            <a-button type="primary">保存</a-button>
-                        </a-form-item>
-                    </a-form>
-                </a-card>
-            </a-col>
-            <a-col flex="1">
-                <a-card title="权限按钮"
-                        type="flex">
-                    <x-form-table v-model="authList"
-                                  :row-tpl="{name: '', alias: ''}"
-                                  bordered>
-                        <a-table-column title="名称"
-                                        data-index="name">
-                            <template #default="{record}">
-                                <a-input v-model:value="record.name"/>
+    <a-card>
+        <x-action-bar class="mb-8-2">
+            <a-button type="primary"
+                      @click="$refs.editRef.handleCreate()">
+                <template #icon>
+                    <icon-plus-outlined/>
+                </template>
+                新建菜单
+            </a-button>
+        </x-action-bar>
+
+        <a-table :columns="columns"
+                 :data-source="list"
+                 :loading="loading"
+                 :pagination="false"
+                 :expand-icon-column-index="1">
+            <template #bodyCell="{column, record, index}">
+                <template v-if="'no' === column.key">
+                    {{ index + 1 }}
+                </template>
+                <template v-if="'type' === column.key">
+                    <!--菜单-->
+                    <a-tag v-if="MENU_TYPE_ENUM.is('menu', record.type)"
+                           color="processing">{{ MENU_TYPE_ENUM.getDesc(record.type) }}
+                    </a-tag>
+                    <!--按钮-->
+                    <a-tag v-if="MENU_TYPE_ENUM.is('button', record.type)"
+                           color="success">{{ MENU_TYPE_ENUM.getDesc(record.type) }}
+                    </a-tag>
+                </template>
+                <template v-if="'action' === column.key">
+                    <x-action-button @click="$refs.editRef.handleEdit(record)">新建下级</x-action-button>
+                    <x-action-button @click="$refs.editRef.handleEdit(record)">编辑</x-action-button>
+                    <x-action-button tag="span">
+                        <a-dropdown :trigger="['click']">
+                            <a>
+                                更多
+                                <icon-down-outlined/>
+                            </a>
+                            <template #overlay>
+                                <a-menu>
+                                    <a-menu-item @click="handleDelete(record)">删除</a-menu-item>
+                                    <a-menu-item>克隆</a-menu-item>
+                                </a-menu>
                             </template>
-                        </a-table-column>
-                        <a-table-column title="标识"
-                                        data-index="alias">
-                            <template #default="{record}">
-                                <a-input v-model:value="record.alias"/>
-                            </template>
-                        </a-table-column>
-                    </x-form-table>
-                </a-card>
-            </a-col>
-        </template>
-    </a-row>
+                        </a-dropdown>
+                    </x-action-button>
+                </template>
+            </template>
+        </a-table>
+    </a-card>
+
+    <edit ref="editRef"/>
 </template>
 
 <script>
-import {ref} from 'vue'
-import cloneDeep from 'lodash/cloneDeep'
-import useForm from '@/hooks/useForm'
+import {onMounted, ref} from 'vue'
+import {MENU_TYPE_ENUM} from '@/enums/system'
+import {message, Modal} from 'ant-design-vue'
 
-import MenuTree from './components/MenuTree'
+import api from '@/api'
+import usePagination from '@/hooks/usePagination'
+
+import Edit from './components/Edit'
 
 export default {
     name: 'systemMenu',
-    components: {MenuTree},
+    components: {Edit},
     setup() {
-        const {formState} = useForm()
-        const authList = ref([
-            {name: '新增', alias: 'insert'},
+        const columns = ref([
+            {title: '#', key: 'no', width: 60, align: 'center'},
+            {title: '名称', dataIndex: 'name'},
+            {title: '类型', dataIndex: 'type', key: 'type', width: 120},
+            {title: '排序', dataIndex: 'sort', width: 80},
+            {title: '操作', key: 'action', width: 240},
         ])
-        const menuList = ref([])
-        const menuInfo = ref(null)
+        const {list, loading} = usePagination()
+        const editRef = ref()
+
+        onMounted(() => {
+            getUserRoleList()
+        })
 
         /**
-         * 选中菜单
-         * @param info
+         * 获取用户角色列表
+         * @return {Promise<void>}
          */
-        function onMenuSelect(info) {
-            menuInfo.value = cloneDeep(info)
+        async function getUserRoleList() {
+            try {
+                loading.value = true
+                const {code, data} = await api.system.getMenuList()
+                                              .catch(() => {
+                                                  throw new Error()
+                                              })
+                loading.value = false
+                if (200 === code) {
+                    const {rows} = data
+                    list.value = rows
+                }
+            } catch (err) {
+                loading.value = false
+            }
         }
 
         /**
-         * 菜单准备完成
-         * @param info
+         * 删除
+         * @param id
          */
-        function onMenuReady(info) {
-            menuList.value = [{name: '顶级菜单', key: 0}, ...info]
+        function handleDelete({id}) {
+            Modal.confirm({
+                title: '删除提示',
+                content: '确认删除？',
+                onOk: async () => {
+                    loading.value = true
+                    const {code} = await api.common.deleteData({id})
+                                            .catch(() => {
+                                                loading.value = false
+                                            })
+                    if (200 === code) {
+                        message.success('删除成功')
+                        await getPageList()
+                    } else {
+                        loading.value = false
+                    }
+                },
+            })
         }
 
         return {
-            formState,
-            authList,
-            menuList,
-            menuInfo,
-            onMenuSelect,
-            onMenuReady,
+            MENU_TYPE_ENUM,
+            columns,
+            list,
+            loading,
+            editRef,
+            handleDelete,
         }
     },
 }
 </script>
 
-<style lang="less"
-       scoped>
+<style scoped>
 
 </style>

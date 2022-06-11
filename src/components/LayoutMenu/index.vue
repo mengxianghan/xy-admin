@@ -2,7 +2,7 @@
     <div class="x-layout-menu"
          :class="classes">
         <div class="x-layout-menu__brand">
-            <img src="images/logo.svg">
+            <img :src="LOGO_URL">
             <h1>{{ title }}</h1>
         </div>
         <a-menu mode="inline"
@@ -28,6 +28,7 @@
 import {computed, onMounted, ref, toRefs, watch} from 'vue'
 import {useStore} from 'vuex'
 import {useRoute} from 'vue-router'
+import {LOGO_URL} from '@/config'
 
 import MenuLink from './MenuLink'
 import MenuSub from './MenuSub'
@@ -85,6 +86,7 @@ export default {
         }
 
         return {
+            LOGO_URL,
             title,
             collapsed,
             openKeys,

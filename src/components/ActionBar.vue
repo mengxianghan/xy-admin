@@ -67,6 +67,9 @@ export default {
                 margin-left: @margin-sm;
             }
         }
+        :deep(.ant-form-inline .ant-form-item) {
+            margin-bottom: 0 !important;
+        }
     }
 
     &__extra {
