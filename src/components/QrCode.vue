@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import {ref, toRefs, onMounted, watch} from 'vue'
+import { ref, toRefs, onMounted, watch } from 'vue'
 
 import QRcode from 'qrcodejs2'
 
@@ -55,8 +55,9 @@ export default {
             default: 2,
         },
     },
-    setup(props) {
-        const {text, size, logo, logoSize, logoPadding, colorDark, colorLight, correctLevel} = toRefs(props)
+    emit: ['ready'],
+    setup(props, { emit }) {
+        const { text, size, logo, logoSize, logoPadding, colorDark, colorLight, correctLevel } = toRefs(props)
         const qrcode = ref(null)
         const imgRef = ref()
 
@@ -123,6 +124,7 @@ export default {
                 await drawLogo()
             }
             imgRef.value.src = qrcode.value.getElementsByTagName('canvas')[0].toDataURL('image/png')
+            emit('ready')
         }
 
         return {
@@ -133,5 +135,4 @@ export default {
 </script>
 
 <style scoped>
-
 </style>
