@@ -41,7 +41,9 @@ export default {
         const { onFieldChange } = Form.useInjectFormItemContext()
 
         watch(() => modelValue.value, (val) => {
-            currentValue.value = val
+            if (currentValue.val != val) {
+                currentValue.value = val
+            }
         })
 
         onMounted(() => {
