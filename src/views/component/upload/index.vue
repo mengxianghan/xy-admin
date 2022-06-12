@@ -34,10 +34,11 @@
     </a-card>
 
     <a-card class="mt-8-2"
-            title="批量上传示例">
+            title="批量上传示例（支持拖拽排序）">
         <x-upload-image v-model="multipleList"
                         multiple
-                        cropper></x-upload-image>
+                        cropper
+                        dragsort></x-upload-image>
     </a-card>
 
     <a-card class="mt-8-2"
@@ -53,7 +54,7 @@
            class="mt-8-2">
         <a-col :span="12">
             <a-card title="表单示例">
-                <a-form :label-col="{style: {width: '100px'}}"
+                <a-form :label-col="{ style: { width: '100px' } }"
                         :model="formState"
                         :rules="rules"
                         ref="formRef">
@@ -89,7 +90,7 @@
                                  name="field4">
                         <a-date-picker v-model:value="formState.field4"></a-date-picker>
                     </a-form-item>
-                    <a-form-item :style="{paddingLeft: '100px'}">
+                    <a-form-item :style="{ paddingLeft: '100px' }">
                         <a-space>
                             <a-button type="primary"
                                       @click="handleSubmit">提交
@@ -109,7 +110,7 @@
 </template>
 
 <script>
-import {ref} from 'vue'
+import { ref } from 'vue'
 
 import useForm from '@/hooks/useForm'
 
@@ -122,22 +123,22 @@ export default {
         const cropper = ref('')
         const round = ref('')
         const multipleList = ref([])
-        const {formState, rules, formRef, resetForm} = useForm()
+        const { formState, rules, formRef, resetForm } = useForm()
 
         rules.value = {
-            field1: {required: true, message: '请上传人像面'},
-            field2: {required: true, message: '请上传国徽面'},
-            field5: {required: true, message: '请上传文件'},
+            field1: { required: true, message: '请上传人像面' },
+            field2: { required: true, message: '请上传国徽面' },
+            field5: { required: true, message: '请上传文件' },
         }
 
         function handleSubmit() {
             formRef.value.validate()
-                   .then((values) => {
-                       console.log(values)
-                   })
-                   .catch(() => {
+                .then((values) => {
+                    console.log(values)
+                })
+                .catch(() => {
 
-                   })
+                })
         }
 
         function handleReset() {
