@@ -34,9 +34,7 @@
         "uuid": "^8.3.2",
         "vue": "^3.2.27",
         "vue-router": "^4.0.16",
-        "vuedraggable": "^4.1.0",
         "vuex": "^4.0.2",
-        "xlsx": "^0.18.5",
         "xy-enum": "^1.0.1",
         "xy-qiniu": "^1.0.0",
         "xy-storage": "^2.0.2"

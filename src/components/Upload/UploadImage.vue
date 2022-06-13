@@ -3,83 +3,75 @@
          :class="{
              'x-upload--round': round,
              'x-upload--disabled': disabled
-         }">
-        <draggable v-model="fileList"
-                   item-key="key"
-                   tag="transition-group"
-                   :animation="200"
-                   :disabled="dragsortDisabled"
-                   @end="onDragEnd">
-            <template #header>
-                <a-upload v-if="showUploadBtn"
-                          :show-upload-list="false"
-                          :multiple="multiple"
-                          :before-upload="onBeforeUpload"
-                          :custom-request="({ file }) => customRequest(file)"
-                          :accept="accept"
-                          :disabled="disabled">
-                    <slot v-if="$slots.default"></slot>
-                    <template v-else>
-                        <div class="x-upload-btn"
-                             :class="{
-                                 'x-upload-btn--hover': !disabled
-                             }"
-                             :style="{
-                                 width: `${width}px`,
-                                 height: `${height}px`
-                             }">
-                            <component :is="icon"
-                                       class="x-upload-btn__icon" />
-                            <div v-if="text"
-                                 class="x-upload-btn__txt">
-                                {{ text }}
-                            </div>
-                        </div>
-                    </template>
-                </a-upload>
-            </template>
-            <template #item="{ element, index }">
-                <div class="x-upload-item j-upload-item"
+         }"
+         ref="uploadImageRef">
+        <a-upload v-if="showUploadBtn"
+                  :show-upload-list="false"
+                  :multiple="multiple"
+                  :before-upload="onBeforeUpload"
+                  :custom-request="({ file }) => customRequest(file)"
+                  :accept="accept"
+                  :disabled="disabled">
+            <slot v-if="$slots.default"></slot>
+            <template v-else>
+                <div class="x-upload-btn"
                      :class="{
-                         'x-upload-item--error': STATUS_ENUM.is('error', element.status),
+                         'x-upload-btn--hover': !disabled
                      }"
                      :style="{
                          width: `${width}px`,
                          height: `${height}px`
                      }">
-                    <img :src="element.src">
-                    <template v-if="['error', 'done'].includes(STATUS_ENUM.getKey(element.status))">
-                        <div class="x-upload-actions">
-                            <div v-if="STATUS_ENUM.is('done', element.status)"
-                                 class="x-upload-action"
-                                 @click="handlePreview(element)">
-                                <icon-eye-outlined />
-                            </div>
-                            <div v-if="!disabled"
-                                 class="x-upload-action"
-                                 @click="handleRemove(index)">
-                                <icon-delete-outlined />
-                            </div>
-                        </div>
+                    <component :is="icon"
+                               class="x-upload-btn__icon" />
+                    <div v-if="text"
+                         class="x-upload-btn__txt">
+                        {{ text }}
+                    </div>
+                </div>
+            </template>
+        </a-upload>
+        <div v-for="(item, index) in fileList"
+             :key="item.key"
+             class="x-upload-item j-upload-item"
+             :class="{
+                 'x-upload-item--error': STATUS_ENUM.is('error', item.status),
+             }"
+             :style="{
+                 width: `${width}px`,
+                 height: `${height}px`
+             }">
+            <img :src="item.src">
+            <template v-if="['error', 'done'].includes(STATUS_ENUM.getKey(item.status))">
+                <div class="x-upload-actions">
+                    <div v-if="STATUS_ENUM.is('done', item.status)"
+                         class="x-upload-action"
+                         @click="handlePreview(item)">
+                        <icon-eye-outlined />
+                    </div>
+                    <div v-if="!disabled"
+                         class="x-upload-action"
+                         @click="handleRemove(index)">
+                        <icon-delete-outlined />
+                    </div>
+                </div>
+            </template>
+            <template v-else>
+                <div class="x-upload-status">
+                    <template v-if="STATUS_ENUM.is('uploading', item.status)">
+                        <div>{{ item.percent }}%</div>
+                        <a-progress :show-info="false"
+                                    :stroke-width="4"
+                                    :percent="item.percent" />
                     </template>
-                    <template v-else>
-                        <div class="x-upload-status">
-                            <template v-if="STATUS_ENUM.is('uploading', element.status)">
-                                <div>{{ element.percent }}%</div>
-                                <a-progress :show-info="false"
-                                            :stroke-width="4"
-                                            :percent="element.percent" />
-                            </template>
-                            <template v-if="STATUS_ENUM.is('wait', element.status)">
-                                <div>{{ STATUS_ENUM.getDesc(element.status) }}</div>
-                                <span class="x-upload-action"
-                                      @click="handleCancel(element)">取消上传</span>
-                            </template>
-                        </div>
+                    <template v-if="STATUS_ENUM.is('wait', item.status)">
+                        <div>{{ STATUS_ENUM.getDesc(item.status) }}</div>
+                        <span class="x-upload-action"
+                              @click="handleCancel(item)">取消上传</span>
                     </template>
                 </div>
             </template>
-        </draggable>
+        </div>
     </div>
 
     <!--裁剪-->
@@ -97,6 +89,7 @@ import { mergeDeep } from '@/utils'
 import { v4 as uuidv4 } from 'uuid'
 import { Form, message } from 'ant-design-vue'
 
+import Sortable from 'sortablejs'
 import filesizeParser from 'filesize-parser'
 import filesize from 'filesize'
 import some from 'lodash/some'
@@ -104,7 +97,6 @@ import findIndex from 'lodash/findIndex'
 import includes from 'lodash/includes'
 import api from '@/api'
 
-import Draggable from 'vuedraggable'
 import Preview from '../Preview'
 import CropperModal from '../CropperModal'
 
@@ -127,7 +119,7 @@ import CropperModal from '../CropperModal'
  */
 export default {
     name: 'XUploadImage',
-    components: { CropperModal, Draggable },
+    components: { CropperModal },
     props: {
         modelValue: {
             type: [String, Array],
@@ -193,6 +185,8 @@ export default {
 
         const fileList = ref([])
         const cropperModalRef = ref()
+        const uploadImageRef = ref()
+        const sortable = ref(null)
 
         const loading = computed(() => fileList.value.some(o => STATUS_ENUM.is('uploading', o.status)))
         const showUploadBtn = computed(() => multiple.value || !fileList.value.length)
@@ -202,8 +196,14 @@ export default {
             init()
         })
 
+
+        watch(() => dragsortDisabled.value, (val) => {
+            initDragSort()
+        })
+
         onMounted(() => {
             init()
+            initDragSort()
         })
 
         function init() {
@@ -229,6 +229,26 @@ export default {
             } else {
                 fileList.value = []
             }
+        }
+
+        /**
+         * 初始化拖拽排序
+         */
+        function initDragSort() {
+            if (sortable.value) {
+                sortable.value.destroy()
+                sortable.value = null
+            }
+            sortable.value = Sortable.create(uploadImageRef.value, {
+                handle: '.j-upload-item',
+                animation: 200,
+                disabled: dragsortDisabled.value,
+                onEnd: ({ newIndex, oldIndex }) => {
+                    const dragData = fileList.value.splice(oldIndex - 1, 1)[0]
+                    fileList.value.splice(newIndex - 1, 0, dragData)
+                    trigger()
+                }
+            })
         }
 
         /**
@@ -329,7 +349,7 @@ export default {
                 // 上传进度，真实接口可改为真实数据
                 record.percent = 100
                 record.status = STATUS_ENUM.getValue('done')
-                record.src = data?.src
+                // record.src = data?.src
                 trigger()
                 await doUpload()
             }
@@ -371,8 +391,8 @@ export default {
             STATUS_ENUM,
             fileList,
             showUploadBtn,
-            dragsortDisabled,
             cropperModalRef,
+            uploadImageRef,
             multiple,
             handlePreview,
             handleRemove,
@@ -387,142 +407,142 @@ export default {
 
 <style lang="less"
        scoped>
-.x-upload {
-    display: flex;
-    flex-wrap: wrap;
-    gap: @margin-sm;
-
-    // 圆角
-    &--round {
-
-        .x-upload-btn,
-        .x-upload-item {
-            border-radius: @border-radius-round;
-        }
-    }
-
-    // 禁用
-    &--disabled {
-        .x-upload-btn {
-            opacity: .5;
-            cursor: not-allowed;
-        }
-    }
-
-    &-btn {
-        border: @border-color-base dashed 1px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
-        transition: all .2s;
-
-        &--hover {
-            &:hover {
-                border-color: @primary-color;
-                color: @primary-color;
-            }
-        }
-
-        &__icon {
-            font-size: 20px;
-        }
-
-        &__txt {
-            margin: @margin-xss 0 0;
-        }
-    }
-
-    &-item {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        position: relative;
-        overflow: hidden;
-        background: @background-color-base;
-        border-radius: @border-radius-base;
-
-        img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        &:hover {
-            .x-upload-actions {
-                opacity: 1;
-            }
-        }
-
-        &--error {
-            &::before {
-                position: absolute;
-                content: '';
-                width: 100%;
-                height: 100%;
-                border: @error-color dashed 1px;
-                z-index: 2;
-                pointer-events: none;
-            }
-        }
-    }
-
-    &-actions {
-        position: absolute;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 4px;
-        width: 100%;
-        height: 100%;
-        left: 0;
-        top: 0;
-        background: rgba(0, 0, 0, .25);
-        opacity: 0;
-        transition: all .15s;
-    }
-
-    &-action {
-        min-width: 24px;
-        height: 24px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: #fff;
-        border-radius: 2px;
-        cursor: pointer;
-        background: rgba(0, 0, 0, .25);
-        transition: all .15s;
-        font-size: 12px;
-        padding: 0 4px;
-
-        &:hover {
-            background: rgba(0, 0, 0, .5);
-        }
-    }
-
-    &-status {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        left: 0;
-        top: 0;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        background: rgba(0, 0, 0, .25);
-        padding: 0 16px;
-        color: #fff;
-
-        &--error {
-            color: @error-color;
-        }
-
-        &--done {
-            color: @success-color;
-        }
-    }
-}
-</style>
+       .x-upload {
+           display: flex;
+           flex-wrap: wrap;
+           gap: @margin-sm;
+       
+           // 圆角
+           &--round {
+       
+               .x-upload-btn,
+               .x-upload-item {
+                   border-radius: @border-radius-round;
+               }
+           }
+       
+           // 禁用
+           &--disabled {
+               .x-upload-btn {
+                   opacity: .5;
+                   cursor: not-allowed;
+               }
+           }
+       
+           &-btn {
+               border: @border-color-base dashed 1px;
+               display: flex;
+               flex-direction: column;
+               align-items: center;
+               justify-content: center;
+               cursor: pointer;
+               transition: all .2s;
+       
+               &--hover {
+                   &:hover {
+                       border-color: @primary-color;
+                       color: @primary-color;
+                   }
+               }
+       
+               &__icon {
+                   font-size: 20px;
+               }
+       
+               &__txt {
+                   margin: @margin-xss 0 0;
+               }
+           }
+       
+           &-item {
+               display: flex;
+               align-items: center;
+               justify-content: center;
+               position: relative;
+               overflow: hidden;
+               background: @background-color-base;
+               border-radius: @border-radius-base;
+       
+               img {
+                   width: 100%;
+                   height: 100%;
+                   object-fit: cover;
+               }
+       
+               &:hover {
+                   .x-upload-actions {
+                       opacity: 1;
+                   }
+               }
+       
+               &--error {
+                   &::before {
+                       position: absolute;
+                       content: '';
+                       width: 100%;
+                       height: 100%;
+                       border: @error-color dashed 1px;
+                       z-index: 2;
+                       pointer-events: none;
+                   }
+               }
+           }
+       
+           &-actions {
+               position: absolute;
+               display: flex;
+               align-items: center;
+               justify-content: center;
+               gap: 4px;
+               width: 100%;
+               height: 100%;
+               left: 0;
+               top: 0;
+               background: rgba(0, 0, 0, .25);
+               opacity: 0;
+               transition: all .15s;
+           }
+       
+           &-action {
+               min-width: 24px;
+               height: 24px;
+               display: flex;
+               align-items: center;
+               justify-content: center;
+               color: #fff;
+               border-radius: 2px;
+               cursor: pointer;
+               background: rgba(0, 0, 0, .25);
+               transition: all .15s;
+               font-size: 12px;
+               padding: 0 4px;
+       
+               &:hover {
+                   background: rgba(0, 0, 0, .5);
+               }
+           }
+       
+           &-status {
+               position: absolute;
+               width: 100%;
+               height: 100%;
+               left: 0;
+               top: 0;
+               display: flex;
+               flex-direction: column;
+               align-items: center;
+               justify-content: center;
+               background: rgba(0, 0, 0, .25);
+               padding: 0 16px;
+               color: #fff;
+       
+               &--error {
+                   color: @error-color;
+               }
+       
+               &--done {
+                   color: @success-color;
+               }
+           }
+       }
+       </style>
