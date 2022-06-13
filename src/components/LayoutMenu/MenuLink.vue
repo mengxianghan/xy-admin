@@ -30,6 +30,9 @@
 </template>
 
 <script>
+/**
+ * @property {object} dataSource
+ */
 export default {
     name: 'MenuLink',
     props: {

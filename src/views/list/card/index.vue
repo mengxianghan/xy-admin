@@ -2,13 +2,13 @@
     <a-list :data-source="list"
             :grid="{ gutter: 16, sm: 1, md: 2, lg: 4, xl: 4, xxl: 6 }"
             :loading="loading">
-        <template #renderItem="{item}">
+        <template #renderItem="{ item }">
             <template v-if="!item.id">
                 <a-list-item>
-                    <a-card :body-style="{padding: 0}">
+                    <a-card :body-style="{ padding: 0 }">
                         <a-button type="dashed"
                                   class="create-btn">
-                            <icon-plus-outlined/>
+                            <icon-plus-outlined />
                             新增
                         </a-button>
                     </a-card>
@@ -19,18 +19,18 @@
                     <a-card>
                         <a-card-meta :title="item.title">
                             <template #avatar>
-                                <a-avatar :src="item.avatar"/>
+                                <a-avatar :src="item.avatar" />
                             </template>
                             <template #description>
-                                <a-typography-paragraph :ellipsis="{rows: 3}"
-                                                        :content="item.desc"/>
+                                <a-typography-paragraph :ellipsis="{ rows: 3 }"
+                                                        :content="item.desc" />
                             </template>
                         </a-card-meta>
                         <template #actions>
-                            <icon-setting-outlined key="setting"/>
-                            <icon-edit-outlined key="edit"/>
+                            <icon-setting-outlined key="setting" />
+                            <icon-edit-outlined key="edit" />
                             <a-dropdown :trigger="['click']">
-                                <icon-ellipsis-outlined key="ellipsis"/>
+                                <icon-ellipsis-outlined key="ellipsis" />
                                 <template #overlay>
                                     <a-menu>
                                         <a-menu-item>菜单 1</a-menu-item>
@@ -48,7 +48,7 @@
 </template>
 
 <script>
-import {onMounted} from 'vue'
+import { onMounted } from 'vue'
 
 import api from '@/api'
 
@@ -57,24 +57,20 @@ import usePagination from '@/hooks/usePagination'
 export default {
     name: 'listCard',
     setup() {
-        const {loading, list} = usePagination()
+        const { loading, list } = usePagination()
 
         /**
          * 获取分页列表
          */
         const getPageList = async () => {
-            try {
-                loading.value = true
-                const {code, data} = await api.common.getPageList()
-                                              .catch(() => {
-                                                  throw new Error()
-                                              })
-                loading.value = false
-                if (200 === code) {
-                    list.value = [{}, ...data.rows]
-                }
-            } catch (err) {
-                loading.value = false
+            loading.value = true
+            const { code, data } = await api.common.getPageList()
+                .catch(() => {
+                    loading.value = false
+                })
+            loading.value = false
+            if (200 === code) {
+                list.value = [{}, ...data.rows]
             }
         }
 

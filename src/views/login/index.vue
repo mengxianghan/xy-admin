@@ -36,11 +36,11 @@
 </template>
 
 <script>
-import {ref, computed} from 'vue'
-import {useStore} from 'vuex'
-import {useRoute, useRouter} from 'vue-router'
-import {message, Modal, notification} from 'ant-design-vue'
-import {timeFix} from '@/utils'
+import { ref, computed } from 'vue'
+import { useStore } from 'vuex'
+import { useRoute, useRouter } from 'vue-router'
+import { message, Modal, notification } from 'ant-design-vue'
+import { timeFix } from '@/utils'
 
 import useForm from '@/hooks/useForm'
 
@@ -49,14 +49,14 @@ export default {
         const store = useStore()
         const router = useRouter()
         const route = useRoute()
-        const {formState, formRef, rules} = useForm()
+        const { formState, formRef, rules } = useForm()
         const title = process.env.VUE_APP_TITLE
         const loading = ref(false)
         const redirect = computed(() => decodeURIComponent(route.query?.redirect ?? ''))
 
         rules.value = {
-            username: {required: true, message: '请输入用户名'},
-            password: {required: true, message: '请输入密码'},
+            username: { required: true, message: '请输入用户名' },
+            password: { required: true, message: '请输入密码' },
         }
 
         formState.value = {
@@ -70,30 +70,26 @@ export default {
          */
         async function handleLogin() {
             formRef.value.validate()
-                   .then(async (values) => {
-                       try {
-                           loading.value = true
-                           const {code} = await store.dispatch('user/login', {
-                                                         ...values,
-                                                     })
-                                                     .catch(() => {
-                                                         throw new Error('登录失败')
-                                                     })
-                           loading.value = false
-                           if (200 === code) {
-                               // 加载完成
-                               if (store.getters['app/complete']) {
-                                   goIndex()
-                               } else {
-                                   await store.dispatch('app/init')
-                                   goIndex()
-                               }
-                           }
-                       } catch (err) {
-                           loading.value = false
-                           message.error(err.message)
-                       }
-                   })
+                .then(async (values) => {
+                    loading.value = true
+                    const { code } = await store.dispatch('user/login', {
+                        ...values,
+                    })
+                        .catch(() => {
+                            loading.value = false
+                            message.error('登录失败')
+                        })
+                    loading.value = false
+                    if (200 === code) {
+                        // 加载完成
+                        if (store.getters['app/complete']) {
+                            goIndex()
+                        } else {
+                            await store.dispatch('app/init')
+                            goIndex()
+                        }
+                    }
+                })
         }
 
         /**

@@ -12,15 +12,23 @@
 </template>
 
 <script>
-import {onMounted, ref, toRefs, watch} from 'vue'
-import {mergeDeep} from '@/utils'
-import {Form} from 'ant-design-vue'
+import { onMounted, ref, toRefs, watch } from 'vue'
+import { mergeDeep } from '@/utils'
+import { Form } from 'ant-design-vue'
 
 import Editor from '@tinymce/tinymce-vue'
 import tinymce from 'tinymce/tinymce'
+
 import 'tinymce/themes/silver'
 import 'tinymce/icons/default'
 
+/**
+ * @property {string} modelValue v-model
+ * @property {object} option 配置
+ * @property {number} height 高，默认：300
+ * @property {string} placeholder 占位文案
+ * @property {boolean} disabled 禁用，默认：false
+ */
 export default {
     name: 'XEditor',
     props: {
@@ -48,9 +56,9 @@ export default {
     components: {
         'tiny-editor': Editor,
     },
-    setup(props, {emit}) {
+    setup(props, { emit }) {
         const spinning = ref(true)
-        const {modelValue, option} = toRefs(props)
+        const { modelValue, option } = toRefs(props)
         const content = ref('')
         const opts = mergeDeep({
             language_url: 'libs/tinymce/langs/zh_CN.js',
@@ -71,7 +79,7 @@ export default {
                 })
             },
         }, option.value)
-        const {onFieldChange} = Form.useInjectFormItemContext()
+        const { onFieldChange } = Form.useInjectFormItemContext()
 
         watch(() => modelValue.value, (val) => content.value = val)
         watch(() => content.value, (val) => {

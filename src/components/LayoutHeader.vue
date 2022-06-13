@@ -9,7 +9,7 @@
                        placement="bottom"
                        class="x-layout-header__action"
                        @click="$router.back()">
-                <icon-rollback-outlined/>
+                <icon-rollback-outlined />
             </a-tooltip>
         </div>
         <div class="x-layout-header__right">
@@ -22,9 +22,9 @@
                             </template>
                         </a-avatar>-->
                         <span v-if="isLogin">{{ userInfo.username }}</span>
-                        <icon-down-outlined class="ml-8-1"/>
+                        <icon-down-outlined class="ml-8-1" />
                     </div>
-                    <a-spin/>
+                    <a-spin />
                     <template #overlay>
                         <a-menu>
                             <a-menu-item key="logout"
@@ -41,11 +41,14 @@
 </template>
 
 <script>
-import {computed, toRefs} from 'vue'
-import {useStore} from 'vuex'
-import {useRouter} from 'vue-router'
-import {Modal} from 'ant-design-vue'
+import { computed, toRefs } from 'vue'
+import { useStore } from 'vuex'
+import { useRouter } from 'vue-router'
+import { Modal } from 'ant-design-vue'
 
+/**
+ * @property {boolean} collapsed 收起状态，默认：false
+ */
 export default {
     name: 'XLayoutHeader',
     props: {
@@ -54,8 +57,8 @@ export default {
             default: false,
         },
     },
-    setup(props, {emit}) {
-        const {collapsed} = toRefs(props)
+    setup(props, { emit }) {
+        const { collapsed } = toRefs(props)
         const store = useStore()
         const router = useRouter()
         const isLogin = computed(() => store.getters['user/isLogin'])
@@ -68,11 +71,11 @@ export default {
                 cancelText: '取消',
                 onOk: () => {
                     store.dispatch('user/logout')
-                         .then(() => {
-                             router.push({
-                                 name: 'login',
-                             })
-                         })
+                        .then(() => {
+                            router.push({
+                                name: 'login',
+                            })
+                        })
                 },
             })
         }
@@ -175,5 +178,4 @@ export default {
         line-height: 1.3;
     }
 }
-
 </style>

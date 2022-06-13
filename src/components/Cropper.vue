@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import {onMounted, ref, toRefs, watch} from 'vue'
+import { onMounted, ref, toRefs, watch } from 'vue'
 
 import Cropper from 'cropperjs'
 import 'cropperjs/dist/cropper.min.css'
@@ -21,7 +21,7 @@ import 'cropperjs/dist/cropper.min.css'
 /**
  * 图片裁剪
  * @property {string} src 图片地址
- * @property {number} aspect-ratio 比例，默认：自由裁剪
+ * @property {number} aspectRatio 比例，默认：自由裁剪
  * @property {number} quality 图片质量，取值范围：0-1，默认：1
  */
 export default {
@@ -41,7 +41,7 @@ export default {
         },
     },
     setup(props) {
-        const {aspectRatio, quality} = toRefs(props)
+        const { aspectRatio, quality } = toRefs(props)
         const imgRef = ref()
         const previewRef = ref()
         const crop = ref(null)
@@ -70,7 +70,7 @@ export default {
         function getBase64(type = 'image/jpeg') {
             return new Promise((resolve) => {
                 const base64 = crop.value.getCroppedCanvas()
-                                   .toDataURL(type, quality.value)
+                    .toDataURL(type, quality.value)
                 resolve(base64)
             })
         }
@@ -99,7 +99,7 @@ export default {
             return new Promise((resolve) => {
                 crop.value.getCroppedCanvas()
                     .toBlob((blob) => {
-                        const file = new File([blob], fileName, {type})
+                        const file = new File([blob], fileName, { type })
                         resolve(file)
                     }, type, quality.value)
             })

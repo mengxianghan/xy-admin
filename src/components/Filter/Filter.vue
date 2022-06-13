@@ -13,7 +13,7 @@
         <div v-if="useButton"
              class="x-filter-footer"
              :style="{
-                paddingLeft: labelWidth ? `${labelWidth}px` : ''
+                 paddingLeft: labelWidth ? `${labelWidth}px` : ''
              }">
             <a-space>
                 <a-button type="primary"
@@ -27,8 +27,8 @@
 </template>
 
 <script>
-import {onMounted, ref, toRefs, watch, provide} from 'vue'
-import {TYPE_ENUM} from './config'
+import { onMounted, ref, toRefs, watch, provide } from 'vue'
+import { TYPE_ENUM } from './config'
 
 import cloneDeep from 'lodash/cloneDeep'
 
@@ -36,8 +36,8 @@ import FilterItem from './FilterItem'
 
 /**
  * 筛选组件
- * @property {object} model-value
- * @property {array} data-source
+ * @property {object} modelValue
+ * @property {array} dataSource
  *  @value {string} label 名称，必填
  *  @value {string} key 索引，必填，多条件不允许重复
  *  @value {string} type 筛选显示类型，默认：tag；可选值：tag=标签，input=输入框，inputRange=区间输入框，date=日期，dateRange=日期区间
@@ -46,11 +46,11 @@ import FilterItem from './FilterItem'
  *      @value {string} label 选项名称
  *      @value {string | number} value 选项值
  * @property {boolean} colon 是否显示冒号，默认：true
- * @property {boolean} use-button 使用按钮，默认：false
+ * @property {boolean} useButton 使用按钮，默认：false
  */
 export default {
     name: 'XFilter',
-    components: {FilterItem},
+    components: { FilterItem },
     props: {
         modelValue: {
             type: Object,
@@ -74,8 +74,8 @@ export default {
         },
     },
     emits: ['change', 'update:modelValue', 'ok', 'reset'],
-    setup(props, {emit}) {
-        const {dataSource, modelValue, useButton, colon, labelWidth} = toRefs(props)
+    setup(props, { emit }) {
+        const { dataSource, modelValue, useButton, colon, labelWidth } = toRefs(props)
         const list = ref({})
 
         provide('filterContext', {
@@ -98,8 +98,8 @@ export default {
          * @param tag
          */
         function handleClick(item, tag) {
-            const {multiple, key} = item
-            const {value, selected} = tag
+            const { multiple, key } = item
+            const { value, selected } = tag
             const index = list?.value?.findIndex(o => o.key === key)
             const tagIndex = item?.options?.findIndex(o => o.value === value)
             // 判断多选
@@ -147,7 +147,7 @@ export default {
         function init() {
             list.value = cloneDeep(dataSource.value)
                 .map((item) => {
-                    const {key, type, multiple, scopedSlot, options} = item
+                    const { key, type, multiple, scopedSlot, options } = item
                     // 判断是否自定义插槽
                     if (scopedSlot) {
                         // 是自定义插槽
@@ -187,7 +187,7 @@ export default {
         function getValue() {
             const value = {}
             list?.value?.forEach(item => {
-                const {key, type, multiple, scopedSlot, options} = item
+                const { key, type, multiple, scopedSlot, options } = item
                 // 判断是否自定义插槽
                 if (scopedSlot) {
                     // 是自定义插槽
@@ -200,7 +200,7 @@ export default {
                         if (multiple) {
                             // 多选
                             value[key] = item?.options?.filter(item => item.selected)
-                                             .map(item => item.value)
+                                .map(item => item.value)
                         } else {
                             // 单选
                             value[key] = item?.options?.find(o => o.selected)?.value ?? undefined

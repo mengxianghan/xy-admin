@@ -12,11 +12,11 @@ import QRcode from 'qrcodejs2'
  * @property {string} text 内容
  * @property {number} size 大小，默认：100
  * @property {string} logo logo
- * @property {number} logo-size logo 大小，默认：30
- * @property {number} logo-padding logo 间距，默认：5
- * @property {string} color-dark 背景色
- * @property {string} color-light 前景色
- * @property {number} correct-level 容错级别，默认：2
+ * @property {number} logoSize logo 大小，默认：30
+ * @property {number} logoPadding logo 间距，默认：5
+ * @property {string} colorDark 背景色
+ * @property {string} colorLight 前景色
+ * @property {number} correctLevel 容错级别，默认：2
  */
 export default {
     name: 'XQrCode',

@@ -3,7 +3,7 @@
         <a-tabs :active-key="current"
                 type="card"
                 @change="handleSwitch">
-            <a-tab-pane v-for="(item,index) in multiTabList"
+            <a-tab-pane v-for="(item, index) in multiTabList"
                         :key="index">
                 <template #tab>
                     <a-dropdown :trigger="['contextmenu']">
@@ -13,11 +13,11 @@
                                   class="x-multi-tab__reload-btn"
                                   @click.stop="handleReload(item)">
                                 <icon-reload-outlined class="ma-0"
-                                                      :spin="spin"/>
+                                                      :spin="spin" />
                             </span>
                             <span class="x-multi-tab__close-btn"
                                   @click.stop="handleClose(item)">
-                                <icon-close-outlined class="ma-0"/>
+                                <icon-close-outlined class="ma-0" />
                             </span>
                         </div>
                         <template #overlay>
@@ -50,11 +50,12 @@
 </template>
 
 <script>
-import {onMounted, computed, ref, nextTick} from 'vue'
-import {useStore} from 'vuex'
-import {useRouter, onBeforeRouteUpdate} from 'vue-router'
+import { onMounted, computed, ref } from 'vue'
+import { useStore } from 'vuex'
+import { useRouter, onBeforeRouteUpdate } from 'vue-router'
 
 import useMultiTab from '@/hooks/useMultiTab'
+
 import Sortable from 'sortablejs'
 
 export default {

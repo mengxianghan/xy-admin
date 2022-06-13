@@ -8,29 +8,29 @@
         </template>
         <template #actions>
             <div>
-                <icon-plus-outlined/>
+                <icon-plus-outlined />
                 新建菜单
             </div>
         </template>
         <a-tree v-if="!loading"
                 :selected-keys="selectedKeys"
                 :tree-data="list"
-                :field-names="{title: 'name', children: 'children', key: 'key'}"
+                :field-names="{ title: 'name', children: 'children', key: 'key' }"
                 default-expand-all
                 block-node
                 @select="handleSelect">
             <template #title="record">
                 <div class="tree-row">
                     <div class="tree-row__name">
-                            <span v-if="record.name.indexOf(keyword) > -1">
-                              {{ record.name.substr(0, record.name.indexOf(keyword)) }}
-                              <span class="color-error">{{ keyword }}</span>
-                              {{ record.name.substr(record.name.indexOf(keyword) + keyword.length) }}
-                            </span>
+                        <span v-if="record.name.indexOf(keyword) > -1">
+                            {{ record.name.substr(0, record.name.indexOf(keyword)) }}
+                            <span class="color-error">{{ keyword }}</span>
+                            {{ record.name.substr(record.name.indexOf(keyword) + keyword.length) }}
+                        </span>
                         <span v-else>{{ record.name }}</span>
                     </div>
                     <a-space class="tree-row__actions"
-                             @click.stop="()=>{}">
+                             @click.stop="() => { }">
                         <icon-plus-outlined></icon-plus-outlined>
                         <icon-delete-outlined @click="handleDelete(record)"></icon-delete-outlined>
                     </a-space>
@@ -41,8 +41,8 @@
 </template>
 
 <script>
-import {onMounted, ref} from 'vue'
-import {message, Modal} from 'ant-design-vue'
+import { onMounted, ref } from 'vue'
+import { message, Modal } from 'ant-design-vue'
 
 import api from '@/api'
 import usePagination from '@/hooks/usePagination'
@@ -50,8 +50,8 @@ import usePagination from '@/hooks/usePagination'
 export default {
     name: 'MenuTree',
     emits: ['select', 'ready'],
-    setup(props, {emit}) {
-        const {list, loading} = usePagination()
+    setup(props, { emit }) {
+        const { list, loading } = usePagination()
         const selectedKeys = ref([])
         const keyword = ref('')
 
@@ -63,20 +63,16 @@ export default {
          * 获取菜单列表
          */
         async function getMenuList() {
-            try {
-                loading.value = true
-                const {code, data} = await api.system.getNewMenuList()
-                                              .catch(() => {
-                                                  throw new Error()
-                                              })
-                loading.value = false
-                if (200 === code) {
-                    const {rows} = data
-                    list.value = rows
-                    emit('ready', rows)
-                }
-            } catch (err) {
-                loading.value = false
+            loading.value = true
+            const { code, data } = await api.system.getNewMenuList()
+                .catch(() => {
+                    loading.value = false
+                })
+            loading.value = false
+            if (200 === code) {
+                const { rows } = data
+                list.value = rows
+                emit('ready', rows)
             }
         }
 
@@ -84,7 +80,7 @@ export default {
          * 选择菜单
          * @param keys
          */
-        function handleSelect(keys, {node}) {
+        function handleSelect(keys, { node }) {
             if (!keys.length) {
                 return
             }
@@ -96,7 +92,7 @@ export default {
          * 删除
          * @param id
          */
-        function handleDelete({id}) {
+        function handleDelete({ id }) {
             Modal.confirm({
                 title: '删除提示',
                 content: '确认删除？',
@@ -139,7 +135,7 @@ export default {
         white-space: nowrap;
 
         &,
-        > * {
+        >* {
             display: flex;
         }
     }

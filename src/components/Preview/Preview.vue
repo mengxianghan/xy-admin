@@ -58,7 +58,7 @@ import { ACTION_ENUM } from './config'
 import Preview from './index'
 
 /**
- * @property {array} url-list
+ * @property {array} urlList 文件列表
  */
 export default {
     name: 'Preview',

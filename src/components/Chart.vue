@@ -4,10 +4,15 @@
 </template>
 
 <script>
-import {onMounted, ref, toRefs, markRaw, watch} from 'vue'
+import { onMounted, ref, toRefs, markRaw, watch } from 'vue'
 
 import * as echarts from 'echarts'
 
+/**
+ * @property {object} option 配置信息
+ * @property {number | string} width 宽 
+ * @property {number | string} height 高
+ */
 export default {
     name: 'XChart',
     props: {
@@ -25,8 +30,8 @@ export default {
         },
     },
     emits: ['ready'],
-    setup(props, {emit}) {
-        const {option, width, height} = toRefs(props)
+    setup(props, { emit }) {
+        const { option, width, height } = toRefs(props)
         const chart = ref(null)
         const chartRef = ref()
 
