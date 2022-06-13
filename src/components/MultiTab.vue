@@ -1,5 +1,6 @@
 <template>
-    <div class="x-multi-tab">
+    <div class="x-multi-tab"
+         ref="multiTabRef">
         <a-tabs :active-key="current"
                 type="card"
                 @change="handleSwitch">
@@ -63,9 +64,6 @@ export default {
     setup() {
         const store = useStore()
         const router = useRouter()
-        const multiTabList = computed(() => store.getters['multiTab/list'])
-        const current = computed(() => store.getters['multiTab/current'])
-        const spin = ref(false)
         const {
             getSimpleRoute,
             open,
@@ -75,6 +73,22 @@ export default {
             closeOther: handleCloseOther,
             reload,
         } = useMultiTab()
+        const multiTabList = computed(() => store.getters['multiTab/list'])
+        const current = computed(() => store.getters['multiTab/current'])
+        const spin = ref(false)
+        const multiTabRef = ref()
+
+        /**
+         * 路由发生变化
+         */
+        onBeforeRouteUpdate((to) => {
+            open(getSimpleRoute(to))
+        })
+
+        onMounted(() => {
+            open(getSimpleRoute(router.currentRoute.value))
+            initDragSort()
+        })
 
         /**
          * 重新加载
@@ -99,29 +113,19 @@ export default {
         /**
          * 初始化拖拽
          */
-        function initSortable() {
-            Sortable.create(document.querySelector('.ant-tabs-nav-list'), {
+        function initDragSort() {
+            Sortable.create(multiTabRef.value.querySelector('.ant-tabs-nav-list'), {
+                handle: '.ant-tabs-tab',
                 draggable: '.ant-tabs-tab',
-                animation: 300,
+                animation: 200,
             })
         }
-
-        /**
-         * 路由发生变化
-         */
-        onBeforeRouteUpdate((to) => {
-            open(getSimpleRoute(to))
-        })
-
-        onMounted(() => {
-            open(getSimpleRoute(router.currentRoute.value))
-            initSortable()
-        })
 
         return {
             multiTabList,
             current,
             spin,
+            multiTabRef,
             handleClose,
             handleCloseLeft,
             handleCloseRight,
@@ -135,55 +139,55 @@ export default {
 
 <style lang="less"
        scoped>
-.x-multi-tab {
-    position: sticky;
-    top: 48px;
-    z-index: 100;
-    box-shadow: 0 1px 4px rgba(0, 21, 41, .08);
-
-    &__reload-btn,
-    &__close-btn {
-        font-size: 12px;
-        margin-left: 8px;
-        color: @text-color-secondary;
-        transition: color .3s;
-        line-height: 1;
-        height: 12px;
-
-        &:hover {
-            color: @primary-color;
-        }
-    }
-
-    :deep(.ant-tabs) {
-        background: #fff;
-        padding: 0 @padding-md;
-    }
-
-    :deep(.ant-tabs-top > .ant-tabs-nav) {
-        margin-bottom: 0;
-    }
-
-    :deep(.ant-tabs-top > .ant-tabs-nav::before) {
-        display: none;
-    }
-
-    :deep(.ant-tabs-tab-btn) {
-        height: 100%;
-    }
-
-    :deep(.ant-dropdown-trigger) {
-        display: flex;
-        padding: 0 12px;
-        align-items: center;
-        font-weight: 400;
-        height: 100%;
-    }
-
-    :deep(.ant-tabs-card > .ant-tabs-nav .ant-tabs-tab) {
-        height: 40px;
-        padding: 0;
-        border-bottom: 0;
-    }
-}
-</style>
+       .x-multi-tab {
+           position: sticky;
+           top: 48px;
+           z-index: 100;
+           box-shadow: 0 1px 4px rgba(0, 21, 41, .08);
+       
+           &__reload-btn,
+           &__close-btn {
+               font-size: 12px;
+               margin-left: 8px;
+               color: @text-color-secondary;
+               transition: color .3s;
+               line-height: 1;
+               height: 12px;
+       
+               &:hover {
+                   color: @primary-color;
+               }
+           }
+       
+           :deep(.ant-tabs) {
+               background: #fff;
+               padding: 0 @padding-md;
+           }
+       
+           :deep(.ant-tabs-top > .ant-tabs-nav) {
+               margin-bottom: 0;
+           }
+       
+           :deep(.ant-tabs-top > .ant-tabs-nav::before) {
+               display: none;
+           }
+       
+           :deep(.ant-tabs-tab-btn) {
+               height: 100%;
+           }
+       
+           :deep(.ant-dropdown-trigger) {
+               display: flex;
+               padding: 0 12px;
+               align-items: center;
+               font-weight: 400;
+               height: 100%;
+           }
+       
+           :deep(.ant-tabs-card > .ant-tabs-nav .ant-tabs-tab) {
+               height: 40px;
+               padding: 0;
+               border-bottom: 0;
+           }
+       }
+       </style>
