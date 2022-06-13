@@ -7,20 +7,20 @@
              @cancel="handleClose">
         <div class="x-preview__content">
             <img :src="url"
-                 :style="styles"/>
+                 :style="styles" />
         </div>
 
         <template v-if="prevBtn || nextBtn">
             <div v-if="prevBtn"
                  class="x-preview__left-btn"
                  @click="handleAction(ACTION_ENUM.getValue('prev'))">
-                <left-outlined/>
+                <left-outlined />
             </div>
 
             <div v-if="nextBtn"
                  class="x-preview__right-btn"
                  @click="handleAction(ACTION_ENUM.getValue('next'))">
-                <right-outlined/>
+                <right-outlined />
             </div>
         </template>
 
@@ -50,10 +50,11 @@
 </template>
 
 <script>
-import {computed, ref, toRefs, watch} from 'vue'
-import {ACTION_ENUM} from './preview'
-import {Modal} from 'ant-design-vue'
-import {LeftOutlined, RightOutlined} from '@ant-design/icons-vue'
+import { computed, ref, toRefs, watch } from 'vue'
+import { Modal } from 'ant-design-vue'
+import { LeftOutlined, RightOutlined } from '@ant-design/icons-vue'
+import { ACTION_ENUM } from './config'
+
 import Preview from './index'
 
 /**
@@ -61,7 +62,7 @@ import Preview from './index'
  */
 export default {
     name: 'Preview',
-    components: {AModal: Modal, LeftOutlined, RightOutlined},
+    components: { AModal: Modal, LeftOutlined, RightOutlined },
     props: {
         urls: {
             type: Array,
@@ -69,7 +70,7 @@ export default {
         },
     },
     setup(props) {
-        const {urls} = toRefs(props)
+        const { urls } = toRefs(props)
         const styles = ref({})
         const current = ref(0)
         const prevBtn = ref(true)
@@ -80,7 +81,7 @@ export default {
         watch(() => urls, (val) => {
             prevBtn.value = val.value.length > 0 && current.value > 0
             nextBtn.value = val.value.length > 0 && current.value < val.value.length - 1
-        }, {immediate: true})
+        }, { immediate: true })
 
         /**
          * 打开
@@ -213,7 +214,7 @@ export default {
         align-items: center;
         justify-content: center;
 
-        > * {
+        >* {
             max-width: 100%;
             max-height: 100%;
             transition: all .3s;

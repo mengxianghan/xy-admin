@@ -17,13 +17,13 @@ const Preview = (props = {}) => {
     container = document.createElement('div')
     render(vm, container)
     document.body.appendChild(container)
-    vm.component.ctx.handleOpen()
+    vm.component?.proxy.handleOpen()
     return Preview
 }
 
 Preview.close = () => {
-    if (vm.component.ctx.visible) {
-        vm.component.ctx.handleClose()
+    if (vm.component?.proxy.visible) {
+        vm.component?.proxy.handleClose()
     }
     clear()
 }
