@@ -1,72 +1,85 @@
 <template>
     <div class="x-upload x-upload-image"
          :class="{
-            'x-upload--round': round
+             'x-upload--round': round,
+             'x-upload--disabled': disabled
          }">
-        <a-upload v-if="showUploadBtn"
-                  :show-upload-list="false"
-                  :multiple="multiple"
-                  :before-upload="onBeforeUpload"
-                  :custom-request="({file})=>customRequest(file)"
-                  :accept="accept"
-                  :disabled="disabled">
-            <slot v-if="$slots.default"></slot>
-            <template v-else>
-                <div class="x-upload-btn"
+        <draggable v-model="fileList"
+                   item-key="key"
+                   tag="transition-group"
+                   :animation="200"
+                   :disabled="dragsortDisabled"
+                   @end="onDragEnd">
+            <template #header>
+                <a-upload v-if="showUploadBtn"
+                          :show-upload-list="false"
+                          :multiple="multiple"
+                          :before-upload="onBeforeUpload"
+                          :custom-request="({ file }) => customRequest(file)"
+                          :accept="accept"
+                          :disabled="disabled">
+                    <slot v-if="$slots.default"></slot>
+                    <template v-else>
+                        <div class="x-upload-btn"
+                             :class="{
+                                 'x-upload-btn--hover': !disabled
+                             }"
+                             :style="{
+                                 width: `${width}px`,
+                                 height: `${height}px`
+                             }">
+                            <component :is="icon"
+                                       class="x-upload-btn__icon" />
+                            <div v-if="text"
+                                 class="x-upload-btn__txt">
+                                {{ text }}
+                            </div>
+                        </div>
+                    </template>
+                </a-upload>
+            </template>
+            <template #item="{ element, index }">
+                <div class="x-upload-item j-upload-item"
+                     :class="{
+                         'x-upload-item--error': STATUS_ENUM.is('error', element.status),
+                     }"
                      :style="{
-                        width: `${width}px`,
-                        height: `${height}px`
-                    }">
-                    <component :is="icon"
-                               class="x-upload-btn__icon"/>
-                    <div v-if="text"
-                         class="x-upload-btn__txt">
-                        {{ text }}
-                    </div>
-                </div>
-            </template>
-        </a-upload>
-        <div v-for="(item,index) in list"
-             :key="item.key"
-             class="x-upload-item"
-             :class="{
-                 'x-upload-item--error': STATUS_ENUM.is('error', item.status),
-             }"
-             :style="{
-                 width: `${width}px`,
-                 height: `${height}px`
-             }">
-            <img :src="item.src">
-            <template v-if="['error', 'done'].includes(STATUS_ENUM.getKey(item.status))">
-                <div class="x-upload-actions">
-                    <div v-if="STATUS_ENUM.is('done', item.status)"
-                         class="x-upload-action"
-                         @click="handlePreview(item)">
-                        <icon-eye-outlined/>
-                    </div>
-                    <div v-if="!disabled"
-                         class="x-upload-action"
-                         @click="handleRemove(index)">
-                        <icon-delete-outlined/>
-                    </div>
-                </div>
-            </template>
-            <template v-else>
-                <div class="x-upload-status">
-                    <template v-if="STATUS_ENUM.is('uploading', item.status)">
-                        <div>{{ item.percent }}%</div>
-                        <a-progress :show-info="false"
-                                    :stroke-width="4"
-                                    :percent="item.percent"/>
+                         width: `${width}px`,
+                         height: `${height}px`
+                     }">
+                    <img :src="element.src">
+                    <template v-if="['error', 'done'].includes(STATUS_ENUM.getKey(element.status))">
+                        <div class="x-upload-actions">
+                            <div v-if="STATUS_ENUM.is('done', element.status)"
+                                 class="x-upload-action"
+                                 @click="handlePreview(element)">
+                                <icon-eye-outlined />
+                            </div>
+                            <div v-if="!disabled"
+                                 class="x-upload-action"
+                                 @click="handleRemove(index)">
+                                <icon-delete-outlined />
+                            </div>
+                        </div>
                     </template>
-                    <template v-if="STATUS_ENUM.is('wait', item.status)">
-                        <div>{{ STATUS_ENUM.getDesc(item.status) }}</div>
-                        <span class="x-upload-action"
-                              @click="handleCancel(item)">取消上传</span>
+                    <template v-else>
+                        <div class="x-upload-status">
+                            <template v-if="STATUS_ENUM.is('uploading', element.status)">
+                                <div>{{ element.percent }}%</div>
+                                <a-progress :show-info="false"
+                                            :stroke-width="4"
+                                            :percent="element.percent" />
+                            </template>
+                            <template v-if="STATUS_ENUM.is('wait', element.status)">
+                                <div>{{ STATUS_ENUM.getDesc(element.status) }}</div>
+                                <span class="x-upload-action"
+                                      @click="handleCancel(element)">取消上传</span>
+                            </template>
+                        </div>
                     </template>
                 </div>
             </template>
-        </div>
+        </draggable>
     </div>
 
     <!--裁剪-->
@@ -74,43 +87,47 @@
                    ref="cropperModalRef"
                    :aspect-ratio="aspectRatio"
                    :quality="quality"
-                   @ok="(file)=>customRequest(file)"/>
+                   @ok="(file) => customRequest(file)" />
 </template>
 
 <script>
-import {computed, onMounted, ref, toRefs, watch} from 'vue'
-import {STATUS_ENUM} from './config'
-import {mergeDeep} from '@/utils'
-import {v4 as uuidv4} from 'uuid'
-import {Form, message} from 'ant-design-vue'
+import { computed, onMounted, ref, toRefs, watch } from 'vue'
+import { STATUS_ENUM } from './config'
+import { mergeDeep } from '@/utils'
+import { v4 as uuidv4 } from 'uuid'
+import { Form, message } from 'ant-design-vue'
 
 import filesizeParser from 'filesize-parser'
 import filesize from 'filesize'
-
+import some from 'lodash/some'
+import findIndex from 'lodash/findIndex'
+import includes from 'lodash/includes'
 import api from '@/api'
 
+import Draggable from 'vuedraggable'
 import Preview from '../Preview'
 import CropperModal from '../CropperModal'
 
 /**
  * 图片上传
- * @property {string | array} model-value v-model
+ * @property {string | array} modelValue v-model
  * @property {boolean} multiple 批量上传，默认：false
  * @property {number} width 宽，默认：120，单位：px
  * @property {number} height 高，默认：120，单位：px
  * @property {string} icon 图标
  * @property {string} text 文案
- * @property {string | number} max-size 最大限制，默认：2M
+ * @property {string | number} maxSize 最大限制，默认：2M
  * @property {string} accept 允许上传文件类型，默认：image/*
  * @property {boolean} disabled 禁用，默认：false
  * @property {boolean} round 圆角
  * @property {boolean} cropper 裁剪，仅支持单文件上传，默认：false，
- * @property {number} aspect-ratio 比例，默认：自由裁剪
+ * @property {number} aspectRatio 比例，默认：自由裁剪
  * @property {number} quality 图片质量，取值范围：0-1，默认：1
+ * @property {boolean} dragsort 拖拽排序，默认：false
  */
 export default {
     name: 'XUploadImage',
-    components: {CropperModal},
+    components: { CropperModal, Draggable },
     props: {
         modelValue: {
             type: [String, Array],
@@ -164,20 +181,22 @@ export default {
             type: Number,
             default: 1,
         },
+        dragsort: {
+            type: Boolean,
+            default: false
+        }
     },
-    setup(props, {emit}) {
-        const {multiple, maxSize, modelValue, cropper} = toRefs(props)
+    setup(props, { emit }) {
+        const { onFieldChange } = Form.useInjectFormItemContext()
+
+        const { multiple, maxSize, modelValue, cropper, dragsort, disabled } = toRefs(props)
+
         const fileList = ref([])
-        const queue = ref([])
-        const {onFieldChange} = Form.useInjectFormItemContext()
         const cropperModalRef = ref()
 
-        const list = computed(() => [...fileList.value, ...queue.value])
-        const loading = computed(() => queue.value.some(o => STATUS_ENUM.is('uploading', o.status)))
-
-        const showUploadBtn = computed(() => {
-            return multiple.value || !list.value.length
-        })
+        const loading = computed(() => fileList.value.some(o => STATUS_ENUM.is('uploading', o.status)))
+        const showUploadBtn = computed(() => multiple.value || !fileList.value.length)
+        const dragsortDisabled = computed(() => (dragsort.value && !disabled.value) ? false : true)
 
         watch(() => modelValue.value, () => {
             init()
@@ -193,9 +212,29 @@ export default {
                     ? modelValue.value
                     : [modelValue.value]
                 : []
-            fileList.value = currentValue.map((item) => getItem({src: item}))
+            if (currentValue.length) {
+                // 移除不存在的文件
+                fileList.value.forEach((item, index) => {
+                    // 已完成 && 不存在与 modelValue 中
+                    if (STATUS_ENUM.is('done', item.status) && !includes(currentValue, item.src)) {
+                        fileList.value.splice(index, 1)
+                    }
+                })
+                // 添加不存在与 modelValue 中的文件
+                currentValue.forEach(item => {
+                    if (!some(fileList.value, { src: item })) {
+                        fileList.value.push(getItem({ src: item }))
+                    }
+                })
+            } else {
+                fileList.value = []
+            }
         }
 
+        /**
+         * 预览
+         * @param {*} record 
+         */
         function handlePreview(record) {
             Preview({
                 urls: [record.src],
@@ -214,19 +253,19 @@ export default {
         /**
          * 取消上传
          */
-        function handleCancel({key}) {
-            const index = queue.value.findIndex(o => o.key === key)
-            queue.value.splice(index, 1)
+        function handleCancel({ key }) {
+            const index = fileList.value.findIndex(o => o.key === key)
+            fileList.value.splice(index, 1)
         }
 
         /**
          * 上传前
          */
         function onBeforeUpload(file) {
-            const maxFileSize = maxSize.value instanceof Number ? maxSize.value : filesizeParser(maxSize.value, {base: 10.24})
+            const maxFileSize = maxSize.value instanceof Number ? maxSize.value : filesizeParser(maxSize.value, { base: 10.24 })
             const checkFileSize = file?.size < maxFileSize
             if (!checkFileSize) {
-                message.warning(`已忽略超过 ${filesize(maxFileSize, {base: 10.24})} 的文件`)
+                message.warning(`已忽略超过 ${filesize(maxFileSize, { base: 10.24 })} 的文件`)
             }
             const checkCropper = cropper.value
                 ? multiple.value ? true : false
@@ -239,6 +278,13 @@ export default {
                 }
             }
             return checkFileSize && checkCropper
+        }
+
+        /**
+         * 拖拽结束
+         */
+        function onDragEnd() {
+            trigger()
         }
 
         /**
@@ -255,10 +301,10 @@ export default {
             // 判断是否批量上传
             if (multiple.value) {
                 // 批量上传
-                queue.value.push(record)
+                fileList.value.push(record)
             } else {
                 // 单文件上传
-                queue.value = [record]
+                fileList.value = [record]
             }
             if (!loading.value) {
                 doUpload()
@@ -269,13 +315,14 @@ export default {
          * 执行上传
          */
         async function doUpload() {
-            if (!queue.value.length) {
+            // 判断是否还有待上传文件
+            if (!some(fileList.value, { status: STATUS_ENUM.getValue('wait') })) {
                 return
             }
-            const index = 0
-            const record = queue.value[index]
+            const index = findIndex(fileList.value, { status: STATUS_ENUM.getValue('wait') })
+            const record = fileList.value[index]
             record.status = STATUS_ENUM.getValue('uploading')
-            const {code, data} = await api.common.upload({
+            const { code, data } = await api.common.upload({
                 file: record?.file,
             })
             if (200 === code) {
@@ -283,7 +330,6 @@ export default {
                 record.percent = 100
                 record.status = STATUS_ENUM.getValue('done')
                 record.src = data?.src
-                fileList.value.push(...queue.value.splice(index, 1))
                 trigger()
                 await doUpload()
             }
@@ -310,9 +356,9 @@ export default {
             // 判断是否多选
             if (multiple.value) {
                 // 多选
-                value = fileList.value.map(item => {
-                    return item?.src ?? item
-                })
+                value = fileList.value
+                    .filter(item => STATUS_ENUM.is('done', item.status))
+                    .map(item => item?.src ?? item)
             } else {
                 // 单选
                 value = (fileList.value.length ? fileList.value[0]?.src : fileList.value[0]) ?? ''
@@ -323,14 +369,16 @@ export default {
 
         return {
             STATUS_ENUM,
-            list,
+            fileList,
             showUploadBtn,
+            dragsortDisabled,
             cropperModalRef,
             multiple,
             handlePreview,
             handleRemove,
             handleCancel,
             onBeforeUpload,
+            onDragEnd,
             customRequest,
         }
     },
@@ -344,10 +392,20 @@ export default {
     flex-wrap: wrap;
     gap: @margin-sm;
 
+    // 圆角
     &--round {
+
         .x-upload-btn,
         .x-upload-item {
             border-radius: @border-radius-round;
+        }
+    }
+
+    // 禁用
+    &--disabled {
+        .x-upload-btn {
+            opacity: .5;
+            cursor: not-allowed;
         }
     }
 
@@ -358,11 +416,13 @@ export default {
         align-items: center;
         justify-content: center;
         cursor: pointer;
-        transition: all .15s;
+        transition: all .2s;
 
-        &:hover {
-            border-color: @primary-color;
-            color: @primary-color;
+        &--hover {
+            &:hover {
+                border-color: @primary-color;
+                color: @primary-color;
+            }
         }
 
         &__icon {
@@ -430,7 +490,7 @@ export default {
         align-items: center;
         justify-content: center;
         color: #fff;
-        border-radius: 4px;
+        border-radius: 2px;
         cursor: pointer;
         background: rgba(0, 0, 0, .25);
         transition: all .15s;

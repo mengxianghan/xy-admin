@@ -4,7 +4,7 @@
             <a-button type="primary"
                       @click="$refs.editRef.handleCreate()">
                 <template #icon>
-                    <icon-plus-outlined/>
+                    <icon-plus-outlined />
                 </template>
                 新建菜单
             </a-button>
@@ -15,7 +15,7 @@
                  :loading="loading"
                  :pagination="false"
                  :expand-icon-column-index="1">
-            <template #bodyCell="{column, record, index}">
+            <template #bodyCell="{ column, record, index }">
                 <template v-if="'no' === column.key">
                     {{ index + 1 }}
                 </template>
@@ -36,7 +36,7 @@
                         <a-dropdown :trigger="['click']">
                             <a>
                                 更多
-                                <icon-down-outlined/>
+                                <icon-down-outlined />
                             </a>
                             <template #overlay>
                                 <a-menu>
@@ -51,13 +51,13 @@
         </a-table>
     </a-card>
 
-    <edit ref="editRef"/>
+    <edit ref="editRef" />
 </template>
 
 <script>
-import {onMounted, ref} from 'vue'
-import {MENU_TYPE_ENUM} from '@/enums/system'
-import {message, Modal} from 'ant-design-vue'
+import { onMounted, ref } from 'vue'
+import { MENU_TYPE_ENUM } from '@/enums/system'
+import { message, Modal } from 'ant-design-vue'
 
 import api from '@/api'
 import usePagination from '@/hooks/usePagination'
@@ -66,16 +66,16 @@ import Edit from './components/Edit'
 
 export default {
     name: 'systemMenu',
-    components: {Edit},
+    components: { Edit },
     setup() {
         const columns = ref([
-            {title: '#', key: 'no', width: 60, align: 'center'},
-            {title: '名称', dataIndex: 'name'},
-            {title: '类型', dataIndex: 'type', key: 'type', width: 120},
-            {title: '排序', dataIndex: 'sort', width: 80},
-            {title: '操作', key: 'action', width: 240},
+            { title: '#', key: 'no', width: 60, align: 'center' },
+            { title: '名称', dataIndex: 'name' },
+            { title: '类型', dataIndex: 'type', key: 'type', width: 120 },
+            { title: '排序', dataIndex: 'sort', width: 80 },
+            { title: '操作', key: 'action', width: 240 },
         ])
-        const {list, loading} = usePagination()
+        const { list, loading } = usePagination()
         const editRef = ref()
 
         onMounted(() => {
@@ -87,19 +87,15 @@ export default {
          * @return {Promise<void>}
          */
         async function getUserRoleList() {
-            try {
-                loading.value = true
-                const {code, data} = await api.system.getMenuList()
-                                              .catch(() => {
-                                                  throw new Error()
-                                              })
-                loading.value = false
-                if (200 === code) {
-                    const {rows} = data
-                    list.value = rows
-                }
-            } catch (err) {
-                loading.value = false
+            loading.value = true
+            const { code, data } = await api.system.getMenuList()
+                .catch(() => {
+                    loading.value = false
+                })
+            loading.value = false
+            if (200 === code) {
+                const { rows } = data
+                list.value = rows
             }
         }
 
@@ -107,16 +103,16 @@ export default {
          * 删除
          * @param id
          */
-        function handleDelete({id}) {
+        function handleDelete({ id }) {
             Modal.confirm({
                 title: '删除提示',
                 content: '确认删除？',
                 onOk: async () => {
                     loading.value = true
-                    const {code} = await api.common.deleteData({id})
-                                            .catch(() => {
-                                                loading.value = false
-                                            })
+                    const { code } = await api.common.deleteData({ id })
+                        .catch(() => {
+                            loading.value = false
+                        })
                     if (200 === code) {
                         message.success('删除成功')
                         await getPageList()
@@ -140,5 +136,4 @@ export default {
 </script>
 
 <style scoped>
-
 </style>

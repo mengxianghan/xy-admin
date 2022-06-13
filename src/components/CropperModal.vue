@@ -9,23 +9,23 @@
         <cropper ref="cropperRef"
                  :src="imgSrc"
                  :aspect-ratio="aspectRatio"
-                 :quality="quality"/>
+                 :quality="quality" />
     </a-modal>
 </template>
 
 <script>
-import {ref} from 'vue'
+import { ref } from 'vue'
 
 import Cropper from './Cropper'
 
 /**
  * 裁剪图片弹窗
- * @property {number} aspect-ratio 比例，默认：自由裁剪
+ * @property {number} aspectRatio 比例，默认：自由裁剪
  * @property {number} quality 图片质量，取值范围：0-1，默认：1
  */
 export default {
     name: 'XCropperModal',
-    components: {Cropper},
+    components: { Cropper },
     props: {
         aspectRatio: {
             type: Number,
@@ -37,7 +37,7 @@ export default {
         },
     },
     emits: ['ok', 'cancel'],
-    setup(props, {emit}) {
+    setup(props, { emit }) {
         const visible = ref(false)
         const cropperRef = ref()
         const imgSrc = ref('')
@@ -89,5 +89,4 @@ export default {
 </script>
 
 <style scoped>
-
 </style>

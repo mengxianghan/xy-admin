@@ -7,7 +7,7 @@
                     type="flex">
                 <a-tree :selected-keys="selectedKeys"
                         :tree-data="roleList"
-                        :field-names="{title: 'name', children: 'children', key: 'key'}"
+                        :field-names="{ title: 'name', children: 'children', key: 'key' }"
                         block-node
                         @select="handleRole"></a-tree>
             </a-card>
@@ -18,12 +18,12 @@
                     <a-button type="primary"
                               @click="$refs.editRef.handleCreate()">
                         <template #icon>
-                            <icon-plus-outlined/>
+                            <icon-plus-outlined />
                         </template>
                         新建用户
                     </a-button>
                     <template #extra>
-                        <x-search-bar :body-style="{padding: 0}">
+                        <x-search-bar :body-style="{ padding: 0 }">
                             <a-form layout="inline">
                                 <a-row :gutter="12"
                                        type="flex">
@@ -47,9 +47,9 @@
                          :loading="loading"
                          :pagination="pagination"
                          @change="onTableChange">
-                    <template #bodyCell="{column, record, index}">
+                    <template #bodyCell="{ column, record, index }">
                         <template v-if="'avatar' === column.key">
-                            <a-avatar :src="record.avatar"/>
+                            <a-avatar :src="record.avatar" />
                         </template>
                         <template v-if="'action' === column.key">
                             <x-action-button @click="$refs.editRef.handlePreview(record)">查看</x-action-button>
@@ -66,8 +66,8 @@
 </template>
 
 <script>
-import {onMounted, ref} from 'vue'
-import {message, Modal} from 'ant-design-vue'
+import { onMounted, ref } from 'vue'
+import { message, Modal } from 'ant-design-vue'
 
 import api from '@/api'
 import usePagination from '@/hooks/usePagination'
@@ -76,20 +76,20 @@ import Edit from './components/Edit'
 
 export default {
     name: 'systemUser',
-    components: {Edit},
+    components: { Edit },
     setup() {
-        const {loading, pagination, resetPagination} = usePagination()
+        const { loading, pagination, resetPagination } = usePagination()
         const roleLoading = ref(false)
         const roleList = ref([])
         const selectedKeys = ref(['0'])
         const columns = ref([
-            {title: 'ID', dataIndex: 'id'},
-            {title: '头像', key: 'avatar'},
-            {title: '登录帐号', dataIndex: 'userName'},
-            {title: '姓名', dataIndex: 'name'},
-            {title: '所属角色', dataIndex: 'roleName'},
-            {title: '加入时间', dataIndex: 'date'},
-            {title: '操作', key: 'action', fixed: 'right', width: 160},
+            { title: 'ID', dataIndex: 'id' },
+            { title: '头像', key: 'avatar' },
+            { title: '登录帐号', dataIndex: 'userName' },
+            { title: '姓名', dataIndex: 'name' },
+            { title: '所属角色', dataIndex: 'roleName' },
+            { title: '加入时间', dataIndex: 'date' },
+            { title: '操作', key: 'action', fixed: 'right', width: 160 },
         ])
         const userList = ref([])
         const editRef = ref()
@@ -104,21 +104,17 @@ export default {
          * @returns {Promise<void>}
          */
         async function getUserRoleList() {
-            try {
-                roleLoading.value = true
-                const {code, data} = await api.system.getUserRoleList()
-                                              .catch(() => {
-                                                  throw new Error()
-                                              })
-                roleLoading.value = false
-                if (200 === code) {
-                    roleList.value = [{
-                        'name': '全部',
-                        'key': '0',
-                    }, ...data.rows]
-                }
-            } catch (err) {
-                roleLoading.value = false
+            roleLoading.value = true
+            const { code, data } = await api.system.getUserRoleList()
+                .catch(() => {
+                    roleLoading.value = false
+                })
+            roleLoading.value = false
+            if (200 === code) {
+                roleList.value = [{
+                    'name': '全部',
+                    'key': '0',
+                }, ...data.rows]
             }
         }
 
@@ -127,24 +123,20 @@ export default {
          * @returns {Promise<void>}
          */
         async function getUserPageList() {
-            try {
-                loading.value = true
-                const {pageSize, current} = pagination
-                const {code, data} = await api.system.getUserPageList({
-                                                  pageSize,
-                                                  page: current,
-                                              })
-                                              .catch(() => {
-                                                  throw new Error()
-                                              })
-                loading.value = false
-                if (200 === code) {
-                    const {rows, total} = data
-                    userList.value = rows
-                    pagination.total = total
-                }
-            } catch (err) {
-                loading.value = false
+            loading.value = true
+            const { pageSize, current } = pagination
+            const { code, data } = await api.system.getUserPageList({
+                pageSize,
+                page: current,
+            })
+                .catch(() => {
+                    loading.value = false
+                })
+            loading.value = false
+            if (200 === code) {
+                const { rows, total } = data
+                userList.value = rows
+                pagination.total = total
             }
         }
 
@@ -163,16 +155,16 @@ export default {
         /**
          * 删除
          */
-        function handleDelete({id}) {
+        function handleDelete({ id }) {
             Modal.confirm({
                 title: '删除提示',
                 content: '确认删除？',
                 onOk: async () => {
                     loading.value = true
-                    const {code} = await api.common.deleteData({id})
-                                            .catch(() => {
-                                                loading.value = false
-                                            })
+                    const { code } = await api.common.deleteData({ id })
+                        .catch(() => {
+                            loading.value = false
+                        })
                     if (200 === code) {
                         message.success('删除成功')
                         await getPageList()
@@ -186,7 +178,7 @@ export default {
         /**
          * 分页
          */
-        function onTableChange({current, pageSize}) {
+        function onTableChange({ current, pageSize }) {
             pagination.current = current
             pagination.pageSize = pageSize
             getUserPageList()
@@ -210,5 +202,4 @@ export default {
 </script>
 
 <style scoped>
-
 </style>

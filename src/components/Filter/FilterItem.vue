@@ -2,8 +2,8 @@
     <div class="x-filter-item">
         <div class="x-filter-item__label"
              :style="{
-                    width: computedLabelWidth ? `${computedLabelWidth}px` : ''
-                }">
+                 width: computedLabelWidth ? `${computedLabelWidth}px` : ''
+             }">
             {{ dataSource.label ?? label }}
             <template v-if="colon">：</template>
         </div>
@@ -67,9 +67,14 @@
 </template>
 
 <script>
-import {computed, inject, toRefs} from 'vue'
-import {TYPE_ENUM} from './config'
+import { computed, inject, toRefs } from 'vue'
+import { TYPE_ENUM } from './config'
 
+/**
+ * @property {object} dataSource
+ * @property {number} labelWidth 标签宽度，默认：80
+ * @property {string} label 标签内容
+ */
 export default {
     name: 'XFilterItem',
     props: {
@@ -79,7 +84,7 @@ export default {
         },
         labelWidth: {
             type: Number,
-            default: 0,
+            default: 80,
         },
         label: {
             type: String,
@@ -93,7 +98,7 @@ export default {
             handleClick,
             onChange,
         } = inject('filterContext')
-        const {labelWidth} = toRefs(props)
+        const { labelWidth } = toRefs(props)
 
         const computedLabelWidth = computed(() => labelWidth?.value || ctxLabelWidth?.value)
 
@@ -111,6 +116,7 @@ export default {
 <style lang="less"
        scoped>
 @line-height: 30px;
+
 .x-filter {
     &-item {
         display: flex;

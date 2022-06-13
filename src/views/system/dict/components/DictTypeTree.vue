@@ -6,31 +6,31 @@
                             placeholder="请输入关键词搜索"></a-input-search>
         </template>
         <template #actions>
-                    <span @click="$refs.editRef.handleCreate()">
-                        <icon-plus-outlined/>
-                        新建分类
-                    </span>
+            <span @click="$refs.editRef.handleCreate()">
+                <icon-plus-outlined />
+                新建分类
+            </span>
         </template>
         <a-tree v-if="!loading"
                 :selected-keys="selectedKeys"
                 :tree-data="list"
-                :field-names="{title: 'name', children: 'children', key: 'key'}"
+                :field-names="{ title: 'name', children: 'children', key: 'key' }"
                 default-expand-all
                 block-node
                 @select="handleSelect">
             <template #title="record">
                 <div class="tree-row">
                     <div class="tree-row__name">
-                                    <span v-if="record.name.indexOf(searchValue) > -1">
-                                      {{ record.name.substr(0, record.name.indexOf(searchValue)) }}
-                                      <span class="color-error">{{ searchValue }}</span>
-                                      {{ record.name.substr(record.name.indexOf(searchValue) + searchValue.length) }}
-                                    </span>
+                        <span v-if="record.name.indexOf(searchValue) > -1">
+                            {{ record.name.substr(0, record.name.indexOf(searchValue)) }}
+                            <span class="color-error">{{ searchValue }}</span>
+                            {{ record.name.substr(record.name.indexOf(searchValue) + searchValue.length) }}
+                        </span>
                         <span v-else>{{ record.name }}</span>
                     </div>
                     <div class="tree-row__code">{{ record.code }}</div>
                     <a-space class="tree-row__actions"
-                             @click.stop="()=>{}">
+                             @click.stop="() => { }">
                         <icon-edit-outlined @click.stop="$refs.editRef.handleEdit(record)"></icon-edit-outlined>
                         <icon-delete-outlined @click="handleDelete(record)"></icon-delete-outlined>
                     </a-space>
@@ -39,12 +39,12 @@
         </a-tree>
     </a-card>
 
-    <dict-type-edit ref="editRef"/>
+    <dict-type-edit ref="editRef" />
 </template>
 
 <script>
-import {ref, onMounted} from 'vue'
-import {message, Modal} from 'ant-design-vue'
+import { ref, onMounted } from 'vue'
+import { message, Modal } from 'ant-design-vue'
 
 import api from '@/api'
 
@@ -53,10 +53,10 @@ import DictTypeEdit from '@/views/system/dict/components/DictTypeEdit'
 
 export default {
     name: 'DictTypeTree',
-    components: {DictTypeEdit},
+    components: { DictTypeEdit },
     emits: ['select'],
-    setup(props, {emit}) {
-        const {loading, list} = usePagination()
+    setup(props, { emit }) {
+        const { loading, list } = usePagination()
         const selectedKeys = ref([])
         const searchValue = ref('')
         const editRef = ref()
@@ -70,19 +70,15 @@ export default {
          * @return {Promise<void>}
          */
         async function getDictTypeList() {
-            try {
-                loading.value = true
-                const {code, data} = await api.system.getDictTypeList()
-                                              .catch(() => {
-                                                  throw new Error()
-                                              })
-                loading.value = false
-                if (200 === code) {
-                    const {rows} = data
-                    list.value = rows
-                }
-            } catch (err) {
-                loading.value = false
+            loading.value = true
+            const { code, data } = await api.system.getDictTypeList()
+                .catch(() => {
+                    loading.value = false
+                })
+            loading.value = false
+            if (200 === code) {
+                const { rows } = data
+                list.value = rows
             }
         }
 
@@ -90,7 +86,7 @@ export default {
          * 切换分类
          * @param keys
          */
-        function handleSelect(keys, {node}) {
+        function handleSelect(keys, { node }) {
             if (!keys.length) {
                 return
             }
@@ -101,7 +97,7 @@ export default {
         /**
          * 删除分类
          */
-        function handleDelete({id}) {
+        function handleDelete({ id }) {
             Modal.confirm({
                 title: '删除提示',
                 content: '确认删除？',
@@ -158,7 +154,7 @@ export default {
         white-space: nowrap;
 
         &,
-        > * {
+        >* {
             display: flex;
         }
     }

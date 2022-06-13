@@ -7,14 +7,13 @@
 </template>
 
 <script>
-import {Spin} from 'ant-design-vue'
+import { Spin } from 'ant-design-vue'
 
 /**
- * Loading
  * @property {string} message 提示信息，默认：加载中
  */
 export default {
-    components: {Spin},
+    components: { Spin },
     props: {
         message: {
             type: String,
