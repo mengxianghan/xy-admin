@@ -79,14 +79,14 @@ export default {
         const editRef = ref()
 
         onMounted(() => {
-            getUserRoleList()
+            getMenuList()
         })
 
         /**
-         * 获取用户角色列表
+         * 获取菜单列表
          * @return {Promise<void>}
          */
-        async function getUserRoleList() {
+        async function getMenuList() {
             loading.value = true
             const { code, data } = await api.system.getMenuList()
                 .catch(() => {
@@ -115,7 +115,7 @@ export default {
                         })
                     if (200 === code) {
                         message.success('删除成功')
-                        await getPageList()
+                        await getMenuList()
                     } else {
                         loading.value = false
                     }
