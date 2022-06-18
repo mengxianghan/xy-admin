@@ -84,10 +84,10 @@
 
 <script>
 import { computed, onMounted, ref, toRefs, watch } from 'vue'
-import { STATUS_ENUM } from './config'
-import { mergeDeep } from '@/utils'
-import { v4 as uuidv4 } from 'uuid'
+import { nanoid } from 'nanoid'
 import { Form, message } from 'ant-design-vue'
+import { mergeDeep } from '@/utils'
+import { STATUS_ENUM } from './config'
 
 import Sortable from 'sortablejs'
 import filesizeParser from 'filesize-parser'
@@ -361,7 +361,7 @@ export default {
          */
         function getItem(obj) {
             return mergeDeep({
-                key: uuidv4(),
+                key: nanoid(),
                 src: '',
                 status: STATUS_ENUM.getValue('done'),
                 percent: 100,
