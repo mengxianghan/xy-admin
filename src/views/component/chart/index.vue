@@ -32,7 +32,7 @@
         </a-col>
         <a-col :span="8">
             <a-card class="mb-8-2">
-                <x-chart :option="options6"
+                <x-chart :options="options6"
                          :height="320"></x-chart>
             </a-card>
         </a-col>
