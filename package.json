@@ -37,7 +37,7 @@
         "vuex": "^4.0.2",
         "xy-enum": "^1.0.1",
         "xy-qiniu": "^1.0.0",
-        "xy-storage": "^2.0.2"
+        "xy-storage": "^3.0.0"
     },
     "devDependencies": {
         "@vue/cli-plugin-babel": "~4.5.15",

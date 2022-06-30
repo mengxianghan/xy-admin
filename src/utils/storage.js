@@ -1,23 +1,27 @@
 import Storage from 'xy-storage'
 
-const storage = new Storage({
+const options = {
     namespace: process.env.VUE_APP_STORAGE_NAMESPACE,
-})
-
-export function useStorage() {
-    return storage
 }
 
-export function useSessionStorage() {
-    return storage.session
+export const useSession = ()=> {
+    return new Storage({
+        ...options,
+        name: 'session'
+    })
+}
+export const useLocal = ()=> {
+    return new Storage({
+        ...options,
+        name: 'local'
+    })
 }
 
-export function useLocalStorage() {
-    return storage.local
-}
-
-export function useCookieStorage() {
-    return storage.cookie
+export const useCookie = ()=> {
+    return new Storage({
+        ...options,
+        name: 'cookie'
+    })
 }
 
 

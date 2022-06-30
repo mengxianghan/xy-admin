@@ -1,13 +1,13 @@
-import { useSessionStorage } from '@/utils/storage'
+import { useSession } from '@/utils/storage'
 import { STORAGE_IS_LOGIN, STORAGE_USER_INFO, STORAGE_TOKEN, STORAGE_PERMISSION } from '@/config/index'
 
 import api from '@/api'
 
 const state = {
-    isLogin: useSessionStorage().get(STORAGE_IS_LOGIN, false),
-    userInfo: useSessionStorage().get(STORAGE_USER_INFO, null),
-    token: useSessionStorage().get(STORAGE_TOKEN, ''),
-    permission: useSessionStorage().get(STORAGE_PERMISSION, []),
+    isLogin: useSession().get(STORAGE_IS_LOGIN, false),
+    userInfo: useSession().get(STORAGE_USER_INFO, null),
+    token: useSession().get(STORAGE_TOKEN, ''),
+    permission: useSession().get(STORAGE_PERMISSION, []),
 }
 
 const getters = {
@@ -26,7 +26,7 @@ const mutations = {
      */
     SET_IS_LOGIN(state, isLogin = false) {
         state.isLogin = isLogin
-        isLogin ? useSessionStorage().set(STORAGE_IS_LOGIN, isLogin) : useSessionStorage().remove(STORAGE_IS_LOGIN)
+        isLogin ? useSession().set(STORAGE_IS_LOGIN, isLogin) : useSession().remove(STORAGE_IS_LOGIN)
     },
     /**
      * 设置用户信息
@@ -36,7 +36,7 @@ const mutations = {
      */
     SET_USER_INFO(state, userInfo = null) {
         state.userInfo = userInfo
-        userInfo ? useSessionStorage().set(STORAGE_USER_INFO, userInfo) : useSessionStorage().remove(STORAGE_USER_INFO)
+        userInfo ? useSession().set(STORAGE_USER_INFO, userInfo) : useSession().remove(STORAGE_USER_INFO)
     },
     /**
      * 设置 token
@@ -46,7 +46,7 @@ const mutations = {
      */
     SET_TOKEN(state, token = '') {
         state.token = token
-        token ? useSessionStorage().set(STORAGE_TOKEN, token) : useSessionStorage().remove(STORAGE_TOKEN)
+        token ? useSession().set(STORAGE_TOKEN, token) : useSession().remove(STORAGE_TOKEN)
     },
     /**
      * 设置权限列表
@@ -56,9 +56,7 @@ const mutations = {
      */
     SET_PERMISSION(state, permission = null) {
         state.permission = permission
-        permission
-            ? useSessionStorage().set(STORAGE_PERMISSION, permission)
-            : useSessionStorage().remove(STORAGE_PERMISSION)
+        permission ? useSession().set(STORAGE_PERMISSION, permission) : useSession().remove(STORAGE_PERMISSION)
     },
 }
 
