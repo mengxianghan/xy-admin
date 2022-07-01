@@ -4,6 +4,7 @@ import { asyncRouterMap } from '@/config/router'
 import { generateRoutes, getIndexRouter, filterRoutes, formatRoutes, generateMenuList } from '@/router/util'
 import { findTree } from '@/utils'
 
+import useUserStore from './user'
 import router from '@/router'
 
 const useRouterStore = defineStore('router', {
@@ -19,11 +20,12 @@ const useRouterStore = defineStore('router', {
          * @returns {Promise}
          */
         getRouterList() {
+            const userStore = useUserStore()
             return new Promise(async (resolve) => {
                 const list = asyncRouterMap
                 const validRoutes =
-                    process.env.VUE_APP_PERMISSION === 'true'
-                        ? filterRoutes(formatRoutes(list), rootState.user.permission)
+                    import.meta.env.VITE_PERMISSION === 'true'
+                        ? filterRoutes(formatRoutes(list), userStore.permission)
                         : formatRoutes(list)
                 const menuList = generateMenuList(validRoutes)
                 const routes = [...generateRoutes(validRoutes), notFoundRouter]
