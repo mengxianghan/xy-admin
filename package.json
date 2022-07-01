@@ -1,6 +1,6 @@
 {
     "name": "XYAdmin",
-    "version": "2.1.6",
+    "version": "2.2.0",
     "description": "Admin",
     "private": true,
     "scripts": {
@@ -28,13 +28,13 @@
         "lodash": "^4.17.21",
         "mockjs": "^1.1.0",
         "nanoid": "^4.0.0",
+        "pinia": "^2.0.14",
         "qiniu-js": "^3.4.0",
         "qrcodejs2": "^0.0.2",
         "sortablejs": "^1.15.0",
         "tinymce": "^5.10.2",
         "vue": "^3.2.27",
         "vue-router": "^4.0.16",
-        "vuex": "^4.0.2",
         "xy-enum": "^1.0.1",
         "xy-qiniu": "^1.0.0",
         "xy-storage": "^3.0.0"
@@ -42,7 +42,6 @@
     "devDependencies": {
         "@vue/cli-plugin-babel": "~4.5.15",
         "@vue/cli-plugin-router": "~4.5.15",
-        "@vue/cli-plugin-vuex": "~4.5.15",
         "@vue/cli-service": "~4.5.15",
         "@vue/compiler-sfc": "^3.2.37",
         "compression-webpack-plugin": "^6.1.1",

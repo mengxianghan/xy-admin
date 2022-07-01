@@ -1,58 +1,68 @@
-import {message} from 'ant-design-vue'
+import { message } from 'ant-design-vue'
+import { useUserStore } from '@/store'
 
 import merge from 'lodash/merge'
 import axios from 'axios'
 import JSONbig from 'json-bigint'
-import store from '@/store'
 
 const instance = axios.create()
 
 /**
  * 请求拦截
  */
-instance.interceptors.request.use(request => {
-    const isLogin = store.getters['user/isLogin']
-    const token = store.getters['user/token']
+instance.interceptors.request.use(
+    (request) => {
+        const userStore = useUserStore()
+        const isLogin = userStore.isLogin
+        const token = userStore.token
 
-    if (isLogin) {
-        request.headers['AUTH-TOKEN'] = token
+        if (isLogin) {
+            request.headers['AUTH-TOKEN'] = token
+        }
+
+        return request
+    },
+    (err) => {
+        return Promise.reject(err)
     }
-
-    return request
-}, err => {
-    return Promise.reject(err)
-})
+)
 
 /**
  * 响应拦截
  */
-instance.interceptors.response.use(response => {
-    // 错误处理
-    const {code, msg = '系统错误'} = response.data || {}
-    if (![200].includes(code)) {
-        message.error(msg)
+instance.interceptors.response.use(
+    (response) => {
+        // 错误处理
+        const { code, msg = 'Network Error' } = response.data || {}
+        if (![200].includes(code)) {
+            message.error(msg)
+        }
+        return response
+    },
+    (err) => {
+        message.error(err?.response?.data?.message ?? err.message)
+        return Promise.reject(err)
     }
-    return response
-}, err => {
-    message.error(err?.response?.data?.message ?? err.message)
-    return Promise.reject(err)
-})
+)
 
 class Http {
     constructor(config = {}) {
-        this.config = merge({
-            timeout: 0,
-            transformResponse: [function transformResponse(data) {
-                if (typeof data === 'string') {
-                    try {
-                        data = JSONbig({storeAsString: true})
-                            .parse(data)
-                    } catch (e) {
-                    }
-                }
-                return data
-            }],
-        }, config)
+        this.config = merge(
+            {
+                timeout: 0,
+                transformResponse: [
+                    function transformResponse(data) {
+                        if (typeof data === 'string') {
+                            try {
+                                data = JSONbig({ storeAsString: true }).parse(data)
+                            } catch (e) {}
+                        }
+                        return data
+                    },
+                ],
+            },
+            config
+        )
     }
 
     /**
@@ -62,18 +72,22 @@ class Http {
      */
     request(config = {}) {
         return new Promise((resolve, reject) => {
-            instance.request({
-                        ...this.config,
-                        ...config,
-                    })
-                    .then(res => {
+            instance
+                .request({
+                    ...this.config,
+                    ...config,
+                })
+                .then(
+                    (res) => {
                         resolve(res.data)
-                    }, err => {
+                    },
+                    (err) => {
                         reject(err)
-                    })
-                    .catch(err => {
-                        reject(err)
-                    })
+                    }
+                )
+                .catch((err) => {
+                    reject(err)
+                })
         })
     }
 
@@ -143,4 +157,3 @@ class Http {
 }
 
 export default Http
-

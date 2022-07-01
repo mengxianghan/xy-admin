@@ -1,28 +1,18 @@
-import { createStore } from 'vuex'
+import { createPinia } from 'pinia'
 
-const modules = {}
+import useAppStore from './modules/app'
+import useMultiTabStore from './modules/multiTab'
+import useRouterStore from './modules/router'
+import useUserStore from './modules/user'
 
-const files = require.context('./modules/', false, /[A-Za-z]+\.(js)$/)
-files.keys().forEach((path) => {
-    const filename = path.replace(/^\.\/(.*)\.\w+$/, '$1')
-    const options = () => {
-        const config = files(path)
-        return config.default || config
-    }
-    modules[filename] = options()
-})
+const store = createPinia()
 
-const store = createStore({
-    state: {},
-    mutations: {},
-    actions: {},
-    modules,
-})
-
-export function setupStore(app) {
+const setupStore = (app) => {
     app.use(store)
 
     return app
 }
+
+export { setupStore, useAppStore, useMultiTabStore, useRouterStore, useUserStore }
 
 export default store

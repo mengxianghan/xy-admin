@@ -37,7 +37,7 @@
 
 <script>
 import { ref, computed } from 'vue'
-import { useStore } from 'vuex'
+import { useAppStore, useUserStore, useRouterStore } from '@/store'
 import { useRoute, useRouter } from 'vue-router'
 import { message, Modal, notification } from 'ant-design-vue'
 import { timeFix } from '@/utils'
@@ -46,10 +46,12 @@ import useForm from '@/hooks/useForm'
 
 export default {
     setup() {
-        const store = useStore()
+        const { formState, formRef, rules } = useForm()
+        const appStore = useAppStore()
+        const userStore = useUserStore()
+        const routerStore = useRouterStore()
         const router = useRouter()
         const route = useRoute()
-        const { formState, formRef, rules } = useForm()
         const title = process.env.VUE_APP_TITLE
         const loading = ref(false)
         const redirect = computed(() => decodeURIComponent(route.query?.redirect ?? ''))
@@ -72,20 +74,19 @@ export default {
             formRef.value.validate()
                 .then(async (values) => {
                     loading.value = true
-                    const { code } = await store.dispatch('user/login', {
+                    const { code } = await userStore.login({
                         ...values,
+                    }).catch(() => {
+                        loading.value = false
+                        message.error('登录失败')
                     })
-                        .catch(() => {
-                            loading.value = false
-                            message.error('登录失败')
-                        })
                     loading.value = false
                     if (200 === code) {
                         // 加载完成
-                        if (store.getters['app/complete']) {
+                        if (appStore.complete) {
                             goIndex()
                         } else {
-                            await store.dispatch('app/init')
+                            await appStore.init()
                             goIndex()
                         }
                     }
@@ -97,7 +98,7 @@ export default {
          * @return {*}
          */
         function getIndexRouter() {
-            const indexRouter = store.getters['router/indexRouter']
+            const indexRouter = routerStore.indexRouter
             if (!indexRouter) {
                 Modal.warning({
                     title: '系统提示',
@@ -139,6 +140,5 @@ export default {
 }
 </script>
 
-<style lang="less"
-       scoped>
+<style lang="less" scoped>
 </style>

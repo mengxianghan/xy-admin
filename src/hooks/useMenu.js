@@ -1,7 +1,7 @@
-import {useStore} from 'vuex'
+import { useRouterStore } from '@/store'
 
 export default () => {
-    const store = useStore()
+    const routerStore = useRouterStore()
 
     /**
      * 设置徽标
@@ -9,7 +9,7 @@ export default () => {
      * @param {number} count 数量
      */
     function setBadge(name, count) {
-        store.dispatch('router/setBadge', {name, count})
+        routerStore.setBadeg({ name, count })
     }
 
     return {

@@ -1,4 +1,4 @@
-import {ref} from 'vue'
+import { ref } from 'vue'
 
 export default () => {
     const formRef = ref({})
@@ -39,10 +39,7 @@ export default () => {
      * @returns {boolean}
      */
     function filterOption(input, option) {
-        return (
-            option.componentOptions.children[0].text.toLowerCase()
-                                               .indexOf(input.toLowerCase()) >= 0
-        )
+        return option.componentOptions.children[0].text.toLowerCase().indexOf(input.toLowerCase()) >= 0
     }
 
     return {

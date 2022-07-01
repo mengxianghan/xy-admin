@@ -66,7 +66,7 @@
 
 <script>
 import { computed, onMounted, ref } from 'vue'
-import { useStore } from 'vuex'
+import { useUserStore } from '@/store'
 import { timeFix } from '@/utils'
 
 import api from '@/api'
@@ -74,10 +74,10 @@ import api from '@/api'
 export default {
     name: 'welcome',
     setup() {
-        const store = useStore()
+        const userStore = useUserStore()
         const title = process.env.VUE_APP_TITLE
         const version = '2.1.6'
-        const userInfo = computed(() => store.getters['user/userInfo'])
+        const userInfo = computed(() => userStore.userInfo)
         const userName = computed(() => `${timeFix()}，${userInfo.value?.username}`)
         const dynamicList = ref([])
 

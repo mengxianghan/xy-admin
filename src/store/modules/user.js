@@ -1,107 +1,66 @@
-import { useSession } from '@/utils/storage'
+import { defineStore } from 'pinia'
+import { useLocal } from '@/utils/storage'
 import { STORAGE_IS_LOGIN, STORAGE_USER_INFO, STORAGE_TOKEN, STORAGE_PERMISSION } from '@/config/index'
 
+import useAppStore from './app'
 import api from '@/api'
 
-const state = {
-    isLogin: useSession().get(STORAGE_IS_LOGIN, false),
-    userInfo: useSession().get(STORAGE_USER_INFO, null),
-    token: useSession().get(STORAGE_TOKEN, ''),
-    permission: useSession().get(STORAGE_PERMISSION, []),
-}
+const local = useLocal()
 
-const getters = {
-    isLogin: (state) => state.isLogin,
-    userInfo: (state) => state.userInfo,
-    token: (state) => state.token,
-    permission: (state) => state.permission,
-}
-
-const mutations = {
-    /**
-     * 设置登录状态
-     * @param state
-     * @param {Boolean} isLogin
-     * @constructor
-     */
-    SET_IS_LOGIN(state, isLogin = false) {
-        state.isLogin = isLogin
-        isLogin ? useSession().set(STORAGE_IS_LOGIN, isLogin) : useSession().remove(STORAGE_IS_LOGIN)
-    },
-    /**
-     * 设置用户信息
-     * @param state
-     * @param {object} userInfo
-     * @constructor
-     */
-    SET_USER_INFO(state, userInfo = null) {
-        state.userInfo = userInfo
-        userInfo ? useSession().set(STORAGE_USER_INFO, userInfo) : useSession().remove(STORAGE_USER_INFO)
-    },
-    /**
-     * 设置 token
-     * @param state
-     * @param {string} token
-     * @constructor
-     */
-    SET_TOKEN(state, token = '') {
-        state.token = token
-        token ? useSession().set(STORAGE_TOKEN, token) : useSession().remove(STORAGE_TOKEN)
-    },
-    /**
-     * 设置权限列表
-     * @param state
-     * @param {array} permission
-     * @constructor
-     */
-    SET_PERMISSION(state, permission = null) {
-        state.permission = permission
-        permission ? useSession().set(STORAGE_PERMISSION, permission) : useSession().remove(STORAGE_PERMISSION)
-    },
-}
-
-const actions = {
-    /**
-     * 登录
-     * @param commit
-     * @param {string} username
-     * @param {string} password
-     * @returns {Promise<unknown>}
-     */
-    login({ commit, dispatch, rootState }, params) {
-        return new Promise(async (resolve, reject) => {
-            const result = await api.user.login(params).catch(() => {
-                reject()
+const useUserStore = defineStore('user', {
+    state: () => ({
+        isLogin: local.get(STORAGE_IS_LOGIN, false),
+        userInfo: local.get(STORAGE_USER_INFO, null),
+        token: local.get(STORAGE_TOKEN, ''),
+        permission: local.get(STORAGE_PERMISSION, []),
+    }),
+    getters: {},
+    actions: {
+        /**
+         * 登录
+         * @param {object} params
+         * @returns {Promise<unknown>}
+         */
+        login(params) {
+            return new Promise(async (resolve, reject) => {
+                const result = await api.user.login(params).catch(() => {
+                    reject()
+                })
+                const { code, data } = result
+                if (200 === code) {
+                    const { token, ...others } = data
+                    const isLogin = true
+                    this.$patch({
+                        userInfo: others,
+                        token,
+                        isLogin,
+                    })
+                    local.set(STORAGE_USER_INFO, others)
+                    local.set(STORAGE_TOKEN, token)
+                    local.set(STORAGE_IS_LOGIN, isLogin)
+                }
+                resolve(result)
             })
-            const { code, data } = result
-            if (200 === code) {
-                const { token, ...others } = data
-                commit('SET_USER_INFO', others)
-                commit('SET_TOKEN', token)
-                commit('SET_IS_LOGIN', true)
-            }
-            resolve(result)
-        })
+        },
+        /**
+         * 退出登录
+         */
+        logout() {
+            return new Promise((resolve) => {
+                const appStore = useAppStore()
+                this.$patch({
+                    isLogin: false,
+                    token: '',
+                    userInfo: null,
+                })
+                local.remove(STORAGE_IS_LOGIN)
+                local.remove(STORAGE_TOKEN)
+                local.remove(STORAGE.STORAGE_USER_INFO)
+                appStore.complete = false
+                resolve()
+            })
+        },
     },
-    /**
-     * 退出登录
-     * @param commit
-     */
-    logout({ commit }) {
-        return new Promise((resolve) => {
-            commit('SET_IS_LOGIN', false)
-            commit('SET_TOKEN', '')
-            commit('SET_USER_INFO', null)
-            commit('app/SET_COMPLETE', false, { root: true })
-            resolve()
-        })
-    },
-}
+})
 
-export default {
-    namespaced: true,
-    state,
-    getters,
-    mutations,
-    actions,
-}
+export default useUserStore

@@ -26,7 +26,7 @@
 
 <script>
 import { computed, onMounted, ref, toRefs, watch } from 'vue'
-import { useStore } from 'vuex'
+import { useRouterStore } from '@/store'
 import { useRoute } from 'vue-router'
 import { LOGO_URL } from '@/config'
 
@@ -46,14 +46,14 @@ export default {
         },
     },
     setup(props) {
-        const store = useStore()
+        const routerStore = useRouterStore()
         const route = useRoute()
         const { theme } = toRefs(props)
         const title = process.env.VUE_APP_TITLE
         const collapsed = ref(false)
         const openKeys = ref([])
         const selectedKeys = ref([])
-        const menuList = computed(() => store.getters['router/menuList'])
+        const menuList = computed(() => routerStore.menuList)
         const rootSubmenuKeys = computed(() => menuList.value.map(item => item.name))
         const classes = computed(() => {
             const classList = []
@@ -104,138 +104,138 @@ export default {
 
 <style lang="less"
        scoped>
-.x-layout-menu {
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-
-    &__brand {
-        flex-shrink: 0;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        height: 48px;
-        white-space: nowrap;
-        position: relative;
-        z-index: 10;
-
-        img {
-            height: 32px;
-            border-radius: 4px;
-            display: none;
-        }
-
-        h1 {
-            font-size: 18px;
-            margin: 0;
-            padding: 0 12px;
-            text-overflow: ellipsis;
-            overflow: hidden;
-        }
-    }
-
-    :deep(.x-layout-menu__title) {
-        display: flex;
-        align-items: center;
-    }
-
-    :deep(.x-layout-menu__text) {
-        flex: 1;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-    }
-
-    :deep(.x-layout-menu__badge) {
-
-        .ant-badge-count,
-        .ant-badge-dot {
-            box-shadow: none;
-        }
-    }
-
-    &--dark {
-        h1 {
-            color: #fff;
-        }
-    }
-
-    &--light {
-        box-shadow: 0 0 0 1px @border-color-split;
-
-        .x-layout-menu__brand {
-            box-shadow: 0 0 0 1px @border-color-split;
-        }
-
-        h1 {
-            color: #222;
-        }
-    }
-
-    :deep(.ant-menu) {
-        flex-grow: 1;
-        overflow: hidden;
-        overflow-y: auto;
-        border: none;
-
-        &-dark {
-            &::-webkit-scrollbar-thumb {
-                background-color: rgba(255, 255, 255, .2)
-            }
-        }
-
-        &-light {
-            &::-webkit-scrollbar-thumb {
-                background-color: rgba(0, 0, 0, 0.2);
-            }
-        }
-
-        &::-webkit-scrollbar {
-            width: 6px;
-            height: 6px;
-            background-color: transparent;
-        }
-
-        &::-webkit-scrollbar-thumb {
-            border-radius: 6px;
-        }
-    }
-
-    :deep(.ant-menu-item) {
-        a {
-            display: flex;
-            align-items: center;
-        }
-    }
-
-    :deep(.ant-menu-submenu-title) {
-        display: flex;
-        align-items: center;
-    }
-
-    :deep(.ant-menu.ant-menu-inline-collapsed > .ant-menu-submenu > .ant-menu-submenu-title),
-    :deep(.ant-menu.ant-menu-inline-collapsed > .ant-menu-item) {
-        padding: 0 @padding-md;
-    }
-
-    :deep(.ant-menu.ant-menu-inline-collapsed .anticon),
-    :deep(.ant-menu-dark .ant-menu-item-selected .ant-menu-item-icon) {
-        display: inline-flex;
-    }
-}
-
-.ant-layout-sider-collapsed {
-    .x-layout-menu {
-        &__logo {
-
-            img {
-                display: block;
-            }
-
-            h1 {
-                display: none;
-            }
-        }
-    }
-}
-</style>
+       .x-layout-menu {
+           height: 100%;
+           display: flex;
+           flex-direction: column;
+       
+           &__brand {
+               flex-shrink: 0;
+               display: flex;
+               align-items: center;
+               justify-content: center;
+               height: 48px;
+               white-space: nowrap;
+               position: relative;
+               z-index: 10;
+       
+               img {
+                   height: 32px;
+                   border-radius: 4px;
+                   display: none;
+               }
+       
+               h1 {
+                   font-size: 18px;
+                   margin: 0;
+                   padding: 0 12px;
+                   text-overflow: ellipsis;
+                   overflow: hidden;
+               }
+           }
+       
+           :deep(.x-layout-menu__title) {
+               display: flex;
+               align-items: center;
+           }
+       
+           :deep(.x-layout-menu__text) {
+               flex: 1;
+               overflow: hidden;
+               text-overflow: ellipsis;
+               white-space: nowrap;
+           }
+       
+           :deep(.x-layout-menu__badge) {
+       
+               .ant-badge-count,
+               .ant-badge-dot {
+                   box-shadow: none;
+               }
+           }
+       
+           &--dark {
+               h1 {
+                   color: #fff;
+               }
+           }
+       
+           &--light {
+               box-shadow: 0 0 0 1px @border-color-split;
+       
+               .x-layout-menu__brand {
+                   box-shadow: 0 0 0 1px @border-color-split;
+               }
+       
+               h1 {
+                   color: #222;
+               }
+           }
+       
+           :deep(.ant-menu) {
+               flex-grow: 1;
+               overflow: hidden;
+               overflow-y: auto;
+               border: none;
+       
+               &-dark {
+                   &::-webkit-scrollbar-thumb {
+                       background-color: rgba(255, 255, 255, .2)
+                   }
+               }
+       
+               &-light {
+                   &::-webkit-scrollbar-thumb {
+                       background-color: rgba(0, 0, 0, 0.2);
+                   }
+               }
+       
+               &::-webkit-scrollbar {
+                   width: 6px;
+                   height: 6px;
+                   background-color: transparent;
+               }
+       
+               &::-webkit-scrollbar-thumb {
+                   border-radius: 6px;
+               }
+           }
+       
+           :deep(.ant-menu-item) {
+               a {
+                   display: flex;
+                   align-items: center;
+               }
+           }
+       
+           :deep(.ant-menu-submenu-title) {
+               display: flex;
+               align-items: center;
+           }
+       
+           :deep(.ant-menu.ant-menu-inline-collapsed > .ant-menu-submenu > .ant-menu-submenu-title),
+           :deep(.ant-menu.ant-menu-inline-collapsed > .ant-menu-item) {
+               padding: 0 @padding-md;
+           }
+       
+           :deep(.ant-menu.ant-menu-inline-collapsed .anticon),
+           :deep(.ant-menu-dark .ant-menu-item-selected .ant-menu-item-icon) {
+               display: inline-flex;
+           }
+       }
+       
+       .ant-layout-sider-collapsed {
+           .x-layout-menu {
+               &__logo {
+       
+                   img {
+                       display: block;
+                   }
+       
+                   h1 {
+                       display: none;
+                   }
+               }
+           }
+       }
+       </style>

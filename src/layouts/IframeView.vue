@@ -10,14 +10,14 @@
 </template>
 
 <script>
-import {useStore} from 'vuex'
-import {computed} from 'vue'
+import { computed } from 'vue'
+import { useMultiTabStore } from '@/store'
 
 export default {
     name: 'IframeView',
     setup() {
-        const store = useStore()
-        const iframeList = computed(() => store.getters['multiTab/iframeList'])
+        const multiTabStore = useMultiTabStore()
+        const iframeList = computed(() => multiTabStore.iframeList)
         return {
             iframeList,
         }
@@ -25,8 +25,7 @@ export default {
 }
 </script>
 
-<style lang="less"
-       scoped>
+<style lang="less" scoped>
 .iframe {
     width: 100%;
     height: 100%;
