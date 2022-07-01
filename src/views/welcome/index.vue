@@ -56,7 +56,7 @@
                 <a-result :title="`${title} ${version}`"
                           :sub-title="`最新版本 ${version}`">
                     <template #icon>
-                        <img :src="require('@/assets/upgrade.svg')" />
+                        <img :src="upgradeImg" />
                     </template>
                 </a-result>
             </a-card>
@@ -70,16 +70,21 @@ import { useUserStore } from '@/store'
 import { timeFix } from '@/utils'
 
 import api from '@/api'
+import upgradeImg from '@/assets/upgrade.svg?url'
 
 export default {
     name: 'welcome',
     setup() {
         const userStore = useUserStore()
-        const title = process.env.VUE_APP_TITLE
-        const version = '2.1.6'
+        const title = import.meta.env.VITE_TITLE
         const userInfo = computed(() => userStore.userInfo)
         const userName = computed(() => `${timeFix()}，${userInfo.value?.username}`)
         const dynamicList = ref([])
+        const { version } = __APP_INFO__
+
+        onMounted(() => {
+            getData()
+        })
 
         async function getData() {
             const { code, data } = await api.common.getWelcomeData()
@@ -89,11 +94,8 @@ export default {
             }
         }
 
-        onMounted(() => {
-            getData()
-        })
-
         return {
+            upgradeImg,
             title,
             version,
             userName,

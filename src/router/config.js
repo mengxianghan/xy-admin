@@ -15,7 +15,7 @@ export const whiteList = [
  */
 export const notFoundRouter = {
     path: '/:pathMatch(.*)*',
-    redirect: '/exception/404',
+    redirect: '/exception/404.vue',
     meta: {
         isLogin: false,
         isMenu: false,
@@ -40,7 +40,7 @@ export const constantRouterMap = [
             {
                 path: '/login',
                 name: 'login',
-                component: () => import('@/views/login'),
+                component: () => import('@/views/login/index.vue'),
                 meta: {
                     title: '登录',
                 },
@@ -49,6 +49,6 @@ export const constantRouterMap = [
     },
     {
         path: '/404',
-        component: () => import('@/views/exception/404'),
+        component: () => import('@/views/exception/404.vue'),
     },
 ]

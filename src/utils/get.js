@@ -3,13 +3,14 @@ import pick from 'lodash/pick'
 import keys from 'lodash/keys'
 
 /**
+ * 获取环境变量
+ */
+export const getEnvConfig = (name) => (name ? import.meta.env[`VITE_${name}`] : import.meta.env)
+
+/**
  * 获取文件后缀
  */
-export function getSuffix(filename) {
-    return filename.split('.')
-                   .pop()
-                   .toLowerCase()
-}
+export const getSuffix = (filename) => filename.split('.').pop().toLowerCase()
 
 /**
  * 获取表单数据
@@ -17,6 +18,4 @@ export function getSuffix(filename) {
  * @param {object} record
  * @param {object} formState
  */
-export function getFormState(record = {}, formState = {}) {
-    return pick(cloneDeep(record), keys(formState) || []) || {}
-}
+export const getFormState = (record = {}, formState = {}) => pick(cloneDeep(record), keys(formState) || []) || {}

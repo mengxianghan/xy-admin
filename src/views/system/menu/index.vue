@@ -21,12 +21,12 @@
                 </template>
                 <template v-if="'type' === column.key">
                     <!--菜单-->
-                    <a-tag v-if="MENU_TYPE_ENUM.is('menu', record.type)"
-                           color="processing">{{ MENU_TYPE_ENUM.getDesc(record.type) }}
+                    <a-tag v-if="menuTypeEnum.is('menu', record.type)"
+                           color="processing">{{ menuTypeEnum.getDesc(record.type) }}
                     </a-tag>
                     <!--按钮-->
-                    <a-tag v-if="MENU_TYPE_ENUM.is('button', record.type)"
-                           color="success">{{ MENU_TYPE_ENUM.getDesc(record.type) }}
+                    <a-tag v-if="menuTypeEnum.is('button', record.type)"
+                           color="success">{{ menuTypeEnum.getDesc(record.type) }}
                     </a-tag>
                 </template>
                 <template v-if="'action' === column.key">
@@ -56,13 +56,13 @@
 
 <script>
 import { onMounted, ref } from 'vue'
-import { MENU_TYPE_ENUM } from '@/enums/system'
+import { menuTypeEnum } from '@/enums/system'
 import { message, Modal } from 'ant-design-vue'
 
 import api from '@/api'
 import usePagination from '@/hooks/usePagination'
 
-import Edit from './components/Edit'
+import Edit from './components/Edit.vue'
 
 export default {
     name: 'systemMenu',
@@ -124,7 +124,7 @@ export default {
         }
 
         return {
-            MENU_TYPE_ENUM,
+            menuTypeEnum,
             columns,
             list,
             loading,

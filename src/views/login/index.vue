@@ -36,7 +36,7 @@
 </template>
 
 <script>
-import { ref, computed } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import { useAppStore, useUserStore, useRouterStore } from '@/store'
 import { useRoute, useRouter } from 'vue-router'
 import { message, Modal, notification } from 'ant-design-vue'
@@ -52,7 +52,7 @@ export default {
         const routerStore = useRouterStore()
         const router = useRouter()
         const route = useRoute()
-        const title = process.env.VUE_APP_TITLE
+        const title = import.meta.env.VITE_TITLE
         const loading = ref(false)
         const redirect = computed(() => decodeURIComponent(route.query?.redirect ?? ''))
 

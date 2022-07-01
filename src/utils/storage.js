@@ -1,27 +1,22 @@
 import Storage from 'xy-storage'
 
 const options = {
-    namespace: process.env.VUE_APP_STORAGE_NAMESPACE,
+    namespace: import.meta.env.VITE_STORAGE_NAMESPACE,
 }
 
-export const useSession = ()=> {
-    return new Storage({
+export const useSession = () =>
+    new Storage({
         ...options,
-        name: 'session'
+        name: 'session',
     })
-}
-export const useLocal = ()=> {
-    return new Storage({
+export const useLocal = () =>
+    new Storage({
         ...options,
-        name: 'local'
+        name: 'local',
     })
-}
 
-export const useCookie = ()=> {
-    return new Storage({
+export const useCookie = () =>
+    new Storage({
         ...options,
-        name: 'cookie'
+        name: 'cookie',
     })
-}
-
-

@@ -32,7 +32,7 @@ import { TYPE_ENUM } from './config'
 
 import cloneDeep from 'lodash/cloneDeep'
 
-import FilterItem from './FilterItem'
+import FilterItem from './FilterItem.vue'
 
 /**
  * 筛选组件

@@ -30,8 +30,8 @@ import { useRouterStore } from '@/store'
 import { useRoute } from 'vue-router'
 import { LOGO_URL } from '@/config'
 
-import MenuLink from './MenuLink'
-import MenuSub from './MenuSub'
+import MenuLink from './MenuLink.vue'
+import MenuSub from './MenuSub.vue'
 
 /**
  * @property {string} theme 主题【light=亮色，dark=暗色】，默认：dark
@@ -49,7 +49,7 @@ export default {
         const routerStore = useRouterStore()
         const route = useRoute()
         const { theme } = toRefs(props)
-        const title = process.env.VUE_APP_TITLE
+        const title = import.meta.env.VITE_TITLE
         const collapsed = ref(false)
         const openKeys = ref([])
         const selectedKeys = ref([])

@@ -19,11 +19,11 @@
             <!--面包屑-->
             <!--<x-breadcrumb/>-->
             <a-layout-content class="layout-content">
-                <router-view v-slot="{ Component }">
+                <router-view v-slot="{ Component, route }">
                     <keep-alive :include="cacheList">
                         <component v-if="keepAlive"
                                    :is="Component"
-                                   :key="$route.name" />
+                                   :key="route.name" />
                     </keep-alive>
                 </router-view>
                 <iframe-view />
@@ -37,7 +37,7 @@ import { computed, ref } from 'vue'
 import { onBeforeRouteUpdate } from 'vue-router'
 import { useMultiTabStore } from '@/store'
 
-import IframeView from '@/layouts/IframeView'
+import IframeView from './IframeView.vue'
 
 export default {
     name: 'DefaultLayout',

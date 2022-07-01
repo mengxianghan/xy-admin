@@ -24,7 +24,7 @@ import {LOGO_URL} from '@/config'
 export default {
     name: 'BaseLayout',
     setup() {
-        const title = process.env.VUE_APP_TITLE
+        const title = import.meta.env.VITE_TITLE
         return {
             LOGO_URL,
             title,

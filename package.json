@@ -1,23 +1,19 @@
 {
-    "name": "XYAdmin",
-    "version": "2.2.0",
-    "description": "Admin",
+    "name": "xy-admin",
     "private": true,
+    "version": "2.2.0",
     "scripts": {
-        "serve": "vue-cli-service serve --mode local",
-        "build:dev": "vue-cli-service build --mode dev",
-        "build:test": "vue-cli-service build --mode test",
-        "build:pre": "vue-cli-service build --mode pre",
-        "build:prod": "vue-cli-service build --mode prod",
-        "build:demo": "vue-cli-service build --mode demo",
-        "build:report": "vue-cli-service build --mode prod --report"
+        "dev": "vite --mode dev",
+        "build:test": "vite build --mode test",
+        "build:pre": "vite build --mode pre",
+        "build:prod": "vite build --mode prod",
+        "preview": "vite preview --mode prod"
     },
     "dependencies": {
         "@ant-design/icons-vue": "^6.1.0",
         "@tinymce/tinymce-vue": "^4.0.7",
         "ant-design-vue": "^3.2.6",
         "axios": "^0.27.2",
-        "core-js": "^3.22.8",
         "cropperjs": "^1.5.12",
         "dayjs": "^1.11.3",
         "echarts": "^5.3.2",
@@ -40,12 +36,12 @@
         "xy-storage": "^3.0.0"
     },
     "devDependencies": {
-        "@vue/cli-plugin-babel": "~4.5.15",
-        "@vue/cli-plugin-router": "~4.5.15",
-        "@vue/cli-service": "~4.5.15",
-        "@vue/compiler-sfc": "^3.2.37",
-        "compression-webpack-plugin": "^6.1.1",
-        "less": "^3.13.1",
-        "less-loader": "^5.0.0"
+        "@rollup/plugin-dynamic-import-vars": "^1.4.3",
+        "@vitejs/plugin-vue": "^2.3.3",
+        "less": "^4.1.2",
+        "vite": "^2.9.9",
+        "vite-plugin-compression": "^0.5.1",
+        "vite-plugin-progress": "^0.0.3",
+        "vite-svg-loader": "^3.4.0"
     }
 }

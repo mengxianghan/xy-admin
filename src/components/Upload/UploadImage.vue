@@ -98,7 +98,7 @@ import includes from 'lodash/includes'
 import api from '@/api'
 
 import Preview from '../Preview'
-import CropperModal from '../CropperModal'
+import CropperModal from '../CropperModal.vue'
 
 /**
  * 图片上传

@@ -33,12 +33,12 @@
 
 <script>
 import { onMounted, ref } from 'vue'
+import { message, Modal } from 'ant-design-vue'
 
 import api from '@/api'
 import usePagination from '@/hooks/usePagination'
 
-import Edit from './components/Edit'
-import { message, Modal } from 'ant-design-vue'
+import Edit from './components/Edit.vue'
 
 export default {
     name: 'systemRole',

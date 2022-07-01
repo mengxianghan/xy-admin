@@ -96,7 +96,7 @@ import { message, Modal } from 'ant-design-vue'
 
 import api from '@/api'
 
-import Edit from './components/Edit'
+import Edit from './components/Edit.vue'
 
 import usePagination from '@/hooks/usePagination'
 

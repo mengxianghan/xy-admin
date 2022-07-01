@@ -12,7 +12,7 @@ import isObject from 'lodash/isObject'
  * @param {string} treeField 子节点，如果是树型结构，传入树型结构的子节点对应的字典名
  * @returns {[]}
  */
-export function mapping(list, structure = {}, expand = {}, treeField) {
+export const mapping = (list, structure = {}, expand = {}, treeField) => {
     let result = []
     if (!Array.isArray(list)) return []
     if (!structure) return list
@@ -35,10 +35,10 @@ export function mapping(list, structure = {}, expand = {}, treeField) {
                 // 函数
                 temp[key] = structureValue(item, index, array)
             } else {
-                temp[key] = (typeof record !== 'undefined') && record !== '' ? record : ''
+                temp[key] = typeof record !== 'undefined' && record !== '' ? record : ''
             }
         }
-        temp = expand ? {...temp, ...expand} : temp
+        temp = expand ? { ...temp, ...expand } : temp
         result.push(temp)
     })
     return result
@@ -51,7 +51,7 @@ export function mapping(list, structure = {}, expand = {}, treeField) {
  * @param {function} callback
  * @param {object} fields
  */
-export function findTree(list, value, callback, fields = {key: 'id', children: 'children'}, path = []) {
+export const findTree = (list, value, callback, fields = { key: 'id', children: 'children' }, path = []) => {
     list.forEach((item, index, array) => {
         if (isObject(value) ? isMatch(item, value) : item[fields.key] === value) {
             return callback(item, index, array, [...path, item])
@@ -69,9 +69,9 @@ export function findTree(list, value, callback, fields = {key: 'id', children: '
  * @param fields
  * @return {number}
  */
-export function deep(list, fields = {children: 'children'}) {
+export const deep = (list, fields = { children: 'children' }) => {
     let result = 1
-    list.forEach(item => {
+    list.forEach((item) => {
         const child = item[fields.children] || []
         if (child.length) {
             let temp = deep(child, fields) + 1
@@ -87,7 +87,7 @@ export function deep(list, fields = {children: 'children'}) {
  * @param sources
  * @return {*}
  */
-export function mergeDeep(object, sources) {
+export const mergeDeep = (object, sources) => {
     let key
     for (key in sources) {
         object[key] =
@@ -98,7 +98,11 @@ export function mergeDeep(object, sources) {
     return object
 }
 
-export function timeFix() {
+/**
+ * 时间段前缀
+ * @returns 
+ */
+export const timeFix = () => {
     const time = new Date()
     const hour = time.getHours()
     return hour < 9 ? '早上好' : hour <= 11 ? '上午好' : hour <= 13 ? '中午好' : hour < 20 ? '下午好' : '晚上好'

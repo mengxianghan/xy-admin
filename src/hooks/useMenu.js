@@ -9,7 +9,7 @@ export default () => {
      * @param {number} count 数量
      */
     function setBadge(name, count) {
-        routerStore.setBadeg({ name, count })
+        routerStore.setBadge({ name, count })
     }
 
     return {

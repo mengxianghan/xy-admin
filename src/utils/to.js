@@ -4,14 +4,14 @@
  * @param {object} fields
  * @return {*[]}
  */
-export function toList(list = [], fields = {children: 'children'}) {
+export const tree2list = (list = [], fields = { children: 'children' }) => {
     let result = []
     if (!Array.isArray(list)) return result
-    list.forEach(item => {
+    list.forEach((item) => {
         let temp = []
         result.push(item)
         if (item[fields.children] && item[fields.children].length) {
-            let children = toList(item[fields.children], fields)
+            let children = tree2list(item[fields.children], fields)
             if (children.length) {
                 temp = children
             }
@@ -28,16 +28,20 @@ export function toList(list = [], fields = {children: 'children'}) {
  * @param {object} fields
  * @return {*[]}
  */
-export function toTree(list = [], parentValue = '0', fields = {
-    key: 'id',
-    children: 'children',
-    parentKey: 'parentId',
-}) {
+export const list2tree = (
+    list = [],
+    parentValue = '0',
+    fields = {
+        key: 'id',
+        children: 'children',
+        parentKey: 'parentId',
+    }
+) => {
     const result = []
-    list.forEach(item => {
+    list.forEach((item) => {
         if (item[fields.parentKey] === parentValue) {
             let temp = item
-            let children = toTree(list, item[fields.key])
+            let children = list2tree(list, item[fields.key])
             if (children.length) {
                 temp[fields.children] = children
             }

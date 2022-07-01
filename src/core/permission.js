@@ -13,7 +13,7 @@ router.beforeEach((to, from, next) => {
     const complete = appStore.complete
 
     // 设置标题
-    document.title = title ? `${title} - ${process.env.VUE_APP_TITLE}` : process.env.VUE_APP_TITLE
+    document.title = title ? `${title} - ${import.meta.env.VITE_TITLE}` : import.meta.env.VITE_TITLE
 
     if (whiteList.includes(to.name)) {
         // 在白名单
