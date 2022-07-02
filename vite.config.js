@@ -14,6 +14,7 @@ export default defineConfig({
     build: {
         base: VITE_PUBLIC_PATH,
         target: 'es2015',
+        cssTarget: 'chrome80',
         brotliSize: false,
         chunkSizeWarningLimit: 2000,
     },
