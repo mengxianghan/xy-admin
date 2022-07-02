@@ -9,10 +9,11 @@ import useVisualizerPlugin from './config/useVisualizerPlugin'
 import useServer from './config/useServer'
 
 export default ({ mode }) => {
-    const env = loadEnv(mode, process.cwd())
+    const env = loadEnv(mode, process.cwd(), '')
+    console.log('mode', mode)
     return defineConfig({
+        base: env.VITE_PUBLIC_PATH,
         build: {
-            base: env.VITE_PUBLIC_PATH,
             outDir: env.VITE_OUT_DIR,
             target: 'es2015',
             cssTarget: 'chrome80',
