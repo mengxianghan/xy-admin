@@ -52,7 +52,7 @@
 
 <script>
 import { onMounted, computed, ref } from 'vue'
-import { useStore } from 'vuex'
+import { useMultiTabStore } from '@/store'
 import { useRouter, onBeforeRouteUpdate } from 'vue-router'
 
 import useMultiTab from '@/hooks/useMultiTab'
@@ -62,7 +62,7 @@ import Sortable from 'sortablejs'
 export default {
     name: 'XMultiTab',
     setup() {
-        const store = useStore()
+        const multiTabStore = useMultiTabStore()
         const router = useRouter()
         const {
             getSimpleRoute,
@@ -73,8 +73,8 @@ export default {
             closeOther: handleCloseOther,
             reload,
         } = useMultiTab()
-        const multiTabList = computed(() => store.getters['multiTab/list'])
-        const current = computed(() => store.getters['multiTab/current'])
+        const multiTabList = computed(() => multiTabStore.list)
+        const current = computed(() => multiTabStore.current)
         const spin = ref(false)
         const multiTabRef = ref()
 

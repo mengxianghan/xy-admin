@@ -100,7 +100,7 @@ export default {
         } = inject('filterContext')
         const { labelWidth } = toRefs(props)
 
-        const computedLabelWidth = computed(() => labelWidth?.value || ctxLabelWidth?.value)
+        const computedLabelWidth = computed(() => ctxLabelWidth?.value || labelWidth?.value)
 
         return {
             TYPE_ENUM,
@@ -115,65 +115,65 @@ export default {
 
 <style lang="less"
        scoped>
-@line-height: 30px;
-
-.x-filter {
-    &-item {
-        display: flex;
-        padding: @padding-xs 0;
-
-        &:first-child {
-            padding-top: 0;
-        }
-
-        &:last-child {
-            padding-bottom: 0;
-        }
-
-        &:not(:last-child) {
-            border-bottom: @border-color-split dashed 1px;
-        }
-
-        &__label {
-            flex-shrink: 0;
-            line-height: @line-height;
-            text-align: right;
-        }
-
-        &__content {
-            flex: 1;
-            margin-left: @margin-xs;
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-        }
-    }
-
-    &-tags {
-        display: flex;
-        flex-wrap: wrap;
-        gap: @margin-xss;
-    }
-
-    &-tag {
-        padding: 0 @padding-xs;
-        display: flex;
-        align-items: center;
-        height: @line-height;
-        line-height: @line-height;
-        border-radius: @border-radius-base;
-        cursor: pointer;
-        border: transparent solid 1px;
-        transition: all .15s;
-
-        &:hover {
-            color: @primary-color;
-        }
-
-        &--active {
-            border: @primary-color solid 1px;
-            color: @primary-color;
-        }
-    }
-}
-</style>
+       @line-height: 30px;
+       
+       .x-filter {
+           &-item {
+               display: flex;
+               padding: @padding-xs 0;
+       
+               &:first-child {
+                   padding-top: 0;
+               }
+       
+               &:last-child {
+                   padding-bottom: 0;
+               }
+       
+               &:not(:last-child) {
+                   border-bottom: @border-color-split dashed 1px;
+               }
+       
+               &__label {
+                   flex-shrink: 0;
+                   line-height: @line-height;
+                   text-align: right;
+               }
+       
+               &__content {
+                   flex: 1;
+                   margin-left: @margin-xs;
+                   display: flex;
+                   flex-wrap: wrap;
+                   align-items: center;
+               }
+           }
+       
+           &-tags {
+               display: flex;
+               flex-wrap: wrap;
+               gap: @margin-xss;
+           }
+       
+           &-tag {
+               padding: 0 @padding-xs;
+               display: flex;
+               align-items: center;
+               height: @line-height;
+               line-height: @line-height;
+               border-radius: @border-radius-base;
+               cursor: pointer;
+               border: transparent solid 1px;
+               transition: all .15s;
+       
+               &:hover {
+                   color: @primary-color;
+               }
+       
+               &--active {
+                   border: @primary-color solid 1px;
+                   color: @primary-color;
+               }
+           }
+       }
+       </style>

@@ -103,10 +103,11 @@
 
 <script>
 import {ref} from 'vue'
+
 import cloneDeep from 'lodash/cloneDeep'
 import useForm from '@/hooks/useForm'
 
-import MenuTree from './components/MenuTree'
+import MenuTree from './components/MenuTree.vue'
 
 export default {
     name: 'systemNewMenu',

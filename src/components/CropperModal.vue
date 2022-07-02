@@ -16,7 +16,7 @@
 <script>
 import { ref } from 'vue'
 
-import Cropper from './Cropper'
+import Cropper from './Cropper.vue'
 
 /**
  * 裁剪图片弹窗

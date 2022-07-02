@@ -21,13 +21,13 @@ XYAdmin 是一个中后台前端解决方案，基于 vue3.x 和 and-design-vue 
 
 ### MOCK
 
-VUE_APP_MOCK=true/false
+VITE_MOCK=true/false
 
 ### 权限和路由
 
 #### 配置
 
-VUE_APP_PERMISSION=true/false
+VITE_PERMISSION=true/false
 
 #### 完整的路由结构
 
@@ -71,16 +71,10 @@ npm install --registry https://registry.npm.taobao.org
 ### 本地运行
 
 ```shell
-npm run serve
+npm run dev
 ```
 
 ## 打包
-
-### 开发环境
-
-```shell
-npm run build:dev
-```
 
 ### 测试环境
 
@@ -100,10 +94,10 @@ npm run build:pre
 npm run build:prod
 ```
 
-### 性能分析
+### 本地预览
 
 ```shell
-npm run build:report
+npm run preview
 ```
 
 ## 发布

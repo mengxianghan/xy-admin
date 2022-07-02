@@ -1,7 +1,7 @@
+import { EMIAL_REG } from '@/config/regexp'
+
 /**
  * 验证 url
  * @param {string} str
  */
-export function isUrl(str) {
-    return new RegExp('^((https|http|ftp|rtsp|mms)?:\\/\\/)[^\\s]+', 'g').test(str)
-}
+export const isUrl = (str) => EMIAL_REG.test(str)

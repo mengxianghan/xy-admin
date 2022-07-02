@@ -27,11 +27,11 @@ import get from 'lodash/get'
 import head from 'lodash/head'
 import find from 'lodash/find'
 
-import Basic from './components/Basic'
-import Safe from './components/Safe'
-import Custom from './components/Custom'
-import Bind from './components/Bind'
-import Message from './components/Message'
+import Basic from './components/Basic.vue'
+import Safe from './components/Safe.vue'
+import Custom from './components/Custom.vue'
+import Bind from './components/Bind.vue'
+import Message from './components/Message.vue'
 
 export default {
     name: 'userSetting',

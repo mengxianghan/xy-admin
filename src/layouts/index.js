@@ -1,10 +1,6 @@
-import BaseLayout from './BaseLayout'
-import CustomLayout from './CustomLayout'
-import DefaultLayout from './DefaultLayout'
-import RouteViewLayout from './RouteViewLayout'
+import BaseLayout from './BaseLayout.vue'
+import CustomLayout from './CustomLayout.vue'
+import DefaultLayout from './DefaultLayout.vue'
+import RouteViewLayout from './RouteViewLayout.vue'
 
-export {
-    DefaultLayout,
-    BaseLayout,
-    RouteViewLayout,
-}
+export { BaseLayout, CustomLayout, DefaultLayout, RouteViewLayout }

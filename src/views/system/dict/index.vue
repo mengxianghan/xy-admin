@@ -80,8 +80,8 @@ import api from '@/api'
 
 import usePagination from '@/hooks/usePagination'
 
-import Edit from './components/Edit'
-import DictTypeTree from './components/DictTypeTree'
+import Edit from './components/Edit.vue'
+import DictTypeTree from './components/DictTypeTree.vue'
 
 export default {
     name: 'systemDict',

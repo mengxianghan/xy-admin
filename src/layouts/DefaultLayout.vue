@@ -1,14 +1,13 @@
 <template>
     <a-layout class="layout">
-        <a-layout-sider
-            :collapsed="collapsed"
-            :collapsible="collapsible"
-            :collapsed-width="48"
-            breakpoint="lg"
-            :theme="theme"
-            :width="208"
-            class="layout-sider">
-            <x-layout-menu :theme="theme"/>
+        <a-layout-sider :collapsed="collapsed"
+                        :collapsible="collapsible"
+                        :collapsed-width="48"
+                        breakpoint="lg"
+                        :theme="theme"
+                        :width="208"
+                        class="layout-sider">
+            <x-layout-menu :theme="theme" />
         </a-layout-sider>
         <a-layout class="layout-main">
             <a-layout-header :theme="theme"
@@ -16,40 +15,41 @@
                 <x-layout-header v-model:collapsed="collapsed"></x-layout-header>
             </a-layout-header>
             <!--多标签页，建议和面包屑二选一-->
-            <x-multi-tab/>
+            <x-multi-tab />
             <!--面包屑-->
             <!--<x-breadcrumb/>-->
             <a-layout-content class="layout-content">
-                <router-view v-slot="{ Component }">
+                <router-view v-slot="{ Component, route }">
                     <keep-alive :include="cacheList">
                         <component v-if="keepAlive"
                                    :is="Component"
-                                   :key="$route.name"/>
+                                   :key="route.name" />
                     </keep-alive>
                 </router-view>
-                <iframe-view/>
+                <iframe-view />
             </a-layout-content>
         </a-layout>
     </a-layout>
 </template>
 
 <script>
-import IframeView from '@/layouts/IframeView'
-import {computed, ref} from 'vue'
-import {useStore} from 'vuex'
-import {useRouter, onBeforeRouteUpdate} from 'vue-router'
+import { computed, ref } from 'vue'
+import { onBeforeRouteUpdate } from 'vue-router'
+import { useMultiTabStore } from '@/store'
+
+import IframeView from './IframeView.vue'
 
 export default {
     name: 'DefaultLayout',
-    components: {IframeView},
+    components: { IframeView },
     setup() {
-        const store = useStore()
+        const multiTabStore = useMultiTabStore()
         const collapsible = ref(false)
         const collapsed = ref(false)
         const refreshing = ref(false)
         const theme = 'dark'
-        const cacheList = computed(() => store.getters['multiTab/cacheList'])
-        const keepAlive = computed(() => store.getters['multiTab/keepAlive'])
+        const cacheList = computed(() => multiTabStore.cacheList)
+        const keepAlive = computed(() => multiTabStore.keepAlive)
         const pageType = ref('')
 
         onBeforeRouteUpdate((to) => {
@@ -74,8 +74,7 @@ export default {
 }
 </script>
 
-<style lang="less"
-       scoped>
+<style lang="less" scoped>
 .layout {
     height: 100vh;
 

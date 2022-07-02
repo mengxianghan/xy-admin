@@ -27,7 +27,7 @@
 </template>
 
 <script>
-import MenuLink from './MenuLink'
+import MenuLink from './MenuLink.vue'
 
 /**
  * @property {object} dataSource

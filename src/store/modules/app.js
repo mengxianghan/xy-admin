@@ -1,53 +1,35 @@
-import {loading} from '@/components'
+import { defineStore } from 'pinia'
+import { loading } from '@/components'
 
-const state = {
-    complete: false,
-}
+import useRouterStore from './router'
 
-const getters = {
-    complete: state => state.complete,
-}
-
-const mutations = {
-    /**
-     * 设置初始化完成状态
-     * @param state
-     * @param complete
-     * @constructor
-     */
-    SET_COMPLETE(state, complete = false) {
-        state.complete = complete
+const useAppStore = defineStore('app', {
+    name: 'useAppStore',
+    state: () => ({
+        complete: false,
+    }),
+    getters: {},
+    actions: {
+        /**
+         * 初始化
+         * @returns {Promise}
+         */
+        init() {
+            const routerStore = useRouterStore()
+            return new Promise((resolve) => {
+                loading()
+                Promise.all([routerStore.getRouterList()])
+                    .then(() => {
+                        loading.close()
+                        this.complete = true
+                        resolve()
+                    })
+                    .catch(() => {
+                        loading.close()
+                    })
+            })
+        },
     },
-}
+})
 
-const actions = {
-    /**
-     * 初始化
-     * @param dispatch
-     * @returns {Promise}
-     */
-    init({commit, dispatch}) {
-        return new Promise((resolve) => {
-            loading()
-            Promise.all([
-                       dispatch('router/getRouterList', null, {root: true}),
-                   ])
-                   .then(() => {
-                       loading.close()
-                       commit('SET_COMPLETE', true)
-                       resolve()
-                   })
-                   .catch(() => {
-                       loading.close()
-                   })
-        })
-    },
-}
-
-export default {
-    namespaced: true,
-    state,
-    getters,
-    mutations,
-    actions,
-}
+export default useAppStore

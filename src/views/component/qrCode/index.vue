@@ -1,5 +1,6 @@
 <template>
-    <a-row :gutter="16">
+    <a-row :gutter="16"
+           class="align-center">
         <a-col :span="6">
             <a-card title="基础">
                 <x-qr-code text="admin"></x-qr-code>
@@ -9,14 +10,6 @@
             <a-card title="带Logo">
                 <x-qr-code text="admin"
                            :logo="LOGO_URL"></x-qr-code>
-            </a-card>
-        </a-col>
-        <a-col :span="6">
-            <a-card title="自定义颜色大小">
-                <x-qr-code text="admin"
-                           :size="200"
-                           color-dark="#1890ff"
-                           color-light="#fff"></x-qr-code>
             </a-card>
         </a-col>
         <a-col :span="6">
@@ -31,6 +24,14 @@
                 <x-qr-code :text="text"
                            @ready="onReady"></x-qr-code>
                 <div class="mt-8-1">状态：{{ status }}</div>
+            </a-card>
+        </a-col>
+        <a-col :span="6">
+            <a-card title="自定义颜色/尺寸">
+                <x-qr-code text="admin"
+                           :size="200"
+                           color-dark="#1890ff"
+                           color-light="#fff"></x-qr-code>
             </a-card>
         </a-col>
     </a-row>

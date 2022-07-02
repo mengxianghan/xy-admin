@@ -22,17 +22,17 @@
                           :label-width="100"
                           use-button
                           @ok="handleOk">
-                    <template #praise="{record}">
+                    <template #praise="{ record }">
                         <x-filter-item :label="record.label">
                             <a-select v-model:value="record.value"
                                       :options="[
-                                        {label: '好评', value: '好评'},
-                                        {label: '中评', value: '中评'},
-                                        {label: '差评', value: '差评'},
-                                    ]"></a-select>
+                                          { label: '好评', value: '好评' },
+                                          { label: '中评', value: '中评' },
+                                          { label: '差评', value: '差评' },
+                                      ]"></a-select>
                         </x-filter-item>
                     </template>
-                    <template #filter="{record}">
+                    <template #filter="{ record }">
                         <x-filter-item :label="record.label">
                             <a-switch v-model:checked="record.value"></a-switch>
                         </x-filter-item>
@@ -49,7 +49,7 @@
 </template>
 
 <script>
-import {ref} from 'vue'
+import { ref } from 'vue'
 
 export default {
     name: 'componentFilter',
@@ -58,41 +58,41 @@ export default {
             {
                 label: '单选', key: 'key', type: 'tag',
                 options: [
-                    {label: '全部', value: 0},
-                    {label: '选项2', value: 2},
-                    {label: '选项3', value: 3},
-                    {label: '选项4', value: 4},
-                    {label: '选项5', value: 5},
+                    { label: '全部', value: 0 },
+                    { label: '选项2', value: 2 },
+                    { label: '选项3', value: 3 },
+                    { label: '选项4', value: 4 },
+                    { label: '选项5', value: 5 },
                 ],
             },
             {
                 label: '多选', key: 'key1', type: 'tag', multiple: true,
                 options: [
-                    {label: '全部', value: 0},
-                    {label: '选项2', value: 2},
-                    {label: '选项3', value: 3},
-                    {label: '选项4', value: 4},
-                    {label: '选项5', value: 5},
+                    { label: '全部', value: 0 },
+                    { label: '选项2', value: 2 },
+                    { label: '选项3', value: 3 },
+                    { label: '选项4', value: 4 },
+                    { label: '选项5', value: 5 },
                 ],
             },
-            {label: '自定义输入', key: 'key2', type: 'input'},
-            {label: '自定义区间', key: 'key3', type: 'inputRange'},
-            {label: '日期', key: 'key4', type: 'date', valueFormat: 'YYYY-MM-DD'},
-            {label: '日期区间', key: 'key5', type: 'dateRange', valueFormat: 'YYYY-MM-DD'},
+            { label: '自定义输入', key: 'key2', type: 'input' },
+            { label: '自定义区间', key: 'key3', type: 'inputRange' },
+            { label: '日期', key: 'key4', type: 'date', valueFormat: 'YYYY-MM-DD' },
+            { label: '日期区间', key: 'key5', type: 'dateRange', valueFormat: 'YYYY-MM-DD' },
         ])
         const customList = ref([
             {
                 label: '单选', key: 'key', type: 'tag',
                 options: [
-                    {label: '全部', value: 0},
-                    {label: '选项2', value: 2},
-                    {label: '选项3', value: 3},
-                    {label: '选项4', value: 4},
-                    {label: '选项5', value: 5},
+                    { label: '全部', value: 0 },
+                    { label: '选项2', value: 2 },
+                    { label: '选项3', value: 3 },
+                    { label: '选项4', value: 4 },
+                    { label: '选项5', value: 5 },
                 ],
             },
-            {label: '好评度', key: 'praise', scopedSlot: true},
-            {label: '过滤数据', key: 'filter', scopedSlot: true},
+            { label: '好评度', key: 'praise', scopedSlot: true },
+            { label: '过滤数据', key: 'filter', scopedSlot: true },
         ])
 
         const filterForm = ref({
@@ -119,5 +119,4 @@ export default {
 </script>
 
 <style scoped>
-
 </style>

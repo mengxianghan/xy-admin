@@ -11,19 +11,19 @@
                        class="align-center">
                     <a-col flex="1">
                         <a-statistic title="我的待办"
-                                     value="8个任务"/>
+                                     value="8个任务" />
                     </a-col>
                     <a-col flex="1">
                         <a-statistic title="本周任务平均处理时间"
-                                     value="32分钟"/>
+                                     value="32分钟" />
                     </a-col>
                     <a-col flex="1">
                         <a-statistic title="本周完成任务数"
-                                     value="24个任务"/>
+                                     value="24个任务" />
                     </a-col>
                     <a-col flex="1">
                         <a-statistic title="异常（个）"
-                                     value="1"/>
+                                     value="1" />
                     </a-col>
                 </a-row>
             </a-card>
@@ -34,10 +34,9 @@
                         :data-source="dynamicList">
                     <template #renderItem="{ item }">
                         <a-list-item>
-                            <a-list-item-meta
-                                :description="item.time">
+                            <a-list-item-meta :description="item.time">
                                 <template #avatar>
-                                    <a-avatar :src="item.avatar"/>
+                                    <a-avatar :src="item.avatar" />
                                 </template>
                                 <template #title>
                                     {{ item.title }}
@@ -57,7 +56,7 @@
                 <a-result :title="`${title} ${version}`"
                           :sub-title="`最新版本 ${version}`">
                     <template #icon>
-                        <img :src="require('@/assets/upgrade.svg')"/>
+                        <img :src="upgradeImg" />
                     </template>
                 </a-result>
             </a-card>
@@ -66,35 +65,37 @@
 </template>
 
 <script>
-import {computed, onMounted, ref} from 'vue'
-import {useStore} from 'vuex'
-import {timeFix} from '@/utils'
+import { computed, onMounted, ref } from 'vue'
+import { useUserStore } from '@/store'
+import { timeFix } from '@/utils'
 
 import api from '@/api'
+import upgradeImg from '@/assets/upgrade.svg?url'
 
 export default {
     name: 'welcome',
     setup() {
-        const store = useStore()
-        const title = process.env.VUE_APP_TITLE
-        const version = '2.1.4'
-        const userInfo = computed(() => store.getters['user/userInfo'])
+        const userStore = useUserStore()
+        const title = import.meta.env.VITE_TITLE
+        const userInfo = computed(() => userStore.userInfo)
         const userName = computed(() => `${timeFix()}，${userInfo.value?.username}`)
         const dynamicList = ref([])
-
-        async function getData() {
-            const {code, data} = await api.common.getWelcomeData()
-            if (200 === code) {
-                const {dynamicRows} = data
-                dynamicList.value = dynamicRows
-            }
-        }
+        const { version } = __APP_INFO__
 
         onMounted(() => {
             getData()
         })
 
+        async function getData() {
+            const { code, data } = await api.common.getWelcomeData()
+            if (200 === code) {
+                const { dynamicRows } = data
+                dynamicList.value = dynamicRows
+            }
+        }
+
         return {
+            upgradeImg,
             title,
             version,
             userName,
@@ -106,4 +107,4 @@ export default {
 
 <style lang="less"
        scoped>
-</style>
+       </style>

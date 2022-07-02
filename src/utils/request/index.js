@@ -50,6 +50,6 @@ class Api extends Http {
 export default {
     readFile: new ReadFile(),
     api: new Api(),
-    default: new Api(`${process.env.VUE_APP_API_DEFAULT}`),
+    default: new Api(`${import.meta.env.VITE_API_DEFAULT}`),
 }
 

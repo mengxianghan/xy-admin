@@ -47,9 +47,9 @@ import { ref, onMounted } from 'vue'
 import { message, Modal } from 'ant-design-vue'
 
 import api from '@/api'
-
 import usePagination from '@/hooks/usePagination'
-import DictTypeEdit from '@/views/system/dict/components/DictTypeEdit'
+
+import DictTypeEdit from '@/views/system/dict/components/DictTypeEdit.vue'
 
 export default {
     name: 'DictTypeTree',
@@ -130,43 +130,43 @@ export default {
 
 <style lang="less"
        scoped>
-.tree-row {
-    display: flex;
-    align-items: center;
-
-    &:hover {
-        .tree-row {
-            &__actions {
-                display: flex;
-            }
-
-            &__code {
-                display: none;
-            }
-        }
-    }
-
-    &__name {
-        flex: 1;
-        width: 0;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-
-        &,
-        >* {
-            display: flex;
-        }
-    }
-
-    &__code {
-        font-size: 12px;
-        color: @text-color-secondary;
-    }
-
-    &__actions {
-        margin: 0 0 0 @margin-sm;
-        display: none;
-    }
-}
-</style>
+       .tree-row {
+           display: flex;
+           align-items: center;
+       
+           &:hover {
+               .tree-row {
+                   &__actions {
+                       display: flex;
+                   }
+       
+                   &__code {
+                       display: none;
+                   }
+               }
+           }
+       
+           &__name {
+               flex: 1;
+               width: 0;
+               overflow: hidden;
+               text-overflow: ellipsis;
+               white-space: nowrap;
+       
+               &,
+               >* {
+                   display: flex;
+               }
+           }
+       
+           &__code {
+               font-size: 12px;
+               color: @text-color-secondary;
+           }
+       
+           &__actions {
+               margin: 0 0 0 @margin-sm;
+               display: none;
+           }
+       }
+       </style>

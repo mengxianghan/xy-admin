@@ -9,15 +9,15 @@
 </template>
 
 <script>
-import {computed, ref} from 'vue'
-import {useRoute} from 'vue-router'
-import {useStore} from 'vuex'
+import { computed, ref } from 'vue'
+import { useRoute } from 'vue-router'
+import { useMultiTabStore } from '@/store'
 
 export default {
     name: 'iframe',
     setup() {
-        const store = useStore()
-        const iframeList = computed(() => store.getters['multiTab/iframeList'])
+        const multiTabStore = useMultiTabStore()
+        const iframeList = computed(() => multiTabStore.iframeList)
         const route = useRoute()
         const url = ref(route.meta?.url)
         return {
@@ -30,18 +30,18 @@ export default {
 
 <style lang="less"
        scoped>
-.iframe {
-    width: 100%;
-    height: 100%;
-    border: 0;
-
-    &-container {
-        position: absolute;
-        left: 0;
-        right: 0;
-        top: 0;
-        bottom: 0;
-        margin: -16px;
-    }
-}
-</style>
+       .iframe {
+           width: 100%;
+           height: 100%;
+           border: 0;
+       
+           &-container {
+               position: absolute;
+               left: 0;
+               right: 0;
+               top: 0;
+               bottom: 0;
+               margin: -16px;
+           }
+       }
+       </style>

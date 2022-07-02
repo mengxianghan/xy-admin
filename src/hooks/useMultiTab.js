@@ -1,12 +1,12 @@
-import {useRouter} from 'vue-router'
-import {nextTick} from 'vue'
-import {useStore} from 'vuex'
+import { useRouter } from 'vue-router'
+import { nextTick } from 'vue'
+import { useMultiTabStore } from '@/store'
 
 import cloneDeep from 'lodash/cloneDeep'
 
 export default () => {
+    const multiTabStore = useMultiTabStore()
     const router = useRouter()
-    const store = useStore()
 
     /**
      * 获取简易路由
@@ -15,8 +15,8 @@ export default () => {
      * @private
      */
     function getSimpleRoute(route) {
-        const {fullPath, hash, href, meta, name, params, path, query} = route
-        return cloneDeep({fullPath, hash, href, meta, name, params, path, query})
+        const { fullPath, hash, href, meta, name, params, path, query } = route
+        return cloneDeep({ fullPath, hash, href, meta, name, params, path, query })
     }
 
     /**
@@ -24,7 +24,7 @@ export default () => {
      * @param route
      */
     function open(route) {
-        store.dispatch('multiTab/open', {
+        multiTabStore.open({
             route: getSimpleRoute(route),
         })
     }
@@ -35,7 +35,7 @@ export default () => {
      */
     function close(route) {
         route = route || router.currentRoute.value
-        store.dispatch('multiTab/close', {
+        multiTabStore.close({
             route: getSimpleRoute(route),
         })
     }
@@ -46,12 +46,13 @@ export default () => {
      */
     function closeLeft(route) {
         route = route || router.currentRoute.value
-        store.dispatch('multiTab/closeLeft', {
-                 route: getSimpleRoute(route),
-             })
-             .then(({route}) => {
-                 router.push(route)
-             })
+        multiTabStore
+            .closeLeft({
+                route: getSimpleRoute(route),
+            })
+            .then(({ route }) => {
+                router.push(route)
+            })
     }
 
     /**
@@ -60,12 +61,13 @@ export default () => {
      */
     function closeRight(route) {
         route = route || router.currentRoute.value
-        store.dispatch('multiTab/closeRight', {
-                 route: getSimpleRoute(route),
-             })
-             .then(({route}) => {
-                 router.push(route)
-             })
+        multiTabStore
+            .closeRight({
+                route: getSimpleRoute(route),
+            })
+            .then(({ route }) => {
+                router.push(route)
+            })
     }
 
     /**
@@ -74,7 +76,7 @@ export default () => {
      */
     function closeOther(route) {
         route = route || router.currentRoute.value
-        store.dispatch('multiTab/closeOther', {
+        multiTabStore.closeOther({
             route: getSimpleRoute(route),
         })
         if (route.fullPath !== router.currentRoute.value.fullPath) {
@@ -94,11 +96,11 @@ export default () => {
             router.push(getSimpleRoute(route))
         }
         setTimeout(() => {
-            store.dispatch('multiTab/reload', {
+            multiTabStore.reload({
                 route: getSimpleRoute(route),
             })
             nextTick(() => {
-                store.dispatch('multiTab/reload', {
+                multiTabStore.reload({
                     route: getSimpleRoute(route),
                 })
             })
@@ -112,7 +114,7 @@ export default () => {
      */
     function setTitle(title, route) {
         route = getSimpleRoute(route || router.currentRoute.value)
-        store.dispatch('multiTab/setTitle', {route, title})
+        multiTabStore.setTitle({ route, title })
     }
 
     return {

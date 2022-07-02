@@ -9,14 +9,14 @@ import { onMounted, ref, toRefs, markRaw, watch } from 'vue'
 import * as echarts from 'echarts'
 
 /**
- * @property {object} option 配置信息
+ * @property {object} options 配置信息
  * @property {number | string} width 宽 
  * @property {number | string} height 高
  */
 export default {
     name: 'XChart',
     props: {
-        option: {
+        options: {
             type: Object,
             default: () => ({}),
         },
@@ -31,11 +31,11 @@ export default {
     },
     emits: ['ready'],
     setup(props, { emit }) {
-        const { option, width, height } = toRefs(props)
+        const { options, width, height } = toRefs(props)
         const chart = ref(null)
         const chartRef = ref()
 
-        watch(() => option.value, () => _init())
+        watch(() => options.value, () => _init())
 
         onMounted(() => {
             _init()
@@ -66,7 +66,7 @@ export default {
             }))
 
             setTimeout(() => {
-                chart.value.setOption(option.value, true)
+                chart.value.setOption(options.value, true)
                 chart.value.resize()
             }, 100)
 

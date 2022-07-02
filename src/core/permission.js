@@ -1,16 +1,19 @@
-import {whiteList} from '@/router/config'
+import { whiteList } from '@/router/config'
+
+import { useAppStore, useUserStore } from '@/store'
 
 import router from '@/router'
-import store from '@/store'
 
-router.beforeEach((to, form, next) => {
-    const {meta, matched} = to
-    const {title} = meta
-    const isLogin = store.getters['user/isLogin']
-    const complete = store.getters['app/complete']
+router.beforeEach((to, from, next) => {
+    const { meta } = to
+    const { title } = meta
+    const appStore = useAppStore()
+    const userStore = useUserStore()
+    const isLogin = userStore.isLogin
+    const complete = appStore.complete
 
     // 设置标题
-    document.title = title ? `${title} - ${process.env.VUE_APP_TITLE}` : process.env.VUE_APP_TITLE
+    document.title = title ? `${title} - ${import.meta.env.VITE_TITLE}` : import.meta.env.VITE_TITLE
 
     if (whiteList.includes(to.name)) {
         // 在白名单
@@ -24,21 +27,19 @@ router.beforeEach((to, form, next) => {
                 next()
             } else {
                 // 初始化未加载完成
-                store.dispatch('app/init')
-                     .then(() => {
-                         next({...to, replace: true})
-                     })
+                appStore.init().then(() => {
+                    next({ ...to, replace: true })
+                })
             }
         } else {
             // 未登录
             next({
                 name: 'login',
                 replace: true,
-                query: {redirect: encodeURIComponent(location.href)},
+                query: { redirect: encodeURIComponent(location.href) },
             })
         }
     }
 })
 
-router.afterEach(() => {
-})
+router.afterEach(() => {})

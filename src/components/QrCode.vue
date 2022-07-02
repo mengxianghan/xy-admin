@@ -1,11 +1,11 @@
 <template>
-    <img ref="imgRef">
+    <img ref="imgRef" />
 </template>
 
 <script>
 import { ref, toRefs, onMounted, watch } from 'vue'
 
-import QRcode from 'qrcodejs2'
+import QRCode from 'qrcode'
 
 /**
  * 二维码
@@ -14,9 +14,11 @@ import QRcode from 'qrcodejs2'
  * @property {string} logo logo
  * @property {number} logoSize logo 大小，默认：30
  * @property {number} logoPadding logo 间距，默认：5
+ * @property {steing} logoBackgroundColor logo 背景色，默认：transparent
  * @property {string} colorDark 背景色
  * @property {string} colorLight 前景色
- * @property {number} correctLevel 容错级别，默认：2
+ * @property {string} errorCorrectionLevel 容错级别，默认：M，【L=low, M=medium, Q=quartile, H=high】
+ * @property {number} margin 安静区宽度，默认：2
  */
 export default {
     name: 'XQrCode',
@@ -42,6 +44,10 @@ export default {
             type: Number,
             default: 5,
         },
+        logoBackgroundColor: {
+            type: String,
+            default: ''
+        },
         colorDark: {
             type: String,
             default: '#000000',
@@ -50,14 +56,17 @@ export default {
             type: String,
             default: '#ffffff',
         },
-        correctLevel: {
-            type: Number,
-            default: 2,
+        errorCorrectionLevel: {
+            type: String,
+            default: 'M',
         },
+        margin: {
+            type: Number,
+            default: 2
+        }
     },
     emit: ['ready'],
     setup(props, { emit }) {
-        const { text, size, logo, logoSize, logoPadding, colorDark, colorLight, correctLevel } = toRefs(props)
         const qrcode = ref(null)
         const imgRef = ref()
 
@@ -76,20 +85,18 @@ export default {
          * @return {Promise<unknown>}
          */
         async function build() {
-            return new Promise((resolve) => {
-                let element = document.createElement('div')
-                new QRcode(element, {
-                    text: text.value,
-                    width: size.value,
-                    height: size.value,
-                    colorDark: colorDark.value,
-                    colorLight: colorLight.value,
-                    correctLevel: correctLevel.value,
+            return new Promise(async (resolve) => {
+                const canvas = await QRCode.toCanvas(props.text, {
+                    width: props.size,
+                    color: {
+                        dark: props.colorDark,
+                        light: props.colorLight
+                    },
+                    errorCorrectionLevel: props.errorCorrectionLevel,
+                    margin: props.margin
                 })
-                if (element.getElementsByTagName('canvas')[0]) {
-                    qrcode.value = element
-                    resolve()
-                }
+                qrcode.value = canvas
+                resolve()
             })
         }
 
@@ -100,15 +107,18 @@ export default {
         async function drawLogo() {
             return new Promise((resolve) => {
                 let img = new Image()
-                img.src = logo.value
-                const logoPos = (size.value - logoSize.value) / 2
-                const rectSize = logoSize.value + logoPadding.value
-                const rectPos = (size.value - rectSize) / 2
-                let ctx = qrcode.value.getElementsByTagName('canvas')[0].getContext('2d')
-                //ctx.fillStyle = '#ffffff'
+                img.src = props.logo
+                const logoPos = (props.size - props.logoSize) / 2
+                const rectSize = props.logoSize + props.logoPadding
+                const rectPos = (props.size - rectSize) / 2
+                let ctx = qrcode.value.getContext('2d')
                 img.onload = () => {
-                    //ctx.fillRect(rectPos, rectPos, rectSize, rectSize)
-                    ctx.drawImage(img, logoPos, logoPos, logoSize.value, logoSize.value)
+                    // logo 背景色
+                    if (props.logoBackgroundColor) {
+                        ctx.fillStyle = props.logoBackgroundColor
+                        ctx.fillRect(rectPos, rectPos, rectSize, rectSize)
+                    }
+                    ctx.drawImage(img, logoPos, logoPos, props.logoSize, props.logoSize)
                     resolve()
                 }
             })
@@ -120,10 +130,10 @@ export default {
          */
         async function draw() {
             await build()
-            if (logo.value) {
+            if (props.logo) {
                 await drawLogo()
             }
-            imgRef.value.src = qrcode.value.getElementsByTagName('canvas')[0].toDataURL('image/png')
+            imgRef.value.src = qrcode.value.toDataURL('image/png')
             emit('ready')
         }
 
