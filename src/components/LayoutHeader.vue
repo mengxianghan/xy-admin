@@ -70,7 +70,7 @@ export default {
                 okText: '确认',
                 cancelText: '取消',
                 onOk: () => {
-                    userStore.logout.then(() => {
+                    userStore.logout().then(() => {
                         router.push({
                             name: 'login',
                         })
