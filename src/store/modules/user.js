@@ -55,7 +55,7 @@ const useUserStore = defineStore('user', {
                 })
                 local.remove(STORAGE_IS_LOGIN)
                 local.remove(STORAGE_TOKEN)
-                local.remove(STORAGE.STORAGE_USER_INFO)
+                local.remove(STORAGE_USER_INFO)
                 appStore.complete = false
                 resolve()
             })
