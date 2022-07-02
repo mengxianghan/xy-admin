@@ -7,8 +7,9 @@
         "build:test": "vite build --mode test",
         "build:pre": "vite build --mode pre",
         "build:prod": "vite build --mode prod",
+        "build:demo": "vite build --mode demo",
         "preview": "npm run build:prod && vite preview",
-        "report": "vite build --mode prod"
+        "report": "vite build --mode demo"
     },
     "dependencies": {
         "@ant-design/icons-vue": "^6.1.0",
