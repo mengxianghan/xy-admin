@@ -1,8 +1,9 @@
 <template>
     <div>
         <a-tabs centered>
+            <!-- 账号登录 -->
             <a-tab-pane key="account"
-                        tab="用户名登录">
+                        tab="账号登录">
                 <a-form :model="formState"
                         :rules="rules"
                         ref="formRef">
@@ -36,7 +37,45 @@
                     </a-form-item>
                 </a-form>
             </a-tab-pane>
-
+            <!-- 手机号登录 -->
+            <a-tab-pane key="phone"
+                        tab="手机号登录">
+                <a-form :model="formState"
+                        :rules="rules"
+                        ref="formRef">
+                    <a-form-item name="username">
+                        <a-input v-model:value="formState.username"
+                                 size="large"
+                                 placeholder="手机号码">
+                            <template #prefix>
+                                <icon-mobile-outlined></icon-mobile-outlined>
+                            </template>
+                        </a-input>
+                    </a-form-item>
+                    <a-form-item name="msgCode">
+                        <a-input v-model:value="formState.password"
+                                 size="large"
+                                 placeholder="短信验证码"
+                                 @pressEnter="handleLogin">
+                            <template #prefix>
+                                <icon-lock-outlined></icon-lock-outlined>
+                            </template>
+                            <template #suffix>
+                                <span class="cursor-pointer">获取验证码</span>
+                            </template>
+                        </a-input>
+                    </a-form-item>
+                    <a-form-item>
+                        <a-button type="primary"
+                                  size="large"
+                                  block
+                                  :loading="loading"
+                                  @click="handleLogin">登录
+                        </a-button>
+                    </a-form-item>
+                </a-form>
+            </a-tab-pane>
+            <!-- 二维码登录 -->
             <a-tab-pane key="qrcode"
                         tab="二维码登录"
                         class="align-center">
