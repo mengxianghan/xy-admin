@@ -61,10 +61,10 @@ export default {
             password: { required: true, message: '请输入密码' },
         }
 
-        formState.value = {
-            username: 'admin',
-            password: '123456',
-        }
+        onMounted(() => {
+            // 清理登录信息
+            userStore.logout()
+        })
 
         /**
          * 登录
