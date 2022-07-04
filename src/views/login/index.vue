@@ -1,37 +1,52 @@
 <template>
     <div>
-        <a-form :model="formState"
-                :rules="rules"
-                ref="formRef">
-            <a-form-item name="username">
-                <a-input v-model:value="formState.username"
-                         size="large"
-                         placeholder="admin">
-                    <template #prefix>
-                        <icon-user-outlined></icon-user-outlined>
-                    </template>
-                </a-input>
-            </a-form-item>
-            <a-form-item name="password">
-                <a-input v-model:value="formState.password"
-                         size="large"
-                         type="password"
-                         placeholder="123456"
-                         @pressEnter="handleLogin">
-                    <template #prefix>
-                        <icon-lock-outlined></icon-lock-outlined>
-                    </template>
-                </a-input>
-            </a-form-item>
-            <a-form-item>
-                <a-button type="primary"
-                          size="large"
-                          block
-                          :loading="loading"
-                          @click="handleLogin">登录
-                </a-button>
-            </a-form-item>
-        </a-form>
+        <a-tabs centered>
+            <a-tab-pane key="account"
+                        tab="用户名登录">
+                <a-form :model="formState"
+                        :rules="rules"
+                        ref="formRef">
+                    <a-form-item name="username">
+                        <a-input v-model:value="formState.username"
+                                 size="large"
+                                 placeholder="admin">
+                            <template #prefix>
+                                <icon-user-outlined></icon-user-outlined>
+                            </template>
+                        </a-input>
+                    </a-form-item>
+                    <a-form-item name="password">
+                        <a-input v-model:value="formState.password"
+                                 size="large"
+                                 type="password"
+                                 placeholder="123456"
+                                 @pressEnter="handleLogin">
+                            <template #prefix>
+                                <icon-lock-outlined></icon-lock-outlined>
+                            </template>
+                        </a-input>
+                    </a-form-item>
+                    <a-form-item>
+                        <a-button type="primary"
+                                  size="large"
+                                  block
+                                  :loading="loading"
+                                  @click="handleLogin">登录
+                        </a-button>
+                    </a-form-item>
+                </a-form>
+            </a-tab-pane>
+
+            <a-tab-pane key="qrcode"
+                        tab="二维码登录"
+                        class="align-center">
+                <x-qr-code text="https://mengxianghan.github.io/xy-admin/demo/"
+                           :size="280"></x-qr-code>
+                <a-divider plain>
+                    <div class="color-secondary">扫码后点击"确认"，即可完成登录</div>
+                </a-divider>
+            </a-tab-pane>
+        </a-tabs>
     </div>
 </template>
 
