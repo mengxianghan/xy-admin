@@ -1,7 +1,7 @@
 {
     "name": "xy-admin",
     "private": true,
-    "version": "2.2.0",
+    "version": "2.3.0",
     "scripts": {
         "dev": "vite --mode dev",
         "build:test": "vite build --mode test",
@@ -26,6 +26,7 @@
         "lodash": "^4.17.21",
         "mockjs": "^1.1.0",
         "nanoid": "^4.0.0",
+        "nprogress": "^0.2.0",
         "pinia": "^2.0.14",
         "qiniu-js": "^3.4.0",
         "qrcode": "^1.5.0",
