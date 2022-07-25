@@ -80,7 +80,7 @@
                         tab="二维码登录"
                         class="align-center">
                 <x-qr-code text="https://mengxianghan.github.io/xy-admin/demo/"
-                           :size="280"></x-qr-code>
+                           :size="240"></x-qr-code>
                 <a-divider plain>
                     <div class="color-secondary">扫码后点击"确认"，即可完成登录</div>
                 </a-divider>
