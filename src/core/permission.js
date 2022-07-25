@@ -3,6 +3,9 @@ import { whiteList } from '@/router/config'
 import { useAppStore, useUserStore } from '@/store'
 
 import router from '@/router'
+import { createProgress } from '@/plugins/progress'
+
+const progress = createProgress()
 
 router.beforeEach((to, from, next) => {
     const { meta } = to
@@ -11,6 +14,8 @@ router.beforeEach((to, from, next) => {
     const userStore = useUserStore()
     const isLogin = userStore.isLogin
     const complete = appStore.complete
+
+    progress.start()
 
     // 设置标题
     document.title = title ? `${title} - ${import.meta.env.VITE_TITLE}` : import.meta.env.VITE_TITLE
@@ -42,4 +47,6 @@ router.beforeEach((to, from, next) => {
     }
 })
 
-router.afterEach(() => {})
+router.afterEach(() => {
+    progress.done()
+})

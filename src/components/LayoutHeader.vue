@@ -16,11 +16,12 @@
             <div class="x-layout-header__action">
                 <a-dropdown :trigger="['click']">
                     <div class="userinfo">
-                        <!--<a-avatar class="mr-8-1">
+                        <a-avatar class="mr-8-1"
+                                  :size="24">
                             <template #icon>
-                                <user-outlined/>
+                                <icon-user-outlined />
                             </template>
-                        </a-avatar>-->
+                        </a-avatar>
                         <span v-if="isLogin">{{ userInfo.username }}</span>
                         <icon-down-outlined class="ml-8-1" />
                     </div>

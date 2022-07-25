@@ -45,7 +45,9 @@ each({
     py: padding-top, padding-bottom;
     pa: padding;
 }, .(@property, @class) {
-    .@{class}-0 {
+    @zero: 0;
+
+    .@{class}-@{zero} {
         each(@property, .(@prop) {
                 @{prop}: 0 !important;
         })
@@ -115,6 +117,13 @@ each({
             @{prop}: @value;
     }
 });
+
+// Cursor
+each(pointer not-allowed, {
+    .cursor-@{value}{
+        cursor: @value;
+    }
+})
 
 // Scrollbar
 .scrollbar {
