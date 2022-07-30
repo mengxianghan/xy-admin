@@ -10,7 +10,7 @@ import omit from 'lodash/omit'
  * @return {*}
  */
 export function formatRoutes(routes = [], parent = {}) {
-    const comp = import.meta.glob(`../views/**/*.vue`)
+    const modules = import.meta.glob('../views/**/*.vue')
     return routes
         .map((item) => {
             const { meta = {} } = item
@@ -22,7 +22,7 @@ export function formatRoutes(routes = [], parent = {}) {
                 // 路由名称，建议唯一
                 name: item.name || '',
                 // 路由对应的页面，动态加载
-                component: layouts[component] || comp[`../views/${component}`],
+                component: layouts[component] || modules[`../views/${component}`],
                 // meta，页面标题, 图标, 权限等附加信息
                 meta: {
                     target: meta?.target || '',
@@ -97,12 +97,13 @@ export function generateRoutes(routes) {
         const {
             meta: { layout = '' },
         } = item
+        const modules = import.meta.glob('../layouts/**/*.vue')
         let index = result.findIndex((o) => o.name === layout)
         if (index === -1) {
             result.push({
                 path: '',
                 name: layout,
-                component: layouts[layout] || (() => import.meta.glob(`@/layouts/${layout}`)),
+                component: layouts[layout] || modules[`../layouts/${layout}${layout.endsWith('.vue') ? '' : '.vue'}`],
                 children: [],
             })
             index = result.length - 1
