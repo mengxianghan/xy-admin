@@ -26,7 +26,7 @@
             </a-row>
         </a-form>
     </x-search-bar>
-    <a-card>
+    <a-card :bordered="false">
         <x-action-bar class="mb-8-2">
             <a-button type="primary"
                       @click="$refs.editRef.handleCreate()">

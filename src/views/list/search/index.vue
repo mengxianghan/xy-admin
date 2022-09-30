@@ -1,12 +1,12 @@
 <template>
-    <a-card>
+    <a-card :bordered="false">
         <x-filter :data-source="filterData"
                   :label-width="100"
                   :model-value="searchForm"
                   @change="handleSearch"></x-filter>
     </a-card>
 
-    <a-card class="mt-8-2">
+    <a-card :bordered="false" class="mt-8-2">
         <a-table :columns="columns"
                  :pagination="pagination"
                  :data-source="list"

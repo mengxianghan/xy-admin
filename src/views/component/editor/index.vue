@@ -1,14 +1,16 @@
 <template>
     <div>
-        <a-card>
-            <x-editor v-model="content"/>
+        <a-card :bordered="false">
+            <x-editor v-model="content" />
         </a-card>
         <a-card v-if="content"
+                :bordered="false"
                 title="输出"
                 class="mt-8-2">
             {{ content }}
         </a-card>
-        <a-card title="表单示例"
+        <a-card :bordered="false"
+                title="表单示例"
                 class="mt-8-2">
             <a-form :label-col="{style: {width: '100px'}}"
                     :model="formState"
@@ -16,7 +18,7 @@
                     ref="formRef">
                 <a-form-item label="字段 1"
                              name="field1">
-                    <x-editor v-model="formState.field1"/>
+                    <x-editor v-model="formState.field1" />
                 </a-form-item>
                 <a-form-item :style="{paddingLeft: '100px'}">
                     <a-space>
@@ -32,7 +34,7 @@
 </template>
 
 <script>
-import {ref} from 'vue'
+import { ref } from 'vue'
 
 import useForm from '@/hooks/useForm'
 
@@ -40,20 +42,20 @@ export default {
     name: 'componentEditor',
     setup() {
         const content = ref('')
-        const {formState, rules, formRef, resetForm} = useForm()
+        const { formState, rules, formRef, resetForm } = useForm()
 
         rules.value = {
-            field1: {required: true, message: '请输入内容'},
+            field1: { required: true, message: '请输入内容' },
         }
 
         function handleSubmit() {
             formRef.value.validate()
-                   .then((values) => {
-                       console.log(values)
-                   })
-                   .catch(() => {
+                .then((values) => {
+                    console.log(values)
+                })
+                .catch(() => {
 
-                   })
+                })
         }
 
         function handleReset() {
@@ -73,4 +75,5 @@ export default {
 </script>
 
 <style scoped>
+
 </style>

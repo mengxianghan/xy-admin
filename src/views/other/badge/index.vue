@@ -1,5 +1,5 @@
 <template>
-    <a-card title="基础示例">
+    <a-card :bordered="false" title="基础示例">
         <a-space>
             <a-input v-model:value="form.name"></a-input>
             <a-input-number v-model:value="form.count"

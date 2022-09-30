@@ -30,8 +30,6 @@
 </template>
 
 <script>
-import { LOGO_URL } from '@/config'
-
 import LoginWelcome from '@/assets/login_welcome.svg'
 
 export default {
@@ -40,7 +38,6 @@ export default {
         const title = import.meta.env.VITE_TITLE
         const { version } = __APP_INFO__
         return {
-            LOGO_URL,
             LoginWelcome,
             title,
             version

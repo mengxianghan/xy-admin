@@ -1,12 +1,12 @@
 <template>
     <a-row :gutter="16">
         <a-col :span="18">
-            <a-card title="基础示例">
+            <a-card :bordered="false" title="基础示例">
                 <x-filter v-model="filterForm"
                           :data-source="basicList"
                           :label-width="100"></x-filter>
             </a-card>
-            <a-card title="使用按钮"
+            <a-card :bordered="false" title="使用按钮"
                     class="mt-8-2">
                 <x-filter v-model="filterForm"
                           :data-source="basicList"
@@ -15,7 +15,7 @@
                           @ok="handleOk"
                           @reset="handleReset"></x-filter>
             </a-card>
-            <a-card title="自定义内容"
+            <a-card :bordered="false" title="自定义内容"
                     class="mt-8-2">
                 <x-filter v-model="filterForm"
                           :data-source="customList"
@@ -41,7 +41,7 @@
             </a-card>
         </a-col>
         <a-col :span="6">
-            <a-card title="结果">
+            <a-card :bordered="false" title="结果">
                 <pre>{{ filterForm }}</pre>
             </a-card>
         </a-col>
