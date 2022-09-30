@@ -10,7 +10,6 @@ import useServer from './config/useServer'
 
 export default ({ mode }) => {
     const env = loadEnv(mode, process.cwd(), '')
-    console.log('mode', mode)
     return defineConfig({
         base: env.VITE_PUBLIC_PATH,
         build: {

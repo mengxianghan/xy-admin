@@ -1,5 +1,6 @@
 <template>
-    <a-card :body-style="{paddingLeft:0, paddingRight:0}">
+    <a-card :bordered="false"
+            :body-style="{paddingLeft:0, paddingRight:0}">
         <a-row type="flex">
             <a-col flex="0 0 224px">
                 <a-menu v-model:selectedKeys="selectedKeys"
@@ -21,7 +22,7 @@
 </template>
 
 <script>
-import {computed, ref} from 'vue'
+import { computed, ref } from 'vue'
 
 import get from 'lodash/get'
 import head from 'lodash/head'
@@ -35,18 +36,18 @@ import Message from './components/Message.vue'
 
 export default {
     name: 'userSetting',
-    components: {Basic, Safe, Custom, Bind, Message},
+    components: { Basic, Safe, Custom, Bind, Message },
     setup() {
         const menuList = ref([
-            {name: '基本设置', key: 'basic'},
-            {name: '安全设置', key: 'safe'},
-            {name: '个性化', key: 'custom'},
-            {name: '账号绑定', key: 'bind'},
-            {name: '新消息通知', key: 'message'},
+            { name: '基本设置', key: 'basic' },
+            { name: '安全设置', key: 'safe' },
+            { name: '个性化', key: 'custom' },
+            { name: '账号绑定', key: 'bind' },
+            { name: '新消息通知', key: 'message' },
         ])
         const selectedKeys = ref(['basic'])
         const componentName = computed(() => head(selectedKeys.value))
-        const title = computed(() => get(find(menuList.value, {key: head(selectedKeys.value)}), 'name'))
+        const title = computed(() => get(find(menuList.value, { key: head(selectedKeys.value) }), 'name'))
 
         return {
             menuList,
@@ -60,9 +61,9 @@ export default {
 
 <style lang="less"
        scoped>
-:deep(.setting-title) {
-    font-size: 20px;
-    color: @heading-color;
-    margin-bottom: @margin-md;
-}
-</style>
+       :deep(.setting-title) {
+           font-size: 20px;
+           color: @heading-color;
+           margin-bottom: @margin-md;
+       }
+       </style>

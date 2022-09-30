@@ -1,5 +1,6 @@
 <template>
-    <a-card type="flex">
+    <a-card :bordered="false"
+            type="flex">
         <template #title>
             <a-input-search v-model:value="searchValue"
                             allow-clear

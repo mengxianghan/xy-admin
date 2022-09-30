@@ -5,7 +5,7 @@
         <template #renderItem="{ item }">
             <template v-if="!item.id">
                 <a-list-item>
-                    <a-card :body-style="{ padding: 0 }">
+                    <a-card :bordered="false" :body-style="{ padding: 0 }">
                         <a-button type="dashed"
                                   class="create-btn">
                             <icon-plus-outlined />
@@ -16,7 +16,7 @@
             </template>
             <template v-else>
                 <a-list-item>
-                    <a-card>
+                    <a-card :bordered="false">
                         <a-card-meta :title="item.title">
                             <template #avatar>
                                 <a-avatar :src="item.avatar" />

@@ -6,7 +6,7 @@
             <dict-type-tree @select="onDictTypeSelect" />
         </a-col>
         <a-col flex="1">
-            <a-card type="flex">
+            <a-card :bordered="false" type="flex">
                 <template v-if="!dictTypeInfo">
                     <a-empty description="请选择字典分类"></a-empty>
                 </template>

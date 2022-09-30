@@ -1,5 +1,5 @@
 <template>
-    <a-card>
+    <a-card :bordered="false">
         <a-steps class="steps"
                  :current="currentTab">
             <a-step title="填写转账信息"/>

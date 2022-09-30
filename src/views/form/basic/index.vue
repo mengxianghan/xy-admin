@@ -1,5 +1,5 @@
 <template>
-    <a-card>
+    <a-card :bordered="false">
         <a-form :label-col="{sm: 7, lg:7}"
                 :wrapper-col="{sm: 17, lg: 10}"
                 ref="formRef"

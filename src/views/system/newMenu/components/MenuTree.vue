@@ -1,5 +1,6 @@
 <template>
-    <a-card v-loading="loading"
+    <a-card :bordered="false"
+            v-loading="loading"
             type="flex">
         <template #title>
             <a-input-search v-model:value="keyword"
@@ -117,32 +118,32 @@ export default {
 
 <style lang="less"
        scoped>
-.tree-row {
-    display: flex;
-    align-items: center;
-
-    &:hover {
-        .tree-row__actions {
-            display: flex;
-        }
-    }
-
-    &__name {
-        flex: 1;
-        width: 0;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-
-        &,
-        >* {
-            display: flex;
-        }
-    }
-
-    &__actions {
-        margin: 0 0 0 @margin-sm;
-        display: none;
-    }
-}
-</style>
+       .tree-row {
+           display: flex;
+           align-items: center;
+       
+           &:hover {
+               .tree-row__actions {
+                   display: flex;
+               }
+           }
+       
+           &__name {
+               flex: 1;
+               width: 0;
+               overflow: hidden;
+               text-overflow: ellipsis;
+               white-space: nowrap;
+       
+               &,
+               >* {
+                   display: flex;
+               }
+           }
+       
+           &__actions {
+               margin: 0 0 0 @margin-sm;
+               display: none;
+           }
+       }
+       </style>

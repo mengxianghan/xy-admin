@@ -1,25 +1,25 @@
 <template>
     <div>
-        <a-card title="打开">
+        <a-card :bordered="false" title="打开">
             <a-space>
                 <a-button @click="handleOpen">打开欢迎页</a-button>
             </a-space>
         </a-card>
-        <a-card title="刷新"
+        <a-card :bordered="false" title="刷新"
                 class="mt-8-2">
             <a-space>
                 <a-button @click="handleReload">刷新当前</a-button>
                 <span>{{ date }}</span>
             </a-space>
         </a-card>
-        <a-card title="关闭"
+        <a-card :bordered="false" title="关闭"
                 class="mt-8-2">
             <a-space>
                 <a-button @click="handleClose">关闭当前</a-button>
                 <a-button @click="handleCloseOther">关闭其他</a-button>
             </a-space>
         </a-card>
-        <a-card title="设置"
+        <a-card :bordered="false" title="设置"
                 class="mt-8-2">
             <a-space>
                 <a-input v-model:value="title"></a-input>

@@ -419,7 +419,7 @@ export const asyncRouterMap = [
                 component: 'RouteViewLayout',
                 meta: {
                     type: 'iframe',
-                    url: 'https://vuejs.org',
+                    url: 'https://cn.vuejs.org',
                     title: 'Vue',
                     isMenu: true,
                     keepAlive: true,

@@ -8,14 +8,16 @@
         </a-col>
         <template v-if="!menuInfo">
             <a-col flex="1">
-                <a-card type="flex">
+                <a-card :bordered="false"
+                        type="flex">
                     <a-empty description="请选择菜单"></a-empty>
                 </a-card>
             </a-col>
         </template>
         <template v-else>
             <a-col flex="1">
-                <a-card :title="menuInfo.name"
+                <a-card :bordered="false"
+                        :title="menuInfo.name"
                         type="flex">
                     <a-form :model="formState"
                             :label-col="{style:{width: '100px'}}">
@@ -33,10 +35,10 @@
                                      name="type">
                             <a-radio-group v-model:value="formState.type"
                                            :options="[
-                                           {label: '菜单', value: 1},
-                                           {label: 'iframe', value: 2},
-                                           {label: '外链', value: 3},
-                                       ]"></a-radio-group>
+                                               {label: '菜单', value: 1},
+                                               {label: 'iframe', value: 2},
+                                               {label: '外链', value: 3},
+                                           ]"></a-radio-group>
                         </a-form-item>
                         <a-form-item label="别名"
                                      name="alias"
@@ -77,7 +79,8 @@
                 </a-card>
             </a-col>
             <a-col flex="1">
-                <a-card title="权限按钮"
+                <a-card :bordered="false"
+                        title="权限按钮"
                         type="flex">
                     <x-form-table v-model="authList"
                                   :row-tpl="{name: '', alias: ''}"
@@ -85,13 +88,13 @@
                         <a-table-column title="名称"
                                         data-index="name">
                             <template #default="{record}">
-                                <a-input v-model:value="record.name"/>
+                                <a-input v-model:value="record.name" />
                             </template>
                         </a-table-column>
                         <a-table-column title="标识"
                                         data-index="alias">
                             <template #default="{record}">
-                                <a-input v-model:value="record.alias"/>
+                                <a-input v-model:value="record.alias" />
                             </template>
                         </a-table-column>
                     </x-form-table>
@@ -102,7 +105,7 @@
 </template>
 
 <script>
-import {ref} from 'vue'
+import { ref } from 'vue'
 
 import cloneDeep from 'lodash/cloneDeep'
 import useForm from '@/hooks/useForm'
@@ -111,11 +114,11 @@ import MenuTree from './components/MenuTree.vue'
 
 export default {
     name: 'systemNewMenu',
-    components: {MenuTree},
+    components: { MenuTree },
     setup() {
-        const {formState} = useForm()
+        const { formState } = useForm()
         const authList = ref([
-            {name: '新增', alias: 'insert'},
+            { name: '新增', alias: 'insert' },
         ])
         const menuList = ref([])
         const menuInfo = ref(null)
@@ -133,7 +136,7 @@ export default {
          * @param info
          */
         function onMenuReady(info) {
-            menuList.value = [{name: '顶级菜单', key: 0}, ...info]
+            menuList.value = [{ name: '顶级菜单', key: 0 }, ...info]
         }
 
         return {
@@ -150,5 +153,5 @@ export default {
 
 <style lang="less"
        scoped>
-
-</style>
+       
+       </style>

@@ -2,7 +2,7 @@
     <a-row :gutter="16"
            type="flex">
         <a-col flex="1">
-            <a-card title="示例">
+            <a-card :bordered="false" title="示例">
                 <x-form-table v-model="list"
                               :row-tpl="rowTpl">
                     <a-table-column title="姓名">
@@ -31,7 +31,7 @@
             </a-card>
         </a-col>
         <a-col flex="1">
-            <a-card title="结果">
+            <a-card :bordered="false" title="结果">
                 <pre>{{ list }}</pre>
             </a-card>
         </a-col>

@@ -1,5 +1,5 @@
 <template>
-    <a-card title="基础示例">
+    <a-card :bordered="false" title="基础示例">
         <a-row :gutter="16">
             <a-col>
                 <x-upload-image v-model="basic"></x-upload-image>
@@ -33,7 +33,7 @@
         </a-row>
     </a-card>
 
-    <a-card class="mt-8-2"
+    <a-card :bordered="false" class="mt-8-2"
             title="批量上传示例（支持拖拽排序）">
         <x-upload-image v-model="multipleList"
                         multiple
@@ -41,7 +41,7 @@
                         dragsort></x-upload-image>
     </a-card>
 
-    <a-card class="mt-8-2"
+    <a-card :bordered="false" class="mt-8-2"
             title="其他示例">
         <a-row :gutter="16">
             <a-col :span="8">
@@ -53,7 +53,7 @@
     <a-row :gutter="16"
            class="mt-8-2">
         <a-col :span="12">
-            <a-card title="表单示例">
+            <a-card :bordered="false" title="表单示例">
                 <a-form :label-col="{ style: { width: '100px' } }"
                         :model="formState"
                         :rules="rules"
@@ -102,7 +102,7 @@
             </a-card>
         </a-col>
         <a-col :span="12">
-            <a-card title="输出结果">
+            <a-card :bordered="false" title="输出结果">
                 <pre>{{ formState }}</pre>
             </a-card>
         </a-col>

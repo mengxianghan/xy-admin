@@ -1,5 +1,5 @@
 <template>
-    <a-card>
+    <a-card :bordered="false">
         <x-action-bar class="mb-8-2">
             <a-button type="primary"
                       @click="$refs.editRef.handleCreate()">
@@ -111,4 +111,5 @@ export default {
 </script>
 
 <style scoped>
+
 </style>

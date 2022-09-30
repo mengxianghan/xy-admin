@@ -1,6 +1,6 @@
 <template>
     <div>
-        <a-tabs centered>
+        <a-tabs>
             <!-- 账号登录 -->
             <a-tab-pane key="account"
                         tab="账号登录">
@@ -195,4 +195,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
+:deep(.ant-tabs-tab) {
+    font-size: 15px;
+}
 </style>

@@ -1,37 +1,43 @@
 <template>
     <a-row :gutter="16">
         <a-col :span="8">
-            <a-card class="mb-8-2">
+            <a-card :bordered="false"
+                    class="mb-8-2">
                 <x-chart :options="options"
                          :height="320"></x-chart>
             </a-card>
         </a-col>
         <a-col :span="8">
-            <a-card class="mb-8-2">
+            <a-card :bordered="false"
+                    class="mb-8-2">
                 <x-chart :options="options2"
                          :height="320"></x-chart>
             </a-card>
         </a-col>
         <a-col :span="8">
-            <a-card class="mb-8-2">
+            <a-card :bordered="false"
+                    class="mb-8-2">
                 <x-chart :options="options3"
                          :height="320"></x-chart>
             </a-card>
         </a-col>
         <a-col :span="8">
-            <a-card class="mb-8-2">
+            <a-card :bordered="false"
+                    class="mb-8-2">
                 <x-chart :options="options4"
                          :height="320"></x-chart>
             </a-card>
         </a-col>
         <a-col :span="8">
-            <a-card class="mb-8-2">
+            <a-card :bordered="false"
+                    class="mb-8-2">
                 <x-chart :options="options5"
                          :height="320"></x-chart>
             </a-card>
         </a-col>
         <a-col :span="8">
-            <a-card class="mb-8-2">
+            <a-card :bordered="false"
+                    class="mb-8-2">
                 <x-chart :options="options6"
                          :height="320"></x-chart>
             </a-card>
@@ -40,7 +46,7 @@
 </template>
 
 <script>
-import {ref} from 'vue'
+import { ref } from 'vue'
 
 export default {
     name: 'componentChart',
@@ -68,11 +74,11 @@ export default {
                 type: 'bar',
                 barWidth: '15px',
             },
-                {
-                    data: [110, 180, 120, 120, 60, 90, 110],
-                    type: 'bar',
-                    barWidth: '15px',
-                }],
+            {
+                data: [110, 180, 120, 120, 60, 90, 110],
+                type: 'bar',
+                barWidth: '15px',
+            }],
         })
         const options2 = ref({
             title: {
@@ -96,10 +102,10 @@ export default {
                 data: [120, 200, 150, 80, 70, 110, 130],
                 type: 'line',
             },
-                {
-                    data: [110, 180, 120, 120, 60, 90, 110],
-                    type: 'line',
-                }],
+            {
+                data: [110, 180, 120, 120, 60, 90, 110],
+                type: 'line',
+            }],
         })
         const options3 = ref({
             title: {
@@ -117,11 +123,11 @@ export default {
                     center: ['50%', '60%'],
                     label: false,
                     data: [
-                        {value: 1048, name: '搜索引擎'},
-                        {value: 735, name: '直接访问'},
-                        {value: 580, name: '邮件营销'},
-                        {value: 484, name: '联盟广告'},
-                        {value: 300, name: '视频广告'},
+                        { value: 1048, name: '搜索引擎' },
+                        { value: 735, name: '直接访问' },
+                        { value: 580, name: '邮件营销' },
+                        { value: 484, name: '联盟广告' },
+                        { value: 300, name: '视频广告' },
                     ],
                 },
             ],
@@ -138,12 +144,12 @@ export default {
                 radius: 100,
                 center: ['50%', '55%'],
                 indicator: [
-                    {name: '销售', max: 6500},
-                    {name: '管理', max: 16000},
-                    {name: '信息技术', max: 30000},
-                    {name: '客服', max: 38000},
-                    {name: '研发', max: 52000},
-                    {name: '市场', max: 25000},
+                    { name: '销售', max: 6500 },
+                    { name: '管理', max: 16000 },
+                    { name: '信息技术', max: 30000 },
+                    { name: '客服', max: 38000 },
+                    { name: '研发', max: 52000 },
+                    { name: '市场', max: 25000 },
                 ],
             },
             series: [{
