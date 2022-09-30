@@ -1,0 +1,1 @@
+import{_ as o,r as a,h as r,i as n,q as c}from"./index.15d75692.js";import"./tinymce.b4091e4a.js";import"./echarts.cbe68697.js";const i={name:"Message",setup(){return{list:a([])}}};function l(t,p,_,s,m,u){const e=r("a-list");return n(),c(e,{"item-layout":"horizontal","data-source":s.list},null,8,["data-source"])}const x=o(i,[["render",l]]);export{x as default};
