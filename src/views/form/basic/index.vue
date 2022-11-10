@@ -1,7 +1,7 @@
 <template>
     <a-card :bordered="false">
-        <a-form :label-col="{sm: 7, lg:7}"
-                :wrapper-col="{sm: 17, lg: 10}"
+        <a-form :label-col="{ sm: 7, lg: 7 }"
+                :wrapper-col="{ sm: 17, lg: 10 }"
                 ref="formRef"
                 :rules="rules"
                 :model="formState">
@@ -30,7 +30,7 @@
                 <template #label>
                     客户（选填）
                     <a-tooltip title="目标的服务对象">
-                        <icon-info-circle-outlined/>
+                        <icon-info-circle-outlined />
                     </a-tooltip>
                 </template>
                 <a-input v-model:target="formState.field5"
@@ -51,7 +51,7 @@
                 <a-radio-group v-model:value="formState.field8"
                                :options="targetList"></a-radio-group>
             </a-form-item>
-            <a-form-item :wrapper-col="{offset: 7, sm: 17, lg: 10}">
+            <a-form-item :wrapper-col="{ offset: 7, sm: 17, lg: 10 }">
                 <a-space>
                     <a-button type="primary"
                               @click="handleOk">提交
@@ -64,55 +64,45 @@
 </template>
 
 <script>
+export default { name: 'formBasic' }
+</script>
+
+<script setup>
 import useForm from '@/hooks/useForm'
 
-export default {
-    name: 'formBasic',
-    setup() {
-        const targetList = [
-            {label: '公开', value: 1},
-            {label: '部分公开', value: 2},
-            {label: '不公开', value: 3},
-        ]
-        const {formRef, formState, rules, resetForm} = useForm()
+const targetList = [
+    { label: '公开', value: 1 },
+    { label: '部分公开', value: 2 },
+    { label: '不公开', value: 3 },
+]
+const { formRef, formState, rules, resetForm } = useForm()
 
-        formState.value = {
-            field8: 1,
-        }
+formState.value = {
+    field8: 1,
+}
 
-        rules.value = {
-            field1: {required: true, message: '请输入标题'},
-            field2: {required: true, message: '请选择起止日期'},
-            field3: {required: true, message: '请输入目标描述'},
-            field4: {required: true, message: '请输入衡量标准'},
-        }
+rules.value = {
+    field1: { required: true, message: '请输入标题' },
+    field2: { required: true, message: '请选择起止日期' },
+    field3: { required: true, message: '请输入目标描述' },
+    field4: { required: true, message: '请输入衡量标准' },
+}
 
-        /**
-         * 提交表单
-         */
-        function handleOk() {
-            formRef.value.validateFields()
-                   .then(values => {
-                       console.log(values)
-                   })
-        }
+/**
+ * 提交表单
+ */
+function handleOk() {
+    formRef.value.validateFields()
+        .then(values => {
+            console.log(values)
+        })
+}
 
-        /**
-         * 取消
-         */
-        function handleCancel() {
-            resetForm()
-        }
-
-        return {
-            targetList,
-            formRef,
-            formState,
-            rules,
-            handleOk,
-            handleCancel,
-        }
-    },
+/**
+ * 取消
+ */
+function handleCancel() {
+    resetForm()
 }
 </script>
 

@@ -69,6 +69,10 @@
 </template>
 
 <script>
+export default { name: 'welcome' }
+</script>
+
+<script setup>
 import { computed, onMounted, ref } from 'vue'
 import { useUserStore } from '@/store'
 import { timeFix } from '@/utils'
@@ -76,40 +80,26 @@ import { timeFix } from '@/utils'
 import api from '@/api'
 import upgradeImg from '@/assets/upgrade.svg?url'
 
-export default {
-    name: 'welcome',
-    setup() {
-        const userStore = useUserStore()
-        const title = import.meta.env.VITE_TITLE
-        const userInfo = computed(() => userStore.userInfo)
-        const userName = computed(() => `${timeFix()}，${userInfo.value?.username}`)
-        const dynamicList = ref([])
-        const { version } = __APP_INFO__
+const userStore = useUserStore()
+const title = import.meta.env.VITE_TITLE
+const userInfo = computed(() => userStore.userInfo)
+const userName = computed(() => `${timeFix()}，${userInfo.value?.username}`)
+const dynamicList = ref([])
+const { version } = __APP_INFO__
 
-        onMounted(() => {
-            getData()
-        })
+onMounted(() => {
+    getData()
+})
 
-        async function getData() {
-            const { code, data } = await api.common.getWelcomeData()
-            if (200 === code) {
-                const { dynamicRows } = data
-                dynamicList.value = dynamicRows
-            }
-        }
-
-        return {
-            upgradeImg,
-            title,
-            version,
-            userName,
-            dynamicList,
-        }
-    },
+async function getData() {
+    const { code, data } = await api.common.getWelcomeData()
+    if (200 === code) {
+        const { dynamicRows } = data
+        dynamicList.value = dynamicRows
+    }
 }
 </script>
 
-<style lang="less"
-       scoped>
-       
-       </style>
+<style lang="less" scoped>
+
+</style>

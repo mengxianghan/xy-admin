@@ -5,7 +5,8 @@
         <template #renderItem="{ item }">
             <template v-if="!item.id">
                 <a-list-item>
-                    <a-card :bordered="false" :body-style="{ padding: 0 }">
+                    <a-card :bordered="false"
+                            :body-style="{ padding: 0 }">
                         <a-button type="dashed"
                                   class="create-btn">
                             <icon-plus-outlined />
@@ -48,46 +49,39 @@
 </template>
 
 <script>
+export default { name: 'listCard' }
+</script>
+
+<script setup>
 import { onMounted } from 'vue'
 
 import api from '@/api'
 
 import usePagination from '@/hooks/usePagination'
 
-export default {
-    name: 'listCard',
-    setup() {
-        const { loading, list } = usePagination()
+const { loading, list } = usePagination()
 
-        /**
-         * 获取分页列表
-         */
-        const getPageList = async () => {
-            loading.value = true
-            const { code, data } = await api.common.getPageList()
-                .catch(() => {
-                    loading.value = false
-                })
+onMounted(() => {
+    getPageList()
+})
+
+/**
+ * 获取分页列表
+ */
+async function getPageList() {
+    loading.value = true
+    const { code, data } = await api.common.getPageList()
+        .catch(() => {
             loading.value = false
-            if (200 === code) {
-                list.value = [{}, ...data.rows]
-            }
-        }
-
-        onMounted(() => {
-            getPageList()
         })
-
-        return {
-            loading,
-            list,
-        }
-    },
+    loading.value = false
+    if (200 === code) {
+        list.value = [{}, ...data.rows]
+    }
 }
 </script>
 
-<style lang="less"
-       scoped>
+<style lang="less" scoped>
 .create-btn {
     width: 100%;
     height: 187px;

@@ -12,17 +12,17 @@
                     <strong>您提交的内容有如下错误：</strong>
                 </p>
                 <p class="display-flex align-items-center">
-                    <icon-close-circle-outlined class="mr-4-1 color-error"/>
+                    <icon-close-circle-outlined class="mr-4-1 color-error" />
                     您的账户已被冻结
                     <a class="display-flex align-items-center ml-8-1">立即解冻
-                        <icon-right-outlined class="ml-4-1"/>
+                        <icon-right-outlined class="ml-4-1" />
                     </a>
                 </p>
                 <p class="display-flex align-items-center">
-                    <icon-close-circle-outlined class="mr-4-1 color-error"/>
+                    <icon-close-circle-outlined class="mr-4-1 color-error" />
                     您的账户还不具备申请资格
                     <a class="display-flex align-items-center ml-8-1">立即升级
-                        <icon-right-outlined class="ml-4-1"/>
+                        <icon-right-outlined class="ml-4-1" />
                     </a>
                 </p>
             </div>
@@ -31,14 +31,13 @@
 </template>
 
 <script>
-export default {
-    name: 'resultFail',
-    setup() {
-    },
-}
+export default { name: 'resultFail' }
 </script>
 
-<style lang="less"
-       scoped>
+<script setup>
+
+</script>
+
+<style lang="less" scoped>
 
 </style>

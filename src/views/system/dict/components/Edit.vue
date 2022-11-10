@@ -10,7 +10,7 @@
                 :model="formState"
                 :rules="rules"
                 scroll-to-first-error
-                :label-col="{style: {width: '100px'}}">
+                :label-col="{ style: { width: '100px' } }">
             <a-form-item label="所属分类"
                          name="type">
                 <a-tree-select v-model:value="formState.type"></a-tree-select>
@@ -31,106 +31,94 @@
     </a-modal>
 </template>
 
-<script>
+<script setup>
 import useModal from '@/hooks/useModal'
 import useForm from '@/hooks/useForm'
 import cloneDeep from 'lodash/cloneDeep'
 import api from '@/api'
 
-export default {
-    name: 'Edit',
-    emits: ['ok'],
-    setup(props, {emit}) {
-        const {modal, showModal, hideModal, showLoading, hideLoading} = useModal()
-        const {formRef, rules, formRecord, formState, resetForm} = useForm()
+const emit = defineEmits(['ok'])
 
-        rules.value = {
-            type: {required: true, message: '请选择所属分类'},
-            name: {required: true, message: '请输入名称'},
-            keyValue: {required: true, message: '请输入键值'},
-        }
+const { modal, showModal, hideModal, showLoading, hideLoading } = useModal()
+const { formRef, rules, formRecord, formState, resetForm } = useForm()
 
-        formState.value = {
-            valid: true,
-        }
-
-        /**
-         * 新建
-         */
-        function handleCreate() {
-            showModal({
-                title: '新建项',
-            })
-        }
-
-        /**
-         * 编辑
-         */
-        function handleEdit(record) {
-            showModal({
-                title: '编辑项',
-            })
-            formState.value = cloneDeep(record)
-            formRecord.value = record
-        }
-
-        /**
-         * 确定
-         */
-        function handleOk() {
-            formRef.value.validateFields()
-                   .then(async (values) => {
-                       showLoading()
-                       const params = {
-                           id: formState.value?.id,
-                           ...values,
-                       }
-                       let result = null
-                       result = await api.common.saveData(params)
-                                         .catch(() => {
-                                             hideLoading()
-                                         })
-                       hideLoading()
-                       if (200 === result?.code) {
-                           hideModal()
-                           emit('ok')
-                       }
-                   })
-                   .catch((err) => {
-                       hideLoading()
-                   })
-        }
-
-        /**
-         * 取消
-         */
-        function handleCancel() {
-            hideModal()
-        }
-
-        /**
-         * 关闭后
-         */
-        function onAfterClose() {
-            resetForm()
-        }
-
-        return {
-            modal,
-            formRef,
-            rules,
-            formState,
-            handleCreate,
-            handleEdit,
-            handleOk,
-            handleCancel,
-            onAfterClose,
-        }
-    },
+rules.value = {
+    type: { required: true, message: '请选择所属分类' },
+    name: { required: true, message: '请输入名称' },
+    keyValue: { required: true, message: '请输入键值' },
 }
+
+formState.value = {
+    valid: true,
+}
+
+/**
+ * 新建
+ */
+function handleCreate() {
+    showModal({
+        title: '新建项',
+    })
+}
+
+/**
+ * 编辑
+ */
+function handleEdit(record) {
+    showModal({
+        title: '编辑项',
+    })
+    formState.value = cloneDeep(record)
+    formRecord.value = record
+}
+
+/**
+ * 确定
+ */
+function handleOk() {
+    formRef.value.validateFields()
+        .then(async (values) => {
+            showLoading()
+            const params = {
+                id: formState.value?.id,
+                ...values,
+            }
+            let result = null
+            result = await api.common.saveData(params)
+                .catch(() => {
+                    hideLoading()
+                })
+            hideLoading()
+            if (200 === result?.code) {
+                hideModal()
+                emit('ok')
+            }
+        })
+        .catch((err) => {
+            hideLoading()
+        })
+}
+
+/**
+ * 取消
+ */
+function handleCancel() {
+    hideModal()
+}
+
+/**
+ * 关闭后
+ */
+function onAfterClose() {
+    resetForm()
+}
+
+defineExpose({
+    handleCreate,
+    handleEdit
+})
 </script>
 
-<style lang="less"
-       scoped>
+<style lang="less" scoped>
 
 </style>

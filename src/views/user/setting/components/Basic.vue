@@ -34,8 +34,9 @@
             <div class="mt-8-2">
                 <a-upload>
                     <a-button>
-                        <icon-upload :stroke-width="3"
-                                     class="mr-4-1"></icon-upload>
+                        <template #icon>
+                            <icon-upload-outlined></icon-upload-outlined>
+                        </template>
                         上传头像
                     </a-button>
                 </a-upload>
@@ -44,14 +45,9 @@
     </a-row>
 </template>
 
-<script>
-export default {
-    name: 'Basic',
-    setup() {
-    },
-}
+<script setup>
 </script>
 
-<style scoped>
+<style lang="less" scoped>
 
 </style>

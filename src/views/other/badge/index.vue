@@ -1,5 +1,6 @@
 <template>
-    <a-card :bordered="false" title="基础示例">
+    <a-card :bordered="false"
+            title="基础示例">
         <a-space>
             <a-input v-model:value="form.name"></a-input>
             <a-input-number v-model:value="form.count"
@@ -11,33 +12,26 @@
 </template>
 
 <script>
-import {ref} from 'vue'
+export default { name: 'otherBadge' }
+</script>
+
+<script setup>
+import { ref } from 'vue'
 
 import useMenu from '@/hooks/useMenu'
 
-export default {
-    name: 'otherBadge',
-    setup() {
-        const form = ref({
-            name: 'welcome',
-            count: 10,
-        })
-        const {setBadge} = useMenu()
+const form = ref({
+    name: 'welcome',
+    count: 10,
+})
+const { setBadge } = useMenu()
 
-        function handleSet() {
-            setBadge(form.value?.name, form.value?.count)
-        }
+function handleSet() {
+    setBadge(form.value?.name, form.value?.count)
+}
 
-        function handleClear() {
-            setBadge(form.value?.name, 0)
-        }
-
-        return {
-            form,
-            handleSet,
-            handleClear,
-        }
-    },
+function handleClear() {
+    setBadge(form.value?.name, 0)
 }
 </script>
 

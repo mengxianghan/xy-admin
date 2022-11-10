@@ -12,10 +12,12 @@
              :cancel-text="cancelText"
              @ok="handleOk"
              @cancel="handleCancel">
-        <a-form :model="formState"
+        <a-form ref="formRef"
+                :model="formState"
                 :rules="rules"
-                ref="formRef"
-                :label-col="{ style: { width: '80px' } }">
+                :label-col="{
+                    style: { width: '80px' }
+                }">
             <a-form-item label="所属上级">
                 <a-tree-select v-model:value="formState.parent_id"
                                tree-default-expand-all></a-tree-select>
@@ -24,9 +26,9 @@
                          name="type">
                 <a-radio-group v-model:value="formState.type"
                                :options="[
-                                    {label: '菜单', value: 'menu'},
-                                    {label: '按钮', value: 'button'},
-                                ]"></a-radio-group>
+                                   { label: '菜单', value: 'menu' },
+                                   { label: '按钮', value: 'button' },
+                               ]"></a-radio-group>
             </a-form-item>
             <a-form-item label="名称"
                          name="name">
@@ -37,15 +39,15 @@
                          extra="系统唯一且与内置组件名一致，否则导致缓存失效">
                 <a-input v-model:value="formState.alias"></a-input>
             </a-form-item>
-            <template v-if="'menu'===formState.type">
+            <template v-if="'menu' === formState.type">
                 <a-form-item label="跳转方式"
                              name="type">
                     <a-radio-group v-model:value="formState.target"
                                    :options="[
-                                           {label: '默认', value: 1},
-                                           {label: 'iframe', value: 2},
-                                           {label: '外部链接', value: 3},
-                                       ]"></a-radio-group>
+                                       { label: '默认', value: 1 },
+                                       { label: 'iframe', value: 2 },
+                                       { label: '外部链接', value: 3 },
+                                   ]"></a-radio-group>
                 </a-form-item>
                 <a-form-item label="图标"
                              name="icon">
@@ -78,128 +80,113 @@
     </a-modal>
 </template>
 
-<script>
-import {ref} from 'vue'
+<script setup>
+import { ref } from 'vue'
 
 import cloneDeep from 'lodash/cloneDeep'
 import useModal from '@/hooks/useModal'
 import useForm from '@/hooks/useForm'
 import api from '@/api'
 
-export default {
-    name: 'Edit',
-    emits: ['ok'],
-    setup(props, {emit}) {
-        const {modal, showModal, hideModal, showLoading, hideLoading} = useModal()
-        const {formRecord, formState, formRef, rules, formLayout, resetForm} = useForm()
-        const disabled = ref(false)
-        const cancelText = ref('取消')
+const emit = defineEmits(['ok'])
 
-        rules.value = {
-            role: {required: true, message: '请选择所属上级'},
-            name: {required: true, message: '请输入名称'},
-            alias: {required: true, message: '请输入别名'},
-            sort: {required: true, message: '请输入排序'},
-        }
+const { modal, showModal, hideModal, showLoading, hideLoading } = useModal()
+const { formRecord, formState, formRef, rules, formLayout, resetForm } = useForm()
+const disabled = ref(false)
+const cancelText = ref('取消')
 
-        /**
-         * 新建
-         */
-        function handleCreate() {
-            showModal({
-                type: 'create',
-                title: '新建菜单',
-            })
-        }
-
-        /**
-         * 编辑
-         */
-        function handleEdit(record) {
-            showModal({
-                type: 'edit',
-                title: '编辑菜单',
-            })
-            formState.value = cloneDeep(record)
-            formRecord.value = record
-        }
-
-        /**
-         * 查看
-         */
-        function handlePreview(record) {
-            showModal({
-                type: 'preview',
-                title: '查看角色',
-            })
-            formState.value = cloneDeep(record)
-            disabled.value = true
-            cancelText.value = '关闭'
-        }
-
-        /**
-         * 确定
-         */
-        function handleOk() {
-            formRef.value.validateFields()
-                   .then(async (values) => {
-                       showLoading()
-                       const params = {
-                           id: formState.value?.id,
-                           ...values,
-                       }
-                       let result = null
-                       result = await api.common.saveData(params)
-                                         .catch(() => {
-                                             hideLoading()
-                                         })
-                       hideLoading()
-                       if (200 === result?.code) {
-                           hideModal()
-                           emit('ok')
-                       }
-                   })
-                   .catch((err) => {
-                       hideLoading()
-                   })
-        }
-
-        /**
-         * 取消
-         */
-        function handleCancel() {
-            hideModal()
-        }
-
-        /**
-         * 关闭后
-         */
-        function onAfterClose() {
-            resetForm()
-            disabled.value = false
-            cancelText.value = '取消'
-            hideLoading()
-        }
-
-        return {
-            modal,
-            formRef,
-            rules,
-            formState,
-            formLayout,
-            disabled,
-            cancelText,
-            handleCreate,
-            handleEdit,
-            handlePreview,
-            handleOk,
-            handleCancel,
-            onAfterClose,
-        }
-    },
+rules.value = {
+    role: { required: true, message: '请选择所属上级' },
+    name: { required: true, message: '请输入名称' },
+    alias: { required: true, message: '请输入别名' },
+    sort: { required: true, message: '请输入排序' },
 }
+
+/**
+ * 新建
+ */
+function handleCreate() {
+    showModal({
+        type: 'create',
+        title: '新建菜单',
+    })
+}
+
+/**
+ * 编辑
+ */
+function handleEdit(record) {
+    showModal({
+        type: 'edit',
+        title: '编辑菜单',
+    })
+    formState.value = cloneDeep(record)
+    formRecord.value = record
+}
+
+/**
+ * 查看
+ */
+function handlePreview(record) {
+    showModal({
+        type: 'preview',
+        title: '查看角色',
+    })
+    formState.value = cloneDeep(record)
+    disabled.value = true
+    cancelText.value = '关闭'
+}
+
+/**
+ * 确定
+ */
+function handleOk() {
+    formRef.value.validateFields()
+        .then(async (values) => {
+            showLoading()
+            const params = {
+                id: formState.value?.id,
+                ...values,
+            }
+            let result = null
+            result = await api.common.saveData(params)
+                .catch(() => {
+                    hideLoading()
+                })
+            hideLoading()
+            if (200 === result?.code) {
+                hideModal()
+                emit('ok')
+            }
+        })
+        .catch((err) => {
+            hideLoading()
+        })
+}
+
+/**
+ * 取消
+ */
+function handleCancel() {
+    hideModal()
+}
+
+/**
+ * 关闭后
+ */
+function onAfterClose() {
+    resetForm()
+    disabled.value = false
+    cancelText.value = '取消'
+    hideLoading()
+}
+
+defineExpose({
+    handleCreate,
+    handleEdit
+})
 </script>
 
-<style scoped>
+<style lang="less" scoped>
 
 </style>

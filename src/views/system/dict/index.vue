@@ -6,7 +6,8 @@
             <dict-type-tree @select="onDictTypeSelect" />
         </a-col>
         <a-col flex="1">
-            <a-card :bordered="false" type="flex">
+            <a-card :bordered="false"
+                    type="flex">
                 <template v-if="!dictTypeInfo">
                     <a-empty description="请选择字典分类"></a-empty>
                 </template>
@@ -54,11 +55,8 @@
                             </template>
                             <template v-if="'action' === column.key">
                                 <x-action-button @click="$refs.editRef.handleEdit(record)">编辑</x-action-button>
-                                <x-action-button>
-                                    <a-popconfirm title="确认删除？"
-                                                  @confirm="handleDelete(record)">
-                                        删除
-                                    </a-popconfirm>
+                                <x-action-button @click="handleDelete(record)">
+                                    删除
                                 </x-action-button>
                             </template>
                         </template>
@@ -73,8 +71,12 @@
 </template>
 
 <script>
+export default { name: 'systemDict' }
+</script>
+
+<script setup>
 import { ref } from 'vue'
-import { message } from 'ant-design-vue'
+import { message, Modal } from 'ant-design-vue'
 
 import api from '@/api'
 
@@ -83,55 +85,55 @@ import usePagination from '@/hooks/usePagination'
 import Edit from './components/Edit.vue'
 import DictTypeTree from './components/DictTypeTree.vue'
 
-export default {
-    name: 'systemDict',
-    components: { DictTypeTree, Edit },
-    setup() {
-        const { list, pagination, loading, resetPagination, searchForm } = usePagination()
-        const selectedRowKeys = ref([])
-        const editRef = ref()
-        const dictTypeInfo = ref(null)
+const { list, pagination, loading, resetPagination, searchForm } = usePagination()
+const selectedRowKeys = ref([])
+const editRef = ref()
+const dictTypeInfo = ref(null)
 
-        const columns = [
-            { title: '名称', dataIndex: 'name' },
-            { title: '键值', dataIndex: 'keyValue', width: 240 },
-            { title: '是否有效', key: 'valid', dataIndex: 'valid', width: 120 },
-            { title: '操作', key: 'action', width: 120 },
-        ]
+const columns = [
+    { title: '名称', dataIndex: 'name' },
+    { title: '键值', dataIndex: 'keyValue', width: 240 },
+    { title: '是否有效', key: 'valid', dataIndex: 'valid', width: 120 },
+    { title: '操作', key: 'action', width: 120 },
+]
 
-        /**
-         * 获取分页列表
-         */
-        async function getPageList() {
-            const { pageSize, current } = pagination
-            loading.value = true
-            const { code, data } = await api.common.getPageList({
-                pageSize,
-                page: current,
-                ...searchForm.value,
-            })
-                .catch(() => {
-                    loading.value = false
-                })
+/**
+ * 获取分页列表
+ */
+async function getPageList() {
+    const { pageSize, current } = pagination
+    loading.value = true
+    const { code, data } = await api.common.getPageList({
+        pageSize,
+        page: current,
+        ...searchForm.value,
+    })
+        .catch(() => {
             loading.value = false
-            if (200 === code) {
-                list.value = data.rows
-                pagination.total = data.total
-            }
-        }
+        })
+    loading.value = false
+    if (200 === code) {
+        list.value = data.rows
+        pagination.total = data.total
+    }
+}
 
-        /**
-         * 搜索
-         */
-        function handleSearch() {
-            resetPagination()
-            getPageList()
-        }
+/**
+ * 搜索
+ */
+function handleSearch() {
+    resetPagination()
+    getPageList()
+}
 
-        /**
-         * 删除
-         */
-        async function handleDelete({ id }) {
+/**
+ * 删除
+ */
+async function handleDelete({ id }) {
+    Modal.confirm({
+        title: '删除提示',
+        content: '确认删除？',
+        onOk: async () => {
             loading.value = true
             const { code } = await api.common.deleteData({
                 id,
@@ -145,62 +147,46 @@ export default {
             } else {
                 loading.value = false
             }
-        }
+        },
+    })
+}
 
-        /**
-         * 表格发生改变
-         * @param current
-         * @param pageSize
-         */
-        function onTableChange({ current, pageSize }) {
-            pagination.current = current
-            pagination.pageSize = pageSize
-            getPageList()
-        }
+/**
+ * 表格发生改变
+ * @param current
+ * @param pageSize
+ */
+function onTableChange({ current, pageSize }) {
+    pagination.current = current
+    pagination.pageSize = pageSize
+    getPageList()
+}
 
-        /**
-         * 选择
-         */
-        function onSelectChange(keys) {
-            selectedRowKeys.value = keys
-        }
+/**
+ * 选择
+ */
+function onSelectChange(keys) {
+    selectedRowKeys.value = keys
+}
 
-        /**
-         * 选择分类
-         * @param info
-         */
-        function onDictTypeSelect(info) {
-            dictTypeInfo.value = info
-            searchForm.value.type = info.key
-            getPageList()
-        }
+/**
+ * 选择分类
+ * @param info
+ */
+function onDictTypeSelect(info) {
+    dictTypeInfo.value = info
+    searchForm.value.type = info.key
+    getPageList()
+}
 
-        /**
-         * 完成
-         */
-        function onOk() {
-            getPageList()
-        }
-
-        return {
-            columns,
-            loading,
-            list,
-            pagination,
-            selectedRowKeys,
-            editRef,
-            dictTypeInfo,
-            handleSearch,
-            handleDelete,
-            onTableChange,
-            onSelectChange,
-            onDictTypeSelect,
-            onOk,
-        }
-    },
+/**
+ * 完成
+ */
+function onOk() {
+    getPageList()
 }
 </script>
 
-<style lang="less"
-       scoped>
+<style lang="less" scoped>
+
 </style>

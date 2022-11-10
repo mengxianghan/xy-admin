@@ -3,21 +3,12 @@
             :data-source="list"></a-list>
 </template>
 
-<script>
-import {ref} from 'vue'
+<script setup>
+import { ref } from 'vue'
 
-export default {
-    name: 'Message',
-    setup() {
-        const list = ref([])
-
-        return {
-            list,
-        }
-    },
-}
+const list = ref([])
 </script>
 
-<style scoped>
+<style lang="less" scoped>
 
 </style>

@@ -41,109 +41,94 @@
     </a-card>
 </template>
 
-<script>
+<script setup>
 import { onMounted, ref } from 'vue'
 import { message, Modal } from 'ant-design-vue'
 
 import api from '@/api'
 import usePagination from '@/hooks/usePagination'
 
-export default {
-    name: 'MenuTree',
-    emits: ['select', 'ready'],
-    setup(props, { emit }) {
-        const { list, loading } = usePagination()
-        const selectedKeys = ref([])
-        const keyword = ref('')
+const emit = defineEmits(['select', 'ready'])
 
-        onMounted(() => {
-            getMenuList()
-        })
+const { list, loading } = usePagination()
+const selectedKeys = ref([])
+const keyword = ref('')
 
-        /**
-         * 获取菜单列表
-         */
-        async function getMenuList() {
-            loading.value = true
-            const { code, data } = await api.system.getNewMenuList()
-                .catch(() => {
-                    loading.value = false
-                })
+onMounted(() => {
+    getMenuList()
+})
+
+/**
+ * 获取菜单列表
+ */
+async function getMenuList() {
+    loading.value = true
+    const { code, data } = await api.system.getNewMenuList()
+        .catch(() => {
             loading.value = false
-            if (200 === code) {
-                const { rows } = data
-                list.value = rows
-                emit('ready', rows)
-            }
-        }
+        })
+    loading.value = false
+    if (200 === code) {
+        const { rows } = data
+        list.value = rows
+        emit('ready', rows)
+    }
+}
 
-        /**
-         * 选择菜单
-         * @param keys
-         */
-        function handleSelect(keys, { node }) {
-            if (!keys.length) {
-                return
-            }
-            selectedKeys.value = keys
-            emit('select', node)
-        }
+/**
+ * 选择菜单
+ * @param keys
+ */
+function handleSelect(keys, { node }) {
+    if (!keys.length) {
+        return
+    }
+    selectedKeys.value = keys
+    emit('select', node)
+}
 
-        /**
-         * 删除
-         * @param id
-         */
-        function handleDelete({ id }) {
-            Modal.confirm({
-                title: '删除提示',
-                content: '确认删除？',
-                onOk: async () => {
-                    message.info('点击了删除')
-                },
-            })
-        }
-
-
-        return {
-            list,
-            loading,
-            selectedKeys,
-            keyword,
-            handleSelect,
-            handleDelete,
-        }
-    },
+/**
+ * 删除
+ * @param id
+ */
+function handleDelete({ id }) {
+    Modal.confirm({
+        title: '删除提示',
+        content: '确认删除？',
+        onOk: async () => {
+            message.info('点击了删除')
+        },
+    })
 }
 </script>
 
-<style lang="less"
-       scoped>
-       .tree-row {
-           display: flex;
-           align-items: center;
-       
-           &:hover {
-               .tree-row__actions {
-                   display: flex;
-               }
-           }
-       
-           &__name {
-               flex: 1;
-               width: 0;
-               overflow: hidden;
-               text-overflow: ellipsis;
-               white-space: nowrap;
-       
-               &,
-               >* {
-                   display: flex;
-               }
-           }
-       
-           &__actions {
-               margin: 0 0 0 @margin-sm;
-               display: none;
-           }
-       }
-       </style>
+<style lang="less" scoped>
+.tree-row {
+    display: flex;
+    align-items: center;
+
+    &:hover {
+        .tree-row__actions {
+            display: flex;
+        }
+    }
+
+    &__name {
+        flex: 1;
+        width: 0;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+
+        &,
+        >* {
+            display: flex;
+        }
+    }
+
+    &__actions {
+        margin: 0 0 0 @margin-sm;
+        display: none;
+    }
+}
+</style>

@@ -7,26 +7,25 @@
 </template>
 
 <script>
+export default { name: 'Loading' }
+</script>
+
+<script setup>
 import { Spin } from 'ant-design-vue'
 
 /**
  * @property {string} message 提示信息，默认：加载中
  */
-export default {
-    components: { Spin },
-    props: {
-        message: {
-            type: String,
-            default: '加载中',
-        },
+
+const props = defineProps({
+    message: {
+        type: String,
+        default: '加载中',
     },
-    setup() {
-    },
-}
+})
 </script>
 
-<style lang="less"
-       scoped>
+<style lang="less" scoped>
 .x-loading {
     position: fixed;
     z-index: 1000;

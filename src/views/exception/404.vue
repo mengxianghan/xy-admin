@@ -8,25 +8,16 @@
     </a-result>
 </template>
 
-<script>
-import {useRouter} from 'vue-router'
+<script setup>
+import { useRouter } from 'vue-router'
 
-export default {
-    setup() {
-        const router = useRouter()
+const router = useRouter()
 
-        const handleBack = () => {
-            router.back()
-        }
-
-        return {
-            handleBack,
-        }
-    },
+const handleBack = () => {
+    router.back()
 }
 </script>
 
-<style lang="less"
-       scoped>
+<style lang="less" scoped>
 
 </style>

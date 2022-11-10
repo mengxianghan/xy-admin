@@ -43,7 +43,7 @@
     <dict-type-edit ref="editRef" />
 </template>
 
-<script>
+<script setup>
 import { ref, onMounted } from 'vue'
 import { message, Modal } from 'ant-design-vue'
 
@@ -52,122 +52,106 @@ import usePagination from '@/hooks/usePagination'
 
 import DictTypeEdit from '@/views/system/dict/components/DictTypeEdit.vue'
 
-export default {
-    name: 'DictTypeTree',
-    components: { DictTypeEdit },
-    emits: ['select'],
-    setup(props, { emit }) {
-        const { loading, list } = usePagination()
-        const selectedKeys = ref([])
-        const searchValue = ref('')
-        const editRef = ref()
+const emit = defineEmits(['select'])
 
-        onMounted(() => {
-            getDictTypeList()
-        })
+const { loading, list } = usePagination()
+const selectedKeys = ref([])
+const searchValue = ref('')
+const editRef = ref()
 
-        /**
-         * 获取字典分类列表
-         * @return {Promise<void>}
-         */
-        async function getDictTypeList() {
-            loading.value = true
-            const { code, data } = await api.system.getDictTypeList()
-                .catch(() => {
-                    loading.value = false
-                })
+onMounted(() => {
+    getDictTypeList()
+})
+
+/**
+ * 获取字典分类列表
+ * @return {Promise<void>}
+ */
+async function getDictTypeList() {
+    loading.value = true
+    const { code, data } = await api.system.getDictTypeList()
+        .catch(() => {
             loading.value = false
-            if (200 === code) {
-                const { rows } = data
-                list.value = rows
-            }
-        }
+        })
+    loading.value = false
+    if (200 === code) {
+        const { rows } = data
+        list.value = rows
+    }
+}
 
-        /**
-         * 切换分类
-         * @param keys
-         */
-        function handleSelect(keys, { node }) {
-            if (!keys.length) {
-                return
-            }
-            selectedKeys.value = keys
-            trigger(node)
-        }
+/**
+ * 切换分类
+ * @param keys
+ */
+function handleSelect(keys, { node }) {
+    if (!keys.length) {
+        return
+    }
+    selectedKeys.value = keys
+    trigger(node)
+}
 
-        /**
-         * 删除分类
-         */
-        function handleDelete({ id }) {
-            Modal.confirm({
-                title: '删除提示',
-                content: '确认删除？',
-                onOk: async () => {
-                    message.info('点击了删除')
-                },
-            })
-        }
+/**
+ * 删除分类
+ */
+function handleDelete({ id }) {
+    Modal.confirm({
+        title: '删除提示',
+        content: '确认删除？',
+        onOk: async () => {
+            message.info('点击了删除')
+        },
+    })
+}
 
-        /**
-         * 触发
-         * @param value
-         */
-        function trigger(value) {
-            emit('select', value)
-        }
-
-        return {
-            list,
-            loading,
-            selectedKeys,
-            searchValue,
-            editRef,
-            handleSelect,
-            handleDelete,
-        }
-    },
+/**
+ * 触发
+ * @param value
+ */
+function trigger(value) {
+    emit('select', value)
 }
 </script>
 
-<style lang="less"
-       scoped>
-       .tree-row {
-           display: flex;
-           align-items: center;
-       
-           &:hover {
-               .tree-row {
-                   &__actions {
-                       display: flex;
-                   }
-       
-                   &__code {
-                       display: none;
-                   }
-               }
-           }
-       
-           &__name {
-               flex: 1;
-               width: 0;
-               overflow: hidden;
-               text-overflow: ellipsis;
-               white-space: nowrap;
-       
-               &,
-               >* {
-                   display: flex;
-               }
-           }
-       
-           &__code {
-               font-size: 12px;
-               color: @text-color-secondary;
-           }
-       
-           &__actions {
-               margin: 0 0 0 @margin-sm;
-               display: none;
-           }
-       }
-       </style>
+<style lang="less" scoped>
+.tree-row {
+    display: flex;
+    align-items: center;
+
+    &:hover {
+        .tree-row {
+            &__actions {
+                display: flex;
+            }
+
+            &__code {
+                display: none;
+            }
+        }
+    }
+
+    &__name {
+        flex: 1;
+        width: 0;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+
+        &,
+        >* {
+            display: flex;
+        }
+    }
+
+    &__code {
+        font-size: 12px;
+        color: @text-color-secondary;
+    }
+
+    &__actions {
+        margin: 0 0 0 @margin-sm;
+        display: none;
+    }
+}
+</style>

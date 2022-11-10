@@ -12,39 +12,33 @@
 </template>
 
 <script>
-import {computed, toRefs} from 'vue'
+export default { name: 'XActionBar' }
+</script>
+
+<script setup>
+import { computed } from 'vue'
 
 /**
  * 操作条
  * @property {string} type 类型，【default=默认，card=卡片】
  */
-export default {
-    name: 'XActionBar',
-    props: {
-        type: {
-            type: String,
-            default: 'default',
-        },
-    },
-    setup(props) {
-        const {type} = toRefs(props)
 
-        const classNames = computed(() => {
-            return {
-                'x-action-bar--default': !type.value || 'default' === type.value,
-                'x-action-bar--card': 'card' === type.value,
-            }
-        })
-
-        return {
-            classNames,
-        }
+const props = defineProps({
+    type: {
+        type: String,
+        default: 'default',
     },
-}
+})
+
+const classNames = computed(() => {
+    return {
+        'x-action-bar--default': !props.type || 'default' === props.type,
+        'x-action-bar--card': 'card' === props.type,
+    }
+})
 </script>
 
-<style lang="less"
-       scoped>
+<style lang="less" scoped>
 .x-action-bar {
 
     &--default {
@@ -67,6 +61,7 @@ export default {
                 margin-left: @margin-sm;
             }
         }
+
         :deep(.ant-form-inline .ant-form-item) {
             margin-bottom: 0 !important;
         }

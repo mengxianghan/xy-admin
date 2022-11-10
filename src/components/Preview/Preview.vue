@@ -50,8 +50,12 @@
 </template>
 
 <script>
-import { computed, ref, toRefs, watch } from 'vue'
-import { Modal } from 'ant-design-vue'
+export default { name: 'Preview' }
+</script>
+
+<script setup>
+import { computed, ref, watch } from 'vue'
+import { Modal as AModal } from 'ant-design-vue'
 import { LeftOutlined, RightOutlined } from '@ant-design/icons-vue'
 import { ACTION_ENUM } from './config'
 
@@ -60,103 +64,86 @@ import Preview from './index'
 /**
  * @property {array} urlList 文件列表
  */
-export default {
-    name: 'Preview',
-    components: { AModal: Modal, LeftOutlined, RightOutlined },
-    props: {
-        urls: {
-            type: Array,
-            default: () => [],
-        },
+
+const props = defineProps({
+    urls: {
+        type: Array,
+        default: () => [],
     },
-    setup(props) {
-        const { urls } = toRefs(props)
-        const styles = ref({})
-        const current = ref(0)
-        const prevBtn = ref(true)
-        const nextBtn = ref(true)
-        const url = computed(() => urls.value[current.value])
-        const visible = ref(false)
+})
 
-        watch(() => urls, (val) => {
-            prevBtn.value = val.value.length > 0 && current.value > 0
-            nextBtn.value = val.value.length > 0 && current.value < val.value.length - 1
-        }, { immediate: true })
+const styles = ref({})
+const current = ref(0)
+const prevBtn = ref(true)
+const nextBtn = ref(true)
+const url = computed(() => props.urls[current.value])
+const visible = ref(false)
 
-        /**
-         * 打开
-         */
-        function handleOpen() {
-            visible.value = true
-        }
+watch(() => props.urls, (val) => {
+    prevBtn.value = val.length > 0 && current.value > 0
+    nextBtn.value = val.length > 0 && current.value < val.length - 1
+}, { immediate: true })
 
-        /**
-         * 关闭
-         */
-        function handleClose() {
-            visible.value = false
-            Preview.close()
-        }
+/**
+ * 打开
+ */
+function handleOpen() {
+    visible.value = true
+}
 
-        /**
-         * 操作
-         * @param type
-         */
-        function handleAction(type) {
-            switch (type) {
-                // 缩小
-                case ACTION_ENUM.getValue('zoomOut'):
-                    break
-                // 放大
-                case ACTION_ENUM.getValue('zoomIn'):
-                    break
-                // 全屏
-                case ACTION_ENUM.getValue('fullscreen'):
-                    console.log('全屏')
-                    break
-                // 向左旋转
-                case ACTION_ENUM.getValue('rotateLeft'):
-                    break
-                // 向右旋转
-                case ACTION_ENUM.getValue('rotateRight'):
-                    break
-                // 上一个
-                case ACTION_ENUM.getValue('prev'):
-                    if (current.value > 0) {
-                        current.value -= 1
-                    }
-                    onCurrentChange()
-                    break
-                // 下一个
-                case ACTION_ENUM.getValue('next'):
-                    if (current.value < urls.value.length - 1) {
-                        current.value += 1
-                    }
-                    onCurrentChange()
-                    break
+/**
+ * 关闭
+ */
+function handleClose() {
+    visible.value = false
+    Preview.close()
+}
+
+/**
+ * 操作
+ * @param type
+ */
+function handleAction(type) {
+    switch (type) {
+        // 缩小
+        case ACTION_ENUM.getValue('zoomOut'):
+            break
+        // 放大
+        case ACTION_ENUM.getValue('zoomIn'):
+            break
+        // 全屏
+        case ACTION_ENUM.getValue('fullscreen'):
+            console.log('全屏')
+            break
+        // 向左旋转
+        case ACTION_ENUM.getValue('rotateLeft'):
+            break
+        // 向右旋转
+        case ACTION_ENUM.getValue('rotateRight'):
+            break
+        // 上一个
+        case ACTION_ENUM.getValue('prev'):
+            if (current.value > 0) {
+                current.value -= 1
             }
-        }
+            onCurrentChange()
+            break
+        // 下一个
+        case ACTION_ENUM.getValue('next'):
+            if (current.value < props.urls.length - 1) {
+                current.value += 1
+            }
+            onCurrentChange()
+            break
+    }
+}
 
-        /**
-         * current 发生改变
-         */
-        function onCurrentChange() {
-            prevBtn.value = current.value > 0
-            nextBtn.value = current.value < urls.value.length - 1
-        }
-
-        return {
-            ACTION_ENUM,
-            visible,
-            styles,
-            url,
-            prevBtn,
-            nextBtn,
-            handleOpen,
-            handleClose,
-            handleAction,
-        }
-    },
+/**
+ * current 发生改变
+ */
+function onCurrentChange() {
+    prevBtn.value = current.value > 0
+    nextBtn.value = current.value < props.urls.length - 1
 }
 </script>
 
@@ -203,8 +190,7 @@ export default {
 }
 </style>
 
-<style lang="less"
-       scoped>
+<style lang="less" scoped>
 .x-preview {
     &__content {
         position: fixed;

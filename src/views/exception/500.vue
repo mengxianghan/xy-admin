@@ -8,14 +8,9 @@
     </a-result>
 </template>
 
-<script>
-export default {
-    setup() {
-    },
-}
+<script setup>
 </script>
 
-<style lang="less"
-       scoped>
+<style lang="less" scoped>
 
 </style>

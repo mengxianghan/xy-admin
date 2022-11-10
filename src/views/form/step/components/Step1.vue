@@ -24,25 +24,25 @@
                         </a-select>
                     </a-form-item-rest>
                     <a-input v-model:value="formState.payType"
-                             :style="{width: 'calc(100% - 100px)'}"/>
+                             :style="{ width: 'calc(100% - 100px)' }" />
                 </a-input-group>
             </a-form-item>
             <a-form-item label="收款人姓名"
                          name="name">
-                <a-input v-model:value="formState.name"/>
+                <a-input v-model:value="formState.name" />
             </a-form-item>
             <a-form-item label="转账金额"
                          name="money">
                 <a-input v-model:value="formState.money"
-                         prefix="￥"/>
+                         prefix="￥" />
             </a-form-item>
-            <a-form-item :wrapper-col="{span: 19, offset: 5}">
+            <a-form-item :wrapper-col="{ span: 19, offset: 5 }">
                 <a-button type="primary"
                           @click="handleNext">下一步
                 </a-button>
             </a-form-item>
         </a-form>
-        <a-divider/>
+        <a-divider />
         <div class="color-secondary">
             <h3>说明</h3>
             <h4>转账到支付宝账户</h4>
@@ -54,43 +54,37 @@
 </template>
 
 <script>
+export default { name: 'Step1' }
+</script>
+
+<script setup>
 import useForm from '@/hooks/useForm'
 
-export default {
-    name: 'Step1',
-    emits: ['next'],
-    setup(props, {emit}) {
-        const {formState, formRef, rules} = useForm()
+const emit = defineEmits(['next'])
 
-        rules.value = {
-            paymentUser: [{required: true, message: '付款账户必须填写'}],
-            payType: [{required: true, message: '收款账户必须填写'}],
-            name: [{required: true, message: '收款人名称必须核对'}],
-            money: [{required: true, message: '转账金额必须填写'}],
-        }
 
-        /**
-         * 下一步
-         */
-        function handleNext() {
-            formRef.value.validate()
-                   .then((values) => {
-                       emit('next')
-                   })
-                   .catch((err) => {
-                   })
-        }
+const { formState, formRef, rules } = useForm()
 
-        return {
-            formState,
-            formRef,
-            rules,
-            handleNext,
-        }
-    },
+rules.value = {
+    paymentUser: [{ required: true, message: '付款账户必须填写' }],
+    payType: [{ required: true, message: '收款账户必须填写' }],
+    name: [{ required: true, message: '收款人名称必须核对' }],
+    money: [{ required: true, message: '转账金额必须填写' }],
+}
+
+/**
+ * 下一步
+ */
+function handleNext() {
+    formRef.value.validate()
+        .then((values) => {
+            emit('next')
+        })
+        .catch((err) => {
+        })
 }
 </script>
 
-<style lang="less"
-       scoped>
+<style lang="less" scoped>
+
 </style>
