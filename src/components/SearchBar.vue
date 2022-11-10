@@ -1,5 +1,5 @@
 <template>
-    <a-card v-bind="CAttrs"
+    <a-card v-bind="cptAttrs"
             class="x-search-bar">
         <slot></slot>
     </a-card>
@@ -14,7 +14,7 @@ import { computed, useAttrs } from 'vue'
 
 const attrs = useAttrs()
 
-const CAttrs = computed(() => ({
+const cptAttrs = computed(() => ({
     bordered: false,
     ...attrs
 }))
