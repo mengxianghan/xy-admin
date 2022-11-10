@@ -251,9 +251,9 @@ export const asyncRouterMap = [
                 },
             },
             {
-                path: 'newMenu',
+                path: 'new-menu',
                 name: 'systemNewMenu',
-                component: 'system/newMenu/index.vue',
+                component: 'system/new-menu/index.vue',
                 meta: {
                     title: '新版菜单管理',
                     isMenu: true,
@@ -342,9 +342,9 @@ export const asyncRouterMap = [
                 },
             },
             {
-                path: 'formTable',
+                path: 'form-table',
                 name: 'componentFormTable',
-                component: 'component/formTable/index.vue',
+                component: 'component/form-table/index.vue',
                 meta: {
                     title: '表单表格',
                     isMenu: true,
@@ -353,9 +353,9 @@ export const asyncRouterMap = [
                 },
             },
             {
-                path: 'qrCode',
+                path: 'qr-code',
                 name: 'componentQrCode',
-                component: 'component/qrCode/index.vue',
+                component: 'component/qr-code/index.vue',
                 meta: {
                     title: '二维码',
                     isMenu: true,
@@ -465,7 +465,7 @@ export const asyncRouterMap = [
         },
         children: [
             {
-                path: 'customLayout',
+                path: 'custom-layout',
                 name: 'otherCustomLayout',
                 component: 'list/basic/index.vue',
                 meta: {
@@ -478,9 +478,9 @@ export const asyncRouterMap = [
                 },
             },
             {
-                path: 'multiTab',
+                path: 'multi-tab',
                 name: 'otherMultiTab',
-                component: 'other/multiTab/index.vue',
+                component: 'other/multi-tab/index.vue',
                 meta: {
                     title: '多标签操作',
                     isMenu: true,
