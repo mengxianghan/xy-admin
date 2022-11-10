@@ -14,6 +14,7 @@ import MultiTab from './MultiTab.vue'
 import QrCode from './QrCode.vue'
 import Region from './Region.vue'
 import SearchBar from './SearchBar.vue'
+import ResizeBox from './ResizeBox/index.vue'
 import UploadImage from './Upload/UploadImage.vue'
 import UploadInput from './Upload/UploadInput.vue'
 
@@ -40,6 +41,7 @@ const components = [
     QrCode,
     Region,
     SearchBar,
+    ResizeBox,
     UploadImage,
     UploadInput,
 ]

@@ -374,6 +374,17 @@ export const asyncRouterMap = [
                     permission: '*',
                 },
             },
+            {
+                path: 'resize-box',
+                name: 'componentResizeBox',
+                component: 'component/resize-box/index.vue',
+                meta: {
+                    title: '伸缩框',
+                    isMenu: true,
+                    keepAlive: true,
+                    permission: '*',
+                },
+            },
         ],
     },
     {
