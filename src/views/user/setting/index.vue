@@ -14,7 +14,7 @@
                    class="px-8-5">
                 <div class="setting-title">{{ title }}</div>
                 <keep-alive>
-                    <component :is="componentName"></component>
+                    <component :is="component"></component>
                 </keep-alive>
             </a-col>
         </a-row>
@@ -46,7 +46,7 @@ const menuList = ref([
     { name: '新消息通知', key: 'message', component: markRaw(Message) },
 ])
 const selectedKeys = ref(['basic'])
-const componentName = computed(() => get(find(menuList.value, { key: head(selectedKeys.value) }), 'component'))
+const component = computed(() => get(find(menuList.value, { key: head(selectedKeys.value) }), 'component'))
 const title = computed(() => get(find(menuList.value, { key: head(selectedKeys.value) }), 'name'))
 </script>
 
