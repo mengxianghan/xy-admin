@@ -32,46 +32,34 @@
     </a-layout>
 </template>
 
-<script>
-import { computed, ref } from 'vue'
+<script setup>
+import { computed, ref, markRaw } from 'vue'
 import { onBeforeRouteUpdate } from 'vue-router'
 import { useMultiTabStore } from '@/store'
 
 import IframeView from './IframeView.vue'
 
-export default {
-    name: 'DefaultLayout',
-    components: { IframeView },
-    setup() {
-        const multiTabStore = useMultiTabStore()
-        const collapsible = ref(false)
-        const collapsed = ref(false)
-        const refreshing = ref(false)
-        const theme = 'dark'
-        const cacheList = computed(() => multiTabStore.cacheList)
-        const keepAlive = computed(() => multiTabStore.keepAlive)
-        const pageType = ref('')
+const multiTabStore = useMultiTabStore()
+const collapsible = ref(false)
+const collapsed = ref(false)
+const refreshing = ref(false)
+const theme = 'dark'
+const cacheList = computed(() => multiTabStore.cacheList)
+const keepAlive = computed(() => multiTabStore.keepAlive)
+const pageType = ref('')
 
-        onBeforeRouteUpdate((to) => {
-            pageType.value = to?.meta?.type
-        })
+onBeforeRouteUpdate((to) => {
+    pageType.value = to?.meta?.type
+})
 
-        function handleToggleCollapsed() {
-            collapsed.value = !collapsed.value
-        }
-
-        return {
-            collapsible,
-            collapsed,
-            refreshing,
-            theme,
-            cacheList,
-            keepAlive,
-            pageType,
-            handleToggleCollapsed,
-        }
-    },
+function handleToggleCollapsed() {
+    collapsed.value = !collapsed.value
 }
+
+defineExpose({
+    refreshing,
+    handleToggleCollapsed
+})
 </script>
 
 <style lang="less" scoped>

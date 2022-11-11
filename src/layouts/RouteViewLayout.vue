@@ -1,11 +1,8 @@
 <template>
-    <router-view/>
+    <router-view />
 </template>
 
-<script>
-export default {
-    name: 'RouteViewLayout',
-}
+<script setup>
 </script>
 
 <style lang="less" scoped>

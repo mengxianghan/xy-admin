@@ -21,9 +21,6 @@ import UploadInput from './Upload/UploadInput.vue'
 import Loading from './Loading'
 import Preview from './Preview'
 
-export const loading = Loading
-export const preview = Preview
-
 const components = [
     ActionBar,
     ActionButton,
@@ -45,6 +42,9 @@ const components = [
     UploadImage,
     UploadInput,
 ]
+
+export const loading = Loading
+export const preview = Preview
 
 export default {
     install(app) {
