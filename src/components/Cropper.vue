@@ -149,5 +149,17 @@ defineExpose({
             overflow: hidden;
         }
     }
+
+    :deep(.cropper-view-box) {
+        outline-color: @primary-color;
+    }
+
+    :deep(.cropper-line) {
+        background-color: @primary-color;
+    }
+
+    :deep(.cropper-point) {
+        background-color: @primary-color;
+    }
 }
 </style>
