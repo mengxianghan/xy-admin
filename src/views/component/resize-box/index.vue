@@ -5,7 +5,8 @@
     </a-alert>
 
     <a-card class="mt-8-2"
-            title="基本用法">
+            title="基本用法"
+            :bordered="false">
         <x-resize-box :directions="['right', 'bottom']">
             In the process of internal desktop applications development, many different design specs and
             implementations would be involved, which might cause designers and developers difficulties and
@@ -17,7 +18,8 @@
         </x-resize-box>
     </a-card>
     <a-card class="mt-8-2"
-            title="受控的高宽">
+            title="受控的高宽"
+            :bordered="false">
         <x-resize-box :directions="['right', 'bottom']"
                       :style="{ minWidth: '100px', maxWidth: '100%', textAlign: 'center' }"
                       v-model:width="width"
