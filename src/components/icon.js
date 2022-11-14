@@ -44,6 +44,7 @@ import {
     LockOutlined,
     QuestionCircleOutlined,
     MobileOutlined,
+    UploadOutlined
 } from '@ant-design/icons-vue'
 
 const components = [
@@ -141,6 +142,8 @@ export default {
         app.component('IconLockOutlined', LockOutlined)
         app.component('IconQuestionCircleOutlined', QuestionCircleOutlined)
         app.component('IconMobileOutlined', MobileOutlined)
+        app.component('IconUploadOutlined', UploadOutlined)
+
         return app
     },
 }

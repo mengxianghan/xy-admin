@@ -12,11 +12,15 @@
 </template>
 
 <script>
-import { onMounted, ref, toRefs, watch } from 'vue'
+export default { name: 'XEditor' }
+</script>
+
+<script setup>
+import { onMounted, ref, watch } from 'vue'
 import { mergeDeep } from '@/utils'
 import { Form } from 'ant-design-vue'
 
-import Editor from '@tinymce/tinymce-vue'
+import TinyEditor from '@tinymce/tinymce-vue'
 import tinymce from 'tinymce/tinymce'
 
 import 'tinymce/themes/silver'
@@ -29,80 +33,68 @@ import 'tinymce/icons/default'
  * @property {string} placeholder 占位文案
  * @property {boolean} disabled 禁用，默认：false
  */
-export default {
-    name: 'XEditor',
-    props: {
-        modelValue: {
-            type: String,
-            default: '',
-        },
-        options: {
-            type: Object,
-            default: () => ({}),
-        },
-        height: {
-            type: Number,
-            default: 300,
-        },
-        placeholder: {
-            type: String,
-            default: '',
-        },
-        disabled: {
-            type: Boolean,
-            default: false,
-        },
+
+const props = defineProps({
+    modelValue: {
+        type: String,
+        default: '',
     },
-    components: {
-        'tiny-editor': Editor,
+    options: {
+        type: Object,
+        default: () => ({}),
     },
-    setup(props, { emit }) {
-        const spinning = ref(true)
-        const { modelValue, options } = toRefs(props)
-        const content = ref('')
-        const opts = mergeDeep({
-            language_url: 'libs/tinymce/langs/zh_CN.js',
-            language: 'zh_CN',
-            skin_url: 'libs/tinymce/skins/ui/oxide',
-            content_css: 'libs/tinymce/skins/content/default/content.css',
-            height: 480,
-            branding: false,
-            resize: false,
-            content_style: `
+    height: {
+        type: Number,
+        default: 300,
+    },
+    placeholder: {
+        type: String,
+        default: '',
+    },
+    disabled: {
+        type: Boolean,
+        default: false,
+    },
+})
+
+const emit = defineEmits(['update:modelValue'])
+
+const spinning = ref(true)
+const content = ref('')
+const opts = mergeDeep({
+    language_url: 'libs/tinymce/langs/zh_CN.js',
+    language: 'zh_CN',
+    skin_url: 'libs/tinymce/skins/ui/oxide',
+    content_css: 'libs/tinymce/skins/content/default/content.css',
+    height: 480,
+    branding: false,
+    resize: false,
+    content_style: `
                 * {margin: 0; padding: 0; hyphens: auto;text-rendering: optimizeLegibility;-webkit-font-smoothing: antialiased;}
                 body {font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Helvetica, Segoe UI, Arial, Roboto, 'PingFang SC', 'miui', 'Hiragino Sans GB', 'Microsoft Yahei', sans-serif}
                 .mce-content-body {margin: 12px;}
             `,
-            setup: (editor) => {
-                editor.on('init', () => {
-                    spinning.value = false
-                })
-            },
-        }, options.value)
-        const { onFieldChange } = Form.useInjectFormItemContext()
-
-        watch(() => modelValue.value, (val) => content.value = val)
-        watch(() => content.value, (val) => {
-            emit('update:modelValue', val)
-            onFieldChange()
+    setup: (editor) => {
+        editor.on('init', () => {
+            spinning.value = false
         })
-
-        onMounted(() => {
-            content.value = modelValue.value
-            tinymce.init({})
-        })
-
-        return {
-            spinning,
-            content,
-            opts,
-        }
     },
-}
+}, props.options)
+const { onFieldChange } = Form.useInjectFormItemContext()
+
+watch(() => props.modelValue, (val) => content.value = val)
+watch(() => content.value, (val) => {
+    emit('update:modelValue', val)
+    onFieldChange()
+})
+
+onMounted(() => {
+    content.value = props.modelValue
+    tinymce.init({})
+})
 </script>
 
-<style lang="less"
-       scoped>
+<style lang="less" scoped>
 .x-editor {
     textarea {
         display: none;

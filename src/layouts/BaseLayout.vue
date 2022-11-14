@@ -2,7 +2,7 @@
     <div class="user-layout-container">
         <div class="user-layout-aside">
             <div class="aside-header">
-                <h1>{{title}}</h1>
+                <h1>{{  title  }}</h1>
             </div>
             <div class="aside-body">
                 <img :src="LoginWelcome">
@@ -10,7 +10,7 @@
                 <p>基于Vue3 + Ant Design Vue 的中后台前端解决方案。</p>
             </div>
             <div class="aside-footer">
-                <p>© {{title}} {{version}}</p>
+                <p>© {{  title  }} {{  version  }}</p>
             </div>
         </div>
         <div class="user-layout-main">
@@ -29,21 +29,11 @@
     </div>
 </template>
 
-<script>
+<script setup>
 import LoginWelcome from '@/assets/login_welcome.svg'
 
-export default {
-    name: 'BaseLayout',
-    setup() {
-        const title = import.meta.env.VITE_TITLE
-        const { version } = __APP_INFO__
-        return {
-            LoginWelcome,
-            title,
-            version
-        }
-    },
-}
+const title = import.meta.env.VITE_TITLE
+const { version } = __APP_INFO__
 </script>
 
 <style lang="less" scoped>

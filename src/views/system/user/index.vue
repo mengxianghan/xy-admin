@@ -68,6 +68,10 @@
 </template>
 
 <script>
+export default { name: 'systemUser' }
+</script>
+
+<script setup>
 import { onMounted, ref } from 'vue'
 import { message, Modal } from 'ant-design-vue'
 
@@ -76,133 +80,113 @@ import usePagination from '@/hooks/usePagination'
 
 import Edit from './components/Edit.vue'
 
-export default {
-    name: 'systemUser',
-    components: { Edit },
-    setup() {
-        const { loading, pagination, resetPagination } = usePagination()
-        const roleLoading = ref(false)
-        const roleList = ref([])
-        const selectedKeys = ref(['0'])
-        const columns = ref([
-            { title: 'ID', dataIndex: 'id' },
-            { title: '头像', key: 'avatar' },
-            { title: '登录帐号', dataIndex: 'userName' },
-            { title: '姓名', dataIndex: 'name' },
-            { title: '所属角色', dataIndex: 'roleName' },
-            { title: '加入时间', dataIndex: 'date' },
-            { title: '操作', key: 'action', fixed: 'right', width: 160 },
-        ])
-        const userList = ref([])
-        const editRef = ref()
+const { loading, pagination, resetPagination } = usePagination()
+const roleLoading = ref(false)
+const roleList = ref([])
+const selectedKeys = ref(['0'])
+const columns = ref([
+    { title: 'ID', dataIndex: 'id' },
+    { title: '头像', key: 'avatar' },
+    { title: '登录帐号', dataIndex: 'userName' },
+    { title: '姓名', dataIndex: 'name' },
+    { title: '所属角色', dataIndex: 'roleName' },
+    { title: '加入时间', dataIndex: 'date' },
+    { title: '操作', key: 'action', fixed: 'right', width: 160 },
+])
+const userList = ref([])
+const editRef = ref()
 
-        onMounted(() => {
-            getUserRoleList()
-            getUserPageList()
-        })
+onMounted(() => {
+    getUserRoleList()
+    getUserPageList()
+})
 
-        /**
-         * 获取角色列表
-         * @returns {Promise<void>}
-         */
-        async function getUserRoleList() {
-            roleLoading.value = true
-            const { code, data } = await api.system.getUserRoleList()
-                .catch(() => {
-                    roleLoading.value = false
-                })
+/**
+ * 获取角色列表
+ * @returns {Promise<void>}
+ */
+async function getUserRoleList() {
+    roleLoading.value = true
+    const { code, data } = await api.system.getUserRoleList()
+        .catch(() => {
             roleLoading.value = false
-            if (200 === code) {
-                roleList.value = [{
-                    'name': '全部',
-                    'key': '0',
-                }, ...data.rows]
-            }
-        }
+        })
+    roleLoading.value = false
+    if (200 === code) {
+        roleList.value = [{
+            'name': '全部',
+            'key': '0',
+        }, ...data.rows]
+    }
+}
 
-        /**
-         * 获取用户列表
-         * @returns {Promise<void>}
-         */
-        async function getUserPageList() {
+/**
+ * 获取用户列表
+ * @returns {Promise<void>}
+ */
+async function getUserPageList() {
+    loading.value = true
+    const { pageSize, current } = pagination
+    const { code, data } = await api.system.getUserPageList({
+        pageSize,
+        page: current,
+    })
+        .catch(() => {
+            loading.value = false
+        })
+    loading.value = false
+    if (200 === code) {
+        const { rows, total } = data
+        userList.value = rows
+        pagination.total = total
+    }
+}
+
+/**
+ * 切换角色
+ */
+function handleRole(keys) {
+    if (!keys.length) {
+        return
+    }
+    selectedKeys.value = keys
+    resetPagination()
+    getUserPageList()
+}
+
+/**
+ * 删除
+ */
+function handleDelete({ id }) {
+    Modal.confirm({
+        title: '删除提示',
+        content: '确认删除？',
+        onOk: async () => {
             loading.value = true
-            const { pageSize, current } = pagination
-            const { code, data } = await api.system.getUserPageList({
-                pageSize,
-                page: current,
-            })
+            const { code } = await api.common.deleteData({ id })
                 .catch(() => {
                     loading.value = false
                 })
-            loading.value = false
             if (200 === code) {
-                const { rows, total } = data
-                userList.value = rows
-                pagination.total = total
+                message.success('删除成功')
+                await getUserPageList()
+            } else {
+                loading.value = false
             }
-        }
+        },
+    })
+}
 
-        /**
-         * 切换角色
-         */
-        function handleRole(keys) {
-            if (!keys.length) {
-                return
-            }
-            selectedKeys.value = keys
-            resetPagination()
-            getUserPageList()
-        }
-
-        /**
-         * 删除
-         */
-        function handleDelete({ id }) {
-            Modal.confirm({
-                title: '删除提示',
-                content: '确认删除？',
-                onOk: async () => {
-                    loading.value = true
-                    const { code } = await api.common.deleteData({ id })
-                        .catch(() => {
-                            loading.value = false
-                        })
-                    if (200 === code) {
-                        message.success('删除成功')
-                        await getPageList()
-                    } else {
-                        loading.value = false
-                    }
-                },
-            })
-        }
-
-        /**
-         * 分页
-         */
-        function onTableChange({ current, pageSize }) {
-            pagination.current = current
-            pagination.pageSize = pageSize
-            getUserPageList()
-        }
-
-        return {
-            roleList,
-            columns,
-            userList,
-            pagination,
-            roleLoading,
-            loading,
-            selectedKeys,
-            editRef,
-            handleRole,
-            handleDelete,
-            onTableChange,
-        }
-    },
+/**
+ * 分页
+ */
+function onTableChange({ current, pageSize }) {
+    pagination.current = current
+    pagination.pageSize = pageSize
+    getUserPageList()
 }
 </script>
 
-<style scoped>
+<style lang="less" scoped>
 
 </style>

@@ -91,6 +91,10 @@
 </template>
 
 <script>
+export default { name: 'listBasic' }
+</script>
+
+<script setup>
 import { onMounted, ref } from 'vue'
 import { message, Modal } from 'ant-design-vue'
 
@@ -100,106 +104,88 @@ import Edit from './components/Edit.vue'
 
 import usePagination from '@/hooks/usePagination'
 
-export default {
-    name: 'listBasic',
-    components: { Edit },
-    setup() {
-        const columns = [
-            { title: 'ID', dataIndex: 'id', width: 64, align: 'center' },
-            { title: '标题', dataIndex: 'title' },
-            { title: '操作', key: 'action', width: 180 },
-        ]
-        const { list, pagination, loading, resetPagination } = usePagination()
-        const editRef = ref()
+const columns = [
+    { title: 'ID', dataIndex: 'id', width: 64, align: 'center' },
+    { title: '标题', dataIndex: 'title' },
+    { title: '操作', key: 'action', width: 180 },
+]
+const { list, pagination, loading, resetPagination } = usePagination()
+const editRef = ref()
 
-        /**
-         * 获取分页列表
-         */
-        async function getPageList() {
-            const { pageSize, current } = pagination
+/**
+ * 获取分页列表
+ */
+async function getPageList() {
+    const { pageSize, current } = pagination
+    loading.value = true
+    const { code, data } = await api.common.getPageList({
+        pageSize,
+        page: current,
+    })
+        .catch(() => {
+            loading.value = false
+        })
+    loading.value = false
+    if (200 === code) {
+        list.value = data.rows
+        pagination.total = data.total
+    }
+}
+
+/**
+ * 搜索
+ */
+function handleSearch() {
+    resetPagination()
+    getPageList()
+}
+
+/**
+ * 删除
+ */
+function handleDelete({ id }) {
+    Modal.confirm({
+        title: '删除提示',
+        content: '确认删除？',
+        onOk: async () => {
             loading.value = true
-            const { code, data } = await api.common.getPageList({
-                pageSize,
-                page: current,
-            })
+            const { code } = await api.common.deleteData({ id })
                 .catch(() => {
                     loading.value = false
                 })
-            loading.value = false
             if (200 === code) {
-                list.value = data.rows
-                pagination.total = data.total
+                message.success('删除成功')
+                await getPageList()
+            } else {
+                loading.value = false
             }
-        }
-
-        /**
-         * 搜索
-         */
-        function handleSearch() {
-            resetPagination()
-            getPageList()
-        }
-
-        /**
-         * 删除
-         */
-        function handleDelete({ id }) {
-            Modal.confirm({
-                title: '删除提示',
-                content: '确认删除？',
-                onOk: async () => {
-                    loading.value = true
-                    const { code } = await api.common.deleteData({ id })
-                        .catch(() => {
-                            loading.value = false
-                        })
-                    if (200 === code) {
-                        message.success('删除成功')
-                        await getPageList()
-                    } else {
-                        loading.value = false
-                    }
-                },
-            })
-        }
-
-        /**
-         * 表格发生改变
-         * @param current
-         * @param pageSize
-         */
-        function onTableChange({ current, pageSize }) {
-            pagination.current = current
-            pagination.pageSize = pageSize
-            getPageList()
-        }
-
-        /**
-         * 完成
-         */
-        function onOk() {
-            getPageList()
-        }
-
-        onMounted(() => {
-            getPageList()
-        })
-
-        return {
-            editRef,
-            columns,
-            loading,
-            list,
-            pagination,
-            handleSearch,
-            handleDelete,
-            onTableChange,
-            onOk,
-        }
-    },
+        },
+    })
 }
+
+/**
+ * 表格发生改变
+ * @param current
+ * @param pageSize
+ */
+function onTableChange({ current, pageSize }) {
+    pagination.current = current
+    pagination.pageSize = pageSize
+    getPageList()
+}
+
+/**
+ * 完成
+ */
+function onOk() {
+    getPageList()
+}
+
+onMounted(() => {
+    getPageList()
+})
 </script>
 
-<style lang="less"
-       scoped>
+<style lang="less" scoped>
+
 </style>

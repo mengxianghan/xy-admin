@@ -12,7 +12,7 @@
         <a-card :bordered="false"
                 title="表单示例"
                 class="mt-8-2">
-            <a-form :label-col="{style: {width: '100px'}}"
+            <a-form :label-col="{ style: { width: '100px' } }"
                     :model="formState"
                     :rules="rules"
                     ref="formRef">
@@ -20,7 +20,7 @@
                              name="field1">
                     <x-editor v-model="formState.field1" />
                 </a-form-item>
-                <a-form-item :style="{paddingLeft: '100px'}">
+                <a-form-item :style="{ paddingLeft: '100px' }">
                     <a-space>
                         <a-button type="primary"
                                   @click="handleSubmit">提交
@@ -34,43 +34,33 @@
 </template>
 
 <script>
+export default { name: 'componentEditor' }
+</script>
+
+<script setup>
 import { ref } from 'vue'
 
 import useForm from '@/hooks/useForm'
 
-export default {
-    name: 'componentEditor',
-    setup() {
-        const content = ref('')
-        const { formState, rules, formRef, resetForm } = useForm()
+const content = ref('')
+const { formState, rules, formRef, resetForm } = useForm()
 
-        rules.value = {
-            field1: { required: true, message: '请输入内容' },
-        }
+rules.value = {
+    field1: { required: true, message: '请输入内容' },
+}
 
-        function handleSubmit() {
-            formRef.value.validate()
-                .then((values) => {
-                    console.log(values)
-                })
-                .catch(() => {
+function handleSubmit() {
+    formRef.value.validate()
+        .then((values) => {
+            console.log(values)
+        })
+        .catch(() => {
 
-                })
-        }
+        })
+}
 
-        function handleReset() {
-            resetForm()
-        }
-
-        return {
-            content,
-            formState,
-            formRef,
-            rules,
-            handleSubmit,
-            handleReset,
-        }
-    },
+function handleReset() {
+    resetForm()
 }
 </script>
 

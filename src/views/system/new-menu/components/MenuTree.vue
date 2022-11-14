@@ -1,16 +1,17 @@
 <template>
     <a-card :bordered="false"
+            v-loading="loading"
             type="flex">
         <template #title>
-            <a-input-search v-model:value="searchValue"
+            <a-input-search v-model:value="keyword"
                             allow-clear
                             placeholder="请输入关键词搜索"></a-input-search>
         </template>
         <template #actions>
-            <span @click="$refs.editRef.handleCreate()">
+            <div>
                 <icon-plus-outlined />
-                新建分类
-            </span>
+                新建菜单
+            </div>
         </template>
         <a-tree v-if="!loading"
                 :selected-keys="selectedKeys"
@@ -22,54 +23,47 @@
             <template #title="record">
                 <div class="tree-row">
                     <div class="tree-row__name">
-                        <span v-if="record.name.indexOf(searchValue) > -1">
-                            {{ record.name.substr(0, record.name.indexOf(searchValue)) }}
-                            <span class="color-error">{{ searchValue }}</span>
-                            {{ record.name.substr(record.name.indexOf(searchValue) + searchValue.length) }}
+                        <span v-if="record.name.indexOf(keyword) > -1">
+                            {{ record.name.substr(0, record.name.indexOf(keyword)) }}
+                            <span class="color-error">{{ keyword }}</span>
+                            {{ record.name.substr(record.name.indexOf(keyword) + keyword.length) }}
                         </span>
                         <span v-else>{{ record.name }}</span>
                     </div>
-                    <div class="tree-row__code">{{ record.code }}</div>
                     <a-space class="tree-row__actions"
                              @click.stop="() => { }">
-                        <icon-edit-outlined @click.stop="$refs.editRef.handleEdit(record)"></icon-edit-outlined>
+                        <icon-plus-outlined></icon-plus-outlined>
                         <icon-delete-outlined @click="handleDelete(record)"></icon-delete-outlined>
                     </a-space>
                 </div>
             </template>
         </a-tree>
     </a-card>
-
-    <dict-type-edit ref="editRef" />
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { onMounted, ref } from 'vue'
 import { message, Modal } from 'ant-design-vue'
 
 import api from '@/api'
 import usePagination from '@/hooks/usePagination'
 
-import DictTypeEdit from '@/views/system/dict/components/DictTypeEdit.vue'
+const emit = defineEmits(['select', 'ready'])
 
-const emit = defineEmits(['select'])
-
-const { loading, list } = usePagination()
+const { list, loading } = usePagination()
 const selectedKeys = ref([])
-const searchValue = ref('')
-const editRef = ref()
+const keyword = ref('')
 
 onMounted(() => {
-    getDictTypeList()
+    getMenuList()
 })
 
 /**
- * 获取字典分类列表
- * @return {Promise<void>}
+ * 获取菜单列表
  */
-async function getDictTypeList() {
+async function getMenuList() {
     loading.value = true
-    const { code, data } = await api.system.getDictTypeList()
+    const { code, data } = await api.system.getNewMenuList()
         .catch(() => {
             loading.value = false
         })
@@ -77,11 +71,12 @@ async function getDictTypeList() {
     if (200 === code) {
         const { rows } = data
         list.value = rows
+        emit('ready', rows)
     }
 }
 
 /**
- * 切换分类
+ * 选择菜单
  * @param keys
  */
 function handleSelect(keys, { node }) {
@@ -89,11 +84,12 @@ function handleSelect(keys, { node }) {
         return
     }
     selectedKeys.value = keys
-    trigger(node)
+    emit('select', node)
 }
 
 /**
- * 删除分类
+ * 删除
+ * @param id
  */
 function handleDelete({ id }) {
     Modal.confirm({
@@ -104,14 +100,6 @@ function handleDelete({ id }) {
         },
     })
 }
-
-/**
- * 触发
- * @param value
- */
-function trigger(value) {
-    emit('select', value)
-}
 </script>
 
 <style lang="less" scoped>
@@ -120,14 +108,8 @@ function trigger(value) {
     align-items: center;
 
     &:hover {
-        .tree-row {
-            &__actions {
-                display: flex;
-            }
-
-            &__code {
-                display: none;
-            }
+        .tree-row__actions {
+            display: flex;
         }
     }
 
@@ -142,11 +124,6 @@ function trigger(value) {
         >* {
             display: flex;
         }
-    }
-
-    &__code {
-        font-size: 12px;
-        color: @text-color-secondary;
     }
 
     &__actions {

@@ -1,6 +1,6 @@
 <template>
     <a-card :bordered="false"
-            :body-style="{paddingLeft:0, paddingRight:0}">
+            :body-style="{ paddingLeft: 0, paddingRight: 0 }">
         <a-row type="flex">
             <a-col flex="0 0 224px">
                 <a-menu v-model:selectedKeys="selectedKeys"
@@ -14,7 +14,7 @@
                    class="px-8-5">
                 <div class="setting-title">{{ title }}</div>
                 <keep-alive>
-                    <component :is="componentName"></component>
+                    <component :is="component"></component>
                 </keep-alive>
             </a-col>
         </a-row>
@@ -22,7 +22,11 @@
 </template>
 
 <script>
-import { computed, ref } from 'vue'
+export default { name: 'userSetting' }
+</script>
+
+<script setup>
+import { computed, ref, markRaw } from 'vue'
 
 import get from 'lodash/get'
 import head from 'lodash/head'
@@ -34,36 +38,22 @@ import Custom from './components/Custom.vue'
 import Bind from './components/Bind.vue'
 import Message from './components/Message.vue'
 
-export default {
-    name: 'userSetting',
-    components: { Basic, Safe, Custom, Bind, Message },
-    setup() {
-        const menuList = ref([
-            { name: '基本设置', key: 'basic' },
-            { name: '安全设置', key: 'safe' },
-            { name: '个性化', key: 'custom' },
-            { name: '账号绑定', key: 'bind' },
-            { name: '新消息通知', key: 'message' },
-        ])
-        const selectedKeys = ref(['basic'])
-        const componentName = computed(() => head(selectedKeys.value))
-        const title = computed(() => get(find(menuList.value, { key: head(selectedKeys.value) }), 'name'))
-
-        return {
-            menuList,
-            selectedKeys,
-            componentName,
-            title,
-        }
-    },
-}
+const menuList = ref([
+    { name: '基本设置', key: 'basic', component: markRaw(Basic) },
+    { name: '安全设置', key: 'safe', component: markRaw(Safe) },
+    { name: '个性化', key: 'custom', component: markRaw(Custom) },
+    { name: '账号绑定', key: 'bind', component: markRaw(Bind) },
+    { name: '新消息通知', key: 'message', component: markRaw(Message) },
+])
+const selectedKeys = ref(['basic'])
+const component = computed(() => get(find(menuList.value, { key: head(selectedKeys.value) }), 'component'))
+const title = computed(() => get(find(menuList.value, { key: head(selectedKeys.value) }), 'name'))
 </script>
 
-<style lang="less"
-       scoped>
-       :deep(.setting-title) {
-           font-size: 20px;
-           color: @heading-color;
-           margin-bottom: @margin-md;
-       }
-       </style>
+<style lang="less" scoped>
+:deep(.setting-title) {
+    font-size: 20px;
+    color: @heading-color;
+    margin-bottom: @margin-md;
+}
+</style>

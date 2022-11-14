@@ -51,6 +51,10 @@
 </template>
 
 <script>
+export default { name: 'XMultiTab' }
+</script>
+
+<script setup>
 import { onMounted, computed, ref } from 'vue'
 import { useMultiTabStore } from '@/store'
 import { useRouter, onBeforeRouteUpdate } from 'vue-router'
@@ -59,135 +63,116 @@ import useMultiTab from '@/hooks/useMultiTab'
 
 import Sortable from 'sortablejs'
 
-export default {
-    name: 'XMultiTab',
-    setup() {
-        const multiTabStore = useMultiTabStore()
-        const router = useRouter()
-        const {
-            getSimpleRoute,
-            open,
-            close: handleClose,
-            closeLeft: handleCloseLeft,
-            closeRight: handleCloseRight,
-            closeOther: handleCloseOther,
-            reload,
-        } = useMultiTab()
-        const multiTabList = computed(() => multiTabStore.list)
-        const current = computed(() => multiTabStore.current)
-        const spin = ref(false)
-        const multiTabRef = ref()
+const multiTabStore = useMultiTabStore()
+const router = useRouter()
+const {
+    getSimpleRoute,
+    open,
+    close: handleClose,
+    closeLeft: handleCloseLeft,
+    closeRight: handleCloseRight,
+    closeOther: handleCloseOther,
+    reload,
+} = useMultiTab()
+const multiTabList = computed(() => multiTabStore.list)
+const current = computed(() => multiTabStore.current)
+const spin = ref(false)
+const multiTabRef = ref()
 
-        /**
-         * 路由发生变化
-         */
-        onBeforeRouteUpdate((to) => {
-            open(getSimpleRoute(to))
-        })
+/**
+ * 路由发生变化
+ */
+onBeforeRouteUpdate((to) => {
+    open(getSimpleRoute(to))
+})
 
-        onMounted(() => {
-            open(getSimpleRoute(router.currentRoute.value))
-            initDragSort()
-        })
+onMounted(() => {
+    open(getSimpleRoute(router.currentRoute.value))
+    initDragSort()
+})
 
-        /**
-         * 重新加载
-         * @param route
-         */
-        function handleReload(route) {
-            reload(route)
-            spin.value = true
-            setTimeout(() => {
-                spin.value = false
-            }, 1000)
-        }
+/**
+ * 重新加载
+ * @param route
+ */
+function handleReload(route) {
+    reload(route)
+    spin.value = true
+    setTimeout(() => {
+        spin.value = false
+    }, 1000)
+}
 
-        /**
-         * 切换标签页
-         * @param index
-         */
-        function handleSwitch(index) {
-            router.push(multiTabList.value[index])
-        }
+/**
+ * 切换标签页
+ * @param index
+ */
+function handleSwitch(index) {
+    router.push(multiTabList.value[index])
+}
 
-        /**
-         * 初始化拖拽
-         */
-        function initDragSort() {
-            Sortable.create(multiTabRef.value.querySelector('.ant-tabs-nav-list'), {
-                handle: '.ant-tabs-tab',
-                draggable: '.ant-tabs-tab',
-                animation: 200,
-            })
-        }
-
-        return {
-            multiTabList,
-            current,
-            spin,
-            multiTabRef,
-            handleClose,
-            handleCloseLeft,
-            handleCloseRight,
-            handleCloseOther,
-            handleReload,
-            handleSwitch,
-        }
-    },
+/**
+ * 初始化拖拽
+ */
+function initDragSort() {
+    Sortable.create(multiTabRef.value.querySelector('.ant-tabs-nav-list'), {
+        handle: '.ant-tabs-tab',
+        draggable: '.ant-tabs-tab',
+        animation: 200,
+    })
 }
 </script>
 
-<style lang="less"
-       scoped>
-       .x-multi-tab {
-           position: sticky;
-           top: 48px;
-           z-index: 100;
-           box-shadow: 0 1px 4px rgba(0, 21, 41, .08);
-       
-           &__reload-btn,
-           &__close-btn {
-               font-size: 12px;
-               margin-left: 8px;
-               color: @text-color-secondary;
-               transition: color .3s;
-               line-height: 1;
-               height: 12px;
-       
-               &:hover {
-                   color: @primary-color;
-               }
-           }
-       
-           :deep(.ant-tabs) {
-               background: #fff;
-               padding: 0 @padding-md;
-           }
-       
-           :deep(.ant-tabs-top > .ant-tabs-nav) {
-               margin-bottom: 0;
-           }
-       
-           :deep(.ant-tabs-top > .ant-tabs-nav::before) {
-               display: none;
-           }
-       
-           :deep(.ant-tabs-tab-btn) {
-               height: 100%;
-           }
-       
-           :deep(.ant-dropdown-trigger) {
-               display: flex;
-               padding: 0 12px;
-               align-items: center;
-               font-weight: 400;
-               height: 100%;
-           }
-       
-           :deep(.ant-tabs-card > .ant-tabs-nav .ant-tabs-tab) {
-               height: 40px;
-               padding: 0;
-               border-bottom: 0;
-           }
-       }
-       </style>
+<style lang="less" scoped>
+.x-multi-tab {
+    position: sticky;
+    top: 48px;
+    z-index: 100;
+    box-shadow: 0 1px 4px rgba(0, 21, 41, .08);
+
+    &__reload-btn,
+    &__close-btn {
+        font-size: 12px;
+        margin-left: 8px;
+        color: @text-color-secondary;
+        transition: color .3s;
+        line-height: 1;
+        height: 12px;
+
+        &:hover {
+            color: @primary-color;
+        }
+    }
+
+    :deep(.ant-tabs) {
+        background: #fff;
+        padding: 0 @padding-md;
+    }
+
+    :deep(.ant-tabs-top > .ant-tabs-nav) {
+        margin-bottom: 0;
+    }
+
+    :deep(.ant-tabs-top > .ant-tabs-nav::before) {
+        display: none;
+    }
+
+    :deep(.ant-tabs-tab-btn) {
+        height: 100%;
+    }
+
+    :deep(.ant-dropdown-trigger) {
+        display: flex;
+        padding: 0 12px;
+        align-items: center;
+        font-weight: 400;
+        height: 100%;
+    }
+
+    :deep(.ant-tabs-card > .ant-tabs-nav .ant-tabs-tab) {
+        height: 40px;
+        padding: 0;
+        border-bottom: 0;
+    }
+}
+</style>

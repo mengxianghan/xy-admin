@@ -1,9 +1,9 @@
 <template>
     <a-table v-bind="$attrs"
-             :data-source="list"
+             class="x-form-table"
              size="middle"
-             :pagination="false"
-             class="x-form-table">
+             :data-source="list"
+             :pagination="false">
         <a-table-column key="action"
                         align="center"
                         :width="44">
@@ -34,7 +34,11 @@
 </template>
 
 <script>
-import { onMounted, ref, toRefs, watch } from 'vue'
+export default { name: 'XFormTable' }
+</script>
+
+<script setup>
+import { onMounted, ref, watch } from 'vue'
 
 import cloneDeep from 'lodash/cloneDeep'
 
@@ -43,60 +47,43 @@ import cloneDeep from 'lodash/cloneDeep'
  * @property {array} modelValue v-model
  * @property {object} rowTpl 行模板
  */
-export default {
-    name: 'XFormTable',
-    props: {
-        modelValue: {
-            type: Array,
-            default: () => [],
-        },
-        rowTpl: {
-            type: Object,
-            default: () => ({}),
-        },
+
+const props = defineProps({
+    modelValue: {
+        type: Array,
+        default: () => [],
     },
-    emits: ['update:modelValue'],
-    setup(props, { emit }) {
-        const { modelValue, rowTpl } = toRefs(props)
-        const list = ref([])
-
-        watch(list,
-            val => {
-                emit('update:modelValue', val)
-            },
-            {
-                deep: true,
-            })
-
-        onMounted(() => {
-            list.value = modelValue.value
-        })
-
-        /**
-         * 新增
-         */
-        function handleAdd() {
-            list.value.push(cloneDeep(rowTpl.value))
-        }
-
-        /**
-         * 删除
-         */
-        function handleDelete(index) {
-            list.value.splice(index, 1)
-        }
-
-        return {
-            list,
-            handleAdd,
-            handleDelete,
-        }
+    rowTpl: {
+        type: Object,
+        default: () => ({}),
     },
+})
+const emit = defineEmits(['update:modelValue'])
+
+const list = ref([])
+
+watch(list, val => emit('update:modelValue', val), { deep: true })
+
+onMounted(() => {
+    list.value = props.modelValue
+})
+
+/**
+ * 新增
+ */
+function handleAdd() {
+    list.value.push(cloneDeep(props.rowTpl))
+}
+
+/**
+ * 删除
+ */
+function handleDelete(index) {
+    list.value.splice(index, 1)
 }
 </script>
 
-<style lang="less"
-       scoped>
+<style lang="less" scoped>
 .x-form-table {
     :deep(.ant-table-row) {
         .action {

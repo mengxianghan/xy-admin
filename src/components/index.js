@@ -14,14 +14,12 @@ import MultiTab from './MultiTab.vue'
 import QrCode from './QrCode.vue'
 import Region from './Region.vue'
 import SearchBar from './SearchBar.vue'
+import ResizeBox from './ResizeBox/index.vue'
 import UploadImage from './Upload/UploadImage.vue'
 import UploadInput from './Upload/UploadInput.vue'
 
 import Loading from './Loading'
 import Preview from './Preview'
-
-export const loading = Loading
-export const preview = Preview
 
 const components = [
     ActionBar,
@@ -40,9 +38,13 @@ const components = [
     QrCode,
     Region,
     SearchBar,
+    ResizeBox,
     UploadImage,
     UploadInput,
 ]
+
+export const loading = Loading
+export const preview = Preview
 
 export default {
     install(app) {

@@ -1,10 +1,10 @@
 <template>
-    <div class="x-upload x-upload-image"
+    <div ref="uploadImageRef"
+         class="x-upload x-upload-image"
          :class="{
              'x-upload--round': round,
              'x-upload--disabled': disabled
-         }"
-         ref="uploadImageRef">
+         }">
         <a-upload v-if="showUploadBtn"
                   :show-upload-list="false"
                   :multiple="multiple"
@@ -32,8 +32,8 @@
             </template>
         </a-upload>
         <div v-for="(item, index) in fileList"
-             :key="item.key"
              class="x-upload-item j-upload-item"
+             :key="item.key"
              :class="{
                  'x-upload-item--error': STATUS_ENUM.is('error', item.status),
              }"
@@ -83,7 +83,11 @@
 </template>
 
 <script>
-import { computed, onMounted, ref, toRefs, watch } from 'vue'
+export default { name: 'XUploadImage' }
+</script>
+
+<script setup>
+import { computed, onMounted, ref, watch } from 'vue'
 import { nanoid } from 'nanoid'
 import { Form, message } from 'ant-design-vue'
 import { mergeDeep } from '@/utils'
@@ -117,432 +121,414 @@ import CropperModal from '../CropperModal.vue'
  * @property {number} quality 图片质量，取值范围：0-1，默认：1
  * @property {boolean} dragsort 拖拽排序，默认：false
  */
-export default {
-    name: 'XUploadImage',
-    components: { CropperModal },
-    props: {
-        modelValue: {
-            type: [String, Array],
-            default: '',
-        },
-        multiple: {
-            type: Boolean,
-            default: false,
-        },
-        width: {
-            type: Number,
-            default: 120,
-        },
-        height: {
-            type: Number,
-            default: 120,
-        },
-        icon: {
-            type: String,
-            default: 'icon-plus-outlined',
-        },
-        text: {
-            type: String,
-            default: '',
-        },
-        maxSize: {
-            type: [String, Number],
-            default: '2M',
-        },
-        accept: {
-            type: String,
-            default: 'image/*',
-        },
-        disabled: {
-            type: Boolean,
-            default: false,
-        },
-        round: {
-            type: Boolean,
-            default: false,
-        },
-        cropper: {
-            type: Boolean,
-            default: false,
-        },
-        aspectRatio: {
-            type: Number,
-            default: 0,
-        },
-        quality: {
-            type: Number,
-            default: 1,
-        },
-        dragsort: {
-            type: Boolean,
-            default: false
-        }
+
+const props = defineProps({
+    modelValue: {
+        type: [String, Array],
+        default: '',
     },
-    setup(props, { emit }) {
-        const { onFieldChange } = Form.useInjectFormItemContext()
+    multiple: {
+        type: Boolean,
+        default: false,
+    },
+    width: {
+        type: Number,
+        default: 120,
+    },
+    height: {
+        type: Number,
+        default: 120,
+    },
+    icon: {
+        type: String,
+        default: 'icon-plus-outlined',
+    },
+    text: {
+        type: String,
+        default: '',
+    },
+    maxSize: {
+        type: [String, Number],
+        default: '2M',
+    },
+    accept: {
+        type: String,
+        default: 'image/*',
+    },
+    disabled: {
+        type: Boolean,
+        default: false,
+    },
+    round: {
+        type: Boolean,
+        default: false,
+    },
+    cropper: {
+        type: Boolean,
+        default: false,
+    },
+    aspectRatio: {
+        type: Number,
+        default: 0,
+    },
+    quality: {
+        type: Number,
+        default: 1,
+    },
+    dragsort: {
+        type: Boolean,
+        default: false
+    }
+})
 
-        const { multiple, maxSize, modelValue, cropper, dragsort, disabled } = toRefs(props)
+const emit = defineEmits(['update:modelValue'])
 
-        const fileList = ref([])
-        const cropperModalRef = ref()
-        const uploadImageRef = ref()
-        const sortable = ref(null)
+const { onFieldChange } = Form.useInjectFormItemContext()
 
-        const loading = computed(() => fileList.value.some(o => STATUS_ENUM.is('uploading', o.status)))
-        const showUploadBtn = computed(() => multiple.value || !fileList.value.length)
-        const dragsortDisabled = computed(() => (dragsort.value && !disabled.value) ? false : true)
+const fileList = ref([])
+const cropperModalRef = ref()
+const uploadImageRef = ref()
+const sortable = ref(null)
 
-        watch(() => modelValue.value, () => {
-            init()
-        })
+const loading = computed(() => fileList.value.some(o => STATUS_ENUM.is('uploading', o.status)))
+const showUploadBtn = computed(() => props.multiple || !fileList.value.length)
+const dragsortDisabled = computed(() => (props.dragsort && !props.disabled) ? false : true)
 
+watch(() => props.modelValue, () => {
+    init()
+})
 
-        watch(() => dragsortDisabled.value, (val) => {
-            initDragSort()
-        })
+watch(() => dragsortDisabled.value, () => {
+    initDragSort()
+})
 
-        onMounted(() => {
-            init()
-            initDragSort()
-        })
+onMounted(() => {
+    init()
+    initDragSort()
+})
 
-        function init() {
-            const currentValue = modelValue.value
-                ? modelValue.value instanceof Array
-                    ? modelValue.value
-                    : [modelValue.value]
-                : []
-            if (currentValue.length) {
-                // 移除不存在的文件
-                fileList.value.forEach((item, index) => {
-                    // 已完成 && 不存在与 modelValue 中
-                    if (STATUS_ENUM.is('done', item.status) && !includes(currentValue, item.src)) {
-                        fileList.value.splice(index, 1)
-                    }
-                })
-                // 添加不存在与 modelValue 中的文件
-                currentValue.forEach(item => {
-                    if (!some(fileList.value, { src: item })) {
-                        fileList.value.push(getItem({ src: item }))
-                    }
-                })
-            } else {
-                fileList.value = []
+/**
+ * 初始化
+ */
+function init() {
+    const currentValue = props.modelValue
+        ? props.modelValue instanceof Array
+            ? props.modelValue
+            : [props.modelValue]
+        : []
+    if (currentValue.length) {
+        // 移除不存在的文件
+        fileList.value.forEach((item, index) => {
+            // 已完成 && 不存在与 modelValue 中
+            if (STATUS_ENUM.is('done', item.status) && !includes(currentValue, item.src)) {
+                fileList.value.splice(index, 1)
             }
-        }
-
-        /**
-         * 初始化拖拽排序
-         */
-        function initDragSort() {
-            if (sortable.value) {
-                sortable.value.destroy()
-                sortable.value = null
+        })
+        // 添加不存在与 modelValue 中的文件
+        currentValue.forEach(item => {
+            if (!some(fileList.value, { src: item })) {
+                fileList.value.push(getItem({ src: item }))
             }
-            sortable.value = Sortable.create(uploadImageRef.value, {
-                handle: '.j-upload-item',
-                animation: 200,
-                disabled: dragsortDisabled.value,
-                onEnd: ({ newIndex, oldIndex }) => {
-                    const dragData = fileList.value.splice(oldIndex - 1, 1)[0]
-                    fileList.value.splice(newIndex - 1, 0, dragData)
-                    trigger()
-                }
-            })
-        }
+        })
+    } else {
+        fileList.value = []
+    }
+}
 
-        /**
-         * 预览
-         * @param {*} record 
-         */
-        function handlePreview(record) {
-            Preview({
-                urls: [record.src],
-            })
-        }
-
-        /**
-         * 移除
-         * @param index
-         */
-        function handleRemove(index) {
-            fileList.value.splice(index, 1)
+/**
+ * 初始化拖拽排序
+ */
+function initDragSort() {
+    if (sortable.value) {
+        sortable.value.destroy()
+        sortable.value = null
+    }
+    sortable.value = Sortable.create(uploadImageRef.value, {
+        handle: '.j-upload-item',
+        animation: 200,
+        disabled: dragsortDisabled.value,
+        onEnd: ({ newIndex, oldIndex }) => {
+            const dragData = fileList.value.splice(oldIndex - 1, 1)[0]
+            fileList.value.splice(newIndex - 1, 0, dragData)
             trigger()
         }
+    })
+}
 
-        /**
-         * 取消上传
-         */
-        function handleCancel({ key }) {
-            const index = fileList.value.findIndex(o => o.key === key)
-            fileList.value.splice(index, 1)
-        }
+/**
+ * 预览
+ * @param {*} record 
+ */
+function handlePreview(record) {
+    Preview({
+        urls: [record.src],
+    })
+}
 
-        /**
-         * 上传前
-         */
-        function onBeforeUpload(file) {
-            const maxFileSize = maxSize.value instanceof Number ? maxSize.value : filesizeParser(maxSize.value, { base: 10.24 })
-            const checkFileSize = file?.size < maxFileSize
-            if (!checkFileSize) {
-                message.warning(`已忽略超过 ${filesize(maxFileSize, { base: 10.24 })} 的文件`)
-            }
-            const checkCropper = cropper.value
-                ? multiple.value ? true : false
-                : true
-            if (cropper.value && !multiple.value) {
-                const fileReader = new FileReader()
-                fileReader.readAsDataURL(file)
-                fileReader.onload = (e) => {
-                    cropperModalRef.value?.handleOpen(e.target.result)
-                }
-            }
-            return checkFileSize && checkCropper
-        }
+/**
+ * 移除
+ * @param index
+ */
+function handleRemove(index) {
+    fileList.value.splice(index, 1)
+    trigger()
+}
 
-        /**
-         * 拖拽结束
-         */
-        function onDragEnd() {
-            trigger()
-        }
+/**
+ * 取消上传
+ */
+function handleCancel({ key }) {
+    const index = fileList.value.findIndex(o => o.key === key)
+    fileList.value.splice(index, 1)
+}
 
-        /**
-         * 自定义上传
-         */
-        function customRequest(file) {
-            const record = getItem({
-                key: file.uid,
-                src: URL.createObjectURL(file),
-                status: STATUS_ENUM.getValue('wait'),
-                percent: 0,
-                file,
-            })
-            // 判断是否批量上传
-            if (multiple.value) {
-                // 批量上传
-                fileList.value.push(record)
-            } else {
-                // 单文件上传
-                fileList.value = [record]
-            }
-            if (!loading.value) {
-                doUpload()
-            }
+/**
+ * 上传前
+ */
+function onBeforeUpload(file) {
+    const maxFileSize = props.maxSize instanceof Number ? props.maxSize : filesizeParser(props.maxSize, { base: 10.24 })
+    const checkFileSize = file?.size < maxFileSize
+    if (!checkFileSize) {
+        message.warning(`已忽略超过 ${filesize(maxFileSize, { base: 10.24 })} 的文件`)
+    }
+    const checkCropper = props.cropper
+        ? props.multiple ? true : false
+        : true
+    if (props.cropper && !props.multiple) {
+        const fileReader = new FileReader()
+        fileReader.readAsDataURL(file)
+        fileReader.onload = (e) => {
+            cropperModalRef.value?.handleOpen(e.target.result)
         }
+    }
+    return checkFileSize && checkCropper
+}
 
-        /**
-         * 执行上传
-         */
-        async function doUpload() {
-            // 判断是否还有待上传文件
-            if (!some(fileList.value, { status: STATUS_ENUM.getValue('wait') })) {
-                return
-            }
-            const index = findIndex(fileList.value, { status: STATUS_ENUM.getValue('wait') })
-            const record = fileList.value[index]
-            record.status = STATUS_ENUM.getValue('uploading')
-            const { code, data } = await api.common.upload({
-                file: record?.file,
-            })
-            if (200 === code) {
-                // 上传进度，真实接口可改为真实数据
-                record.percent = 100
-                record.status = STATUS_ENUM.getValue('done')
-                // record.src = data?.src
-                trigger()
-                await doUpload()
-            }
-        }
+/**
+ * 拖拽结束
+ */
+function onDragEnd() {
+    trigger()
+}
 
-        /**
-         * 基础结构
-         * @return {{}}
-         */
-        function getItem(obj) {
-            return mergeDeep({
-                key: nanoid(),
-                src: '',
-                status: STATUS_ENUM.getValue('done'),
-                percent: 100,
-            }, obj)
-        }
+/**
+ * 自定义上传
+ */
+function customRequest(file) {
+    const record = getItem({
+        key: file.uid,
+        src: URL.createObjectURL(file),
+        status: STATUS_ENUM.getValue('wait'),
+        percent: 0,
+        file,
+    })
+    // 判断是否批量上传
+    if (props.multiple) {
+        // 批量上传
+        fileList.value.push(record)
+    } else {
+        // 单文件上传
+        fileList.value = [record]
+    }
+    if (!loading.value) {
+        doUpload()
+    }
+}
 
-        /**
-         * 触发
-         */
-        function trigger() {
-            let value = ''
-            // 判断是否多选
-            if (multiple.value) {
-                // 多选
-                value = fileList.value
-                    .filter(item => STATUS_ENUM.is('done', item.status))
-                    .map(item => item?.src ?? item)
-            } else {
-                // 单选
-                value = (fileList.value.length ? fileList.value[0]?.src : fileList.value[0]) ?? ''
-            }
-            emit('update:modelValue', value)
-            onFieldChange()
-        }
+/**
+ * 执行上传
+ */
+async function doUpload() {
+    // 判断是否还有待上传文件
+    if (!some(fileList.value, { status: STATUS_ENUM.getValue('wait') })) {
+        return
+    }
+    const index = findIndex(fileList.value, { status: STATUS_ENUM.getValue('wait') })
+    const record = fileList.value[index]
+    record.status = STATUS_ENUM.getValue('uploading')
+    const { code, data } = await api.common.upload({
+        file: record?.file,
+    })
+    if (200 === code) {
+        // 上传进度，真实接口可改为真实数据
+        record.percent = 100
+        record.status = STATUS_ENUM.getValue('done')
+        // record.src = data?.src
+        trigger()
+        await doUpload()
+    }
+}
 
-        return {
-            STATUS_ENUM,
-            fileList,
-            showUploadBtn,
-            cropperModalRef,
-            uploadImageRef,
-            multiple,
-            handlePreview,
-            handleRemove,
-            handleCancel,
-            onBeforeUpload,
-            onDragEnd,
-            customRequest,
-        }
-    },
+/**
+ * 基础结构
+ * @return {{}}
+ */
+function getItem(obj) {
+    return mergeDeep({
+        key: nanoid(),
+        src: '',
+        status: STATUS_ENUM.getValue('done'),
+        percent: 100,
+    }, obj)
+}
+
+/**
+ * 触发
+ */
+function trigger() {
+    let value = ''
+    // 判断是否多选
+    if (props.multiple) {
+        // 多选
+        value = fileList.value
+            .filter(item => STATUS_ENUM.is('done', item.status))
+            .map(item => item?.src ?? item)
+    } else {
+        // 单选
+        value = (fileList.value.length ? fileList.value[0]?.src : fileList.value[0]) ?? ''
+    }
+    emit('update:modelValue', value)
+    onFieldChange()
 }
 </script>
 
-<style lang="less"
-       scoped>
-       .x-upload {
-           display: flex;
-           flex-wrap: wrap;
-           gap: @margin-sm;
-       
-           // 圆角
-           &--round {
-       
-               .x-upload-btn,
-               .x-upload-item {
-                   border-radius: @border-radius-round;
-               }
-           }
-       
-           // 禁用
-           &--disabled {
-               .x-upload-btn {
-                   opacity: .5;
-                   cursor: not-allowed;
-               }
-           }
-       
-           &-btn {
-               border: @border-color-base dashed 1px;
-               display: flex;
-               flex-direction: column;
-               align-items: center;
-               justify-content: center;
-               cursor: pointer;
-               transition: all .2s;
-       
-               &--hover {
-                   &:hover {
-                       border-color: @primary-color;
-                       color: @primary-color;
-                   }
-               }
-       
-               &__icon {
-                   font-size: 20px;
-               }
-       
-               &__txt {
-                   margin: @margin-xss 0 0;
-               }
-           }
-       
-           &-item {
-               display: flex;
-               align-items: center;
-               justify-content: center;
-               position: relative;
-               overflow: hidden;
-               background: @background-color-base;
-               border-radius: @border-radius-base;
-       
-               img {
-                   width: 100%;
-                   height: 100%;
-                   object-fit: cover;
-               }
-       
-               &:hover {
-                   .x-upload-actions {
-                       opacity: 1;
-                   }
-               }
-       
-               &--error {
-                   &::before {
-                       position: absolute;
-                       content: '';
-                       width: 100%;
-                       height: 100%;
-                       border: @error-color dashed 1px;
-                       z-index: 2;
-                       pointer-events: none;
-                   }
-               }
-           }
-       
-           &-actions {
-               position: absolute;
-               display: flex;
-               align-items: center;
-               justify-content: center;
-               gap: 4px;
-               width: 100%;
-               height: 100%;
-               left: 0;
-               top: 0;
-               background: rgba(0, 0, 0, .25);
-               opacity: 0;
-               transition: all .15s;
-           }
-       
-           &-action {
-               min-width: 24px;
-               height: 24px;
-               display: flex;
-               align-items: center;
-               justify-content: center;
-               color: #fff;
-               border-radius: 2px;
-               cursor: pointer;
-               background: rgba(0, 0, 0, .25);
-               transition: all .15s;
-               font-size: 12px;
-               padding: 0 4px;
-       
-               &:hover {
-                   background: rgba(0, 0, 0, .5);
-               }
-           }
-       
-           &-status {
-               position: absolute;
-               width: 100%;
-               height: 100%;
-               left: 0;
-               top: 0;
-               display: flex;
-               flex-direction: column;
-               align-items: center;
-               justify-content: center;
-               background: rgba(0, 0, 0, .25);
-               padding: 0 16px;
-               color: #fff;
-       
-               &--error {
-                   color: @error-color;
-               }
-       
-               &--done {
-                   color: @success-color;
-               }
-           }
-       }
-       </style>
+<style lang="less" scoped>
+.x-upload {
+    display: flex;
+    flex-wrap: wrap;
+    gap: @margin-sm;
+
+    // 圆角
+    &--round {
+
+        .x-upload-btn,
+        .x-upload-item {
+            border-radius: @border-radius-round;
+        }
+    }
+
+    // 禁用
+    &--disabled {
+        .x-upload-btn {
+            opacity: .5;
+            cursor: not-allowed;
+        }
+    }
+
+    &-btn {
+        border: @border-color-base dashed 1px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all .2s;
+
+        &--hover {
+            &:hover {
+                border-color: @primary-color;
+                color: @primary-color;
+            }
+        }
+
+        &__icon {
+            font-size: 20px;
+        }
+
+        &__txt {
+            margin: @margin-xss 0 0;
+        }
+    }
+
+    &-item {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        overflow: hidden;
+        background: @background-color-base;
+        border-radius: @border-radius-base;
+
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        &:hover {
+            .x-upload-actions {
+                opacity: 1;
+            }
+        }
+
+        &--error {
+            &::before {
+                position: absolute;
+                content: '';
+                width: 100%;
+                height: 100%;
+                border: @error-color dashed 1px;
+                z-index: 2;
+                pointer-events: none;
+            }
+        }
+    }
+
+    &-actions {
+        position: absolute;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 4px;
+        width: 100%;
+        height: 100%;
+        left: 0;
+        top: 0;
+        background: rgba(0, 0, 0, .25);
+        opacity: 0;
+        transition: all .15s;
+    }
+
+    &-action {
+        min-width: 24px;
+        height: 24px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #fff;
+        border-radius: 2px;
+        cursor: pointer;
+        background: rgba(0, 0, 0, .25);
+        transition: all .15s;
+        font-size: 12px;
+        padding: 0 4px;
+
+        &:hover {
+            background: rgba(0, 0, 0, .5);
+        }
+    }
+
+    &-status {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        left: 0;
+        top: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background: rgba(0, 0, 0, .25);
+        padding: 0 16px;
+        color: #fff;
+
+        &--error {
+            color: @error-color;
+        }
+
+        &--done {
+            color: @success-color;
+        }
+    }
+}
+</style>

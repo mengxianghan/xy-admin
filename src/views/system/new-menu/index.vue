@@ -20,7 +20,7 @@
                         :title="menuInfo.name"
                         type="flex">
                     <a-form :model="formState"
-                            :label-col="{style:{width: '100px'}}">
+                            :label-col="{ style: { width: '100px' } }">
                         <a-form-item label="名称"
                                      name="name">
                             <a-input v-model:value="formState.name"></a-input>
@@ -28,16 +28,16 @@
                         <a-form-item label="所属上级">
                             <a-tree-select v-model:value="formState.parent_id"
                                            :tree-data="menuList"
-                                           :field-names="{children: 'children', label: 'name', key: 'key', value: 'key'}"
+                                           :field-names="{ children: 'children', label: 'name', key: 'key', value: 'key' }"
                                            tree-default-expand-all></a-tree-select>
                         </a-form-item>
                         <a-form-item label="类型"
                                      name="type">
                             <a-radio-group v-model:value="formState.type"
                                            :options="[
-                                               {label: '菜单', value: 1},
-                                               {label: 'iframe', value: 2},
-                                               {label: '外链', value: 3},
+                                               { label: '菜单', value: 1 },
+                                               { label: 'iframe', value: 2 },
+                                               { label: '外链', value: 3 },
                                            ]"></a-radio-group>
                         </a-form-item>
                         <a-form-item label="别名"
@@ -83,17 +83,17 @@
                         title="权限按钮"
                         type="flex">
                     <x-form-table v-model="authList"
-                                  :row-tpl="{name: '', alias: ''}"
+                                  :row-tpl="{ name: '', alias: '' }"
                                   bordered>
                         <a-table-column title="名称"
                                         data-index="name">
-                            <template #default="{record}">
+                            <template #default="{ record }">
                                 <a-input v-model:value="record.name" />
                             </template>
                         </a-table-column>
                         <a-table-column title="标识"
                                         data-index="alias">
-                            <template #default="{record}">
+                            <template #default="{ record }">
                                 <a-input v-model:value="record.alias" />
                             </template>
                         </a-table-column>
@@ -105,6 +105,10 @@
 </template>
 
 <script>
+export default { name: 'systemNewMenu' }
+</script>
+
+<script setup>
 import { ref } from 'vue'
 
 import cloneDeep from 'lodash/cloneDeep'
@@ -112,46 +116,30 @@ import useForm from '@/hooks/useForm'
 
 import MenuTree from './components/MenuTree.vue'
 
-export default {
-    name: 'systemNewMenu',
-    components: { MenuTree },
-    setup() {
-        const { formState } = useForm()
-        const authList = ref([
-            { name: '新增', alias: 'insert' },
-        ])
-        const menuList = ref([])
-        const menuInfo = ref(null)
+const { formState } = useForm()
+const authList = ref([
+    { name: '新增', alias: 'insert' },
+])
+const menuList = ref([])
+const menuInfo = ref(null)
 
-        /**
-         * 选中菜单
-         * @param info
-         */
-        function onMenuSelect(info) {
-            menuInfo.value = cloneDeep(info)
-        }
+/**
+ * 选中菜单
+ * @param info
+ */
+function onMenuSelect(info) {
+    menuInfo.value = cloneDeep(info)
+}
 
-        /**
-         * 菜单准备完成
-         * @param info
-         */
-        function onMenuReady(info) {
-            menuList.value = [{ name: '顶级菜单', key: 0 }, ...info]
-        }
-
-        return {
-            formState,
-            authList,
-            menuList,
-            menuInfo,
-            onMenuSelect,
-            onMenuReady,
-        }
-    },
+/**
+ * 菜单准备完成
+ * @param info
+ */
+function onMenuReady(info) {
+    menuList.value = [{ name: '顶级菜单', key: 0 }, ...info]
 }
 </script>
 
-<style lang="less"
-       scoped>
-       
-       </style>
+<style lang="less" scoped>
+
+</style>

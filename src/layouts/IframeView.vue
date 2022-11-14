@@ -9,20 +9,12 @@
     </div>
 </template>
 
-<script>
+<script setup>
 import { computed } from 'vue'
 import { useMultiTabStore } from '@/store'
 
-export default {
-    name: 'IframeView',
-    setup() {
-        const multiTabStore = useMultiTabStore()
-        const iframeList = computed(() => multiTabStore.iframeList)
-        return {
-            iframeList,
-        }
-    },
-}
+const multiTabStore = useMultiTabStore()
+const iframeList = computed(() => multiTabStore.iframeList)
 </script>
 
 <style lang="less" scoped>

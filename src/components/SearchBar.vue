@@ -1,30 +1,26 @@
 <template>
-    <a-card v-bind="attrsComp"
+    <a-card v-bind="cptAttrs"
             class="x-search-bar">
         <slot></slot>
     </a-card>
 </template>
 
 <script>
-import { computed } from 'vue'
-
-export default {
-    name: 'XSearchBar',
-    setup(props, { attrs }) {
-        const attrsComp = computed(() => ({
-            bordered: false,
-            ...attrs
-        }))
-
-        return {
-            attrsComp
-        }
-    },
-}
+export default { name: 'XSearchBar' }
 </script>
 
-<style lang="less"
-       scoped>
+<script setup>
+import { computed, useAttrs } from 'vue'
+
+const attrs = useAttrs()
+
+const cptAttrs = computed(() => ({
+    bordered: false,
+    ...attrs
+}))
+</script>
+
+<style lang="less" scoped>
 .x-search-bar {
     :deep(.ant-card-body) {
         padding-bottom: 4px;

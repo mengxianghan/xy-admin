@@ -52,26 +52,21 @@
 </template>
 
 <script>
-import {ref} from 'vue'
+export default { name: 'Step3' }
+</script>
 
-export default {
-    name: 'Step3',
-    emits: ['finish'],
-    setup(props, {emit}) {
-        const loading = ref(false)
+<script setup>
+import { ref } from 'vue'
 
-        /**
-         * 结束
-         */
-        function handleFinish() {
-            emit('finish')
-        }
+const emit = defineEmits(['finish'])
 
-        return {
-            loading,
-            handleFinish,
-        }
-    },
+const loading = ref(false)
+
+/**
+ * 结束
+ */
+function handleFinish() {
+    emit('finish')
 }
 </script>
 

@@ -43,26 +43,18 @@
 </template>
 
 <script>
+export default { name: 'componentQrCode' }
+</script>
+
+<script setup>
 import { ref } from 'vue'
 import { URL_LOGO } from '@/config'
 
-export default {
-    name: 'componentQrCode',
-    setup() {
-        const text = ref('admin')
-        const status = ref('生成中')
+const text = ref('admin')
+const status = ref('生成中')
 
-        function onReady() {
-            status.value = '生成成功'
-        }
-
-        return {
-            URL_LOGO,
-            text,
-            status,
-            onReady
-        }
-    },
+function onReady() {
+    status.value = '生成成功'
 }
 </script>
 

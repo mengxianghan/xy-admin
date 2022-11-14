@@ -7,23 +7,18 @@
 </template>
 
 <script>
+export default { name: 'XBreadcrumb' }
+</script>
+
+<script setup>
 import { computed } from 'vue'
 import { useRouter } from 'vue-router'
 
-export default {
-    name: 'XBreadcrumb',
-    setup() {
-        const router = useRouter()
-        const list = computed(() => router.currentRoute.value?.meta?.breadcrumb)
-        return {
-            list,
-        }
-    },
-}
+const router = useRouter()
+const list = computed(() => router.currentRoute.value?.meta?.breadcrumb)
 </script>
 
-<style lang="less"
-       scoped>
+<style lang="less" scoped>
 .x-breadcrumb {
     height: 40px;
     background: #fff;

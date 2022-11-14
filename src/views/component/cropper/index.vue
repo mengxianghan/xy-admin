@@ -17,9 +17,9 @@
                             <a-form-item label="缩放比例">
                                 <a-select v-model:value="aspectRatio">
                                     <a-select-option :key="0">自由</a-select-option>
-                                    <a-select-option :key="1/1">1:1</a-select-option>
-                                    <a-select-option :key="4/3">4:3</a-select-option>
-                                    <a-select-option :key="16/9">16:9</a-select-option>
+                                    <a-select-option :key="1 / 1">1:1</a-select-option>
+                                    <a-select-option :key="4 / 3">4:3</a-select-option>
+                                    <a-select-option :key="16 / 9">16:9</a-select-option>
                                 </a-select>
                             </a-form-item>
                         </a-col>
@@ -48,7 +48,8 @@
         <a-col v-if="src"
                :span="12">
             <a-spin :spinning="loading">
-                <a-card :bordered="false" title="结果">
+                <a-card :bordered="false"
+                        title="结果">
                     <template #extra>类型：{{ type }}</template>
                     <img :src="src">
                 </a-card>
@@ -58,67 +59,53 @@
 </template>
 
 <script>
+export default { name: 'componentCropper' }
+</script>
+
+<script setup>
 import { ref } from 'vue'
 
 import cropperImg from './images/cropper.png'
 
-export default {
-    name: 'componentCropper',
-    setup() {
-        const aspectRatio = ref(0)
-        const quality = ref(1)
-        const cropperRef = ref()
-        const src = ref('')
-        const type = ref('')
-        const loading = ref(false)
+const aspectRatio = ref(0)
+const quality = ref(1)
+const cropperRef = ref()
+const src = ref('')
+const type = ref('')
+const loading = ref(false)
 
-        function handleBase64() {
-            type.value = 'Base64'
-            _setLoading()
-            cropperRef.value.getBase64()
-                .then((data) => {
-                    src.value = data
-                })
-        }
+function handleBase64() {
+    type.value = 'Base64'
+    _setLoading()
+    cropperRef.value.getBase64()
+        .then((data) => {
+            src.value = data
+        })
+}
 
-        function handleBlob() {
-            type.value = 'Blob'
-            _setLoading()
-            cropperRef.value.getBlob()
-                .then((data) => {
-                    src.value = URL.createObjectURL(data)
-                })
-        }
+function handleBlob() {
+    type.value = 'Blob'
+    _setLoading()
+    cropperRef.value.getBlob()
+        .then((data) => {
+            src.value = URL.createObjectURL(data)
+        })
+}
 
-        function handleFile() {
-            type.value = 'File'
-            _setLoading()
-            cropperRef.value.getFile('test.jpg')
-                .then(data => {
-                    src.value = URL.createObjectURL(data)
-                })
-        }
+function handleFile() {
+    type.value = 'File'
+    _setLoading()
+    cropperRef.value.getFile('test.jpg')
+        .then(data => {
+            src.value = URL.createObjectURL(data)
+        })
+}
 
-        function _setLoading() {
-            loading.value = true
-            setTimeout(() => {
-                loading.value = false
-            }, 500)
-        }
-
-        return {
-            cropperImg,
-            aspectRatio,
-            quality,
-            cropperRef,
-            src,
-            type,
-            loading,
-            handleBase64,
-            handleBlob,
-            handleFile,
-        }
-    },
+function _setLoading() {
+    loading.value = true
+    setTimeout(() => {
+        loading.value = false
+    }, 500)
 }
 </script>
 
