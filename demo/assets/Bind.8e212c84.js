@@ -1,0 +1,1 @@
+import{r as a,h as e,i as s,s as r}from"./index.7b6fce2d.js";import"./tinymce.b4091e4a.js";import"./echarts.98d40a9a.js";const m={__name:"Bind",setup(n){const t=a([]);return(c,l)=>{const o=e("a-list");return s(),r(o,{"item-layout":"horizontal","data-source":t.value},null,8,["data-source"])}}};export{m as default};
