@@ -9,16 +9,18 @@ class ReadFile extends Http {
         super({
             baseURL: '',
             responseType: 'blob',
-            transformResponse: [async (data) => {
-                const encoding = await this._encoding(data)
-                return new Promise((resolve, reject) => {
-                    let reader = new FileReader()
-                    reader.readAsText(data, encoding)
-                    reader.onload = function (e) {
-                        resolve(reader.result)
-                    }
-                })
-            }],
+            transformResponse: [
+                async (data) => {
+                    const encoding = await this._encoding(data)
+                    return new Promise((resolve) => {
+                        let reader = new FileReader()
+                        reader.readAsText(data, encoding)
+                        reader.onload = function () {
+                            resolve(reader.result)
+                        }
+                    })
+                },
+            ],
         })
     }
 
@@ -29,10 +31,10 @@ class ReadFile extends Http {
      * @private
      */
     _encoding(data) {
-        return new Promise((resolve, reject) => {
+        return new Promise((resolve) => {
             let reader = new FileReader()
             reader.readAsBinaryString(data)
-            reader.onload = function (e) {
+            reader.onload = function () {
                 resolve(jschardet.detect(reader?.result).encoding)
             }
         })
@@ -52,4 +54,3 @@ export default {
     api: new Api(),
     default: new Api(`${import.meta.env.VITE_API_DEFAULT}`),
 }
-

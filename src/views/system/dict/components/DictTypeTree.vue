@@ -1,10 +1,12 @@
 <template>
-    <a-card :bordered="false"
-            type="flex">
+    <a-card
+        :bordered="false"
+        type="flex">
         <template #title>
-            <a-input-search v-model:value="searchValue"
-                            allow-clear
-                            placeholder="请输入关键词搜索"></a-input-search>
+            <a-input-search
+                v-model:value="searchValue"
+                allow-clear
+                placeholder="请输入关键词搜索"></a-input-search>
         </template>
         <template #actions>
             <span @click="$refs.editRef.handleCreate()">
@@ -12,13 +14,14 @@
                 新建分类
             </span>
         </template>
-        <a-tree v-if="!loading"
-                :selected-keys="selectedKeys"
-                :tree-data="list"
-                :field-names="{ title: 'name', children: 'children', key: 'key' }"
-                default-expand-all
-                block-node
-                @select="handleSelect">
+        <a-tree
+            v-if="!loading"
+            :selected-keys="selectedKeys"
+            :tree-data="list"
+            :field-names="{ title: 'name', children: 'children', key: 'key' }"
+            default-expand-all
+            block-node
+            @select="handleSelect">
             <template #title="record">
                 <div class="tree-row">
                     <div class="tree-row__name">
@@ -30,8 +33,9 @@
                         <span v-else>{{ record.name }}</span>
                     </div>
                     <div class="tree-row__code">{{ record.code }}</div>
-                    <a-space class="tree-row__actions"
-                             @click.stop="() => { }">
+                    <a-space
+                        class="tree-row__actions"
+                        @click.stop="() => {}">
                         <icon-edit-outlined @click.stop="$refs.editRef.handleEdit(record)"></icon-edit-outlined>
                         <icon-delete-outlined @click="handleDelete(record)"></icon-delete-outlined>
                     </a-space>
@@ -69,10 +73,9 @@ onMounted(() => {
  */
 async function getDictTypeList() {
     loading.value = true
-    const { code, data } = await api.system.getDictTypeList()
-        .catch(() => {
-            loading.value = false
-        })
+    const { code, data } = await api.system.getDictTypeList().catch(() => {
+        loading.value = false
+    })
     loading.value = false
     if (200 === code) {
         const { rows } = data
@@ -95,7 +98,7 @@ function handleSelect(keys, { node }) {
 /**
  * 删除分类
  */
-function handleDelete({ id }) {
+function handleDelete() {
     Modal.confirm({
         title: '删除提示',
         content: '确认删除？',
@@ -139,7 +142,7 @@ function trigger(value) {
         white-space: nowrap;
 
         &,
-        >* {
+        > * {
             display: flex;
         }
     }

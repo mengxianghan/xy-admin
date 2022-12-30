@@ -1,27 +1,34 @@
 <template>
-    <a-sub-menu :key="dataSource.name"
-                class="x-menu-sub">
-        <template v-if="dataSource.meta && dataSource.meta.icon"
-                  #icon>
+    <a-sub-menu
+        :key="dataSource.name"
+        class="x-menu-sub">
+        <template
+            v-if="dataSource.meta && dataSource.meta.icon"
+            #icon>
             <component :is="dataSource.meta.icon" />
         </template>
-        <template v-if="dataSource.meta && dataSource.meta.title"
-                  #title>
+        <template
+            v-if="dataSource.meta && dataSource.meta.title"
+            #title>
             <div class="x-layout-menu__title">
                 <span class="x-layout-menu__text">{{ dataSource.meta.title }}</span>
-                <a-badge v-if="dataSource.meta.badge"
-                         :count="dataSource.meta.badge"
-                         class="x-layout-menu__badge" />
+                <a-badge
+                    v-if="dataSource.meta.badge"
+                    :count="dataSource.meta.badge"
+                    class="x-layout-menu__badge" />
             </div>
         </template>
-        <template v-for="item in dataSource.children">
-            <a-menu-item v-if="!item.children"
-                         :key="item.name">
-                <menu-link :data-source="item" />
-            </a-menu-item>
-            <menu-sub v-else
-                      :key="item.name"
-                      :data-source="item" />
+        <template
+            v-for="item in dataSource.children"
+            :key="item.name">
+            <template v-if="!item.children">
+                <a-menu-item :key="item.name">
+                    <menu-link :data-source="item" />
+                </a-menu-item>
+            </template>
+            <template v-else>
+                <menu-sub :data-source="item" />
+            </template>
         </template>
     </a-sub-menu>
 </template>
@@ -36,16 +43,12 @@ import MenuLink from './MenuLink.vue'
 /**
  * @property {object} dataSource
  */
-
-const props = defineProps({
+defineProps({
     dataSource: {
         type: Object,
         default: () => ({}),
     },
 })
-
 </script>
 
-<style lang="less" scoped>
-
-</style>
+<style lang="less" scoped></style>

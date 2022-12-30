@@ -22,24 +22,26 @@ const useUserStore = defineStore('user', {
          * @returns {Promise<unknown>}
          */
         login(params) {
-            return new Promise(async (resolve, reject) => {
-                const result = await api.user.login(params).catch(() => {
-                    reject()
-                })
-                const { code, data } = result
-                if (200 === code) {
-                    const { token, ...others } = data
-                    const isLogin = true
-                    this.$patch({
-                        userInfo: others,
-                        token,
-                        isLogin,
+            return new Promise((resolve, reject) => {
+                ;(async () => {
+                    const result = await api.user.login(params).catch(() => {
+                        reject()
                     })
-                    local.set(STORAGE_USER_INFO, others)
-                    local.set(STORAGE_TOKEN, token)
-                    local.set(STORAGE_IS_LOGIN, isLogin)
-                }
-                resolve(result)
+                    const { code, data } = result
+                    if (200 === code) {
+                        const { token, ...others } = data
+                        const isLogin = true
+                        this.$patch({
+                            userInfo: others,
+                            token,
+                            isLogin,
+                        })
+                        local.set(STORAGE_USER_INFO, others)
+                        local.set(STORAGE_TOKEN, token)
+                        local.set(STORAGE_IS_LOGIN, isLogin)
+                    }
+                    resolve(result)
+                })()
             })
         },
         /**

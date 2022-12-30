@@ -1,25 +1,29 @@
 <template>
-    <a-modal :visible="visible"
-             width="100%"
-             wrap-class-name="full-modal"
-             :footer="false"
-             destroy-on-close
-             @cancel="handleClose">
+    <a-modal
+        :visible="visible"
+        width="100%"
+        wrap-class-name="full-modal"
+        :footer="false"
+        destroy-on-close
+        @cancel="handleClose">
         <div class="x-preview__content">
-            <img :src="url"
-                 :style="styles" />
+            <img
+                :src="url"
+                :style="styles" />
         </div>
 
         <template v-if="prevBtn || nextBtn">
-            <div v-if="prevBtn"
-                 class="x-preview__left-btn"
-                 @click="handleAction(ACTION_ENUM.getValue('prev'))">
+            <div
+                v-if="prevBtn"
+                class="x-preview__left-btn"
+                @click="handleAction(ACTION_ENUM.getValue('prev'))">
                 <left-outlined />
             </div>
 
-            <div v-if="nextBtn"
-                 class="x-preview__right-btn"
-                 @click="handleAction(ACTION_ENUM.getValue('next'))">
+            <div
+                v-if="nextBtn"
+                class="x-preview__right-btn"
+                @click="handleAction(ACTION_ENUM.getValue('next'))">
                 <right-outlined />
             </div>
         </template>
@@ -79,17 +83,21 @@ const nextBtn = ref(true)
 const url = computed(() => props.urls[current.value])
 const visible = ref(false)
 
-watch(() => props.urls, (val) => {
-    prevBtn.value = val.length > 0 && current.value > 0
-    nextBtn.value = val.length > 0 && current.value < val.length - 1
-}, { immediate: true })
+watch(
+    () => props.urls,
+    (val) => {
+        prevBtn.value = val.length > 0 && current.value > 0
+        nextBtn.value = val.length > 0 && current.value < val.length - 1
+    },
+    { immediate: true }
+)
 
 /**
  * 打开
  */
-function handleOpen() {
-    visible.value = true
-}
+// function handleOpen() {
+//     visible.value = true
+// }
 
 /**
  * 关闭
@@ -200,10 +208,10 @@ function onCurrentChange() {
         align-items: center;
         justify-content: center;
 
-        >* {
+        > * {
             max-width: 100%;
             max-height: 100%;
-            transition: all .3s;
+            transition: all 0.3s;
         }
     }
 

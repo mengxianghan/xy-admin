@@ -1,10 +1,11 @@
 <template>
-    <a-cascader v-bind="$attrs"
-                :value="modelValue"
-                :options="options"
-                :placeholder="placeholder"
-                :load-data="getChildrenData"
-                @change="onChange"></a-cascader>
+    <a-cascader
+        v-bind="$attrs"
+        :value="modelValue"
+        :options="options"
+        :placeholder="placeholder"
+        :load-data="getChildrenData"
+        @change="onChange"></a-cascader>
 </template>
 
 <script>
@@ -45,11 +46,14 @@ const maxLevel = ref(3)
 const options = ref([])
 const curValue = ref([])
 
-watch(() => props.modelValue, (val) => {
-    if (val !== curValue.value) {
-        getData(0, 1, val)
+watch(
+    () => props.modelValue,
+    (val) => {
+        if (val !== curValue.value) {
+            getData(0, 1, val)
+        }
     }
-})
+)
 
 onMounted(() => {
     curValue.value = props.modelValue
@@ -74,7 +78,7 @@ async function getData(value = 0, level = 1, defaultValue = []) {
                 (item) => {
                     targetOption = item
                 },
-                { key: 'value', children: 'children' },
+                { key: 'value', children: 'children' }
             )
             targetOption.loading = true
         }
@@ -91,10 +95,9 @@ async function getData(value = 0, level = 1, defaultValue = []) {
         //       }
         result = await getRegionList({
             parentId: value,
+        }).catch(() => {
+            throw new Error('请求失败')
         })
-            .catch(() => {
-                throw new Error('请求失败')
-            })
         const { code, data } = result
         if (targetOption) {
             targetOption.loading = false
@@ -139,23 +142,24 @@ async function getChildrenData(selectedOptions) {
  * @param {object} params
  */
 function getRegionList(params) {
-    return new Promise(async (resolve, reject) => {
-        const { code, data } = await api.common.getRegionList(params)
-            .catch(() => {
+    return new Promise((resolve, reject) => {
+        ;(async () => {
+            const { code, data } = await api.common.getRegionList(params).catch(() => {
                 reject()
             })
-        if (200 === code) {
-            const { rows } = data
-            resolve({
-                code,
-                data: mapping(rows, {
-                    label: 'name',
-                    value: 'id',
-                }),
-            })
-        } else {
-            reject()
-        }
+            if (200 === code) {
+                const { rows } = data
+                resolve({
+                    code,
+                    data: mapping(rows, {
+                        label: 'name',
+                        value: 'id',
+                    }),
+                })
+            } else {
+                reject()
+            }
+        })()
     })
 }
 
@@ -167,11 +171,13 @@ function onChange(value, selectedOptions) {
     selectedOptions = selectedOptions || []
     curValue.value = value
     emit('update:modelValue', value)
-    emit('change', value, selectedOptions.map((item) => pick(item, ['label', 'value'])))
+    emit(
+        'change',
+        value,
+        selectedOptions.map((item) => pick(item, ['label', 'value']))
+    )
     onFieldChange()
 }
 </script>
 
-<style lang="less" scoped>
-
-</style>
+<style lang="less" scoped></style>

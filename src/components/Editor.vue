@@ -1,12 +1,13 @@
 <template>
     <div class="x-editor">
         <a-spin :spinning="spinning">
-            <tiny-editor v-model="content"
-                         v-bind="$attrs"
-                         api-key="d6vzo7lwm6my7lu42uk2jhnhui7cdk842rb0tzc6sfxgffgm"
-                         :init="opts"
-                         :disabled="disabled"
-                         :placeholder="placeholder"></tiny-editor>
+            <tiny-editor
+                v-model="content"
+                v-bind="$attrs"
+                api-key="d6vzo7lwm6my7lu42uk2jhnhui7cdk842rb0tzc6sfxgffgm"
+                :init="opts"
+                :disabled="disabled"
+                :placeholder="placeholder"></tiny-editor>
         </a-spin>
     </div>
 </template>
@@ -61,32 +62,41 @@ const emit = defineEmits(['update:modelValue'])
 
 const spinning = ref(true)
 const content = ref('')
-const opts = mergeDeep({
-    language_url: 'libs/tinymce/langs/zh_CN.js',
-    language: 'zh_CN',
-    skin_url: 'libs/tinymce/skins/ui/oxide',
-    content_css: 'libs/tinymce/skins/content/default/content.css',
-    height: 480,
-    branding: false,
-    resize: false,
-    content_style: `
+const opts = mergeDeep(
+    {
+        language_url: 'libs/tinymce/langs/zh_CN.js',
+        language: 'zh_CN',
+        skin_url: 'libs/tinymce/skins/ui/oxide',
+        content_css: 'libs/tinymce/skins/content/default/content.css',
+        height: 480,
+        branding: false,
+        resize: false,
+        content_style: `
                 * {margin: 0; padding: 0; hyphens: auto;text-rendering: optimizeLegibility;-webkit-font-smoothing: antialiased;}
                 body {font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Helvetica, Segoe UI, Arial, Roboto, 'PingFang SC', 'miui', 'Hiragino Sans GB', 'Microsoft Yahei', sans-serif}
                 .mce-content-body {margin: 12px;}
             `,
-    setup: (editor) => {
-        editor.on('init', () => {
-            spinning.value = false
-        })
+        setup: (editor) => {
+            editor.on('init', () => {
+                spinning.value = false
+            })
+        },
     },
-}, props.options)
+    props.options
+)
 const { onFieldChange } = Form.useInjectFormItemContext()
 
-watch(() => props.modelValue, (val) => content.value = val)
-watch(() => content.value, (val) => {
-    emit('update:modelValue', val)
-    onFieldChange()
-})
+watch(
+    () => props.modelValue,
+    (val) => (content.value = val)
+)
+watch(
+    () => content.value,
+    (val) => {
+        emit('update:modelValue', val)
+        onFieldChange()
+    }
+)
 
 onMounted(() => {
     content.value = props.modelValue

@@ -1,17 +1,19 @@
 <template>
     <a-layout class="layout">
-        <a-layout-sider :collapsed="collapsed"
-                        :collapsible="collapsible"
-                        :collapsed-width="48"
-                        breakpoint="lg"
-                        :theme="theme"
-                        :width="208"
-                        class="layout-sider">
+        <a-layout-sider
+            :collapsed="collapsed"
+            :collapsible="collapsible"
+            :collapsed-width="48"
+            breakpoint="lg"
+            :theme="theme"
+            :width="208"
+            class="layout-sider">
             <x-layout-menu :theme="theme" />
         </a-layout-sider>
         <a-layout class="layout-main">
-            <a-layout-header :theme="theme"
-                             class="layout-header">
+            <a-layout-header
+                :theme="theme"
+                class="layout-header">
                 <x-layout-header v-model:collapsed="collapsed"></x-layout-header>
             </a-layout-header>
             <!--多标签页，建议和面包屑二选一-->
@@ -21,9 +23,10 @@
             <a-layout-content class="layout-content">
                 <router-view v-slot="{ Component, route }">
                     <keep-alive :include="cacheList">
-                        <component v-if="keepAlive"
-                                   :is="Component"
-                                   :key="route.name" />
+                        <component
+                            v-if="keepAlive"
+                            :is="Component"
+                            :key="route.name" />
                     </keep-alive>
                 </router-view>
                 <iframe-view />
@@ -33,7 +36,7 @@
 </template>
 
 <script setup>
-import { computed, ref, markRaw } from 'vue'
+import { computed, ref } from 'vue'
 import { onBeforeRouteUpdate } from 'vue-router'
 import { useMultiTabStore } from '@/store'
 
@@ -58,7 +61,7 @@ function handleToggleCollapsed() {
 
 defineExpose({
     refreshing,
-    handleToggleCollapsed
+    handleToggleCollapsed,
 })
 </script>
 

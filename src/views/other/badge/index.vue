@@ -1,10 +1,12 @@
 <template>
-    <a-card :bordered="false"
-            title="基础示例">
+    <a-card
+        :bordered="false"
+        title="基础示例">
         <a-space>
             <a-input v-model:value="form.name"></a-input>
-            <a-input-number v-model:value="form.count"
-                            :min="0"></a-input-number>
+            <a-input-number
+                v-model:value="form.count"
+                :min="0"></a-input-number>
             <a-button @click="handleSet">设置</a-button>
             <a-button @click="handleClear">清除</a-button>
         </a-space>
@@ -35,6 +37,4 @@ function handleClear() {
 }
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

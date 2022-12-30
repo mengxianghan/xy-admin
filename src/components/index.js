@@ -21,7 +21,7 @@ import UploadInput from './Upload/UploadInput.vue'
 import Loading from './Loading'
 import Preview from './Preview'
 
-const components = [
+const componentList = [
     ActionBar,
     ActionButton,
     Breadcrumb,
@@ -48,7 +48,7 @@ export const preview = Preview
 
 export default {
     install(app) {
-        components.forEach((component) => {
+        componentList.forEach((component) => {
             app.component(component.name, component)
         })
         return app

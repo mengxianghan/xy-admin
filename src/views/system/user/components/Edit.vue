@@ -1,45 +1,55 @@
 <template>
-    <a-modal :visible="modal.visible"
-             :title="modal.title"
-             :width="480"
-             :confirm-loading="modal.confirmLoading"
-             :after-close="onAfterClose"
-             :ok-button-props="{
-                 style: {
-                     display: disabled ? 'none' : ''
-                 }
-             }"
-             :cancel-text="cancelText"
-             @ok="handleOk"
-             @cancel="handleCancel">
-        <a-form ref="formRef"
-                :model="formState"
-                :rules="rules"
-                :label-col="{ style: { width: '90px' } }">
-            <a-form-item label="头像"
-                         name="avatar">
-                <x-upload-image v-model="formState.avatar"
-                                :disabled="disabled"></x-upload-image>
+    <a-modal
+        :visible="modal.visible"
+        :title="modal.title"
+        :width="480"
+        :confirm-loading="modal.confirmLoading"
+        :after-close="onAfterClose"
+        :ok-button-props="{
+            style: {
+                display: disabled ? 'none' : '',
+            },
+        }"
+        :cancel-text="cancelText"
+        @ok="handleOk"
+        @cancel="handleCancel">
+        <a-form
+            ref="formRef"
+            :model="formState"
+            :rules="rules"
+            :label-col="{ style: { width: '90px' } }">
+            <a-form-item
+                label="头像"
+                name="avatar">
+                <x-upload-image
+                    v-model="formState.avatar"
+                    :disabled="disabled"></x-upload-image>
             </a-form-item>
-            <a-form-item label="登录帐号"
-                         name="userName">
-                <a-input v-model:value="formState.userName"
-                         :disabled="disabled"></a-input>
+            <a-form-item
+                label="登录帐号"
+                name="userName">
+                <a-input
+                    v-model:value="formState.userName"
+                    :disabled="disabled"></a-input>
             </a-form-item>
-            <a-form-item label="姓名"
-                         name="name">
-                <a-input v-model:value="formState.name"
-                         :disabled="disabled"></a-input>
+            <a-form-item
+                label="姓名"
+                name="name">
+                <a-input
+                    v-model:value="formState.name"
+                    :disabled="disabled"></a-input>
             </a-form-item>
-            <a-form-item label="所属角色"
-                         name="role">
-                <a-cascader v-model:value="formState.role"
-                            placeholder=""
-                            multiple
-                            max-tag-count="responsive"
-                            :options="roleList"
-                            :disabled="disabled"
-                            :field-names="{ label: 'name', value: 'key', children: 'children' }"></a-cascader>
+            <a-form-item
+                label="所属角色"
+                name="role">
+                <a-cascader
+                    v-model:value="formState.role"
+                    placeholder=""
+                    multiple
+                    max-tag-count="responsive"
+                    :options="roleList"
+                    :disabled="disabled"
+                    :field-names="{ label: 'name', value: 'key', children: 'children' }"></a-cascader>
             </a-form-item>
         </a-form>
     </a-modal>
@@ -56,7 +66,7 @@ import useForm from '@/hooks/useForm'
 const emit = defineEmits(['ok'])
 
 const { modal, showModal, hideModal, showLoading, hideLoading } = useModal()
-const { formRecord, formState, formRef, rules, formLayout, resetForm } = useForm()
+const { formRecord, formState, formRef, rules, resetForm } = useForm()
 const disabled = ref(false)
 const cancelText = ref('取消')
 const roleList = ref([])
@@ -73,10 +83,7 @@ rules.value = {
  * @returns {Promise<void>}
  */
 async function getUserRoleList() {
-    const { code, data } = await api.system.getUserRoleList()
-        .catch(() => {
-
-        })
+    const { code, data } = await api.system.getUserRoleList().catch(() => {})
     if (200 === code) {
         roleList.value = data.rows
     }
@@ -127,7 +134,8 @@ function handlePreview(record) {
  * 确定
  */
 function handleOk() {
-    formRef.value.validateFields()
+    formRef.value
+        .validateFields()
         .then(async (values) => {
             showLoading()
             const params = {
@@ -135,17 +143,16 @@ function handleOk() {
                 ...values,
             }
             let result = null
-            result = await api.common.saveData(params)
-                .catch(() => {
-                    hideLoading()
-                })
+            result = await api.common.saveData(params).catch(() => {
+                hideLoading()
+            })
             hideLoading()
             if (200 === result?.code) {
                 hideModal()
                 emit('ok')
             }
         })
-        .catch((err) => {
+        .catch(() => {
             hideLoading()
         })
 }
@@ -170,10 +177,8 @@ function onAfterClose() {
 defineExpose({
     handleCreate,
     handleEdit,
-    handlePreview
+    handlePreview,
 })
 </script>
 
-<style lang="less" scoped>
-
-</style>
+<style lang="less" scoped></style>

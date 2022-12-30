@@ -1,25 +1,26 @@
 <template>
     <a-card :bordered="false">
-        <x-filter :data-source="filterData"
-                  :label-width="100"
-                  :model-value="searchForm"
-                  @change="handleSearch"></x-filter>
+        <x-filter
+            :data-source="filterData"
+            :label-width="100"
+            :model-value="searchForm"
+            @change="handleSearch"></x-filter>
     </a-card>
 
-    <a-card :bordered="false"
-            class="mt-8-2">
-        <a-table :columns="columns"
-                 :pagination="pagination"
-                 :data-source="list"
-                 :loading="loading"
-                 row-key="id"
-                 @change="onTableChange">
-            <template #bodyCell="{ column, record, index }">
+    <a-card
+        :bordered="false"
+        class="mt-8-2">
+        <a-table
+            :columns="columns"
+            :pagination="pagination"
+            :data-source="list"
+            :loading="loading"
+            row-key="id"
+            @change="onTableChange">
+            <template #bodyCell="{ column, record }">
                 <template v-if="'action' === column.key">
                     <x-action-button>编辑</x-action-button>
-                    <x-action-button @click="handleDelete(record)">
-                        删除
-                    </x-action-button>
+                    <x-action-button @click="handleDelete(record)"> 删除 </x-action-button>
                     <x-action-button tag="span">
                         <a-dropdown :trigger="['click']">
                             <a>
@@ -61,7 +62,9 @@ const columns = [
 const { list, pagination, loading, resetPagination, searchForm } = usePagination()
 const filterData = ref([
     {
-        label: '所属类目', key: 'type', type: 'tag',
+        label: '所属类目',
+        key: 'type',
+        type: 'tag',
         options: [
             { label: '全部', value: 0 },
             { label: '类目2', value: 2 },
@@ -83,10 +86,11 @@ onMounted(() => {
 async function getPageList() {
     const { pageSize, current } = pagination
     loading.value = true
-    const { code, data } = await api.common.getPageList({
-        pageSize,
-        page: current,
-    })
+    const { code, data } = await api.common
+        .getPageList({
+            pageSize,
+            page: current,
+        })
         .catch(() => {
             loading.value = false
         })
@@ -114,10 +118,9 @@ function handleDelete({ id }) {
         content: '确认删除？',
         onOk: async () => {
             loading.value = true
-            const { code } = await api.common.deleteData({ id })
-                .catch(() => {
-                    loading.value = false
-                })
+            const { code } = await api.common.deleteData({ id }).catch(() => {
+                loading.value = false
+            })
             if (200 === code) {
                 message.success('删除成功')
                 await getPageList()
@@ -140,6 +143,4 @@ function onTableChange({ current, pageSize }) {
 }
 </script>
 
-<style lang="less" scoped>
-
-</style>
+<style lang="less" scoped></style>

@@ -1,16 +1,15 @@
 <template>
     <div class="iframe-container">
-        <template v-for="(item) in iframeList">
-            <iframe v-show="url === item.meta.url"
-                    :src="item.meta.url"
-                    class="iframe"></iframe>
+        <template
+            v-for="(item, index) in iframeList"
+            :key="index">
+            <iframe
+                v-show="url === item.meta.url"
+                :src="item.meta.url"
+                class="iframe"></iframe>
         </template>
     </div>
 </template>
-
-<script>
-export default { name: 'iframe' }
-</script>
 
 <script setup>
 import { computed, ref } from 'vue'

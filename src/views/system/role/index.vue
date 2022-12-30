@@ -1,8 +1,9 @@
 <template>
     <a-card :bordered="false">
         <x-action-bar class="mb-8-2">
-            <a-button type="primary"
-                      @click="$refs.editRef.handleCreate()">
+            <a-button
+                type="primary"
+                @click="$refs.editRef.handleCreate()">
                 <template #icon>
                     <icon-plus-outlined />
                 </template>
@@ -10,11 +11,12 @@
             </a-button>
         </x-action-bar>
 
-        <a-table :columns="columns"
-                 :data-source="list"
-                 :loading="loading"
-                 :pagination="false"
-                 :expand-icon-column-index="1">
+        <a-table
+            :columns="columns"
+            :data-source="list"
+            :loading="loading"
+            :pagination="false"
+            :expand-icon-column-index="1">
             <template #bodyCell="{ column, record, index }">
                 <template v-if="'no' === column.key">
                     {{ index + 1 }}
@@ -64,10 +66,9 @@ onMounted(() => {
  */
 async function getPageList() {
     loading.value = true
-    const { code, data } = await api.system.getUserRoleList()
-        .catch(() => {
-            loading.value = false
-        })
+    const { code, data } = await api.system.getUserRoleList().catch(() => {
+        loading.value = false
+    })
     loading.value = false
     if (200 === code) {
         const { rows } = data
@@ -85,10 +86,9 @@ function handleDelete({ id }) {
         content: '确认删除？',
         onOk: async () => {
             loading.value = true
-            const { code } = await api.common.deleteData({ id })
-                .catch(() => {
-                    loading.value = false
-                })
+            const { code } = await api.common.deleteData({ id }).catch(() => {
+                loading.value = false
+            })
             if (200 === code) {
                 message.success('删除成功')
                 await getPageList()
@@ -100,6 +100,4 @@ function handleDelete({ id }) {
 }
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

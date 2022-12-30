@@ -1,13 +1,15 @@
 <template>
     <div class="x-cropper">
         <div class="x-cropper__img">
-            <img ref="imgRef"
-                 :src="src">
+            <img
+                ref="imgRef"
+                :src="src" />
         </div>
         <div class="x-cropper__preview">
             <h4>图像预览</h4>
-            <div class="x-cropper__preview-img"
-                 ref="previewRef"></div>
+            <div
+                class="x-cropper__preview-img"
+                ref="previewRef"></div>
         </div>
     </div>
 </template>
@@ -48,7 +50,10 @@ const imgRef = ref()
 const previewRef = ref()
 const crop = ref(null)
 
-watch(() => props.aspectRatio, (val) => crop.value.setAspectRatio(val))
+watch(
+    () => props.aspectRatio,
+    (val) => crop.value.setAspectRatio(val)
+)
 
 onMounted(() => {
     init()
@@ -71,8 +76,7 @@ function init() {
  */
 function getBase64(type = 'image/jpeg') {
     return new Promise((resolve) => {
-        const base64 = crop.value.getCroppedCanvas()
-            .toDataURL(type, props.quality)
+        const base64 = crop.value.getCroppedCanvas().toDataURL(type, props.quality)
         resolve(base64)
     })
 }
@@ -83,12 +87,15 @@ function getBase64(type = 'image/jpeg') {
  * @return {Promise<void>}
  */
 function getBlob(type = 'image/jpeg') {
-    return new Promise((resolve => {
-        crop.value.getCroppedCanvas()
-            .toBlob((blob) => {
+    return new Promise((resolve) => {
+        crop.value.getCroppedCanvas().toBlob(
+            (blob) => {
                 resolve(blob)
-            }, type, props.quality)
-    }))
+            },
+            type,
+            props.quality
+        )
+    })
 }
 
 /**
@@ -99,18 +106,21 @@ function getBlob(type = 'image/jpeg') {
  */
 function getFile(fileName, type = 'image/jpeg') {
     return new Promise((resolve) => {
-        crop.value.getCroppedCanvas()
-            .toBlob((blob) => {
+        crop.value.getCroppedCanvas().toBlob(
+            (blob) => {
                 const file = new File([blob], fileName, { type })
                 resolve(file)
-            }, type, props.quality)
+            },
+            type,
+            props.quality
+        )
     })
 }
 
 defineExpose({
     getBase64,
     getBlob,
-    getFile
+    getFile,
 })
 </script>
 
@@ -130,7 +140,6 @@ defineExpose({
             display: none;
         }
     }
-
 
     &__preview {
         width: 120px;

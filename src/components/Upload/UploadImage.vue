@@ -1,57 +1,65 @@
 <template>
-    <div ref="uploadImageRef"
-         class="x-upload x-upload-image"
-         :class="{
-             'x-upload--round': round,
-             'x-upload--disabled': disabled
-         }">
-        <a-upload v-if="showUploadBtn"
-                  :show-upload-list="false"
-                  :multiple="multiple"
-                  :before-upload="onBeforeUpload"
-                  :custom-request="({ file }) => customRequest(file)"
-                  :accept="accept"
-                  :disabled="disabled">
+    <div
+        ref="uploadImageRef"
+        class="x-upload x-upload-image"
+        :class="{
+            'x-upload--round': round,
+            'x-upload--disabled': disabled,
+        }">
+        <a-upload
+            v-if="showUploadBtn"
+            :show-upload-list="false"
+            :multiple="multiple"
+            :before-upload="onBeforeUpload"
+            :custom-request="({ file }) => customRequest(file)"
+            :accept="accept"
+            :disabled="disabled">
             <slot v-if="$slots.default"></slot>
             <template v-else>
-                <div class="x-upload-btn"
-                     :class="{
-                         'x-upload-btn--hover': !disabled
-                     }"
-                     :style="{
-                         width: `${width}px`,
-                         height: `${height}px`
-                     }">
-                    <component :is="icon"
-                               class="x-upload-btn__icon" />
-                    <div v-if="text"
-                         class="x-upload-btn__txt">
+                <div
+                    class="x-upload-btn"
+                    :class="{
+                        'x-upload-btn--hover': !disabled,
+                    }"
+                    :style="{
+                        width: `${width}px`,
+                        height: `${height}px`,
+                    }">
+                    <component
+                        :is="icon"
+                        class="x-upload-btn__icon" />
+                    <div
+                        v-if="text"
+                        class="x-upload-btn__txt">
                         {{ text }}
                     </div>
                 </div>
             </template>
         </a-upload>
-        <div v-for="(item, index) in fileList"
-             class="x-upload-item j-upload-item"
-             :key="item.key"
-             :class="{
-                 'x-upload-item--error': STATUS_ENUM.is('error', item.status),
-             }"
-             :style="{
-                 width: `${width}px`,
-                 height: `${height}px`
-             }">
-            <img :src="item.src">
+        <div
+            v-for="(item, index) in fileList"
+            class="x-upload-item j-upload-item"
+            :key="item.key"
+            :class="{
+                'x-upload-item--error': STATUS_ENUM.is('error', item.status),
+            }"
+            :style="{
+                width: `${width}px`,
+                height: `${height}px`,
+            }">
+            <img :src="item.src" />
             <template v-if="['error', 'done'].includes(STATUS_ENUM.getKey(item.status))">
                 <div class="x-upload-actions">
-                    <div v-if="STATUS_ENUM.is('done', item.status)"
-                         class="x-upload-action"
-                         @click="handlePreview(item)">
+                    <div
+                        v-if="STATUS_ENUM.is('done', item.status)"
+                        class="x-upload-action"
+                        @click="handlePreview(item)">
                         <icon-eye-outlined />
                     </div>
-                    <div v-if="!disabled"
-                         class="x-upload-action"
-                         @click="handleRemove(index)">
+                    <div
+                        v-if="!disabled"
+                        class="x-upload-action"
+                        @click="handleRemove(index)">
                         <icon-delete-outlined />
                     </div>
                 </div>
@@ -60,14 +68,18 @@
                 <div class="x-upload-status">
                     <template v-if="STATUS_ENUM.is('uploading', item.status)">
                         <div>{{ item.percent }}%</div>
-                        <a-progress :show-info="false"
-                                    :stroke-width="4"
-                                    :percent="item.percent" />
+                        <a-progress
+                            :show-info="false"
+                            :stroke-width="4"
+                            :percent="item.percent" />
                     </template>
                     <template v-if="STATUS_ENUM.is('wait', item.status)">
                         <div>{{ STATUS_ENUM.getDesc(item.status) }}</div>
-                        <span class="x-upload-action"
-                              @click="handleCancel(item)">取消上传</span>
+                        <span
+                            class="x-upload-action"
+                            @click="handleCancel(item)"
+                            >取消上传</span
+                        >
                     </template>
                 </div>
             </template>
@@ -75,11 +87,12 @@
     </div>
 
     <!--裁剪-->
-    <cropper-modal v-if="cropper && !multiple"
-                   ref="cropperModalRef"
-                   :aspect-ratio="aspectRatio"
-                   :quality="quality"
-                   @ok="(file) => customRequest(file)" />
+    <cropper-modal
+        v-if="cropper && !multiple"
+        ref="cropperModalRef"
+        :aspect-ratio="aspectRatio"
+        :quality="quality"
+        @ok="(file) => customRequest(file)" />
 </template>
 
 <script>
@@ -177,8 +190,8 @@ const props = defineProps({
     },
     dragsort: {
         type: Boolean,
-        default: false
-    }
+        default: false,
+    },
 })
 
 const emit = defineEmits(['update:modelValue'])
@@ -190,17 +203,23 @@ const cropperModalRef = ref()
 const uploadImageRef = ref()
 const sortable = ref(null)
 
-const loading = computed(() => fileList.value.some(o => STATUS_ENUM.is('uploading', o.status)))
+const loading = computed(() => fileList.value.some((o) => STATUS_ENUM.is('uploading', o.status)))
 const showUploadBtn = computed(() => props.multiple || !fileList.value.length)
-const dragsortDisabled = computed(() => (props.dragsort && !props.disabled) ? false : true)
+const dragsortDisabled = computed(() => (props.dragsort && !props.disabled ? false : true))
 
-watch(() => props.modelValue, () => {
-    init()
-})
+watch(
+    () => props.modelValue,
+    () => {
+        init()
+    }
+)
 
-watch(() => dragsortDisabled.value, () => {
-    initDragSort()
-})
+watch(
+    () => dragsortDisabled.value,
+    () => {
+        initDragSort()
+    }
+)
 
 onMounted(() => {
     init()
@@ -225,7 +244,7 @@ function init() {
             }
         })
         // 添加不存在与 modelValue 中的文件
-        currentValue.forEach(item => {
+        currentValue.forEach((item) => {
             if (!some(fileList.value, { src: item })) {
                 fileList.value.push(getItem({ src: item }))
             }
@@ -251,13 +270,13 @@ function initDragSort() {
             const dragData = fileList.value.splice(oldIndex - 1, 1)[0]
             fileList.value.splice(newIndex - 1, 0, dragData)
             trigger()
-        }
+        },
     })
 }
 
 /**
  * 预览
- * @param {*} record 
+ * @param {*} record
  */
 function handlePreview(record) {
     Preview({
@@ -278,7 +297,7 @@ function handleRemove(index) {
  * 取消上传
  */
 function handleCancel({ key }) {
-    const index = fileList.value.findIndex(o => o.key === key)
+    const index = fileList.value.findIndex((o) => o.key === key)
     fileList.value.splice(index, 1)
 }
 
@@ -291,9 +310,7 @@ function onBeforeUpload(file) {
     if (!checkFileSize) {
         message.warning(`已忽略超过 ${filesize(maxFileSize, { base: 10.24 })} 的文件`)
     }
-    const checkCropper = props.cropper
-        ? props.multiple ? true : false
-        : true
+    const checkCropper = props.cropper ? (props.multiple ? true : false) : true
     if (props.cropper && !props.multiple) {
         const fileReader = new FileReader()
         fileReader.readAsDataURL(file)
@@ -307,9 +324,9 @@ function onBeforeUpload(file) {
 /**
  * 拖拽结束
  */
-function onDragEnd() {
-    trigger()
-}
+// function onDragEnd() {
+//     trigger()
+// }
 
 /**
  * 自定义上传
@@ -346,7 +363,7 @@ async function doUpload() {
     const index = findIndex(fileList.value, { status: STATUS_ENUM.getValue('wait') })
     const record = fileList.value[index]
     record.status = STATUS_ENUM.getValue('uploading')
-    const { code, data } = await api.common.upload({
+    const { code } = await api.common.upload({
         file: record?.file,
     })
     if (200 === code) {
@@ -364,12 +381,15 @@ async function doUpload() {
  * @return {{}}
  */
 function getItem(obj) {
-    return mergeDeep({
-        key: nanoid(),
-        src: '',
-        status: STATUS_ENUM.getValue('done'),
-        percent: 100,
-    }, obj)
+    return mergeDeep(
+        {
+            key: nanoid(),
+            src: '',
+            status: STATUS_ENUM.getValue('done'),
+            percent: 100,
+        },
+        obj
+    )
 }
 
 /**
@@ -380,9 +400,7 @@ function trigger() {
     // 判断是否多选
     if (props.multiple) {
         // 多选
-        value = fileList.value
-            .filter(item => STATUS_ENUM.is('done', item.status))
-            .map(item => item?.src ?? item)
+        value = fileList.value.filter((item) => STATUS_ENUM.is('done', item.status)).map((item) => item?.src ?? item)
     } else {
         // 单选
         value = (fileList.value.length ? fileList.value[0]?.src : fileList.value[0]) ?? ''
@@ -400,7 +418,6 @@ function trigger() {
 
     // 圆角
     &--round {
-
         .x-upload-btn,
         .x-upload-item {
             border-radius: @border-radius-round;
@@ -410,7 +427,7 @@ function trigger() {
     // 禁用
     &--disabled {
         .x-upload-btn {
-            opacity: .5;
+            opacity: 0.5;
             cursor: not-allowed;
         }
     }
@@ -422,7 +439,7 @@ function trigger() {
         align-items: center;
         justify-content: center;
         cursor: pointer;
-        transition: all .2s;
+        transition: all 0.2s;
 
         &--hover {
             &:hover {
@@ -484,9 +501,9 @@ function trigger() {
         height: 100%;
         left: 0;
         top: 0;
-        background: rgba(0, 0, 0, .25);
+        background: rgba(0, 0, 0, 0.25);
         opacity: 0;
-        transition: all .15s;
+        transition: all 0.15s;
     }
 
     &-action {
@@ -498,13 +515,13 @@ function trigger() {
         color: #fff;
         border-radius: 2px;
         cursor: pointer;
-        background: rgba(0, 0, 0, .25);
-        transition: all .15s;
+        background: rgba(0, 0, 0, 0.25);
+        transition: all 0.15s;
         font-size: 12px;
         padding: 0 4px;
 
         &:hover {
-            background: rgba(0, 0, 0, .5);
+            background: rgba(0, 0, 0, 0.5);
         }
     }
 
@@ -518,7 +535,7 @@ function trigger() {
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        background: rgba(0, 0, 0, .25);
+        background: rgba(0, 0, 0, 0.25);
         padding: 0 16px;
         color: #fff;
 

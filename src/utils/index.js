@@ -100,7 +100,7 @@ export const mergeDeep = (object, sources) => {
 
 /**
  * 时间段前缀
- * @returns 
+ * @returns
  */
 export const timeFix = () => {
     const time = new Date()

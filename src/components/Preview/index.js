@@ -1,4 +1,4 @@
-import {createVNode, render} from 'vue'
+import { createVNode, render } from 'vue'
 
 import PreviewConstructor from './Preview.vue'
 

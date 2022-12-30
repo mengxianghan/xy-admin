@@ -1,14 +1,16 @@
 <template>
     <header class="x-layout-header">
         <div class="x-layout-header__left">
-            <div class="x-layout-header__action"
-                 @click="handleToggleCollapsed">
+            <div
+                class="x-layout-header__action"
+                @click="handleToggleCollapsed">
                 <component :is="collapsed ? 'icon-menu-unfold-outlined' : 'icon-menu-fold-outlined'"></component>
             </div>
-            <a-tooltip title="返回"
-                       placement="bottom"
-                       class="x-layout-header__action"
-                       @click="$router.back()">
+            <a-tooltip
+                title="返回"
+                placement="bottom"
+                class="x-layout-header__action"
+                @click="$router.back()">
                 <icon-rollback-outlined />
             </a-tooltip>
         </div>
@@ -16,8 +18,9 @@
             <div class="x-layout-header__action">
                 <a-dropdown :trigger="['click']">
                     <div class="userinfo">
-                        <a-avatar class="mr-8-1"
-                                  :size="24">
+                        <a-avatar
+                            class="mr-8-1"
+                            :size="24">
                             <template #icon>
                                 <icon-user-outlined />
                             </template>
@@ -28,8 +31,9 @@
                     <a-spin />
                     <template #overlay>
                         <a-menu>
-                            <a-menu-item key="logout"
-                                         @click="handleLogout">
+                            <a-menu-item
+                                key="logout"
+                                @click="handleLogout">
                                 <icon-login-outlined></icon-login-outlined>
                                 退出登录
                             </a-menu-item>
@@ -61,6 +65,7 @@ const props = defineProps({
         default: false,
     },
 })
+const emit = defineEmits(['update:collapsed'])
 
 const userStore = useUserStore()
 const router = useRouter()
@@ -144,8 +149,8 @@ function handleToggleCollapsed() {
         align-items: center;
         justify-content: center;
         cursor: pointer;
-        transition: all .3s;
-        color: rgba(0, 0, 0, .65);
+        transition: all 0.3s;
+        color: rgba(0, 0, 0, 0.65);
         border-radius: @border-radius-base;
 
         &:not(:first-child) {
@@ -153,7 +158,7 @@ function handleToggleCollapsed() {
         }
 
         &:hover {
-            background: rgba(0, 0, 0, .025);
+            background: rgba(0, 0, 0, 0.025);
         }
 
         :deep(.ant-badge-count) {

@@ -1,45 +1,61 @@
 <template>
-    <div class="x-multi-tab"
-         ref="multiTabRef">
-        <a-tabs :active-key="current"
-                type="card"
-                @change="handleSwitch">
-            <a-tab-pane v-for="(item, index) in multiTabList"
-                        :key="index">
+    <div
+        class="x-multi-tab"
+        ref="multiTabRef">
+        <a-tabs
+            :active-key="current"
+            type="card"
+            @change="handleSwitch">
+            <a-tab-pane
+                v-for="(item, index) in multiTabList"
+                :key="index">
                 <template #tab>
                     <a-dropdown :trigger="['contextmenu']">
                         <div>
                             {{ item.meta.title }}
-                            <span v-if="current === index"
-                                  class="x-multi-tab__reload-btn"
-                                  @click.stop="handleReload(item)">
-                                <icon-reload-outlined class="ma-0"
-                                                      :spin="spin" />
+                            <span
+                                v-if="current === index"
+                                class="x-multi-tab__reload-btn"
+                                @click.stop="handleReload(item)">
+                                <icon-reload-outlined
+                                    class="ma-0"
+                                    :spin="spin" />
                             </span>
-                            <span class="x-multi-tab__close-btn"
-                                  @click.stop="handleClose(item)">
+                            <span
+                                class="x-multi-tab__close-btn"
+                                @click.stop="handleClose(item)">
                                 <icon-close-outlined class="ma-0" />
                             </span>
                         </div>
                         <template #overlay>
                             <a-menu>
-                                <a-menu-item key="reload"
-                                             @click="handleReload(item)">重新加载
+                                <a-menu-item
+                                    key="reload"
+                                    @click="handleReload(item)"
+                                    >重新加载
                                 </a-menu-item>
-                                <a-menu-item key="close"
-                                             @click="handleClose(item)">关闭
+                                <a-menu-item
+                                    key="close"
+                                    @click="handleClose(item)"
+                                    >关闭
                                 </a-menu-item>
-                                <a-menu-item v-if="multiTabList.length > 1"
-                                             key="closeOther"
-                                             @click="handleCloseOther(item)">关闭其他
+                                <a-menu-item
+                                    v-if="multiTabList.length > 1"
+                                    key="closeOther"
+                                    @click="handleCloseOther(item)"
+                                    >关闭其他
                                 </a-menu-item>
-                                <a-menu-item v-if="index > 0"
-                                             key="closeLeft"
-                                             @click="handleCloseLeft(item)">关闭左侧
+                                <a-menu-item
+                                    v-if="index > 0"
+                                    key="closeLeft"
+                                    @click="handleCloseLeft(item)"
+                                    >关闭左侧
                                 </a-menu-item>
-                                <a-menu-item v-if="index < multiTabList.length - 1"
-                                             key="closeRight"
-                                             @click="handleCloseRight(item)">关闭右侧
+                                <a-menu-item
+                                    v-if="index < multiTabList.length - 1"
+                                    key="closeRight"
+                                    @click="handleCloseRight(item)"
+                                    >关闭右侧
                                 </a-menu-item>
                             </a-menu>
                         </template>
@@ -128,14 +144,14 @@ function initDragSort() {
     position: sticky;
     top: 48px;
     z-index: 100;
-    box-shadow: 0 1px 4px rgba(0, 21, 41, .08);
+    box-shadow: 0 1px 4px rgba(0, 21, 41, 0.08);
 
     &__reload-btn,
     &__close-btn {
         font-size: 12px;
         margin-left: 8px;
         color: @text-color-secondary;
-        transition: color .3s;
+        transition: color 0.3s;
         line-height: 1;
         height: 12px;
 

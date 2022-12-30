@@ -1,26 +1,31 @@
 <template>
-    <a-modal :visible="modal.visible"
-             :title="modal.title"
-             :confirm-loading="modal.confirmLoading"
-             :after-close="onAfterClose"
-             :width="480"
-             @ok="handleOk"
-             @cancel="handleCancel">
-        <a-form ref="formRef"
-                :model="formState"
-                :rules="rules"
-                scroll-to-first-error
-                :label-col="{ style: { width: '100px' } }">
-            <a-form-item label="所属上级"
-                         name="parent">
+    <a-modal
+        :visible="modal.visible"
+        :title="modal.title"
+        :confirm-loading="modal.confirmLoading"
+        :after-close="onAfterClose"
+        :width="480"
+        @ok="handleOk"
+        @cancel="handleCancel">
+        <a-form
+            ref="formRef"
+            :model="formState"
+            :rules="rules"
+            scroll-to-first-error
+            :label-col="{ style: { width: '100px' } }">
+            <a-form-item
+                label="所属上级"
+                name="parent">
                 <a-tree-select v-model:value="formState.parent"></a-tree-select>
             </a-form-item>
-            <a-form-item label="名称"
-                         name="name">
+            <a-form-item
+                label="名称"
+                name="name">
                 <a-input v-model:value="formState.name"></a-input>
             </a-form-item>
-            <a-form-item label="编码"
-                         name="code">
+            <a-form-item
+                label="编码"
+                name="code">
                 <a-input v-model:value="formState.code"></a-input>
             </a-form-item>
         </a-form>
@@ -71,8 +76,9 @@ function handleEdit(record) {
  * 确定
  */
 function handleOk() {
-    formRef.value.validateFields()
-        .then((values) => {
+    formRef.value
+        .validateFields()
+        .then(() => {
             showLoading()
             setTimeout(() => {
                 hideLoading()
@@ -80,7 +86,7 @@ function handleOk() {
                 emit('ok')
             }, 3000)
         })
-        .catch((err) => {
+        .catch(() => {
             hideLoading()
         })
 }
@@ -101,10 +107,8 @@ function onAfterClose() {
 
 defineExpose({
     handleCreate,
-    handleEdit
+    handleEdit,
 })
 </script>
 
-<style lang="less" scoped>
-
-</style>
+<style lang="less" scoped></style>

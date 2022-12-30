@@ -1,31 +1,36 @@
 <template>
-    <a v-if="dataSource.meta.type === 'link'"
-       :href="dataSource.path"
-       :target="dataSource.meta.target"
-       rel="opener"
-       class="x-layout-menu__title">
-        <component v-if="dataSource.meta.icon"
-                   :is="dataSource.meta.icon" />
+    <a
+        v-if="dataSource.meta.type === 'link'"
+        :href="dataSource.path"
+        :target="dataSource.meta.target"
+        rel="opener"
+        class="x-layout-menu__title">
+        <component
+            v-if="dataSource.meta.icon"
+            :is="dataSource.meta.icon" />
         <span class="x-layout-menu__text">{{ dataSource.meta.title }}</span>
-        <a-badge v-if="dataSource.meta.badge"
-                 :count="dataSource.meta.badge"
-                 class="x-layout-menu__badge" />
+        <a-badge
+            v-if="dataSource.meta.badge"
+            :count="dataSource.meta.badge"
+            class="x-layout-menu__badge" />
     </a>
-    <router-link v-else
-                 :to="{
-                     name: dataSource.name,
-                     query: dataSource?.meta?.query ?? {}
-                 }"
-                 tag="a"
-                 :target="dataSource.meta.target"
-                 rel="opener"
-                 class="x-layout-menu__title">
-        <component v-if="dataSource.meta.icon"
-                   :is="dataSource.meta.icon" />
+    <router-link
+        v-else
+        :to="{
+            name: dataSource.name,
+            query: dataSource?.meta?.query ?? {},
+        }"
+        :target="dataSource.meta.target"
+        rel="opener"
+        class="x-layout-menu__title">
+        <component
+            v-if="dataSource.meta.icon"
+            :is="dataSource.meta.icon" />
         <span class="x-layout-menu__text">{{ dataSource.meta.title }}</span>
-        <a-badge v-if="dataSource.meta.badge"
-                 :count="dataSource.meta.badge"
-                 class="x-layout-menu__badge" />
+        <a-badge
+            v-if="dataSource.meta.badge"
+            :count="dataSource.meta.badge"
+            class="x-layout-menu__badge" />
     </router-link>
 </template>
 
@@ -37,8 +42,7 @@ export default { name: 'MenuLink' }
 /**
  * @property {object} dataSource
  */
-
-const props = defineProps({
+defineProps({
     dataSource: {
         type: Object,
         default: () => ({}),
@@ -46,6 +50,4 @@ const props = defineProps({
 })
 </script>
 
-<style lang="less" scoped>
-
-</style>
+<style lang="less" scoped></style>

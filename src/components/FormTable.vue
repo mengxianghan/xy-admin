@@ -1,29 +1,33 @@
 <template>
-    <a-table v-bind="$attrs"
-             class="x-form-table"
-             size="middle"
-             :data-source="list"
-             :pagination="false">
-        <a-table-column key="action"
-                        align="center"
-                        :width="44">
+    <a-table
+        v-bind="$attrs"
+        class="x-form-table"
+        size="middle"
+        :data-source="list"
+        :pagination="false">
+        <a-table-column
+            key="action"
+            align="center"
+            :width="44">
             <template #title>
-                <a-button size="small"
-                          type="primary"
-                          shape="circle"
-                          class="fs-12"
-                          @click="handleAdd">
+                <a-button
+                    size="small"
+                    type="primary"
+                    shape="circle"
+                    class="fs-12"
+                    @click="handleAdd">
                     <icon-plus-outlined />
                 </a-button>
             </template>
-            <template #default="{ text, record, index }">
+            <template #default="{ index }">
                 <div class="action">
                     <span class="action__txt">{{ index + 1 }}</span>
-                    <a-button size="small"
-                              danger
-                              shape="circle"
-                              class="fs-12 action__btn"
-                              @click="handleDelete(index)">
+                    <a-button
+                        size="small"
+                        danger
+                        shape="circle"
+                        class="fs-12 action__btn"
+                        @click="handleDelete(index)">
                         <icon-delete-outlined />
                     </a-button>
                 </div>
@@ -62,7 +66,7 @@ const emit = defineEmits(['update:modelValue'])
 
 const list = ref([])
 
-watch(list, val => emit('update:modelValue', val), { deep: true })
+watch(list, (val) => emit('update:modelValue', val), { deep: true })
 
 onMounted(() => {
     list.value = props.modelValue

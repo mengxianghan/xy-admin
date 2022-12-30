@@ -1,15 +1,17 @@
 <template>
-    <a-modal :visible="visible"
-             destroy-on-close
-             :after-close="onAfterClose"
-             title="裁剪图片"
-             :width="568"
-             @ok="handleOk"
-             @cancel="handleCancel">
-        <cropper ref="cropperRef"
-                 :src="imgSrc"
-                 :aspect-ratio="aspectRatio"
-                 :quality="quality" />
+    <a-modal
+        :visible="visible"
+        destroy-on-close
+        :after-close="onAfterClose"
+        title="裁剪图片"
+        :width="568"
+        @ok="handleOk"
+        @cancel="handleCancel">
+        <cropper
+            ref="cropperRef"
+            :src="imgSrc"
+            :aspect-ratio="aspectRatio"
+            :quality="quality" />
     </a-modal>
 </template>
 
@@ -28,7 +30,7 @@ import Cropper from './Cropper.vue'
  * @property {number} quality 图片质量，取值范围：0-1，默认：1
  */
 
-const props = defineProps({
+defineProps({
     aspectRatio: {
         type: Number,
         default: 0,
@@ -78,10 +80,8 @@ function onAfterClose() {
 }
 
 defineExpose({
-    handleOpen
+    handleOpen,
 })
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

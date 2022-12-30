@@ -1,11 +1,13 @@
 <template>
-    <a-card :bordered="false"
-            v-loading="loading"
-            type="flex">
+    <a-card
+        :bordered="false"
+        v-loading="loading"
+        type="flex">
         <template #title>
-            <a-input-search v-model:value="keyword"
-                            allow-clear
-                            placeholder="请输入关键词搜索"></a-input-search>
+            <a-input-search
+                v-model:value="keyword"
+                allow-clear
+                placeholder="请输入关键词搜索"></a-input-search>
         </template>
         <template #actions>
             <div>
@@ -13,13 +15,14 @@
                 新建菜单
             </div>
         </template>
-        <a-tree v-if="!loading"
-                :selected-keys="selectedKeys"
-                :tree-data="list"
-                :field-names="{ title: 'name', children: 'children', key: 'key' }"
-                default-expand-all
-                block-node
-                @select="handleSelect">
+        <a-tree
+            v-if="!loading"
+            :selected-keys="selectedKeys"
+            :tree-data="list"
+            :field-names="{ title: 'name', children: 'children', key: 'key' }"
+            default-expand-all
+            block-node
+            @select="handleSelect">
             <template #title="record">
                 <div class="tree-row">
                     <div class="tree-row__name">
@@ -30,8 +33,9 @@
                         </span>
                         <span v-else>{{ record.name }}</span>
                     </div>
-                    <a-space class="tree-row__actions"
-                             @click.stop="() => { }">
+                    <a-space
+                        class="tree-row__actions"
+                        @click.stop="() => {}">
                         <icon-plus-outlined></icon-plus-outlined>
                         <icon-delete-outlined @click="handleDelete(record)"></icon-delete-outlined>
                     </a-space>
@@ -63,10 +67,9 @@ onMounted(() => {
  */
 async function getMenuList() {
     loading.value = true
-    const { code, data } = await api.system.getNewMenuList()
-        .catch(() => {
-            loading.value = false
-        })
+    const { code, data } = await api.system.getNewMenuList().catch(() => {
+        loading.value = false
+    })
     loading.value = false
     if (200 === code) {
         const { rows } = data
@@ -89,9 +92,8 @@ function handleSelect(keys, { node }) {
 
 /**
  * 删除
- * @param id
  */
-function handleDelete({ id }) {
+function handleDelete() {
     Modal.confirm({
         title: '删除提示',
         content: '确认删除？',
@@ -121,7 +123,7 @@ function handleDelete({ id }) {
         white-space: nowrap;
 
         &,
-        >* {
+        > * {
             display: flex;
         }
     }

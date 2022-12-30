@@ -1,7 +1,8 @@
 <template>
-    <a-card class="x-action-bar"
-            :bordered="false"
-            :class="classNames">
+    <a-card
+        class="x-action-bar"
+        :bordered="false"
+        :class="classNames">
         <div class="x-action-bar__content">
             <slot></slot>
         </div>
@@ -40,7 +41,6 @@ const classNames = computed(() => {
 
 <style lang="less" scoped>
 .x-action-bar {
-
     &--default {
         background: transparent;
 

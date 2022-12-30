@@ -1,38 +1,45 @@
 <template>
     <a-row :gutter="16">
         <a-col :span="18">
-            <a-card :bordered="false"
-                    title="基础示例">
-                <x-filter v-model="filterForm"
-                          :data-source="basicList"
-                          :label-width="100"></x-filter>
+            <a-card
+                :bordered="false"
+                title="基础示例">
+                <x-filter
+                    v-model="filterForm"
+                    :data-source="basicList"
+                    :label-width="100"></x-filter>
             </a-card>
-            <a-card :bordered="false"
-                    title="使用按钮"
-                    class="mt-8-2">
-                <x-filter v-model="filterForm"
-                          :data-source="basicList"
-                          :label-width="100"
-                          use-button
-                          @ok="handleOk"
-                          @reset="handleReset"></x-filter>
+            <a-card
+                :bordered="false"
+                title="使用按钮"
+                class="mt-8-2">
+                <x-filter
+                    v-model="filterForm"
+                    :data-source="basicList"
+                    :label-width="100"
+                    use-button
+                    @ok="handleOk"
+                    @reset="handleReset"></x-filter>
             </a-card>
-            <a-card :bordered="false"
-                    title="自定义内容"
-                    class="mt-8-2">
-                <x-filter v-model="filterForm"
-                          :data-source="customList"
-                          :label-width="100"
-                          use-button
-                          @ok="handleOk">
+            <a-card
+                :bordered="false"
+                title="自定义内容"
+                class="mt-8-2">
+                <x-filter
+                    v-model="filterForm"
+                    :data-source="customList"
+                    :label-width="100"
+                    use-button
+                    @ok="handleOk">
                     <template #praise="{ record }">
                         <x-filter-item :label="record.label">
-                            <a-select v-model:value="record.value"
-                                      :options="[
-                                          { label: '好评', value: '好评' },
-                                          { label: '中评', value: '中评' },
-                                          { label: '差评', value: '差评' },
-                                      ]"></a-select>
+                            <a-select
+                                v-model:value="record.value"
+                                :options="[
+                                    { label: '好评', value: '好评' },
+                                    { label: '中评', value: '中评' },
+                                    { label: '差评', value: '差评' },
+                                ]"></a-select>
                         </x-filter-item>
                     </template>
                     <template #filter="{ record }">
@@ -44,8 +51,9 @@
             </a-card>
         </a-col>
         <a-col :span="6">
-            <a-card :bordered="false"
-                    title="结果">
+            <a-card
+                :bordered="false"
+                title="结果">
                 <pre>{{ filterForm }}</pre>
             </a-card>
         </a-col>
@@ -61,7 +69,9 @@ import { ref } from 'vue'
 
 const basicList = ref([
     {
-        label: '单选', key: 'key', type: 'tag',
+        label: '单选',
+        key: 'key',
+        type: 'tag',
         options: [
             { label: '全部', value: 0 },
             { label: '选项2', value: 2 },
@@ -71,7 +81,10 @@ const basicList = ref([
         ],
     },
     {
-        label: '多选', key: 'key1', type: 'tag', multiple: true,
+        label: '多选',
+        key: 'key1',
+        type: 'tag',
+        multiple: true,
         options: [
             { label: '全部', value: 0 },
             { label: '选项2', value: 2 },
@@ -87,7 +100,9 @@ const basicList = ref([
 ])
 const customList = ref([
     {
-        label: '单选', key: 'key', type: 'tag',
+        label: '单选',
+        key: 'key',
+        type: 'tag',
         options: [
             { label: '全部', value: 0 },
             { label: '选项2', value: 2 },
@@ -113,6 +128,4 @@ function handleReset() {
 }
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

@@ -1,6 +1,7 @@
 <template>
-    <div class="x-chart"
-         ref="chartRef"></div>
+    <div
+        class="x-chart"
+        ref="chartRef"></div>
 </template>
 
 <script>
@@ -14,7 +15,7 @@ import * as echarts from 'echarts'
 
 /**
  * @property {object} options 配置信息
- * @property {number | string} width 宽 
+ * @property {number | string} width 宽
  * @property {number | string} height 高
  */
 
@@ -37,7 +38,10 @@ const emit = defineEmits(['ready'])
 const chart = ref(null)
 const chartRef = ref()
 
-watch(() => props.options, () => _init())
+watch(
+    () => props.options,
+    () => _init()
+)
 
 onMounted(() => {
     _init()
@@ -62,10 +66,12 @@ function _init() {
         },
     })
 
-    chart.value = markRaw(echarts.init(chartRef.value, 'chart', {
-        width: props.width,
-        height: props.height,
-    }))
+    chart.value = markRaw(
+        echarts.init(chartRef.value, 'chart', {
+            width: props.width,
+            height: props.height,
+        })
+    )
 
     setTimeout(() => {
         chart.value.setOption(props.options, true)

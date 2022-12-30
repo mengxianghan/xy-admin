@@ -1,8 +1,9 @@
 <template>
     <div class="x-loading">
-        <spin :spinning="true"
-              size="large"
-              :tip="message"></spin>
+        <spin
+            :spinning="true"
+            size="large"
+            :tip="message"></spin>
     </div>
 </template>
 
@@ -16,8 +17,7 @@ import { Spin } from 'ant-design-vue'
 /**
  * @property {string} message 提示信息，默认：加载中
  */
-
-const props = defineProps({
+defineProps({
     message: {
         type: String,
         default: '加载中',
@@ -29,7 +29,7 @@ const props = defineProps({
 .x-loading {
     position: fixed;
     z-index: 1000;
-    background: rgba(255, 255, 255, .65);
+    background: rgba(255, 255, 255, 0.65);
     left: 0;
     right: 0;
     top: 0;

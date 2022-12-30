@@ -49,7 +49,7 @@ const props = defineProps({
     },
     logoBackgroundColor: {
         type: String,
-        default: ''
+        default: '',
     },
     colorDark: {
         type: String,
@@ -65,8 +65,8 @@ const props = defineProps({
     },
     margin: {
         type: Number,
-        default: 2
-    }
+        default: 2,
+    },
 })
 
 const emit = defineEmits(['ready'])
@@ -74,11 +74,15 @@ const emit = defineEmits(['ready'])
 const qrcode = ref(null)
 const imgRef = ref()
 
-watch(() => toRefs(props), () => {
-    draw()
-}, {
-    deep: true,
-})
+watch(
+    () => toRefs(props),
+    () => {
+        draw()
+    },
+    {
+        deep: true,
+    }
+)
 
 onMounted(() => {
     draw()
@@ -89,18 +93,20 @@ onMounted(() => {
  * @return {Promise<unknown>}
  */
 async function build() {
-    return new Promise(async (resolve) => {
-        const canvas = await QRCode.toCanvas(props.text, {
-            width: props.size,
-            color: {
-                dark: props.colorDark,
-                light: props.colorLight
-            },
-            errorCorrectionLevel: props.errorCorrectionLevel,
-            margin: props.margin
-        })
-        qrcode.value = canvas
-        resolve()
+    return new Promise((resolve) => {
+        ;(async () => {
+            const canvas = await QRCode.toCanvas(props.text, {
+                width: props.size,
+                color: {
+                    dark: props.colorDark,
+                    light: props.colorLight,
+                },
+                errorCorrectionLevel: props.errorCorrectionLevel,
+                margin: props.margin,
+            })
+            qrcode.value = canvas
+            resolve()
+        })()
     })
 }
 
@@ -142,6 +148,4 @@ async function draw() {
 }
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

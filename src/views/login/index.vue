@@ -2,61 +2,71 @@
     <div>
         <a-tabs>
             <!-- 账号登录 -->
-            <a-tab-pane key="account"
-                        tab="账号登录">
-                <a-form :model="formState"
-                        :rules="rules"
-                        ref="formRef">
+            <a-tab-pane
+                key="account"
+                tab="账号登录">
+                <a-form
+                    :model="formState"
+                    :rules="rules"
+                    ref="formRef">
                     <a-form-item name="username">
-                        <a-input v-model:value="formState.username"
-                                 size="large"
-                                 placeholder="admin">
+                        <a-input
+                            v-model:value="formState.username"
+                            size="large"
+                            placeholder="admin">
                             <template #prefix>
                                 <icon-user-outlined></icon-user-outlined>
                             </template>
                         </a-input>
                     </a-form-item>
                     <a-form-item name="password">
-                        <a-input v-model:value="formState.password"
-                                 size="large"
-                                 type="password"
-                                 placeholder="123456"
-                                 @pressEnter="handleLogin">
+                        <a-input
+                            v-model:value="formState.password"
+                            size="large"
+                            type="password"
+                            placeholder="123456"
+                            @pressEnter="handleLogin">
                             <template #prefix>
                                 <icon-lock-outlined></icon-lock-outlined>
                             </template>
                         </a-input>
                     </a-form-item>
                     <a-form-item>
-                        <a-button type="primary"
-                                  size="large"
-                                  block
-                                  :loading="loading"
-                                  @click="handleLogin">登录
+                        <a-button
+                            type="primary"
+                            size="large"
+                            block
+                            :loading="loading"
+                            @click="handleLogin"
+                            >登录
                         </a-button>
                     </a-form-item>
                 </a-form>
             </a-tab-pane>
             <!-- 手机号登录 -->
-            <a-tab-pane key="phone"
-                        tab="手机号登录">
-                <a-form :model="formState"
-                        :rules="rules"
-                        ref="formRef">
+            <a-tab-pane
+                key="phone"
+                tab="手机号登录">
+                <a-form
+                    :model="formState"
+                    :rules="rules"
+                    ref="formRef">
                     <a-form-item name="username">
-                        <a-input v-model:value="formState.username"
-                                 size="large"
-                                 placeholder="手机号码">
+                        <a-input
+                            v-model:value="formState.username"
+                            size="large"
+                            placeholder="手机号码">
                             <template #prefix>
                                 <icon-mobile-outlined></icon-mobile-outlined>
                             </template>
                         </a-input>
                     </a-form-item>
                     <a-form-item name="msgCode">
-                        <a-input v-model:value="formState.password"
-                                 size="large"
-                                 placeholder="短信验证码"
-                                 @pressEnter="handleLogin">
+                        <a-input
+                            v-model:value="formState.password"
+                            size="large"
+                            placeholder="短信验证码"
+                            @pressEnter="handleLogin">
                             <template #prefix>
                                 <icon-lock-outlined></icon-lock-outlined>
                             </template>
@@ -66,21 +76,25 @@
                         </a-input>
                     </a-form-item>
                     <a-form-item>
-                        <a-button type="primary"
-                                  size="large"
-                                  block
-                                  :loading="loading"
-                                  @click="handleLogin">登录
+                        <a-button
+                            type="primary"
+                            size="large"
+                            block
+                            :loading="loading"
+                            @click="handleLogin"
+                            >登录
                         </a-button>
                     </a-form-item>
                 </a-form>
             </a-tab-pane>
             <!-- 二维码登录 -->
-            <a-tab-pane key="qrcode"
-                        tab="二维码登录"
-                        class="align-center">
-                <x-qr-code text="https://mengxianghan.github.io/xy-admin/demo/"
-                           :size="240"></x-qr-code>
+            <a-tab-pane
+                key="qrcode"
+                tab="二维码登录"
+                class="align-center">
+                <x-qr-code
+                    text="https://mengxianghan.github.io/xy-admin/demo/"
+                    :size="240"></x-qr-code>
                 <a-divider plain>
                     <div class="color-secondary">扫码后点击"确认"，即可完成登录</div>
                 </a-divider>
@@ -104,7 +118,6 @@ const userStore = useUserStore()
 const routerStore = useRouterStore()
 const router = useRouter()
 const route = useRoute()
-const title = import.meta.env.VITE_TITLE
 const loading = ref(false)
 const redirect = computed(() => decodeURIComponent(route.query?.redirect ?? ''))
 
@@ -123,26 +136,27 @@ onMounted(() => {
  * @return {Promise<void>}
  */
 async function handleLogin() {
-    formRef.value.validate()
-        .then(async (values) => {
-            loading.value = true
-            const { code } = await userStore.login({
+    formRef.value.validate().then(async (values) => {
+        loading.value = true
+        const { code } = await userStore
+            .login({
                 ...values,
-            }).catch(() => {
+            })
+            .catch(() => {
                 loading.value = false
                 message.error('登录失败')
             })
-            loading.value = false
-            if (200 === code) {
-                // 加载完成
-                if (appStore.complete) {
-                    goIndex()
-                } else {
-                    await appStore.init()
-                    goIndex()
-                }
+        loading.value = false
+        if (200 === code) {
+            // 加载完成
+            if (appStore.complete) {
+                goIndex()
+            } else {
+                await appStore.init()
+                goIndex()
             }
-        })
+        }
+    })
 }
 
 /**

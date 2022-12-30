@@ -55,7 +55,9 @@ class Http {
                         if (typeof data === 'string') {
                             try {
                                 data = JSONbig({ storeAsString: true }).parse(data)
-                            } catch (e) {}
+                            } catch (e) {
+                                /* empty */
+                            }
                         }
                         return data
                     },

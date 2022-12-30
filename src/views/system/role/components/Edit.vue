@@ -1,44 +1,54 @@
 <template>
-    <a-modal :visible="modal.visible"
-             :title="modal.title"
-             :width="480"
-             :confirm-loading="modal.confirmLoading"
-             :after-close="onAfterClose"
-             :ok-button-props="{
-                 style: {
-                     display: disabled ? 'none' : ''
-                 }
-             }"
-             :cancel-text="cancelText"
-             @ok="handleOk"
-             @cancel="handleCancel">
-        <a-form ref="formRef"
-                :model="formState"
-                :rules="rules"
-                :label-col="{
-                    style: { width: '90px' }
-                }">
-            <a-form-item label="所属上级"
-                         name="role">
-                <a-cascader v-model:value="formState.role"
-                            :disabled="disabled"></a-cascader>
+    <a-modal
+        :visible="modal.visible"
+        :title="modal.title"
+        :width="480"
+        :confirm-loading="modal.confirmLoading"
+        :after-close="onAfterClose"
+        :ok-button-props="{
+            style: {
+                display: disabled ? 'none' : '',
+            },
+        }"
+        :cancel-text="cancelText"
+        @ok="handleOk"
+        @cancel="handleCancel">
+        <a-form
+            ref="formRef"
+            :model="formState"
+            :rules="rules"
+            :label-col="{
+                style: { width: '90px' },
+            }">
+            <a-form-item
+                label="所属上级"
+                name="role">
+                <a-cascader
+                    v-model:value="formState.role"
+                    :disabled="disabled"></a-cascader>
             </a-form-item>
-            <a-form-item label="名称"
-                         name="name">
-                <a-input v-model:value="formState.name"
-                         :disabled="disabled"></a-input>
+            <a-form-item
+                label="名称"
+                name="name">
+                <a-input
+                    v-model:value="formState.name"
+                    :disabled="disabled"></a-input>
             </a-form-item>
-            <a-form-item label="别名"
-                         name="userName">
-                <a-input v-model:value="formState.alias"
-                         :disabled="disabled"></a-input>
+            <a-form-item
+                label="别名"
+                name="userName">
+                <a-input
+                    v-model:value="formState.alias"
+                    :disabled="disabled"></a-input>
             </a-form-item>
-            <a-form-item label="排序"
-                         name="sort">
-                <a-input-number v-model:value="formState.sort"
-                                :disabled="disabled"
-                                :min="1"
-                                :precision="0"></a-input-number>
+            <a-form-item
+                label="排序"
+                name="sort">
+                <a-input-number
+                    v-model:value="formState.sort"
+                    :disabled="disabled"
+                    :min="1"
+                    :precision="0"></a-input-number>
             </a-form-item>
         </a-form>
     </a-modal>
@@ -105,7 +115,8 @@ function handlePreview(record) {
  * 确定
  */
 function handleOk() {
-    formRef.value.validateFields()
+    formRef.value
+        .validateFields()
         .then(async (values) => {
             showLoading()
             const params = {
@@ -113,10 +124,9 @@ function handleOk() {
                 ...values,
             }
             let result = null
-            result = await api.common.saveData(params)
-                .catch(() => {
-                    hideLoading()
-                })
+            result = await api.common.saveData(params).catch(() => {
+                hideLoading()
+            })
             hideLoading()
             if (200 === result?.code) {
                 hideModal()
@@ -148,10 +158,8 @@ function onAfterClose() {
 defineExpose({
     handleCreate,
     handleEdit,
-    handlePreview
+    handlePreview,
 })
 </script>
 
-<style lang="less" scoped>
-
-</style>
+<style lang="less" scoped></style>

@@ -1,30 +1,36 @@
 <template>
-    <a-modal :visible="modal.visible"
-             :title="modal.title"
-             :confirm-loading="modal.confirmLoading"
-             :after-close="onAfterClose"
-             :width="480"
-             @ok="handleOk"
-             @cancel="handleCancel">
-        <a-form ref="formRef"
-                :model="formState"
-                :rules="rules"
-                scroll-to-first-error
-                :label-col="{ style: { width: '100px' } }">
-            <a-form-item label="所属分类"
-                         name="type">
+    <a-modal
+        :visible="modal.visible"
+        :title="modal.title"
+        :confirm-loading="modal.confirmLoading"
+        :after-close="onAfterClose"
+        :width="480"
+        @ok="handleOk"
+        @cancel="handleCancel">
+        <a-form
+            ref="formRef"
+            :model="formState"
+            :rules="rules"
+            scroll-to-first-error
+            :label-col="{ style: { width: '100px' } }">
+            <a-form-item
+                label="所属分类"
+                name="type">
                 <a-tree-select v-model:value="formState.type"></a-tree-select>
             </a-form-item>
-            <a-form-item label="名称"
-                         name="name">
+            <a-form-item
+                label="名称"
+                name="name">
                 <a-input v-model:value="formState.name"></a-input>
             </a-form-item>
-            <a-form-item label="键值"
-                         name="keyValue">
+            <a-form-item
+                label="键值"
+                name="keyValue">
                 <a-input v-model:value="formState.keyValue"></a-input>
             </a-form-item>
-            <a-form-item label="是否有效"
-                         name="valid">
+            <a-form-item
+                label="是否有效"
+                name="valid">
                 <a-switch v-model:checked="formState.valid"></a-switch>
             </a-form-item>
         </a-form>
@@ -76,7 +82,8 @@ function handleEdit(record) {
  * 确定
  */
 function handleOk() {
-    formRef.value.validateFields()
+    formRef.value
+        .validateFields()
         .then(async (values) => {
             showLoading()
             const params = {
@@ -84,17 +91,16 @@ function handleOk() {
                 ...values,
             }
             let result = null
-            result = await api.common.saveData(params)
-                .catch(() => {
-                    hideLoading()
-                })
+            result = await api.common.saveData(params).catch(() => {
+                hideLoading()
+            })
             hideLoading()
             if (200 === result?.code) {
                 hideModal()
                 emit('ok')
             }
         })
-        .catch((err) => {
+        .catch(() => {
             hideLoading()
         })
 }
@@ -115,10 +121,8 @@ function onAfterClose() {
 
 defineExpose({
     handleCreate,
-    handleEdit
+    handleEdit,
 })
 </script>
 
-<style lang="less" scoped>
-
-</style>
+<style lang="less" scoped></style>

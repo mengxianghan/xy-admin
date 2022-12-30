@@ -1,24 +1,29 @@
 <template>
     <div class="x-filter">
-        <template v-for="(item) in list"
-                  :key="item.key">
+        <template
+            v-for="item in list"
+            :key="item.key">
             <template v-if="item.scopedSlot">
-                <slot :name="item.key"
-                      :record="item"></slot>
+                <slot
+                    :name="item.key"
+                    :record="item"></slot>
             </template>
             <template v-else>
                 <filter-item :data-source="item"></filter-item>
             </template>
         </template>
-        <div v-if="useButton"
-             class="x-filter-footer"
-             :style="{
-                 paddingLeft: labelWidth ? `${labelWidth}px` : ''
-             }">
+        <div
+            v-if="useButton"
+            class="x-filter-footer"
+            :style="{
+                paddingLeft: labelWidth ? `${labelWidth}px` : '',
+            }">
             <a-space>
-                <a-button type="primary"
-                          ghost
-                          @click="handleOk">确定
+                <a-button
+                    type="primary"
+                    ghost
+                    @click="handleOk"
+                    >确定
                 </a-button>
                 <a-button @click="handleReset">重置</a-button>
             </a-space>
@@ -87,7 +92,10 @@ provide('filterContext', {
     onChange,
 })
 
-watch(() => props.dataSource, () => init())
+watch(
+    () => props.dataSource,
+    () => init()
+)
 
 onMounted(() => {
     init()
@@ -101,15 +109,15 @@ onMounted(() => {
 function handleClick(item, tag) {
     const { multiple, key } = item
     const { value, selected } = tag
-    const index = list?.value?.findIndex(o => o.key === key)
-    const tagIndex = item?.options?.findIndex(o => o.value === value)
+    const index = list?.value?.findIndex((o) => o.key === key)
+    const tagIndex = item?.options?.findIndex((o) => o.value === value)
     // 判断多选
     if (multiple) {
         // 多选
         list.value[index].options[tagIndex].selected = !selected
     } else {
         // 单选
-        list.value[index].options = list.value[index].options.map(item => {
+        list.value[index].options = list.value[index].options.map((item) => {
             return {
                 ...item,
                 selected: item.value === value,
@@ -146,39 +154,40 @@ function onChange() {
  * @private
  */
 function init() {
-    list.value = cloneDeep(props.dataSource)
-        .map((item) => {
-            const { key, type, multiple, scopedSlot, options } = item
-            // 判断是否自定义插槽
-            if (scopedSlot) {
-                // 是自定义插槽
-                item.value = props.modelValue[key]
-            } else {
-                // 不是自定义插槽，根据类型回填内容
-                // tag
-                if (TYPE_ENUM.is('tag', type) || Array.isArray(options)) {
-                    item.options = item?.options.map(tag => {
-                        return {
-                            ...tag,
-                            selected: multiple ? props.modelValue[key]?.includes(tag.value) : props.modelValue[key] === tag.value,
-                        }
-                    })
-                }
-                // 输入框
-                if (TYPE_ENUM.is('input', type)) {
-                    item.value = props.modelValue[key] ?? ''
-                }
-                // 输入区间
-                if (TYPE_ENUM.is('inputRange', type)) {
-                    item.value = props.modelValue[key] ?? []
-                }
-                // 日期 || 日期区间
-                if (['date', 'dateRange'].includes(TYPE_ENUM.getKey(type))) {
-                    item.value = props.modelValue[key] ?? null
-                }
+    list.value = cloneDeep(props.dataSource).map((item) => {
+        const { key, type, multiple, scopedSlot, options } = item
+        // 判断是否自定义插槽
+        if (scopedSlot) {
+            // 是自定义插槽
+            item.value = props.modelValue[key]
+        } else {
+            // 不是自定义插槽，根据类型回填内容
+            // tag
+            if (TYPE_ENUM.is('tag', type) || Array.isArray(options)) {
+                item.options = item?.options.map((tag) => {
+                    return {
+                        ...tag,
+                        selected: multiple
+                            ? props.modelValue[key]?.includes(tag.value)
+                            : props.modelValue[key] === tag.value,
+                    }
+                })
             }
-            return item
-        })
+            // 输入框
+            if (TYPE_ENUM.is('input', type)) {
+                item.value = props.modelValue[key] ?? ''
+            }
+            // 输入区间
+            if (TYPE_ENUM.is('inputRange', type)) {
+                item.value = props.modelValue[key] ?? []
+            }
+            // 日期 || 日期区间
+            if (['date', 'dateRange'].includes(TYPE_ENUM.getKey(type))) {
+                item.value = props.modelValue[key] ?? null
+            }
+        }
+        return item
+    })
 }
 
 /**
@@ -187,7 +196,7 @@ function init() {
  */
 function getValue() {
     const value = {}
-    list?.value?.forEach(item => {
+    list?.value?.forEach((item) => {
         const { key, type, multiple, scopedSlot, options } = item
         // 判断是否自定义插槽
         if (scopedSlot) {
@@ -200,11 +209,10 @@ function getValue() {
                 // 判断是否多选
                 if (multiple) {
                     // 多选
-                    value[key] = item?.options?.filter(item => item.selected)
-                        .map(item => item.value)
+                    value[key] = item?.options?.filter((item) => item.selected).map((item) => item.value)
                 } else {
                     // 单选
-                    value[key] = item?.options?.find(o => o.selected)?.value ?? undefined
+                    value[key] = item?.options?.find((o) => o.selected)?.value ?? undefined
                 }
             }
             // 输入框

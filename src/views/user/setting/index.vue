@@ -1,17 +1,22 @@
 <template>
-    <a-card :bordered="false"
-            :body-style="{ paddingLeft: 0, paddingRight: 0 }">
+    <a-card
+        :bordered="false"
+        :body-style="{ paddingLeft: 0, paddingRight: 0 }">
         <a-row type="flex">
             <a-col flex="0 0 224px">
-                <a-menu v-model:selectedKeys="selectedKeys"
-                        mode="inline">
-                    <a-menu-item v-for="(item) in menuList"
-                                 :key="item.key">{{ item.name }}
+                <a-menu
+                    v-model:selectedKeys="selectedKeys"
+                    mode="inline">
+                    <a-menu-item
+                        v-for="item in menuList"
+                        :key="item.key"
+                        >{{ item.name }}
                     </a-menu-item>
                 </a-menu>
             </a-col>
-            <a-col flex="auto"
-                   class="px-8-5">
+            <a-col
+                flex="auto"
+                class="px-8-5">
                 <div class="setting-title">{{ title }}</div>
                 <keep-alive>
                     <component :is="component"></component>

@@ -3,27 +3,33 @@
         <a-card :bordered="false">
             <x-editor v-model="content" />
         </a-card>
-        <a-card v-if="content"
-                :bordered="false"
-                title="输出"
-                class="mt-8-2">
+        <a-card
+            v-if="content"
+            :bordered="false"
+            title="输出"
+            class="mt-8-2">
             {{ content }}
         </a-card>
-        <a-card :bordered="false"
-                title="表单示例"
-                class="mt-8-2">
-            <a-form :label-col="{ style: { width: '100px' } }"
-                    :model="formState"
-                    :rules="rules"
-                    ref="formRef">
-                <a-form-item label="字段 1"
-                             name="field1">
+        <a-card
+            :bordered="false"
+            title="表单示例"
+            class="mt-8-2">
+            <a-form
+                :label-col="{ style: { width: '100px' } }"
+                :model="formState"
+                :rules="rules"
+                ref="formRef">
+                <a-form-item
+                    label="字段 1"
+                    name="field1">
                     <x-editor v-model="formState.field1" />
                 </a-form-item>
                 <a-form-item :style="{ paddingLeft: '100px' }">
                     <a-space>
-                        <a-button type="primary"
-                                  @click="handleSubmit">提交
+                        <a-button
+                            type="primary"
+                            @click="handleSubmit"
+                            >提交
                         </a-button>
                         <a-button @click="handleReset">重置</a-button>
                     </a-space>
@@ -50,13 +56,12 @@ rules.value = {
 }
 
 function handleSubmit() {
-    formRef.value.validate()
+    formRef.value
+        .validate()
         .then((values) => {
             console.log(values)
         })
-        .catch(() => {
-
-        })
+        .catch(() => {})
 }
 
 function handleReset() {
@@ -64,6 +69,4 @@ function handleReset() {
 }
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

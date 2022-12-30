@@ -1,11 +1,13 @@
 <template>
-    <div v-show="'iframe' === $route.meta.type"
-         class="iframe-view">
-        <iframe v-for="(item) in iframeList"
-                v-show="$route.meta.url === item.meta.url"
-                :src="item.meta.url"
-                :key="item.meta.url"
-                class="iframe"></iframe>
+    <div
+        v-show="'iframe' === $route.meta.type"
+        class="iframe-view">
+        <iframe
+            v-for="item in iframeList"
+            v-show="$route.meta.url === item.meta.url"
+            :src="item.meta.url"
+            :key="item.meta.url"
+            class="iframe"></iframe>
     </div>
 </template>
 
@@ -22,7 +24,6 @@ const iframeList = computed(() => multiTabStore.iframeList)
     width: 100%;
     height: 100%;
     border: none;
-
 
     &-view {
         position: absolute;

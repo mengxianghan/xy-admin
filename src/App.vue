@@ -1,6 +1,6 @@
 <template>
     <a-config-provider :locale="locale">
-        <router-view/>
+        <router-view />
     </a-config-provider>
 </template>
 
@@ -21,5 +21,4 @@ export default {
 }
 </script>
 
-<style lang="less">
-</style>
+<style lang="less"></style>

@@ -1,6 +1,7 @@
 <template>
-    <a-row type="flex"
-           :gutter="48">
+    <a-row
+        type="flex"
+        :gutter="48">
         <a-col flex="0 0 480px">
             <a-form layout="vertical">
                 <a-form-item label="邮箱">
@@ -28,8 +29,9 @@
         </a-col>
         <a-col class="align-center">
             <div>
-                <a-avatar :size="144"
-                          src="https://joeschmoe.io/api/v1/random"></a-avatar>
+                <a-avatar
+                    :size="144"
+                    src="https://joeschmoe.io/api/v1/random"></a-avatar>
             </div>
             <div class="mt-8-2">
                 <a-upload>
@@ -45,9 +47,6 @@
     </a-row>
 </template>
 
-<script setup>
-</script>
+<script setup></script>
 
-<style lang="less" scoped>
-
-</style>
+<style lang="less" scoped></style>

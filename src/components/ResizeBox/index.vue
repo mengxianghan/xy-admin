@@ -1,17 +1,19 @@
 <template>
-    <div class="x-resize-box"
-         ref="resizeBoxRef"
-         :style="styles">
+    <div
+        class="x-resize-box"
+        ref="resizeBoxRef"
+        :style="styles">
         <slot></slot>
 
-        <div v-for="(direction) in directions"
-             class="x-resize-box-handle"
-             :key="direction"
-             :class="{
-                 [`x-resize-box-handle--${direction}`]: true,
-                 'x-resize-box-handle--active': state.moving && directionEnum.is(direction, state.direction)
-             }"
-             @mousedown="(e) => onMoveStart(direction, e)"></div>
+        <div
+            v-for="direction in directions"
+            class="x-resize-box-handle"
+            :key="direction"
+            :class="{
+                [`x-resize-box-handle--${direction}`]: true,
+                'x-resize-box-handle--active': state.moving && directionEnum.is(direction, state.direction),
+            }"
+            @mousedown="(e) => onMoveStart(direction, e)"></div>
     </div>
 </template>
 
@@ -32,15 +34,15 @@ import { directionEnum } from './config'
 
 const props = defineProps({
     width: {
-        type: Number
+        type: Number,
     },
     height: {
-        type: Number
+        type: Number,
     },
     directions: {
         type: Array,
-        default: ['right']
-    }
+        default: () => ['right'],
+    },
 })
 
 const emit = defineEmits(['movingStart', 'moving', 'movingEnd', 'update:width', 'update:height'])
@@ -54,17 +56,17 @@ const state = reactive({
     startWidth: 0,
     startHeight: 0,
     currentWidth: props.width,
-    currentHeight: props.height
+    currentHeight: props.height,
 })
 const styles = computed(() => ({
     width: `${state.currentWidth}px`,
     height: `${state.currentHeight}px`,
-    maxWidth: '100%'
+    maxWidth: '100%',
 }))
 
 /**
  * 拖动开始
- * @param {*} e 
+ * @param {*} e
  */
 function onMoveStart(direction, e) {
     state.moving = true
@@ -140,7 +142,7 @@ function onMoveEnd(e) {
 
     &-handle {
         position: absolute;
-        transition: all .3s;
+        transition: all 0.3s;
         z-index: 999;
         user-select: none;
 
@@ -180,7 +182,6 @@ function onMoveEnd(e) {
         &--bottom {
             bottom: 0;
         }
-
     }
 }
 </style>

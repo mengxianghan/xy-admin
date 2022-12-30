@@ -1,14 +1,18 @@
 <template>
-    <a-input v-model:value="currentValue"
-             class="x-upload x-upload-input"
-             @input="onInput">
+    <a-input
+        v-model:value="currentValue"
+        class="x-upload x-upload-input"
+        @input="onInput">
         <template #addonAfter>
-            <a-button v-if="loading"
-                      loading>上传中
+            <a-button
+                v-if="loading"
+                loading
+                >上传中
             </a-button>
-            <a-upload v-else
-                      :show-upload-list="false"
-                      :custom-request="customRequest">
+            <a-upload
+                v-else
+                :show-upload-list="false"
+                :custom-request="customRequest">
                 <a-button>选择文件</a-button>
             </a-upload>
         </template>
@@ -20,7 +24,7 @@ export default { name: 'XUploadInput' }
 </script>
 
 <script setup>
-import { onMounted, ref, toRefs, watch } from 'vue'
+import { onMounted, ref, watch } from 'vue'
 import { Form } from 'ant-design-vue'
 
 import api from '@/api'
@@ -30,18 +34,23 @@ import api from '@/api'
  * @property {string} modelValue v-model
  */
 
-const props = defineProps()
+const props = defineProps({
+    modelValue: { type: String, default: '' },
+})
 const emit = defineEmits(['update:modelValue'])
 
 const { onFieldChange } = Form.useInjectFormItemContext()
 const loading = ref(false)
 const currentValue = ref('')
 
-watch(() => props.modelValue, (val) => {
-    if (currentValue.val != val) {
-        currentValue.value = val
+watch(
+    () => props.modelValue,
+    (val) => {
+        if (currentValue.value.val != val) {
+            currentValue.value = val
+        }
     }
-})
+)
 
 onMounted(() => {
     currentValue.value = props.modelValue

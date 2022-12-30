@@ -1,6 +1,7 @@
 <template>
-    <a-card v-bind="cptAttrs"
-            class="x-search-bar">
+    <a-card
+        v-bind="cptAttrs"
+        class="x-search-bar">
         <slot></slot>
     </a-card>
 </template>
@@ -16,7 +17,7 @@ const attrs = useAttrs()
 
 const cptAttrs = computed(() => ({
     bordered: false,
-    ...attrs
+    ...attrs,
 }))
 </script>
 
@@ -36,7 +37,7 @@ const cptAttrs = computed(() => ({
     }
 
     :deep(.ant-form-item-control-input-content) {
-        >* {
+        > * {
             width: 100%;
         }
     }

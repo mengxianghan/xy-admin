@@ -1,30 +1,38 @@
 <template>
     <a-card :bordered="false">
-        <a-form :label-col="{ sm: 7, lg: 7 }"
-                :wrapper-col="{ sm: 17, lg: 10 }"
-                ref="formRef"
-                :rules="rules"
-                :model="formState">
-            <a-form-item label="标题"
-                         name="field1">
-                <a-input placeholder="给目标起个名字"
-                         v-model:value="formState.field1"></a-input>
+        <a-form
+            :label-col="{ sm: 7, lg: 7 }"
+            :wrapper-col="{ sm: 17, lg: 10 }"
+            ref="formRef"
+            :rules="rules"
+            :model="formState">
+            <a-form-item
+                label="标题"
+                name="field1">
+                <a-input
+                    placeholder="给目标起个名字"
+                    v-model:value="formState.field1"></a-input>
             </a-form-item>
-            <a-form-item label="起止日期"
-                         name="field2">
+            <a-form-item
+                label="起止日期"
+                name="field2">
                 <a-range-picker v-model:value="formState.field2"></a-range-picker>
             </a-form-item>
-            <a-form-item label="目标描述"
-                         name="field3">
-                <a-textarea v-model:target="formState.field3"
-                            placeholder="请输入你的阶段性工作目标"
-                            :rows="4"></a-textarea>
+            <a-form-item
+                label="目标描述"
+                name="field3">
+                <a-textarea
+                    v-model:target="formState.field3"
+                    placeholder="请输入你的阶段性工作目标"
+                    :rows="4"></a-textarea>
             </a-form-item>
-            <a-form-item label="衡量标准"
-                         name="field4">
-                <a-textarea v-model:target="formState.field4"
-                            placeholder="请输入衡量标准"
-                            :rows="4"></a-textarea>
+            <a-form-item
+                label="衡量标准"
+                name="field4">
+                <a-textarea
+                    v-model:target="formState.field4"
+                    placeholder="请输入衡量标准"
+                    :rows="4"></a-textarea>
             </a-form-item>
             <a-form-item name="field5">
                 <template #label>
@@ -33,28 +41,37 @@
                         <icon-info-circle-outlined />
                     </a-tooltip>
                 </template>
-                <a-input v-model:target="formState.field5"
-                         placeholder="请描述你服务的客户,内部客户直接 姓名/工号"></a-input>
+                <a-input
+                    v-model:target="formState.field5"
+                    placeholder="请描述你服务的客户,内部客户直接 姓名/工号"></a-input>
             </a-form-item>
-            <a-form-item label="邀评人（选填）"
-                         name="field6">
-                <a-input v-model:value="formState.field6"
-                         placeholder="请直接 姓名/工号,最多可邀请 5 人"></a-input>
+            <a-form-item
+                label="邀评人（选填）"
+                name="field6">
+                <a-input
+                    v-model:value="formState.field6"
+                    placeholder="请直接 姓名/工号,最多可邀请 5 人"></a-input>
             </a-form-item>
-            <a-form-item label="权重（选填）"
-                         name="field7">
-                <a-input v-model:value="formState.field7"
-                         placeholder="请输入"></a-input>
+            <a-form-item
+                label="权重（选填）"
+                name="field7">
+                <a-input
+                    v-model:value="formState.field7"
+                    placeholder="请输入"></a-input>
             </a-form-item>
-            <a-form-item label="目标公开"
-                         name="field8">
-                <a-radio-group v-model:value="formState.field8"
-                               :options="targetList"></a-radio-group>
+            <a-form-item
+                label="目标公开"
+                name="field8">
+                <a-radio-group
+                    v-model:value="formState.field8"
+                    :options="targetList"></a-radio-group>
             </a-form-item>
             <a-form-item :wrapper-col="{ offset: 7, sm: 17, lg: 10 }">
                 <a-space>
-                    <a-button type="primary"
-                              @click="handleOk">提交
+                    <a-button
+                        type="primary"
+                        @click="handleOk"
+                        >提交
                     </a-button>
                     <a-button @click="handleCancel">取消</a-button>
                 </a-space>
@@ -92,10 +109,9 @@ rules.value = {
  * 提交表单
  */
 function handleOk() {
-    formRef.value.validateFields()
-        .then(values => {
-            console.log(values)
-        })
+    formRef.value.validateFields().then((values) => {
+        console.log(values)
+    })
 }
 
 /**
@@ -106,6 +122,4 @@ function handleCancel() {
 }
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

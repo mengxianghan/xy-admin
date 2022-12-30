@@ -1,24 +1,29 @@
 <template>
-    <div class="x-layout-menu"
-         :class="classes">
+    <div
+        class="x-layout-menu"
+        :class="classes">
         <div class="x-layout-menu__brand">
-            <img :src="URL_LOGO">
+            <img :src="URL_LOGO" />
             <h1>{{ title }}</h1>
         </div>
-        <a-menu mode="inline"
-                :theme="theme"
-                :inline-collapsed="collapsed"
-                :open-keys="openKeys"
-                :selected-keys="selectedKeys"
-                @openChange="onOpenChange">
-            <template v-for="item in menuList">
-                <a-menu-item v-if="!item.children"
-                             :key="item.name">
-                    <menu-link :data-source="item" />
-                </a-menu-item>
-                <menu-sub v-else
-                          :key="item.name"
-                          :data-source="item" />
+        <a-menu
+            mode="inline"
+            :theme="theme"
+            :inline-collapsed="collapsed"
+            :open-keys="openKeys"
+            :selected-keys="selectedKeys"
+            @openChange="onOpenChange">
+            <template
+                v-for="item in menuList"
+                :key="item.name">
+                <template v-if="!item.children">
+                    <a-menu-item :key="item.name">
+                        <menu-link :data-source="item" />
+                    </a-menu-item>
+                </template>
+                <template v-else>
+                    <menu-sub :data-source="item" />
+                </template>
             </template>
         </a-menu>
     </div>
@@ -45,7 +50,7 @@ const props = defineProps({
     theme: {
         type: String,
         default: 'dark',
-    }
+    },
 })
 
 const routerStore = useRouterStore()
@@ -55,7 +60,7 @@ const collapsed = ref(false)
 const openKeys = ref([])
 const selectedKeys = ref([])
 const menuList = computed(() => routerStore.menuList)
-const rootSubmenuKeys = computed(() => menuList.value.map(item => item.name))
+const rootSubmenuKeys = computed(() => menuList.value.map((item) => item.name))
 const classes = computed(() => {
     const classList = []
     classList.push(`x-layout-menu--${props.theme}`)
@@ -81,7 +86,7 @@ function setSelectedMenu() {
  * @param value
  */
 function onOpenChange(value) {
-    const latestOpenKey = value.find(key => openKeys.value.indexOf(key) === -1)
+    const latestOpenKey = value.find((key) => openKeys.value.indexOf(key) === -1)
     if (rootSubmenuKeys.value.indexOf(latestOpenKey) === -1) {
         openKeys.value = value
     } else {
@@ -134,7 +139,6 @@ function onOpenChange(value) {
     }
 
     :deep(.x-layout-menu__badge) {
-
         .ant-badge-count,
         .ant-badge-dot {
             box-shadow: none;
@@ -167,7 +171,7 @@ function onOpenChange(value) {
 
         &-dark {
             &::-webkit-scrollbar-thumb {
-                background-color: rgba(255, 255, 255, .2)
+                background-color: rgba(255, 255, 255, 0.2);
             }
         }
 
@@ -214,7 +218,6 @@ function onOpenChange(value) {
 .ant-layout-sider-collapsed {
     .x-layout-menu {
         &__logo {
-
             img {
                 display: block;
             }

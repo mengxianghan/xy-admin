@@ -18,9 +18,11 @@
                     </a-form-item>
                 </a-col>
                 <a-col :span="6">
-                    <a-button type="primary"
-                              ghost
-                              @click="handleSearch">搜索
+                    <a-button
+                        type="primary"
+                        ghost
+                        @click="handleSearch"
+                        >搜索
                     </a-button>
                 </a-col>
             </a-row>
@@ -28,8 +30,9 @@
     </x-search-bar>
     <a-card :bordered="false">
         <x-action-bar class="mb-8-2">
-            <a-button type="primary"
-                      @click="$refs.editRef.handleCreate()">
+            <a-button
+                type="primary"
+                @click="$refs.editRef.handleCreate()">
                 <template #icon>
                     <icon-plus-outlined />
                 </template>
@@ -38,17 +41,20 @@
             <template #extra>
                 <x-search-bar :body-style="{ padding: 0 }">
                     <a-form layout="inline">
-                        <a-row :gutter="12"
-                               type="flex">
+                        <a-row
+                            :gutter="12"
+                            type="flex">
                             <a-col>
                                 <a-form-item>
                                     <a-input></a-input>
                                 </a-form-item>
                             </a-col>
                             <a-col>
-                                <a-button type="primary"
-                                          ghost
-                                          @click="handleSearch">搜索
+                                <a-button
+                                    type="primary"
+                                    ghost
+                                    @click="handleSearch"
+                                    >搜索
                                 </a-button>
                             </a-col>
                         </a-row>
@@ -56,13 +62,14 @@
                 </x-search-bar>
             </template>
         </x-action-bar>
-        <a-table :columns="columns"
-                 :pagination="pagination"
-                 :data-source="list"
-                 :loading="loading"
-                 row-key="id"
-                 @change="onTableChange">
-            <template #bodyCell="{ column, record, index }">
+        <a-table
+            :columns="columns"
+            :pagination="pagination"
+            :data-source="list"
+            :loading="loading"
+            row-key="id"
+            @change="onTableChange">
+            <template #bodyCell="{ column, record }">
                 <template v-if="'action' === column.key">
                     <x-action-button @click="$refs.editRef.handleEdit(record)">编辑</x-action-button>
                     <x-action-button @click="handleDelete(record)">删除</x-action-button>
@@ -86,8 +93,9 @@
         </a-table>
     </a-card>
 
-    <edit ref="editRef"
-          @ok="onOk" />
+    <edit
+        ref="editRef"
+        @ok="onOk" />
 </template>
 
 <script>
@@ -118,10 +126,11 @@ const editRef = ref()
 async function getPageList() {
     const { pageSize, current } = pagination
     loading.value = true
-    const { code, data } = await api.common.getPageList({
-        pageSize,
-        page: current,
-    })
+    const { code, data } = await api.common
+        .getPageList({
+            pageSize,
+            page: current,
+        })
         .catch(() => {
             loading.value = false
         })
@@ -149,10 +158,9 @@ function handleDelete({ id }) {
         content: '确认删除？',
         onOk: async () => {
             loading.value = true
-            const { code } = await api.common.deleteData({ id })
-                .catch(() => {
-                    loading.value = false
-                })
+            const { code } = await api.common.deleteData({ id }).catch(() => {
+                loading.value = false
+            })
             if (200 === code) {
                 message.success('删除成功')
                 await getPageList()
@@ -186,6 +194,4 @@ onMounted(() => {
 })
 </script>
 
-<style lang="less" scoped>
-
-</style>
+<style lang="less" scoped></style>

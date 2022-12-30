@@ -1,10 +1,11 @@
 <template>
     <div class="x-filter-item">
-        <div class="x-filter-item__label"
-             :style="{
-                 width: cptLabelWidth ? `${cptLabelWidth}px` : ''
-             }">
-            {{ dataSource.label ?? label }}
+        <div
+            class="x-filter-item__label"
+            :style="{
+                width: cptLabelWidth ? `${cptLabelWidth}px` : '',
+            }">
+            {{ currentValue.label ?? label }}
             <template v-if="colon">：</template>
         </div>
         <div class="x-filter-item__content">
@@ -14,52 +15,58 @@
             </template>
             <template v-else>
                 <!--tag-->
-                <template v-if="dataSource.options && dataSource.options.length">
+                <template v-if="currentValue.options && currentValue.options.length">
                     <div class="x-filter-tags">
-                        <div v-for="(item) in dataSource.options"
-                             :key="item.value"
-                             class="x-filter-tag"
-                             :class="{
-                                 'x-filter-tag--active': item.selected
-                             }"
-                             @click="handleClick(dataSource, item)">
+                        <div
+                            v-for="item in currentValue.options"
+                            :key="item.value"
+                            class="x-filter-tag"
+                            :class="{
+                                'x-filter-tag--active': item.selected,
+                            }"
+                            @click="handleClick(currentValue, item)">
                             {{ item.label }}
                         </div>
                     </div>
                 </template>
                 <!--input-->
-                <template v-if="TYPE_ENUM.is('input', dataSource.type)">
+                <template v-if="TYPE_ENUM.is('input', currentValue.type)">
                     <a-space>
-                        <a-input v-model:value="dataSource.value"
-                                 allow-clear
-                                 @blur="onChange"></a-input>
+                        <a-input
+                            v-model:value="currentValue.value"
+                            allow-clear
+                            @blur="onChange"></a-input>
                     </a-space>
                 </template>
                 <!--inputRange-->
-                <template v-if="TYPE_ENUM.is('inputRange', dataSource.type)">
+                <template v-if="TYPE_ENUM.is('inputRange', currentValue.type)">
                     <a-space>
-                        <a-input v-model:value="dataSource.value[0]"
-                                 allow-clear
-                                 @blur="onChange"></a-input>
+                        <a-input
+                            v-model:value="currentValue.value[0]"
+                            allow-clear
+                            @blur="onChange"></a-input>
                         <span>~</span>
-                        <a-input v-model:value="dataSource.value[1]"
-                                 allow-clear
-                                 @blur="onChange"></a-input>
+                        <a-input
+                            v-model:value="currentValue.value[1]"
+                            allow-clear
+                            @blur="onChange"></a-input>
                     </a-space>
                 </template>
                 <!--date-->
-                <template v-if="TYPE_ENUM.is('date', dataSource.type)">
-                    <a-date-picker v-model:value="dataSource.value"
-                                   allow-clear
-                                   :value-format="dataSource.valueFormat"
-                                   @change="onChange"></a-date-picker>
+                <template v-if="TYPE_ENUM.is('date', currentValue.type)">
+                    <a-date-picker
+                        v-model:value="currentValue.value"
+                        allow-clear
+                        :value-format="currentValue.valueFormat"
+                        @change="onChange"></a-date-picker>
                 </template>
                 <!--dateRange-->
-                <template v-if="TYPE_ENUM.is('dateRange', dataSource.type)">
-                    <a-range-picker v-model:value="dataSource.value"
-                                    allow-clear
-                                    :value-format="dataSource.valueFormat"
-                                    @change="onChange"></a-range-picker>
+                <template v-if="TYPE_ENUM.is('dateRange', currentValue.type)">
+                    <a-range-picker
+                        v-model:value="currentValue.value"
+                        allow-clear
+                        :value-format="currentValue.valueFormat"
+                        @change="onChange"></a-range-picker>
                 </template>
             </template>
         </div>
@@ -71,7 +78,7 @@ export default { name: 'XFilterItem' }
 </script>
 
 <script setup>
-import { computed, inject } from 'vue'
+import { computed, inject, ref, watchEffect } from 'vue'
 import { TYPE_ENUM } from './config'
 
 /**
@@ -95,14 +102,15 @@ const props = defineProps({
     },
 })
 
-const {
-    labelWidth: ctxLabelWidth,
-    colon,
-    handleClick,
-    onChange,
-} = inject('filterContext')
+const { labelWidth: ctxLabelWidth, colon, handleClick, onChange } = inject('filterContext')
+const currentValue = ref({})
 
 const cptLabelWidth = computed(() => ctxLabelWidth || props.labelWidth)
+
+watchEffect(() => {
+    if (currentValue.value === props.dataSource) return
+    currentValue.value = props.dataSource
+})
 </script>
 
 <style lang="less" scoped>
@@ -155,7 +163,7 @@ const cptLabelWidth = computed(() => ctxLabelWidth || props.labelWidth)
         border-radius: @border-radius-base;
         cursor: pointer;
         border: transparent solid 1px;
-        transition: all .15s;
+        transition: all 0.15s;
 
         &:hover {
             color: @primary-color;

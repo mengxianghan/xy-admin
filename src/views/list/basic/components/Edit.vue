@@ -1,17 +1,20 @@
 <template>
-    <a-modal :visible="modal.visible"
-             :title="modal.title"
-             :confirm-loading="modal.confirmLoading"
-             :after-close="onAfterClose"
-             @ok="handleOk"
-             @cancel="handleCancel">
-        <a-form ref="formRef"
-                :model="formState"
-                :rules="rules"
-                scroll-to-first-error
-                layout="vertical">
-            <a-form-item label="标题"
-                         name="title">
+    <a-modal
+        :visible="modal.visible"
+        :title="modal.title"
+        :confirm-loading="modal.confirmLoading"
+        :after-close="onAfterClose"
+        @ok="handleOk"
+        @cancel="handleCancel">
+        <a-form
+            ref="formRef"
+            :model="formState"
+            :rules="rules"
+            scroll-to-first-error
+            layout="vertical">
+            <a-form-item
+                label="标题"
+                name="title">
                 <a-input v-model:value="formState.title"></a-input>
             </a-form-item>
         </a-form>
@@ -59,7 +62,8 @@ function handleEdit(record) {
  * 确定
  */
 function handleOk() {
-    formRef.value.validateFields()
+    formRef.value
+        .validateFields()
         .then(async (values) => {
             showLoading()
             const params = {
@@ -67,17 +71,16 @@ function handleOk() {
                 ...values,
             }
             let result = null
-            result = await api.common.saveData(params)
-                .catch(() => {
-                    hideLoading()
-                })
+            result = await api.common.saveData(params).catch(() => {
+                hideLoading()
+            })
             hideLoading()
             if (200 === result?.code) {
                 hideModal()
                 emit('ok')
             }
         })
-        .catch((err) => {
+        .catch(() => {
             hideLoading()
         })
 }
@@ -98,10 +101,8 @@ function onAfterClose() {
 
 defineExpose({
     handleCreate,
-    handleEdit
+    handleEdit,
 })
 </script>
 
-<style lang="less" scoped>
-
-</style>
+<style lang="less" scoped></style>
