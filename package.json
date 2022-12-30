@@ -1,7 +1,7 @@
 {
     "name": "xy-admin",
     "private": true,
-    "version": "2.3.3",
+    "version": "2.3.4",
     "scripts": {
         "dev": "vite --mode dev",
         "build:test": "vite build --mode test",
