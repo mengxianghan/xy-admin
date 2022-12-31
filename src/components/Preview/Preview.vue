@@ -96,9 +96,9 @@ watch(
 /**
  * 打开
  */
-// function handleOpen() {
-//     visible.value = true
-// }
+function handleOpen() {
+    visible.value = true
+}
 
 /**
  * 关闭
@@ -154,6 +154,10 @@ function onCurrentChange() {
     prevBtn.value = current.value > 0
     nextBtn.value = current.value < props.urls.length - 1
 }
+
+defineExpose({
+    handleOpen,
+})
 </script>
 
 <style lang="less">
