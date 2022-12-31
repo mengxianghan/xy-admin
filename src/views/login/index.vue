@@ -103,6 +103,12 @@
     </div>
 </template>
 
+<script>
+export default {
+    name: 'login',
+}
+</script>
+
 <script setup>
 import { ref, computed, onMounted } from 'vue'
 import { useAppStore, useUserStore, useRouterStore } from '@/store'

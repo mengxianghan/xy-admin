@@ -34,7 +34,9 @@
 </template>
 
 <script>
-export default { name: 'MenuSub' }
+export default {
+    name: 'MenuSub',
+}
 </script>
 
 <script setup>

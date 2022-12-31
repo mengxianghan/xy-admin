@@ -55,7 +55,9 @@
 </template>
 
 <script>
-export default { name: 'resultSuccess' }
+export default {
+    name: 'resultSuccess',
+}
 </script>
 
 <script setup></script>

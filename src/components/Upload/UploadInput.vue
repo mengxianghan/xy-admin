@@ -20,7 +20,9 @@
 </template>
 
 <script>
-export default { name: 'XUploadInput' }
+export default {
+    name: 'XUploadInput',
+}
 </script>
 
 <script setup>

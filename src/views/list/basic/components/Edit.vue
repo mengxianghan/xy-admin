@@ -21,6 +21,12 @@
     </a-modal>
 </template>
 
+<script>
+export default {
+    name: 'Edit',
+}
+</script>
+
 <script setup>
 import cloneDeep from 'lodash/cloneDeep'
 

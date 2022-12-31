@@ -61,7 +61,9 @@
 </template>
 
 <script>
-export default { name: 'componentFilter' }
+export default {
+    name: 'componentFilter',
+}
 </script>
 
 <script setup>

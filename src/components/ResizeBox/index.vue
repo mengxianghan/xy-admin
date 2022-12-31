@@ -18,7 +18,9 @@
 </template>
 
 <script>
-export default { name: 'XResizeBox' }
+export default {
+    name: 'XResizeBox',
+}
 </script>
 
 <script setup>
@@ -31,7 +33,6 @@ import { directionEnum } from './config'
  * @property {number} height // 高
  * @property {array} directions // 可以进行伸缩的边，默认：['right']；['left', 'right', 'top', 'bottom']
  */
-
 const props = defineProps({
     width: {
         type: Number,

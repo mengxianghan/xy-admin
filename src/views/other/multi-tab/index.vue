@@ -39,7 +39,9 @@
 </template>
 
 <script>
-export default { name: 'otherMultiTab' }
+export default {
+    name: 'otherMultiTab',
+}
 </script>
 
 <script setup>

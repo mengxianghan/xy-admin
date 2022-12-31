@@ -15,7 +15,9 @@
 </template>
 
 <script>
-export default { name: 'XCropper' }
+export default {
+    name: 'XCropper',
+}
 </script>
 
 <script setup>
@@ -30,7 +32,6 @@ import 'cropperjs/dist/cropper.min.css'
  * @property {number} aspectRatio 比例，默认：自由裁剪
  * @property {number} quality 图片质量，取值范围：0-1，默认：1
  */
-
 const props = defineProps({
     src: {
         type: String,

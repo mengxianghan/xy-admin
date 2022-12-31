@@ -77,7 +77,9 @@
 </template>
 
 <script>
-export default { name: 'systemUser' }
+export default {
+    name: 'systemUser',
+}
 </script>
 
 <script setup>

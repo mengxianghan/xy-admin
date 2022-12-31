@@ -10,14 +10,15 @@
 </template>
 
 <script>
-export default { name: 'XActionButton' }
+export default {
+    name: 'XActionButton',
+}
 </script>
 
 <script setup>
 /**
  * @property {string} tag html标签，默认：a
  */
-
 defineProps({
     tag: {
         type: String,

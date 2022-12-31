@@ -414,7 +414,7 @@ export const asyncRouterMap = [
     },
     {
         path: 'iframe',
-        name: 'iframe',
+        name: 'iframePage',
         component: 'RouteViewLayout',
         meta: {
             icon: 'IconLayoutOutlined',

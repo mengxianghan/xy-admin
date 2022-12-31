@@ -64,7 +64,9 @@
 </template>
 
 <script>
-export default { name: 'componentCropper' }
+export default {
+    name: 'componentCropper',
+}
 </script>
 
 <script setup>

@@ -46,7 +46,9 @@
 </template>
 
 <script>
-export default { name: 'XLayoutHeader' }
+export default {
+    name: 'XLayoutHeader',
+}
 </script>
 
 <script setup>
@@ -58,7 +60,6 @@ import { Modal } from 'ant-design-vue'
 /**
  * @property {boolean} collapsed 收起状态，默认：false
  */
-
 const props = defineProps({
     collapsed: {
         type: Boolean,

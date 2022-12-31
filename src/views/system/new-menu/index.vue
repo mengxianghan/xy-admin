@@ -126,7 +126,9 @@
 </template>
 
 <script>
-export default { name: 'systemNewMenu' }
+export default {
+    name: 'systemNewMenu',
+}
 </script>
 
 <script setup>

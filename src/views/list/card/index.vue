@@ -53,7 +53,9 @@
 </template>
 
 <script>
-export default { name: 'listCard' }
+export default {
+    name: 'listCard',
+}
 </script>
 
 <script setup>

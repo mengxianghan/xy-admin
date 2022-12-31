@@ -14,7 +14,9 @@
 </template>
 
 <script>
-export default { name: 'otherBadge' }
+export default {
+    name: 'otherBadge',
+}
 </script>
 
 <script setup>

@@ -46,7 +46,9 @@
 </template>
 
 <script>
-export default { name: 'componentResizebox' }
+export default {
+    name: 'componentResizebox',
+}
 </script>
 
 <script setup>

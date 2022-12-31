@@ -22,6 +22,12 @@
     </a-list>
 </template>
 
+<script>
+export default {
+    name: 'Custom',
+}
+</script>
+
 <script setup>
 import { ref } from 'vue'
 

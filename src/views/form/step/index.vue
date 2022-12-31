@@ -24,7 +24,9 @@
 </template>
 
 <script>
-export default { name: 'formStep' }
+export default {
+    name: 'formStep',
+}
 </script>
 
 <script setup>

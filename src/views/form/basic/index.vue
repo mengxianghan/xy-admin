@@ -81,7 +81,9 @@
 </template>
 
 <script>
-export default { name: 'formBasic' }
+export default {
+    name: 'formBasic',
+}
 </script>
 
 <script setup>

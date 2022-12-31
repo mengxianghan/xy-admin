@@ -131,7 +131,9 @@
 </template>
 
 <script>
-export default { name: 'componentUpload' }
+export default {
+    name: 'componentUpload',
+}
 </script>
 
 <script setup>

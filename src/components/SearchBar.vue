@@ -7,7 +7,9 @@
 </template>
 
 <script>
-export default { name: 'XSearchBar' }
+export default {
+    name: 'XSearchBar',
+}
 </script>
 
 <script setup>

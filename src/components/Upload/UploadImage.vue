@@ -96,7 +96,9 @@
 </template>
 
 <script>
-export default { name: 'XUploadImage' }
+export default {
+    name: 'XUploadImage',
+}
 </script>
 
 <script setup>
@@ -134,7 +136,6 @@ import CropperModal from '../CropperModal.vue'
  * @property {number} quality 图片质量，取值范围：0-1，默认：1
  * @property {boolean} dragsort 拖拽排序，默认：false
  */
-
 const props = defineProps({
     modelValue: {
         type: [String, Array],

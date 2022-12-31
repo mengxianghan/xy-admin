@@ -70,7 +70,9 @@
 </template>
 
 <script>
-export default { name: 'Step1' }
+export default {
+    name: 'Step1',
+}
 </script>
 
 <script setup>

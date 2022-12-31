@@ -11,6 +11,12 @@
     </div>
 </template>
 
+<script>
+export default {
+    name: 'iframePage',
+}
+</script>
+
 <script setup>
 import { computed, ref } from 'vue'
 import { useRoute } from 'vue-router'

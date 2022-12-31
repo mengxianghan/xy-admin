@@ -47,6 +47,12 @@
     </a-row>
 </template>
 
+<script>
+export default {
+    name: 'Basic',
+}
+</script>
+
 <script setup></script>
 
 <style lang="less" scoped></style>

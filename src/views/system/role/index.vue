@@ -34,7 +34,9 @@
 </template>
 
 <script>
-export default { name: 'systemRole' }
+export default {
+    name: 'systemRole',
+}
 </script>
 
 <script setup>

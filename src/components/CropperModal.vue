@@ -16,7 +16,9 @@
 </template>
 
 <script>
-export default { name: 'XCropperModal' }
+export default {
+    name: 'XCropperModal',
+}
 </script>
 
 <script setup>
@@ -29,7 +31,6 @@ import Cropper from './Cropper.vue'
  * @property {number} aspectRatio 比例，默认：自由裁剪
  * @property {number} quality 图片质量，取值范围：0-1，默认：1
  */
-
 defineProps({
     aspectRatio: {
         type: Number,

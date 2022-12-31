@@ -61,7 +61,9 @@
 </template>
 
 <script>
-export default { name: 'systemMenu' }
+export default {
+    name: 'systemMenu',
+}
 </script>
 
 <script setup>

@@ -74,7 +74,9 @@
 </template>
 
 <script>
-export default { name: 'XFilterItem' }
+export default {
+    name: 'XFilterItem',
+}
 </script>
 
 <script setup>
@@ -86,7 +88,6 @@ import { TYPE_ENUM } from './config'
  * @property {number} labelWidth 标签宽度，默认：80
  * @property {string} label 标签内容
  */
-
 const props = defineProps({
     dataSource: {
         type: Object,

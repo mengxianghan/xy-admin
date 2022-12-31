@@ -30,7 +30,9 @@
 </template>
 
 <script>
-export default { name: 'XLayoutMenu' }
+export default {
+    name: 'XLayoutMenu',
+}
 </script>
 
 <script setup>
@@ -45,7 +47,6 @@ import MenuSub from './MenuSub.vue'
 /**
  * @property {string} theme 主题【light=亮色，dark=暗色】，默认：dark
  */
-
 const props = defineProps({
     theme: {
         type: String,

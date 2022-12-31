@@ -38,7 +38,9 @@
 </template>
 
 <script>
-export default { name: 'XFormTable' }
+export default {
+    name: 'XFormTable',
+}
 </script>
 
 <script setup>
@@ -51,7 +53,6 @@ import cloneDeep from 'lodash/cloneDeep'
  * @property {array} modelValue v-model
  * @property {object} rowTpl 行模板
  */
-
 const props = defineProps({
     modelValue: {
         type: Array,

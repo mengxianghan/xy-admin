@@ -4,6 +4,12 @@
         :data-source="list"></a-list>
 </template>
 
+<script>
+export default {
+    name: 'Bind',
+}
+</script>
+
 <script setup>
 import { ref } from 'vue'
 

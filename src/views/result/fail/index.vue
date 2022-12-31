@@ -33,7 +33,9 @@
 </template>
 
 <script>
-export default { name: 'resultFail' }
+export default {
+    name: 'resultFail',
+}
 </script>
 
 <script setup></script>

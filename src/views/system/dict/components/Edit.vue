@@ -37,6 +37,12 @@
     </a-modal>
 </template>
 
+<script>
+export default {
+    name: 'Edit',
+}
+</script>
+
 <script setup>
 import useModal from '@/hooks/useModal'
 import useForm from '@/hooks/useForm'

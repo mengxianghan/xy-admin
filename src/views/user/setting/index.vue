@@ -27,7 +27,9 @@
 </template>
 
 <script>
-export default { name: 'userSetting' }
+export default {
+    name: 'userSetting',
+}
 </script>
 
 <script setup>

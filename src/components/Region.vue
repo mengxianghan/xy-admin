@@ -9,7 +9,9 @@
 </template>
 
 <script>
-export default { name: 'XRegion' }
+export default {
+    name: 'XRegion',
+}
 </script>
 
 <script setup>

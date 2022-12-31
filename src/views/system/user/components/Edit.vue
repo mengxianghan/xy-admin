@@ -55,6 +55,12 @@
     </a-modal>
 </template>
 
+<script>
+export default {
+    name: 'Edit',
+}
+</script>
+
 <script setup>
 import { ref } from 'vue'
 

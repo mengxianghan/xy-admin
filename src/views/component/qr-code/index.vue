@@ -53,7 +53,9 @@
 </template>
 
 <script>
-export default { name: 'componentQrCode' }
+export default {
+    name: 'componentQrCode',
+}
 </script>
 
 <script setup>

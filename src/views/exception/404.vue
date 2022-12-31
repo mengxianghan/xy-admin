@@ -13,6 +13,12 @@
     </a-result>
 </template>
 
+<script>
+export default {
+    name: '404',
+}
+</script>
+
 <script setup>
 import { useRouter } from 'vue-router'
 

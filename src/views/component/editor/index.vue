@@ -40,7 +40,9 @@
 </template>
 
 <script>
-export default { name: 'componentEditor' }
+export default {
+    name: 'componentEditor',
+}
 </script>
 
 <script setup>

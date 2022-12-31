@@ -9,6 +9,12 @@
     </a-result>
 </template>
 
+<script>
+export default {
+    name: '500',
+}
+</script>
+
 <script setup></script>
 
 <style lang="less" scoped></style>

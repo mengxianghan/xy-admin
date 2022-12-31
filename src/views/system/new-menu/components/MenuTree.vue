@@ -45,6 +45,12 @@
     </a-card>
 </template>
 
+<script>
+export default {
+    name: 'MenuTree',
+}
+</script>
+
 <script setup>
 import { onMounted, ref } from 'vue'
 import { message, Modal } from 'ant-design-vue'

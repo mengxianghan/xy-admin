@@ -13,7 +13,9 @@
 </template>
 
 <script>
-export default { name: 'XEditor' }
+export default {
+    name: 'XEditor',
+}
 </script>
 
 <script setup>
@@ -34,7 +36,6 @@ import 'tinymce/icons/default'
  * @property {string} placeholder 占位文案
  * @property {boolean} disabled 禁用，默认：false
  */
-
 const props = defineProps({
     modelValue: {
         type: String,

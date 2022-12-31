@@ -47,7 +47,9 @@
 </template>
 
 <script>
-export default { name: 'componentFormTable' }
+export default {
+    name: 'componentFormTable',
+}
 </script>
 
 <script setup>

@@ -32,7 +32,9 @@
 </template>
 
 <script>
-export default { name: 'XFilter' }
+export default {
+    name: 'XFilter',
+}
 </script>
 
 <script setup>
@@ -47,17 +49,16 @@ import FilterItem from './FilterItem.vue'
  * 筛选组件
  * @property {object} modelValue
  * @property {array} dataSource
- *  @value {string} label 名称，必填
- *  @value {string} key 索引，必填，多条件不允许重复
- *  @value {string} type 筛选显示类型，默认：tag；可选值：tag=标签，input=输入框，inputRange=区间输入框，date=日期，dateRange=日期区间
- *  @value {boolean} multiple 多选，仅限 tag
- *  @value {array} options 选项列表，仅限 tag
- *      @value {string} label 选项名称
- *      @value {string | number} value 选项值
+ * @value {string} dataSource.label 名称，必填
+ * @value {string} dataSource.key 索引，必填，多条件不允许重复
+ * @value {string} dataSource.type 筛选显示类型，默认：tag；可选值：tag=标签，input=输入框，inputRange=区间输入框，date=日期，dateRange=日期区间
+ * @value {boolean} dataSource.multiple 多选，仅限 tag
+ * @value {array} dataSource.options 选项列表，仅限 tag
+ * @value {string} dataSource.options.label 选项名称
+ * @value {string | number} dataSource.options.value 选项值
  * @property {boolean} colon 是否显示冒号，默认：true
  * @property {boolean} useButton 使用按钮，默认：false
  */
-
 const props = defineProps({
     modelValue: {
         type: Object,

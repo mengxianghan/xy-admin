@@ -67,7 +67,9 @@
 </template>
 
 <script>
-export default { name: 'XMultiTab' }
+export default {
+    name: 'XMultiTab',
+}
 </script>
 
 <script setup>

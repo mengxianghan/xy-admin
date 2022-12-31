@@ -9,6 +9,12 @@
     </a-result>
 </template>
 
+<script>
+export default {
+    name: '403',
+}
+</script>
+
 <script setup></script>
 
 <style lang="less" scoped></style>

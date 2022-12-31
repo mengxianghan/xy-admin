@@ -99,7 +99,9 @@
 </template>
 
 <script>
-export default { name: 'listBasic' }
+export default {
+    name: 'listBasic',
+}
 </script>
 
 <script setup>

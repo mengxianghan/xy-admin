@@ -13,7 +13,9 @@
 </template>
 
 <script>
-export default { name: 'XActionBar' }
+export default {
+    name: 'XActionBar',
+}
 </script>
 
 <script setup>
@@ -23,7 +25,6 @@ import { computed } from 'vue'
  * 操作条
  * @property {string} type 类型，【default=默认，card=卡片】
  */
-
 const props = defineProps({
     type: {
         type: String,

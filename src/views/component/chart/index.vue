@@ -58,7 +58,9 @@
 </template>
 
 <script>
-export default { name: 'componentChart' }
+export default {
+    name: 'componentChart',
+}
 </script>
 
 <script setup>

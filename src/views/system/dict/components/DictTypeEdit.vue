@@ -32,6 +32,12 @@
     </a-modal>
 </template>
 
+<script>
+export default {
+    name: 'DictTypeEdit',
+}
+</script>
+
 <script setup>
 import cloneDeep from 'lodash/cloneDeep'
 

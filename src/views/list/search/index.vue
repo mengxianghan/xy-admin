@@ -43,7 +43,9 @@
 </template>
 
 <script>
-export default { name: 'listSearch' }
+export default {
+    name: 'listSearch',
+}
 </script>
 
 <script setup>

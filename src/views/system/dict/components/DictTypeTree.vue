@@ -47,6 +47,12 @@
     <dict-type-edit ref="editRef" />
 </template>
 
+<script>
+export default {
+    name: 'DictTypeTree',
+}
+</script>
+
 <script setup>
 import { ref, onMounted } from 'vue'
 import { message, Modal } from 'ant-design-vue'

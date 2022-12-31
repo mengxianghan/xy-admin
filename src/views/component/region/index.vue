@@ -35,7 +35,9 @@
 </template>
 
 <script>
-export default { name: 'componentRegion' }
+export default {
+    name: 'componentRegion',
+}
 </script>
 
 <script setup>

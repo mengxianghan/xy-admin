@@ -5,7 +5,9 @@
 </template>
 
 <script>
-export default { name: 'XChart' }
+export default {
+    name: 'XChart',
+}
 </script>
 
 <script setup>
@@ -14,11 +16,11 @@ import { onMounted, ref, markRaw, watch } from 'vue'
 import * as echarts from 'echarts'
 
 /**
+ * 图表
  * @property {object} options 配置信息
  * @property {number | string} width 宽
  * @property {number | string} height 高
  */
-
 const props = defineProps({
     options: {
         type: Object,

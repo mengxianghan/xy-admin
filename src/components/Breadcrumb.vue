@@ -9,7 +9,9 @@
 </template>
 
 <script>
-export default { name: 'XBreadcrumb' }
+export default {
+    name: 'XBreadcrumb',
+}
 </script>
 
 <script setup>

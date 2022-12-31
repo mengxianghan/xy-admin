@@ -54,7 +54,9 @@
 </template>
 
 <script>
-export default { name: 'Preview' }
+export default {
+    name: 'Preview',
+}
 </script>
 
 <script setup>
@@ -68,7 +70,6 @@ import Preview from './index'
 /**
  * @property {array} urlList 文件列表
  */
-
 const props = defineProps({
     urls: {
         type: Array,

@@ -78,7 +78,9 @@
 </template>
 
 <script>
-export default { name: 'systemDict' }
+export default {
+    name: 'systemDict',
+}
 </script>
 
 <script setup>

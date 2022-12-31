@@ -3,7 +3,9 @@
 </template>
 
 <script>
-export default { name: 'XQrCode' }
+export default {
+    name: 'XQrCode',
+}
 </script>
 
 <script setup>
@@ -24,7 +26,6 @@ import QRCode from 'qrcode'
  * @property {string} errorCorrectionLevel 容错级别，默认：M，【L=low, M=medium, Q=quartile, H=high】
  * @property {number} margin 安静区宽度，默认：2
  */
-
 const props = defineProps({
     text: {
         type: String,
