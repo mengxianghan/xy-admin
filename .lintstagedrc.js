@@ -1,3 +1,3 @@
 module.exports = {
-    'src/*.{js,vue}': (filenames) => `eslint --ext ${filenames.join(' ')} --fix`,
+    'src/*.{js,vue}': (filenames) => `eslint --no-cache --ext ${filenames.join(' ')} --fix`,
 }
