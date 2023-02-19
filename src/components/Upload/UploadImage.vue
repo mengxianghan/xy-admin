@@ -107,10 +107,10 @@ import { nanoid } from 'nanoid'
 import { Form, message } from 'ant-design-vue'
 import { mergeDeep } from '@/utils'
 import { STATUS_ENUM } from './config'
+import { filesize } from 'filesize'
 
 import Sortable from 'sortablejs'
 import filesizeParser from 'filesize-parser'
-import filesize from 'filesize'
 import some from 'lodash/some'
 import findIndex from 'lodash/findIndex'
 import includes from 'lodash/includes'
@@ -306,10 +306,10 @@ function handleCancel({ key }) {
  * 上传前
  */
 function onBeforeUpload(file) {
-    const maxFileSize = props.maxSize instanceof Number ? props.maxSize : filesizeParser(props.maxSize, { base: 10.24 })
+    const maxFileSize = props.maxSize instanceof Number ? props.maxSize : filesizeParser(props.maxSize)
     const checkFileSize = file?.size < maxFileSize
     if (!checkFileSize) {
-        message.warning(`已忽略超过 ${filesize(maxFileSize, { base: 10.24 })} 的文件`)
+        message.warning(`已忽略超过 ${filesize(maxFileSize)} 的文件`)
     }
     const checkCropper = props.cropper ? (props.multiple ? true : false) : true
     if (props.cropper && !props.multiple) {
