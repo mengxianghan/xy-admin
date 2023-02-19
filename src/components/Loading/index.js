@@ -1,28 +1,31 @@
-import LoadingConstructor from './Loading.vue'
 import { createVNode, render } from 'vue'
 
-let vm = null
+import LoadingConstructor from './Loading.vue'
 
-const close = () => {
-    if (vm) {
-        vm.el.parentNode.parentNode.removeChild(vm.el.parentNode)
-        vm = null
-    }
+let container = null
+
+function show(props) {
+    if (container) Loading.hide()
+    container = document.createElement('div')
+    const vnode = createVNode(LoadingConstructor, props)
+    render(vnode, container)
+    document.body.appendChild(container)
 }
 
 const Loading = (props) => {
-    if (vm) {
-        close()
-    }
-    vm = createVNode(LoadingConstructor, props)
-    const container = document.createElement('div')
-    render(vm, container)
-    document.body.appendChild(container)
-    return Loading
+    show(props)
 }
 
-Loading.close = () => {
-    close()
+Loading.hide = () => {
+    if (!container) return
+    document.body.removeChild(container)
+    container = null
+}
+
+Loading.error = () => {
+    show({
+        status: 'error',
+    })
 }
 
 export default Loading

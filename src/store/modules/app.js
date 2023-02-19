@@ -1,5 +1,4 @@
 import { defineStore } from 'pinia'
-import { loading } from '@/components'
 
 import useRouterStore from './router'
 
@@ -17,16 +16,12 @@ const useAppStore = defineStore('app', {
         init() {
             const routerStore = useRouterStore()
             return new Promise((resolve) => {
-                loading()
                 Promise.all([routerStore.getRouterList()])
                     .then(() => {
-                        loading.close()
                         this.complete = true
                         resolve()
                     })
-                    .catch(() => {
-                        loading.close()
-                    })
+                    .catch(() => {})
             })
         },
     },
