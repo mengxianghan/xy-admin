@@ -1,11 +1,11 @@
 <template>
     <a-modal
-        :visible="visible"
         width="100%"
         wrap-class-name="full-modal"
-        :footer="false"
         destroy-on-close
-        @cancel="handleClose">
+        :visible="visible"
+        :footer="false"
+        @cancel="close">
         <div class="x-preview__content">
             <img
                 :src="url"
@@ -65,8 +65,6 @@ import { Modal as AModal } from 'ant-design-vue'
 import { LeftOutlined, RightOutlined } from '@ant-design/icons-vue'
 import { ACTION_ENUM } from './config'
 
-import Preview from './index'
-
 /**
  * @property {array} urlList 文件列表
  */
@@ -81,8 +79,9 @@ const styles = ref({})
 const current = ref(0)
 const prevBtn = ref(true)
 const nextBtn = ref(true)
-const url = computed(() => props.urls[current.value])
 const visible = ref(false)
+
+const url = computed(() => props.urls[current.value])
 
 watch(
     () => props.urls,
@@ -96,16 +95,15 @@ watch(
 /**
  * 打开
  */
-function handleOpen() {
+function open() {
     visible.value = true
 }
 
 /**
  * 关闭
  */
-function handleClose() {
+function close() {
     visible.value = false
-    Preview.close()
 }
 
 /**
@@ -156,7 +154,8 @@ function onCurrentChange() {
 }
 
 defineExpose({
-    handleOpen,
+    open,
+    close,
 })
 </script>
 
