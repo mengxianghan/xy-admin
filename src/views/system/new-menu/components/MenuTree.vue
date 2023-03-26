@@ -46,67 +46,73 @@
 </template>
 
 <script>
-export default {
-    name: 'MenuTree',
-}
-</script>
-
-<script setup>
 import { onMounted, ref } from 'vue'
 import { message, Modal } from 'ant-design-vue'
-
 import api from '@/api'
 import usePagination from '@/hooks/usePagination'
 
-const emit = defineEmits(['select', 'ready'])
+export default {
+    name: 'MenuTree',
+    emits: ['select', 'ready'],
+    setup(props, { emit }) {
+        const { list, loading } = usePagination()
+        const selectedKeys = ref([])
+        const keyword = ref('')
 
-const { list, loading } = usePagination()
-const selectedKeys = ref([])
-const keyword = ref('')
+        onMounted(() => {
+            getMenuList()
+        })
 
-onMounted(() => {
-    getMenuList()
-})
+        /**
+         * 获取菜单列表
+         */
+        async function getMenuList() {
+            loading.value = true
+            const { code, data } = await api.system.getNewMenuList().catch(() => {
+                loading.value = false
+            })
+            loading.value = false
+            if (200 === code) {
+                const { rows } = data
+                list.value = rows
+                emit('ready', rows)
+            }
+        }
 
-/**
- * 获取菜单列表
- */
-async function getMenuList() {
-    loading.value = true
-    const { code, data } = await api.system.getNewMenuList().catch(() => {
-        loading.value = false
-    })
-    loading.value = false
-    if (200 === code) {
-        const { rows } = data
-        list.value = rows
-        emit('ready', rows)
-    }
-}
+        /**
+         * 选择菜单
+         * @param keys
+         */
+        function handleSelect(keys, { node }) {
+            if (!keys.length) {
+                return
+            }
+            selectedKeys.value = keys
+            emit('select', node)
+        }
 
-/**
- * 选择菜单
- * @param keys
- */
-function handleSelect(keys, { node }) {
-    if (!keys.length) {
-        return
-    }
-    selectedKeys.value = keys
-    emit('select', node)
-}
+        /**
+         * 删除
+         */
+        function handleDelete() {
+            Modal.confirm({
+                title: '删除提示',
+                content: '确认删除？',
+                onOk: async () => {
+                    message.info('点击了删除')
+                },
+            })
+        }
 
-/**
- * 删除
- */
-function handleDelete() {
-    Modal.confirm({
-        title: '删除提示',
-        content: '确认删除？',
-        onOk: async () => {
-            message.info('点击了删除')
-        },
-    })
+        return {
+            keyword,
+            loading,
+            selectedKeys,
+            list,
+            handleSelect,
+            handleDelete,
+        }
+    },
 }
 </script>
 

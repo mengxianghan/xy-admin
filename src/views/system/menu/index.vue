@@ -61,73 +61,82 @@
 </template>
 
 <script>
-export default {
-    name: 'systemMenu',
-}
-</script>
-
-<script setup>
 import { onMounted, ref } from 'vue'
 import { menuTypeEnum } from '@/enums/system'
 import { message, Modal } from 'ant-design-vue'
-
 import api from '@/api'
 import usePagination from '@/hooks/usePagination'
-
 import Edit from './components/Edit.vue'
 
-const columns = ref([
-    { title: '#', key: 'no', width: 60, align: 'center' },
-    { title: '名称', dataIndex: 'name' },
-    { title: '类型', dataIndex: 'type', key: 'type', width: 120 },
-    { title: '排序', dataIndex: 'sort', width: 80 },
-    { title: '操作', key: 'action', width: 240 },
-])
-const { list, loading } = usePagination()
-const editRef = ref()
+export default {
+    name: 'systemMenu',
+    components: {
+        Edit,
+    },
+    setup() {
+        const columns = ref([
+            { title: '#', key: 'no', width: 60, align: 'center' },
+            { title: '名称', dataIndex: 'name' },
+            { title: '类型', dataIndex: 'type', key: 'type', width: 120 },
+            { title: '排序', dataIndex: 'sort', width: 80 },
+            { title: '操作', key: 'action', width: 240 },
+        ])
+        const { list, loading } = usePagination()
+        const editRef = ref()
 
-onMounted(() => {
-    getMenuList()
-})
+        onMounted(() => {
+            getMenuList()
+        })
 
-/**
- * 获取菜单列表
- * @return {Promise<void>}
- */
-async function getMenuList() {
-    loading.value = true
-    const { code, data } = await api.system.getMenuList().catch(() => {
-        loading.value = false
-    })
-    loading.value = false
-    if (200 === code) {
-        const { rows } = data
-        list.value = rows
-    }
-}
-
-/**
- * 删除
- * @param id
- */
-function handleDelete({ id }) {
-    Modal.confirm({
-        title: '删除提示',
-        content: '确认删除？',
-        onOk: async () => {
+        /**
+         * 获取菜单列表
+         * @return {Promise<void>}
+         */
+        async function getMenuList() {
             loading.value = true
-            const { code } = await api.common.deleteData({ id }).catch(() => {
+            const { code, data } = await api.system.getMenuList().catch(() => {
                 loading.value = false
             })
+            loading.value = false
             if (200 === code) {
-                message.success('删除成功')
-                await getMenuList()
-            } else {
-                loading.value = false
+                const { rows } = data
+                list.value = rows
             }
-        },
-    })
+        }
+
+        /**
+         * 删除
+         * @param id
+         */
+        function handleDelete({ id }) {
+            Modal.confirm({
+                title: '删除提示',
+                content: '确认删除？',
+                onOk: async () => {
+                    loading.value = true
+                    const { code } = await api.common.deleteData({ id }).catch(() => {
+                        loading.value = false
+                    })
+                    if (200 === code) {
+                        message.success('删除成功')
+                        await getMenuList()
+                    } else {
+                        loading.value = false
+                    }
+                },
+            })
+        }
+
+        return {
+            menuTypeEnum,
+            list,
+            loading,
+            columns,
+            editRef,
+            handleDelete,
+        }
+    },
 }
 </script>
 
-<style scoped></style>
+<style lang="less" scoped></style>

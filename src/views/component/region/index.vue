@@ -35,23 +35,29 @@
 </template>
 
 <script>
+import { ref } from 'vue'
 export default {
     name: 'componentRegion',
+    setup() {
+        const field1 = ref([])
+        const field2 = ref([1, 11, 111])
+        const field3 = ref([])
+        const field3SelectedOptions = ref([])
+
+        function onChange(value, selectedOptions) {
+            field3.value = value
+            field3SelectedOptions.value = selectedOptions
+        }
+
+        return {
+            field1,
+            field2,
+            field3,
+            field3SelectedOptions,
+            onChange,
+        }
+    },
 }
 </script>
 
-<script setup>
-import { ref } from 'vue'
-
-const field1 = ref([])
-const field2 = ref([1, 11, 111])
-const field3 = ref([])
-const field3SelectedOptions = ref([])
-
-function onChange(value, selectedOptions) {
-    field3.value = value
-    field3SelectedOptions.value = selectedOptions
-}
-</script>
-
-<style scoped></style>
+<style lang="less" scoped></style>

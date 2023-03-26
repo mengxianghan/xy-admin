@@ -13,31 +13,31 @@
 </template>
 
 <script>
-export default {
-    name: 'XActionBar',
-}
-</script>
-
-<script setup>
 import { computed } from 'vue'
 
 /**
  * 操作条
  * @property {string} type 类型，【default=默认，card=卡片】
  */
-const props = defineProps({
-    type: {
-        type: String,
-        default: 'default',
+export default {
+    name: 'XActionBar',
+    props: {
+        type: {
+            type: String,
+            default: 'default',
+        },
     },
-})
+    setup(props) {
+        const classNames = computed(() => {
+            return {
+                'x-action-bar--default': !props.type || 'default' === props.type,
+                'x-action-bar--card': 'card' === props.type,
+            }
+        })
 
-const classNames = computed(() => {
-    return {
-        'x-action-bar--default': !props.type || 'default' === props.type,
-        'x-action-bar--card': 'card' === props.type,
-    }
-})
+        return { classNames }
+    },
+}
 </script>
 
 <style lang="less" scoped>

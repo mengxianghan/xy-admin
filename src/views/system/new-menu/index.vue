@@ -126,38 +126,47 @@
 </template>
 
 <script>
-export default {
-    name: 'systemNewMenu',
-}
-</script>
-
-<script setup>
 import { ref } from 'vue'
-
 import cloneDeep from 'lodash/cloneDeep'
 import useForm from '@/hooks/useForm'
-
 import MenuTree from './components/MenuTree.vue'
 
-const { formState } = useForm()
-const authList = ref([{ name: '新增', alias: 'insert' }])
-const menuList = ref([])
-const menuInfo = ref(null)
+export default {
+    name: 'systemNewMenu',
+    components: {
+        MenuTree,
+    },
+    setup() {
+        const { formState } = useForm()
+        const authList = ref([{ name: '新增', alias: 'insert' }])
+        const menuList = ref([])
+        const menuInfo = ref(null)
 
-/**
- * 选中菜单
- * @param info
- */
-function onMenuSelect(info) {
-    menuInfo.value = cloneDeep(info)
-}
+        /**
+         * 选中菜单
+         * @param info
+         */
+        function onMenuSelect(info) {
+            menuInfo.value = cloneDeep(info)
+        }
 
-/**
- * 菜单准备完成
- * @param info
- */
-function onMenuReady(info) {
-    menuList.value = [{ name: '顶级菜单', key: 0 }, ...info]
+        /**
+         * 菜单准备完成
+         * @param info
+         */
+        function onMenuReady(info) {
+            menuList.value = [{ name: '顶级菜单', key: 0 }, ...info]
+        }
+
+        return {
+            formState,
+            authList,
+            menuInfo,
+            menuList,
+            onMenuSelect,
+            onMenuReady,
+        }
+    },
 }
 </script>
 

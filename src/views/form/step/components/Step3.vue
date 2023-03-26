@@ -73,18 +73,20 @@
 <script>
 export default {
     name: 'Step3',
+    emits: ['finish'],
+    setup(props, { emit }) {
+        /**
+         * 结束
+         */
+        function handleFinish() {
+            emit('finish')
+        }
+
+        return {
+            handleFinish,
+        }
+    },
 }
 </script>
 
-<script setup>
-const emit = defineEmits(['finish'])
-
-/**
- * 结束
- */
-function handleFinish() {
-    emit('finish')
-}
-</script>
-
-<style scoped></style>
+<style lang="less" scoped></style>

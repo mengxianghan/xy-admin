@@ -54,12 +54,6 @@
 </template>
 
 <script>
-export default {
-    name: 'Preview',
-}
-</script>
-
-<script setup>
 import { computed, ref, watch } from 'vue'
 import { Modal as AModal } from 'ant-design-vue'
 import { LeftOutlined, RightOutlined } from '@ant-design/icons-vue'
@@ -68,95 +62,107 @@ import { ACTION_ENUM } from './config'
 /**
  * @property {array} urlList 文件列表
  */
-const props = defineProps({
-    urls: {
-        type: Array,
-        default: () => [],
+export default {
+    name: 'Preview',
+    components: {
+        AModal,
+        LeftOutlined,
+        RightOutlined,
     },
-})
-
-const styles = ref({})
-const current = ref(0)
-const prevBtn = ref(true)
-const nextBtn = ref(true)
-const visible = ref(false)
-
-const url = computed(() => props.urls[current.value])
-
-watch(
-    () => props.urls,
-    (val) => {
-        prevBtn.value = val.length > 0 && current.value > 0
-        nextBtn.value = val.length > 0 && current.value < val.length - 1
+    props: {
+        urls: {
+            type: Array,
+            default: () => [],
+        },
     },
-    { immediate: true }
-)
+    setup(props) {
+        const styles = ref({})
+        const current = ref(0)
+        const prevBtn = ref(true)
+        const nextBtn = ref(true)
+        const visible = ref(false)
 
-/**
- * 打开
- */
-function open() {
-    visible.value = true
-}
+        const url = computed(() => props.urls[current.value])
 
-/**
- * 关闭
- */
-function close() {
-    visible.value = false
-}
+        watch(
+            () => props.urls,
+            (val) => {
+                prevBtn.value = val.length > 0 && current.value > 0
+                nextBtn.value = val.length > 0 && current.value < val.length - 1
+            },
+            { immediate: true }
+        )
 
-/**
- * 操作
- * @param type
- */
-function handleAction(type) {
-    switch (type) {
-        // 缩小
-        case ACTION_ENUM.getValue('zoomOut'):
-            break
-        // 放大
-        case ACTION_ENUM.getValue('zoomIn'):
-            break
-        // 全屏
-        case ACTION_ENUM.getValue('fullscreen'):
-            console.log('全屏')
-            break
-        // 向左旋转
-        case ACTION_ENUM.getValue('rotateLeft'):
-            break
-        // 向右旋转
-        case ACTION_ENUM.getValue('rotateRight'):
-            break
-        // 上一个
-        case ACTION_ENUM.getValue('prev'):
-            if (current.value > 0) {
-                current.value -= 1
+        /**
+         * 打开
+         */
+        function handleOpen() {
+            visible.value = true
+        }
+
+        /**
+         * 关闭
+         */
+        function handleClose() {
+            visible.value = false
+        }
+
+        /**
+         * 操作
+         * @param type
+         */
+        function handleAction(type) {
+            switch (type) {
+                // 缩小
+                case ACTION_ENUM.getValue('zoomOut'):
+                    break
+                // 放大
+                case ACTION_ENUM.getValue('zoomIn'):
+                    break
+                // 全屏
+                case ACTION_ENUM.getValue('fullscreen'):
+                    console.log('全屏')
+                    break
+                // 向左旋转
+                case ACTION_ENUM.getValue('rotateLeft'):
+                    break
+                // 向右旋转
+                case ACTION_ENUM.getValue('rotateRight'):
+                    break
+                // 上一个
+                case ACTION_ENUM.getValue('prev'):
+                    if (current.value > 0) {
+                        current.value -= 1
+                    }
+                    onCurrentChange()
+                    break
+                // 下一个
+                case ACTION_ENUM.getValue('next'):
+                    if (current.value < props.urls.length - 1) {
+                        current.value += 1
+                    }
+                    onCurrentChange()
+                    break
             }
-            onCurrentChange()
-            break
-        // 下一个
-        case ACTION_ENUM.getValue('next'):
-            if (current.value < props.urls.length - 1) {
-                current.value += 1
-            }
-            onCurrentChange()
-            break
-    }
-}
+        }
 
-/**
- * current 发生改变
- */
-function onCurrentChange() {
-    prevBtn.value = current.value > 0
-    nextBtn.value = current.value < props.urls.length - 1
-}
+        /**
+         * current 发生改变
+         */
+        function onCurrentChange() {
+            prevBtn.value = current.value > 0
+            nextBtn.value = current.value < props.urls.length - 1
+        }
 
-defineExpose({
-    open,
-    close,
-})
+        return {
+            styles,
+            url,
+            handleOpen,
+            handleClose,
+            handleAction,
+        }
+    },
+}
 </script>
 
 <style lang="less">

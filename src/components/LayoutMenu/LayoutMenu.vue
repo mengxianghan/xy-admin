@@ -1,7 +1,7 @@
 <template>
     <div
         class="x-layout-menu"
-        :class="classes">
+        :class="cpClassNames">
         <div class="x-layout-menu__brand">
             <img :src="URL_LOGO" />
             <h1>{{ title }}</h1>
@@ -30,12 +30,6 @@
 </template>
 
 <script>
-export default {
-    name: 'XLayoutMenu',
-}
-</script>
-
-<script setup>
 import { computed, onMounted, ref, watch } from 'vue'
 import { useRouterStore } from '@/store'
 import { useRoute } from 'vue-router'
@@ -47,52 +41,71 @@ import MenuSub from './MenuSub.vue'
 /**
  * @property {string} theme 主题【light=亮色，dark=暗色】，默认：dark
  */
-const props = defineProps({
-    theme: {
-        type: String,
-        default: 'dark',
+export default {
+    name: 'XLayoutMenu',
+    components: {
+        MenuLink,
+        MenuSub,
     },
-})
+    props: {
+        theme: {
+            type: String,
+            default: 'dark',
+        },
+    },
+    setup(props) {
+        const routerStore = useRouterStore()
+        const route = useRoute()
+        const title = import.meta.env.VITE_TITLE
+        const collapsed = ref(false)
+        const openKeys = ref([])
+        const selectedKeys = ref([])
+        const menuList = computed(() => routerStore.menuList)
+        const rootSubmenuKeys = computed(() => menuList.value.map((item) => item.name))
+        const cpClassNames = computed(() => {
+            const classList = []
+            classList.push(`x-layout-menu--${props.theme}`)
+            return classList
+        })
+        watch(route, () => setSelectedMenu())
 
-const routerStore = useRouterStore()
-const route = useRoute()
-const title = import.meta.env.VITE_TITLE
-const collapsed = ref(false)
-const openKeys = ref([])
-const selectedKeys = ref([])
-const menuList = computed(() => routerStore.menuList)
-const rootSubmenuKeys = computed(() => menuList.value.map((item) => item.name))
-const classes = computed(() => {
-    const classList = []
-    classList.push(`x-layout-menu--${props.theme}`)
-    return classList
-})
-watch(route, () => setSelectedMenu())
+        onMounted(() => {
+            setSelectedMenu()
+        })
 
-onMounted(() => {
-    setSelectedMenu()
-})
+        /**
+         * 设置选中菜单
+         */
+        function setSelectedMenu() {
+            const { name, meta } = route || {}
+            openKeys.value = meta?.openKeys || []
+            selectedKeys.value = [meta?.active ?? name]
+        }
 
-/**
- * 设置选中菜单
- */
-function setSelectedMenu() {
-    const { name, meta } = route || {}
-    openKeys.value = meta?.openKeys || []
-    selectedKeys.value = [meta?.active ?? name]
-}
+        /**
+         * SubMenu 展开/关闭的回调
+         * @param value
+         */
+        function onOpenChange(value) {
+            const latestOpenKey = value.find((key) => openKeys.value.indexOf(key) === -1)
+            if (rootSubmenuKeys.value.indexOf(latestOpenKey) === -1) {
+                openKeys.value = value
+            } else {
+                openKeys.value = latestOpenKey ? [latestOpenKey] : []
+            }
+        }
 
-/**
- * SubMenu 展开/关闭的回调
- * @param value
- */
-function onOpenChange(value) {
-    const latestOpenKey = value.find((key) => openKeys.value.indexOf(key) === -1)
-    if (rootSubmenuKeys.value.indexOf(latestOpenKey) === -1) {
-        openKeys.value = value
-    } else {
-        openKeys.value = latestOpenKey ? [latestOpenKey] : []
-    }
+        return {
+            title,
+            collapsed,
+            URL_LOGO,
+            openKeys,
+            selectedKeys,
+            menuList,
+            cpClassNames,
+            onOpenChange,
+        }
+    },
 }
 </script>
 

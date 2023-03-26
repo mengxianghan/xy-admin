@@ -64,53 +64,64 @@
 </template>
 
 <script>
-export default {
-    name: 'componentCropper',
-}
-</script>
-
-<script setup>
 import { ref } from 'vue'
-
 import cropperImg from './images/cropper.png'
 
-const aspectRatio = ref(0)
-const quality = ref(1)
-const cropperRef = ref()
-const src = ref('')
-const type = ref('')
-const loading = ref(false)
+export default {
+    name: 'componentCropper',
+    setup() {
+        const aspectRatio = ref(0)
+        const quality = ref(1)
+        const cropperRef = ref()
+        const src = ref('')
+        const type = ref('')
+        const loading = ref(false)
 
-function handleBase64() {
-    type.value = 'Base64'
-    _setLoading()
-    cropperRef.value.getBase64().then((data) => {
-        src.value = data
-    })
-}
+        function handleBase64() {
+            type.value = 'Base64'
+            showLoading()
+            cropperRef.value.getBase64().then((data) => {
+                src.value = data
+            })
+        }
 
-function handleBlob() {
-    type.value = 'Blob'
-    _setLoading()
-    cropperRef.value.getBlob().then((data) => {
-        src.value = URL.createObjectURL(data)
-    })
-}
+        function handleBlob() {
+            type.value = 'Blob'
+            showLoading()
+            cropperRef.value.getBlob().then((data) => {
+                src.value = URL.createObjectURL(data)
+            })
+        }
 
-function handleFile() {
-    type.value = 'File'
-    _setLoading()
-    cropperRef.value.getFile('test.jpg').then((data) => {
-        src.value = URL.createObjectURL(data)
-    })
-}
+        function handleFile() {
+            type.value = 'File'
+            showLoading()
+            cropperRef.value.getFile('test.jpg').then((data) => {
+                src.value = URL.createObjectURL(data)
+            })
+        }
 
-function _setLoading() {
-    loading.value = true
-    setTimeout(() => {
-        loading.value = false
-    }, 500)
+        function showLoading() {
+            loading.value = true
+            setTimeout(() => {
+                loading.value = false
+            }, 500)
+        }
+
+        return {
+            src,
+            cropperImg,
+            aspectRatio,
+            quality,
+            loading,
+            type,
+            cropperRef,
+            handleBase64,
+            handleBlob,
+            handleFile,
+        }
+    },
 }
 </script>
 
-<style scoped></style>
+<style lang="less" scoped></style>

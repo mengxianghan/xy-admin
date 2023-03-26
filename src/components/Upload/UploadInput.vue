@@ -20,12 +20,6 @@
 </template>
 
 <script>
-export default {
-    name: 'XUploadInput',
-}
-</script>
-
-<script setup>
 import { onMounted, ref, watch } from 'vue'
 import { Form } from 'ant-design-vue'
 
@@ -35,60 +29,70 @@ import api from '@/api'
  * 文件上传
  * @property {string} modelValue v-model
  */
+export default {
+    name: 'XUploadInput',
+    props: {
+        modelValue: { type: String, default: '' },
+    },
+    emits: ['update:modelValue'],
+    setup(props, { emit }) {
+        const { onFieldChange } = Form.useInjectFormItemContext()
+        const loading = ref(false)
+        const currentValue = ref('')
 
-const props = defineProps({
-    modelValue: { type: String, default: '' },
-})
-const emit = defineEmits(['update:modelValue'])
+        watch(
+            () => props.modelValue,
+            (val) => {
+                if (currentValue.value.val != val) {
+                    currentValue.value = val
+                }
+            }
+        )
 
-const { onFieldChange } = Form.useInjectFormItemContext()
-const loading = ref(false)
-const currentValue = ref('')
+        onMounted(() => {
+            currentValue.value = props.modelValue
+        })
 
-watch(
-    () => props.modelValue,
-    (val) => {
-        if (currentValue.value.val != val) {
-            currentValue.value = val
+        /**
+         * 内容发生改变
+         * @param e
+         */
+        function onInput(e) {
+            trigger(e.target.value)
         }
-    }
-)
 
-onMounted(() => {
-    currentValue.value = props.modelValue
-})
+        /**
+         * 自定义上传
+         * @param info
+         */
+        async function customRequest(info) {
+            const { file } = info
+            loading.value = true
+            const { code, data } = await api.common.upload({
+                file,
+            })
+            loading.value = false
+            if (200 === code) {
+                currentValue.value = data?.src
+                trigger(currentValue.value)
+            }
+        }
 
-/**
- * 内容发生改变
- * @param e
- */
-function onInput(e) {
-    trigger(e.target.value)
-}
+        /**
+         * 触发
+         */
+        function trigger(value) {
+            emit('update:modelValue', value)
+            onFieldChange()
+        }
 
-/**
- * 自定义上传
- * @param info
- */
-async function customRequest(info) {
-    const { file } = info
-    loading.value = true
-    const { code, data } = await api.common.upload({
-        file,
-    })
-    loading.value = false
-    if (200 === code) {
-        currentValue.value = data?.src
-        trigger(currentValue.value)
-    }
-}
-
-/**
- * 触发
- */
-function trigger(value) {
-    emit('update:modelValue', value)
-    onFieldChange()
+        return {
+            currentValue,
+            loading,
+            onInput,
+            customRequest,
+        }
+    },
 }
 </script>
 

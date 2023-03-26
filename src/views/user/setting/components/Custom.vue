@@ -23,15 +23,18 @@
 </template>
 
 <script>
-export default {
-    name: 'Custom',
-}
-</script>
-
-<script setup>
 import { ref } from 'vue'
 
-const themeColor = ref(false)
+export default {
+    name: 'Custom',
+    setup() {
+        const themeColor = ref(false)
+
+        return {
+            themeColor,
+        }
+    },
+}
 </script>
 
 <style lang="less" scoped></style>

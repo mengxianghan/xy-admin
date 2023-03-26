@@ -46,12 +46,6 @@
 </template>
 
 <script>
-export default {
-    name: 'XLayoutHeader',
-}
-</script>
-
-<script setup>
 import { computed } from 'vue'
 import { useUserStore } from '@/store'
 import { useRouter } from 'vue-router'
@@ -60,36 +54,47 @@ import { Modal } from 'ant-design-vue'
 /**
  * @property {boolean} collapsed 收起状态，默认：false
  */
-const props = defineProps({
-    collapsed: {
-        type: Boolean,
-        default: false,
-    },
-})
-const emit = defineEmits(['update:collapsed'])
-
-const userStore = useUserStore()
-const router = useRouter()
-const isLogin = computed(() => userStore.isLogin)
-const userInfo = computed(() => userStore.userInfo)
-
-function handleLogout() {
-    Modal.confirm({
-        title: '注销登录？',
-        okText: '确认',
-        cancelText: '取消',
-        onOk: () => {
-            userStore.logout().then(() => {
-                router.push({
-                    name: 'login',
-                })
-            })
+export default {
+    name: 'XLayoutHeader',
+    props: {
+        collapsed: {
+            type: Boolean,
+            default: false,
         },
-    })
-}
+    },
+    emits: ['update:collapsed'],
+    setup(props, { emit }) {
+        const userStore = useUserStore()
+        const router = useRouter()
+        const isLogin = computed(() => userStore.isLogin)
+        const userInfo = computed(() => userStore.userInfo)
 
-function handleToggleCollapsed() {
-    emit('update:collapsed', !props.collapsed)
+        function handleLogout() {
+            Modal.confirm({
+                title: '注销登录？',
+                okText: '确认',
+                cancelText: '取消',
+                onOk: () => {
+                    userStore.logout().then(() => {
+                        router.push({
+                            name: 'login',
+                        })
+                    })
+                },
+            })
+        }
+
+        function handleToggleCollapsed() {
+            emit('update:collapsed', !props.collapsed)
+        }
+
+        return {
+            isLogin,
+            userInfo,
+            handleLogout,
+            handleToggleCollapsed,
+        }
+    },
 }
 </script>
 

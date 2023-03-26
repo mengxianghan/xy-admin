@@ -61,73 +61,80 @@
 </template>
 
 <script>
-export default {
-    name: 'componentFilter',
-}
-</script>
-
-<script setup>
 import { ref } from 'vue'
 
-const basicList = ref([
-    {
-        label: '单选',
-        key: 'key',
-        type: 'tag',
-        options: [
-            { label: '全部', value: 0 },
-            { label: '选项2', value: 2 },
-            { label: '选项3', value: 3 },
-            { label: '选项4', value: 4 },
-            { label: '选项5', value: 5 },
-        ],
-    },
-    {
-        label: '多选',
-        key: 'key1',
-        type: 'tag',
-        multiple: true,
-        options: [
-            { label: '全部', value: 0 },
-            { label: '选项2', value: 2 },
-            { label: '选项3', value: 3 },
-            { label: '选项4', value: 4 },
-            { label: '选项5', value: 5 },
-        ],
-    },
-    { label: '自定义输入', key: 'key2', type: 'input' },
-    { label: '自定义区间', key: 'key3', type: 'inputRange' },
-    { label: '日期', key: 'key4', type: 'date', valueFormat: 'YYYY-MM-DD' },
-    { label: '日期区间', key: 'key5', type: 'dateRange', valueFormat: 'YYYY-MM-DD' },
-])
-const customList = ref([
-    {
-        label: '单选',
-        key: 'key',
-        type: 'tag',
-        options: [
-            { label: '全部', value: 0 },
-            { label: '选项2', value: 2 },
-            { label: '选项3', value: 3 },
-            { label: '选项4', value: 4 },
-            { label: '选项5', value: 5 },
-        ],
-    },
-    { label: '好评度', key: 'praise', scopedSlot: true },
-    { label: '过滤数据', key: 'filter', scopedSlot: true },
-])
+export default {
+    name: 'componentFilter',
+    setup() {
+        const basicList = ref([
+            {
+                label: '单选',
+                key: 'key',
+                type: 'tag',
+                options: [
+                    { label: '全部', value: 0 },
+                    { label: '选项2', value: 2 },
+                    { label: '选项3', value: 3 },
+                    { label: '选项4', value: 4 },
+                    { label: '选项5', value: 5 },
+                ],
+            },
+            {
+                label: '多选',
+                key: 'key1',
+                type: 'tag',
+                multiple: true,
+                options: [
+                    { label: '全部', value: 0 },
+                    { label: '选项2', value: 2 },
+                    { label: '选项3', value: 3 },
+                    { label: '选项4', value: 4 },
+                    { label: '选项5', value: 5 },
+                ],
+            },
+            { label: '自定义输入', key: 'key2', type: 'input' },
+            { label: '自定义区间', key: 'key3', type: 'inputRange' },
+            { label: '日期', key: 'key4', type: 'date', valueFormat: 'YYYY-MM-DD' },
+            { label: '日期区间', key: 'key5', type: 'dateRange', valueFormat: 'YYYY-MM-DD' },
+        ])
+        const customList = ref([
+            {
+                label: '单选',
+                key: 'key',
+                type: 'tag',
+                options: [
+                    { label: '全部', value: 0 },
+                    { label: '选项2', value: 2 },
+                    { label: '选项3', value: 3 },
+                    { label: '选项4', value: 4 },
+                    { label: '选项5', value: 5 },
+                ],
+            },
+            { label: '好评度', key: 'praise', scopedSlot: true },
+            { label: '过滤数据', key: 'filter', scopedSlot: true },
+        ])
 
-const filterForm = ref({
-    praise: '好评',
-})
+        const filterForm = ref({
+            praise: '好评',
+        })
 
-function handleOk(value) {
-    filterForm.value = value
-}
+        function handleOk(value) {
+            filterForm.value = value
+        }
 
-function handleReset() {
-    filterForm.value = {}
+        function handleReset() {
+            filterForm.value = {}
+        }
+
+        return {
+            filterForm,
+            basicList,
+            customList,
+            handleOk,
+            handleReset,
+        }
+    },
 }
 </script>
 
-<style scoped></style>
+<style lang="less" scoped></style>

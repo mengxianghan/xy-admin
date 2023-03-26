@@ -24,35 +24,44 @@
 </template>
 
 <script>
-export default {
-    name: 'formStep',
-}
-</script>
-
-<script setup>
 import { ref } from 'vue'
-
 import Step1 from './components/Step1.vue'
 import Step2 from './components/Step2.vue'
 import Step3 from './components/Step3.vue'
 
-const currentTab = ref(0)
+export default {
+    name: 'formStep',
+    components: {
+        Step1,
+        Step2,
+        Step3,
+    },
+    setup() {
+        const currentTab = ref(0)
 
-// handler
-function handleNext() {
-    if (currentTab.value < 2) {
-        currentTab.value += 1
-    }
-}
+        function handleNext() {
+            if (currentTab.value < 2) {
+                currentTab.value += 1
+            }
+        }
 
-function handlePrev() {
-    if (currentTab.value > 0) {
-        currentTab.value -= 1
-    }
-}
+        function handlePrev() {
+            if (currentTab.value > 0) {
+                currentTab.value -= 1
+            }
+        }
 
-function handleFinish() {
-    currentTab.value = 0
+        function handleFinish() {
+            currentTab.value = 0
+        }
+
+        return {
+            currentTab,
+            handleNext,
+            handlePrev,
+            handleFinish,
+        }
+    },
 }
 </script>
 

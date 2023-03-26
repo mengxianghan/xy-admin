@@ -8,13 +8,13 @@ const Preview = (props = {}) => {
     vnode = createVNode(PreviewConstructor, props)
     const container = document.createElement('div')
     render(vnode, container)
-    vnode.component?.exposed?.open()
+    vnode.component?.exposed?.handleOpen()
     return Preview
 }
 
 Preview.close = () => {
     if (!vnode) return
-    vnode.component.exposed?.close()
+    vnode.component.exposed?.handleClose()
     vnode = null
 }
 

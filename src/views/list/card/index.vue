@@ -53,36 +53,38 @@
 </template>
 
 <script>
-export default {
-    name: 'listCard',
-}
-</script>
-
-<script setup>
 import { onMounted } from 'vue'
-
 import api from '@/api'
-
 import usePagination from '@/hooks/usePagination'
 
-const { loading, list } = usePagination()
+export default {
+    name: 'listCard',
+    setup() {
+        const { loading, list } = usePagination()
 
-onMounted(() => {
-    getPageList()
-})
+        onMounted(() => {
+            getPageList()
+        })
 
-/**
- * 获取分页列表
- */
-async function getPageList() {
-    loading.value = true
-    const { code, data } = await api.common.getPageList().catch(() => {
-        loading.value = false
-    })
-    loading.value = false
-    if (200 === code) {
-        list.value = [{}, ...data.rows]
-    }
+        /**
+         * 获取分页列表
+         */
+        async function getPageList() {
+            loading.value = true
+            const { code, data } = await api.common.getPageList().catch(() => {
+                loading.value = false
+            })
+            loading.value = false
+            if (200 === code) {
+                list.value = [{}, ...data.rows]
+            }
+        }
+
+        return {
+            list,
+            loading,
+        }
+    },
 }
 </script>
 

@@ -1,9 +1,9 @@
 <template>
     <a-modal
-        :visible="visible"
         destroy-on-close
-        :after-close="onAfterClose"
         title="裁剪图片"
+        :visible="visible"
+        :after-close="onAfterClose"
         :width="568"
         @ok="handleOk"
         @cancel="handleCancel">
@@ -16,12 +16,6 @@
 </template>
 
 <script>
-export default {
-    name: 'XCropperModal',
-}
-</script>
-
-<script setup>
 import { ref } from 'vue'
 
 import Cropper from './Cropper.vue'
@@ -31,58 +25,71 @@ import Cropper from './Cropper.vue'
  * @property {number} aspectRatio 比例，默认：自由裁剪
  * @property {number} quality 图片质量，取值范围：0-1，默认：1
  */
-defineProps({
-    aspectRatio: {
-        type: Number,
-        default: 0,
+export default {
+    name: 'XCropperModal',
+    components: {
+        Cropper,
     },
-    quality: {
-        type: Number,
-        default: 1,
+    props: {
+        aspectRatio: {
+            type: Number,
+            default: 0,
+        },
+        quality: {
+            type: Number,
+            default: 1,
+        },
     },
-})
-const emit = defineEmits(['ok', 'cancel'])
+    emits: ['ok', 'cancel'],
+    setup(props, { emit }) {
+        const visible = ref(false)
+        const cropperRef = ref()
+        const imgSrc = ref('')
 
-const visible = ref(false)
-const cropperRef = ref()
-const imgSrc = ref('')
+        /**
+         * 打开
+         * @param src
+         */
+        function handleOpen(src) {
+            imgSrc.value = src
+            visible.value = true
+        }
 
-/**
- * 打开
- * @param src
- */
-function handleOpen(src) {
-    imgSrc.value = src
-    visible.value = true
+        /**
+         * 确定
+         */
+        async function handleOk() {
+            const file = await cropperRef.value?.getFile()
+            visible.value = false
+            emit('ok', file)
+        }
+
+        /**
+         * 关闭
+         */
+        function handleCancel() {
+            visible.value = false
+            emit('cancel')
+        }
+
+        /**
+         * 关闭后
+         */
+        function onAfterClose() {
+            imgSrc.value = ''
+        }
+
+        return {
+            visible,
+            cropperRef,
+            imgSrc,
+            handleOpen,
+            handleOk,
+            handleCancel,
+            onAfterClose,
+        }
+    },
 }
-
-/**
- * 确定
- */
-async function handleOk() {
-    const file = await cropperRef.value?.getFile()
-    visible.value = false
-    emit('ok', file)
-}
-
-/**
- * 关闭
- */
-function handleCancel() {
-    visible.value = false
-    emit('cancel')
-}
-
-/**
- * 关闭后
- */
-function onAfterClose() {
-    imgSrc.value = ''
-}
-
-defineExpose({
-    handleOpen,
-})
 </script>
 
 <style scoped></style>

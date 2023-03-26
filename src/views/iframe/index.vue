@@ -1,7 +1,7 @@
 <template>
     <div class="iframe-container">
         <template
-            v-for="(item, index) in iframeList"
+            v-for="(item, index) in cpIframeList"
             :key="index">
             <iframe
                 v-show="url === item.meta.url"
@@ -12,20 +12,25 @@
 </template>
 
 <script>
-export default {
-    name: 'iframePage',
-}
-</script>
-
-<script setup>
 import { computed, ref } from 'vue'
 import { useRoute } from 'vue-router'
 import { useMultiTabStore } from '@/store'
 
-const multiTabStore = useMultiTabStore()
-const iframeList = computed(() => multiTabStore.iframeList)
-const route = useRoute()
-const url = ref(route.meta?.url)
+export default {
+    name: 'iframePage',
+    setup() {
+        const multiTabStore = useMultiTabStore()
+        const route = useRoute()
+
+        const url = ref(route.meta?.url)
+        const cpIframeList = computed(() => multiTabStore.iframeList)
+
+        return {
+            cpIframeList,
+            url,
+        }
+    },
+}
 </script>
 
 <style lang="less" scoped>

@@ -26,12 +26,6 @@
 </template>
 
 <script>
-export default {
-    name: 'XLoading',
-}
-</script>
-
-<script setup>
 import { Button as AButton } from 'ant-design-vue'
 import { LoadingOutlined, ExclamationCircleOutlined } from '@ant-design/icons-vue'
 import { computed } from 'vue'
@@ -41,30 +35,46 @@ import { computed } from 'vue'
  * @property {string} text 提示信息，默认：加载中
  * @property {boolean} status 状态，默认： loading；【loading=加载中，error=失败】
  */
-const props = defineProps({
-    type: {
-        type: String,
-        default: 'global',
+export default {
+    name: 'XLoading',
+    components: {
+        AButton,
+        LoadingOutlined,
+        ExclamationCircleOutlined,
     },
-    text: {
-        type: String,
-        default: '加载中',
+    props: {
+        type: {
+            type: String,
+            default: 'global',
+        },
+        text: {
+            type: String,
+            default: '加载中',
+        },
+        status: {
+            type: String,
+            default: 'loading',
+        },
     },
-    status: {
-        type: String,
-        default: 'loading',
-    },
-})
+    setup(props) {
+        const cpClassNames = computed(() => ({
+            [`x-loading--${props.type}`]: true,
+            [`x-loading--${props.status}`]: true,
+        }))
+        const cpIsLoading = computed(() => 'loading' === props.status)
+        const cpIsError = computed(() => 'error' === props.status)
 
-const cpClassNames = computed(() => ({
-    [`x-loading--${props.type}`]: true,
-    [`x-loading--${props.status}`]: true,
-}))
-const cpIsLoading = computed(() => 'loading' === props.status)
-const cpIsError = computed(() => 'error' === props.status)
+        function handleReload() {
+            location.reload()
+        }
 
-function handleReload() {
-    location.reload()
+        return {
+            cpClassNames,
+            cpIsLoading,
+            cpIsError,
+            handleReload,
+        }
+    },
 }
 </script>
 

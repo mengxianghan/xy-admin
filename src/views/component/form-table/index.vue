@@ -47,22 +47,25 @@
 </template>
 
 <script>
-export default {
-    name: 'componentFormTable',
-}
-</script>
-
-<script setup>
 import { onMounted, ref } from 'vue'
-
 import cloneDeep from 'lodash/cloneDeep'
 
-const rowTpl = { name: '', age: '', sex: 0 }
-const list = ref([])
+export default {
+    name: 'componentFormTable',
+    setup() {
+        const rowTpl = { name: '', age: '', sex: 0 }
+        const list = ref([])
 
-onMounted(() => {
-    list.value.push(cloneDeep(rowTpl))
-})
+        onMounted(() => {
+            list.value.push(cloneDeep(rowTpl))
+        })
+
+        return {
+            list,
+            rowTpl,
+        }
+    },
+}
 </script>
 
 <style lang="less" scoped></style>

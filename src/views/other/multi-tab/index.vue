@@ -39,69 +39,77 @@
 </template>
 
 <script>
-export default {
-    name: 'otherMultiTab',
-}
-</script>
-
-<script setup>
 import { useRouter } from 'vue-router'
 import { onMounted, ref } from 'vue'
-
 import useMultiTab from '@/hooks/useMultiTab'
-
 import dayjs from 'dayjs'
 
-const router = useRouter()
-const { reload, close, closeOther, setTitle } = useMultiTab()
-const date = ref('')
-const title = ref('自定义名称')
+export default {
+    name: 'otherMultiTab',
+    setup() {
+        const router = useRouter()
+        const { reload, close, closeOther, setTitle } = useMultiTab()
+        const date = ref('')
+        const title = ref('自定义名称')
 
-onMounted(() => {
-    date.value = dayjs().format('YYYY-MM-DD HH:mm:ss')
-})
+        onMounted(() => {
+            date.value = dayjs().format('YYYY-MM-DD HH:mm:ss')
+        })
 
-/**
- * 打开欢迎页
- */
-function handleOpen() {
-    router.push({ name: 'welcome' })
-}
+        /**
+         * 打开欢迎页
+         */
+        function handleOpen() {
+            router.push({ name: 'welcome' })
+        }
 
-/**
- * 刷新当前
- */
-function handleReload() {
-    reload()
-}
+        /**
+         * 刷新当前
+         */
+        function handleReload() {
+            reload()
+        }
 
-/**
- * 关闭
- */
-function handleClose() {
-    close()
-}
+        /**
+         * 关闭
+         */
+        function handleClose() {
+            close()
+        }
 
-/**
- * 关闭其他
- */
-function handleCloseOther() {
-    closeOther()
-}
+        /**
+         * 关闭其他
+         */
+        function handleCloseOther() {
+            closeOther()
+        }
 
-/**
- * 设置标题
- */
-function handleSetTitle() {
-    setTitle(title.value)
-}
+        /**
+         * 设置标题
+         */
+        function handleSetTitle() {
+            setTitle(title.value)
+        }
 
-/**
- * 还原标题
- */
-function handleRevertTitle() {
-    setTitle(router.currentRoute.value.meta.title)
+        /**
+         * 还原标题
+         */
+        function handleRevertTitle() {
+            setTitle(router.currentRoute.value.meta.title)
+        }
+
+        return {
+            date,
+            title,
+            handleOpen,
+            handleReload,
+            handleClose,
+            handleCloseOther,
+            handleSetTitle,
+            handleRevertTitle,
+        }
+    },
 }
 </script>
 
-<style scoped></style>
+<style lang="less" scoped></style>

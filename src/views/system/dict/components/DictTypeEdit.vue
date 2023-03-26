@@ -33,88 +33,91 @@
 </template>
 
 <script>
-export default {
-    name: 'DictTypeEdit',
-}
-</script>
-
-<script setup>
 import cloneDeep from 'lodash/cloneDeep'
-
 import useModal from '@/hooks/useModal'
 import useForm from '@/hooks/useForm'
+export default {
+    name: 'DictTypeEdit',
+    emits: ['ok'],
+    setup(props, { emit }) {
+        const { modal, showModal, hideModal, showLoading, hideLoading } = useModal()
+        const { formRef, rules, formRecord, formState, resetForm } = useForm()
 
-const emit = defineEmits(['ok'])
+        rules.value = {
+            name: { required: true, message: '请输入名称' },
+            code: { required: true, message: '请输入编码' },
+        }
 
-const { modal, showModal, hideModal, showLoading, hideLoading } = useModal()
-const { formRef, rules, formRecord, formState, resetForm } = useForm()
+        formState.value = {
+            valid: true,
+        }
 
-rules.value = {
-    name: { required: true, message: '请输入名称' },
-    code: { required: true, message: '请输入编码' },
+        /**
+         * 新建
+         */
+        function handleCreate() {
+            showModal({
+                title: '新建分类',
+            })
+        }
+
+        /**
+         * 编辑
+         */
+        function handleEdit(record) {
+            showModal({
+                title: '编辑分类',
+            })
+            formState.value = cloneDeep(record)
+            formRecord.value = record
+        }
+
+        /**
+         * 确定
+         */
+        function handleOk() {
+            formRef.value
+                .validateFields()
+                .then(() => {
+                    showLoading()
+                    setTimeout(() => {
+                        hideLoading()
+                        hideModal()
+                        emit('ok')
+                    }, 3000)
+                })
+                .catch(() => {
+                    hideLoading()
+                })
+        }
+
+        /**
+         * 取消
+         */
+        function handleCancel() {
+            hideModal()
+        }
+
+        /**
+         * 关闭后
+         */
+        function onAfterClose() {
+            resetForm()
+        }
+
+        return {
+            modal,
+            formRef,
+            formState,
+            rules,
+            handleCreate,
+            handleEdit,
+            handleOk,
+            handleCancel,
+            onAfterClose,
+        }
+    },
 }
-
-formState.value = {
-    valid: true,
-}
-
-/**
- * 新建
- */
-function handleCreate() {
-    showModal({
-        title: '新建分类',
-    })
-}
-
-/**
- * 编辑
- */
-function handleEdit(record) {
-    showModal({
-        title: '编辑分类',
-    })
-    formState.value = cloneDeep(record)
-    formRecord.value = record
-}
-
-/**
- * 确定
- */
-function handleOk() {
-    formRef.value
-        .validateFields()
-        .then(() => {
-            showLoading()
-            setTimeout(() => {
-                hideLoading()
-                hideModal()
-                emit('ok')
-            }, 3000)
-        })
-        .catch(() => {
-            hideLoading()
-        })
-}
-
-/**
- * 取消
- */
-function handleCancel() {
-    hideModal()
-}
-
-/**
- * 关闭后
- */
-function onAfterClose() {
-    resetForm()
-}
-
-defineExpose({
-    handleCreate,
-    handleEdit,
-})
 </script>
 
 <style lang="less" scoped></style>

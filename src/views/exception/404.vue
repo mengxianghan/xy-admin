@@ -14,18 +14,21 @@
 </template>
 
 <script>
-export default {
-    name: '404',
-}
-</script>
-
-<script setup>
 import { useRouter } from 'vue-router'
 
-const router = useRouter()
+export default {
+    name: '404',
+    setup() {
+        const router = useRouter()
 
-const handleBack = () => {
-    router.back()
+        const handleBack = () => {
+            router.back()
+        }
+
+        return {
+            handleBack,
+        }
+    },
 }
 </script>
 

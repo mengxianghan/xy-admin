@@ -40,35 +40,42 @@
 </template>
 
 <script>
-export default {
-    name: 'componentEditor',
-}
-</script>
-
-<script setup>
 import { ref } from 'vue'
-
 import useForm from '@/hooks/useForm'
 
-const content = ref('')
-const { formState, rules, formRef, resetForm } = useForm()
+export default {
+    name: 'componentEditor',
+    setup() {
+        const { formState, rules, formRef, resetForm } = useForm()
+        const content = ref('')
 
-rules.value = {
-    field1: { required: true, message: '请输入内容' },
-}
+        rules.value = {
+            field1: { required: true, message: '请输入内容' },
+        }
 
-function handleSubmit() {
-    formRef.value
-        .validate()
-        .then((values) => {
-            console.log(values)
-        })
-        .catch(() => {})
-}
+        function handleSubmit() {
+            formRef.value
+                .validate()
+                .then((values) => {
+                    console.log(values)
+                })
+                .catch(() => {})
+        }
 
-function handleReset() {
-    resetForm()
+        function handleReset() {
+            resetForm()
+        }
+
+        return {
+            content,
+            rules,
+            formRef,
+            formState,
+            handleReset,
+            handleSubmit,
+        }
+    },
 }
 </script>
 
-<style scoped></style>
+<style lang="less" scoped></style>

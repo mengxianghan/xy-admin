@@ -14,29 +14,32 @@
 </template>
 
 <script>
+import { ref } from 'vue'
+import useMenu from '@/hooks/useMenu'
 export default {
     name: 'otherBadge',
+    setup() {
+        const form = ref({
+            name: 'welcome',
+            count: 10,
+        })
+        const { setBadge } = useMenu()
+
+        function handleSet() {
+            setBadge(form.value?.name, form.value?.count)
+        }
+
+        function handleClear() {
+            setBadge(form.value?.name, 0)
+        }
+
+        return {
+            form,
+            handleSet,
+            handleClear,
+        }
+    },
 }
 </script>
 
-<script setup>
-import { ref } from 'vue'
-
-import useMenu from '@/hooks/useMenu'
-
-const form = ref({
-    name: 'welcome',
-    count: 10,
-})
-const { setBadge } = useMenu()
-
-function handleSet() {
-    setBadge(form.value?.name, form.value?.count)
-}
-
-function handleClear() {
-    setBadge(form.value?.name, 0)
-}
-</script>
-
-<style scoped></style>
+<style lang="less" scoped></style>

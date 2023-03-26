@@ -1,7 +1,7 @@
 <template>
     <a-sub-menu
-        :key="dataSource.name"
-        class="x-menu-sub">
+        class="x-menu-sub"
+        :key="dataSource.name">
         <template
             v-if="dataSource.meta && dataSource.meta.icon"
             #icon>
@@ -34,23 +34,21 @@
 </template>
 
 <script>
-export default {
-    name: 'MenuSub',
-}
-</script>
-
-<script setup>
 import MenuLink from './MenuLink.vue'
 
 /**
  * @property {object} dataSource
  */
-defineProps({
-    dataSource: {
-        type: Object,
-        default: () => ({}),
+export default {
+    name: 'MenuSub',
+    components: { MenuLink },
+    props: {
+        dataSource: {
+            type: Object,
+            default: () => ({}),
+        },
     },
-})
+}
 </script>
 
 <style lang="less" scoped></style>

@@ -2,7 +2,7 @@
     <a-card
         :bordered="false"
         class="mb-8-2">
-        <h2>{{ userName }} ，祝你开心每一天！</h2>
+        <h2>{{ cpUserName }} ，祝你开心每一天！</h2>
         <p class="mb-0">某某某公司－某某某部门－某某某岗位</p>
     </a-card>
 
@@ -80,36 +80,42 @@
 </template>
 
 <script>
-export default {
-    name: 'welcome',
-}
-</script>
-
-<script setup>
 import { computed, onMounted, ref } from 'vue'
 import { useUserStore } from '@/store'
 import { timeFix } from '@/utils'
-
 import api from '@/api'
 import upgradeImg from '@/assets/upgrade.svg?url'
 
-const userStore = useUserStore()
-const title = import.meta.env.VITE_TITLE
-const userInfo = computed(() => userStore.userInfo)
-const userName = computed(() => `${timeFix()}，${userInfo.value?.username}`)
-const dynamicList = ref([])
-const { version } = __APP_INFO__
+export default {
+    name: 'welcome',
+    setup() {
+        const userStore = useUserStore()
+        const title = import.meta.env.VITE_TITLE
+        const cpUserInfo = computed(() => userStore.userInfo)
+        const cpUserName = computed(() => `${timeFix()}，${cpUserInfo.value?.username}`)
+        const dynamicList = ref([])
+        const { version } = __APP_INFO__
 
-onMounted(() => {
-    getData()
-})
+        onMounted(() => {
+            getData()
+        })
 
-async function getData() {
-    const { code, data } = await api.common.getWelcomeData()
-    if (200 === code) {
-        const { dynamicRows } = data
-        dynamicList.value = dynamicRows
-    }
+        async function getData() {
+            const { code, data } = await api.common.getWelcomeData()
+            if (200 === code) {
+                const { dynamicRows } = data
+                dynamicList.value = dynamicRows
+            }
+        }
+
+        return {
+            upgradeImg,
+            title,
+            version,
+            dynamicList,
+            cpUserName,
+        }
+    },
 }
 </script>
 

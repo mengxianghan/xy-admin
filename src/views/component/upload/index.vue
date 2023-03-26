@@ -1,7 +1,7 @@
 <template>
     <a-card
-        :bordered="false"
-        title="基础示例">
+        title="基础示例"
+        :bordered="false">
         <a-row :gutter="16">
             <a-col>
                 <x-upload-image v-model="basic"></x-upload-image>
@@ -131,41 +131,53 @@
 </template>
 
 <script>
-export default {
-    name: 'componentUpload',
-}
-</script>
-
-<script setup>
 import { ref } from 'vue'
-
 import useForm from '@/hooks/useForm'
 
-const basic = ref('')
-const customTitle = ref('')
-const customSlot = ref('')
-const cropper = ref('')
-const round = ref('')
-const multipleList = ref([])
-const { formState, rules, formRef, resetForm } = useForm()
+export default {
+    name: 'componentUpload',
+    setup() {
+        const { formState, rules, formRef, resetForm } = useForm()
+        const basic = ref('')
+        const customTitle = ref('')
+        const customSlot = ref('')
+        const cropper = ref('')
+        const round = ref('')
+        const multipleList = ref([])
 
-rules.value = {
-    field1: { required: true, message: '请上传人像面' },
-    field2: { required: true, message: '请上传国徽面' },
-    field5: { required: true, message: '请上传文件' },
-}
+        rules.value = {
+            field1: { required: true, message: '请上传人像面' },
+            field2: { required: true, message: '请上传国徽面' },
+            field5: { required: true, message: '请上传文件' },
+        }
 
-function handleSubmit() {
-    formRef.value
-        .validate()
-        .then((values) => {
-            console.log(values)
-        })
-        .catch(() => {})
-}
+        function handleSubmit() {
+            formRef.value
+                .validate()
+                .then((values) => {
+                    console.log(values)
+                })
+                .catch(() => {})
+        }
 
-function handleReset() {
-    resetForm()
+        function handleReset() {
+            resetForm()
+        }
+
+        return {
+            basic,
+            rules,
+            formRef,
+            formState,
+            customTitle,
+            customSlot,
+            cropper,
+            round,
+            multipleList,
+            handleSubmit,
+            handleReset,
+        }
+    },
 }
 </script>
 

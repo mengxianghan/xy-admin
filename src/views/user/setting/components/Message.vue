@@ -5,15 +5,18 @@
 </template>
 
 <script>
-export default {
-    name: 'Message',
-}
-</script>
-
-<script setup>
 import { ref } from 'vue'
 
-const list = ref([])
+export default {
+    name: 'Message',
+    setup() {
+        const list = ref([])
+
+        return {
+            list,
+        }
+    },
+}
 </script>
 
 <style lang="less" scoped></style>

@@ -48,78 +48,85 @@
 </template>
 
 <script>
-export default {
-    name: 'DictTypeTree',
-}
-</script>
-
-<script setup>
 import { ref, onMounted } from 'vue'
 import { message, Modal } from 'ant-design-vue'
-
 import api from '@/api'
 import usePagination from '@/hooks/usePagination'
-
 import DictTypeEdit from '@/views/system/dict/components/DictTypeEdit.vue'
 
-const emit = defineEmits(['select'])
+export default {
+    name: 'DictTypeTree',
+    components: { DictTypeEdit },
+    emits: ['select'],
+    setup(props, { emit }) {
+        const { loading, list } = usePagination()
+        const selectedKeys = ref([])
+        const searchValue = ref('')
+        const editRef = ref()
 
-const { loading, list } = usePagination()
-const selectedKeys = ref([])
-const searchValue = ref('')
-const editRef = ref()
+        onMounted(() => {
+            getDictTypeList()
+        })
 
-onMounted(() => {
-    getDictTypeList()
-})
+        /**
+         * 获取字典分类列表
+         * @return {Promise<void>}
+         */
+        async function getDictTypeList() {
+            loading.value = true
+            const { code, data } = await api.system.getDictTypeList().catch(() => {
+                loading.value = false
+            })
+            loading.value = false
+            if (200 === code) {
+                const { rows } = data
+                list.value = rows
+            }
+        }
 
-/**
- * 获取字典分类列表
- * @return {Promise<void>}
- */
-async function getDictTypeList() {
-    loading.value = true
-    const { code, data } = await api.system.getDictTypeList().catch(() => {
-        loading.value = false
-    })
-    loading.value = false
-    if (200 === code) {
-        const { rows } = data
-        list.value = rows
-    }
-}
+        /**
+         * 切换分类
+         * @param keys
+         */
+        function handleSelect(keys, { node }) {
+            if (!keys.length) {
+                return
+            }
+            selectedKeys.value = keys
+            trigger(node)
+        }
 
-/**
- * 切换分类
- * @param keys
- */
-function handleSelect(keys, { node }) {
-    if (!keys.length) {
-        return
-    }
-    selectedKeys.value = keys
-    trigger(node)
-}
+        /**
+         * 删除分类
+         */
+        function handleDelete() {
+            Modal.confirm({
+                title: '删除提示',
+                content: '确认删除？',
+                onOk: async () => {
+                    message.info('点击了删除')
+                },
+            })
+        }
 
-/**
- * 删除分类
- */
-function handleDelete() {
-    Modal.confirm({
-        title: '删除提示',
-        content: '确认删除？',
-        onOk: async () => {
-            message.info('点击了删除')
-        },
-    })
-}
+        /**
+         * 触发
+         * @param value
+         */
+        function trigger(value) {
+            emit('select', value)
+        }
 
-/**
- * 触发
- * @param value
- */
-function trigger(value) {
-    emit('select', value)
+        return {
+            searchValue,
+            editRef,
+            selectedKeys,
+            list,
+            loading,
+            handleSelect,
+            handleDelete,
+        }
+    },
 }
 </script>
 

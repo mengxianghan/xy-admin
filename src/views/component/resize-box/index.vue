@@ -46,28 +46,36 @@
 </template>
 
 <script>
-export default {
-    name: 'componentResizebox',
-}
-</script>
-
-<script setup>
 import { ref } from 'vue'
 
-const status = ref('-')
-const width = ref(500)
-const height = ref(200)
+export default {
+    name: 'componentResizebox',
+    setup() {
+        const status = ref('-')
+        const width = ref(500)
+        const height = ref(200)
 
-function onMovingStart() {
-    status.value = '开始拖动'
-}
+        function onMovingStart() {
+            status.value = '开始拖动'
+        }
 
-function onMoving() {
-    status.value = '拖动中'
-}
+        function onMoving() {
+            status.value = '拖动中'
+        }
 
-function onMovingEnd() {
-    status.value = '拖动结束'
+        function onMovingEnd() {
+            status.value = '拖动结束'
+        }
+
+        return {
+            status,
+            width,
+            height,
+            onMovingStart,
+            onMoving,
+            onMovingEnd,
+        }
+    },
 }
 </script>
 

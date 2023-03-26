@@ -3,7 +3,7 @@
         <div
             class="x-filter-item__label"
             :style="{
-                width: cptLabelWidth ? `${cptLabelWidth}px` : '',
+                width: cpLabelWidth ? `${cpLabelWidth}px` : '',
             }">
             {{ currentValue.label ?? label }}
             <template v-if="colon">：</template>
@@ -74,12 +74,6 @@
 </template>
 
 <script>
-export default {
-    name: 'XFilterItem',
-}
-</script>
-
-<script setup>
 import { computed, inject, ref, watchEffect } from 'vue'
 import { TYPE_ENUM } from './config'
 
@@ -88,31 +82,46 @@ import { TYPE_ENUM } from './config'
  * @property {number} labelWidth 标签宽度，默认：80
  * @property {string} label 标签内容
  */
-const props = defineProps({
-    dataSource: {
-        type: Object,
-        default: () => ({}),
+export default {
+    name: 'XFilterItem',
+    props: {
+        dataSource: {
+            type: Object,
+            default: () => ({}),
+        },
+        labelWidth: {
+            type: Number,
+            default: 80,
+        },
+        label: {
+            type: String,
+            default: '',
+        },
     },
-    labelWidth: {
-        type: Number,
-        default: 80,
+    setup(props) {
+        const { labelWidth: ctxLabelWidth, colon, handleClick, onChange } = inject('filterContext')
+        const currentValue = ref({})
+
+        const cpLabelWidth = computed(() => ctxLabelWidth || props.labelWidth)
+
+        watchEffect(() => {
+            if (currentValue.value === props.dataSource) return
+            currentValue.value = props.dataSource
+        })
+
+        return {
+            TYPE_ENUM,
+            colon,
+            cpLabelWidth,
+            currentValue,
+            handleClick,
+            onChange,
+        }
     },
-    label: {
-        type: String,
-        default: '',
-    },
-})
-
-const { labelWidth: ctxLabelWidth, colon, handleClick, onChange } = inject('filterContext')
-const currentValue = ref({})
-
-const cptLabelWidth = computed(() => ctxLabelWidth || props.labelWidth)
-
-watchEffect(() => {
-    if (currentValue.value === props.dataSource) return
-    currentValue.value = props.dataSource
-})
+}
 </script>
+
+<script setup></script>
 
 <style lang="less" scoped>
 @line-height: 30px;
