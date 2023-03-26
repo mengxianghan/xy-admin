@@ -86,12 +86,12 @@ export const deep = (list, fields = { children: 'children' }) => {
  * @param sources
  * @return {*}
  */
-export const mergeDeep = (object, sources) => {
+export const deepMerge = (object, sources) => {
     let key
     for (key in sources) {
         object[key] =
             object[key] && object[key].toString() === '[object Object]'
-                ? mergeDeep(object[key], sources[key])
+                ? deepMerge(object[key], sources[key])
                 : (object[key] = sources[key])
     }
     return object

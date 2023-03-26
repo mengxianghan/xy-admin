@@ -99,7 +99,7 @@
 import { computed, onMounted, ref, watch } from 'vue'
 import { nanoid } from 'nanoid'
 import { Form, message } from 'ant-design-vue'
-import { mergeDeep } from '@/utils'
+import { deepMerge } from '@/utils'
 import { STATUS_ENUM } from './config'
 import { filesize } from 'filesize'
 import { some, findIndex, includes } from 'lodash-es'
@@ -375,7 +375,7 @@ export default {
          * @return {{}}
          */
         function getItem(obj) {
-            return mergeDeep(
+            return deepMerge(
                 {
                     key: nanoid(),
                     src: '',

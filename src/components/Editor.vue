@@ -14,7 +14,7 @@
 
 <script>
 import { onMounted, ref, watch } from 'vue'
-import { mergeDeep } from '@/utils'
+import { deepMerge } from '@/utils'
 import { Form } from 'ant-design-vue'
 
 import TinyEditor from '@tinymce/tinymce-vue'
@@ -59,7 +59,7 @@ export default {
     setup(props, { emit }) {
         const spinning = ref(true)
         const content = ref('')
-        const opts = mergeDeep(
+        const opts = deepMerge(
             {
                 language_url: 'libs/tinymce/langs/zh_CN.js',
                 language: 'zh_CN',
