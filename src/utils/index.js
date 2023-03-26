@@ -2,39 +2,49 @@ import { isMatch, isObject } from 'lodash-es'
 
 /**
  * 数据映射
- * @param {array} list 数据源
- * @param {object} structure 新结构
- *          {
- *              新字段名称: 对应数据中的字段名 || function(item, index, array){}
- *          }
+ * @param {array} data 数据源
+ * @param {object} fieldNames 自定义节点
  * @param {object} expand 拓展数据
- * @param {string} treeField 子节点，如果是树型结构，传入树型结构的子节点对应的字典名
- * @returns {[]}
+ * @param {string} treeFieldName 子节点，如果是树型结构，传入树型结构的子节点对应的字典名
+ * @param {boolean} keepOtherFields 保留其他字段
+ * @returns {array}
  */
-export const mapping = (list, structure = {}, expand = {}, treeField) => {
+export const mapping = ({ data, fieldNames = {}, expand = {}, treeFieldName, keepOtherFields = false }) => {
     let result = []
-    if (!Array.isArray(list)) return []
-    if (!structure) return list
-    list.forEach((item, index, array) => {
-        let temp = {},
+    if (!Array.isArray(data)) return []
+    if (!fieldNames) return data
+    data.forEach((item, index, array) => {
+        let temp = keepOtherFields ? { ...item } : {},
             record,
-            structureValue
-        for (let key in structure) {
-            structureValue = structure[key]
-            record = item[structureValue]
-            if (structureValue === treeField) {
+            filedValue
+
+        if (treeFieldName) {
+            delete temp[treeFieldName]
+        }
+        for (let filedKey in fieldNames) {
+            filedValue = fieldNames[filedKey]
+            record = item[filedValue]
+
+            if (filedValue === treeFieldName) {
                 // 树结构
                 if (record && record.length) {
-                    const child = mapping(item[treeField], structure, expand, treeField)
+                    const child = mapping({
+                        data: item[treeFieldName],
+                        fieldNames,
+                        expand,
+                        treeFieldName,
+                        keepOtherFields,
+                    })
+
                     if (child && child.length) {
-                        temp[key] = child
+                        temp[filedKey] = child
                     }
                 }
-            } else if (structureValue instanceof Function) {
+            } else if (filedValue instanceof Function) {
                 // 函数
-                temp[key] = structureValue(item, index, array)
+                temp[filedKey] = filedValue(item, index, array)
             } else {
-                temp[key] = typeof record !== 'undefined' && record !== '' ? record : ''
+                temp[filedKey] = typeof record !== 'undefined' && record !== '' ? record : ''
             }
         }
         temp = expand ? { ...temp, ...expand } : temp

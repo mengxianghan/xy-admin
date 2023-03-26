@@ -145,9 +145,12 @@ export default {
                         const { rows } = data
                         resolve({
                             code,
-                            data: mapping(rows, {
-                                label: 'name',
-                                value: 'id',
+                            data: mapping({
+                                data: rows,
+                                fieldNames: {
+                                    label: 'name',
+                                    value: 'id',
+                                },
                             }),
                         })
                     } else {
