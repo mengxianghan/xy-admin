@@ -33,7 +33,11 @@ export default ({ mode }) => {
                 less: {
                     modifyVars: {
                         hack: `
-                            true; 
+                            true;
+                            @import '${path.resolve(
+                                __dirname,
+                                'node_modules/ant-design-vue/lib/style/color/colors.less'
+                            )}';
                             @import '${path.resolve(__dirname, 'src/styles/vars.less')}';
                             @import '${path.resolve(__dirname, 'src/styles/util.less')}';
                          `,
