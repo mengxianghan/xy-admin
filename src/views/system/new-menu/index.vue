@@ -127,7 +127,7 @@
 
 <script>
 import { ref } from 'vue'
-import cloneDeep from 'lodash/cloneDeep'
+import { cloneDeep } from 'lodash-es'
 import useForm from '@/hooks/useForm'
 import MenuTree from './components/MenuTree.vue'
 

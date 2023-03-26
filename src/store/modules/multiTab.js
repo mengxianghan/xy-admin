@@ -1,10 +1,7 @@
 import { defineStore } from 'pinia'
 import { message } from 'ant-design-vue'
-
+import { cloneDeep, findIndex, isEmpty } from 'lodash-es'
 import router from '@/router'
-import cloneDeep from 'lodash/cloneDeep'
-import findIndex from 'lodash/findIndex'
-import isEmpty from 'lodash/isEmpty'
 
 const useMultiTabStore = defineStore('multiTab', {
     state: () => ({

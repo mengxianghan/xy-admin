@@ -8,7 +8,7 @@ const Preview = (props = {}) => {
     vnode = createVNode(PreviewConstructor, props)
     const container = document.createElement('div')
     render(vnode, container)
-    vnode.component?.exposed?.handleOpen()
+    vnode.component?.proxy?.handleOpen()
     return Preview
 }
 

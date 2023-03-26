@@ -102,12 +102,9 @@ import { Form, message } from 'ant-design-vue'
 import { mergeDeep } from '@/utils'
 import { STATUS_ENUM } from './config'
 import { filesize } from 'filesize'
-
+import { some, findIndex, includes } from 'lodash-es'
 import Sortable from 'sortablejs'
 import filesizeParser from 'filesize-parser'
-import some from 'lodash/some'
-import findIndex from 'lodash/findIndex'
-import includes from 'lodash/includes'
 import api from '@/api'
 
 import Preview from '../Preview'

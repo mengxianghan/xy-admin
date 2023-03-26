@@ -1,5 +1,4 @@
-import isMatch from 'lodash/isMatch'
-import isObject from 'lodash/isObject'
+import { isMatch, isObject } from 'lodash-es'
 
 /**
  * 数据映射

@@ -57,7 +57,7 @@
 <script>
 import { ref } from 'vue'
 
-import cloneDeep from 'lodash/cloneDeep'
+import { cloneDeep } from 'lodash-es'
 import useModal from '@/hooks/useModal'
 import useForm from '@/hooks/useForm'
 import api from '@/api'

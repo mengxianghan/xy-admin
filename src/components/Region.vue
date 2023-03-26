@@ -12,9 +12,7 @@
 import { findTree, mapping } from '@/utils'
 import { onMounted, ref, watch } from 'vue'
 import { message, Form } from 'ant-design-vue'
-
-import last from 'lodash/last'
-import pick from 'lodash/pick'
+import { last, pick } from 'lodash-es'
 import api from '@/api'
 
 /**

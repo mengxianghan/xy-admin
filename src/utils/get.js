@@ -1,6 +1,4 @@
-import cloneDeep from 'lodash/cloneDeep'
-import pick from 'lodash/pick'
-import keys from 'lodash/keys'
+import { cloneDeep, pick, keys } from 'lodash-es'
 
 /**
  * 获取环境变量

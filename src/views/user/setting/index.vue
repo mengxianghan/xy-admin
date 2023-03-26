@@ -28,8 +28,7 @@
 
 <script>
 import { computed, ref, markRaw } from 'vue'
-import head from 'lodash/head'
-import find from 'lodash/find'
+import { head, find } from 'lodash-es'
 import Basic from './components/Basic.vue'
 import Safe from './components/Safe.vue'
 import Custom from './components/Custom.vue'

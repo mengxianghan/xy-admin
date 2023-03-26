@@ -1,7 +1,6 @@
 import { message } from 'ant-design-vue'
 import { useUserStore } from '@/store'
-
-import merge from 'lodash/merge'
+import { merge } from 'lodash-es'
 import axios from 'axios'
 import JSONbig from 'json-bigint'
 

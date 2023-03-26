@@ -25,7 +25,7 @@
         "filesize-parser": "^1.5.0",
         "jschardet": "^3.0.0",
         "json-bigint": "^1.0.0",
-        "lodash": "^4.17.21",
+        "lodash-es": "^4.17.21",
         "mockjs": "^1.1.0",
         "nanoid": "^4.0.1",
         "nprogress": "^0.2.0",

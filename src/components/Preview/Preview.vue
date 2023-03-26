@@ -5,7 +5,7 @@
         destroy-on-close
         :visible="visible"
         :footer="false"
-        @cancel="close">
+        @cancel="handleClose">
         <div class="x-preview__content">
             <img
                 :src="url"
@@ -157,6 +157,9 @@ export default {
         return {
             styles,
             url,
+            visible,
+            prevBtn,
+            nextBtn,
             handleOpen,
             handleClose,
             handleAction,

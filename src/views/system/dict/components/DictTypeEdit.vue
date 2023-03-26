@@ -33,9 +33,10 @@
 </template>
 
 <script>
-import cloneDeep from 'lodash/cloneDeep'
+import { cloneDeep } from 'lodash-es'
 import useModal from '@/hooks/useModal'
 import useForm from '@/hooks/useForm'
+
 export default {
     name: 'DictTypeEdit',
     emits: ['ok'],
