@@ -23,7 +23,7 @@
                 <x-action-bar class="mb-8-2">
                     <a-button
                         type="primary"
-                        @click="$refs.editRef.handleCreate()">
+                        @click="$refs.editDialogRef.handleCreate()">
                         <template #icon>
                             <icon-plus-outlined />
                         </template>
@@ -63,8 +63,8 @@
                             <a-avatar :src="record.avatar" />
                         </template>
                         <template v-if="'action' === column.key">
-                            <x-action-button @click="$refs.editRef.handlePreview(record)">查看</x-action-button>
-                            <x-action-button @click="$refs.editRef.handleEdit(record)">编辑</x-action-button>
+                            <x-action-button @click="$refs.editDialogRef.handlePreview(record)">查看</x-action-button>
+                            <x-action-button @click="$refs.editDialogRef.handleEdit(record)">编辑</x-action-button>
                             <x-action-button @click="handleDelete(record)">删除</x-action-button>
                         </template>
                     </template>
@@ -73,7 +73,7 @@
         </a-col>
     </a-row>
 
-    <edit ref="editRef"></edit>
+    <edit-dialog ref="editDialogRef"></edit-dialog>
 </template>
 
 <script>
@@ -83,11 +83,11 @@ import { message, Modal } from 'ant-design-vue'
 import api from '@/api'
 import usePagination from '@/hooks/usePagination'
 
-import Edit from './components/Edit.vue'
+import EditDialog from './components/EditDialog.vue'
 export default {
     name: 'systemUser',
     components: {
-        Edit,
+        EditDialog,
     },
     setup() {
         const { loading, pagination, resetPagination } = usePagination()
@@ -104,7 +104,7 @@ export default {
             { title: '操作', key: 'action', fixed: 'right', width: 160 },
         ])
         const userList = ref([])
-        const editRef = ref()
+        const editDialogRef = ref()
 
         onMounted(() => {
             getUserRoleList()
@@ -206,7 +206,7 @@ export default {
             loading,
             pagination,
             columns,
-            editRef,
+            editDialogRef,
             handleRole,
             handleDelete,
             onTableChange,

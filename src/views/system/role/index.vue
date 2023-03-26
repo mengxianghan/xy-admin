@@ -3,7 +3,7 @@
         <x-action-bar class="mb-8-2">
             <a-button
                 type="primary"
-                @click="$refs.editRef.handleCreate()">
+                @click="$refs.editDialogRef.handleCreate()">
                 <template #icon>
                     <icon-plus-outlined />
                 </template>
@@ -22,15 +22,15 @@
                     {{ index + 1 }}
                 </template>
                 <template v-if="'action' === column.key">
-                    <x-action-button @click="$refs.editRef.handlePreview(record)">查看</x-action-button>
-                    <x-action-button @click="$refs.editRef.handleEdit(record)">编辑</x-action-button>
+                    <x-action-button @click="$refs.editDialogRef.handlePreview(record)">查看</x-action-button>
+                    <x-action-button @click="$refs.editDialogRef.handleEdit(record)">编辑</x-action-button>
                     <x-action-button @click="handleDelete(record)">删除</x-action-button>
                 </template>
             </template>
         </a-table>
     </a-card>
 
-    <edit ref="editRef" />
+    <edit-dialog ref="editDialogRef" />
 </template>
 
 <script>
@@ -38,12 +38,12 @@ import { onMounted, ref } from 'vue'
 import { message, Modal } from 'ant-design-vue'
 import api from '@/api'
 import usePagination from '@/hooks/usePagination'
-import Edit from './components/Edit.vue'
+import EditDialog from './components/EditDialog.vue'
 
 export default {
     name: 'systemRole',
     components: {
-        Edit,
+        EditDialog,
     },
     setup() {
         const columns = ref([
@@ -54,7 +54,7 @@ export default {
             { title: '操作', key: 'action', width: 160 },
         ])
         const { list, loading } = usePagination()
-        const editRef = ref()
+        const editDialogRef = ref()
 
         onMounted(() => {
             getPageList()
@@ -103,7 +103,7 @@ export default {
             list,
             loading,
             columns,
-            editRef,
+            editDialogRef,
             handleDelete,
         }
     },

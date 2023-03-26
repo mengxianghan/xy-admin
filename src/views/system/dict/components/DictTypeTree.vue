@@ -9,7 +9,7 @@
                 placeholder="请输入关键词搜索"></a-input-search>
         </template>
         <template #actions>
-            <span @click="$refs.editRef.handleCreate()">
+            <span @click="$refs.dictTypeEditDialogRef.handleCreate()">
                 <icon-plus-outlined />
                 新建分类
             </span>
@@ -36,7 +36,8 @@
                     <a-space
                         class="tree-row__actions"
                         @click.stop="() => {}">
-                        <icon-edit-outlined @click.stop="$refs.editRef.handleEdit(record)"></icon-edit-outlined>
+                        <icon-edit-outlined
+                            @click.stop="$refs.dictTypeEditDialogRef.handleEdit(record)"></icon-edit-outlined>
                         <icon-delete-outlined @click="handleDelete(record)"></icon-delete-outlined>
                     </a-space>
                 </div>
@@ -44,7 +45,7 @@
         </a-tree>
     </a-card>
 
-    <dict-type-edit ref="editRef" />
+    <dict-type-edit-dialog ref="dictTypeEditDialogRef" />
 </template>
 
 <script>
@@ -52,17 +53,17 @@ import { ref, onMounted } from 'vue'
 import { message, Modal } from 'ant-design-vue'
 import api from '@/api'
 import usePagination from '@/hooks/usePagination'
-import DictTypeEdit from '@/views/system/dict/components/DictTypeEdit.vue'
+import DictTypeEditDialog from './DictTypeEditDialog.vue'
 
 export default {
     name: 'DictTypeTree',
-    components: { DictTypeEdit },
+    components: { DictTypeEditDialog },
     emits: ['select'],
     setup(props, { emit }) {
         const { loading, list } = usePagination()
         const selectedKeys = ref([])
         const searchValue = ref('')
-        const editRef = ref()
+        const dictTypeEditDialogRef = ref()
 
         onMounted(() => {
             getDictTypeList()
@@ -119,7 +120,7 @@ export default {
 
         return {
             searchValue,
-            editRef,
+            dictTypeEditDialogRef,
             selectedKeys,
             list,
             loading,

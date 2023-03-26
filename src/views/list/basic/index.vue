@@ -32,7 +32,7 @@
         <x-action-bar class="mb-8-2">
             <a-button
                 type="primary"
-                @click="$refs.editRef.handleCreate()">
+                @click="$refs.editDialogRef.handleCreate()">
                 <template #icon>
                     <icon-plus-outlined />
                 </template>
@@ -71,7 +71,7 @@
             @change="onTableChange">
             <template #bodyCell="{ column, record }">
                 <template v-if="'action' === column.key">
-                    <x-action-button @click="$refs.editRef.handleEdit(record)">编辑</x-action-button>
+                    <x-action-button @click="$refs.editDialogRef.handleEdit(record)">编辑</x-action-button>
                     <x-action-button @click="handleDelete(record)">删除</x-action-button>
                     <x-action-button tag="span">
                         <a-dropdown :trigger="['click']">
@@ -93,8 +93,8 @@
         </a-table>
     </a-card>
 
-    <edit
-        ref="editRef"
+    <edit-dialog
+        ref="editDialogRef"
         @ok="onOk" />
 </template>
 
@@ -102,13 +102,13 @@
 import { onMounted, ref } from 'vue'
 import { message, Modal } from 'ant-design-vue'
 import api from '@/api'
-import Edit from './components/Edit.vue'
+import EditDialog from './components/EditDialog.vue'
 import usePagination from '@/hooks/usePagination'
 
 export default {
     name: 'listBasic',
     components: {
-        Edit,
+        EditDialog,
     },
     setup() {
         const columns = [
@@ -117,7 +117,7 @@ export default {
             { title: '操作', key: 'action', width: 180 },
         ]
         const { list, pagination, loading, resetPagination } = usePagination()
-        const editRef = ref()
+        const editDialogRef = ref()
 
         onMounted(() => {
             getPageList()
@@ -197,7 +197,7 @@ export default {
             pagination,
             list,
             loading,
-            editRef,
+            editDialogRef,
             handleSearch,
             handleDelete,
             onTableChange,

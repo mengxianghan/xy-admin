@@ -3,7 +3,7 @@
         <x-action-bar class="mb-8-2">
             <a-button
                 type="primary"
-                @click="$refs.editRef.handleCreate()">
+                @click="$refs.editDialogRef.handleCreate()">
                 <template #icon>
                     <icon-plus-outlined />
                 </template>
@@ -36,8 +36,8 @@
                     </a-tag>
                 </template>
                 <template v-if="'action' === column.key">
-                    <x-action-button @click="$refs.editRef.handleEdit(record)">新建下级</x-action-button>
-                    <x-action-button @click="$refs.editRef.handleEdit(record)">编辑</x-action-button>
+                    <x-action-button @click="$refs.editDialogRef.handleEdit(record)">新建下级</x-action-button>
+                    <x-action-button @click="$refs.editDialogRef.handleEdit(record)">编辑</x-action-button>
                     <x-action-button tag="span">
                         <a-dropdown :trigger="['click']">
                             <a>
@@ -57,7 +57,7 @@
         </a-table>
     </a-card>
 
-    <edit ref="editRef" />
+    <edit-dialog ref="editDialogRef" />
 </template>
 
 <script>
@@ -66,12 +66,12 @@ import { menuTypeEnum } from '@/enums/system'
 import { message, Modal } from 'ant-design-vue'
 import api from '@/api'
 import usePagination from '@/hooks/usePagination'
-import Edit from './components/Edit.vue'
+import EditDialog from './components/EditDialog.vue'
 
 export default {
     name: 'systemMenu',
     components: {
-        Edit,
+        EditDialog,
     },
     setup() {
         const columns = ref([
@@ -82,7 +82,7 @@ export default {
             { title: '操作', key: 'action', width: 240 },
         ])
         const { list, loading } = usePagination()
-        const editRef = ref()
+        const editDialogRef = ref()
 
         onMounted(() => {
             getMenuList()
@@ -132,7 +132,7 @@ export default {
             list,
             loading,
             columns,
-            editRef,
+            editDialogRef,
             handleDelete,
         }
     },
