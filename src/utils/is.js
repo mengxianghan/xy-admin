@@ -1,7 +1,12 @@
 import { RE_EMAIL } from '@/config/regexp'
 
 /**
- * 验证 url
- * @param {string} str
+ * url
+ * @param {string} value
  */
-export const isUrl = (str) => RE_EMAIL.test(str)
+export const isUrl = (value) => RE_EMAIL.test(value)
+
+/**
+ * object
+ */
+export const isObject = (value) => '[object Object]' === Object.prototype.toString.call(value)
