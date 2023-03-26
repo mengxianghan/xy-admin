@@ -16,7 +16,7 @@
     "dependencies": {
         "@ant-design/icons-vue": "^6.1.0",
         "@tinymce/tinymce-vue": "^5.0.0",
-        "ant-design-vue": "^3.2.15",
+        "ant-design-vue": "^3.2.16",
         "axios": "^0.27.2",
         "cropperjs": "^1.5.12",
         "dayjs": "^1.11.7",
