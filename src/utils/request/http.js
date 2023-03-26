@@ -3,8 +3,11 @@ import { useUserStore } from '@/store'
 import { merge } from 'lodash-es'
 import axios from 'axios'
 import JSONbig from 'json-bigint'
+import Pending from './pending'
 
 const instance = axios.create()
+const pending = new Pending()
+const MSG_ERROR_KEY = Symbol('GLOBAL_ERROR')
 
 /**
  * 请求拦截
@@ -14,6 +17,10 @@ instance.interceptors.request.use(
         const userStore = useUserStore()
         const isLogin = userStore.isLogin
         const token = userStore.token
+
+        if (request.canceled !== false) {
+            pending.add(request)
+        }
 
         if (isLogin) {
             request.headers['AUTH-TOKEN'] = token
@@ -31,15 +38,22 @@ instance.interceptors.request.use(
  */
 instance.interceptors.response.use(
     (response) => {
+        pending.remove(response.config)
         // 错误处理
         const { code, msg = 'Network Error' } = response.data || {}
         if (![200].includes(code)) {
-            message.error(msg)
+            message.error({
+                content: msg,
+                key: MSG_ERROR_KEY,
+            })
         }
         return response
     },
     (err) => {
-        message.error(err?.response?.data?.message ?? err.message)
+        message.error({
+            content: err?.response?.data?.error || err.message,
+            key: MSG_ERROR_KEY,
+        })
         return Promise.reject(err)
     }
 )
