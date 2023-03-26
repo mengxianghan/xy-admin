@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import { useLocal } from '@/utils/storage'
-import { STORAGE_IS_LOGIN, STORAGE_USER_INFO, STORAGE_TOKEN, STORAGE_PERMISSION } from '@/config/index'
+import { STORAGE_IS_LOGIN, STORAGE_USER_INFO, STORAGE_TOKEN, STORAGE_PERMISSION } from '@/config/storage'
 
 import useAppStore from './app'
 import api from '@/api'
