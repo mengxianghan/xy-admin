@@ -87,9 +87,9 @@
     </div>
 
     <!--裁剪-->
-    <cropper-modal
+    <cropper-dialog
         v-if="cropper && !multiple"
-        ref="cropperModalRef"
+        ref="cropperDialogRef"
         :aspect-ratio="aspectRatio"
         :quality="quality"
         @ok="(file) => customRequest(file)" />
@@ -108,7 +108,7 @@ import filesizeParser from 'filesize-parser'
 import api from '@/api'
 
 import Preview from '../Preview'
-import CropperModal from '../CropperModal.vue'
+import CropperDialog from '../CropperDialog.vue'
 
 /**
  * 图片上传
@@ -129,7 +129,7 @@ import CropperModal from '../CropperModal.vue'
  */
 export default {
     name: 'XUploadImage',
-    components: { CropperModal },
+    components: { CropperDialog },
     props: {
         modelValue: {
             type: [String, Array],
@@ -193,7 +193,7 @@ export default {
         const { onFieldChange } = Form.useInjectFormItemContext()
 
         const fileList = ref([])
-        const cropperModalRef = ref()
+        const cropperDialogRef = ref()
         const uploadImageRef = ref()
         const sortable = ref(null)
 
@@ -309,7 +309,7 @@ export default {
                 const fileReader = new FileReader()
                 fileReader.readAsDataURL(file)
                 fileReader.onload = (e) => {
-                    cropperModalRef.value?.handleOpen(e.target.result)
+                    cropperDialogRef.value?.handleOpen(e.target.result)
                 }
             }
             return checkFileSize && checkCropper
@@ -409,7 +409,7 @@ export default {
             STATUS_ENUM,
             fileList,
             showUploadBtn,
-            cropperModalRef,
+            cropperDialogRef,
             uploadImageRef,
             handlePreview,
             handleRemove,

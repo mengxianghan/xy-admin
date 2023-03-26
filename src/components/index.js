@@ -3,7 +3,7 @@ import ActionButton from './ActionButton.vue'
 import Breadcrumb from './Breadcrumb.vue'
 import Chart from './Chart.vue'
 import Cropper from './Cropper.vue'
-import CropperModal from './CropperModal.vue'
+import CropperDialog from './CropperDialog.vue'
 import Editor from './Editor.vue'
 import FormTable from './FormTable.vue'
 import Filter from './Filter/Filter.vue'
@@ -29,7 +29,7 @@ const componentList = [
     Breadcrumb,
     Chart,
     Cropper,
-    CropperModal,
+    CropperDialog,
     Editor,
     FormTable,
     Filter,

@@ -26,7 +26,7 @@ import Cropper from './Cropper.vue'
  * @property {number} quality 图片质量，取值范围：0-1，默认：1
  */
 export default {
-    name: 'XCropperModal',
+    name: 'XCropperDialog',
     components: {
         Cropper,
     },
