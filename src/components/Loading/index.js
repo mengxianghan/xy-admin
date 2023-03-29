@@ -1,31 +1,51 @@
-import { createVNode, render } from 'vue'
+import { createApp } from 'vue'
 
 import LoadingConstructor from './Loading.vue'
 
 let container = null
+let app = null
 
-function show(props) {
-    if (container) Loading.hide()
+/**
+ * 返回
+ */
+function popstateListener() {
+    close()
+}
+
+/**
+ * 打开
+ * @param {object} props
+ */
+function open(props) {
+    Loading.close()
     container = document.createElement('div')
-    const vnode = createVNode(LoadingConstructor, props)
-    render(vnode, container)
+    app = createApp(LoadingConstructor, props)
+    app.mount(container)
     document.body.appendChild(container)
+
+    window.addEventListener('popstate', popstateListener)
+}
+
+/**
+ * 关闭
+ */
+function close() {
+    if (app) {
+        app.unmount(container)
+    }
+    if (container) {
+        container.remove()
+    }
+    container = null
+    app = null
+
+    window.removeEventListener('popstate', popstateListener)
 }
 
 const Loading = (props) => {
-    show(props)
+    open(props)
 }
 
-Loading.hide = () => {
-    if (!container) return
-    document.body.removeChild(container)
-    container = null
-}
-
-Loading.error = () => {
-    show({
-        status: 'error',
-    })
-}
+Loading.close = close
 
 export default Loading

@@ -10,9 +10,9 @@ function show(el) {
     const props = {
         type: 'directive',
     }
-    const text = el.getAttribute('x-loading-text')
-    if (text) {
-        props.text = text
+    const title = el.getAttribute('x-loading-title')
+    if (title) {
+        props.title = title
     }
     const vnode = createVNode(LoadingConstructor, props)
     render(vnode, container)
@@ -22,9 +22,10 @@ function show(el) {
 }
 
 function hide(el) {
-    if (!container) return
-    container.remove()
-    container = null
+    if (container) {
+        container.remove()
+        container = null
+    }
     el.style.position = ''
     el.style.overflow = ''
 }
