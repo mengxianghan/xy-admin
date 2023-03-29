@@ -140,7 +140,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@handle-size: 4px;
+@handle-size: 3px;
 
 .x-resize-box {
     position: relative;
