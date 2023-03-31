@@ -20,7 +20,7 @@
         "axios": "^0.27.2",
         "cropperjs": "^1.5.12",
         "dayjs": "^1.11.7",
-        "echarts": "^5.4.1",
+        "echarts": "^5.4.2",
         "filesize": "^10.0.6",
         "filesize-parser": "^1.5.0",
         "jschardet": "^3.0.0",
