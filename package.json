@@ -10,8 +10,11 @@
         "build:demo": "vite build --mode demo",
         "preview": "npm run build:prod && vite preview --mode prod",
         "report": "vite build --mode demo",
-        "prepare": "husky install",
-        "lint": "eslint --ext .js,.vue --fix src"
+        "lint": "eslint --ext .js,.vue --ignore-path .eslintignore --fix src",
+        "prepare": "husky install"
+    },
+    "lint-staged": {
+        "src/**/*.{js,vue}": "eslint --ext .js,.vue .eslintignore --no-cache --fix"
     },
     "dependencies": {
         "@ant-design/icons-vue": "^6.1.0",
