@@ -1,6 +1,6 @@
 <template>
     <div
-        v-show="'iframe' === $route.meta.type"
+        v-show="cpIsIframe"
         class="iframe-view">
         <iframe
             v-for="item in iframeList"
@@ -11,12 +11,25 @@
     </div>
 </template>
 
-<script setup>
+<script>
 import { computed } from 'vue'
 import { useMultiTabStore } from '@/store'
+import { useRoute } from 'vue-router'
 
-const multiTabStore = useMultiTabStore()
-const iframeList = computed(() => multiTabStore.iframeList)
+export default {
+    name: 'IframeView',
+    setup() {
+        const route = useRoute()
+        const multiTabStore = useMultiTabStore()
+        const iframeList = computed(() => multiTabStore.iframeList)
+        const cpIsIframe = computed(() => route?.meta?._isIframe)
+
+        return {
+            iframeList,
+            cpIsIframe,
+        }
+    },
+}
 </script>
 
 <style lang="less" scoped>

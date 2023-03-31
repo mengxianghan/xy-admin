@@ -6,6 +6,16 @@ const useAppStore = defineStore('app', {
     name: 'useAppStore',
     state: () => ({
         complete: false,
+        config: {
+            menuMode: 'combination', // 菜单模式【left=左侧菜单，top=顶部菜单，combination=组合菜单】
+            side: {
+                collapsedWidth: 48,
+                width: 208,
+            },
+            header: {
+                height: 48,
+            },
+        },
     }),
     getters: {},
     actions: {

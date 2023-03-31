@@ -10,7 +10,11 @@
     </div>
 </template>
 
-<script setup></script>
+<script>
+export default {
+    name: 'CustomLayout',
+}
+</script>
 
 <style lang="less" scoped>
 .content {

@@ -8,9 +8,6 @@ import Editor from './Editor.vue'
 import FormTable from './FormTable.vue'
 import Filter from './Filter/Filter.vue'
 import FilterItem from './Filter/FilterItem.vue'
-import LayoutHeader from './LayoutHeader.vue'
-import LayoutMenu from './LayoutMenu/LayoutMenu.vue'
-import MultiTab from './MultiTab.vue'
 import QrCode from './QrCode.vue'
 import Region from './Region.vue'
 import SearchBar from './SearchBar.vue'
@@ -34,9 +31,6 @@ const componentList = [
     FormTable,
     Filter,
     FilterItem,
-    LayoutHeader,
-    LayoutMenu,
-    MultiTab,
     QrCode,
     Region,
     SearchBar,

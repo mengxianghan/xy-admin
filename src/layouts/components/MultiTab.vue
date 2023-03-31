@@ -1,6 +1,6 @@
 <template>
     <div
-        class="x-multi-tab"
+        class="multi-tab"
         ref="multiTabRef">
         <a-tabs
             type="card"
@@ -15,14 +15,14 @@
                             {{ item.meta.title }}
                             <span
                                 v-if="current === index"
-                                class="x-multi-tab__reload-btn"
+                                class="multi-tab__reload-btn"
                                 @click.stop="handleReload(item)">
                                 <icon-reload-outlined
                                     class="ma-0"
                                     :spin="spin" />
                             </span>
                             <span
-                                class="x-multi-tab__close-btn"
+                                class="multi-tab__close-btn"
                                 @click.stop="handleClose(item)">
                                 <icon-close-outlined class="ma-0" />
                             </span>
@@ -70,13 +70,11 @@
 import { onMounted, computed, ref, nextTick } from 'vue'
 import { useMultiTabStore } from '@/store'
 import { useRouter, onBeforeRouteUpdate } from 'vue-router'
-
 import useMultiTab from '@/hooks/useMultiTab'
-
 import Sortable from 'sortablejs'
 
 export default {
-    name: 'XMultiTab',
+    name: 'MultiTab',
     setup() {
         const multiTabStore = useMultiTabStore()
         const router = useRouter()
@@ -155,14 +153,13 @@ export default {
 }
 </script>
 
-<script setup></script>
-
 <style lang="less" scoped>
-.x-multi-tab {
+.multi-tab {
     position: sticky;
+    padding: 8px 0 0 0;
+    background: #fff;
     top: 48px;
     z-index: 100;
-    box-shadow: 0 1px 4px rgba(0, 21, 41, 0.08);
 
     &__reload-btn,
     &__close-btn {
@@ -183,13 +180,13 @@ export default {
         padding: 0 @padding-md;
     }
 
-    :deep(.ant-tabs-top > .ant-tabs-nav) {
-        margin-bottom: 0;
-    }
+    // :deep(.ant-tabs-top > .ant-tabs-nav) {
+    //     // margin-bottom: 0;
+    // }
 
-    :deep(.ant-tabs-top > .ant-tabs-nav::before) {
-        display: none;
-    }
+    // :deep(.ant-tabs-top > .ant-tabs-nav::before) {
+    //     // display: none;
+    // }
 
     :deep(.ant-tabs-tab-btn) {
         height: 100%;
@@ -206,7 +203,7 @@ export default {
     :deep(.ant-tabs-card > .ant-tabs-nav .ant-tabs-tab) {
         height: 40px;
         padding: 0;
-        border-bottom: 0;
+        // border-bottom: 0;
     }
 }
 </style>

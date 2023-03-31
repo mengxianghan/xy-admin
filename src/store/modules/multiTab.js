@@ -216,7 +216,7 @@ const useMultiTabStore = defineStore('multiTab', {
                 this.keepAlive = !this.keepAlive
             }
             // 如果刷新的是 iframe
-            if ('iframe' === route?.meta?.type) {
+            if (route?.meta?._isIframe) {
                 const iframeIndex = findIndex(this.iframeList, { path: route?.path })
                 this.iframeList[iframeIndex].meta.url = ''
                 setTimeout(() => {
@@ -228,7 +228,7 @@ const useMultiTabStore = defineStore('multiTab', {
          * 设置 iframe 列表
          */
         _setIframeList() {
-            this.iframeList = cloneDeep(this.list).filter((item) => 'iframe' === item?.meta?.type)
+            this.iframeList = cloneDeep(this.list).filter((item) => item?.meta?._isIframe)
         },
     },
 })

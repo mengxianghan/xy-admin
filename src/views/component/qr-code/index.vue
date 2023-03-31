@@ -15,7 +15,7 @@
                 title="带Logo">
                 <x-qr-code
                     text="admin"
-                    :logo="URL_LOGO"></x-qr-code>
+                    :logo="ICON_LOGO"></x-qr-code>
             </a-card>
         </a-col>
         <a-col :span="6">
@@ -54,7 +54,7 @@
 
 <script>
 import { ref } from 'vue'
-import { URL_LOGO } from '@/config'
+import { ICON_LOGO } from '@/config'
 
 export default {
     name: 'componentQrCode',
@@ -69,7 +69,7 @@ export default {
         return {
             text,
             status,
-            URL_LOGO,
+            ICON_LOGO,
             onReady,
         }
     },

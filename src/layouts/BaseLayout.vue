@@ -5,7 +5,7 @@
                 <h1>{{ title }}</h1>
             </div>
             <div class="aside-body">
-                <img :src="LoginWelcome" />
+                <img :src="getAssetsFile('login_welcome.svg')" />
                 <h3>高性能 / 精致 / 优雅</h3>
                 <p>基于Vue3 + Ant Design Vue 的中后台前端解决方案。</p>
             </div>
@@ -27,11 +27,22 @@
     </div>
 </template>
 
-<script setup>
-import LoginWelcome from '@/assets/login_welcome.svg'
+<script>
+import { getAssetsFile } from '@/utils/get'
 
-const title = import.meta.env.VITE_TITLE
-const { version } = __APP_INFO__
+export default {
+    name: 'BaseLayout',
+    setup() {
+        const title = import.meta.env.VITE_TITLE
+        const { version } = __APP_INFO__
+
+        return {
+            title,
+            version,
+            getAssetsFile,
+        }
+    },
+}
 </script>
 
 <style lang="less" scoped>
