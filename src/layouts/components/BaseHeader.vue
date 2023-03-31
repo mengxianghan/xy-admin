@@ -16,30 +16,37 @@
         </div>
         <!-- 右侧 -->
         <div class="base-header__right">
-            <a-dropdown :trigger="['click']">
-                <action-button>
-                    <a-avatar
-                        class="mr-8-1"
-                        :size="24">
-                        <template #icon>
-                            <icon-user-outlined />
-                        </template>
-                    </a-avatar>
-                    <span v-if="cpIsLogin">{{ cpUserInfo.username }}</span>
-                    <icon-down-outlined class="ml-8-1" />
+            <a-space>
+                <a-dropdown :trigger="['click']">
+                    <action-button>
+                        <a-avatar
+                            class="mr-8-1"
+                            :size="24">
+                            <template #icon>
+                                <icon-user-outlined />
+                            </template>
+                        </a-avatar>
+                        <span v-if="cpIsLogin">{{ cpUserInfo.username }}</span>
+                    </action-button>
+                    <a-spin />
+                    <template #overlay>
+                        <a-menu>
+                            <a-menu-divider></a-menu-divider>
+                            <a-menu-item
+                                key="logout"
+                                class="color-error"
+                                @click="handleLogout">
+                                <icon-login-outlined></icon-login-outlined>
+                                退出登录
+                            </a-menu-item>
+                        </a-menu>
+                    </template>
+                </a-dropdown>
+
+                <action-button @click="handleSetting">
+                    <icon-setting-outlined></icon-setting-outlined>
                 </action-button>
-                <a-spin />
-                <template #overlay>
-                    <a-menu>
-                        <a-menu-item
-                            key="logout"
-                            @click="handleLogout">
-                            <icon-login-outlined></icon-login-outlined>
-                            退出登录
-                        </a-menu-item>
-                    </a-menu>
-                </template>
-            </a-dropdown>
+            </a-space>
         </div>
     </a-layout-header>
 </template>
@@ -66,7 +73,8 @@ export default {
             default: 'light',
         },
     },
-    setup(props, { slots }) {
+    emits: ['setting'],
+    setup(props, { slots, emit }) {
         const userStore = useUserStore()
         const appStore = useAppStore()
         const router = useRouter()
@@ -81,6 +89,9 @@ export default {
         const cpIsLogin = computed(() => userStore.isLogin)
         const cpUserInfo = computed(() => userStore.userInfo)
 
+        /**
+         * 退出登录
+         */
         function handleLogout() {
             Modal.confirm({
                 title: '注销登录？',
@@ -96,6 +107,13 @@ export default {
             })
         }
 
+        /**
+         * 系统设置
+         */
+        function handleSetting() {
+            emit('setting')
+        }
+
         return {
             config,
             cpClassNames,
@@ -104,6 +122,7 @@ export default {
             cpIsLogin,
             cpUserInfo,
             handleLogout,
+            handleSetting,
         }
     },
 }
@@ -111,7 +130,7 @@ export default {
 
 <style lang="less" scoped>
 .base-header {
-    height: v-bind('config.header.height + "px"');
+    height: v-bind('config.headerHeight + "px"');
     line-height: 1;
     z-index: 110;
     position: sticky;
@@ -119,21 +138,29 @@ export default {
     top: 0;
     display: flex;
     align-items: center;
+    transition: background 0s;
 
     &__left {
         margin-right: @margin-lg;
+        flex-shrink: 0;
     }
 
     &__center {
+        flex: auto;
+        min-width: 0;
+        overflow: hidden;
     }
 
     &__right {
+        flex-shrink: 0;
         margin: 0 0 0 auto;
+        display: flex;
+        align-items: center;
     }
 
     :deep(.ant-menu-horizontal) {
         border: none;
-        line-height: v-bind('config.header.height + "px"');
+        line-height: v-bind('config.headerHeight + "px"');
     }
 
     &--light {
@@ -144,6 +171,12 @@ export default {
     &--dark {
         background: @layout-sider-background;
         color: #fff;
+
+        :deep(.action-btn) {
+            &:hover {
+                background: #252a3d;
+            }
+        }
     }
 }
 </style>

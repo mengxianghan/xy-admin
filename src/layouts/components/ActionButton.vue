@@ -13,12 +13,18 @@
 </template>
 
 <script>
+import { storeToRefs } from 'pinia'
 import { computed } from 'vue'
+import { useAppStore } from '@/store'
 
 export default {
     name: 'ActionButton',
     emits: ['click'],
     setup(props, { slots, emit }) {
+        const appStore = useAppStore()
+
+        const { config } = storeToRefs(appStore)
+
         const cpShowIconSlot = computed(() => !!slots.icon)
 
         function handleClick() {
@@ -26,6 +32,7 @@ export default {
         }
 
         return {
+            config,
             cpShowIconSlot,
             handleClick,
         }
@@ -35,12 +42,16 @@ export default {
 
 <style lang="less" scoped>
 .action-btn {
-    min-width: 48px;
-    height: 48px;
+    min-width: v-bind('config.headerHeight + "px"');
+    height: v-bind('config.headerHeight + "px"');
     border: none;
     position: relative;
     font-size: 14px;
     color: currentColor;
+
+    &:hover {
+        color: currentColor;
+    }
 
     :deep(.ant-badge) {
         position: absolute;

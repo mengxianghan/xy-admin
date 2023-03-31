@@ -5,16 +5,14 @@
         :mode="mode"
         :inline-collapsed="collapsed"
         :open-keys="cpOpenKeys"
-        :selected-keys="selectedKeys"
+        v-model:selected-keys="selectedKeys"
         @openChange="onOpenChange">
         <template
             v-for="item in dataList"
             :key="item.name">
             <template v-if="!item.children">
                 <a-menu-item :key="item.name">
-                    <menu-link
-                        :data-source="item"
-                        @combination="handleCombination" />
+                    <menu-link :data-source="item" />
                 </a-menu-item>
             </template>
             <template v-else>
@@ -81,10 +79,6 @@ export default {
             setSelectedMenu()
         })
 
-        function handleCombination({ name }) {
-            selectedKeys.value = [name]
-        }
-
         /**
          * 设置选中菜单
          */
@@ -113,7 +107,6 @@ export default {
             collapsed,
             ICON_LOGO,
             cpOpenKeys,
-            handleCombination,
             selectedKeys,
             onOpenChange,
         }
@@ -123,6 +116,8 @@ export default {
 
 <style lang="less" scoped>
 .menu {
+    transition: background 0s;
+
     :deep(.menu__title) {
         display: flex;
         align-items: center;
@@ -149,9 +144,21 @@ export default {
     &.ant-menu-inline {
         border-right: none;
 
-        :deep(.ant-menu-item) {
+        :deep(.ant-menu-item),
+        :deep(.ant-menu-submenu-title) {
             width: 100%;
         }
+
+        &.ant-menu-root {
+            :deep(.ant-menu-item),
+            :deep(.ant-menu-submenu-title) {
+                transition: background 0s;
+            }
+        }
+    }
+
+    :deep(.ant-menu-submenu .ant-menu-sub) {
+        transition: background 0s;
     }
 
     &.ant-menu-horizontal {
@@ -177,6 +184,18 @@ export default {
             :deep(.ant-menu-submenu-selected) {
                 background: @primary-color;
             }
+        }
+
+        &:not(.ant-menu-dark) {
+            :deep(> .ant-menu-item),
+            :deep(> .ant-menu-submenu) {
+                margin-top: 0;
+            }
+        }
+
+        :deep(.ant-menu-item),
+        :deep(.ant-menu-submenu) {
+            top: 0;
         }
     }
 }

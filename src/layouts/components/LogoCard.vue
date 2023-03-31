@@ -53,7 +53,7 @@ export default {
 
 <style lang="less" scoped>
 .logo-card {
-    height: v-bind('config.header.height + "px"');
+    height: v-bind('config.headerHeight + "px"');
     display: flex;
     align-items: center;
     justify-content: center;
@@ -61,7 +61,7 @@ export default {
     position: relative;
 
     img {
-        height: 32px;
+        height: 28px;
     }
 
     h1 {
@@ -79,6 +79,8 @@ export default {
     }
 
     &--dark {
+        background: @layout-sider-background;
+
         h1 {
             color: #fff;
         }

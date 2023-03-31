@@ -32,7 +32,7 @@ export default {
             default: () => ({}),
         },
     },
-    emits: ['click', 'combination'],
+    emits: ['click'],
     setup(props, { emit }) {
         const cpComponentName = computed(() =>
             props.dataSource?.path ? (props.dataSource?.meta?.isLink ? 'a' : RouterLink) : 'div'
@@ -55,9 +55,8 @@ export default {
         })
 
         function handleClick() {
-            if (props.dataSource?.combination) {
-                props.dataSource?.combination?.callback?.call(null, props.dataSource)
-                emit('combination', props.dataSource)
+            if (props.dataSource?.props) {
+                props.dataSource?.props?.click?.call(null, props.dataSource)
             }
             emit('click', props.dataSource)
         }

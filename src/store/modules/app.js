@@ -7,14 +7,13 @@ const useAppStore = defineStore('app', {
     state: () => ({
         complete: false,
         config: {
-            menuMode: 'combination', // 菜单模式【left=左侧菜单，top=顶部菜单，combination=组合菜单】
-            side: {
-                collapsedWidth: 48,
-                width: 208,
-            },
-            header: {
-                height: 48,
-            },
+            menuMode: 'side', // 菜单模式【side=侧边菜单，top=顶部菜单，mix=混合菜单】
+            sideCollapsedWidth: 48,
+            sideWidth: 208,
+            headerHeight: 48,
+            sideTheme: 'dark',
+            headerTheme: 'light',
+            multiTab: true,
         },
     }),
     getters: {},

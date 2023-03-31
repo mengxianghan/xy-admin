@@ -3,13 +3,14 @@
         class="base-side"
         breakpoint="lg"
         :collapsed="collapsed"
-        :collapsed-width="config.side.collapsedWidth"
-        :width="config.side.width">
+        :collapsed-width="config.sideCollapsedWidth"
+        :width="config.sideWidth"
+        :theme="theme">
         <div
             v-if="showHeader"
             class="base-side__header">
             <logo-card
-                theme="dark"
+                :theme="theme"
                 :collapsed="collapsed"></logo-card>
         </div>
         <div
@@ -41,6 +42,9 @@ export default {
         LogoCard,
     },
     props: {
+        theme: {
+            type: String,
+        },
         collapsed: {
             type: Boolean,
             default: false,
@@ -75,6 +79,7 @@ export default {
     height: 100vh;
     z-index: 120;
     box-shadow: 1px 0 4px rgba(0, 21, 41, 0.08);
+    transition: all @animation-duration-base, background 0s;
 
     :deep(.ant-layout-sider-children) {
         height: 100%;
