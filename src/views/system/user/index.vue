@@ -1,8 +1,14 @@
 <template>
     <a-row
-        :gutter="16"
         type="flex"
-        class="hp-100">
+        :gutter="16"
+        :style="{
+            position: 'absolute',
+            left: 0,
+            right: 0,
+            top: 0,
+            bottom: 0,
+        }">
         <a-col flex="0 0 240px">
             <a-card
                 v-loading="roleLoading"
