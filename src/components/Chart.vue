@@ -11,14 +11,14 @@ import * as echarts from 'echarts'
 
 /**
  * 图表
- * @property {object} options 配置信息
+ * @property {object} option 配置信息
  * @property {number | string} width 宽
  * @property {number | string} height 高
  */
 export default {
     name: 'XChart',
     props: {
-        options: {
+        option: {
             type: Object,
             default: () => ({}),
         },
@@ -37,8 +37,11 @@ export default {
         const chartRef = ref()
 
         watch(
-            () => props.options,
-            () => init()
+            () => props.option,
+            () => init(),
+            {
+                deep: true,
+            }
         )
 
         onMounted(() => {
@@ -77,7 +80,7 @@ export default {
             )
 
             setTimeout(() => {
-                chart.value.setOption(props.options, true)
+                chart.value.setOption(props.option, true)
                 chart.value.resize()
                 emit('init', chart.value)
             }, 100)
