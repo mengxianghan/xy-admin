@@ -20,6 +20,6 @@ module.exports = {
         __APP_INFO__: true,
     },
     rules: {
-        'vue/multi-word-component-names': 'off'
+        'vue/multi-word-component-names': 'off',
     },
 }
