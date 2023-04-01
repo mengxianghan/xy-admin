@@ -44,7 +44,9 @@
                     :theme="config.headerTheme"
                     @setting="handleSetting">
                     <template #left>
-                        <logo-card :theme="config.headerTheme"></logo-card>
+                        <logo-card
+                            class="mr-8-2"
+                            :theme="config.headerTheme"></logo-card>
                     </template>
                     <base-menu
                         mode="horizontal"
@@ -63,7 +65,7 @@
                     @setting="handleSetting">
                     <template #left>
                         <logo-card
-                            :theme="config.sideTheme"
+                            :theme="sideMenuList.length ? config.sideTheme : config.headerTheme"
                             :style="{ width: `${config.sideWidth}px` }"></logo-card>
                     </template>
                     <base-menu
