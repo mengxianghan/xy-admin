@@ -5,7 +5,7 @@
             :label-col="{ lg: { span: 5 }, sm: { span: 5 } }"
             :wrapper-col="{ lg: { span: 19 }, sm: { span: 19 } }"
             ref="formRef"
-            :rules="rules">
+            :rules="formRules">
             <a-form-item
                 label="付款账户"
                 name="paymentUser">
@@ -76,9 +76,9 @@ export default {
     name: 'Step1',
     emits: ['next'],
     setup(props, { emit }) {
-        const { formState, formRef, rules } = useForm()
+        const { formState, formRef, formRules } = useForm()
 
-        rules.value = {
+        formRules.value = {
             paymentUser: [{ required: true, message: '付款账户必须填写' }],
             payType: [{ required: true, message: '收款账户必须填写' }],
             name: [{ required: true, message: '收款人名称必须核对' }],
@@ -100,7 +100,7 @@ export default {
         return {
             formRef,
             formState,
-            rules,
+            formRules,
             handleNext,
         }
     },

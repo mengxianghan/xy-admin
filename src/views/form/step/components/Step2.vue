@@ -5,7 +5,7 @@
             :model="formState"
             :label-col="{ lg: { span: 5 }, sm: { span: 5 } }"
             :wrapper-col="{ lg: { span: 19 }, sm: { span: 19 } }"
-            :rules="rules">
+            :rules="formRules">
             <a-alert
                 message="确认转账后，资金将直接打入对方账户，无法退回。"
                 :style="{ marginBottom: '24px' }"
@@ -46,10 +46,10 @@ export default {
     name: 'Step2',
     emits: ['next', 'prev'],
     setup(props, { emit }) {
-        const { formState, rules, formRef } = useForm()
+        const { formState, formRules, formRef } = useForm()
         const loading = ref(false)
 
-        rules.value = {
+        formRules.value = {
             paymentPassword: [{ required: true, message: '请输入支付密码' }],
         }
 
@@ -81,7 +81,7 @@ export default {
         return {
             formRef,
             formState,
-            rules,
+            formRules,
             loading,
             handleNext,
             handlePrev,

@@ -16,7 +16,7 @@
         <a-form
             ref="formRef"
             :model="formState"
-            :rules="rules"
+            :rules="formRules"
             :label-col="{ style: { width: '90px' } }">
             <a-form-item
                 label="头像"
@@ -67,12 +67,12 @@ export default {
     emits: ['ok'],
     setup(props, { emit }) {
         const { modal, showModal, hideModal, showLoading, hideLoading } = useModal()
-        const { formRecord, formState, formRef, rules, resetForm } = useForm()
+        const { formRecord, formState, formRef, formRules, resetForm } = useForm()
         const disabled = ref(false)
         const cancelText = ref('取消')
         const roleList = ref([])
 
-        rules.value = {
+        formRules.value = {
             avatar: { required: true, message: '请上传头像' },
             userName: { required: true, message: '请输入登录帐号' },
             name: { required: true, message: '请输入姓名' },
@@ -181,7 +181,7 @@ export default {
             cancelText,
             formRef,
             formState,
-            rules,
+            formRules,
             roleList,
             handleCreate,
             handleEdit,

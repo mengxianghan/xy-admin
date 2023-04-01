@@ -67,7 +67,7 @@
                 <a-form
                     :label-col="{ style: { width: '100px' } }"
                     :model="formState"
-                    :rules="rules"
+                    :rules="formRules"
                     ref="formRef">
                     <a-form-item
                         label="身份证"
@@ -137,7 +137,7 @@ import useForm from '@/hooks/useForm'
 export default {
     name: 'componentUpload',
     setup() {
-        const { formState, rules, formRef, resetForm } = useForm()
+        const { formState, formRules, formRef, resetForm } = useForm()
         const basic = ref('')
         const customTitle = ref('')
         const customSlot = ref('')
@@ -145,7 +145,7 @@ export default {
         const round = ref('')
         const multipleList = ref([])
 
-        rules.value = {
+        formRules.value = {
             field1: { required: true, message: '请上传人像面' },
             field2: { required: true, message: '请上传国徽面' },
             field5: { required: true, message: '请上传文件' },
@@ -166,7 +166,7 @@ export default {
 
         return {
             basic,
-            rules,
+            formRules,
             formRef,
             formState,
             customTitle,

@@ -4,7 +4,7 @@
             :label-col="{ sm: 7, lg: 7 }"
             :wrapper-col="{ sm: 17, lg: 10 }"
             ref="formRef"
-            :rules="rules"
+            :rules="formRules"
             :model="formState">
             <a-form-item
                 label="标题"
@@ -91,13 +91,13 @@ export default {
             { label: '部分公开', value: 2 },
             { label: '不公开', value: 3 },
         ]
-        const { formRef, formState, rules, resetForm } = useForm()
+        const { formRef, formState, formRules, resetForm } = useForm()
 
         formState.value = {
             field8: 1,
         }
 
-        rules.value = {
+        formRules.value = {
             field1: { required: true, message: '请输入标题' },
             field2: { required: true, message: '请选择起止日期' },
             field3: { required: true, message: '请输入目标描述' },
@@ -122,7 +122,7 @@ export default {
 
         return {
             formRef,
-            rules,
+            formRules,
             formState,
             targetList,
             handleOk,

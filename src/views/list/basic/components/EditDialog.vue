@@ -11,7 +11,7 @@
             scroll-to-first-error
             layout="vertical"
             :model="formState"
-            :rules="rules">
+            :rules="formRules">
             <a-form-item
                 label="标题"
                 name="title">
@@ -31,9 +31,9 @@ export default {
     emits: ['ok'],
     setup(props, { emit }) {
         const { modal, showModal, hideModal, showLoading, hideLoading } = useModal()
-        const { formRef, rules, formRecord, formState, resetForm } = useForm()
+        const { formRef, formRules, formRecord, formState, resetForm } = useForm()
 
-        rules.value = {
+        formRules.value = {
             title: { required: true, message: '请输入标题' },
         }
 
@@ -102,7 +102,7 @@ export default {
             modal,
             formRef,
             formState,
-            rules,
+            formRules,
             handleOk,
             handleCancel,
             handleCreate,
