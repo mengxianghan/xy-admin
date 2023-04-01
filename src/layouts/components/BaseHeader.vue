@@ -141,7 +141,6 @@ export default {
     transition: background 0s;
 
     &__left {
-        margin-right: @margin-lg;
         flex-shrink: 0;
     }
 
