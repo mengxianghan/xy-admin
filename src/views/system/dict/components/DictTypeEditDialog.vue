@@ -10,7 +10,7 @@
         <a-form
             ref="formRef"
             :model="formState"
-            :rules="rules"
+            :rules="formRules"
             scroll-to-first-error
             :label-col="{ style: { width: '100px' } }">
             <a-form-item
@@ -42,9 +42,9 @@ export default {
     emits: ['ok'],
     setup(props, { emit }) {
         const { modal, showModal, hideModal, showLoading, hideLoading } = useModal()
-        const { formRef, rules, formRecord, formState, resetForm } = useForm()
+        const { formRef, formRules, formRecord, formState, resetForm } = useForm()
 
-        rules.value = {
+        formRules.value = {
             name: { required: true, message: '请输入名称' },
             code: { required: true, message: '请输入编码' },
         }
@@ -110,7 +110,7 @@ export default {
             modal,
             formRef,
             formState,
-            rules,
+            formRules,
             handleCreate,
             handleEdit,
             handleOk,

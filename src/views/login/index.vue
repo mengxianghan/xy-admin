@@ -7,7 +7,7 @@
                 tab="账号登录">
                 <a-form
                     :model="formState"
-                    :rules="rules"
+                    :rules="formRules"
                     ref="formRef">
                     <a-form-item name="username">
                         <a-input
@@ -49,7 +49,7 @@
                 tab="手机号登录">
                 <a-form
                     :model="formState"
-                    :rules="rules"
+                    :rules="formRules"
                     ref="formRef">
                     <a-form-item name="username">
                         <a-input
@@ -114,7 +114,7 @@ import useForm from '@/hooks/useForm'
 export default {
     name: 'login',
     setup() {
-        const { formState, formRef, rules } = useForm()
+        const { formState, formRef, formRules } = useForm()
         const appStore = useAppStore()
         const userStore = useUserStore()
         const routerStore = useRouterStore()
@@ -123,7 +123,7 @@ export default {
         const loading = ref(false)
         const redirect = computed(() => decodeURIComponent(route.query?.redirect ?? ''))
 
-        rules.value = {
+        formRules.value = {
             username: { required: true, message: '请输入用户名' },
             password: { required: true, message: '请输入密码' },
         }
@@ -198,7 +198,7 @@ export default {
 
         return {
             formRef,
-            rules,
+            formRules,
             loading,
             formState,
             handleLogin,

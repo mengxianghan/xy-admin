@@ -16,7 +16,7 @@
         <a-form
             ref="formRef"
             :model="formState"
-            :rules="rules"
+            :rules="formRules"
             :label-col="{
                 style: { width: '90px' },
             }">
@@ -67,11 +67,11 @@ export default {
     emits: ['ok'],
     setup(props, { emit }) {
         const { modal, showModal, hideModal, showLoading, hideLoading } = useModal()
-        const { formRecord, formState, formRef, rules, resetForm } = useForm()
+        const { formRecord, formState, formRef, formRules, resetForm } = useForm()
         const disabled = ref(false)
         const cancelText = ref('取消')
 
-        rules.value = {
+        formRules.value = {
             role: { required: true, message: '请选择所属上级' },
             name: { required: true, message: '请输入名称' },
             alias: { required: true, message: '请输入别名' },
@@ -163,7 +163,7 @@ export default {
             disabled,
             formRef,
             formState,
-            rules,
+            formRules,
             handleCreate,
             handleEdit,
             handlePreview,

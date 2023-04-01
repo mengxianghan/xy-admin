@@ -17,7 +17,7 @@
             <a-form
                 :label-col="{ style: { width: '100px' } }"
                 :model="formState"
-                :rules="rules"
+                :rules="formRules"
                 ref="formRef">
                 <a-form-item
                     label="字段 1"
@@ -46,10 +46,10 @@ import useForm from '@/hooks/useForm'
 export default {
     name: 'componentEditor',
     setup() {
-        const { formState, rules, formRef, resetForm } = useForm()
+        const { formState, formRules, formRef, resetForm } = useForm()
         const content = ref('')
 
-        rules.value = {
+        formRules.value = {
             field1: { required: true, message: '请输入内容' },
         }
 
@@ -68,7 +68,7 @@ export default {
 
         return {
             content,
-            rules,
+            formRules,
             formRef,
             formState,
             handleReset,

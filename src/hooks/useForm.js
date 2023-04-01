@@ -3,7 +3,7 @@ import { ref } from 'vue'
 export default () => {
     const formRef = ref({})
     const formRecord = ref({})
-    const rules = ref(null)
+    const formRules = ref(null)
     const formState = ref({})
 
     const formLayout = {
@@ -44,7 +44,7 @@ export default () => {
 
     return {
         formRef,
-        rules,
+        formRules,
         formRecord,
         formState,
         formLayout,
