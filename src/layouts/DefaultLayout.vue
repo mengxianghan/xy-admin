@@ -32,7 +32,7 @@
                             </a-space>
                         </template>
                     </base-header>
-                    <multi-tab v-if="config.multiTab"></multi-tab>
+                    <multi-tab v-show="config.multiTab"></multi-tab>
                     <base-content></base-content>
                 </a-layout>
             </template>
@@ -51,7 +51,7 @@
                         :data-list="topMenuList"
                         :theme="config.headerTheme"></base-menu>
                 </base-header>
-                <multi-tab v-if="config.multiTab"></multi-tab>
+                <multi-tab v-show="config.multiTab"></multi-tab>
                 <base-content></base-content>
             </template>
 
@@ -85,7 +85,7 @@
                             :data-list="sideMenuList"></base-menu>
                     </base-side>
                     <a-layout>
-                        <multi-tab v-if="config.multiTab"></multi-tab>
+                        <multi-tab v-show="config.multiTab"></multi-tab>
                         <base-content></base-content>
                     </a-layout>
                 </a-layout>
