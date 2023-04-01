@@ -16,7 +16,11 @@
         </div>
         <!-- 右侧 -->
         <div class="base-header__right">
-            <a-space>
+            <a-space :size="0">
+                <action-button @click="handleSetting">
+                    <icon-setting-outlined></icon-setting-outlined>
+                </action-button>
+
                 <a-dropdown :trigger="['click']">
                     <action-button>
                         <a-avatar
@@ -42,10 +46,6 @@
                         </a-menu>
                     </template>
                 </a-dropdown>
-
-                <action-button @click="handleSetting">
-                    <icon-setting-outlined></icon-setting-outlined>
-                </action-button>
             </a-space>
         </div>
     </a-layout-header>
