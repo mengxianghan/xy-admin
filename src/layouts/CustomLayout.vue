@@ -1,16 +1,19 @@
 <template>
     <div>
-        <a-page-header style="border: 1px solid rgb(235, 237, 240)"
-                       title="自定义框架"
-                       @back="() => null" />
+        <a-page-header
+            style="border: 1px solid rgb(235, 237, 240)"
+            title="自定义框架"
+            @back="() => null" />
         <div class="content">
             <router-view />
         </div>
     </div>
 </template>
 
-<script setup>
-
+<script>
+export default {
+    name: 'CustomLayout',
+}
 </script>
 
 <style lang="less" scoped>

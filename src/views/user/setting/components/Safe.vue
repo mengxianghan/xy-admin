@@ -48,9 +48,10 @@
     </a-list>
 </template>
 
-<script setup>
+<script>
+export default {
+    name: 'Safe',
+}
 </script>
 
-<style lang="less" scoped>
-
-</style>
+<style lang="less" scoped></style>

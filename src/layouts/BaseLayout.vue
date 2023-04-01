@@ -2,24 +2,22 @@
     <div class="user-layout-container">
         <div class="user-layout-aside">
             <div class="aside-header">
-                <h1>{{  title  }}</h1>
+                <h1>{{ title }}</h1>
             </div>
             <div class="aside-body">
-                <img :src="LoginWelcome">
+                <img :src="getAssetsFile('login_welcome.svg')" />
                 <h3>高性能 / 精致 / 优雅</h3>
                 <p>基于Vue3 + Ant Design Vue 的中后台前端解决方案。</p>
             </div>
             <div class="aside-footer">
-                <p>© {{  title  }} {{  version  }}</p>
+                <p>© {{ title }} {{ version }}</p>
             </div>
         </div>
         <div class="user-layout-main">
             <div class="user-layout-content">
                 <div class="user-layout-top">
                     <div class="user-layout-header">登录</div>
-                    <div class="user-layout-desc">
-                        欢迎使用{{ title }}
-                    </div>
+                    <div class="user-layout-desc">欢迎使用{{ title }}</div>
                 </div>
                 <div class="user-layout-form">
                     <router-view></router-view>
@@ -29,11 +27,22 @@
     </div>
 </template>
 
-<script setup>
-import LoginWelcome from '@/assets/login_welcome.svg'
+<script>
+import { getAssetsFile } from '@/utils/get'
 
-const title = import.meta.env.VITE_TITLE
-const { version } = __APP_INFO__
+export default {
+    name: 'BaseLayout',
+    setup() {
+        const title = import.meta.env.VITE_TITLE
+        const { version } = __APP_INFO__
+
+        return {
+            title,
+            version,
+            getAssetsFile,
+        }
+    },
+}
 </script>
 
 <style lang="less" scoped>
@@ -81,12 +90,12 @@ const { version } = __APP_INFO__
                 }
 
                 p {
-                    color: rgba(255, 255, 255, .85);
+                    color: rgba(255, 255, 255, 0.85);
                 }
             }
 
             &-footer {
-                color: rgba(255, 255, 255, .65);
+                color: rgba(255, 255, 255, 0.65);
                 font-size: 12px;
                 padding: 48px;
             }

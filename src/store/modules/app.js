@@ -1,5 +1,4 @@
 import { defineStore } from 'pinia'
-import { loading } from '@/components'
 
 import useRouterStore from './router'
 
@@ -7,6 +6,15 @@ const useAppStore = defineStore('app', {
     name: 'useAppStore',
     state: () => ({
         complete: false,
+        config: {
+            menuMode: 'side', // 菜单模式【side=侧边菜单，top=顶部菜单，mix=混合菜单】
+            sideCollapsedWidth: 48,
+            sideWidth: 208,
+            headerHeight: 48,
+            sideTheme: 'dark',
+            headerTheme: 'light',
+            multiTab: true,
+        },
     }),
     getters: {},
     actions: {
@@ -17,16 +25,12 @@ const useAppStore = defineStore('app', {
         init() {
             const routerStore = useRouterStore()
             return new Promise((resolve) => {
-                loading()
                 Promise.all([routerStore.getRouterList()])
                     .then(() => {
-                        loading.close()
                         this.complete = true
                         resolve()
                     })
-                    .catch(() => {
-                        loading.close()
-                    })
+                    .catch(() => {})
             })
         },
     },

@@ -18,9 +18,11 @@
                     </a-form-item>
                 </a-col>
                 <a-col :span="6">
-                    <a-button type="primary"
-                              ghost
-                              @click="handleSearch">搜索
+                    <a-button
+                        type="primary"
+                        ghost
+                        @click="handleSearch"
+                        >搜索
                     </a-button>
                 </a-col>
             </a-row>
@@ -28,8 +30,9 @@
     </x-search-bar>
     <a-card :bordered="false">
         <x-action-bar class="mb-8-2">
-            <a-button type="primary"
-                      @click="$refs.editRef.handleCreate()">
+            <a-button
+                type="primary"
+                @click="$refs.editDialogRef.handleCreate()">
                 <template #icon>
                     <icon-plus-outlined />
                 </template>
@@ -38,17 +41,20 @@
             <template #extra>
                 <x-search-bar :body-style="{ padding: 0 }">
                     <a-form layout="inline">
-                        <a-row :gutter="12"
-                               type="flex">
+                        <a-row
+                            :gutter="12"
+                            type="flex">
                             <a-col>
                                 <a-form-item>
                                     <a-input></a-input>
                                 </a-form-item>
                             </a-col>
                             <a-col>
-                                <a-button type="primary"
-                                          ghost
-                                          @click="handleSearch">搜索
+                                <a-button
+                                    type="primary"
+                                    ghost
+                                    @click="handleSearch"
+                                    >搜索
                                 </a-button>
                             </a-col>
                         </a-row>
@@ -56,15 +62,16 @@
                 </x-search-bar>
             </template>
         </x-action-bar>
-        <a-table :columns="columns"
-                 :pagination="pagination"
-                 :data-source="list"
-                 :loading="loading"
-                 row-key="id"
-                 @change="onTableChange">
-            <template #bodyCell="{ column, record, index }">
+        <a-table
+            :columns="columns"
+            :pagination="pagination"
+            :data-source="list"
+            :loading="loading"
+            row-key="id"
+            @change="onTableChange">
+            <template #bodyCell="{ column, record }">
                 <template v-if="'action' === column.key">
-                    <x-action-button @click="$refs.editRef.handleEdit(record)">编辑</x-action-button>
+                    <x-action-button @click="$refs.editDialogRef.handleEdit(record)">编辑</x-action-button>
                     <x-action-button @click="handleDelete(record)">删除</x-action-button>
                     <x-action-button tag="span">
                         <a-dropdown :trigger="['click']">
@@ -86,106 +93,118 @@
         </a-table>
     </a-card>
 
-    <edit ref="editRef"
-          @ok="onOk" />
+    <edit-dialog
+        ref="editDialogRef"
+        @ok="onOk" />
 </template>
 
 <script>
-export default { name: 'listBasic' }
-</script>
-
-<script setup>
 import { onMounted, ref } from 'vue'
 import { message, Modal } from 'ant-design-vue'
-
 import api from '@/api'
-
-import Edit from './components/Edit.vue'
-
+import EditDialog from './components/EditDialog.vue'
 import usePagination from '@/hooks/usePagination'
 
-const columns = [
-    { title: 'ID', dataIndex: 'id', width: 64, align: 'center' },
-    { title: '标题', dataIndex: 'title' },
-    { title: '操作', key: 'action', width: 180 },
-]
-const { list, pagination, loading, resetPagination } = usePagination()
-const editRef = ref()
+export default {
+    name: 'listBasic',
+    components: {
+        EditDialog,
+    },
+    setup() {
+        const columns = [
+            { title: 'ID', dataIndex: 'id', width: 64, align: 'center' },
+            { title: '标题', dataIndex: 'title' },
+            { title: '操作', key: 'action', width: 180 },
+        ]
+        const { list, pagination, loading, resetPagination } = usePagination()
+        const editDialogRef = ref()
 
-/**
- * 获取分页列表
- */
-async function getPageList() {
-    const { pageSize, current } = pagination
-    loading.value = true
-    const { code, data } = await api.common.getPageList({
-        pageSize,
-        page: current,
-    })
-        .catch(() => {
-            loading.value = false
+        onMounted(() => {
+            getPageList()
         })
-    loading.value = false
-    if (200 === code) {
-        list.value = data.rows
-        pagination.total = data.total
-    }
-}
 
-/**
- * 搜索
- */
-function handleSearch() {
-    resetPagination()
-    getPageList()
-}
-
-/**
- * 删除
- */
-function handleDelete({ id }) {
-    Modal.confirm({
-        title: '删除提示',
-        content: '确认删除？',
-        onOk: async () => {
+        /**
+         * 获取分页列表
+         */
+        async function getPageList() {
+            const { pageSize, current } = pagination
             loading.value = true
-            const { code } = await api.common.deleteData({ id })
+            const { code, data } = await api.common
+                .getPageList({
+                    pageSize,
+                    page: current,
+                })
                 .catch(() => {
                     loading.value = false
                 })
+            loading.value = false
             if (200 === code) {
-                message.success('删除成功')
-                await getPageList()
-            } else {
-                loading.value = false
+                list.value = data.rows
+                pagination.total = data.total
             }
-        },
-    })
-}
+        }
 
-/**
- * 表格发生改变
- * @param current
- * @param pageSize
- */
-function onTableChange({ current, pageSize }) {
-    pagination.current = current
-    pagination.pageSize = pageSize
-    getPageList()
-}
+        /**
+         * 搜索
+         */
+        function handleSearch() {
+            resetPagination()
+            getPageList()
+        }
 
-/**
- * 完成
- */
-function onOk() {
-    getPageList()
-}
+        /**
+         * 删除
+         */
+        function handleDelete({ id }) {
+            Modal.confirm({
+                title: '删除提示',
+                content: '确认删除？',
+                onOk: async () => {
+                    loading.value = true
+                    const { code } = await api.common.deleteData({ id }).catch(() => {
+                        loading.value = false
+                    })
+                    if (200 === code) {
+                        message.success('删除成功')
+                        await getPageList()
+                    } else {
+                        loading.value = false
+                    }
+                },
+            })
+        }
 
-onMounted(() => {
-    getPageList()
-})
+        /**
+         * 表格发生改变
+         * @param current
+         * @param pageSize
+         */
+        function onTableChange({ current, pageSize }) {
+            pagination.current = current
+            pagination.pageSize = pageSize
+            getPageList()
+        }
+
+        /**
+         * 完成
+         */
+        function onOk() {
+            getPageList()
+        }
+
+        return {
+            columns,
+            pagination,
+            list,
+            loading,
+            editDialogRef,
+            handleSearch,
+            handleDelete,
+            onTableChange,
+            onOk,
+        }
+    },
+}
 </script>
 
-<style lang="less" scoped>
-
-</style>
+<style lang="less" scoped></style>

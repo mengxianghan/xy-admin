@@ -4,10 +4,7 @@ import * as layouts from '@/layouts'
  * 白名单
  * @type {string[]}
  */
-export const whiteList = [
-    'login',
-    '404',
-]
+export const whiteList = ['login', '404']
 
 /**
  * 未找到页面路由

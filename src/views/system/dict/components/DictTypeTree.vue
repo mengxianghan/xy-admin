@@ -1,24 +1,27 @@
 <template>
-    <a-card :bordered="false"
-            type="flex">
+    <a-card
+        :bordered="false"
+        type="flex">
         <template #title>
-            <a-input-search v-model:value="searchValue"
-                            allow-clear
-                            placeholder="请输入关键词搜索"></a-input-search>
+            <a-input-search
+                v-model:value="searchValue"
+                allow-clear
+                placeholder="请输入关键词搜索"></a-input-search>
         </template>
         <template #actions>
-            <span @click="$refs.editRef.handleCreate()">
+            <span @click="$refs.dictTypeEditDialogRef.handleCreate()">
                 <icon-plus-outlined />
                 新建分类
             </span>
         </template>
-        <a-tree v-if="!loading"
-                :selected-keys="selectedKeys"
-                :tree-data="list"
-                :field-names="{ title: 'name', children: 'children', key: 'key' }"
-                default-expand-all
-                block-node
-                @select="handleSelect">
+        <a-tree
+            v-if="!loading"
+            :selected-keys="selectedKeys"
+            :tree-data="list"
+            :field-names="{ title: 'name', children: 'children', key: 'key' }"
+            default-expand-all
+            block-node
+            @select="handleSelect">
             <template #title="record">
                 <div class="tree-row">
                     <div class="tree-row__name">
@@ -30,9 +33,11 @@
                         <span v-else>{{ record.name }}</span>
                     </div>
                     <div class="tree-row__code">{{ record.code }}</div>
-                    <a-space class="tree-row__actions"
-                             @click.stop="() => { }">
-                        <icon-edit-outlined @click.stop="$refs.editRef.handleEdit(record)"></icon-edit-outlined>
+                    <a-space
+                        class="tree-row__actions"
+                        @click.stop="() => {}">
+                        <icon-edit-outlined
+                            @click.stop="$refs.dictTypeEditDialogRef.handleEdit(record)"></icon-edit-outlined>
                         <icon-delete-outlined @click="handleDelete(record)"></icon-delete-outlined>
                     </a-space>
                 </div>
@@ -40,77 +45,89 @@
         </a-tree>
     </a-card>
 
-    <dict-type-edit ref="editRef" />
+    <dict-type-edit-dialog ref="dictTypeEditDialogRef" />
 </template>
 
-<script setup>
+<script>
 import { ref, onMounted } from 'vue'
 import { message, Modal } from 'ant-design-vue'
-
 import api from '@/api'
 import usePagination from '@/hooks/usePagination'
+import DictTypeEditDialog from './DictTypeEditDialog.vue'
 
-import DictTypeEdit from '@/views/system/dict/components/DictTypeEdit.vue'
+export default {
+    name: 'DictTypeTree',
+    components: { DictTypeEditDialog },
+    emits: ['select'],
+    setup(props, { emit }) {
+        const { loading, list } = usePagination()
+        const selectedKeys = ref([])
+        const searchValue = ref('')
+        const dictTypeEditDialogRef = ref()
 
-const emit = defineEmits(['select'])
-
-const { loading, list } = usePagination()
-const selectedKeys = ref([])
-const searchValue = ref('')
-const editRef = ref()
-
-onMounted(() => {
-    getDictTypeList()
-})
-
-/**
- * 获取字典分类列表
- * @return {Promise<void>}
- */
-async function getDictTypeList() {
-    loading.value = true
-    const { code, data } = await api.system.getDictTypeList()
-        .catch(() => {
-            loading.value = false
+        onMounted(() => {
+            getDictTypeList()
         })
-    loading.value = false
-    if (200 === code) {
-        const { rows } = data
-        list.value = rows
-    }
-}
 
-/**
- * 切换分类
- * @param keys
- */
-function handleSelect(keys, { node }) {
-    if (!keys.length) {
-        return
-    }
-    selectedKeys.value = keys
-    trigger(node)
-}
+        /**
+         * 获取字典分类列表
+         * @return {Promise<void>}
+         */
+        async function getDictTypeList() {
+            loading.value = true
+            const { code, data } = await api.system.getDictTypeList().catch(() => {
+                loading.value = false
+            })
+            loading.value = false
+            if (200 === code) {
+                const { rows } = data
+                list.value = rows
+            }
+        }
 
-/**
- * 删除分类
- */
-function handleDelete({ id }) {
-    Modal.confirm({
-        title: '删除提示',
-        content: '确认删除？',
-        onOk: async () => {
-            message.info('点击了删除')
-        },
-    })
-}
+        /**
+         * 切换分类
+         * @param keys
+         */
+        function handleSelect(keys, { node }) {
+            if (!keys.length) {
+                return
+            }
+            selectedKeys.value = keys
+            trigger(node)
+        }
 
-/**
- * 触发
- * @param value
- */
-function trigger(value) {
-    emit('select', value)
+        /**
+         * 删除分类
+         */
+        function handleDelete() {
+            Modal.confirm({
+                title: '删除提示',
+                content: '确认删除？',
+                onOk: async () => {
+                    message.info('点击了删除')
+                },
+            })
+        }
+
+        /**
+         * 触发
+         * @param value
+         */
+        function trigger(value) {
+            emit('select', value)
+        }
+
+        return {
+            searchValue,
+            dictTypeEditDialogRef,
+            selectedKeys,
+            list,
+            loading,
+            handleSelect,
+            handleDelete,
+        }
+    },
 }
 </script>
 
@@ -139,7 +156,7 @@ function trigger(value) {
         white-space: nowrap;
 
         &,
-        >* {
+        > * {
             display: flex;
         }
     }

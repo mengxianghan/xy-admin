@@ -1,7 +1,8 @@
 <template>
     <span class="x-action-button">
-        <component :is="tag"
-                   class="x-action-button__component">
+        <component
+            class="x-action-button__component"
+            :is="tag">
             <slot></slot>
         </component>
         <a-divider type="vertical" />
@@ -9,20 +10,20 @@
 </template>
 
 <script>
-export default { name: 'XActionButton' }
-</script>
-
-<script setup>
 /**
+ * 操作按钮
  * @property {string} tag html标签，默认：a
  */
-
-const props = defineProps({
-    tag: {
-        type: String,
-        default: 'a',
+export default {
+    name: 'XActionButton',
+    props: {
+        tag: {
+            type: String,
+            default: 'a',
+        },
     },
-})
+    setup() {},
+}
 </script>
 
 <style lang="less" scoped>

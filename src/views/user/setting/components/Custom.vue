@@ -2,9 +2,10 @@
     <a-list item-layout="horizontal">
         <a-list-item>
             <template #actions>
-                <a-switch v-model:checked="themeColor"
-                          checked-children="黑色"
-                          un-checked-children="白色"></a-switch>
+                <a-switch
+                    v-model:checked="themeColor"
+                    checked-children="黑色"
+                    un-checked-children="白色"></a-switch>
             </template>
             <a-list-item-meta>
                 <template #title>风格配色</template>
@@ -12,8 +13,7 @@
             </a-list-item-meta>
         </a-list-item>
         <a-list-item>
-            <template #actions>
-            </template>
+            <template #actions> </template>
             <a-list-item-meta>
                 <template #title>主题色</template>
                 <template #description>页面风格配色</template>
@@ -22,13 +22,19 @@
     </a-list>
 </template>
 
-<script setup>
+<script>
 import { ref } from 'vue'
 
-const themeColor = ref(false)
+export default {
+    name: 'Custom',
+    setup() {
+        const themeColor = ref(false)
 
+        return {
+            themeColor,
+        }
+    },
+}
 </script>
 
-<style lang="less" scoped>
-
-</style>
+<style lang="less" scoped></style>

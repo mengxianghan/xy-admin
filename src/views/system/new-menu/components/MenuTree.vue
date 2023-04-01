@@ -1,11 +1,13 @@
 <template>
-    <a-card :bordered="false"
-            v-loading="loading"
-            type="flex">
+    <a-card
+        :bordered="false"
+        v-loading="loading"
+        type="flex">
         <template #title>
-            <a-input-search v-model:value="keyword"
-                            allow-clear
-                            placeholder="请输入关键词搜索"></a-input-search>
+            <a-input-search
+                v-model:value="keyword"
+                allow-clear
+                placeholder="请输入关键词搜索"></a-input-search>
         </template>
         <template #actions>
             <div>
@@ -13,13 +15,14 @@
                 新建菜单
             </div>
         </template>
-        <a-tree v-if="!loading"
-                :selected-keys="selectedKeys"
-                :tree-data="list"
-                :field-names="{ title: 'name', children: 'children', key: 'key' }"
-                default-expand-all
-                block-node
-                @select="handleSelect">
+        <a-tree
+            v-if="!loading"
+            :selected-keys="selectedKeys"
+            :tree-data="list"
+            :field-names="{ title: 'name', children: 'children', key: 'key' }"
+            default-expand-all
+            block-node
+            @select="handleSelect">
             <template #title="record">
                 <div class="tree-row">
                     <div class="tree-row__name">
@@ -30,8 +33,9 @@
                         </span>
                         <span v-else>{{ record.name }}</span>
                     </div>
-                    <a-space class="tree-row__actions"
-                             @click.stop="() => { }">
+                    <a-space
+                        class="tree-row__actions"
+                        @click.stop="() => {}">
                         <icon-plus-outlined></icon-plus-outlined>
                         <icon-delete-outlined @click="handleDelete(record)"></icon-delete-outlined>
                     </a-space>
@@ -41,64 +45,74 @@
     </a-card>
 </template>
 
-<script setup>
+<script>
 import { onMounted, ref } from 'vue'
 import { message, Modal } from 'ant-design-vue'
-
 import api from '@/api'
 import usePagination from '@/hooks/usePagination'
 
-const emit = defineEmits(['select', 'ready'])
+export default {
+    name: 'MenuTree',
+    emits: ['select', 'ready'],
+    setup(props, { emit }) {
+        const { list, loading } = usePagination()
+        const selectedKeys = ref([])
+        const keyword = ref('')
 
-const { list, loading } = usePagination()
-const selectedKeys = ref([])
-const keyword = ref('')
-
-onMounted(() => {
-    getMenuList()
-})
-
-/**
- * 获取菜单列表
- */
-async function getMenuList() {
-    loading.value = true
-    const { code, data } = await api.system.getNewMenuList()
-        .catch(() => {
-            loading.value = false
+        onMounted(() => {
+            getMenuList()
         })
-    loading.value = false
-    if (200 === code) {
-        const { rows } = data
-        list.value = rows
-        emit('ready', rows)
-    }
-}
 
-/**
- * 选择菜单
- * @param keys
- */
-function handleSelect(keys, { node }) {
-    if (!keys.length) {
-        return
-    }
-    selectedKeys.value = keys
-    emit('select', node)
-}
+        /**
+         * 获取菜单列表
+         */
+        async function getMenuList() {
+            loading.value = true
+            const { code, data } = await api.system.getNewMenuList().catch(() => {
+                loading.value = false
+            })
+            loading.value = false
+            if (200 === code) {
+                const { rows } = data
+                list.value = rows
+                emit('ready', rows)
+            }
+        }
 
-/**
- * 删除
- * @param id
- */
-function handleDelete({ id }) {
-    Modal.confirm({
-        title: '删除提示',
-        content: '确认删除？',
-        onOk: async () => {
-            message.info('点击了删除')
-        },
-    })
+        /**
+         * 选择菜单
+         * @param keys
+         */
+        function handleSelect(keys, { node }) {
+            if (!keys.length) {
+                return
+            }
+            selectedKeys.value = keys
+            emit('select', node)
+        }
+
+        /**
+         * 删除
+         */
+        function handleDelete() {
+            Modal.confirm({
+                title: '删除提示',
+                content: '确认删除？',
+                onOk: async () => {
+                    message.info('点击了删除')
+                },
+            })
+        }
+
+        return {
+            keyword,
+            loading,
+            selectedKeys,
+            list,
+            handleSelect,
+            handleDelete,
+        }
+    },
 }
 </script>
 
@@ -121,7 +135,7 @@ function handleDelete({ id }) {
         white-space: nowrap;
 
         &,
-        >* {
+        > * {
             display: flex;
         }
     }

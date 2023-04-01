@@ -1,14 +1,16 @@
 <template>
     <header class="x-layout-header">
         <div class="x-layout-header__left">
-            <div class="x-layout-header__action"
-                 @click="handleToggleCollapsed">
+            <div
+                class="x-layout-header__action"
+                @click="handleToggleCollapsed">
                 <component :is="collapsed ? 'icon-menu-unfold-outlined' : 'icon-menu-fold-outlined'"></component>
             </div>
-            <a-tooltip title="返回"
-                       placement="bottom"
-                       class="x-layout-header__action"
-                       @click="$router.back()">
+            <a-tooltip
+                title="返回"
+                placement="bottom"
+                class="x-layout-header__action"
+                @click="$router.back()">
                 <icon-rollback-outlined />
             </a-tooltip>
         </div>
@@ -16,8 +18,9 @@
             <div class="x-layout-header__action">
                 <a-dropdown :trigger="['click']">
                     <div class="userinfo">
-                        <a-avatar class="mr-8-1"
-                                  :size="24">
+                        <a-avatar
+                            class="mr-8-1"
+                            :size="24">
                             <template #icon>
                                 <icon-user-outlined />
                             </template>
@@ -28,8 +31,9 @@
                     <a-spin />
                     <template #overlay>
                         <a-menu>
-                            <a-menu-item key="logout"
-                                         @click="handleLogout">
+                            <a-menu-item
+                                key="logout"
+                                @click="handleLogout">
                                 <icon-login-outlined></icon-login-outlined>
                                 退出登录
                             </a-menu-item>
@@ -42,10 +46,6 @@
 </template>
 
 <script>
-export default { name: 'XLayoutHeader' }
-</script>
-
-<script setup>
 import { computed } from 'vue'
 import { useUserStore } from '@/store'
 import { useRouter } from 'vue-router'
@@ -54,36 +54,47 @@ import { Modal } from 'ant-design-vue'
 /**
  * @property {boolean} collapsed 收起状态，默认：false
  */
-
-const props = defineProps({
-    collapsed: {
-        type: Boolean,
-        default: false,
-    },
-})
-
-const userStore = useUserStore()
-const router = useRouter()
-const isLogin = computed(() => userStore.isLogin)
-const userInfo = computed(() => userStore.userInfo)
-
-function handleLogout() {
-    Modal.confirm({
-        title: '注销登录？',
-        okText: '确认',
-        cancelText: '取消',
-        onOk: () => {
-            userStore.logout().then(() => {
-                router.push({
-                    name: 'login',
-                })
-            })
+export default {
+    name: 'XLayoutHeader',
+    props: {
+        collapsed: {
+            type: Boolean,
+            default: false,
         },
-    })
-}
+    },
+    emits: ['update:collapsed'],
+    setup(props, { emit }) {
+        const userStore = useUserStore()
+        const router = useRouter()
+        const isLogin = computed(() => userStore.isLogin)
+        const userInfo = computed(() => userStore.userInfo)
 
-function handleToggleCollapsed() {
-    emit('update:collapsed', !props.collapsed)
+        function handleLogout() {
+            Modal.confirm({
+                title: '注销登录？',
+                okText: '确认',
+                cancelText: '取消',
+                onOk: () => {
+                    userStore.logout().then(() => {
+                        router.push({
+                            name: 'login',
+                        })
+                    })
+                },
+            })
+        }
+
+        function handleToggleCollapsed() {
+            emit('update:collapsed', !props.collapsed)
+        }
+
+        return {
+            isLogin,
+            userInfo,
+            handleLogout,
+            handleToggleCollapsed,
+        }
+    },
 }
 </script>
 
@@ -144,8 +155,8 @@ function handleToggleCollapsed() {
         align-items: center;
         justify-content: center;
         cursor: pointer;
-        transition: all .3s;
-        color: rgba(0, 0, 0, .65);
+        transition: all 0.3s;
+        color: rgba(0, 0, 0, 0.65);
         border-radius: @border-radius-base;
 
         &:not(:first-child) {
@@ -153,7 +164,7 @@ function handleToggleCollapsed() {
         }
 
         &:hover {
-            background: rgba(0, 0, 0, .025);
+            background: rgba(0, 0, 0, 0.025);
         }
 
         :deep(.ant-badge-count) {

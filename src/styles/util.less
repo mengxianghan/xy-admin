@@ -45,13 +45,14 @@ each({
     py: padding-top, padding-bottom;
     pa: padding;
 }, .(@property, @class) {
-    @zero: 0;
-
-    .@{class}-@{zero} {
-        each(@property, .(@prop) {
-                @{prop}: 0 !important;
-        })
-    }
+    
+    each(0 auto, .(@value){
+        .@{class}-@{value} {
+            each(@property, .(@prop) {
+                    @{prop}: @value !important;
+            })
+        }
+    })
 
     each(4 5 8, .(@value) {
         each(1 2 3 4 5, .(@multi) {
@@ -126,7 +127,7 @@ each(pointer not-allowed, {
 })
 
 // Scrollbar
-.scrollbar {
+.scrollbar(@background-color: rgba(0,0,0,.25)) {
     &::-webkit-scrollbar {
         width: 6px;
         height: 6px;
@@ -134,7 +135,14 @@ each(pointer not-allowed, {
     }
 
     &::-webkit-scrollbar-thumb {
-        background-color: rgba(0, 0, 0, 0.2);
+        background-color: @background-color;
         border-radius: 6px;
     }
+}
+.scrollbar-black {
+    .scrollbar();
+}
+
+.scrollbar-white {
+    .scrollbar(rgba(255,255,255,0.25));
 }

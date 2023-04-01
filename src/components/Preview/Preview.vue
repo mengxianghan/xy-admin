@@ -1,25 +1,29 @@
 <template>
-    <a-modal :visible="visible"
-             width="100%"
-             wrap-class-name="full-modal"
-             :footer="false"
-             destroy-on-close
-             @cancel="handleClose">
+    <a-modal
+        width="100%"
+        wrap-class-name="full-modal"
+        destroy-on-close
+        :visible="visible"
+        :footer="false"
+        @cancel="handleClose">
         <div class="x-preview__content">
-            <img :src="url"
-                 :style="styles" />
+            <img
+                :src="url"
+                :style="styles" />
         </div>
 
         <template v-if="prevBtn || nextBtn">
-            <div v-if="prevBtn"
-                 class="x-preview__left-btn"
-                 @click="handleAction(ACTION_ENUM.getValue('prev'))">
+            <div
+                v-if="prevBtn"
+                class="x-preview__left-btn"
+                @click="handleAction(ACTION_ENUM.getValue('prev'))">
                 <left-outlined />
             </div>
 
-            <div v-if="nextBtn"
-                 class="x-preview__right-btn"
-                 @click="handleAction(ACTION_ENUM.getValue('next'))">
+            <div
+                v-if="nextBtn"
+                class="x-preview__right-btn"
+                @click="handleAction(ACTION_ENUM.getValue('next'))">
                 <right-outlined />
             </div>
         </template>
@@ -50,100 +54,117 @@
 </template>
 
 <script>
-export default { name: 'Preview' }
-</script>
-
-<script setup>
 import { computed, ref, watch } from 'vue'
 import { Modal as AModal } from 'ant-design-vue'
 import { LeftOutlined, RightOutlined } from '@ant-design/icons-vue'
 import { ACTION_ENUM } from './config'
 
-import Preview from './index'
-
 /**
  * @property {array} urlList 文件列表
  */
-
-const props = defineProps({
-    urls: {
-        type: Array,
-        default: () => [],
+export default {
+    name: 'Preview',
+    components: {
+        AModal,
+        LeftOutlined,
+        RightOutlined,
     },
-})
+    props: {
+        urls: {
+            type: Array,
+            default: () => [],
+        },
+    },
+    setup(props) {
+        const styles = ref({})
+        const current = ref(0)
+        const prevBtn = ref(true)
+        const nextBtn = ref(true)
+        const visible = ref(false)
 
-const styles = ref({})
-const current = ref(0)
-const prevBtn = ref(true)
-const nextBtn = ref(true)
-const url = computed(() => props.urls[current.value])
-const visible = ref(false)
+        const url = computed(() => props.urls[current.value])
 
-watch(() => props.urls, (val) => {
-    prevBtn.value = val.length > 0 && current.value > 0
-    nextBtn.value = val.length > 0 && current.value < val.length - 1
-}, { immediate: true })
+        watch(
+            () => props.urls,
+            (val) => {
+                prevBtn.value = val.length > 0 && current.value > 0
+                nextBtn.value = val.length > 0 && current.value < val.length - 1
+            },
+            { immediate: true }
+        )
 
-/**
- * 打开
- */
-function handleOpen() {
-    visible.value = true
-}
+        /**
+         * 打开
+         */
+        function handleOpen() {
+            visible.value = true
+        }
 
-/**
- * 关闭
- */
-function handleClose() {
-    visible.value = false
-    Preview.close()
-}
+        /**
+         * 关闭
+         */
+        function handleClose() {
+            visible.value = false
+        }
 
-/**
- * 操作
- * @param type
- */
-function handleAction(type) {
-    switch (type) {
-        // 缩小
-        case ACTION_ENUM.getValue('zoomOut'):
-            break
-        // 放大
-        case ACTION_ENUM.getValue('zoomIn'):
-            break
-        // 全屏
-        case ACTION_ENUM.getValue('fullscreen'):
-            console.log('全屏')
-            break
-        // 向左旋转
-        case ACTION_ENUM.getValue('rotateLeft'):
-            break
-        // 向右旋转
-        case ACTION_ENUM.getValue('rotateRight'):
-            break
-        // 上一个
-        case ACTION_ENUM.getValue('prev'):
-            if (current.value > 0) {
-                current.value -= 1
+        /**
+         * 操作
+         * @param type
+         */
+        function handleAction(type) {
+            switch (type) {
+                // 缩小
+                case ACTION_ENUM.getValue('zoomOut'):
+                    break
+                // 放大
+                case ACTION_ENUM.getValue('zoomIn'):
+                    break
+                // 全屏
+                case ACTION_ENUM.getValue('fullscreen'):
+                    console.log('全屏')
+                    break
+                // 向左旋转
+                case ACTION_ENUM.getValue('rotateLeft'):
+                    break
+                // 向右旋转
+                case ACTION_ENUM.getValue('rotateRight'):
+                    break
+                // 上一个
+                case ACTION_ENUM.getValue('prev'):
+                    if (current.value > 0) {
+                        current.value -= 1
+                    }
+                    onCurrentChange()
+                    break
+                // 下一个
+                case ACTION_ENUM.getValue('next'):
+                    if (current.value < props.urls.length - 1) {
+                        current.value += 1
+                    }
+                    onCurrentChange()
+                    break
             }
-            onCurrentChange()
-            break
-        // 下一个
-        case ACTION_ENUM.getValue('next'):
-            if (current.value < props.urls.length - 1) {
-                current.value += 1
-            }
-            onCurrentChange()
-            break
-    }
-}
+        }
 
-/**
- * current 发生改变
- */
-function onCurrentChange() {
-    prevBtn.value = current.value > 0
-    nextBtn.value = current.value < props.urls.length - 1
+        /**
+         * current 发生改变
+         */
+        function onCurrentChange() {
+            prevBtn.value = current.value > 0
+            nextBtn.value = current.value < props.urls.length - 1
+        }
+
+        return {
+            styles,
+            url,
+            visible,
+            prevBtn,
+            nextBtn,
+            handleOpen,
+            handleClose,
+            handleAction,
+        }
+    },
 }
 </script>
 
@@ -200,10 +221,10 @@ function onCurrentChange() {
         align-items: center;
         justify-content: center;
 
-        >* {
+        > * {
             max-width: 100%;
             max-height: 100%;
-            transition: all .3s;
+            transition: all 0.3s;
         }
     }
 

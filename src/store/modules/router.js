@@ -21,22 +21,24 @@ const useRouterStore = defineStore('router', {
          */
         getRouterList() {
             const userStore = useUserStore()
-            return new Promise(async (resolve) => {
-                const list = asyncRouterMap
-                const validRoutes =
-                    import.meta.env.VITE_PERMISSION === 'true'
-                        ? filterRoutes(formatRoutes(list), userStore.permission)
-                        : formatRoutes(list)
-                const menuList = generateMenuList(validRoutes)
-                const routes = [...generateRoutes(validRoutes), notFoundRouter]
-                const indexRouter = getIndexRouter(menuList)
-                routes.forEach((route) => {
-                    router.addRoute(route)
-                })
-                this.routes = routes
-                this.menuList = menuList
-                this.indexRouter = indexRouter
-                resolve()
+            return new Promise((resolve) => {
+                ;(async () => {
+                    const list = asyncRouterMap
+                    const validRoutes =
+                        import.meta.env.VITE_PERMISSION === 'true'
+                            ? filterRoutes(formatRoutes(list), userStore.permission)
+                            : formatRoutes(list)
+                    const menuList = generateMenuList(validRoutes)
+                    const routes = [...generateRoutes(validRoutes), notFoundRouter]
+                    const indexRouter = getIndexRouter(menuList)
+                    routes.forEach((route) => {
+                        router.addRoute(route)
+                    })
+                    this.routes = routes
+                    this.menuList = menuList
+                    this.indexRouter = indexRouter
+                    resolve()
+                })()
             })
         },
         /**

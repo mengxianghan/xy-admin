@@ -1,5 +1,5 @@
 export const setupException = (app) => {
-    app.config.errorHandler = (err, vm, info) => {
+    app.config.errorHandler = (err) => {
         console.error(err)
     }
     return app

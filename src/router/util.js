@@ -1,6 +1,5 @@
+import { isFunction, omit } from 'lodash-es'
 import * as layouts from '@/layouts'
-import isFunction from 'lodash/isFunction'
-import omit from 'lodash/omit'
 
 /**
  * 格式化路由
@@ -14,11 +13,15 @@ export function formatRoutes(routes = [], parent = {}) {
     return routes
         .map((item) => {
             const { meta = {} } = item
-            const isLink = item?.meta?.type === 'link'
             const component = item?.component || 'exception/404'
+            const isLink = meta?.type === 'link'
+            const isIframe = meta?.type === 'iframe'
             const route = {
                 // 如果路由设置的 path 是 / 开头或是外链，则默认使用 path，否则动态拼接路由地址
-                path: new RegExp('^\\/.*').test(item.path) || isLink ? item.path : `${parent?.path ?? ''}/${item.path}`,
+                path:
+                    new RegExp('^\\/.*').test(item.path) || item?.meta?.isLink
+                        ? item.path
+                        : `${parent?.path ?? ''}/${item.path}`,
                 // 路由名称，建议唯一
                 name: item.name || '',
                 // 路由对应的页面，动态加载
@@ -27,9 +30,13 @@ export function formatRoutes(routes = [], parent = {}) {
                 meta: {
                     target: meta?.target || '',
                     layout: meta?.layout || parent?.meta?.layout || 'DefaultLayout',
-                    openKeys: isLink ? [] : [...(parent?.meta?.openKeys ?? []), meta?.active ?? item?.name],
                     actions: meta?.actions ?? ['*'],
-                    breadcrumb: [...(parent?.meta?.breadcrumb ?? []), item],
+                    _openKeys: item?.meta?.isLink
+                        ? []
+                        : [...(parent?.meta?._openKeys ?? []), meta?.active ?? item?.name],
+                    _breadcrumb: [...(parent?.meta?._breadcrumb ?? []), item],
+                    _isLink: isLink,
+                    _isIframe: isIframe,
                     ...meta,
                 },
             }
@@ -125,10 +132,8 @@ export function generateMenuList(routes) {
                 path: item.path,
                 name: item.name,
                 meta: {
-                    type: item?.meta?.type ?? '',
                     icon: item?.meta?.icon ?? '',
                     title: item?.meta?.title ?? '未命名菜单',
-                    openKeys: item?.meta?.openKeys ?? [],
                     target: item?.meta?.target ?? '_self',
                     ...(item?.meta ?? {}),
                 },
@@ -162,4 +167,24 @@ export function getIndexRouter(menuList) {
         }
     }
     return index
+}
+
+/**
+ * 获取有效路由
+ */
+export function getValidRoute(data) {
+    let validRoute = null
+    for (let item of data) {
+        if (item.children && item.children.length) {
+            let temp = getValidRoute(item.children)
+            if (temp && Object.keys(temp).length) {
+                validRoute = temp
+                break
+            }
+        } else {
+            validRoute = item
+            break
+        }
+    }
+    return validRoute
 }

@@ -1,31 +1,21 @@
-import {createVNode, render} from 'vue'
+import { createVNode, render } from 'vue'
 
 import PreviewConstructor from './Preview.vue'
 
-let vm = null
-let container = null
-
-const clear = () => {
-    vm.el.parentNode.parentNode.removeChild(vm.el.parentNode)
-    vm = null
-    container.remove()
-    container = null
-}
+let vnode = null
 
 const Preview = (props = {}) => {
-    vm = createVNode(PreviewConstructor, props)
-    container = document.createElement('div')
-    render(vm, container)
-    document.body.appendChild(container)
-    vm.component?.proxy.handleOpen()
+    vnode = createVNode(PreviewConstructor, props)
+    const container = document.createElement('div')
+    render(vnode, container)
+    vnode.component?.proxy?.handleOpen()
     return Preview
 }
 
 Preview.close = () => {
-    if (vm.component?.proxy.visible) {
-        vm.component?.proxy.handleClose()
-    }
-    clear()
+    if (!vnode) return
+    vnode.component.exposed?.handleClose()
+    vnode = null
 }
 
 export default Preview

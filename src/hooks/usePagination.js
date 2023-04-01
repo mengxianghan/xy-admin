@@ -1,4 +1,4 @@
-import {ref, reactive} from 'vue'
+import { ref, reactive } from 'vue'
 
 export default (options = {}) => {
     const loading = ref(false)
@@ -10,9 +10,9 @@ export default (options = {}) => {
         pageSize: 10,
         showSizeChanger: true,
         showQuickJumper: true,
-        showTotal: (total, range) => `总 ${total} 条数据`,
+        showTotal: (total) => `总 ${total} 条数据`,
         pageSizeOptions: ['10', '20', '30', '40'],
-        ...options ?? {},
+        ...(options ?? {}),
     })
 
     /**
@@ -29,7 +29,7 @@ export default (options = {}) => {
      * @param {number} count 受影响数量
      */
     function refreshPagination(count = 1) {
-        const {total, current, pageSize} = pagination
+        const { total, current, pageSize } = pagination
         const totalPage = Math.ceil((total - count) / pageSize)
         pagination.current = current > totalPage ? totalPage : current
     }

@@ -1,23 +1,33 @@
 <template>
-    <a-card v-bind="cptAttrs"
-            class="x-search-bar">
+    <a-card
+        class="x-search-bar"
+        v-bind="cpAttrs">
         <slot></slot>
     </a-card>
 </template>
 
 <script>
-export default { name: 'XSearchBar' }
-</script>
-
-<script setup>
 import { computed, useAttrs } from 'vue'
 
-const attrs = useAttrs()
+/**
+ * 搜索条
+ */
+export default {
+    name: 'XSearchBar',
+    props: {},
+    setup() {
+        const attrs = useAttrs()
 
-const cptAttrs = computed(() => ({
-    bordered: false,
-    ...attrs
-}))
+        const cpAttrs = computed(() => ({
+            bordered: false,
+            ...attrs,
+        }))
+
+        return {
+            cpAttrs,
+        }
+    },
+}
 </script>
 
 <style lang="less" scoped>
@@ -36,7 +46,7 @@ const cptAttrs = computed(() => ({
     }
 
     :deep(.ant-form-item-control-input-content) {
-        >* {
+        > * {
             width: 100%;
         }
     }

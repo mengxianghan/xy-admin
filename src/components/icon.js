@@ -44,56 +44,9 @@ import {
     LockOutlined,
     QuestionCircleOutlined,
     MobileOutlined,
-    UploadOutlined
+    UploadOutlined,
+    CheckOutlined,
 } from '@ant-design/icons-vue'
-
-const components = [
-    AppstoreOutlined,
-    DashboardOutlined,
-    HomeOutlined,
-    LinkOutlined,
-    TableOutlined,
-    HistoryOutlined,
-    LoginOutlined,
-    DownOutlined,
-    MenuFoldOutlined,
-    MenuUnfoldOutlined,
-    RollbackOutlined,
-    UserOutlined,
-    BellOutlined,
-    PlusOutlined,
-    ReloadOutlined,
-    CloseOutlined,
-    SettingOutlined,
-    EllipsisOutlined,
-    EditOutlined,
-    WarningOutlined,
-    HeartOutlined,
-    FormOutlined,
-    InfoCircleOutlined,
-    SmileOutlined,
-    CloseCircleOutlined,
-    LeftOutlined,
-    RightOutlined,
-    CheckCircleOutlined,
-    AppstoreAddOutlined,
-    LayoutOutlined,
-    DeleteOutlined,
-    EyeOutlined,
-    PictureOutlined,
-    ZoomOutOutlined,
-    ZoomInOutlined,
-    FullscreenOutlined,
-    UndoOutlined,
-    RedoOutlined,
-    RotateRightOutlined,
-    RotateLeftOutlined,
-    DingdingOutlined,
-    LoadingOutlined,
-    LockOutlined,
-    QuestionCircleOutlined,
-    MobileOutlined,
-]
 
 export default {
     install(app) {
@@ -143,6 +96,7 @@ export default {
         app.component('IconQuestionCircleOutlined', QuestionCircleOutlined)
         app.component('IconMobileOutlined', MobileOutlined)
         app.component('IconUploadOutlined', UploadOutlined)
+        app.component('IconCheckOutlined', CheckOutlined)
 
         return app
     },

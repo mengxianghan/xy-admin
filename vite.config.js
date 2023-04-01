@@ -7,6 +7,7 @@ import useProgressPlugin from './config/useProgressPlugin'
 import useVuePlugin from './config/useVuePlugin'
 import useVisualizerPlugin from './config/useVisualizerPlugin'
 import useServer from './config/useServer'
+import useEslintPlugin from './config/useEslintPlugin'
 
 export default ({ mode }) => {
     const env = loadEnv(mode, process.cwd(), '')
@@ -32,7 +33,11 @@ export default ({ mode }) => {
                 less: {
                     modifyVars: {
                         hack: `
-                            true; 
+                            true;
+                            @import '${path.resolve(
+                                __dirname,
+                                'node_modules/ant-design-vue/lib/style/color/colors.less'
+                            )}';
                             @import '${path.resolve(__dirname, 'src/styles/vars.less')}';
                             @import '${path.resolve(__dirname, 'src/styles/util.less')}';
                          `,
@@ -47,10 +52,12 @@ export default ({ mode }) => {
                 version: pkg.version,
             }),
         },
-        plugins: [useVuePlugin(), useProgressPlugin(), useCompressPlugin(), useVisualizerPlugin()],
+        plugins: [useVuePlugin(), useProgressPlugin(), useCompressPlugin(), useVisualizerPlugin(), useEslintPlugin()],
         server: useServer(),
         resolve: {
-            alias: [{ find: '@', replacement: path.resolve(__dirname, 'src') }],
+            alias: {
+                '@': path.resolve(__dirname, 'src'),
+            },
         },
     })
 }

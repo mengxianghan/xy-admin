@@ -2,7 +2,6 @@ import { setupException } from './exception'
 import { setupStore } from '@/store'
 import { setupRouter } from '@/router'
 import { setupActionDirective } from '@/directives/action'
-import { setupLoadingDirective } from '@/directives/loading'
 import { setupMock } from '@/mock'
 
 import antd from 'ant-design-vue'
@@ -26,5 +25,4 @@ export const useCore = (app) => {
     setupStore(app)
     setupRouter(app)
     setupActionDirective(app)
-    setupLoadingDirective(app)
 }

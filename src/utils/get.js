@@ -1,6 +1,4 @@
-import cloneDeep from 'lodash/cloneDeep'
-import pick from 'lodash/pick'
-import keys from 'lodash/keys'
+import { cloneDeep, pick, keys } from 'lodash-es'
 
 /**
  * 获取环境变量
@@ -19,3 +17,12 @@ export const getSuffix = (filename) => filename.split('.').pop().toLowerCase()
  * @param {object} formState
  */
 export const getFormState = (record = {}, formState = {}) => pick(cloneDeep(record), keys(formState) || []) || {}
+
+/**
+ * 获取静态文件 url
+ * @param {string} url
+ * @returns
+ */
+export const getAssetsFile = (url) => {
+    return new URL(`../assets/${url}`, import.meta.url).href
+}

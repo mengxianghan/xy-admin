@@ -1,108 +1,179 @@
 <template>
     <a-layout class="layout">
-        <a-layout-sider :collapsed="collapsed"
-                        :collapsible="collapsible"
-                        :collapsed-width="48"
-                        breakpoint="lg"
-                        :theme="theme"
-                        :width="208"
-                        class="layout-sider">
-            <x-layout-menu :theme="theme" />
-        </a-layout-sider>
-        <a-layout class="layout-main">
-            <a-layout-header :theme="theme"
-                             class="layout-header">
-                <x-layout-header v-model:collapsed="collapsed"></x-layout-header>
-            </a-layout-header>
-            <!--多标签页，建议和面包屑二选一-->
-            <x-multi-tab />
-            <!--面包屑-->
-            <!--<x-breadcrumb/>-->
-            <a-layout-content class="layout-content">
-                <router-view v-slot="{ Component, route }">
-                    <keep-alive :include="cacheList">
-                        <component v-if="keepAlive"
-                                   :is="Component"
-                                   :key="route.name" />
-                    </keep-alive>
-                </router-view>
-                <iframe-view />
-            </a-layout-content>
-        </a-layout>
+        <template #default>
+            <!-- 侧边菜单 -->
+            <template v-if="config.menuMode === 'side'">
+                <base-side
+                    v-model:collapsed="collapsed"
+                    :theme="config.sideTheme">
+                    <base-menu
+                        :data-list="sideMenuList"
+                        :theme="config.sideTheme"></base-menu>
+                </base-side>
+                <a-layout>
+                    <base-header
+                        class="pr-8-2"
+                        :theme="config.headerTheme"
+                        @setting="handleSetting">
+                        <template #left>
+                            <a-space :size="0">
+                                <action-button @click="handleCollapsed">
+                                    <template #icon>
+                                        <component
+                                            :is="collapsed ? 'icon-menu-unfold-outlined' : 'icon-menu-fold-outlined'"
+                                            :style="{ fontSize: '14px' }"></component>
+                                    </template>
+                                </action-button>
+                                <action-button @click="handleBack">
+                                    <template #icon>
+                                        <icon-rollback-outlined :style="{ fontSize: '14px' }"></icon-rollback-outlined>
+                                    </template>
+                                </action-button>
+                            </a-space>
+                        </template>
+                    </base-header>
+                    <multi-tab v-show="config.multiTab"></multi-tab>
+                    <base-content></base-content>
+                </a-layout>
+            </template>
+
+            <!-- 顶部菜单 -->
+            <template v-if="config.menuMode === 'top'">
+                <base-header
+                    class="px-8-2"
+                    :theme="config.headerTheme"
+                    @setting="handleSetting">
+                    <template #left>
+                        <logo-card
+                            class="mr-8-2"
+                            :theme="config.headerTheme"></logo-card>
+                    </template>
+                    <base-menu
+                        mode="horizontal"
+                        :data-list="topMenuList"
+                        :theme="config.headerTheme"></base-menu>
+                </base-header>
+                <multi-tab v-show="config.multiTab"></multi-tab>
+                <base-content></base-content>
+            </template>
+
+            <!-- 混合菜单 -->
+            <template v-if="config.menuMode === 'mix'">
+                <base-header
+                    class="pr-8-2"
+                    :theme="config.headerTheme"
+                    @setting="handleSetting">
+                    <template #left>
+                        <logo-card
+                            :theme="sideMenuList.length ? config.sideTheme : config.headerTheme"
+                            :style="{ width: `${config.sideWidth}px` }"></logo-card>
+                    </template>
+                    <base-menu
+                        mode="horizontal"
+                        :data-list="topMenuList"
+                        :theme="config.headerTheme"></base-menu>
+                </base-header>
+                <a-layout>
+                    <base-side
+                        v-if="sideMenuList.length"
+                        :theme="config.sideTheme"
+                        :show-header="false"
+                        :style="{
+                            top: `${config.headerHeight}px`,
+                            height: `calc(100vh - ${config.headerHeight}px)`,
+                        }">
+                        <base-menu
+                            :theme="config.sideTheme"
+                            :data-list="sideMenuList"></base-menu>
+                    </base-side>
+                    <a-layout>
+                        <multi-tab v-show="config.multiTab"></multi-tab>
+                        <base-content></base-content>
+                    </a-layout>
+                </a-layout>
+            </template>
+        </template>
     </a-layout>
+
+    <global-setting-dialog ref="globalSettingDialogRef"></global-setting-dialog>
 </template>
 
-<script setup>
-import { computed, ref, markRaw } from 'vue'
-import { onBeforeRouteUpdate } from 'vue-router'
-import { useMultiTabStore } from '@/store'
+<script>
+import { ref } from 'vue'
+import { useRouter } from 'vue-router'
+import { useAppStore } from '@/store'
+import { storeToRefs } from 'pinia'
+import useMenu from './hooks/useMenu'
+import MultiTab from './components/MultiTab.vue'
+import ActionButton from './components/ActionButton.vue'
+import BaseHeader from './components/BaseHeader.vue'
+import BaseSide from './components/BaseSide.vue'
+import BaseContent from './components/BaseContent.vue'
+import LogoCard from './components/LogoCard.vue'
+import BaseMenu from './components/BaseMenu/BaseMenu.vue'
+import GlobalSettingDialog from './components/GlobalSettingDialog.vue'
 
-import IframeView from './IframeView.vue'
+export default {
+    name: 'DefaultLayout',
+    components: {
+        MultiTab,
+        ActionButton,
+        BaseHeader,
+        BaseSide,
+        BaseContent,
+        LogoCard,
+        BaseMenu,
+        GlobalSettingDialog,
+    },
+    setup() {
+        const appStore = useAppStore()
+        const router = useRouter()
+        const { sideMenuList, topMenuList } = useMenu()
 
-const multiTabStore = useMultiTabStore()
-const collapsible = ref(false)
-const collapsed = ref(false)
-const refreshing = ref(false)
-const theme = 'dark'
-const cacheList = computed(() => multiTabStore.cacheList)
-const keepAlive = computed(() => multiTabStore.keepAlive)
-const pageType = ref('')
+        const { config } = storeToRefs(appStore)
 
-onBeforeRouteUpdate((to) => {
-    pageType.value = to?.meta?.type
-})
+        const refreshing = ref(false)
+        const collapsed = ref(false)
+        const globalSettingDialogRef = ref()
 
-function handleToggleCollapsed() {
-    collapsed.value = !collapsed.value
+        /**
+         * 左侧菜单展开/收起
+         */
+        function handleCollapsed() {
+            collapsed.value = !collapsed.value
+        }
+
+        /**
+         * 返回
+         */
+        function handleBack() {
+            router.back()
+        }
+
+        /**
+         * 设置
+         */
+        function handleSetting() {
+            globalSettingDialogRef.value.handleOpen()
+        }
+
+        return {
+            sideMenuList,
+            topMenuList,
+            collapsed,
+            refreshing,
+            config,
+            globalSettingDialogRef,
+            handleCollapsed,
+            handleBack,
+            handleSetting,
+        }
+    },
 }
-
-defineExpose({
-    refreshing,
-    handleToggleCollapsed
-})
 </script>
 
 <style lang="less" scoped>
 .layout {
-    height: 100vh;
-
-    &-sider {
-        box-shadow: 2px 0 8px 0 rgb(29 35 41 / 5%);
-        position: relative;
-        z-index: 1000;
-
-        &.ant-layout-sider-collapsed {
-            :deep(.x-layout-menu__brand) {
-                h1 {
-                    display: none;
-                }
-
-                img {
-                    display: block;
-                }
-            }
-        }
-    }
-
-    &-main {
-        overflow: hidden;
-        overflow-y: auto;
-    }
-
-    &-header {
-        background: #fff;
-        //boxShadow: 0 1px 4px rgba(0, 21, 41, .08),
-        padding: 0;
-        position: sticky;
-        top: 0;
-        z-index: 999;
-        height: 48px;
-    }
-
-    &-content {
-        margin: @margin-md;
-        min-height: auto;
-        position: relative;
-    }
+    min-height: 100vh;
 }
 </style>
