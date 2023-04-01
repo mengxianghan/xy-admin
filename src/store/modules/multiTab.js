@@ -2,6 +2,7 @@ import { defineStore } from 'pinia'
 import { message } from 'ant-design-vue'
 import { cloneDeep, findIndex, isEmpty } from 'lodash-es'
 import router from '@/router'
+import useAppStore from './app'
 
 const useMultiTabStore = defineStore('multiTab', {
     state: () => ({
@@ -174,6 +175,12 @@ const useMultiTabStore = defineStore('multiTab', {
          * @constructor
          */
         _setList({ index, length, value }) {
+            // 判断是否禁用了标签页
+            const appStore = useAppStore()
+            if (!appStore.config.multiTab) {
+                this.cacheList = []
+                return
+            }
             // 判断是否第一个标签页
             if (this.list.length) {
                 // 不是第一个标签页，判断是删除还是替换
