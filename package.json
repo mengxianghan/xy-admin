@@ -1,7 +1,7 @@
 {
     "name": "xy-admin",
     "private": true,
-    "version": "2.3.4",
+    "version": "2.4.0",
     "scripts": {
         "dev": "vite --mode dev",
         "build:test": "vite build --mode test",
@@ -41,7 +41,7 @@
         "vue-router": "^4.1.6",
         "xy-enum": "^1.2.0",
         "xy-qiniu": "^1.0.0",
-        "xy-storage": "^3.0.1"
+        "xy-storage": "^3.0.2"
     },
     "devDependencies": {
         "@vitejs/plugin-vue": "^4.0.0",
