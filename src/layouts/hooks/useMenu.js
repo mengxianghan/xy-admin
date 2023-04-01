@@ -31,7 +31,7 @@ export default () => {
                         props: {
                             children: item.children,
                             click: (res) => {
-                                sideMenuList.value = res?.mix?.children || []
+                                sideMenuList.value = res?.props?.children || []
                             },
                         },
                     }
