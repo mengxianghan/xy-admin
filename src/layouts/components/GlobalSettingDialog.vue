@@ -9,26 +9,49 @@
             :colon="false"
             :label-col="{ span: 24 }">
             <a-form-item
-                label="侧边风格"
+                label="菜单模式"
                 class="mb-8-2">
                 <a-space
                     class="setting-radio"
                     :size="16">
                     <a-tooltip
-                        v-for="item in themeList"
+                        v-for="item in menuModeList"
                         :key="item.value"
                         :title="item.label">
                         <div
-                            class="setting-radio-item setting-radio-item-side"
+                            class="setting-radio-item"
                             :class="{
-                                [`setting-radio-item-side--${item.value}`]: true,
+                                [`setting-radio-item--${item.value}`]: true,
                             }"
-                            @click="handleSideTheme(item)">
-                            <icon-check-outlined v-if="config.sideTheme === item.value"></icon-check-outlined>
+                            @click="handleMenuMode(item)">
+                            <icon-check-outlined v-if="config.menuMode === item.value"></icon-check-outlined>
                         </div>
                     </a-tooltip>
                 </a-space>
             </a-form-item>
+            <template v-if="config.menuMode !== 'top'">
+                <a-form-item
+                    label="侧边风格"
+                    class="mb-8-2">
+                    <a-space
+                        class="setting-radio"
+                        :size="16">
+                        <a-tooltip
+                            v-for="item in themeList"
+                            :key="item.value"
+                            :title="item.label">
+                            <div
+                                class="setting-radio-item setting-radio-item-side"
+                                :class="{
+                                    [`setting-radio-item-side--${item.value}`]: true,
+                                }"
+                                @click="handleSideTheme(item)">
+                                <icon-check-outlined v-if="config.sideTheme === item.value"></icon-check-outlined>
+                            </div>
+                        </a-tooltip>
+                    </a-space>
+                </a-form-item>
+            </template>
             <a-form-item
                 label="顶部风格"
                 class="mb-8-2">
@@ -46,27 +69,6 @@
                             }"
                             @click="handleHeaderTheme(item)">
                             <icon-check-outlined v-if="config.headerTheme === item.value"></icon-check-outlined>
-                        </div>
-                    </a-tooltip>
-                </a-space>
-            </a-form-item>
-            <a-form-item
-                label="菜单模式"
-                class="mb-8-2">
-                <a-space
-                    class="setting-radio"
-                    :size="16">
-                    <a-tooltip
-                        v-for="item in menuModeList"
-                        :key="item.value"
-                        :title="item.label">
-                        <div
-                            class="setting-radio-item"
-                            :class="{
-                                [`setting-radio-item--${item.value}`]: true,
-                            }"
-                            @click="handleMenuMode(item)">
-                            <icon-check-outlined v-if="config.menuMode === item.value"></icon-check-outlined>
                         </div>
                     </a-tooltip>
                 </a-space>
