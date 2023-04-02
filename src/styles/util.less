@@ -28,6 +28,13 @@ each(12 14 16 18 24, {
     }
 })
 
+// FontWeight
+each(400 500 600, {
+    .fw-@{value} {
+        font-weight: @value !important;
+    }
+})
+
 // Spacing
 each({
     mt: margin-top;
@@ -73,6 +80,7 @@ each({
     display: inline-flex;
     flex-direction: column;
     flex-direction: row;
+    flex-wrap: wrap;
     align-items: center;
     align-items: flex-end;
     align-items: flex-start;
