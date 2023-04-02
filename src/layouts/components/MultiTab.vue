@@ -156,7 +156,7 @@ export default {
 <style lang="less" scoped>
 .multi-tab {
     position: sticky;
-    padding: 8px 0 0 0;
+    padding: 8px 0;
     background: #fff;
     top: 48px;
     z-index: 100;
@@ -180,13 +180,13 @@ export default {
         padding: 0 @padding-md;
     }
 
-    // :deep(.ant-tabs-top > .ant-tabs-nav) {
-    //     // margin-bottom: 0;
-    // }
+    :deep(.ant-tabs-top > .ant-tabs-nav) {
+        margin-bottom: 0;
+    }
 
-    // :deep(.ant-tabs-top > .ant-tabs-nav::before) {
-    //     // display: none;
-    // }
+    :deep(.ant-tabs-top > .ant-tabs-nav::before) {
+        display: none;
+    }
 
     :deep(.ant-tabs-tab-btn) {
         height: 100%;
@@ -201,9 +201,24 @@ export default {
     }
 
     :deep(.ant-tabs-card > .ant-tabs-nav .ant-tabs-tab) {
-        height: 40px;
-        padding: 0;
-        // border-bottom: 0;
+        padding: 7px 0;
+        border: none;
+        border-radius: @border-radius-base;
+        background: transparent;
+
+        &:hover {
+            background: #fafafa;
+            color: @text-color;
+        }
+    }
+
+    :deep(.ant-tabs-card > .ant-tabs-nav .ant-tabs-tab-active) {
+        background: #fafafa;
+    }
+
+    :deep(.ant-tabs-card > .ant-tabs-nav .ant-tabs-nav-more) {
+        padding-top: 7px;
+        padding-bottom: 7px;
     }
 }
 </style>
