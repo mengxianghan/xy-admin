@@ -48,6 +48,17 @@ export const asyncRouterMap = [
                     permission: '*',
                 },
             },
+            {
+                path: 'advanced',
+                name: 'formAdvanced',
+                component: 'form/advanced/index.vue',
+                meta: {
+                    title: '高级表单',
+                    isMenu: true,
+                    keepAlive: true,
+                    permission: '*',
+                },
+            },
         ],
     },
     {
