@@ -1,7 +1,7 @@
 <template>
     <component
         rel="opener"
-        class="menu__title"
+        class="basic-menu__title"
         :is="cpComponentName"
         :target="dataSource.meta.target"
         v-bind="cpComponentAttrs"
@@ -9,10 +9,10 @@
         <component
             v-if="dataSource.meta.icon"
             :is="dataSource.meta.icon" />
-        <span class="menu__text">{{ dataSource.meta.title }}</span>
+        <span class="basic-menu__text">{{ dataSource.meta.title }}</span>
         <a-badge
             v-if="dataSource.meta.badge"
-            class="menu__badge"
+            class="basic-menu__badge"
             :count="dataSource.meta.badge" />
     </component>
 </template>

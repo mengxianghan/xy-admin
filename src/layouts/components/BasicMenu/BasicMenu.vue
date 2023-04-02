@@ -1,6 +1,6 @@
 <template>
     <a-menu
-        class="menu"
+        class="basic-menu"
         :theme="theme"
         :mode="mode"
         :inline-collapsed="collapsed"
@@ -36,7 +36,7 @@ import SubMenu from './SubMenu.vue'
  * @property {array} dataList 数据
  */
 export default {
-    name: 'BaseMenu',
+    name: 'BasicMenu',
     components: {
         MenuLink,
         SubMenu,
@@ -115,10 +115,10 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.menu {
+.basic-menu {
     transition: background 0s;
 
-    :deep(.menu__title) {
+    :deep(.basic-menu__title) {
         display: flex;
         align-items: center;
 
@@ -127,14 +127,14 @@ export default {
         }
     }
 
-    :deep(.menu__text) {
+    :deep(.basic-menu__text) {
         flex: 1;
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
     }
 
-    :deep(.menu__badge) {
+    :deep(.basic-menu__badge) {
         .ant-badge-count,
         .ant-badge-dot {
             box-shadow: none;
@@ -162,7 +162,7 @@ export default {
     }
 
     &.ant-menu-horizontal {
-        :deep(.menu__badge) {
+        :deep(.basic__badge) {
             margin-left: @margin-xs;
         }
 

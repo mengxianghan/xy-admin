@@ -1,21 +1,21 @@
 <template>
     <a-layout-header
-        class="base-header"
+        class="basic-header"
         :class="cpClassNames">
         <!-- 左侧 -->
         <div
             v-if="cpShowLeftSlot"
-            class="base-header__left">
+            class="basic-header__left">
             <slot name="left"></slot>
         </div>
         <!-- 中间 -->
         <div
             v-if="cpShowDefaultSlot"
-            class="base-header__center">
+            class="basic-header__center">
             <slot></slot>
         </div>
         <!-- 右侧 -->
-        <div class="base-header__right">
+        <div class="basic-header__right">
             <a-space :size="0">
                 <action-button @click="handleSetting">
                     <icon-setting-outlined></icon-setting-outlined>
@@ -63,7 +63,7 @@ import ActionButton from './ActionButton.vue'
  * @property {string} theme 主题【light=亮色，dark=暗色】
  */
 export default {
-    name: 'BaseHeader',
+    name: 'BasicHeader',
     components: {
         ActionButton,
     },
@@ -82,7 +82,7 @@ export default {
         const { config } = storeToRefs(appStore)
 
         const cpClassNames = computed(() => ({
-            [`base-header--${props.theme}`]: true,
+            [`basic-header--${props.theme}`]: true,
         }))
         const cpShowLeftSlot = computed(() => !!slots.left)
         const cpShowDefaultSlot = computed(() => !!slots.default)
@@ -129,7 +129,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.base-header {
+.basic-header {
     height: v-bind('config.headerHeight + "px"');
     line-height: 1;
     z-index: 110;

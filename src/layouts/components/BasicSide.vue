@@ -1,6 +1,6 @@
 <template>
     <a-layout-sider
-        class="base-side"
+        class="basic-side"
         breakpoint="lg"
         :collapsed="collapsed"
         :collapsed-width="config.sideCollapsedWidth"
@@ -8,19 +8,19 @@
         :theme="theme">
         <div
             v-if="showHeader"
-            class="base-side__header">
+            class="basic-side__header">
             <logo-card
                 :theme="theme"
                 :collapsed="collapsed"></logo-card>
         </div>
         <div
             v-if="cpShowDefaultSlot"
-            class="base-side__body">
+            class="basic-side__body">
             <slot></slot>
         </div>
         <div
             v-if="cpShowFooterSlot"
-            class="base-side__footer">
+            class="basic-side__footer">
             <slot name="footer"></slot>
         </div>
     </a-layout-sider>
@@ -37,7 +37,7 @@ import LogoCard from './LogoCard.vue'
  * @property {boolean} showHeader 显示头部
  */
 export default {
-    name: 'BaseSide',
+    name: 'BasicSide',
     components: {
         LogoCard,
     },
@@ -72,7 +72,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.base-side {
+.basic-side {
     position: sticky;
     left: 0;
     top: 0;

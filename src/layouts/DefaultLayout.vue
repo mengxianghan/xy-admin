@@ -3,15 +3,15 @@
         <template #default>
             <!-- 侧边菜单 -->
             <template v-if="config.menuMode === 'side'">
-                <base-side
+                <basic-side
                     v-model:collapsed="collapsed"
                     :theme="config.sideTheme">
-                    <base-menu
+                    <basic-menu
                         :data-list="sideMenuList"
-                        :theme="config.sideTheme"></base-menu>
-                </base-side>
+                        :theme="config.sideTheme"></basic-menu>
+                </basic-side>
                 <a-layout>
-                    <base-header
+                    <basic-header
                         class="pr-8-2"
                         :theme="config.headerTheme"
                         @setting="handleSetting">
@@ -31,15 +31,15 @@
                                 </action-button>
                             </a-space>
                         </template>
-                    </base-header>
+                    </basic-header>
                     <multi-tab v-show="config.multiTab"></multi-tab>
-                    <base-content></base-content>
+                    <basic-content></basic-content>
                 </a-layout>
             </template>
 
             <!-- 顶部菜单 -->
             <template v-if="config.menuMode === 'top'">
-                <base-header
+                <basic-header
                     class="px-8-2"
                     :theme="config.headerTheme"
                     @setting="handleSetting">
@@ -48,18 +48,18 @@
                             class="mr-8-2"
                             :theme="config.headerTheme"></logo-card>
                     </template>
-                    <base-menu
+                    <basic-menu
                         mode="horizontal"
                         :data-list="topMenuList"
-                        :theme="config.headerTheme"></base-menu>
-                </base-header>
+                        :theme="config.headerTheme"></basic-menu>
+                </basic-header>
                 <multi-tab v-show="config.multiTab"></multi-tab>
-                <base-content></base-content>
+                <basic-content></basic-content>
             </template>
 
             <!-- 混合菜单 -->
             <template v-if="config.menuMode === 'mix'">
-                <base-header
+                <basic-header
                     class="pr-8-2"
                     :theme="config.headerTheme"
                     @setting="handleSetting">
@@ -68,13 +68,13 @@
                             :theme="sideMenuList.length ? config.sideTheme : config.headerTheme"
                             :style="{ width: `${config.sideWidth}px` }"></logo-card>
                     </template>
-                    <base-menu
+                    <basic-menu
                         mode="horizontal"
                         :data-list="topMenuList"
-                        :theme="config.headerTheme"></base-menu>
-                </base-header>
+                        :theme="config.headerTheme"></basic-menu>
+                </basic-header>
                 <a-layout>
-                    <base-side
+                    <basic-side
                         v-if="sideMenuList.length"
                         :theme="config.sideTheme"
                         :show-header="false"
@@ -82,13 +82,13 @@
                             top: `${config.headerHeight}px`,
                             height: `calc(100vh - ${config.headerHeight}px)`,
                         }">
-                        <base-menu
+                        <basic-menu
                             :theme="config.sideTheme"
-                            :data-list="sideMenuList"></base-menu>
-                    </base-side>
+                            :data-list="sideMenuList"></basic-menu>
+                    </basic-side>
                     <a-layout>
                         <multi-tab v-show="config.multiTab"></multi-tab>
-                        <base-content></base-content>
+                        <basic-content></basic-content>
                     </a-layout>
                 </a-layout>
             </template>
@@ -106,11 +106,11 @@ import { storeToRefs } from 'pinia'
 import useMenu from './hooks/useMenu'
 import MultiTab from './components/MultiTab.vue'
 import ActionButton from './components/ActionButton.vue'
-import BaseHeader from './components/BaseHeader.vue'
-import BaseSide from './components/BaseSide.vue'
-import BaseContent from './components/BaseContent.vue'
+import BasicHeader from './components/BasicHeader.vue'
+import BasicSide from './components/BasicSide.vue'
+import BasicContent from './components/BasicContent.vue'
+import BasicMenu from './components/BasicMenu/BasicMenu.vue'
 import LogoCard from './components/LogoCard.vue'
-import BaseMenu from './components/BaseMenu/BaseMenu.vue'
 import GlobalSettingDialog from './components/GlobalSettingDialog.vue'
 
 export default {
@@ -118,11 +118,11 @@ export default {
     components: {
         MultiTab,
         ActionButton,
-        BaseHeader,
-        BaseSide,
-        BaseContent,
+        BasicHeader,
+        BasicSide,
+        BasicContent,
         LogoCard,
-        BaseMenu,
+        BasicMenu,
         GlobalSettingDialog,
     },
     setup() {

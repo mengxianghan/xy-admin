@@ -9,7 +9,7 @@
         "build:prod": "vite build --mode prod",
         "build:demo": "vite build --mode demo",
         "preview": "npm run build:prod && vite preview --mode prod",
-        "report": "vite build --mode demo",
+        "report": "vite build --mode prod",
         "lint": "eslint --ext .js,.vue --ignore-path .eslintignore --fix src",
         "prepare": "husky install"
     },

@@ -1,5 +1,5 @@
 <template>
-    <a-layout-content class="base-content">
+    <a-layout-content class="basic-content">
         <router-view v-slot="{ Component, route }">
             <keep-alive :include="cpCacheList">
                 <component
@@ -18,7 +18,7 @@ import { useMultiTabStore } from '@/store'
 import IframeView from './IframeView.vue'
 
 export default {
-    name: 'BaseContent',
+    name: 'BasicContent',
     components: {
         IframeView,
     },
@@ -37,7 +37,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.base-content {
+.basic-content {
     margin: @margin-md;
     position: relative;
 }

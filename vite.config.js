@@ -24,6 +24,11 @@ export default ({ mode }) => {
                     manualChunks: {
                         tinymce: ['tinymce'],
                         echarts: ['echarts'],
+                        'lodash-es': ['lodash-es'],
+                        'ant-design-vue': ['ant-design-vue'],
+                        jschardet: ['jschardet'],
+                        qrcode: ['qrcode'],
+                        cropper: ['cropperjs'],
                     },
                 },
             },

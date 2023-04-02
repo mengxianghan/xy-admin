@@ -10,11 +10,11 @@
         <template
             v-if="dataSource.meta && dataSource.meta.title"
             #title>
-            <div class="menu__title">
+            <div class="basic-menu__title">
                 <span class="menu__text">{{ dataSource.meta.title }}</span>
                 <a-badge
                     v-if="dataSource.meta.badge"
-                    class="menu__badge"
+                    class="basic-menu__badge"
                     :count="dataSource.meta.badge" />
             </div>
         </template>
