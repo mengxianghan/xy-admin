@@ -161,6 +161,15 @@ export default {
     top: 48px;
     z-index: 100;
 
+    &::before {
+        position: absolute;
+        content: '';
+        border-bottom: @border-color-split solid 1px;
+        left: 0;
+        right: 0;
+        bottom: 0;
+    }
+
     &__reload-btn,
     &__close-btn {
         font-size: 12px;
