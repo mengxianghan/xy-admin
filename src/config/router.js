@@ -204,6 +204,17 @@ export const asyncRouterMap = [
         },
         children: [
             {
+                path: 'center',
+                name: 'userCenter',
+                component: 'user/center/index.vue',
+                meta: {
+                    title: '个人中心',
+                    isMenu: true,
+                    keepAlive: true,
+                    permission: '*',
+                },
+            },
+            {
                 path: 'setting',
                 name: 'userSetting',
                 component: 'user/setting/index.vue',
