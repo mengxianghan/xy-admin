@@ -36,8 +36,8 @@
         <a-col class="align-center">
             <div>
                 <a-avatar
-                    :size="144"
-                    src="https://joeschmoe.io/api/v1/random"></a-avatar>
+                    src="http://cdn.xuanyunet.com/images/avatar.jpg"
+                    :size="144"></a-avatar>
             </div>
             <div class="mt-8-2">
                 <a-upload>
@@ -56,6 +56,7 @@
 <script>
 export default {
     name: 'Basic',
+    setup() {},
 }
 </script>
 

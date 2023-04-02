@@ -3,7 +3,7 @@
         <div class="align-center mb-8-3">
             <a-avatar
                 class="mb-4-5"
-                src="https://gw.alipayobjects.com/zos/antfincdn/XAosXuNZyF/BiazfanxmamNRoxxVxka.png"
+                src="http://cdn.xuanyunet.com/images/avatar.jpg"
                 :size="104"></a-avatar>
             <div class="fs-18 fw-600 mb-4-1">Serati Ma</div>
             <div>海纳百川，有容乃大</div>
