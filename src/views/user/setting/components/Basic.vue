@@ -40,7 +40,7 @@
                     :size="144"></a-avatar>
             </div>
             <div class="mt-8-2">
-                <a-upload>
+                <a-upload :show-upload-list="false">
                     <a-button>
                         <template #icon>
                             <icon-upload-outlined></icon-upload-outlined>
