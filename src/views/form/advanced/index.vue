@@ -6,6 +6,7 @@
     </a-page-header>
     <a-form layout="vertical">
         <a-card
+            class="mb-8-2"
             title="仓库管理"
             :bordered="false">
             <a-row :gutter="8">
@@ -69,6 +70,7 @@
             </a-row>
         </a-card>
         <a-card
+            class="mb-8-2"
             title="任务管理"
             :bordered="false">
             <a-row :gutter="8">
