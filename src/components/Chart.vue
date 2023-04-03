@@ -82,7 +82,7 @@ export default {
             setTimeout(() => {
                 chart.value.setOption(props.options, true)
                 chart.value.resize()
-                emit('init', chart.value)
+                emit('ready', chart.value)
             }, 100)
         }
 
