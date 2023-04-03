@@ -38,7 +38,7 @@ export default {
             type: String,
             default: '',
         },
-        option: {
+        options: {
             type: Object,
             default: () => ({}),
         },
@@ -79,7 +79,7 @@ export default {
                     })
                 },
             },
-            props.option
+            props.options
         )
         const { onFieldChange } = Form.useInjectFormItemContext()
 
