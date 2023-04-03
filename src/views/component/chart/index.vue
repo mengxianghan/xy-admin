@@ -5,7 +5,7 @@
                 :bordered="false"
                 class="mb-8-2">
                 <x-chart
-                    :option="option"
+                    :options="options"
                     :height="320"></x-chart>
             </a-card>
         </a-col>
@@ -14,7 +14,7 @@
                 :bordered="false"
                 class="mb-8-2">
                 <x-chart
-                    :option="option2"
+                    :options="options2"
                     :height="320"></x-chart>
             </a-card>
         </a-col>
@@ -23,7 +23,7 @@
                 :bordered="false"
                 class="mb-8-2">
                 <x-chart
-                    :option="option3"
+                    :options="options3"
                     :height="320"></x-chart>
             </a-card>
         </a-col>
@@ -32,7 +32,7 @@
                 :bordered="false"
                 class="mb-8-2">
                 <x-chart
-                    :option="option4"
+                    :options="options4"
                     :height="320"></x-chart>
             </a-card>
         </a-col>
@@ -41,7 +41,7 @@
                 :bordered="false"
                 class="mb-8-2">
                 <x-chart
-                    :option="option5"
+                    :options="options5"
                     :height="320"></x-chart>
             </a-card>
         </a-col>
@@ -50,7 +50,7 @@
                 :bordered="false"
                 class="mb-8-2">
                 <x-chart
-                    :option="option6"
+                    :options="options6"
                     :height="320"></x-chart>
             </a-card>
         </a-col>
@@ -63,7 +63,7 @@ import { ref } from 'vue'
 export default {
     name: 'componentChart',
     setup() {
-        const option = ref({
+        const options = ref({
             title: {
                 text: 'Bar Demo',
                 subtext: '基础柱状图',
@@ -94,7 +94,7 @@ export default {
                 },
             ],
         })
-        const option2 = ref({
+        const options2 = ref({
             title: {
                 text: 'Line Demo',
                 subtext: '基础折线图',
@@ -123,7 +123,7 @@ export default {
                 },
             ],
         })
-        const option3 = ref({
+        const options3 = ref({
             title: {
                 text: 'Pie Demo',
                 subtext: '基础饼图',
@@ -148,7 +148,7 @@ export default {
                 },
             ],
         })
-        const option4 = ref({
+        const options4 = ref({
             title: {
                 text: 'Radar Demo',
                 subtext: '基础雷达(属性)图',
@@ -181,7 +181,7 @@ export default {
                 },
             ],
         })
-        const option5 = ref({
+        const options5 = ref({
             title: {
                 text: 'Kline Demo',
                 subtext: '基础K线图',
@@ -226,7 +226,7 @@ export default {
                 },
             ],
         })
-        const option6 = ref({
+        const options6 = ref({
             title: {
                 text: 'Gauge Demo',
                 subtext: '基础仪表盘',
@@ -256,12 +256,12 @@ export default {
         })
 
         return {
-            option,
-            option2,
-            option3,
-            option4,
-            option5,
-            option6,
+            options,
+            options2,
+            options3,
+            options4,
+            options5,
+            options6,
         }
     },
 }
