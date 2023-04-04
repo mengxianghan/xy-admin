@@ -131,7 +131,7 @@ import CropperDialog from '../CropperDialog.vue'
  * @property {boolean} cropper 裁剪，仅支持单文件上传，默认：false，
  * @property {number} aspectRatio 比例，默认：自由裁剪
  * @property {number} quality 图片质量，取值范围：0-1，默认：1
- * @property {boolean} dragsort 拖拽排序，默认：false
+ * @property {boolean} dragSort 拖拽排序，默认：false
  */
 export default {
     name: 'XUploadImage',
@@ -189,7 +189,7 @@ export default {
             type: Number,
             default: 1,
         },
-        dragsort: {
+        dragSort: {
             type: Boolean,
             default: false,
         },
