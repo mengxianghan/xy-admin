@@ -9,14 +9,14 @@ let app = null
  * 返回
  */
 function popstateListener() {
-    close()
+    hide()
 }
 
 /**
  * 打开
  * @param {object} props
  */
-function open(props) {
+function show(props) {
     Loading.close()
     container = document.createElement('div')
     app = createApp(LoadingConstructor, props)
@@ -27,9 +27,9 @@ function open(props) {
 }
 
 /**
- * 关闭
+ * 隐藏
  */
-function close() {
+function hide() {
     if (app) {
         app.unmount(container)
     }
@@ -43,9 +43,9 @@ function close() {
 }
 
 const Loading = (props) => {
-    open(props)
+    show(props)
 }
 
-Loading.close = close
+Loading.hide = hide
 
 export default Loading
