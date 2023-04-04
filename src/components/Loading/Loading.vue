@@ -68,17 +68,12 @@ export default {
             return h('div', { class: 'x-loading__extra' }, [props.extra])
         })
 
-        function handleReload() {
-            location.reload()
-        }
-
         return {
             cpClassNames,
             cpIcon,
             cpTitle,
             cpSubTitle,
             cpExtra,
-            handleReload,
         }
     },
 }
