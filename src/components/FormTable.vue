@@ -58,7 +58,7 @@ export default {
             default: () => ({}),
         },
     },
-    emits: ['update:modelValue'],
+    emits: ['update:modelValue', 'add'],
     setup(props, { emit }) {
         const list = ref([])
 
@@ -73,6 +73,7 @@ export default {
          */
         function handleAdd() {
             list.value.push(cloneDeep(props.rowTpl))
+            emit('add')
         }
 
         /**
