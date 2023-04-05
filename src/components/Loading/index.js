@@ -17,7 +17,7 @@ function popstateListener() {
  * @param {object} props
  */
 function show(props) {
-    Loading.close()
+    hide()
     container = document.createElement('div')
     app = createApp(LoadingConstructor, props)
     app.mount(container)
