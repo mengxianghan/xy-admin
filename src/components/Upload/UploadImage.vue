@@ -59,7 +59,7 @@
                     <div
                         v-if="STATUS_ENUM.is('done', item.status)"
                         class="x-upload-action"
-                        @click="handlePreview(item)">
+                        @click="handlePreview(item, index)">
                         <icon-eye-outlined />
                     </div>
                     <div
@@ -281,10 +281,17 @@ export default {
          * 预览
          * @param {*} record
          */
-        function handlePreview(record) {
-            Preview({
-                urls: [record.src],
-            })
+        function handlePreview(record, index) {
+            if (props.multiple) {
+                // 多选
+                Preview({
+                    urls: props.modelValue,
+                    index,
+                })
+            } else {
+                // 单选
+                Preview(record.src)
+            }
         }
 
         /**
