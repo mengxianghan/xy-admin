@@ -8,26 +8,54 @@
             <slot name="label">{{ dataSource.label ?? label }}</slot>
             <template v-if="colon">：</template>
         </div>
-        <div class="x-filter-item__content">
-            <slot>
-                <filter-tag
-                    :model-value="modelValue"
-                    :options="dataSource.options"
-                    :multiple="dataSource.multiple"
-                    :allow-clear="dataSource.allowClear"
-                    @change="onTagChange"></filter-tag>
-            </slot>
+        <div
+            class="x-filter-item__content"
+            ref="contentRef"
+            :style="cpContentStyle">
+            <div
+                class="x-filter-item__content-inner"
+                ref="contentInnerRef">
+                <slot>
+                    <filter-tag
+                        :model-value="modelValue"
+                        :options="dataSource.options"
+                        :multiple="dataSource.multiple"
+                        :allow-clear="dataSource.allowClear"
+                        @change="onTagChange"></filter-tag>
+                </slot>
+            </div>
+        </div>
+        <div
+            v-if="cpCollapsible"
+            class="x-filter-item__collapse">
+            <a @click="handleCollapse">
+                <slot
+                    name="collapse"
+                    :collapsed="collapsed">
+                    <template v-if="collapsed">收起</template>
+                    <template v-else>展开</template>
+                </slot>
+            </a>
         </div>
     </div>
 </template>
 
 <script>
-import { computed, ref, watchEffect } from 'vue'
+import { computed, ref, watchEffect, nextTick, onMounted, reactive } from 'vue'
 import { useInjectFilterCtx } from './context'
 import FilterTag from './FilterTag.vue'
 
 /**
  * @property {object} dataSource
+ * @property {string | number} dataSource.label 名称，必填
+ * @property {string | number} dataSource.key 索引，必填，多条件不允许重复
+ * @property {boolean} dataSource.multiple 是否可以多选
+ * @property {boolean} dataSource.allowClear 是否可以清除，仅限单选
+ * @property {boolean} dataSource.collapsible 是否可收起。默认：false
+ * @property {boolean} dataSource.collapsed 当前收起状态。
+ * @property {array} dataSource.options 选项列表
+ * @property {string | number} dataSource.options.label 选项名称
+ * @property {string | number} dataSource.options.value 选项值
  * @property {number} labelWidth 标签宽度，默认：80
  * @property {string} label 标签内容
  */
@@ -53,17 +81,58 @@ export default {
             default: '',
         },
     },
-    slots: ['default'],
+    slots: ['default', 'label', 'collapsible'],
     setup(props) {
         const { labelWidth, colon, onChange } = useInjectFilterCtx()
         const curValue = ref({})
+        const contentRef = ref()
+        const contentInnerRef = ref()
+        const collapsed = ref(props.dataSource.collapsed)
+
+        const content = reactive({
+            defaultHeight: null,
+        })
+        const contentInner = reactive({
+            height: null,
+        })
 
         const cpLabelWidth = computed(() => labelWidth.value || props.labelWidth)
+        const cpCollapsible = computed(
+            () => props.dataSource.collapsible && contentInner.height > content.defaultHeight
+        )
+        const cpContentStyle = computed(() => {
+            const styles = {
+                height: '',
+            }
+            if (cpCollapsible.value) {
+                if (collapsed.value) {
+                    styles.height = 'auto'
+                } else {
+                    if (content.defaultHeight) {
+                        styles.height = `${content.defaultHeight}px`
+                    }
+                }
+            }
+            return styles
+        })
 
         watchEffect(() => {
             if (curValue.value === props.modelValue) return
             curValue.value = props.modelValue
         })
+
+        onMounted(async () => {
+            await nextTick()
+            content.defaultHeight = parseInt(window.getComputedStyle(contentRef.value).getPropertyValue('line-height'))
+            contentInner.height = contentInnerRef.value.offsetHeight
+        })
+
+        /**
+         * 展开/收起
+         */
+        function handleCollapse() {
+            collapsed.value = !collapsed.value
+        }
 
         function onTagChange(value) {
             onChange(props.dataSource.key, value)
@@ -71,8 +140,16 @@ export default {
 
         return {
             colon,
-            cpLabelWidth,
             curValue,
+            collapsed,
+            content,
+            contentInner,
+            contentRef,
+            contentInnerRef,
+            cpLabelWidth,
+            cpContentStyle,
+            cpCollapsible,
+            handleCollapse,
             onTagChange,
         }
     },
@@ -112,6 +189,12 @@ export default {
             display: flex;
             flex-wrap: wrap;
             align-items: center;
+            line-height: inherit;
+            overflow: hidden;
+        }
+
+        &__collapse {
+            margin-left: @margin-sm;
         }
     }
 }

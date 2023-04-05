@@ -8,7 +8,13 @@
             <slot :record="item">
                 <filter-item
                     :data-source="item"
-                    :model-value="getModelValue(item.key)"></filter-item>
+                    :model-value="getModelValue(item.key)">
+                    <template #collapse="{ collapsed }">
+                        <slot
+                            name="collapse"
+                            :collapsed="collapsed"></slot>
+                    </template>
+                </filter-item>
             </slot>
         </template>
         <div
@@ -51,13 +57,6 @@ import FilterItem from './FilterItem.vue'
  * 筛选组件
  * @property {object} modelValue
  * @property {array} dataSource
- * @property {string | number} dataSource.label 名称，必填
- * @property {string | number} dataSource.key 索引，必填，多条件不允许重复
- * @property {boolean} dataSource.multiple 是否可以多选
- * @property {boolean} dataSource.allowClear 是否可以清除，仅限单选
- * @property {array} dataSource.options 选项列表
- * @property {string | number} dataSource.options.label 选项名称
- * @property {string | number} dataSource.options.value 选项值
  * @property {boolean} colon 是否显示冒号。默认：true
  * @property {boolean} footer 底部内容，当不需要底部按钮时可以设为 false。默认：false
  * @property {string} size 尺寸，可选：default、small。默认：default
@@ -116,6 +115,7 @@ export default {
             default: 'default',
         },
     },
+    slots: ['default', 'footer'],
     emits: ['change', 'update:modelValue', 'ok', 'reset'],
     setup(props, { emit, slots }) {
         const curValue = ref(new Map(Object.entries(props.modelValue)))
@@ -190,7 +190,7 @@ export default {
 <style lang="less" scoped>
 .x-filter {
     &--default {
-        line-height: 30px;
+        line-height: 32px;
     }
 
     &--small {

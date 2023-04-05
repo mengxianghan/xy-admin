@@ -46,8 +46,8 @@ export default {
             default: false,
         },
     },
-    emits: ['update:modelValue', 'change'],
     slots: ['default'],
+    emits: ['update:modelValue', 'change'],
     setup(props, { emit }) {
         const curValue = ref()
 
@@ -123,6 +123,6 @@ export default {
 .x-filter-tag {
     display: flex;
     flex-wrap: wrap;
-    gap: @margin-xs;
+    gap: @margin-xss @margin-xs;
 }
 </style>
