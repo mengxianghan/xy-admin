@@ -8,6 +8,8 @@ import Editor from './Editor.vue'
 import FormTable from './FormTable.vue'
 import Filter from './Filter/Filter.vue'
 import FilterItem from './Filter/FilterItem.vue'
+import FilterTag from './Filter/FilterTag.vue'
+import FilterTagItem from './Filter/FilterTagItem.vue'
 import QrCode from './QrCode.vue'
 import Region from './Region.vue'
 import SearchBar from './SearchBar.vue'
@@ -31,6 +33,8 @@ const componentList = [
     FormTable,
     Filter,
     FilterItem,
+    FilterTag,
+    FilterTagItem,
     QrCode,
     Region,
     SearchBar,
