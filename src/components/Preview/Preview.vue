@@ -52,41 +52,44 @@
         </template>
 
         <!-- 操作按钮 -->
-        <div class="x-preview__action">
-            <template v-if="cpFileType === 'image'">
-                <!-- 缩小 -->
+        <div class="x-preview__top">
+            <div class="x-preview__pages">{{ current + 1 }}/{{ urls.length }}</div>
+            <div class="x-preview__action">
+                <template v-if="cpFileType === 'image'">
+                    <!-- 缩小 -->
+                    <div
+                        class="x-preview__action-btn"
+                        :class="{
+                            'x-preview__action-btn--disabled': cpZoomOutBtnDisabled,
+                        }"
+                        @click="handleZoomOut">
+                        <zoom-out-outlined />
+                    </div>
+                    <!-- 放大 -->
+                    <div
+                        class="x-preview__action-btn"
+                        @click="handleZoomIn">
+                        <zoom-in-outlined />
+                    </div>
+                    <!-- 左旋转 -->
+                    <div
+                        class="x-preview__action-btn"
+                        @click="handleRotateLeft">
+                        <rotate-left-outlined />
+                    </div>
+                    <!-- 右旋转 -->
+                    <div
+                        class="x-preview__action-btn"
+                        @click="handleRotateRight">
+                        <rotate-right-outlined />
+                    </div>
+                </template>
+                <!-- 关闭 -->
                 <div
                     class="x-preview__action-btn"
-                    :class="{
-                        'x-preview__action-btn--disabled': cpZoomOutBtnDisabled,
-                    }"
-                    @click="handleZoomOut">
-                    <zoom-out-outlined />
+                    @click="handleClose">
+                    <close-outlined></close-outlined>
                 </div>
-                <!-- 放大 -->
-                <div
-                    class="x-preview__action-btn"
-                    @click="handleZoomIn">
-                    <zoom-in-outlined />
-                </div>
-                <!-- 左旋转 -->
-                <div
-                    class="x-preview__action-btn"
-                    @click="handleRotateLeft">
-                    <rotate-left-outlined />
-                </div>
-                <!-- 右旋转 -->
-                <div
-                    class="x-preview__action-btn"
-                    @click="handleRotateRight">
-                    <rotate-right-outlined />
-                </div>
-            </template>
-            <!-- 关闭 -->
-            <div
-                class="x-preview__action-btn"
-                @click="handleClose">
-                <close-outlined></close-outlined>
             </div>
         </div>
     </a-modal>
@@ -293,6 +296,7 @@ export default {
 
         return {
             visible,
+            current,
             imgRef,
             cpContentStyle,
             cpImageStyle,
@@ -369,15 +373,25 @@ export default {
         max-height: 100%;
     }
 
-    &__action {
+    &__top {
         position: absolute;
         top: 0;
         left: 0;
         right: 0;
         display: flex;
         align-items: center;
-        justify-content: right;
         background: rgba(0, 0, 0, 0.1);
+    }
+
+    &__pages {
+        color: rgba(255, 255, 255, 0.8);
+        margin: 16px;
+    }
+
+    &__action {
+        margin: 0 0 0 auto;
+        display: flex;
+        align-items: center;
 
         &-btn {
             min-width: 44px;
@@ -385,9 +399,9 @@ export default {
             display: flex;
             align-items: center;
             justify-content: center;
-            color: rgba(255, 255, 255, 0.8);
             font-size: 16px;
             cursor: pointer;
+            color: rgba(255, 255, 255, 0.8);
 
             &--disabled {
                 cursor: not-allowed;
