@@ -17,7 +17,7 @@ import ResizeBox from './ResizeBox/ResizeBox.vue'
 import UploadImage from './Upload/UploadImage.vue'
 import UploadInput from './Upload/UploadInput.vue'
 
-import LoadingInstance from './Loading'
+import Loading from './Loading'
 import Preview from './Preview'
 
 import { setupLoadingDirective } from './Loading/directive'
@@ -43,7 +43,7 @@ const componentList = [
     UploadInput,
 ]
 
-export const Loading = LoadingInstance
+export const xloading = Loading
 export const xpreview = Preview
 
 export default {
