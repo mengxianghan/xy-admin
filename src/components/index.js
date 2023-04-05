@@ -44,7 +44,7 @@ const componentList = [
 ]
 
 export const Loading = LoadingInstance
-export const preview = Preview
+export const xpreview = Preview
 
 export default {
     install(app) {
