@@ -74,11 +74,11 @@ export const asyncRouterMap = [
         },
         children: [
             {
-                path: 'basic',
-                name: 'listBasic',
-                component: 'list/basic/index.vue',
+                path: 'table-list',
+                name: 'listTableList',
+                component: 'list/table-list/index.vue',
                 meta: {
-                    title: '基础列表',
+                    title: '查询表格',
                     isMenu: true,
                     keepAlive: true,
                     permission: '*',
