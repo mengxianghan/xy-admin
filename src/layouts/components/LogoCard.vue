@@ -73,6 +73,8 @@ export default {
     }
 
     &--light {
+        background: #fff;
+
         h1 {
             color: @text-color;
         }
