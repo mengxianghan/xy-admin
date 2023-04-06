@@ -1,55 +1,65 @@
 <template>
-    <div class="x-filter">
+    <div
+        class="x-filter"
+        :class="cpClassNames">
         <template
-            v-for="item in list"
+            v-for="item in dataSource"
             :key="item.key">
-            <template v-if="item.scopedSlot">
-                <slot
-                    :name="item.key"
-                    :record="item"></slot>
-            </template>
-            <template v-else>
-                <filter-item :data-source="item"></filter-item>
-            </template>
+            <slot :record="item">
+                <filter-item
+                    :data-source="item"
+                    :model-value="getModelValue(item.key)">
+                    <template #collapse="{ collapsed }">
+                        <slot
+                            name="collapse"
+                            :collapsed="collapsed"></slot>
+                    </template>
+                </filter-item>
+            </slot>
         </template>
         <div
-            v-if="useButton"
-            class="x-filter-footer"
+            v-if="footer"
+            class="x-filter__footer"
             :style="{
                 paddingLeft: labelWidth ? `${labelWidth}px` : '',
             }">
             <a-space>
-                <a-button
-                    type="primary"
-                    ghost
-                    @click="handleOk"
-                    >确定
-                </a-button>
-                <a-button @click="handleReset">重置</a-button>
+                <template v-if="cpShowFooterSlot">
+                    <slot name="footer"></slot>
+                </template>
+                <template v-else>
+                    <a-button
+                        :type="okType"
+                        :size="size"
+                        @click="handleOk"
+                        v-bind="okButtonProps">
+                        {{ okText }}
+                    </a-button>
+                    <a-button
+                        :type="resetType"
+                        :size="size"
+                        @click="handleReset"
+                        v-bind="resetButtonProps">
+                        {{ resetText }}
+                    </a-button>
+                </template>
             </a-space>
         </div>
     </div>
 </template>
 
 <script>
-import { onMounted, ref, watch, provide } from 'vue'
-import { TYPE_ENUM } from './config'
-import { cloneDeep } from 'lodash-es'
+import { computed, ref, watch } from 'vue'
+import { useFilterCtx } from './context'
 import FilterItem from './FilterItem.vue'
 
 /**
  * 筛选组件
  * @property {object} modelValue
  * @property {array} dataSource
- * @value {string} dataSource.label 名称，必填
- * @value {string} dataSource.key 索引，必填，多条件不允许重复
- * @value {string} dataSource.type 筛选显示类型，默认：tag；可选值：tag=标签，input=输入框，inputRange=区间输入框，date=日期，dateRange=日期区间
- * @value {boolean} dataSource.multiple 多选，仅限 tag
- * @value {array} dataSource.options 选项列表，仅限 tag
- * @value {string} dataSource.options.label 选项名称
- * @value {string | number} dataSource.options.value 选项值
- * @property {boolean} colon 是否显示冒号，默认：true
- * @property {boolean} useButton 使用按钮，默认：false
+ * @property {boolean} colon 是否显示冒号。默认：true
+ * @property {boolean} footer 底部内容，当不需要底部按钮时可以设为 false。默认：false
+ * @property {string} size 尺寸，可选：default、small。默认：default
  */
 export default {
     name: 'XFilter',
@@ -71,177 +81,105 @@ export default {
             type: Number,
             default: 0,
         },
-        useButton: {
+        footer: {
             type: Boolean,
             default: false,
         },
+        okText: {
+            type: String,
+            default: '确定',
+        },
+        okType: {
+            type: String,
+            default: 'primary',
+        },
+        okButtonProps: {
+            type: Object,
+            default: () => ({
+                ghost: true,
+            }),
+        },
+        resetText: {
+            type: String,
+            default: '重置',
+        },
+        resetType: {
+            type: String,
+        },
+        resetButtonProps: {
+            type: Object,
+            default: () => ({}),
+        },
+        size: {
+            type: String,
+            default: 'default',
+        },
     },
+    slots: ['default', 'footer'],
     emits: ['change', 'update:modelValue', 'ok', 'reset'],
-    setup(props, { emit }) {
-        const list = ref({})
+    setup(props, { emit, slots }) {
+        const curValue = ref(new Map(Object.entries(props.modelValue)))
+        const cpShowFooterSlot = computed(() => slots.footer)
+        const cpClassNames = computed(() => ({
+            [`x-filter--${props.size}`]: true,
+        }))
 
-        provide('filterContext', {
-            colon: props.colon,
-            labelWidth: props.labelWidth,
-            handleClick,
-            onChange,
+        useFilterCtx({
+            colon: computed(() => props.colon),
+            labelWidth: computed(() => props.labelWidth),
+            onChange: trigger,
         })
 
         watch(
-            () => props.dataSource,
-            () => init()
+            () => props.modelValue,
+            (val) => {
+                if (Object.fromEntries(curValue.value) === val) return
+                curValue.value = new Map(Object.entries(val))
+            },
+            { deep: true }
         )
 
-        onMounted(() => {
-            init()
-        })
-
         /**
-         * 初始化
-         * @private
+         * 获取子节点当前值
+         * @param {string | number} key
          */
-        function init() {
-            list.value = cloneDeep(props.dataSource).map((item) => {
-                const { key, type, multiple, scopedSlot, options } = item
-                // 判断是否自定义插槽
-                if (scopedSlot) {
-                    // 是自定义插槽
-                    item.value = props.modelValue[key]
-                } else {
-                    // 不是自定义插槽，根据类型回填内容
-                    // tag
-                    if (TYPE_ENUM.is('tag', type) || Array.isArray(options)) {
-                        item.options = item?.options.map((tag) => {
-                            return {
-                                ...tag,
-                                selected: multiple
-                                    ? props.modelValue[key]?.includes(tag.value)
-                                    : props.modelValue[key] === tag.value,
-                            }
-                        })
-                    }
-                    // 输入框
-                    if (TYPE_ENUM.is('input', type)) {
-                        item.value = props.modelValue[key] ?? ''
-                    }
-                    // 输入区间
-                    if (TYPE_ENUM.is('inputRange', type)) {
-                        item.value = props.modelValue[key] ?? []
-                    }
-                    // 日期 || 日期区间
-                    if (['date', 'dateRange'].includes(TYPE_ENUM.getKey(type))) {
-                        item.value = props.modelValue[key] ?? null
-                    }
-                }
-                return item
-            })
-        }
-
-        /**
-         * 获取筛选值
-         * @return {{}}
-         */
-        function getValue() {
-            const value = {}
-            list?.value?.forEach((item) => {
-                const { key, type, multiple, scopedSlot, options } = item
-                // 判断是否自定义插槽
-                if (scopedSlot) {
-                    // 是自定义插槽
-                    value[key] = item?.value ?? null
-                } else {
-                    // 不是自定义插槽，根据类型判断应该返回的内容
-                    // tag
-                    if (TYPE_ENUM.is('tag', type) || Array.isArray(options)) {
-                        // 判断是否多选
-                        if (multiple) {
-                            // 多选
-                            value[key] = item?.options?.filter((item) => item.selected).map((item) => item.value)
-                        } else {
-                            // 单选
-                            value[key] = item?.options?.find((o) => o.selected)?.value ?? undefined
-                        }
-                    }
-                    // 输入框
-                    if (TYPE_ENUM.is('input', type)) {
-                        value[key] = item?.value ?? undefined
-                    }
-                    // 输入区间
-                    if (TYPE_ENUM.is('inputRange', type)) {
-                        value[key] = item?.value ?? []
-                    }
-                    // 日期 || 日期区间
-                    if (['date', 'dateRange'].includes(TYPE_ENUM.getKey(type))) {
-                        value[key] = item?.value ?? null
-                    }
-                }
-            })
-            return value
-        }
-
-        /**
-         * 点击 tag
-         * @param item
-         * @param tag
-         */
-        function handleClick(item, tag) {
-            const { multiple, key } = item
-            const { value, selected } = tag
-            const index = list?.value?.findIndex((o) => o.key === key)
-            const tagIndex = item?.options?.findIndex((o) => o.value === value)
-            // 判断多选
-            if (multiple) {
-                // 多选
-                list.value[index].options[tagIndex].selected = !selected
-            } else {
-                // 单选
-                list.value[index].options = list.value[index].options.map((item) => {
-                    return {
-                        ...item,
-                        selected: item.value === value,
-                    }
-                })
-            }
-            trigger()
+        function getModelValue(key) {
+            return curValue.value.get(key)
         }
 
         /**
          * 确定
          */
         function handleOk() {
-            const value = getValue()
-            emit('ok', value)
+            emit('ok')
         }
 
         /**
          * 取消
          */
         function handleReset() {
-            emit('reset', {})
-        }
-
-        /**
-         * 文本框发生改变
-         */
-        function onChange() {
-            trigger()
+            emit('reset')
         }
 
         /**
          * 触发
          * @private
          */
-        function trigger() {
-            if (props.useButton) {
-                return
+        function trigger(key, value) {
+            if (value === null || value === undefined) {
+                curValue.value.delete(key)
+            } else {
+                curValue.value.set(key, value)
             }
-            const value = getValue()
-            emit('update:modelValue', value)
-            emit('change', value)
+            const val = Object.fromEntries(curValue.value)
+            emit('update:modelValue', val)
+            emit('change', val)
         }
 
         return {
-            list,
+            cpShowFooterSlot,
+            cpClassNames,
+            getModelValue,
             handleOk,
             handleReset,
         }
@@ -251,7 +189,15 @@ export default {
 
 <style lang="less" scoped>
 .x-filter {
-    &-footer {
+    &--default {
+        line-height: 32px;
+    }
+
+    &--small {
+        line-height: 24px;
+    }
+
+    &__footer {
         display: flex;
         padding: @padding-xs 0;
 

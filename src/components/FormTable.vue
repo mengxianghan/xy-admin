@@ -58,7 +58,7 @@ export default {
             default: () => ({}),
         },
     },
-    emits: ['update:modelValue'],
+    emits: ['update:modelValue', 'add', 'delete'],
     setup(props, { emit }) {
         const list = ref([])
 
@@ -73,13 +73,16 @@ export default {
          */
         function handleAdd() {
             list.value.push(cloneDeep(props.rowTpl))
+            emit('add')
         }
 
         /**
          * 删除
          */
         function handleDelete(index) {
+            const delRecord = props.modelValue[index]
             list.value.splice(index, 1)
+            emit('delete', { record: delRecord })
         }
 
         return {

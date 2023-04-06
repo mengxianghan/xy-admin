@@ -43,7 +43,7 @@
             v-model="multipleList"
             multiple
             cropper
-            dragsort></x-upload-image>
+            drag-sort></x-upload-image>
     </a-card>
 
     <a-card

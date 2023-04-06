@@ -25,13 +25,19 @@
                         width: `${width}px`,
                         height: `${height}px`,
                     }">
-                    <component
-                        :is="icon"
-                        class="x-upload-btn__icon" />
+                    <div class="x-upload-btn__icon">
+                        <template v-if="cpShowIconSlot">
+                            <slot name="icon"></slot>
+                        </template>
+                        <template v-else>
+                            <component :is="icon" />
+                        </template>
+                    </div>
                     <div
                         v-if="text"
                         class="x-upload-btn__txt">
-                        {{ text }}
+                        <template v-if="cpShowTextSlot"></template>
+                        <template v-else>{{ text }}</template>
                     </div>
                 </div>
             </template>
@@ -53,7 +59,7 @@
                     <div
                         v-if="STATUS_ENUM.is('done', item.status)"
                         class="x-upload-action"
-                        @click="handlePreview(item)">
+                        @click="handlePreview(item, index)">
                         <icon-eye-outlined />
                     </div>
                     <div
@@ -125,7 +131,7 @@ import CropperDialog from '../CropperDialog.vue'
  * @property {boolean} cropper 裁剪，仅支持单文件上传，默认：false，
  * @property {number} aspectRatio 比例，默认：自由裁剪
  * @property {number} quality 图片质量，取值范围：0-1，默认：1
- * @property {boolean} dragsort 拖拽排序，默认：false
+ * @property {boolean} dragSort 拖拽排序，默认：false
  */
 export default {
     name: 'XUploadImage',
@@ -183,13 +189,14 @@ export default {
             type: Number,
             default: 1,
         },
-        dragsort: {
+        dragSort: {
             type: Boolean,
             default: false,
         },
     },
+    slots: ['icon', 'text'],
     emits: ['update:modelValue'],
-    setup(props, { emit }) {
+    setup(props, { emit, slots }) {
         const { onFieldChange } = Form.useInjectFormItemContext()
 
         const fileList = ref([])
@@ -199,6 +206,8 @@ export default {
 
         const loading = computed(() => fileList.value.some((o) => STATUS_ENUM.is('uploading', o.status)))
         const showUploadBtn = computed(() => props.multiple || !fileList.value.length)
+        const cpShowIconSlot = computed(() => slots.icon)
+        const cpShowTextSlot = computed(() => slots.text)
         const dragsortDisabled = computed(() => (props.dragsort && !props.disabled ? false : true))
 
         watch(
@@ -272,10 +281,17 @@ export default {
          * 预览
          * @param {*} record
          */
-        function handlePreview(record) {
-            Preview({
-                urls: [record.src],
-            })
+        function handlePreview(record, index) {
+            if (props.multiple) {
+                // 多选
+                Preview({
+                    urls: props.modelValue,
+                    index,
+                })
+            } else {
+                // 单选
+                Preview(record.src)
+            }
         }
 
         /**
@@ -409,6 +425,8 @@ export default {
             STATUS_ENUM,
             fileList,
             showUploadBtn,
+            cpShowIconSlot,
+            cpShowTextSlot,
             cropperDialogRef,
             uploadImageRef,
             handlePreview,

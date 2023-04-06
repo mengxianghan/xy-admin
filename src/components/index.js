@@ -8,6 +8,8 @@ import Editor from './Editor.vue'
 import FormTable from './FormTable.vue'
 import Filter from './Filter/Filter.vue'
 import FilterItem from './Filter/FilterItem.vue'
+import FilterTag from './Filter/FilterTag.vue'
+import FilterTagItem from './Filter/FilterTagItem.vue'
 import QrCode from './QrCode.vue'
 import Region from './Region.vue'
 import SearchBar from './SearchBar.vue'
@@ -15,7 +17,7 @@ import ResizeBox from './ResizeBox/ResizeBox.vue'
 import UploadImage from './Upload/UploadImage.vue'
 import UploadInput from './Upload/UploadInput.vue'
 
-import LoadingInstance from './Loading'
+import Loading from './Loading'
 import Preview from './Preview'
 
 import { setupLoadingDirective } from './Loading/directive'
@@ -31,6 +33,8 @@ const componentList = [
     FormTable,
     Filter,
     FilterItem,
+    FilterTag,
+    FilterTagItem,
     QrCode,
     Region,
     SearchBar,
@@ -39,8 +43,8 @@ const componentList = [
     UploadInput,
 ]
 
-export const Loading = LoadingInstance
-export const preview = Preview
+export const xloading = Loading
+export const xpreview = Preview
 
 export default {
     install(app) {
