@@ -176,6 +176,17 @@ export const asyncRouterMap = [
                     permission: '*',
                 },
             },
+            {
+                path: 'advanced',
+                name: 'profileAdvanced',
+                component: 'profile/advanced.vue',
+                meta: {
+                    title: '高级详情页',
+                    isMenu: true,
+                    keepAlive: true,
+                    permission: '*',
+                },
+            },
         ],
     },
     {
