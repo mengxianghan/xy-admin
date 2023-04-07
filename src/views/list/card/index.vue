@@ -1,4 +1,42 @@
 <template>
+    <a-page-header
+        class="ant-page-header-wrap"
+        title="卡片列表">
+        <a-row
+            type="flex"
+            align="middle">
+            <a-col
+                flex="1"
+                :gutter="88">
+                <div>
+                    段落示意：蚂蚁金服务设计平台 ant.design，用最小的工作量，无缝接入蚂蚁金服生态，
+                    提供跨越设计与开发的体验解决方案。
+                </div>
+                <a-space
+                    class="mt-8-1"
+                    :size="24">
+                    <a>
+                        <link-outlined></link-outlined>
+                        Quick Start
+                    </a>
+                    <a>
+                        <link-outlined></link-outlined>
+                        Product Info
+                    </a>
+                    <a>
+                        <link-outlined></link-outlined>
+                        Product Doc
+                    </a>
+                </a-space>
+            </a-col>
+            <a-col flex="0 0 242px">
+                <img
+                    src="http://cdn.xuanyunet.com/images/img_1.png"
+                    width="155"
+                    :style="{ margin: '-20px 0 0' }" />
+            </a-col>
+        </a-row>
+    </a-page-header>
     <a-list
         :data-source="list"
         :grid="{ gutter: 16, sm: 1, md: 2, lg: 4, xl: 4, xxl: 6 }"
@@ -54,11 +92,13 @@
 
 <script>
 import { onMounted } from 'vue'
+import { LinkOutlined } from '@ant-design/icons-vue'
 import api from '@/api'
 import usePagination from '@/hooks/usePagination'
 
 export default {
     name: 'listCard',
+    components: { LinkOutlined },
     setup() {
         const { loading, list } = usePagination()
 
