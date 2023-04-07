@@ -154,6 +154,42 @@ export const asyncRouterMap = [
         ],
     },
     {
+        path: 'result',
+        name: 'result',
+        component: 'RouteViewLayout',
+        meta: {
+            icon: 'IconCheckCircleOutlined',
+            title: '结果页',
+            isMenu: true,
+            keepAlive: true,
+            permission: '*',
+        },
+        children: [
+            {
+                path: 'success',
+                name: 'resultSuccess',
+                component: 'result/success/index.vue',
+                meta: {
+                    title: '成功页',
+                    isMenu: true,
+                    keepAlive: true,
+                    permission: '*',
+                },
+            },
+            {
+                path: 'fail',
+                name: 'resultFail',
+                component: 'result/fail/index.vue',
+                meta: {
+                    title: '失败页',
+                    isMenu: true,
+                    keepAlive: true,
+                    permission: '*',
+                },
+            },
+        ],
+    },
+    {
         path: 'exception',
         name: 'exception',
         component: 'RouteViewLayout',
@@ -193,42 +229,6 @@ export const asyncRouterMap = [
                 component: 'exception/500.vue',
                 meta: {
                     title: '500',
-                    isMenu: true,
-                    keepAlive: true,
-                    permission: '*',
-                },
-            },
-        ],
-    },
-    {
-        path: 'result',
-        name: 'result',
-        component: 'RouteViewLayout',
-        meta: {
-            icon: 'IconCheckCircleOutlined',
-            title: '结果页',
-            isMenu: true,
-            keepAlive: true,
-            permission: '*',
-        },
-        children: [
-            {
-                path: 'success',
-                name: 'resultSuccess',
-                component: 'result/success/index.vue',
-                meta: {
-                    title: '成功页',
-                    isMenu: true,
-                    keepAlive: true,
-                    permission: '*',
-                },
-            },
-            {
-                path: 'fail',
-                name: 'resultFail',
-                component: 'result/fail/index.vue',
-                meta: {
-                    title: '失败页',
                     isMenu: true,
                     keepAlive: true,
                     permission: '*',
