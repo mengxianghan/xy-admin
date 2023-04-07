@@ -14,8 +14,7 @@
             :custom-request="({ file }) => customRequest(file)"
             :accept="accept"
             :disabled="disabled">
-            <slot v-if="$slots.default"></slot>
-            <template v-else>
+            <slot>
                 <div
                     class="x-upload-btn"
                     :class="{
@@ -38,7 +37,7 @@
                         </slot>
                     </div>
                 </div>
-            </template>
+            </slot>
         </a-upload>
         <div
             v-for="(item, index) in fileList"
