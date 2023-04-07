@@ -26,18 +26,16 @@
                         height: `${height}px`,
                     }">
                     <div class="x-upload-btn__icon">
-                        <template v-if="cpShowIconSlot">
-                            <slot name="icon"></slot>
-                        </template>
-                        <template v-else>
+                        <slot name="icon">
                             <component :is="icon" />
-                        </template>
+                        </slot>
                     </div>
                     <div
                         v-if="text"
                         class="x-upload-btn__txt">
-                        <template v-if="cpShowTextSlot"></template>
-                        <template v-else>{{ text }}</template>
+                        <slot name="text">
+                            {{ text }}
+                        </slot>
                     </div>
                 </div>
             </template>
@@ -197,7 +195,7 @@ export default {
     },
     slots: ['icon', 'text'],
     emits: ['update:modelValue'],
-    setup(props, { emit, slots }) {
+    setup(props, { emit }) {
         const { onFieldChange } = Form.useInjectFormItemContext()
 
         const fileList = ref([])
@@ -207,8 +205,6 @@ export default {
 
         const loading = computed(() => fileList.value.some((o) => STATUS_ENUM.is('uploading', o.status)))
         const showUploadBtn = computed(() => props.multiple || !fileList.value.length)
-        const cpShowIconSlot = computed(() => slots.icon)
-        const cpShowTextSlot = computed(() => slots.text)
         const dragsortDisabled = computed(() => (props.dragsort && !props.disabled ? false : true))
 
         watch(
@@ -426,8 +422,6 @@ export default {
             STATUS_ENUM,
             fileList,
             showUploadBtn,
-            cpShowIconSlot,
-            cpShowTextSlot,
             cropperDialogRef,
             uploadImageRef,
             handlePreview,
