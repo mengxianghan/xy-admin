@@ -24,7 +24,7 @@
                                 [`setting-radio-item--${item.value}`]: true,
                             }"
                             @click="handleMenuMode(item)">
-                            <icon-check-outlined v-if="config.menuMode === item.value"></icon-check-outlined>
+                            <check-outlined v-if="config.menuMode === item.value"></check-outlined>
                         </div>
                     </a-tooltip>
                 </a-space>
@@ -46,7 +46,7 @@
                                     [`setting-radio-item-side--${item.value}`]: true,
                                 }"
                                 @click="handleSideTheme(item)">
-                                <icon-check-outlined v-if="config.sideTheme === item.value"></icon-check-outlined>
+                                <check-outlined v-if="config.sideTheme === item.value"></check-outlined>
                             </div>
                         </a-tooltip>
                     </a-space>
@@ -68,7 +68,7 @@
                                 [`setting-radio-item-header--${item.value}`]: true,
                             }"
                             @click="handleHeaderTheme(item)">
-                            <icon-check-outlined v-if="config.headerTheme === item.value"></icon-check-outlined>
+                            <check-outlined v-if="config.headerTheme === item.value"></check-outlined>
                         </div>
                     </a-tooltip>
                 </a-space>
@@ -91,9 +91,11 @@
 import { ref } from 'vue'
 import { useAppStore } from '@/store'
 import { storeToRefs } from 'pinia'
+import { CheckOutlined } from '@ant-design/icons-vue'
 
 export default {
     name: 'GlobalSettingDialog',
+    components: { CheckOutlined },
     setup() {
         const appStore = useAppStore()
 

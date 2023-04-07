@@ -72,7 +72,7 @@
                     <div class="mt-8-1 fs-12">
                         <div>
                             曲丽丽
-                            <icon-dingding-outlined />
+                            <dingding-outlined />
                         </div>
                         <div>2016-12-12 12:32</div>
                     </div>
@@ -83,7 +83,7 @@
                     <div class="mt-8-1 fs-12">
                         <div>
                             周毛毛
-                            <icon-dingding-outlined class="color-primary" />
+                            <dingding-outlined class="color-primary" />
                         </div>
                         <div class="color-primary">催一下</div>
                     </div>
@@ -174,11 +174,11 @@
 
 <script>
 import { ref } from 'vue'
-import { EllipsisOutlined } from '@ant-design/icons-vue'
+import { EllipsisOutlined, DingdingOutlined } from '@ant-design/icons-vue'
 
 export default {
     name: 'profileAdvanced',
-    components: { EllipsisOutlined },
+    components: { EllipsisOutlined, DingdingOutlined },
     setup() {
         const tabList = [
             {

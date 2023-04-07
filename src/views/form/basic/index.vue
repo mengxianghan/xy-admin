@@ -43,7 +43,7 @@
                 <template #label>
                     客户（选填）
                     <a-tooltip title="目标的服务对象">
-                        <icon-info-circle-outlined />
+                        <info-circle-outlined />
                     </a-tooltip>
                 </template>
                 <a-input
@@ -86,10 +86,12 @@
 </template>
 
 <script>
+import { InfoCircleOutlined } from '@ant-design/icons-vue'
 import useForm from '@/hooks/useForm'
 
 export default {
     name: 'formBasic',
+    components: { InfoCircleOutlined },
     setup() {
         const targetList = [
             { label: '公开', value: 1 },

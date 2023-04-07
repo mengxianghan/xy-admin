@@ -17,14 +17,14 @@
                                 v-if="current === index"
                                 class="multi-tab__reload-btn"
                                 @click.stop="handleReload(item)">
-                                <icon-reload-outlined
+                                <reload-outlined
                                     class="ma-0"
                                     :spin="spin" />
                             </span>
                             <span
                                 class="multi-tab__close-btn"
                                 @click.stop="handleClose(item)">
-                                <icon-close-outlined class="ma-0" />
+                                <close-outlined class="ma-0" />
                             </span>
                         </div>
                         <template #overlay>
@@ -70,11 +70,13 @@
 import { onMounted, computed, ref, nextTick } from 'vue'
 import { useMultiTabStore } from '@/store'
 import { useRouter, onBeforeRouteUpdate } from 'vue-router'
+import { ReloadOutlined, CloseOutlined } from '@ant-design/icons-vue'
 import useMultiTab from '@/hooks/useMultiTab'
 import Sortable from 'sortablejs'
 
 export default {
     name: 'MultiTab',
+    components: { ReloadOutlined, CloseOutlined },
     setup() {
         const multiTabStore = useMultiTabStore()
         const router = useRouter()

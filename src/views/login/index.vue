@@ -15,7 +15,7 @@
                             size="large"
                             placeholder="admin">
                             <template #prefix>
-                                <icon-user-outlined></icon-user-outlined>
+                                <user-outlined></user-outlined>
                             </template>
                         </a-input>
                     </a-form-item>
@@ -27,7 +27,7 @@
                             placeholder="123456"
                             @pressEnter="handleLogin">
                             <template #prefix>
-                                <icon-lock-outlined></icon-lock-outlined>
+                                <lock-outlined></lock-outlined>
                             </template>
                         </a-input>
                     </a-form-item>
@@ -57,7 +57,7 @@
                             size="large"
                             placeholder="手机号码">
                             <template #prefix>
-                                <icon-mobile-outlined></icon-mobile-outlined>
+                                <mobile-outlined></mobile-outlined>
                             </template>
                         </a-input>
                     </a-form-item>
@@ -68,7 +68,7 @@
                             placeholder="短信验证码"
                             @pressEnter="handleLogin">
                             <template #prefix>
-                                <icon-lock-outlined></icon-lock-outlined>
+                                <lock-outlined></lock-outlined>
                             </template>
                             <template #suffix>
                                 <span class="cursor-pointer">获取验证码</span>
@@ -109,10 +109,12 @@ import { useAppStore, useUserStore, useRouterStore } from '@/store'
 import { useRoute, useRouter } from 'vue-router'
 import { message, Modal, notification } from 'ant-design-vue'
 import { timeFix } from '@/utils'
+import { UserOutlined, LockOutlined, MobileOutlined } from '@ant-design/icons-vue'
 import useForm from '@/hooks/useForm'
 
 export default {
     name: 'login',
+    components: { UserOutlined, LockOutlined, MobileOutlined },
     setup() {
         const { formState, formRef, formRules } = useForm()
         const appStore = useAppStore()

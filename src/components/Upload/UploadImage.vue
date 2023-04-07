@@ -60,13 +60,13 @@
                         v-if="STATUS_ENUM.is('done', item.status)"
                         class="x-upload-action"
                         @click="handlePreview(item, index)">
-                        <icon-eye-outlined />
+                        <eye-outlined />
                     </div>
                     <div
                         v-if="!disabled"
                         class="x-upload-action"
                         @click="handleRemove(index)">
-                        <icon-delete-outlined />
+                        <delete-outlined />
                     </div>
                 </div>
             </template>
@@ -109,6 +109,7 @@ import { deepMerge } from '@/utils'
 import { STATUS_ENUM } from './config'
 import { filesize } from 'filesize'
 import { some, findIndex, includes } from 'lodash-es'
+import { EyeOutlined, DeleteOutlined, PlusOutlined } from '@ant-design/icons-vue'
 import Sortable from 'sortablejs'
 import filesizeParser from 'filesize-parser'
 import api from '@/api'
@@ -135,7 +136,7 @@ import CropperDialog from '../CropperDialog.vue'
  */
 export default {
     name: 'XUploadImage',
-    components: { CropperDialog },
+    components: { CropperDialog, EyeOutlined, DeleteOutlined, PlusOutlined },
     props: {
         modelValue: {
             type: [String, Array],
@@ -154,8 +155,8 @@ export default {
             default: 120,
         },
         icon: {
-            type: String,
-            default: 'icon-plus-outlined',
+            type: [String, Object],
+            default: 'plus-outlined',
         },
         text: {
             type: String,

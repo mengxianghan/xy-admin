@@ -20,13 +20,13 @@
                                 <action-button @click="handleCollapsed">
                                     <template #icon>
                                         <component
-                                            :is="collapsed ? 'icon-menu-unfold-outlined' : 'icon-menu-fold-outlined'"
+                                            :is="collapsed ? 'menu-unfold-outlined' : 'menu-fold-outlined'"
                                             :style="{ fontSize: '14px' }"></component>
                                     </template>
                                 </action-button>
                                 <action-button @click="handleBack">
                                     <template #icon>
-                                        <icon-rollback-outlined :style="{ fontSize: '14px' }"></icon-rollback-outlined>
+                                        <rollback-outlined :style="{ fontSize: '14px' }"></rollback-outlined>
                                     </template>
                                 </action-button>
                             </a-space>
@@ -103,6 +103,7 @@ import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { useAppStore } from '@/store'
 import { storeToRefs } from 'pinia'
+import { RollbackOutlined, MenuUnfoldOutlined, MenuFoldOutlined } from '@ant-design/icons-vue'
 import useMenu from './hooks/useMenu'
 import MultiTab from './components/MultiTab.vue'
 import ActionButton from './components/ActionButton.vue'
@@ -124,6 +125,9 @@ export default {
         LogoCard,
         BasicMenu,
         GlobalSettingDialog,
+        RollbackOutlined,
+        MenuUnfoldOutlined,
+        MenuFoldOutlined,
     },
     setup() {
         const appStore = useAppStore()

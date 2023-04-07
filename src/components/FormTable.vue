@@ -16,7 +16,7 @@
                     shape="circle"
                     class="fs-12"
                     @click="handleAdd">
-                    <icon-plus-outlined />
+                    <plus-outlined />
                 </a-button>
             </template>
             <template #default="{ index }">
@@ -28,7 +28,7 @@
                         shape="circle"
                         class="fs-12 action__btn"
                         @click="handleDelete(index)">
-                        <icon-delete-outlined />
+                        <delete-outlined />
                     </a-button>
                 </div>
             </template>
@@ -40,6 +40,7 @@
 <script>
 import { onMounted, ref, watch } from 'vue'
 import { cloneDeep } from 'lodash-es'
+import { PlusOutlined, DeleteOutlined } from '@ant-design/icons-vue'
 
 /**
  * 表单表格
@@ -48,6 +49,10 @@ import { cloneDeep } from 'lodash-es'
  */
 export default {
     name: 'XFormTable',
+    components: {
+        PlusOutlined,
+        DeleteOutlined,
+    },
     props: {
         modelValue: {
             type: Array,

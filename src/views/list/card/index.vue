@@ -70,10 +70,10 @@
                             </template>
                         </a-card-meta>
                         <template #actions>
-                            <icon-setting-outlined key="setting" />
-                            <icon-edit-outlined key="edit" />
+                            <setting-outlined key="setting" />
+                            <edit-outlined key="edit" />
                             <a-dropdown :trigger="['click']">
-                                <icon-ellipsis-outlined key="ellipsis" />
+                                <ellipsis-outlined key="ellipsis" />
                                 <template #overlay>
                                     <a-menu>
                                         <a-menu-item>菜单 1</a-menu-item>
@@ -93,12 +93,13 @@
 <script>
 import { onMounted } from 'vue'
 import { LinkOutlined } from '@ant-design/icons-vue'
+import { SettingOutlined, EditOutlined, EllipsisOutlined } from '@ant-design/icons-vue'
 import api from '@/api'
 import usePagination from '@/hooks/usePagination'
 
 export default {
     name: 'listCard',
-    components: { LinkOutlined },
+    components: { LinkOutlined, SettingOutlined, EditOutlined, EllipsisOutlined },
     setup() {
         const { loading, list } = usePagination()
 

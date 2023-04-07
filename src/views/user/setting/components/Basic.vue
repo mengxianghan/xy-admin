@@ -43,7 +43,7 @@
                 <a-upload :show-upload-list="false">
                     <a-button>
                         <template #icon>
-                            <icon-upload-outlined></icon-upload-outlined>
+                            <upload-outlined></upload-outlined>
                         </template>
                         上传头像
                     </a-button>
@@ -54,8 +54,10 @@
 </template>
 
 <script>
+import { UploadOutlined } from '@ant-design/icons-vue'
 export default {
     name: 'Basic',
+    components: { UploadOutlined },
     setup() {},
 }
 </script>

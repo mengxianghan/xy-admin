@@ -18,7 +18,7 @@
         <div class="basic-header__right">
             <a-space :size="0">
                 <action-button @click="handleSetting">
-                    <icon-setting-outlined></icon-setting-outlined>
+                    <setting-outlined></setting-outlined>
                 </action-button>
 
                 <a-dropdown :trigger="['click']">
@@ -27,7 +27,7 @@
                             class="mr-8-1"
                             :size="24">
                             <template #icon>
-                                <icon-user-outlined />
+                                <user-outlined />
                             </template>
                         </a-avatar>
                         <span v-if="cpIsLogin">{{ cpUserInfo.username }}</span>
@@ -40,7 +40,7 @@
                                 key="logout"
                                 class="color-error"
                                 @click="handleLogout">
-                                <icon-login-outlined></icon-login-outlined>
+                                <login-outlined></login-outlined>
                                 退出登录
                             </a-menu-item>
                         </a-menu>
@@ -57,6 +57,7 @@ import { useUserStore, useAppStore } from '@/store'
 import { Modal } from 'ant-design-vue'
 import { useRouter } from 'vue-router'
 import { storeToRefs } from 'pinia'
+import { SettingOutlined, UserOutlined, LoginOutlined } from '@ant-design/icons-vue'
 import ActionButton from './ActionButton.vue'
 
 /**
@@ -66,6 +67,9 @@ export default {
     name: 'BasicHeader',
     components: {
         ActionButton,
+        SettingOutlined,
+        UserOutlined,
+        LoginOutlined,
     },
     props: {
         theme: {

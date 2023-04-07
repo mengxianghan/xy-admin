@@ -9,8 +9,11 @@
             <a-col>
                 <x-upload-image
                     v-model="customTitle"
-                    text="自定义标题"
-                    icon="icon-picture-outlined"></x-upload-image>
+                    text="自定义标题">
+                    <template #icon>
+                        <picture-outlined></picture-outlined>
+                    </template>
+                </x-upload-image>
             </a-col>
             <a-col>
                 <x-upload-image
@@ -132,10 +135,12 @@
 
 <script>
 import { ref } from 'vue'
+import { PictureOutlined } from '@ant-design/icons-vue'
 import useForm from '@/hooks/useForm'
 
 export default {
     name: 'componentUpload',
+    components: { PictureOutlined },
     setup() {
         const { formState, formRules, formRef, resetForm } = useForm()
         const basic = ref('')
