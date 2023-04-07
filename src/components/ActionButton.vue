@@ -5,7 +5,9 @@
             :is="tag">
             <slot></slot>
         </component>
-        <a-divider type="vertical" />
+        <a-divider
+            v-if="divider"
+            type="vertical" />
     </span>
 </template>
 
@@ -13,6 +15,7 @@
 /**
  * 操作按钮
  * @property {string} tag html标签，默认：a
+ * @property {boolean} divider 是否显示 divider
  */
 export default {
     name: 'XActionButton',
@@ -20,6 +23,10 @@ export default {
         tag: {
             type: String,
             default: 'a',
+        },
+        divider: {
+            type: Boolean,
+            default: true,
         },
     },
     setup() {},
