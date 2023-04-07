@@ -1,0 +1,63 @@
+<template>
+    <a-page-header
+        class="ant-page-header-wrap"
+        :title="cpPageTitle">
+        <div
+            :style="{
+                width: '520px',
+                margin: '0 auto',
+            }">
+            <a-input-search
+                v-model:value="value"
+                placeholder="请输入"
+                enter-button="搜索"
+                size="large" />
+        </div>
+        <template #footer>
+            <a-tabs
+                :active-key="cpActiveKey"
+                :animated="false"
+                @change="onTabChange">
+                <a-tab-pane
+                    key="listSearchArticles"
+                    tab="文章" />
+                <a-tab-pane
+                    key="listSearchProjects"
+                    tab="项目" />
+                <a-tab-pane
+                    key="listSearchApplications"
+                    tab="应用" />
+            </a-tabs>
+        </template>
+    </a-page-header>
+</template>
+
+<script>
+import { computed } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
+
+export default {
+    name: 'PageHeader',
+    setup() {
+        const route = useRoute()
+        const router = useRouter()
+
+        const cpPageTitle = computed(() => route?.meta?.title)
+        const cpActiveKey = computed(() => route?.name)
+
+        function onTabChange(_activeKey) {
+            router.push({ name: _activeKey })
+        }
+
+        return {
+            cpPageTitle,
+            cpActiveKey,
+            onTabChange,
+        }
+    },
+}
+</script>
+
+<script setup></script>
+
+<style lang="less" scoped></style>

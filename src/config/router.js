@@ -74,6 +74,51 @@ export const asyncRouterMap = [
         },
         children: [
             {
+                path: 'search',
+                name: 'listSearch',
+                meta: {
+                    title: '搜索列表',
+                    isMenu: true,
+                    keepAlive: true,
+                    permission: '*',
+                },
+                children: [
+                    {
+                        path: 'articles',
+                        name: 'listSearchArticles',
+                        component: 'list/search/articles.vue',
+                        meta: {
+                            title: '搜索列表（文章）',
+                            isMenu: true,
+                            keepAlive: true,
+                            permission: '*',
+                        },
+                    },
+                    {
+                        path: 'projects',
+                        name: 'listSearchProjects',
+                        component: 'list/search/projects.vue',
+                        meta: {
+                            title: '搜索列表（项目）',
+                            isMenu: true,
+                            keepAlive: true,
+                            permission: '*',
+                        },
+                    },
+                    {
+                        path: 'applications',
+                        name: 'listSearchApplications',
+                        component: 'list/search/applications.vue',
+                        meta: {
+                            title: '搜索列表（应用）',
+                            isMenu: true,
+                            keepAlive: true,
+                            permission: '*',
+                        },
+                    },
+                ],
+            },
+            {
                 path: 'table-list',
                 name: 'listTableList',
                 component: 'list/table-list/index.vue',
@@ -85,22 +130,22 @@ export const asyncRouterMap = [
                 },
             },
             {
-                path: 'card',
-                name: 'listCard',
-                component: 'list/card/index.vue',
+                path: 'basic-list',
+                name: 'listBasicList',
+                component: 'list/basic-list/index.vue',
                 meta: {
-                    title: '卡片列表',
+                    title: '标准列表',
                     isMenu: true,
                     keepAlive: true,
                     permission: '*',
                 },
             },
             {
-                path: 'search',
-                name: 'listSearch',
-                component: 'list/search/index.vue',
+                path: 'card',
+                name: 'listCard',
+                component: 'list/card/index.vue',
                 meta: {
-                    title: '搜索列表',
+                    title: '卡片列表',
                     isMenu: true,
                     keepAlive: true,
                     permission: '*',
