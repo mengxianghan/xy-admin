@@ -2,7 +2,7 @@
     <div
         class="x-filter-item"
         :class="{
-            'x-filter-item--collapsible': collapsible,
+            'x-filter-item--collapsible': cpCollapsible,
         }">
         <div
             class="x-filter-item__label"
