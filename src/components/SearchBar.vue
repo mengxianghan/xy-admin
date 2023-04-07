@@ -15,6 +15,7 @@ import { computed, useAttrs } from 'vue'
 export default {
     name: 'XSearchBar',
     props: {},
+    slots: ['default'],
     setup() {
         const attrs = useAttrs()
 
