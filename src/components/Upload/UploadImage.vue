@@ -27,7 +27,7 @@
                     }">
                     <div class="x-upload-btn__icon">
                         <slot name="icon">
-                            <component :is="icon" />
+                            <plus-outlined></plus-outlined>
                         </slot>
                     </div>
                     <div
@@ -121,7 +121,6 @@ import CropperDialog from '../CropperDialog.vue'
  * @property {boolean} multiple 批量上传，默认：false
  * @property {number} width 宽，默认：120，单位：px
  * @property {number} height 高，默认：120，单位：px
- * @property {string} icon 图标
  * @property {string} text 文案
  * @property {string | number} maxSize 最大限制，默认：2M
  * @property {string} accept 允许上传文件类型，默认：image/*
@@ -151,10 +150,6 @@ export default {
         height: {
             type: Number,
             default: 120,
-        },
-        icon: {
-            type: [String, Object],
-            default: 'plus-outlined',
         },
         text: {
             type: String,
