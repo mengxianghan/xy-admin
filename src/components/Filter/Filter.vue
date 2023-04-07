@@ -58,7 +58,14 @@ import FilterItem from './FilterItem.vue'
  * @property {object} modelValue
  * @property {array} dataSource
  * @property {boolean} colon 是否显示冒号。默认：true
+ * @property {number} labelWidth label 标签宽度。默认：0
  * @property {boolean} footer 底部内容，当不需要底部按钮时可以设为 false。默认：false
+ * @property {string} okText 确定按钮文字。默认：确定
+ * @property {string} okType 确定按钮类型，详见：https://antdv.com/components/button-cn#API
+ * @property {object} okButtonProps 确认按钮 props，详见：https://antdv.com/components/button-cn#API
+ * @property {string} resetText 重置按钮文字。默认：确定
+ * @property {string} resetType 重置按钮类型，详见：https://antdv.com/components/button-cn#API
+ * @property {object} resetButtonProps 重置按钮 props，详见：https://antdv.com/components/button-cn#API
  * @property {string} size 尺寸，可选：default、small。默认：default
  */
 export default {
@@ -115,7 +122,7 @@ export default {
             default: 'default',
         },
     },
-    slots: ['default', 'footer'],
+    slots: ['default', 'footer', 'collapse'],
     emits: ['change', 'update:modelValue', 'ok', 'reset'],
     setup(props, { emit, slots }) {
         const curValue = ref(new Map(Object.entries(props.modelValue)))

@@ -11,6 +11,9 @@
 import { computed } from 'vue'
 import { useInjectFilterTagCtx, useInjectFilterTagSelectedValueCtx } from './context'
 
+/**
+ * @property {string | number} 唯一值，选中时抛出
+ */
 export default {
     name: 'XFilterTagItem',
     props: {

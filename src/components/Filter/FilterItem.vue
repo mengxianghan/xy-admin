@@ -46,18 +46,19 @@ import { useInjectFilterCtx } from './context'
 import FilterTag from './FilterTag.vue'
 
 /**
+ * @property {object | array | string | number} 当前输入值
  * @property {object} dataSource
  * @property {string | number} dataSource.label 名称，必填
  * @property {string | number} dataSource.key 索引，必填，多条件不允许重复
  * @property {boolean} dataSource.multiple 是否可以多选
- * @property {boolean} dataSource.allowClear 是否可以清除，仅限单选
+ * @property {boolean} dataSource.allowClear 是否可以清除，仅限单选。默认：false
  * @property {boolean} dataSource.collapsible 是否可收起。默认：false
  * @property {boolean} dataSource.collapsed 当前收起状态。
  * @property {array} dataSource.options 选项列表
  * @property {string | number} dataSource.options.label 选项名称
  * @property {string | number} dataSource.options.value 选项值
  * @property {number} labelWidth 标签宽度，默认：80
- * @property {string} label 标签内容
+ * @property {string} label label 标签内容
  */
 export default {
     name: 'XFilterItem',
@@ -81,7 +82,7 @@ export default {
             default: '',
         },
     },
-    slots: ['default', 'label', 'collapsible'],
+    slots: ['default', 'label', 'collapse'],
     setup(props) {
         const { labelWidth, colon, onChange } = useInjectFilterCtx()
         const curValue = ref({})
