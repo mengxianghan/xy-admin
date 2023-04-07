@@ -1,5 +1,9 @@
 <template>
-    <div class="x-filter-item">
+    <div
+        class="x-filter-item"
+        :class="{
+            'x-filter-item--collapsible': collapsible,
+        }">
         <div
             class="x-filter-item__label"
             :style="{
@@ -191,11 +195,18 @@ export default {
             flex-wrap: wrap;
             align-items: center;
             line-height: inherit;
-            overflow: hidden;
         }
 
         &__collapse {
             margin-left: @margin-sm;
+        }
+
+        &--collapsible {
+            .x-filter-item {
+                &__content {
+                    overflow: hidden;
+                }
+            }
         }
     }
 }
