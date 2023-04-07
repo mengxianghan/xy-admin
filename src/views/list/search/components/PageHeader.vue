@@ -8,7 +8,6 @@
                 margin: '0 auto',
             }">
             <a-input-search
-                v-model:value="value"
                 placeholder="请输入"
                 enter-button="搜索"
                 size="large" />

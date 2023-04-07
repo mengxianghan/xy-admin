@@ -182,20 +182,20 @@ export default {
     setup() {
         const tabList = [
             {
-                key: 1,
+                key: '1',
                 tab: '操作日志一',
             },
             {
-                key: 2,
+                key: '2',
                 tab: '操作日志二',
             },
             {
-                key: 3,
+                key: '3',
                 tab: '操作日志三',
             },
         ]
 
-        const activeTabKey = ref(1)
+        const activeTabKey = ref('1')
 
         return {
             tabList,
