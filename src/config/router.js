@@ -154,6 +154,31 @@ export const asyncRouterMap = [
         ],
     },
     {
+        path: 'profile',
+        name: 'profile',
+        component: 'RouteViewLayout',
+        meta: {
+            icon: 'IconProfileOutlined',
+            title: '详情页',
+            isMenu: true,
+            keepAlive: true,
+            permission: '*',
+        },
+        children: [
+            {
+                path: 'basic',
+                name: 'profileBasic',
+                component: 'profile/basic.vue',
+                meta: {
+                    title: '基础详情页',
+                    isMenu: true,
+                    keepAlive: true,
+                    permission: '*',
+                },
+            },
+        ],
+    },
+    {
         path: 'result',
         name: 'result',
         component: 'RouteViewLayout',

@@ -46,6 +46,7 @@ import {
     MobileOutlined,
     UploadOutlined,
     CheckOutlined,
+    ProfileOutlined,
 } from '@ant-design/icons-vue'
 
 export default {
@@ -97,6 +98,7 @@ export default {
         app.component('IconMobileOutlined', MobileOutlined)
         app.component('IconUploadOutlined', UploadOutlined)
         app.component('IconCheckOutlined', CheckOutlined)
+        app.component('IconProfileOutlined', ProfileOutlined)
 
         return app
     },
