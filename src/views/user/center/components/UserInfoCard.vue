@@ -35,8 +35,10 @@
                 :key="item.id">
                 <a-avatar
                     class="mr-4-3"
-                    :src="item.icon"
-                    :size="24"></a-avatar>
+                    :style="{ backgroundColor: item.color, fontSize: '12px' }"
+                    :size="24">
+                    {{ item.name.slice(0, 1) }}
+                </a-avatar>
                 {{ item.name }}
             </a-col>
         </a-row>
@@ -57,23 +59,35 @@ export default {
         const tagList = ['很有想法的', '专注设计', '辣~', '大长腿', '川妹子', '海纳百川']
 
         const teamList = [
-            { id: 1, name: '科学搬砖组', icon: 'https://gw.alipayobjects.com/zos/rmsportal/WdGqmHpayyMjiEhcKoVE.png' },
+            {
+                id: 1,
+                name: '科学搬砖组',
+                color: '#00acf4',
+            },
             {
                 id: 2,
                 name: '全组都是吴彦祖',
-                icon: 'https://gw.alipayobjects.com/zos/rmsportal/zOsKZmFRdUtvpqCImOVY.png',
+                color: '#e51039',
             },
-            { id: 3, name: '中二少女团', icon: 'https://gw.alipayobjects.com/zos/rmsportal/dURIMkkrRFpPgTuzkwnB.png' },
-            { id: 4, name: '程序员日常', icon: 'https://gw.alipayobjects.com/zos/rmsportal/sfjbOqnsXXJgNCjCzDBL.png' },
+            {
+                id: 3,
+                name: '中二少女团',
+                color: '#eb602a',
+            },
+            {
+                id: 4,
+                name: '程序员日常',
+                color: '#00101e',
+            },
             {
                 id: 5,
                 name: '高逼格设计天团',
-                icon: 'https://gw.alipayobjects.com/zos/rmsportal/siCrBXXhmvTQGWPNLBow.png',
+                color: '#7e52b5',
             },
             {
                 id: 6,
                 name: '骗你来学计算机',
-                icon: 'https://gw.alipayobjects.com/zos/rmsportal/kZzEzemZyKLKFsojXItE.png',
+                color: '#1ed7fd',
             },
         ]
 
