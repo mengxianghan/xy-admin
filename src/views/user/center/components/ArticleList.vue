@@ -2,13 +2,15 @@
     <a-list
         row-key="id"
         item-layout="vertical"
-        :data-source="list">
+        :data-source="list"
+        :loading="loading"
+        :pagination="pagination">
         <template #renderItem="{ item }">
             <a-list-item key="item.title">
                 <template #actions>
-                    <span> <star-outlined></star-outlined> 113 </span>
-                    <span> <like-outlined></like-outlined> 135 </span>
-                    <span> <message-outlined></message-outlined> 120 </span>
+                    <span> <star-outlined></star-outlined> {{ item.star }} </span>
+                    <span> <like-outlined></like-outlined> {{ item.like }} </span>
+                    <span> <message-outlined></message-outlined> {{ item.comment }} </span>
                 </template>
                 <a-list-item-meta>
                     <template #title>
@@ -23,6 +25,16 @@
                     </template>
                 </a-list-item-meta>
                 <div>{{ item.content }}</div>
+                <div class="mt-8-2 display-flex align-items-center">
+                    <a-avatar
+                        class="mr-8-1"
+                        :src="item.avatar"
+                        :size="20"></a-avatar>
+                    <a class="mr-8-1">{{ item.userName }}</a>
+                    <span class="color-secondary mr-4-1">发布在</span>
+                    <a>{{ item.url }}</a>
+                    <span class="color-secondary ml-8-3">{{ item.time }}</span>
+                </div>
             </a-list-item>
         </template>
     </a-list>
@@ -30,6 +42,8 @@
 
 <script>
 import { StarOutlined, LikeOutlined, MessageOutlined } from '@ant-design/icons-vue'
+import usePagination from '@/hooks/usePagination.js'
+import api from '@/api'
 
 export default {
     name: 'ArticleList',
@@ -39,33 +53,41 @@ export default {
         MessageOutlined,
     },
     setup() {
-        const list = [
-            {
-                id: 1,
-                title: 'Alipay',
-                tags: ['Ant Design', '设计语言', '蚂蚁金服'],
-                avatar: 'https://gw.alipayobjects.com/zos/rmsportal/WdGqmHpayyMjiEhcKoVE.png',
-                content:
-                    '段落示意：蚂蚁金服设计平台 ant.design，用最小的工作量，无缝接入蚂蚁金服生态，提供跨越设计与开发的体验解决方案。蚂蚁金服设计平台ant.design，用最小的工作量，无缝接入蚂蚁金服生态，提供跨越设计与开发的体验解决方案。',
-                userName: '付小小',
-                link: 'https://ant.design',
-                time: '2023-04-02 11:57',
-            },
-            {
-                id: 2,
-                title: 'Angular',
-                tags: ['Ant Design', '设计语言', '蚂蚁金服'],
-                avatar: 'https://gw.alipayobjects.com/zos/rmsportal/zOsKZmFRdUtvpqCImOVY.png',
-                content:
-                    '段落示意：蚂蚁金服设计平台 ant.design，用最小的工作量，无缝接入蚂蚁金服生态，提供跨越设计与开发的体验解决方案。蚂蚁金服设计平台ant.design，用最小的工作量，无缝接入蚂蚁金服生态，提供跨越设计与开发的体验解决方案。',
-                userName: '付小小',
-                link: 'https://ant.design',
-                time: '2023-04-02 11:57',
-            },
-        ]
+        const { list, loading, pagination } = usePagination()
+
+        pagination.onChange = (page, pageSize) => {
+            pagination.current = page
+            pagination.pageSize = pageSize
+            getPageList()
+        }
+
+        getPageList()
+
+        /**
+         * 获取分页列表
+         */
+        async function getPageList() {
+            const { pageSize, current } = pagination
+            loading.value = true
+            const { code, data } = await api.common
+                .getPageList({
+                    pageSize,
+                    page: current,
+                })
+                .catch(() => {
+                    loading.value = false
+                })
+            loading.value = false
+            if (200 === code) {
+                list.value = data.rows
+                pagination.total = data.total
+            }
+        }
 
         return {
             list,
+            loading,
+            pagination,
         }
     },
 }
