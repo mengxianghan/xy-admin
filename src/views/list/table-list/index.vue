@@ -190,11 +190,9 @@ export default {
     },
     setup() {
         const columns = [
-            { title: '规则名称', dataIndex: 'id', width: 64, align: 'center' },
-            { title: '描述', dataIndex: 'title' },
-            { title: '服务调用次数', dataIndex: 'title' },
-            { title: '状态', dataIndex: 'title' },
-            { title: '上次调用时间', dataIndex: 'title' },
+            { title: '规则名称', dataIndex: 'title' },
+            { title: '描述', dataIndex: 'desc' },
+            { title: '状态', dataIndex: 'status' },
             { title: '操作', key: 'action', width: 180 },
         ]
         const { list, pagination, loading, resetPagination } = usePagination()

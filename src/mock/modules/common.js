@@ -49,6 +49,8 @@ Mock.mock(new RegExp('/common/getPageList'), 'get', () => {
                     cover: '@image(532x320, #f5f5f5)',
                     activeUsers: '@integer(10, 99)',
                     newUsers: '@integer(1000, 5000)',
+                    count: '@integer(1, 100)',
+                    'status|1': ['成功', '失败'],
                 },
             ],
             total: 32,
