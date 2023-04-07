@@ -97,7 +97,7 @@
 import { ref } from 'vue'
 import { StarOutlined, LikeOutlined, MessageOutlined } from '@ant-design/icons-vue'
 import usePagination from '@/hooks/usePagination.js'
-import PageHeader from './components/PageHeader.vue'
+import PageHeader from '../components/PageHeader.vue'
 import api from '@/api'
 
 export default {

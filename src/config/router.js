@@ -86,7 +86,7 @@ export const asyncRouterMap = [
                     {
                         path: 'articles',
                         name: 'listSearchArticles',
-                        component: 'list/search/articles.vue',
+                        component: 'list/search/articles/index.vue',
                         meta: {
                             title: '搜索列表（文章）',
                             isMenu: true,
@@ -97,7 +97,7 @@ export const asyncRouterMap = [
                     {
                         path: 'projects',
                         name: 'listSearchProjects',
-                        component: 'list/search/projects.vue',
+                        component: 'list/search/projects/index.vue',
                         meta: {
                             title: '搜索列表（项目）',
                             isMenu: true,
@@ -108,7 +108,7 @@ export const asyncRouterMap = [
                     {
                         path: 'applications',
                         name: 'listSearchApplications',
-                        component: 'list/search/applications.vue',
+                        component: 'list/search/applications/index.vue',
                         meta: {
                             title: '搜索列表（应用）',
                             isMenu: true,
@@ -168,7 +168,7 @@ export const asyncRouterMap = [
             {
                 path: 'basic',
                 name: 'profileBasic',
-                component: 'profile/basic.vue',
+                component: 'profile/basic/index.vue',
                 meta: {
                     title: '基础详情页',
                     isMenu: true,
@@ -179,7 +179,7 @@ export const asyncRouterMap = [
             {
                 path: 'advanced',
                 name: 'profileAdvanced',
-                component: 'profile/advanced.vue',
+                component: 'profile/advanced/index.vue',
                 meta: {
                     title: '高级详情页',
                     isMenu: true,
