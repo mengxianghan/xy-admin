@@ -2,14 +2,14 @@
     <div class="x-cropper">
         <div class="x-cropper__img">
             <img
-                ref="imgRef"
-                :src="src" />
+                    ref="imgRef"
+                    :src="src"/>
         </div>
         <div class="x-cropper__preview">
             <h4>图像预览</h4>
             <div
-                ref="previewRef"
-                class="x-cropper__preview-img"></div>
+                    ref="previewRef"
+                    class="x-cropper__preview-img"></div>
         </div>
     </div>
 </template>
@@ -42,27 +42,34 @@ export default {
             default: 1,
         },
     },
-    setup(props) {
+    emits: ['ready'],
+    setup(props, { emit }) {
         const imgRef = ref()
         const previewRef = ref()
-        const crop = ref(null)
+        const cropper = ref(null)
 
         watch(
             () => props.aspectRatio,
-            (val) => crop.value.setAspectRatio(val)
+            (val) => cropper.value.setAspectRatio(val)
         )
 
         onMounted(() => {
             init()
         })
 
+        /**
+         * 初始化
+         */
         function init() {
-            crop.value = new Cropper(imgRef.value, {
+            cropper.value = new Cropper(imgRef.value, {
                 viewMode: 2,
                 dragMode: 'move',
                 responsive: false,
                 aspectRatio: props.aspectRatio,
                 preview: previewRef.value,
+                ready: () => {
+                    emit('ready', cropper.value)
+                }
             })
         }
 
@@ -73,7 +80,7 @@ export default {
          */
         function getBase64(type = 'image/jpeg') {
             return new Promise((resolve) => {
-                const base64 = crop.value.getCroppedCanvas().toDataURL(type, props.quality)
+                const base64 = cropper.value.getCroppedCanvas().toDataURL(type, props.quality)
                 resolve(base64)
             })
         }
@@ -85,7 +92,7 @@ export default {
          */
         function getBlob(type = 'image/jpeg') {
             return new Promise((resolve) => {
-                crop.value.getCroppedCanvas().toBlob(
+                cropper.value.getCroppedCanvas().toBlob(
                     (blob) => {
                         resolve(blob)
                     },
@@ -103,7 +110,7 @@ export default {
          */
         function getFile(fileName, type = 'image/jpeg') {
             return new Promise((resolve) => {
-                crop.value.getCroppedCanvas().toBlob(
+                cropper.value.getCroppedCanvas().toBlob(
                     (blob) => {
                         const file = new File([blob], fileName, { type })
                         resolve(file)
