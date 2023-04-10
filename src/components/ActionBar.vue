@@ -1,8 +1,7 @@
 <template>
     <a-card
-        class="x-action-bar"
-        :bordered="false"
-        :class="classNames">
+            class="x-action-bar"
+            :class="classNames">
         <div class="x-action-bar__content">
             <slot></slot>
         </div>
@@ -30,8 +29,7 @@ export default {
     setup(props) {
         const classNames = computed(() => {
             return {
-                'x-action-bar--default': !props.type || 'default' === props.type,
-                'x-action-bar--card': 'card' === props.type,
+                [`x-action-bar--${ props.type || 'default' }`]: true,
             }
         })
 
@@ -44,6 +42,7 @@ export default {
 .x-action-bar {
     &--default {
         background: transparent;
+        border: none;
 
         :deep(.ant-card-body) {
             padding: 0;
