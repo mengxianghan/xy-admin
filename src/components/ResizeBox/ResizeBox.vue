@@ -27,28 +27,18 @@ import { directionEnum } from './config'
 /**
  * @property {number} width 宽
  * @property {number} height 高
- * @property {number} minWidth 最小宽度。默认：0
- * @property {number} minHeight 最小高度。默认：0
+ * @property {number} minWidth 最小宽度
+ * @property {number} minHeight 最小高度
  * @property {array} directions 可以进行伸缩的边，默认：['right']；['left', 'right', 'top', 'bottom']
  * @property {boolean} disabled 禁用
  */
 export default {
     name: 'XResizeBox',
     props: {
-        width: {
-            type: Number,
-        },
-        height: {
-            type: Number,
-        },
-        minWidth: {
-            type: Number,
-            default: 0
-        },
-        minHeight: {
-            type: Number,
-            default: 0
-        },
+        width: Number,
+        height: Number,
+        minWidth: Number,
+        minHeight: Number,
         directions: {
             type: Array,
             default: () => ['right'],
@@ -58,6 +48,7 @@ export default {
             default: false,
         },
     },
+    slots: ['default'],
     emits: ['movingStart', 'moving', 'movingEnd', 'update:width', 'update:height'],
     setup(props, { emit }) {
         const resizeBoxRef = ref()
@@ -135,6 +126,7 @@ export default {
                 case directionEnum.getValue('right'):
                     width = startWidth + offsetX
                     state.currentWidth = width < props.minWidth ? props.minWidth : width
+                    console.log('state.currentWidth', width < props.minWidth ? props.minWidth : width)
                     emit('update:width', state.currentWidth)
                     break
             }
