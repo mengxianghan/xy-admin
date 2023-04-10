@@ -278,7 +278,7 @@ export default {
                 // 多选
                 Preview({
                     urls: props.modelValue,
-                    index,
+                    current: index,
                 })
             } else {
                 // 单选
