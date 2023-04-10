@@ -1,21 +1,22 @@
 <template>
     <div
-        class="x-loading"
-        :class="cpClassNames">
+            class="x-loading"
+            :class="cpClassNames">
         <component :is="cpIcon"></component>
         <component
-            v-if="title"
-            :is="cpTitle"></component>
+                v-if="title"
+                :is="cpTitle"></component>
         <component
-            v-if="subTitle"
-            :is="cpSubTitle"></component>
+                v-if="subTitle"
+                :is="cpSubTitle"></component>
         <component
-            v-if="extra"
-            :is="cpExtra"></component>
+                v-if="extra"
+                :is="cpExtra"></component>
     </div>
 </template>
 
 <script>
+import { ref } from 'vue'
 import { LoadingOutlined } from '@ant-design/icons-vue'
 import { computed, h } from 'vue'
 
@@ -48,25 +49,47 @@ export default {
         },
     },
     setup(props) {
+        const state = ref({
+            icon: props.icon,
+            title: props.title,
+            subTitle: props.subTitle,
+            extra: props.extra
+        })
+
         const cpClassNames = computed(() => ({
-            [`x-loading--${props.type}`]: true,
+            [`x-loading--${ props.type }`]: true,
         }))
         const cpIcon = computed(() => {
             const iconObj = {
                 loading: LoadingOutlined,
             }
-            const icon = iconObj[props.icon] ? h(iconObj[props.icon]) : props.icon
+            const icon = iconObj[state.value.icon] ? h(iconObj[state.value.icon]) : state.value.icon
             return h('div', { class: 'x-loading__icon' }, [icon])
         })
         const cpTitle = computed(() => {
-            return h('div', { class: 'x-loading__title' }, [props.title])
+            return h('div', { class: 'x-loading__title' }, { default: () => state.value.title })
         })
         const cpSubTitle = computed(() => {
-            return h('div', { class: 'x-loading__sub-title' }, [props.subTitle])
+            return h('div', { class: 'x-loading__sub-title' }, { default: () => state.value.subTitle })
         })
         const cpExtra = computed(() => {
-            return h('div', { class: 'x-loading__extra' }, [props.extra])
+            return h('div', { class: 'x-loading__extra' }, { default: () => state.value.extra })
         })
+
+        /**
+         * 更新
+         * @param {object} options
+         * @param {string | object} options.icon
+         * @param {string | object} options.title
+         * @param {string | object} options.subTitle
+         * @param {string | object} options.extra
+         */
+        function setOption(options = {}) {
+            state.value = {
+                ...state.value,
+                ...options
+            }
+        }
 
         return {
             cpClassNames,
@@ -74,6 +97,7 @@ export default {
             cpTitle,
             cpSubTitle,
             cpExtra,
+            setOption
         }
     },
 }
@@ -112,6 +136,7 @@ export default {
     &__sub-title {
         margin: 4px 0 0;
         color: @text-color-secondary;
+        font-size: 12px;
     }
 
     &__extra {

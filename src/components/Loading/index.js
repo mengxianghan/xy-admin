@@ -20,10 +20,12 @@ function show(props) {
     hide()
     container = document.createElement('div')
     app = createApp(LoadingConstructor, props)
-    app.mount(container)
+    const vm = app.mount(container)
     document.body.appendChild(container)
 
     window.addEventListener('popstate', popstateListener)
+
+    return vm
 }
 
 /**
@@ -43,7 +45,7 @@ function hide() {
 }
 
 const Loading = (props) => {
-    show(props)
+    return show(props)
 }
 
 Loading.hide = hide
