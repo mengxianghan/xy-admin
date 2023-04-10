@@ -1,7 +1,7 @@
 <template>
     <a-card
-            class="x-action-bar"
-            :class="classNames">
+        class="x-action-bar"
+        :class="classNames">
         <div class="x-action-bar__content">
             <slot></slot>
         </div>
@@ -29,7 +29,7 @@ export default {
     setup(props) {
         const classNames = computed(() => {
             return {
-                [`x-action-bar--${ props.type || 'default' }`]: true,
+                [`x-action-bar--${props.type || 'default'}`]: true,
             }
         })
 

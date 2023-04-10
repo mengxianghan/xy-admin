@@ -53,7 +53,7 @@
 
         <!-- 操作按钮 -->
         <div class="x-preview__top">
-            <div class="x-preview__pages">{{ current + 1 }}/{{ urls.length }}</div>
+            <div class="x-preview__pages">{{ cur + 1 }}/{{ urls.length }}</div>
             <div class="x-preview__action">
                 <template v-if="cpFileType === 'image'">
                     <!-- 缩小 -->
@@ -144,7 +144,7 @@ export default {
         const scale = ref(1)
         const rotate = ref(0)
         const imgRef = ref()
-        const current = ref(0)
+        const cur = ref(0)
 
         const state = reactive({
             startLeft: 0,
@@ -166,11 +166,11 @@ export default {
         const cpImageStyle = computed(() => ({
             transform: `scale3d(${scale.value}, ${scale.value}, 1) rotate(${rotate.value}deg)`,
         }))
-        const cpUrl = computed(() => props.urls?.[current.value])
+        const cpUrl = computed(() => props.urls?.[cur.value])
         const cpShowPrevNextBtn = computed(() => props.urls.length > 1)
         const cpZoomOutBtnDisabled = computed(() => scale.value <= 1)
-        const cpPrevBtnDisabled = computed(() => current.value <= 0)
-        const cpNextBtnDisabled = computed(() => current.value >= props.urls.length - 1)
+        const cpPrevBtnDisabled = computed(() => cur.value <= 0)
+        const cpNextBtnDisabled = computed(() => cur.value >= props.urls.length - 1)
         const cpFileType = computed(() => {
             const suffix = cpUrl.value.slice(cpUrl.value.lastIndexOf('.') + 1).toLowerCase()
             if (['mp4'].includes(suffix)) {
@@ -189,7 +189,7 @@ export default {
          */
         function init() {
             const urlsLen = props.urls.length
-            current.value = props.current < urlsLen - 1 ? props.current : props.current % urlsLen
+            cur.value = props.current < urlsLen - 1 ? props.current : props.current % urlsLen
         }
 
         /**
@@ -211,7 +211,7 @@ export default {
          */
         function handlePrev() {
             if (cpPrevBtnDisabled.value) return
-            current.value -= 1
+            cur.value -= 1
         }
 
         /**
@@ -219,7 +219,7 @@ export default {
          */
         function handleNext() {
             if (cpNextBtnDisabled.value) return
-            current.value += 1
+            cur.value += 1
         }
 
         /**
@@ -296,7 +296,7 @@ export default {
 
         return {
             visible,
-            current,
+            cur,
             imgRef,
             cpContentStyle,
             cpImageStyle,

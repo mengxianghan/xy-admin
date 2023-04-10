@@ -1,20 +1,20 @@
 <template>
     <div
-            class="x-resize-box"
-            ref="resizeBoxRef"
-            :style="cpStyle">
+        class="x-resize-box"
+        ref="resizeBoxRef"
+        :style="cpStyle">
         <slot></slot>
 
         <template v-if="!disabled">
             <div
-                    v-for="direction in directions"
-                    class="x-resize-box-handle"
-                    :key="direction"
-                    :class="{
-                        [`x-resize-box-handle--${direction}`]: true,
-                        'x-resize-box-handle--active': state.moving && directionEnum.is(direction, state.direction),
-                    }"
-                    @mousedown="(e) => onMoveStart(direction, e)"></div>
+                v-for="direction in directions"
+                class="x-resize-box-handle"
+                :key="direction"
+                :class="{
+                    [`x-resize-box-handle--${direction}`]: true,
+                    'x-resize-box-handle--active': state.moving && directionEnum.is(direction, state.direction),
+                }"
+                @mousedown="(e) => onMoveStart(direction, e)"></div>
         </template>
     </div>
 </template>
@@ -63,8 +63,8 @@ export default {
             currentHeight: props.height || props.minHeight,
         })
         const cpStyle = computed(() => ({
-            width: `${ state.currentWidth }px`,
-            height: `${ state.currentHeight }px`,
+            width: `${state.currentWidth}px`,
+            height: `${state.currentHeight}px`,
             maxWidth: '100%',
         }))
 

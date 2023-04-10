@@ -1,26 +1,26 @@
 <template>
     <div
-            ref="uploadImageRef"
-            class="x-upload x-upload-image"
-            :class="{
+        ref="uploadImageRef"
+        class="x-upload x-upload-image"
+        :class="{
             'x-upload--round': round,
             'x-upload--disabled': disabled,
         }">
         <a-upload
-                v-if="showUploadBtn"
-                :show-upload-list="false"
-                :multiple="multiple"
-                :before-upload="onBeforeUpload"
-                :custom-request="({ file }) => customRequest(file)"
-                :accept="accept"
-                :disabled="disabled">
+            v-if="showUploadBtn"
+            :show-upload-list="false"
+            :multiple="multiple"
+            :before-upload="onBeforeUpload"
+            :custom-request="({ file }) => customRequest(file)"
+            :accept="accept"
+            :disabled="disabled">
             <slot>
                 <div
-                        class="x-upload-btn"
-                        :class="{
+                    class="x-upload-btn"
+                    :class="{
                         'x-upload-btn--hover': !disabled,
                     }"
-                        :style="{
+                    :style="{
                         width: `${width}px`,
                         height: `${height}px`,
                     }">
@@ -30,8 +30,8 @@
                         </slot>
                     </div>
                     <div
-                            v-if="text"
-                            class="x-upload-btn__txt">
+                        v-if="text"
+                        class="x-upload-btn__txt">
                         <slot name="text">
                             {{ text }}
                         </slot>
@@ -40,30 +40,32 @@
             </slot>
         </a-upload>
         <div
-                v-for="(item, index) in fileList"
-                class="x-upload-item j-upload-item"
-                :key="item.key"
-                :class="{
+            v-for="(item, index) in fileList"
+            class="x-upload-item j-upload-item"
+            :key="item.key"
+            :class="{
                 'x-upload-item--error': STATUS_ENUM.is('error', item.status),
             }"
-                :style="{
+            :style="{
                 width: `${width}px`,
                 height: `${height}px`,
             }">
-            <img :src="item.src" alt=""/>
+            <img
+                :src="item.src"
+                alt="" />
             <template v-if="['error', 'done'].includes(STATUS_ENUM.getKey(item.status))">
                 <div class="x-upload-actions">
                     <div
-                            v-if="STATUS_ENUM.is('done', item.status)"
-                            class="x-upload-action"
-                            @click="handlePreview(item, index)">
-                        <eye-outlined/>
+                        v-if="STATUS_ENUM.is('done', item.status)"
+                        class="x-upload-action"
+                        @click="handlePreview(item, index)">
+                        <eye-outlined />
                     </div>
                     <div
-                            v-if="!disabled"
-                            class="x-upload-action"
-                            @click="handleRemove(index)">
-                        <delete-outlined/>
+                        v-if="!disabled"
+                        class="x-upload-action"
+                        @click="handleRemove(index)">
+                        <delete-outlined />
                     </div>
                 </div>
             </template>
@@ -72,15 +74,15 @@
                     <template v-if="STATUS_ENUM.is('uploading', item.status)">
                         <div>{{ item.percent }}%</div>
                         <a-progress
-                                :show-info="false"
-                                :stroke-width="4"
-                                :percent="item.percent"/>
+                            :show-info="false"
+                            :stroke-width="4"
+                            :percent="item.percent" />
                     </template>
                     <template v-if="STATUS_ENUM.is('wait', item.status)">
                         <div>{{ STATUS_ENUM.getDesc(item.status) }}</div>
                         <span
-                                class="x-upload-action"
-                                @click="handleCancel(item)">
+                            class="x-upload-action"
+                            @click="handleCancel(item)">
                             取消上传
                         </span>
                     </template>
@@ -91,11 +93,11 @@
 
     <!--裁剪-->
     <cropper-dialog
-            v-if="cropper && !multiple"
-            ref="cropperDialogRef"
-            :aspect-ratio="aspectRatio"
-            :quality="quality"
-            @ok="(file) => customRequest(file)"/>
+        v-if="cropper && !multiple"
+        ref="cropperDialogRef"
+        :aspect-ratio="aspectRatio"
+        :quality="quality"
+        @ok="(file) => customRequest(file)" />
 </template>
 
 <script>
@@ -309,7 +311,7 @@ export default {
             const maxFileSize = props.maxSize instanceof Number ? props.maxSize : filesizeParser(props.maxSize)
             const checkFileSize = file?.size < maxFileSize
             if (!checkFileSize) {
-                message.warning(`已忽略超过 ${ filesize(maxFileSize) } 的文件`)
+                message.warning(`已忽略超过 ${filesize(maxFileSize)} 的文件`)
             }
             const checkCropper = props.cropper ? props.multiple : true
             if (props.cropper && !props.multiple) {
@@ -367,7 +369,7 @@ export default {
 
             // 模拟示例
             record.percent = 100
-            record.status = STATUS_ENUM.getValue('done');
+            record.status = STATUS_ENUM.getValue('done')
             trigger()
             await doUpload()
 

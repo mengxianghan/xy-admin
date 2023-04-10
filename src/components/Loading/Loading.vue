@@ -1,17 +1,17 @@
 <template>
     <div
-            class="x-loading"
-            :class="cpClassNames">
+        class="x-loading"
+        :class="cpClassNames">
         <component :is="cpIcon"></component>
         <component
-                v-if="title"
-                :is="cpTitle"></component>
+            v-if="title"
+            :is="cpTitle"></component>
         <component
-                v-if="subTitle"
-                :is="cpSubTitle"></component>
+            v-if="subTitle"
+            :is="cpSubTitle"></component>
         <component
-                v-if="extra"
-                :is="cpExtra"></component>
+            v-if="extra"
+            :is="cpExtra"></component>
     </div>
 </template>
 
@@ -53,11 +53,11 @@ export default {
             icon: props.icon,
             title: props.title,
             subTitle: props.subTitle,
-            extra: props.extra
+            extra: props.extra,
         })
 
         const cpClassNames = computed(() => ({
-            [`x-loading--${ props.type }`]: true,
+            [`x-loading--${props.type}`]: true,
         }))
         const cpIcon = computed(() => {
             const iconObj = {
@@ -87,7 +87,7 @@ export default {
         function setOption(options = {}) {
             state.value = {
                 ...state.value,
-                ...options
+                ...options,
             }
         }
 
@@ -97,7 +97,7 @@ export default {
             cpTitle,
             cpSubTitle,
             cpExtra,
-            setOption
+            setOption,
         }
     },
 }

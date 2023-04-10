@@ -2,14 +2,14 @@
     <div class="x-cropper">
         <div class="x-cropper__img">
             <img
-                    ref="imgRef"
-                    :src="src"/>
+                ref="imgRef"
+                :src="src" />
         </div>
         <div class="x-cropper__preview">
             <h4>图像预览</h4>
             <div
-                    ref="previewRef"
-                    class="x-cropper__preview-img"></div>
+                ref="previewRef"
+                class="x-cropper__preview-img"></div>
         </div>
     </div>
 </template>
@@ -69,7 +69,7 @@ export default {
                 preview: previewRef.value,
                 ready: () => {
                     emit('ready', cropper.value)
-                }
+                },
             })
         }
 
