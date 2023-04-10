@@ -50,7 +50,7 @@
                 width: `${width}px`,
                 height: `${height}px`,
             }">
-            <img :src="item.src" />
+            <img :src="item.src" alt="" />
             <template v-if="['error', 'done'].includes(STATUS_ENUM.getKey(item.status))">
                 <div class="x-upload-actions">
                     <div
@@ -199,7 +199,7 @@ export default {
 
         const loading = computed(() => fileList.value.some((o) => STATUS_ENUM.is('uploading', o.status)))
         const showUploadBtn = computed(() => props.multiple || !fileList.value.length)
-        const dragsortDisabled = computed(() => (props.dragsort && !props.disabled ? false : true))
+        const dragSortDisabled = computed(() => !(props.dragSort && !props.disabled))
 
         watch(
             () => props.modelValue,
@@ -209,7 +209,7 @@ export default {
         )
 
         watch(
-            () => dragsortDisabled.value,
+            () => dragSortDisabled.value,
             () => {
                 initDragSort()
             }
@@ -259,7 +259,7 @@ export default {
             sortable.value = Sortable.create(uploadImageRef.value, {
                 handle: '.j-upload-item',
                 animation: 200,
-                disabled: dragsortDisabled.value,
+                disabled: dragSortDisabled.value,
                 onEnd: ({ newIndex, oldIndex }) => {
                     const dragData = fileList.value.splice(oldIndex - 1, 1)[0]
                     fileList.value.splice(newIndex - 1, 0, dragData)
@@ -271,6 +271,7 @@ export default {
         /**
          * 预览
          * @param {*} record
+         * @param {number} index 索引
          */
         function handlePreview(record, index) {
             if (props.multiple) {
@@ -311,7 +312,7 @@ export default {
             if (!checkFileSize) {
                 message.warning(`已忽略超过 ${filesize(maxFileSize)} 的文件`)
             }
-            const checkCropper = props.cropper ? (props.multiple ? true : false) : true
+            const checkCropper = props.cropper ? props.multiple : true
             if (props.cropper && !props.multiple) {
                 const fileReader = new FileReader()
                 fileReader.readAsDataURL(file)
@@ -397,7 +398,7 @@ export default {
          * 触发
          */
         function trigger() {
-            let value = ''
+            let value
             // 判断是否多选
             if (props.multiple) {
                 // 多选
