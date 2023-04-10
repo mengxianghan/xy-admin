@@ -110,7 +110,7 @@ import {
 
 /**
  * @property {array} urls 文件
- * @property {number} index 当前显示
+ * @property {number} current 当前显示
  * @property {function} afterClose 关闭后的回调函数
  */
 export default {
@@ -130,7 +130,7 @@ export default {
             type: Array,
             default: () => [],
         },
-        index: {
+        current: {
             type: Number,
             default: 0,
         },
@@ -189,7 +189,7 @@ export default {
          */
         function init() {
             const urlsLen = props.urls.length
-            current.value = props.index < urlsLen - 1 ? props.index : props.index % urlsLen
+            current.value = props.current < urlsLen - 1 ? props.current : props.current % urlsLen
         }
 
         /**
