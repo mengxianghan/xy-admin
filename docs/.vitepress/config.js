@@ -71,11 +71,11 @@ export default defineConfig({
                     ],
                 },
             ],
-            'utils': [
+            utils: [
                 {
                     text: 'mapping 映射',
-                    link: '/utils/mapping'
-                }
+                    link: '/utils/mapping',
+                },
             ],
             '/directive/': [
                 {
@@ -129,6 +129,6 @@ export default defineConfig({
             alias: {
                 '@': path.resolve(__dirname, '../../src'),
             },
-        },
+        }
     },
 })
