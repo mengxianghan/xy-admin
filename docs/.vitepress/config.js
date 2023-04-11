@@ -129,6 +129,10 @@ export default defineConfig({
             alias: {
                 '@': path.resolve(__dirname, '../../src'),
             },
-        }
+        },
+        ssr: {
+            format: 'cjs',
+            noExternal: ['ant-design-vue', '@ant-design/icons-vue'],
+        },
     },
 })
