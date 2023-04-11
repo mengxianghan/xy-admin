@@ -5,6 +5,7 @@
         :visible="visible"
         :after-close="onAfterClose"
         :width="568"
+        :confirm-loading="loading"
         @ok="handleOk"
         @cancel="handleCancel">
         <cropper
@@ -45,6 +46,7 @@ export default {
         const visible = ref(false)
         const cropperRef = ref()
         const imgSrc = ref('')
+        const loading = ref(false)
 
         /**
          * 打开
@@ -59,7 +61,9 @@ export default {
          * 确定
          */
         async function handleOk() {
+            loading.value = true
             const file = await cropperRef.value?.getFile()
+            loading.value = false
             visible.value = false
             emit('ok', file)
         }
@@ -83,6 +87,7 @@ export default {
             visible,
             cropperRef,
             imgSrc,
+            loading,
             handleOpen,
             handleOk,
             handleCancel,
