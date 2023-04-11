@@ -22,27 +22,27 @@ hero:
 
 features:
   - icon: 
-      src: ./assets/icon_yymg.svg
+      src: /images/icon_yymg.svg
     title: 优雅美观
     details: 基于 Ant Design 体系精心设计
   - icon: 
-      src: ./assets/icon_cjsjms.svg
+      src: /images/icon_cjsjms.svg
     title: 常见设计模式
     details: 提炼自中后台应用的典型页面和场景
   - icon: 
-      src: ./assets/icon_zxjsz.svg
+      src: /images/icon_zxjsz.svg
     title: 最新技术栈
     details: 使用 Vue/Pinia/Vite/And Design Vue 等前端前沿技术开发
   - icon: 
-      src: ./assets/icon_zt.svg
+      src: /images/icon_zt.svg
     title: 主题
     details: 可配置的主题满足多样化的品牌诉求
   - icon: 
-      src: ./assets/icon_zjsj.svg
+      src: /images/icon_zjsj.svg
     title: 最佳实践
     details: 良好的工程实践助你持续产出高质量代码
   - icon: 
-      src: ./assets/icon_mock.svg
+      src: /images/icon_mock.svg
     title: Mock 数据
     details: 实用的本地数据调试方案
 ---
