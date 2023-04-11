@@ -7,7 +7,8 @@
                 api-key="d6vzo7lwm6my7lu42uk2jhnhui7cdk842rb0tzc6sfxgffgm"
                 :init="opts"
                 :disabled="disabled"
-                :placeholder="placeholder"></tiny-editor>
+                :placeholder="placeholder"
+                @init="onInit"></tiny-editor>
         </a-spin>
     </div>
 </template>
@@ -55,7 +56,7 @@ export default {
             default: false,
         },
     },
-    emits: ['update:modelValue'],
+    emits: ['update:modelValue', 'ready'],
     setup(props, { emit }) {
         const spinning = ref(true)
         const content = ref('')
@@ -73,11 +74,6 @@ export default {
                 body {font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Helvetica, Segoe UI, Arial, Roboto, 'PingFang SC', 'miui', 'Hiragino Sans GB', 'Microsoft Yahei', sans-serif}
                 .mce-content-body {margin: 12px;}
             `,
-                setup: (editor) => {
-                    editor.on('init', () => {
-                        spinning.value = false
-                    })
-                },
             },
             props.options
         )
@@ -103,10 +99,20 @@ export default {
             tinymce.init({})
         })
 
+        /**
+         * 初始化
+         * @param e
+         */
+        function onInit(e) {
+            spinning.value = false
+            emit('ready', e.target)
+        }
+
         return {
             spinning,
             content,
             opts,
+            onInit,
         }
     },
 }
