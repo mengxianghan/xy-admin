@@ -13,6 +13,7 @@
             <template v-if="cpFileType === 'image'">
                 <img
                     ref="imgRef"
+                    alt=""
                     class="x-preview__image"
                     :src="cpUrl"
                     :style="cpImageStyle"
@@ -366,6 +367,7 @@ export default {
         align-items: center;
         justify-content: center;
     }
+
     &__image {
         transition: transform 0.3s cubic-bezier(0.215, 0.61, 0.355, 1) 0s;
         cursor: grab;
