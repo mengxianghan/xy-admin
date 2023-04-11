@@ -109,6 +109,12 @@ export default {
 
             &__btn {
                 display: none;
+
+                .anticon {
+                    display: inline-flex;
+                    align-items: center;
+                    justify-content: center;
+                }
             }
         }
 
@@ -119,7 +125,9 @@ export default {
                 }
 
                 &__btn {
-                    display: inline-block;
+                    display: inline-flex;
+                    align-items: center;
+                    justify-content: center;
                 }
             }
         }
