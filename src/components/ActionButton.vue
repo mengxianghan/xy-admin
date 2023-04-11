@@ -15,7 +15,7 @@
 /**
  * 操作按钮
  * @property {string} tag html标签，默认：a
- * @property {boolean} divider 是否显示 divider
+ * @property {boolean} divider 是否显示分割线
  */
 export default {
     name: 'XActionButton',
