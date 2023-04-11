@@ -2,18 +2,19 @@
     <a-input
         v-model:value="currentValue"
         class="x-upload x-upload-input"
+        :allow-clear="allowClear"
         @input="onInput">
         <template #addonAfter>
             <a-button
                 v-if="loading"
-                loading
-                >上传中
+                loading>
+                {{ loadingBtnText }}
             </a-button>
             <a-upload
                 v-else
                 :show-upload-list="false"
                 :custom-request="customRequest">
-                <a-button>选择文件</a-button>
+                <a-button>{{ btnText }}</a-button>
             </a-upload>
         </template>
     </a-input>
@@ -23,18 +24,34 @@
 import { onMounted, ref, watch } from 'vue'
 import { Form } from 'ant-design-vue'
 
-import api from '@/api'
-
 /**
  * 文件上传
  * @property {string} modelValue v-model
+ * @property {string} btnText 按钮内容。默认：选择文件
+ * @property {string} loadingBtnText 上传中按钮内容。默认：上传中
+ * @property {boolean} allowClear 允许清空。默认：true
  */
 export default {
     name: 'XUploadInput',
     props: {
-        modelValue: { type: String, default: '' },
+        modelValue: {
+            type: String,
+            default: '',
+        },
+        btnText: {
+            type: String,
+            default: '选择文件',
+        },
+        loadingBtnText: {
+            type: String,
+            default: '上传中',
+        },
+        allowClear: {
+            type: Boolean,
+            default: true,
+        },
     },
-    emits: ['update:modelValue'],
+    emits: ['update:modelValue', 'change'],
     setup(props, { emit }) {
         const { onFieldChange } = Form.useInjectFormItemContext()
         const loading = ref(false)
@@ -43,7 +60,7 @@ export default {
         watch(
             () => props.modelValue,
             (val) => {
-                if (currentValue.value.val != val) {
+                if (currentValue.value !== val) {
                     currentValue.value = val
                 }
             }
@@ -67,15 +84,25 @@ export default {
          */
         async function customRequest(info) {
             const { file } = info
+
+            // 演示
             loading.value = true
-            const { code, data } = await api.common.upload({
-                file,
-            })
-            loading.value = false
-            if (200 === code) {
-                currentValue.value = data?.src
+            setTimeout(() => {
+                loading.value = false
+                currentValue.value = file.name
                 trigger(currentValue.value)
-            }
+            }, 2000)
+
+            // 真实业务场景
+            // loading.value = true
+            // const { code, data } = await api.common.upload({
+            //     file,
+            // })
+            // loading.value = false
+            // if (200 === code) {
+            //     currentValue.value = data?.src
+            //     trigger(currentValue.value)
+            // }
         }
 
         /**
@@ -83,6 +110,7 @@ export default {
          */
         function trigger(value) {
             emit('update:modelValue', value)
+            emit('change', value)
             onFieldChange()
         }
 
