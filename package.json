@@ -7,7 +7,6 @@
     "build:test": "vite build --mode test",
     "build:pre": "vite build --mode pre",
     "build:prod": "vite build --mode prod",
-    "build:demo": "vite build --mode demo",
     "preview": "npm run build:prod && vite preview --mode prod",
     "report": "vite build --mode prod",
     "lint": "eslint --ext .js,.vue --ignore-path .eslintignore --fix src",
