@@ -13,7 +13,6 @@ import { findTree, mapping } from '@/utils'
 import { onMounted, ref, watch } from 'vue'
 import { message, Form } from 'ant-design-vue'
 import { last, pick } from 'lodash-es'
-import api from '@/api'
 
 /**
  * 地区联动
@@ -63,7 +62,7 @@ export default {
         async function getData(value = 0, level = 1, defaultValue = []) {
             try {
                 let targetOption = null
-                let result = null
+                let result
                 // 从第二级开始查找父级
                 if (level > 1) {
                     findTree(
@@ -136,26 +135,53 @@ export default {
          * @param {object} params
          */
         function getRegionList(params) {
-            return new Promise((resolve, reject) => {
+            return new Promise((resolve) => {
                 ;(async () => {
-                    const { code, data } = await api.common.getRegionList(params).catch(() => {
-                        reject()
-                    })
-                    if (200 === code) {
-                        const { rows } = data
-                        resolve({
-                            code,
-                            data: mapping({
-                                data: rows,
-                                fieldNames: {
-                                    label: 'name',
-                                    value: 'id',
-                                },
-                            }),
-                        })
-                    } else {
-                        reject()
+                    // 演示示例
+                    const list = {
+                        0: [
+                            { id: 1, name: '北京' },
+                            { id: 2, name: '山东省' },
+                        ],
+                        1: [{ id: 11, name: '北京市' }],
+                        2: [
+                            { id: 21, name: '济南市' },
+                            { id: 22, name: '菏泽市' },
+                            { id: 23, name: '青岛市' },
+                        ],
+                        11: [
+                            { id: 111, name: '东城区' },
+                            { id: 112, name: '西城区' },
+                            { id: 113, name: '海淀区' },
+                            { id: 114, name: '昌平区' },
+                            { id: 114, name: '朝阳区' },
+                        ],
+                        21: [
+                            { id: 211, name: '历下区' },
+                            { id: 212, name: '市中区' },
+                            { id: 213, name: '槐荫区' },
+                        ],
+                        22: [
+                            { id: 221, name: '牡丹区' },
+                            { id: 222, name: '定陶区' },
+                            { id: 223, name: '郓城县' },
+                        ],
+                        23: [
+                            { id: 231, name: '市南区' },
+                            { id: 232, name: '市北区' },
+                            { id: 233, name: '黄岛区' },
+                        ],
                     }
+                    resolve({
+                        code: 200,
+                        data: mapping({
+                            data: list[params.parentId],
+                            fieldNames: {
+                                label: 'name',
+                                value: 'id',
+                            },
+                        }),
+                    })
                 })()
             })
         }
