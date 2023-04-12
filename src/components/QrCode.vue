@@ -1,79 +1,107 @@
 <template>
-    <img ref="imgRef" />
+    <div
+        class="x-qrcode"
+        :style="{
+            width: `${size}px`,
+            height: `${size}px`,
+        }">
+        <template v-if="'active' !== status">
+            <div class="x-qrcode__mask">
+                <template v-if="'loading' === status">
+                    <a-spin></a-spin>
+                </template>
+                <template v-if="'expired' === status">
+                    <div>二维码已过期</div>
+                    <a-button
+                        type="link"
+                        class="x-qrcode__reload-btn"
+                        @click="handleRefresh">
+                        <template #icon>
+                            <reload-outlined></reload-outlined>
+                        </template>
+                        点击刷新
+                    </a-button>
+                </template>
+            </div>
+        </template>
+        <canvas ref="qrCodeRef"></canvas>
+    </div>
 </template>
 
 <script>
 import { ref, toRefs, onMounted, watch } from 'vue'
-
+import { ReloadOutlined } from '@ant-design/icons-vue'
 import QRCode from 'qrcode'
 
 /**
  * 二维码
- * @property {string} text 内容
- * @property {number} size 大小，默认：100
- * @property {string} logo logo
- * @property {number} logoSize logo 大小，默认：30
- * @property {number} logoPadding logo 间距，默认：5
- * @property {string} logoBackgroundColor logo 背景色，默认：transparent
- * @property {string} colorDark 背景色
- * @property {string} colorLight 前景色
- * @property {string} errorCorrectionLevel 容错级别，默认：M，【L=low, M=medium, Q=quartile, H=high】
- * @property {number} margin 安静区宽度，默认：2
+ * @property {string} value 内容
+ * @property {number} size 大小。默认：120
+ * @property {string} color 颜色。默认：#000
+ * @property {string} backgroundColor 背景色。默认：#fff
+ * @property {string} icon icon 的地址（目前只支持图片地址）
+ * @property {number} iconSize icon 的大小。默认：30
+ * @property {number} iconPadding icon 间距。默认：0
+ * @property {string} iconBackgroundColor icon 背景色
+ * @property {string} errorLevel 纠错等级。默认：M，【L=low, M=medium, Q=quartile, H=high】
+ * @property {string} status 状态，【active=有效，loading=加载中，expired=已过期】
  */
 export default {
     name: 'XQrCode',
     props: {
-        text: {
+        value: {
             type: String,
             required: true,
             default: '',
         },
         size: {
             type: Number,
-            default: 100,
+            default: 120,
         },
-        logo: {
+        color: {
+            type: String,
+            default: '#000',
+        },
+        backgroundColor: {
+            type: String,
+            default: '#fff',
+        },
+        icon: {
             type: String,
             default: '',
         },
-        logoSize: {
+        iconSize: {
             type: Number,
             default: 30,
         },
-        logoPadding: {
+        iconPadding: {
             type: Number,
-            default: 5,
+            default: 0,
         },
-        logoBackgroundColor: {
+        iconBackgroundColor: {
             type: String,
             default: '',
         },
-        colorDark: {
-            type: String,
-            default: '#000000',
-        },
-        colorLight: {
-            type: String,
-            default: '#ffffff',
-        },
-        errorCorrectionLevel: {
+        errorLevel: {
             type: String,
             default: 'M',
         },
-        margin: {
-            type: Number,
-            default: 2,
+        status: {
+            type: String,
+            default: 'active',
         },
     },
-    emits: ['ready'],
+    components: {
+        ReloadOutlined,
+    },
+    emits: ['refresh'],
     setup(props, { emit }) {
-        const qrcode = ref(null)
-        const imgRef = ref()
+        const qrCodeRef = ref()
 
         watch(
             () => toRefs(props),
             () => {
-                draw()
+                init()
             },
             {
                 deep: true,
@@ -81,73 +109,107 @@ export default {
         )
 
         onMounted(() => {
-            draw()
+            init()
         })
 
         /**
-         * 创建二维码
+         * 初始化
+         * @return {Promise<void>}
+         */
+        async function init() {
+            await renderQRCode()
+            if (props.icon) {
+                await renderIcon()
+            }
+            emit('ready', qrCodeRef.value)
+        }
+
+        /**
+         * 渲染二维码
          * @return {Promise<unknown>}
          */
-        async function build() {
+        async function renderQRCode() {
             return new Promise((resolve) => {
                 ;(async () => {
-                    const canvas = await QRCode.toCanvas(props.text, {
+                    await QRCode.toCanvas(qrCodeRef.value, props.value, {
                         width: props.size,
                         color: {
-                            dark: props.colorDark,
-                            light: props.colorLight,
+                            dark: props.color,
+                            light: props.backgroundColor,
                         },
-                        errorCorrectionLevel: props.errorCorrectionLevel,
-                        margin: props.margin,
+                        errorCorrectionLevel: props.errorLevel,
+                        margin: 0,
                     })
-                    qrcode.value = canvas
                     resolve()
                 })()
             })
         }
 
         /**
-         * 绘制 Logo
+         * 渲染 icon
          * @return {Promise<unknown>}
          */
-        async function drawLogo() {
+        async function renderIcon() {
             return new Promise((resolve) => {
                 let img = new Image()
-                img.src = props.logo
-                const logoPos = (props.size - props.logoSize) / 2
-                const rectSize = props.logoSize + props.logoPadding
+                img.src = props.icon
+                const logoPos = (props.size - props.iconSize) / 2
+                const rectSize = props.iconSize + props.iconPadding
                 const rectPos = (props.size - rectSize) / 2
-                let ctx = qrcode.value.getContext('2d')
+                let ctx = qrCodeRef.value.getContext('2d')
                 img.onload = () => {
-                    // logo 背景色
-                    if (props.logoBackgroundColor) {
-                        ctx.fillStyle = props.logoBackgroundColor
+                    if (props.iconBackgroundColor) {
+                        ctx.fillStyle = props.iconBackgroundColor
                         ctx.fillRect(rectPos, rectPos, rectSize, rectSize)
                     }
-                    ctx.drawImage(img, logoPos, logoPos, props.logoSize, props.logoSize)
+                    ctx.drawImage(img, logoPos, logoPos, props.iconSize, props.iconSize)
                     resolve()
                 }
             })
         }
 
         /**
-         * 绘制
-         * @return {Promise<void>}
+         * 刷新
          */
-        async function draw() {
-            await build()
-            if (props.logo) {
-                await drawLogo()
-            }
-            imgRef.value.src = qrcode.value.toDataURL('image/png')
-            emit('ready')
+        function handleRefresh() {
+            emit('refresh')
+        }
+
+        /**
+         * 转换成 data URI
+         * @returns {Promise<*>}
+         */
+        async function toDataURL() {
+            return qrCodeRef.value.toDataURL('image/png')
         }
 
         return {
-            imgRef,
+            qrCodeRef,
+            toDataURL,
+            handleRefresh,
         }
     },
 }
 </script>
 
-<style lang="less" scoped></style>
+<style lang="less" scoped>
+.x-qrcode {
+    position: relative;
+
+    &__mask {
+        background: rgba(255, 255, 255, 0.96);
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        z-index: 10;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+
+        .ant-spin {
+            line-height: 1;
+        }
+    }
+}
+</style>
