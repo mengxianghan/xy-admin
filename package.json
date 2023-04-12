@@ -12,9 +12,9 @@
     "report": "vite build --mode prod",
     "lint": "eslint --ext .js,.vue --ignore-path .eslintignore --fix src",
     "prepare": "husky install",
-    "docs:dev": "vitepress dev docs",
-    "docs:build": "vitepress build docs",
-    "docs:preview": "vitepress preview docs"
+    "dev:docs": "vitepress dev docs",
+    "build:docs": "vitepress build docs",
+    "preview:docs": "vitepress preview docs"
   },
   "lint-staged": {
     "src/**/*.{js,vue}": "eslint --ext .js,.vue .eslintignore --no-cache --fix"
