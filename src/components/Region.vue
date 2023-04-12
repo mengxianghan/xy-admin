@@ -55,6 +55,14 @@ export default {
         })
 
         /**
+         * 加载下一级
+         */
+        async function getChildrenData(selectedOptions) {
+            const targetOption = last(selectedOptions)
+            await getData(targetOption?.value ?? 0, selectedOptions.length + 1)
+        }
+
+        /**
          * 获取数据
          * @param {number} value 上级
          * @param {number} level 层级
@@ -121,14 +129,6 @@ export default {
             } catch (err) {
                 message.error(err.message)
             }
-        }
-
-        /**
-         * 加载下一级
-         */
-        async function getChildrenData(selectedOptions) {
-            const targetOption = last(selectedOptions)
-            await getData(targetOption?.value ?? 0, selectedOptions.length + 1)
         }
 
         /**
