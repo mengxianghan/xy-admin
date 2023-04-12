@@ -405,7 +405,6 @@ export default {
 <script setup>
 import { ref } from 'vue';
 import useForm from '@/hooks/useForm';
-import XUploadImage from '@/components/Upload/UploadImage.vue';
 import { PictureOutlined } from '@ant-design/icons-vue';
 
 const { formState, formRules, formRef, resetForm } = useForm();

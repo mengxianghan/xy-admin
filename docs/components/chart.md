@@ -154,8 +154,14 @@ export default {
 ```
 
 :::
+ 
+### 更多用法
+::: tip
 
-### 更多用法 [ECharts](https://echarts.apache.org/zh/option.html#title)
+1. 基于百度 ECharts 实现，更多使用方式请参考官方文档。[https://echarts.apache.org/zh/option.html](https://echarts.apache.org/zh/option.html)
+2. 可根据实际业务场景自行扩展。详见：`/src/components/Chart.vue`
+
+:::
 
 ## API
 
@@ -173,16 +179,10 @@ export default {
 |-------|-------|-------------------|
 | ready | 初始化完成 | `function(chart)` |
 
-::: tip
-
-1. 基于百度 ECharts 实现，更多参数：[https://echarts.apache.org/zh/option.html](https://echarts.apache.org/zh/option.html)
-2. 可根据实际业务场景自行扩展。详见：`/src/components/Chart.vue`
-   :::
 
 <script setup>
 import { ref, onBeforeUnmount } from 'vue';
 import { random } from 'lodash-es';
-import XChart from '@/components/Chart.vue';
 
 const timer = ref(null);
 

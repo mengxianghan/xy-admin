@@ -2,7 +2,7 @@
 
 ## 何时使用
 
-- 表格中的操作按钮，中间可以自动生成分割线
+- 表格中的操作按钮，中间自动添加分割线
 
 ## 示例
 
@@ -70,10 +70,10 @@ export default {
 
 ### 参数
 
-| 参数  | 说明  | 类型       | 默认值 |
-|-----|-----|----------|-----|
-| tag | 标签  | `string` | `a` |
+| 参数      | 说明      | 类型        | 默认值     |
+|---------|---------|-----------|---------|
+| tag     | 标签      | `string`  | `a`     |
+| divider | 是否显示分割线 | `boolean` | `false` |
 
 <script setup>
-import XActionButton from '@/components/ActionButton.vue';
 </script>

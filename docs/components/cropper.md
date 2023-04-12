@@ -97,41 +97,41 @@
 </template>
 
 <script>
-import { ref } from 'vue';
-import { notification } from 'ant-design-vue';
-import cropperImg from '@/views/component/cropper/images/cropper.png';
+import { ref } from 'vue'
+import { notification } from 'ant-design-vue'
+import cropperImg from '@/views/component/cropper/images/cropper.png'
 
 export default {
     setup() {
-        const cropperRef = ref();
-        const aspectRatio = ref(0);
-        const quality = ref(1);
+        const cropperRef = ref()
+        const aspectRatio = ref(0)
+        const quality = ref(1)
 
         async function handleBase64() {
-            const data = await cropperRef.value.getBase64();
+            const data = await cropperRef.value.getBase64()
             notification.success({
                 message: '获取成功',
-                description: '请打开控制台查看获取到的内容'
-            });
-            console.log(data);
+                description: '请打开控制台查看获取到的内容',
+            })
+            console.log(data)
         }
 
         async function handleBlob() {
-            const data = await cropperRef.value.getBlob();
+            const data = await cropperRef.value.getBlob()
             notification.success({
                 message: '获取成功',
-                description: '请打开控制台查看获取到的内容'
-            });
-            console.log(URL.createObjectURL(data));
+                description: '请打开控制台查看获取到的内容',
+            })
+            console.log(URL.createObjectURL(data))
         }
 
         async function handleFile() {
             const data = await cropperRef.value.getFile('test.jpg')
             notification.success({
                 message: '获取成功',
-                description: '请打开控制台查看获取到的内容'
-            });
-            console.log(URL.createObjectURL(data));
+                description: '请打开控制台查看获取到的内容',
+            })
+            console.log(URL.createObjectURL(data))
         }
 
         return {
@@ -141,9 +141,9 @@ export default {
             quality,
             handleBase64,
             handleFile,
-            handleBlob
+            handleBlob,
         }
-    }
+    },
 }
 </script>
 ```
@@ -175,9 +175,10 @@ export default {
 | getBlob   | 获取二进制对象       | `Promise` |
 
 ::: tip
+
 1. 基于 `cropperjs` 实现，更多参数：[https://www.npmjs.com/package/cropperjs](https://www.npmjs.com/package/cropperjs)
 2. 可根据实际业务场景自行扩展。详见：`/src/components/Cropper.vue`
-:::
+   :::
 
 ::: warning
 `Cropper` 被 `CropperDialog` 、 `UploadImage` 引用 ，自行扩展后请检查相关组件可用性
@@ -186,7 +187,6 @@ export default {
 <script setup>
 import { ref } from 'vue';
 import { notification, message } from 'ant-design-vue';
-import XCropper from '@/components/Cropper.vue';
 import cropperImg from '@/views/component/cropper/images/cropper.png';
 
 const cropperRef = ref();
@@ -230,4 +230,3 @@ function handleReset(){
     message.success('重置成功');
 }
 </script>
-

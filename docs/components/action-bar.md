@@ -145,5 +145,4 @@ export default {
 
 <script setup>
     import { PlusOutlined } from '@ant-design/icons-vue';
-    import XActionBar from '@/components/ActionBar.vue';
 </script>

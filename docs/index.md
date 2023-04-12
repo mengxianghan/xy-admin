@@ -5,7 +5,7 @@ layout: home
 hero:
   name: XY Admin
   text: 开箱即用的中台前端解决方案
-  tagline: 基于 Vue3 + Vite + And Design Vue 打造
+  tagline: 基于 Vue3 + Pinia + Vite + And Design Vue 打造
   image: 
     src: http://cdn.xuanyunet.com/images/logo.svg
     alt: XY Admin
@@ -46,4 +46,3 @@ features:
     title: Mock 数据
     details: 实用的本地数据调试方案
 ---
-

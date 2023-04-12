@@ -166,7 +166,6 @@ export default {
 
 <script setup>
 import { ref } from 'vue';
-import XResizeBox from '@/components/ResizeBox/ResizeBox.vue';
 
 const status = ref('-');
 const width = ref(500);

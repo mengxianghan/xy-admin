@@ -1,5 +1,7 @@
+import { inBrowser } from "vitepress"
 import DefaultTheme from 'vitepress/theme'
 import antd from 'ant-design-vue'
+import components from '@/components'
 import Layout from "./Layout.vue"
 
 import 'ant-design-vue/dist/antd.less'
@@ -10,5 +12,6 @@ export default {
     Layout,
     enhanceApp({ app }) {
         app.use(antd)
+        app.use(components)
     },
 }
