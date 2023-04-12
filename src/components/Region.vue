@@ -13,6 +13,7 @@ import { findTree, mapping } from '@/utils'
 import { onMounted, ref, watch } from 'vue'
 import { message, Form } from 'ant-design-vue'
 import { last, pick } from 'lodash-es'
+import { CODE_SUCCESS } from '@/config/http'
 
 /**
  * 地区联动
@@ -95,7 +96,7 @@ export default {
                 if (targetOption) {
                     targetOption.loading = false
                 }
-                if (200 === code) {
+                if (CODE_SUCCESS === code) {
                     const list = data.map((item) => ({
                         ...item,
                         isLeaf: level === maxLevel.value,

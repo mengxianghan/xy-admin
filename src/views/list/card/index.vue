@@ -94,6 +94,7 @@
 import { onMounted } from 'vue'
 import { LinkOutlined } from '@ant-design/icons-vue'
 import { SettingOutlined, EditOutlined, EllipsisOutlined } from '@ant-design/icons-vue'
+import { CODE_SUCCESS } from '@/config/http'
 import api from '@/api'
 import usePagination from '@/hooks/usePagination'
 
@@ -116,7 +117,7 @@ export default {
                 loading.value = false
             })
             loading.value = false
-            if (200 === code) {
+            if (CODE_SUCCESS === code) {
                 list.value = [{}, ...data.rows]
             }
         }

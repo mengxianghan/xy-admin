@@ -173,6 +173,7 @@ import {
     SettingOutlined,
     QuestionCircleOutlined,
 } from '@ant-design/icons-vue'
+import { CODE_SUCCESS } from '@/config/http'
 import api from '@/api'
 import EditDialog from './components/EditDialog.vue'
 import usePagination from '@/hooks/usePagination'
@@ -219,7 +220,7 @@ export default {
                     loading.value = false
                 })
             loading.value = false
-            if (200 === code) {
+            if (CODE_SUCCESS === code) {
                 list.value = data.rows
                 pagination.total = data.total
             }
@@ -245,7 +246,7 @@ export default {
                     const { code } = await api.common.deleteData({ id }).catch(() => {
                         loading.value = false
                     })
-                    if (200 === code) {
+                    if (CODE_SUCCESS === code) {
                         message.success('删除成功')
                         await getPageList()
                     } else {

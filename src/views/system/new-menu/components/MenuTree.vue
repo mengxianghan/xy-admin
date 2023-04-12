@@ -48,6 +48,7 @@
 <script>
 import { onMounted, ref } from 'vue'
 import { message, Modal } from 'ant-design-vue'
+import { CODE_SUCCESS } from '@/config/http'
 import api from '@/api'
 import usePagination from '@/hooks/usePagination'
 
@@ -72,7 +73,7 @@ export default {
                 loading.value = false
             })
             loading.value = false
-            if (200 === code) {
+            if (CODE_SUCCESS === code) {
                 const { rows } = data
                 list.value = rows
                 emit('ready', rows)

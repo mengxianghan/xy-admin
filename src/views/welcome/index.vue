@@ -83,6 +83,7 @@
 import { computed, onMounted, ref } from 'vue'
 import { useUserStore } from '@/store'
 import { timeFix } from '@/utils'
+import { CODE_SUCCESS } from '@/config/http'
 import api from '@/api'
 import upgradeImg from '@/assets/upgrade.svg?url'
 
@@ -102,7 +103,7 @@ export default {
 
         async function getData() {
             const { code, data } = await api.common.getWelcomeData()
-            if (200 === code) {
+            if (CODE_SUCCESS === code) {
                 const { dynamicRows } = data
                 dynamicList.value = dynamicRows
             }

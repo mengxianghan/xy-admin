@@ -99,7 +99,7 @@ export default {
             //     file,
             // })
             // loading.value = false
-            // if (200 === code) {
+            // if (CODE_SUCCESS === code) {
             //     currentValue.value = data?.src
             //     trigger(currentValue.value)
             // }

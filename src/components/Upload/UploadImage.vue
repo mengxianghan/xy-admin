@@ -377,7 +377,7 @@ export default {
             // const { code } = await api.common.upload({
             //     file: record?.file,
             // })
-            // if (200 === code) {
+            // if (CODE_SUCCESS === code) {
             //     // 上传进度
             //     record.percent = 100
             //     // 上传状态，根据实际情况更新

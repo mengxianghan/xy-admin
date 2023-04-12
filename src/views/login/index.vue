@@ -110,6 +110,7 @@ import { useRoute, useRouter } from 'vue-router'
 import { message, Modal, notification } from 'ant-design-vue'
 import { timeFix } from '@/utils'
 import { UserOutlined, LockOutlined, MobileOutlined } from '@ant-design/icons-vue'
+import { CODE_SUCCESS } from '@/config/http'
 import useForm from '@/hooks/useForm'
 
 export default {
@@ -151,7 +152,7 @@ export default {
                         message.error('登录失败')
                     })
                 loading.value = false
-                if (200 === code) {
+                if (CODE_SUCCESS === code) {
                     // 加载完成
                     if (appStore.complete) {
                         goIndex()

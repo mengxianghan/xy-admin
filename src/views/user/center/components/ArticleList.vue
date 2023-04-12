@@ -42,6 +42,7 @@
 
 <script>
 import { StarOutlined, LikeOutlined, MessageOutlined } from '@ant-design/icons-vue'
+import { CODE_SUCCESS } from '@/config/http'
 import usePagination from '@/hooks/usePagination.js'
 import api from '@/api'
 
@@ -78,7 +79,7 @@ export default {
                     loading.value = false
                 })
             loading.value = false
-            if (200 === code) {
+            if (CODE_SUCCESS === code) {
                 list.value = data.rows
                 pagination.total = data.total
             }
