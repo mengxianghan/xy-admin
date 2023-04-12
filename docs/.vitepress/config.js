@@ -31,7 +31,7 @@ export default defineConfig({
     vite: {
         server: {
             host: true,
-            port: 8000,
+            port: 9212,
         },
         build: {
             target: 'es2015',
