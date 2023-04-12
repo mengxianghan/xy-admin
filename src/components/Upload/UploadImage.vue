@@ -113,7 +113,7 @@ import Sortable from 'sortablejs'
 import filesizeParser from 'filesize-parser'
 
 import Preview from '../Preview'
-import CropperDialog from '../CropperDialog.vue'
+import CropperDialog from '../Cropper/CropperDialog.vue'
 
 /**
  * 图片上传
