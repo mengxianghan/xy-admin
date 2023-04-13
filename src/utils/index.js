@@ -55,18 +55,19 @@ export const mapping = ({ data, fieldNames = {}, expand = {}, treeFieldName, kee
 
 /**
  * 从树型结构中查找对应数据
- * @param {array } list
+ * @param {array } data
  * @param {string | object} value
  * @param {function} callback
- * @param {object} fields
+ * @param {object} fieldNames
+ * @param {array} path
  */
-export const findTree = (list, value, callback, fields = { key: 'id', children: 'children' }, path = []) => {
-    list.forEach((item, index, array) => {
-        if (isObject(value) ? isMatch(item, value) : item[fields.key] === value) {
+export const findTree = (data, value, callback, fieldNames = { key: 'id', children: 'children' }, path = []) => {
+    data.forEach((item, index, array) => {
+        if (isObject(value) ? isMatch(item, value) : item[fieldNames.key] === value) {
             return callback(item, index, array, [...path, item])
         }
-        if (item[fields.children]) {
-            return findTree(item[fields.children], value, callback, fields, [...path, item])
+        if (item[fieldNames.children]) {
+            return findTree(item[fieldNames.children], value, callback, fieldNames, [...path, item])
         }
     })
 }
@@ -74,16 +75,16 @@ export const findTree = (list, value, callback, fields = { key: 'id', children: 
 /**
  * 数组最深层级
  * 查找一个树型结构最多有几级
- * @param list
- * @param fields
+ * @param data
+ * @param fieldNames
  * @return {number}
  */
-export const deep = (list, fields = { children: 'children' }) => {
+export const deep = (data, fieldNames = { children: 'children' }) => {
     let result = 1
-    list.forEach((item) => {
-        const child = item[fields.children] || []
+    data.forEach((item) => {
+        const child = item[fieldNames.children] || []
         if (child.length) {
-            let temp = deep(child, fields) + 1
+            let temp = deep(child, fieldNames) + 1
             result = temp > result ? temp : result
         }
     })
