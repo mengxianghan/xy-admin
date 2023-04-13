@@ -32,7 +32,7 @@ export const constantRouterMap = [
     },
     {
         path: '/base',
-        component: layouts.BaseLayout,
+        component: layouts.UserLayout,
         children: [
             {
                 path: '/login',

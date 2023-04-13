@@ -33,7 +33,7 @@
 import { getAssetsFile } from '@/utils/get'
 
 export default {
-    name: 'BaseLayout',
+    name: 'UserLayout',
     setup() {
         const title = import.meta.env.VITE_TITLE
         const { version } = __APP_INFO__

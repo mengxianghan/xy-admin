@@ -115,7 +115,7 @@ import LogoCard from './components/LogoCard.vue'
 import GlobalSettingDialog from './components/GlobalSettingDialog.vue'
 
 export default {
-    name: 'DefaultLayout',
+    name: 'BasicLayout',
     components: {
         MultiTab,
         ActionButton,

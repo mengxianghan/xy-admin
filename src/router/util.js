@@ -29,7 +29,7 @@ export function formatRoutes(routes = [], parent = {}) {
                 // meta，页面标题, 图标, 权限等附加信息
                 meta: {
                     target: meta?.target || '',
-                    layout: meta?.layout || parent?.meta?.layout || 'DefaultLayout',
+                    layout: meta?.layout || parent?.meta?.layout || 'BasicLayout',
                     actions: meta?.actions ?? ['*'],
                     _openKeys: item?.meta?.isLink
                         ? []
@@ -63,7 +63,7 @@ export function filterRoutes(routes, userPermission = []) {
         let permission = item?.meta?.permission ?? []
         permission = typeof permission === 'string' ? permission.split(',') : permission
         const index = userPermission.findIndex((o) => permission.includes(o.permission))
-        const hasAuth = index > -1 || permission.includes('*') ? true : false
+        const hasAuth = index > -1 || permission.includes('*')
         if (hasAuth) {
             item.meta.actions = index > -1 ? userPermission[index]['actions'] : ['*']
             if (item.children && item.children.length > 0) {
