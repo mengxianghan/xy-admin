@@ -71,7 +71,9 @@
                     :title="`${title} ${version}`"
                     :sub-title="`最新版本 ${version}`">
                     <template #icon>
-                        <img :src="upgradeImg" />
+                        <img
+                            alt=""
+                            :src="getAssetsFile('upgrade.svg')" />
                     </template>
                 </a-result>
             </a-card>
@@ -84,8 +86,8 @@ import { computed, onMounted, ref } from 'vue'
 import { useUserStore } from '@/store'
 import { timeFix } from '@/utils'
 import { CODE_SUCCESS } from '@/config/http'
+import { getAssetsFile } from '@/utils/get'
 import api from '@/api'
-import upgradeImg from '@/assets/upgrade.svg?url'
 
 export default {
     name: 'welcome',
@@ -110,7 +112,7 @@ export default {
         }
 
         return {
-            upgradeImg,
+            getAssetsFile,
             title,
             version,
             dynamicList,

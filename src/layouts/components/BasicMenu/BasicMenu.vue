@@ -85,7 +85,7 @@ export default {
         function setSelectedMenu() {
             const { meta } = route || {}
             openKeys.value = meta?._openKeys || []
-            selectedKeys.value = meta._breadcrumb.map((item) => item?.meta?.active || item.name)
+            selectedKeys.value = meta?._breadcrumb.map((item) => item?.meta?.active || item.name)
         }
 
         /**

@@ -15,7 +15,7 @@ export default {
     name: 'XBreadcrumb',
     setup() {
         const router = useRouter()
-        const list = computed(() => router.currentRoute.value?.meta?.breadcrumb)
+        const list = computed(() => router.currentRoute.value?.meta?._breadcrumb)
 
         return {
             list,

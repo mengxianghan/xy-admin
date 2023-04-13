@@ -7,7 +7,7 @@
 const actionDirective = {
     mounted: (el, binding) => {
         const route = binding.instance.$route
-        const actions = route.meta?.actions ?? []
+        const actions = route?.meta?.actions ?? []
         const actionName = binding.arg || binding.value
         if (route?.meta?.action.includes('*')) return
         if (!actionName) return

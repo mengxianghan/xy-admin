@@ -83,6 +83,7 @@ export default {
         /**
          * 选择菜单
          * @param keys
+         * @param node
          */
         function handleSelect(keys, { node }) {
             if (!keys.length) {

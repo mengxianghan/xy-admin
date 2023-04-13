@@ -5,7 +5,9 @@
                 <h1>{{ title }}</h1>
             </div>
             <div class="aside-body">
-                <img :src="getAssetsFile('login_welcome.svg')" />
+                <img
+                    alt=""
+                    :src="getAssetsFile('login_welcome.svg')" />
                 <h3>高性能 / 精致 / 优雅</h3>
                 <p>基于Vue3 + Ant Design Vue 的中后台前端解决方案。</p>
             </div>

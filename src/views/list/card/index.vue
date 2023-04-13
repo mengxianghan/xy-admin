@@ -31,6 +31,7 @@
             </a-col>
             <a-col flex="0 0 242px">
                 <img
+                    alt=""
                     src="http://cdn.xuanyunet.com/images/img_1.png"
                     width="155"
                     :style="{ margin: '-20px 0 0' }" />

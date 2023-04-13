@@ -89,6 +89,7 @@ export default {
         /**
          * 切换分类
          * @param keys
+         * @param node
          */
         function handleSelect(keys, { node }) {
             if (!keys.length) {

@@ -90,11 +90,11 @@
             <!-- 二维码登录 -->
             <a-tab-pane
                 key="qrcode"
-                tab="二维码登录"
-                class="align-center">
+                tab="二维码登录">
                 <x-qr-code
-                    text="https://mengxianghan.github.io/xy-admin/demo/"
-                    :size="240"></x-qr-code>
+                    class="mx-auto"
+                    value="https://mengxianghan.github.io/xy-admin/demo/"
+                    :size="200"></x-qr-code>
                 <a-divider plain>
                     <div class="color-secondary">扫码后点击"确认"，即可完成登录</div>
                 </a-divider>

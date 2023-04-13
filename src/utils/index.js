@@ -117,3 +117,22 @@ export const timeFix = () => {
     const hour = time.getHours()
     return hour < 9 ? '早上好' : hour <= 11 ? '上午好' : hour <= 13 ? '中午好' : hour < 20 ? '下午好' : '晚上好'
 }
+
+/**
+ * 数组合并为对象
+ * @param {array} keys
+ * @param {array} values
+ * @param {function | array} funcs
+ * @return {{}}
+ */
+export function zipObjectPlus(keys = [], values = [], funcs) {
+    const result = {}
+    if (Array.isArray(keys) && Array.isArray(values)) {
+        keys.forEach((key, index) => {
+            const func = Array.isArray(funcs) ? funcs[index] : funcs
+            result[key] =
+                Object.prototype.toString.call(func) === '[object Function]' ? func(values[index]) : values[index]
+        })
+    }
+    return result
+}

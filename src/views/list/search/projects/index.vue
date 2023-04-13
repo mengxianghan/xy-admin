@@ -45,7 +45,9 @@
                     hoverable
                     :bordered="false">
                     <template #cover>
-                        <img :src="item.cover" />
+                        <img
+                            alt=""
+                            :src="item.cover" />
                     </template>
                     <a-card-meta :title="item.title">
                         <template #description>
