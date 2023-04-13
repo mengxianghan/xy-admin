@@ -1,6 +1,20 @@
-# mapping 映射
+# mapping
+
+```js :no-line-numbers
+mapping({ data, fieldNames, expand, treeFieldName, keepOtherFields })
+```
 
 将列表数据映射成新的数据结构
+
+## 参数
+
+| 名称              | 说明       | 类型        | 默认值     |
+|-----------------|----------|-----------|---------|
+| data            | 数据列表     | `array`   | `-`     |
+| fieldNames      | 字段名      | `object`  | `-`     |
+| expand          | 扩展数据     | `object`  | `-`     |
+| treeFieldName   | 子节点字段名   | `string`  | `-`     |
+| keepOtherFields | 是否保留其他字段 | `boolean` | `false` |
 
 ## 示例
 
@@ -8,13 +22,10 @@
 
 ::: code-group
 
-```js [使用]
+```js [例子]
 const data = [
     { id: '1', title: '选项1', number: 1 },
     { id: '2', title: '选项2', number: 2 },
-    { id: '3', title: '选项3', number: 3 },
-    { id: '4', title: '选项4', number: 4 },
-    { id: '5', title: '选项5', number: 5 },
 ]
 
 const list = mapping({
@@ -31,11 +42,61 @@ console.log(list)
 
 ```json [输出]
 [
-    { "key": "1", "label": "选项1", "value": 1 },
-    { "key": "2", "label": "选项2", "value": 2 },
-    { "key": "3", "label": "选项3", "value": 3 },
-    { "key": "4", "label": "选项4", "value": 4 },
-    { "key": "5", "label": "选项5", "value": 5 }
+  {
+    "key": "1",
+    "label": "选项1",
+    "value": 1
+  },
+  {
+    "key": "2",
+    "label": "选项2",
+    "value": 2
+  }
+]
+```
+
+:::
+
+### 扩展数据
+
+[使用函数](#使用函数)也可实现相同的功能
+::: code-group
+
+```js [例子]
+const data = [
+    { id: '1', title: '选项1', number: 1 },
+    { id: '2', title: '选项2', number: 2 },
+]
+
+const list = mapping({
+    data,
+    filedNames: {
+        key: 'id',
+        label: 'title',
+        value: 'number',
+    },
+    expand: {
+        active: true
+    }
+})
+
+console.log(list)
+```
+
+```json [输出]
+[
+  {
+    "key": "1",
+    "label": "选项1",
+    "value": 1,
+    "active": true
+  },
+  {
+    "key": "2",
+    "label": "选项2",
+    "value": 2,
+    "active": true
+  }
 ]
 ```
 
@@ -45,7 +106,7 @@ console.log(list)
 
 ::: code-group
 
-```js [使用]
+```js [例子]
 const data = [
     {
         id: '1',
@@ -54,9 +115,6 @@ const data = [
         childList: [
             { id: '1', title: '选项1', number: 1 },
             { id: '2', title: '选项2', number: 2 },
-            { id: '3', title: '选项3', number: 3 },
-            { id: '4', title: '选项4', number: 4 },
-            { id: '5', title: '选项5', number: 5 },
         ],
     },
     {
@@ -66,14 +124,10 @@ const data = [
         childList: [
             { id: '1', title: '选项1', number: 1 },
             { id: '2', title: '选项2', number: 2 },
-            { id: '3', title: '选项3', number: 3 },
-            { id: '4', title: '选项4', number: 4 },
-            { id: '5', title: '选项5', number: 5 },
         ],
     },
     { id: '3', title: '选项3', number: 3 },
     { id: '4', title: '选项4', number: 4 },
-    { id: '5', title: '选项5', number: 5 },
 ]
 
 const list = mapping({
@@ -90,7 +144,7 @@ const list = mapping({
 console.log(list)
 ```
 
-```js [输出]
+```js [例子]
 ;[
     {
         key: '1',
@@ -99,9 +153,6 @@ console.log(list)
         children: [
             { key: '1', label: '选项1', value: 1 },
             { key: '2', label: '选项2', value: 2 },
-            { key: '3', label: '选项3', value: 3 },
-            { key: '4', label: '选项4', value: 4 },
-            { key: '5', label: '选项5', value: 5 },
         ],
     },
     {
@@ -111,14 +162,10 @@ console.log(list)
         children: [
             { key: '1', label: '选项1', value: 1 },
             { key: '2', label: '选项2', value: 2 },
-            { key: '3', label: '选项3', value: 3 },
-            { key: '4', label: '选项4', value: 4 },
-            { key: '5', label: '选项5', value: 5 },
         ],
     },
     { key: '3', label: '选项3', value: 3 },
     { key: '4', label: '选项4', value: 4 },
-    { key: '5', label: '选项5', value: 5 },
 ]
 ```
 
@@ -128,13 +175,10 @@ console.log(list)
 
 ::: code-group
 
-```js [使用]
+```js [例子]
 const data = [
     { id: '1', title: '选项1', number: 1 },
     { id: '2', title: '选项2', number: 2 },
-    { id: '3', title: '选项3', number: 3 },
-    { id: '4', title: '选项4', number: 4 },
-    { id: '5', title: '选项5', number: 5 },
 ]
 
 const list = mapping({
@@ -152,11 +196,22 @@ console.log(list)
 
 ```json [输出]
 [
-    { "id": "1", "title": "选项1", "number": 1, "key": "1", "label": "选项1", "value": 1 },
-    { "id": "2", "title": "选项2", "number": 2, "key": "2", "label": "选项2", "value": 2 },
-    { "id": "3", "title": "选项3", "number": 3, "key": "3", "label": "选项3", "value": 3 },
-    { "id": "4", "title": "选项4", "number": 4, "key": "4", "label": "选项4", "value": 4 },
-    { "id": "5", "title": "选项5", "number": 5, "key": "5", "label": "选项5", "value": 5 }
+  {
+    "id": "1",
+    "title": "选项1",
+    "number": 1,
+    "key": "1",
+    "label": "选项1",
+    "value": 1
+  },
+  {
+    "id": "2",
+    "title": "选项2",
+    "number": 2,
+    "key": "2",
+    "label": "选项2",
+    "value": 2
+  }
 ]
 ```
 
@@ -166,13 +221,10 @@ console.log(list)
 
 ::: code-group
 
-```js [使用]
+```js [例子]
 const data = [
     { id: '1', title: '选项1', number: 1 },
     { id: '2', title: '选项2', number: 2 },
-    { id: '3', title: '选项3', number: 3 },
-    { id: '4', title: '选项4', number: 4 },
-    { id: '5', title: '选项5', number: 5 },
 ]
 
 const list = mapping({
@@ -182,7 +234,7 @@ const list = mapping({
         label: 'title',
         value: 'number',
         alias: (item, index, array) => {
-            return `${item.title}-${index}`
+            return `${ item.title }-${ index }`
         },
     },
     keepOtherFields: true,
@@ -193,11 +245,18 @@ console.log(list)
 
 ```json [输出]
 [
-    { "key": "1", "label": "选项1", "value": 1, "alias": "选项1-0" },
-    { "key": "2", "label": "选项2", "value": 2, "alias": "选项2-1" },
-    { "key": "3", "label": "选项3", "value": 3, "alias": "选项3-2" },
-    { "key": "4", "label": "选项4", "value": 4, "alias": "选项4-3" },
-    { "key": "5", "label": "选项5", "value": 5, "alias": "选项5-4" }
+  {
+    "key": "1",
+    "label": "选项1",
+    "value": 1,
+    "alias": "选项1-0"
+  },
+  {
+    "key": "2",
+    "label": "选项2",
+    "value": 2,
+    "alias": "选项2-1"
+  }
 ]
 ```
 
