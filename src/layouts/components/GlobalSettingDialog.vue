@@ -29,7 +29,7 @@
                     </a-tooltip>
                 </a-space>
             </a-form-item>
-            <template v-if="config.menuMode !== 'top'">
+            <template v-if="config.menuMode === 'side'">
                 <a-form-item
                     label="侧边风格"
                     class="mb-8-2">
@@ -126,6 +126,9 @@ export default {
 
         function handleMenuMode({ value }) {
             config.value.menuMode = value
+            if (value === 'mix') {
+                config.value.sideTheme = 'light'
+            }
         }
 
         return {
@@ -187,6 +190,7 @@ export default {
             &::after {
                 display: none;
             }
+
             :deep(.anticon) {
                 top: 4px;
             }
@@ -203,6 +207,7 @@ export default {
             &::before {
                 display: none;
             }
+
             :deep(.anticon) {
                 right: 14px;
             }
@@ -225,6 +230,7 @@ export default {
             &::before {
                 display: none;
             }
+
             &::after {
                 z-index: 1;
                 background-color: #001529;

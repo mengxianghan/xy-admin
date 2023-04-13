@@ -65,7 +65,7 @@
                     @setting="handleSetting">
                     <template #left>
                         <logo-card
-                            :theme="'dark' === config.sideTheme ? config.sideTheme : config.headerTheme"
+                            :theme="config.headerTheme"
                             :style="{ width: `${config.sideWidth}px` }"></logo-card>
                     </template>
                     <basic-menu
