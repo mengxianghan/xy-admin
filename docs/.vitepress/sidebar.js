@@ -48,10 +48,32 @@ export default {
             ],
         },
     ],
-    utils: [
+    '/utils/': [
         {
-            text: 'mapping 映射',
-            link: '/utils/mapping',
+            text: 'src/utils/index.js',
+            items: [
+                {
+                    text: 'mapping',
+                    link: '/utils/mapping',
+                },
+                {
+                    text: 'findTree',
+                    link: '/utils/findTree',
+                },
+            ],
+        },
+        {
+            text: 'src/utils/to.js',
+            items: [
+                {
+                    text: 'tree2list',
+                    link: '/utils/tree2list',
+                },
+                {
+                    text: 'list2tree',
+                    link: '/utils/list2tree',
+                },
+            ],
         },
     ],
     '/directive/': [
