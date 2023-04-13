@@ -17,7 +17,7 @@
 
 ::: details 代码示例
 
-```vue
+```vue {3}
 <template>
     <a-alert
         v-loading="loading"
@@ -71,7 +71,7 @@ description="Further details about the context of this alert."></a-alert>
 
 ::: details 代码示例
 
-```vue
+```vue {3}
 <template>
     <a-alert
         v-loading="loading"

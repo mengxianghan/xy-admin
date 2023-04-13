@@ -6,7 +6,7 @@
 
 ### 基础用法
 
-```vue {3,4}
+```vue {4,5,10,11}
 <template>
     <h3>argument 方式</h3>
     <div>
@@ -32,7 +32,7 @@ export default {
 
 ### 使用变量
 
-```vue
+```vue {3,4}
 <template>
     <div>
         <x-action-button v-action="actionEdit">编辑</x-action-button>
@@ -58,7 +58,7 @@ export default {
 
 ### 按钮组
 两个权限都不存在时 `新增` 按钮被隐藏
-```vue
+```vue {3,10,11}
 <template>
     <div>
         <a-dropdown v-action="['add:empty', 'add:tpl']">
