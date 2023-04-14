@@ -19,7 +19,6 @@
 import { onMounted, ref, watch } from 'vue'
 import { deepMerge } from '@/utils'
 import { Form } from 'ant-design-vue'
-
 import TinyEditor from '@tinymce/tinymce-vue'
 
 /**
