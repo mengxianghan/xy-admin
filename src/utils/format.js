@@ -4,7 +4,8 @@ import dayjs from 'dayjs'
 
 /**
  * 格式化日期
- * @param datetime
+ * @param datetime {Date} 日期
+ * @param def {*} 默认值
  * @return {string}
  */
 export const formatDatetime = (datetime, def = null) => (datetime ? dayjs(datetime).format('YYYY-MM-DD HH:mm:ss') : def)
@@ -12,6 +13,7 @@ export const formatDatetime = (datetime, def = null) => (datetime ? dayjs(dateti
 /**
  * 格式化一天的开始时间
  * @param datetime
+ * @param def
  * @return {string}
  */
 export const formatStartTimeOfDay = (datetime, def = null) =>
@@ -20,6 +22,7 @@ export const formatStartTimeOfDay = (datetime, def = null) =>
 /**
  * 格式化一天的结束时间
  * @param datetime
+ * @param def
  * @return {string}
  */
 export const formatEndTimeOfDay = (datetime, def = null) =>

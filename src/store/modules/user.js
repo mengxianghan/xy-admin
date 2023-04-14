@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia'
 import { useLocal } from '@/utils/storage'
 import { STORAGE_IS_LOGIN, STORAGE_USER_INFO, STORAGE_TOKEN, STORAGE_PERMISSION } from '@/config/storage'
+import { CODE_SUCCESS } from '@/config/http'
 
 import useAppStore from './app'
 import api from '@/api'
@@ -28,7 +29,7 @@ const useUserStore = defineStore('user', {
                         reject()
                     })
                     const { code, data } = result
-                    if (200 === code) {
+                    if (CODE_SUCCESS === code) {
                         const { token, ...others } = data
                         const isLogin = true
                         this.$patch({

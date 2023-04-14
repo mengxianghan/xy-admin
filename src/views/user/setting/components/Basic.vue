@@ -10,17 +10,23 @@
                 <a-form-item label="昵称">
                     <a-input></a-input>
                 </a-form-item>
-                <a-form-item label="个人介绍">
+                <a-form-item label="个人简介">
+                    <a-textarea></a-textarea>
+                </a-form-item>
+                <a-form-item label="国家/地区">
+                    <a-select></a-select>
+                </a-form-item>
+                <a-form-item label="所在省市">
+                    <x-region></x-region>
+                </a-form-item>
+                <a-form-item label="街道地址">
                     <a-input></a-input>
                 </a-form-item>
-                <a-form-item label="地区">
-                    <a-input></a-input>
-                </a-form-item>
-                <a-form-item label="详细地址">
-                    <a-input></a-input>
-                </a-form-item>
-                <a-form-item label="手机号">
-                    <a-input></a-input>
+                <a-form-item label="联系电话">
+                    <a-space>
+                        <a-input :style="{ width: '72px' }"></a-input>
+                        <a-input :style="{ width: '214px' }"></a-input>
+                    </a-space>
                 </a-form-item>
                 <a-form-item>
                     <a-button type="primary">更新资料</a-button>
@@ -30,14 +36,14 @@
         <a-col class="align-center">
             <div>
                 <a-avatar
-                    :size="144"
-                    src="https://joeschmoe.io/api/v1/random"></a-avatar>
+                    src="http://cdn.xuanyunet.com/images/avatar.jpg"
+                    :size="144"></a-avatar>
             </div>
             <div class="mt-8-2">
-                <a-upload>
+                <a-upload :show-upload-list="false">
                     <a-button>
                         <template #icon>
-                            <icon-upload-outlined></icon-upload-outlined>
+                            <upload-outlined></upload-outlined>
                         </template>
                         上传头像
                     </a-button>
@@ -48,8 +54,11 @@
 </template>
 
 <script>
+import { UploadOutlined } from '@ant-design/icons-vue'
 export default {
     name: 'Basic',
+    components: { UploadOutlined },
+    setup() {},
 }
 </script>
 

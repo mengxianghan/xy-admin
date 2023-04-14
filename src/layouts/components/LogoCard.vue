@@ -2,7 +2,9 @@
     <div
         class="logo-card"
         :class="cpClassNames">
-        <img :src="ICON_LOGO" />
+        <img
+            alt=""
+            :src="ICON_LOGO" />
         <h1>{{ TITLE }}</h1>
     </div>
 </template>
@@ -73,6 +75,8 @@ export default {
     }
 
     &--light {
+        background: #fff;
+
         h1 {
             color: @text-color;
         }

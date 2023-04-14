@@ -24,12 +24,12 @@
                                 [`setting-radio-item--${item.value}`]: true,
                             }"
                             @click="handleMenuMode(item)">
-                            <icon-check-outlined v-if="config.menuMode === item.value"></icon-check-outlined>
+                            <check-outlined v-if="config.menuMode === item.value"></check-outlined>
                         </div>
                     </a-tooltip>
                 </a-space>
             </a-form-item>
-            <template v-if="config.menuMode !== 'top'">
+            <template v-if="config.menuMode === 'side'">
                 <a-form-item
                     label="侧边风格"
                     class="mb-8-2">
@@ -46,7 +46,7 @@
                                     [`setting-radio-item-side--${item.value}`]: true,
                                 }"
                                 @click="handleSideTheme(item)">
-                                <icon-check-outlined v-if="config.sideTheme === item.value"></icon-check-outlined>
+                                <check-outlined v-if="config.sideTheme === item.value"></check-outlined>
                             </div>
                         </a-tooltip>
                     </a-space>
@@ -68,7 +68,7 @@
                                 [`setting-radio-item-header--${item.value}`]: true,
                             }"
                             @click="handleHeaderTheme(item)">
-                            <icon-check-outlined v-if="config.headerTheme === item.value"></icon-check-outlined>
+                            <check-outlined v-if="config.headerTheme === item.value"></check-outlined>
                         </div>
                     </a-tooltip>
                 </a-space>
@@ -91,9 +91,11 @@
 import { ref } from 'vue'
 import { useAppStore } from '@/store'
 import { storeToRefs } from 'pinia'
+import { CheckOutlined } from '@ant-design/icons-vue'
 
 export default {
     name: 'GlobalSettingDialog',
+    components: { CheckOutlined },
     setup() {
         const appStore = useAppStore()
 
@@ -124,6 +126,9 @@ export default {
 
         function handleMenuMode({ value }) {
             config.value.menuMode = value
+            if (value === 'mix') {
+                config.value.sideTheme = 'light'
+            }
         }
 
         return {
@@ -185,6 +190,7 @@ export default {
             &::after {
                 display: none;
             }
+
             :deep(.anticon) {
                 top: 4px;
             }
@@ -201,6 +207,7 @@ export default {
             &::before {
                 display: none;
             }
+
             :deep(.anticon) {
                 right: 14px;
             }
@@ -223,6 +230,7 @@ export default {
             &::before {
                 display: none;
             }
+
             &::after {
                 z-index: 1;
                 background-color: #001529;

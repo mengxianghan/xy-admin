@@ -95,7 +95,7 @@ export default {
          * 还原标题
          */
         function handleRevertTitle() {
-            setTitle(router.currentRoute.value.meta.title)
+            setTitle(router.currentRoute.value.meta?.title)
         }
 
         return {

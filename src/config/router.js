@@ -48,6 +48,17 @@ export const asyncRouterMap = [
                     permission: '*',
                 },
             },
+            {
+                path: 'advanced',
+                name: 'formAdvanced',
+                component: 'form/advanced/index.vue',
+                meta: {
+                    title: '高级表单',
+                    isMenu: true,
+                    keepAlive: true,
+                    permission: '*',
+                },
+            },
         ],
     },
     {
@@ -63,11 +74,67 @@ export const asyncRouterMap = [
         },
         children: [
             {
-                path: 'basic',
-                name: 'listBasic',
-                component: 'list/basic/index.vue',
+                path: 'search',
+                name: 'listSearch',
                 meta: {
-                    title: '基础列表',
+                    title: '搜索列表',
+                    isMenu: true,
+                    keepAlive: true,
+                    permission: '*',
+                },
+                children: [
+                    {
+                        path: 'articles',
+                        name: 'listSearchArticles',
+                        component: 'list/search/articles/index.vue',
+                        meta: {
+                            title: '搜索列表（文章）',
+                            isMenu: true,
+                            keepAlive: true,
+                            permission: '*',
+                        },
+                    },
+                    {
+                        path: 'projects',
+                        name: 'listSearchProjects',
+                        component: 'list/search/projects/index.vue',
+                        meta: {
+                            title: '搜索列表（项目）',
+                            isMenu: true,
+                            keepAlive: true,
+                            permission: '*',
+                        },
+                    },
+                    {
+                        path: 'applications',
+                        name: 'listSearchApplications',
+                        component: 'list/search/applications/index.vue',
+                        meta: {
+                            title: '搜索列表（应用）',
+                            isMenu: true,
+                            keepAlive: true,
+                            permission: '*',
+                        },
+                    },
+                ],
+            },
+            {
+                path: 'table-list',
+                name: 'listTableList',
+                component: 'list/table-list/index.vue',
+                meta: {
+                    title: '查询表格',
+                    isMenu: true,
+                    keepAlive: true,
+                    permission: '*',
+                },
+            },
+            {
+                path: 'basic-list',
+                name: 'listBasicList',
+                component: 'list/basic-list/index.vue',
+                meta: {
+                    title: '标准列表',
                     isMenu: true,
                     keepAlive: true,
                     permission: '*',
@@ -84,12 +151,73 @@ export const asyncRouterMap = [
                     permission: '*',
                 },
             },
+        ],
+    },
+    {
+        path: 'profile',
+        name: 'profile',
+        component: 'RouteViewLayout',
+        meta: {
+            icon: 'IconProfileOutlined',
+            title: '详情页',
+            isMenu: true,
+            keepAlive: true,
+            permission: '*',
+        },
+        children: [
             {
-                path: 'search',
-                name: 'listSearch',
-                component: 'list/search/index.vue',
+                path: 'basic',
+                name: 'profileBasic',
+                component: 'profile/basic/index.vue',
                 meta: {
-                    title: '搜索列表',
+                    title: '基础详情页',
+                    isMenu: true,
+                    keepAlive: true,
+                    permission: '*',
+                },
+            },
+            {
+                path: 'advanced',
+                name: 'profileAdvanced',
+                component: 'profile/advanced/index.vue',
+                meta: {
+                    title: '高级详情页',
+                    isMenu: true,
+                    keepAlive: true,
+                    permission: '*',
+                },
+            },
+        ],
+    },
+    {
+        path: 'result',
+        name: 'result',
+        component: 'RouteViewLayout',
+        meta: {
+            icon: 'IconCheckCircleOutlined',
+            title: '结果页',
+            isMenu: true,
+            keepAlive: true,
+            permission: '*',
+        },
+        children: [
+            {
+                path: 'success',
+                name: 'resultSuccess',
+                component: 'result/success/index.vue',
+                meta: {
+                    title: '成功页',
+                    isMenu: true,
+                    keepAlive: true,
+                    permission: '*',
+                },
+            },
+            {
+                path: 'fail',
+                name: 'resultFail',
+                component: 'result/fail/index.vue',
+                meta: {
+                    title: '失败页',
                     isMenu: true,
                     keepAlive: true,
                     permission: '*',
@@ -145,42 +273,6 @@ export const asyncRouterMap = [
         ],
     },
     {
-        path: 'result',
-        name: 'result',
-        component: 'RouteViewLayout',
-        meta: {
-            icon: 'IconCheckCircleOutlined',
-            title: '结果页',
-            isMenu: true,
-            keepAlive: true,
-            permission: '*',
-        },
-        children: [
-            {
-                path: 'success',
-                name: 'resultSuccess',
-                component: 'result/success/index.vue',
-                meta: {
-                    title: '成功页',
-                    isMenu: true,
-                    keepAlive: true,
-                    permission: '*',
-                },
-            },
-            {
-                path: 'fail',
-                name: 'resultFail',
-                component: 'result/fail/index.vue',
-                meta: {
-                    title: '失败页',
-                    isMenu: true,
-                    keepAlive: true,
-                    permission: '*',
-                },
-            },
-        ],
-    },
-    {
         path: 'user',
         name: 'user',
         component: 'RouteViewLayout',
@@ -192,6 +284,17 @@ export const asyncRouterMap = [
             permission: '*',
         },
         children: [
+            {
+                path: 'center',
+                name: 'userCenter',
+                component: 'user/center/index.vue',
+                meta: {
+                    title: '个人中心',
+                    isMenu: true,
+                    keepAlive: true,
+                    permission: '*',
+                },
+            },
             {
                 path: 'setting',
                 name: 'userSetting',
@@ -267,119 +370,6 @@ export const asyncRouterMap = [
                 component: 'system/dict/index.vue',
                 meta: {
                     title: '字典管理',
-                    isMenu: true,
-                    keepAlive: true,
-                    permission: '*',
-                },
-            },
-        ],
-    },
-    {
-        path: 'component',
-        name: 'component',
-        component: 'RouteViewLayout',
-        meta: {
-            icon: 'IconAppstoreAddOutlined',
-            title: '组件',
-            isMenu: true,
-            keepAlive: true,
-            permission: '*',
-        },
-        children: [
-            {
-                path: 'chart',
-                name: 'componentChart',
-                component: 'component/chart/index.vue',
-                meta: {
-                    title: '图表 Echarts',
-                    isMenu: true,
-                    keepAlive: true,
-                    permission: '*',
-                },
-            },
-            {
-                path: 'editor',
-                name: 'componentEditor',
-                component: 'component/editor/index.vue',
-                meta: {
-                    title: '富文本编辑器',
-                    isMenu: true,
-                    keepAlive: true,
-                    permission: '*',
-                },
-            },
-            {
-                path: 'cropper',
-                name: 'componentCropper',
-                component: 'component/cropper/index.vue',
-                meta: {
-                    title: '裁剪图片',
-                    isMenu: true,
-                    keepAlive: true,
-                    permission: '*',
-                },
-            },
-            {
-                path: 'upload',
-                name: 'componentUpload',
-                component: 'component/upload/index.vue',
-                meta: {
-                    title: '上传',
-                    isMenu: true,
-                    keepAlive: true,
-                    permission: '*',
-                },
-            },
-            {
-                path: 'filter',
-                name: 'componentFilter',
-                component: 'component/filter/index.vue',
-                meta: {
-                    title: '筛选',
-                    isMenu: true,
-                    keepAlive: true,
-                    permission: '*',
-                },
-            },
-            {
-                path: 'form-table',
-                name: 'componentFormTable',
-                component: 'component/form-table/index.vue',
-                meta: {
-                    title: '表单表格',
-                    isMenu: true,
-                    keepAlive: true,
-                    permission: '*',
-                },
-            },
-            {
-                path: 'qr-code',
-                name: 'componentQrCode',
-                component: 'component/qr-code/index.vue',
-                meta: {
-                    title: '二维码',
-                    isMenu: true,
-                    keepAlive: true,
-                    permission: '*',
-                },
-            },
-            {
-                path: 'region',
-                name: 'componentRegion',
-                component: 'component/region/index.vue',
-                meta: {
-                    title: '地区联动',
-                    isMenu: true,
-                    keepAlive: true,
-                    permission: '*',
-                },
-            },
-            {
-                path: 'resize-box',
-                name: 'componentResizeBox',
-                component: 'component/resize-box/index.vue',
-                meta: {
-                    title: '伸缩框',
                     isMenu: true,
                     keepAlive: true,
                     permission: '*',

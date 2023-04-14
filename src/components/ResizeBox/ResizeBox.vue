@@ -5,15 +5,17 @@
         :style="cpStyle">
         <slot></slot>
 
-        <div
-            v-for="direction in directions"
-            class="x-resize-box-handle"
-            :key="direction"
-            :class="{
-                [`x-resize-box-handle--${direction}`]: true,
-                'x-resize-box-handle--active': state.moving && directionEnum.is(direction, state.direction),
-            }"
-            @mousedown="(e) => onMoveStart(direction, e)"></div>
+        <template v-if="!disabled">
+            <div
+                v-for="direction in directions"
+                class="x-resize-box-handle"
+                :key="direction"
+                :class="{
+                    [`x-resize-box-handle--${direction}`]: true,
+                    'x-resize-box-handle--active': state.moving && directionEnum.is(direction, state.direction),
+                }"
+                @mousedown="(e) => onMoveStart(direction, e)"></div>
+        </template>
     </div>
 </template>
 
@@ -23,24 +25,30 @@ import { computed, ref, reactive } from 'vue'
 import { directionEnum } from './config'
 
 /**
- * @property {number} width // 宽
- * @property {number} height // 高
- * @property {array} directions // 可以进行伸缩的边，默认：['right']；['left', 'right', 'top', 'bottom']
+ * @property {number} width 宽
+ * @property {number} height 高
+ * @property {number} minWidth 最小宽度
+ * @property {number} minHeight 最小高度
+ * @property {array} directions 可以进行伸缩的边，默认：['right']；['left', 'right', 'top', 'bottom']
+ * @property {boolean} disabled 禁用
  */
 export default {
     name: 'XResizeBox',
     props: {
-        width: {
-            type: Number,
-        },
-        height: {
-            type: Number,
-        },
+        width: Number,
+        height: Number,
+        minWidth: Number,
+        minHeight: Number,
         directions: {
             type: Array,
             default: () => ['right'],
         },
+        disabled: {
+            type: Boolean,
+            default: false,
+        },
     },
+    slots: ['default'],
     emits: ['movingStart', 'moving', 'movingEnd', 'update:width', 'update:height'],
     setup(props, { emit }) {
         const resizeBoxRef = ref()
@@ -51,8 +59,8 @@ export default {
             startPageY: 0,
             startWidth: 0,
             startHeight: 0,
-            currentWidth: props.width,
-            currentHeight: props.height,
+            currentWidth: props.width || props.minWidth,
+            currentHeight: props.height || props.minHeight,
         })
         const cpStyle = computed(() => ({
             width: `${state.currentWidth}px`,
@@ -62,6 +70,7 @@ export default {
 
         /**
          * 拖动开始
+         * @param {string} direction 方向
          * @param {*} e
          */
         function onMoveStart(direction, e) {
@@ -91,25 +100,33 @@ export default {
             // 往下移动的距离
             const offsetY = e.pageY - startPageY
 
+            let width
+            let height
+
             switch (direction) {
                 // 上
                 case directionEnum.getValue('top'):
-                    state.currentHeight = startHeight - offsetY
+                    height = startHeight - offsetY
+                    state.currentHeight = height < props.minHeight ? props.minHeight : height
                     emit('update:height', state.currentHeight)
                     break
                 // 下
                 case directionEnum.getValue('bottom'):
-                    state.currentHeight = startHeight + offsetY
+                    height = startHeight + offsetY
+                    state.currentHeight = height < props.minHeight ? props.minHeight : height
                     emit('update:height', state.currentHeight)
                     break
                 // 左
                 case directionEnum.getValue('left'):
-                    state.currentWidth = startWidth - offsetX
+                    width = startWidth - offsetX
+                    state.currentWidth = width < props.minWidth ? props.minWidth : width
                     emit('update:width', state.currentWidth)
                     break
                 // 右
                 case directionEnum.getValue('right'):
-                    state.currentWidth = startWidth + offsetX
+                    width = startWidth + offsetX
+                    state.currentWidth = width < props.minWidth ? props.minWidth : width
+                    console.log('state.currentWidth', width < props.minWidth ? props.minWidth : width)
                     emit('update:width', state.currentWidth)
                     break
             }

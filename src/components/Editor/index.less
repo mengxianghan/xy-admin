@@ -1,0 +1,350 @@
+.tox {
+    .tinymce-skin() !important;
+}
+
+.tinymce-skin {
+    color: @text-color;
+    font-size: 14px;
+
+    &:not(.tox-tinymce-inline) {
+        border: @border-color-base solid 1px;
+        border-radius: @border-radius-base;
+
+        .tox-editor-header {
+            box-shadow: none;
+            border-bottom: @border-color-split solid 1px;
+            padding: 0;
+        }
+    }
+
+    &.tox-tinymce-inline {
+        .tox-editor-header {
+            border: @border-color-base solid 1px;
+            border-radius: @border-radius-base;
+        }
+    }
+
+    .tox-promotion {
+        padding: 4px;
+        display: flex;
+        align-items: center;
+
+        &-link {
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            color: @primary-color;
+            height: 28px;
+            padding: 0 8px;
+            border-radius: @border-radius-base;
+            line-height: 1;
+        }
+    }
+
+    .tox-menubar {
+        padding: 4px;
+        background: none;
+        align-items: center;
+        gap: 4px;
+
+        + .tox-toolbar-overlord {
+            padding: 4px;
+            margin: 0;
+            border-top: @border-color-split solid 1px;
+        }
+    }
+
+    .tox-mbtn {
+        border-radius: @border-radius-base;
+        transition: all @animation-duration-base;
+        margin: 0;
+        color: @text-color;
+
+        &:hover:not(:disabled):not(.tox-mbtn--active) {
+            background: #f5f5f5;
+        }
+
+        &--active {
+            background: color(~`colorPalette('@{primary-color}', 1) `);
+        }
+    }
+
+    .tox-toolbar__primary {
+        gap: 4px;
+    }
+
+    .tox-toolbar__group {
+        padding: 0;
+        gap: 4px;
+    }
+
+    &:not([dir='rtl']) {
+        .tox-toolbar__group {
+            &:not(:last-of-type) {
+                border: none;
+            }
+        }
+    }
+
+    .tox-tbtn {
+        margin: 0;
+        padding: 0;
+        transition: all @animation-duration-base;
+        border-radius: @border-radius-base;
+        color: @text-color;
+
+        &--select {
+            padding: 0 4px;
+        }
+
+        &:hover {
+            background: #f5f5f5;
+        }
+
+        &--enabled {
+            &,
+            &:hover {
+                background: color(~`colorPalette('@{primary-color}', 1) `);
+            }
+        }
+    }
+
+    .tox-split-button {
+        margin: 0;
+        border-radius: @border-radius-base;
+    }
+
+    &.tox-tinymce-aux {
+        .tox-toolbar__overflow {
+            border: none;
+            padding: 4px;
+            border-radius: @border-radius-base;
+            box-shadow: @box-shadow-base;
+            background-image: none;
+            gap: 4px;
+        }
+    }
+
+    .tox-menu {
+        border: none;
+        border-radius: @border-radius-base;
+        box-shadow: @box-shadow-base;
+        padding: 4px;
+    }
+
+    .tox-collection--list {
+        .tox-collection__group {
+            border-color: @border-color-split;
+
+            &:first-child {
+                padding-top: 0;
+            }
+
+            &:last-child {
+                padding-bottom: 0;
+            }
+        }
+
+        .tox-collection__item {
+            border-radius: @border-radius-base;
+
+            &--active {
+                background: #f5f5f5;
+            }
+        }
+    }
+
+    .tox-pop__dialog {
+        border: none;
+        box-shadow: @box-shadow-base;
+        border-radius: @border-radius-base;
+
+        .tox-toolbar {
+            padding: 4px;
+            gap: 4px;
+        }
+    }
+
+    .tox-pop {
+        &::before {
+            border: none;
+            width: 8px;
+            height: 8px;
+            background: #fff;
+            margin: 0;
+        }
+        &::after {
+            display: none;
+        }
+        &.tox-pop--top {
+            &::before {
+                box-shadow: -2px -2px 5px #0000000f;
+                transform: rotate(45deg) translate(0, -6px);
+            }
+        }
+
+        &.tox-pop--bottom {
+            &::before {
+                box-shadow: 3px 3px 7px #00000012;
+                transform: rotate(45deg) translate(0, -6px);
+            }
+        }
+
+        &.tox-pop--left {
+            &::before {
+                box-shadow: -3px 3px 7px #00000012;
+                transform: rotate(45deg) translate(-6px, 0);
+            }
+        }
+    }
+
+    .tox-dialog {
+        border-radius: @border-radius-base;
+        border: none;
+        box-shadow: @box-shadow-base;
+    }
+
+    .tox-dialog-wrap__backdrop {
+        background: @background-color-mask;
+    }
+
+    .tox-dialog__header {
+        padding: 0;
+        border-bottom: @border-color-split solid 1px;
+
+        .tox-button {
+            margin-right: 16px;
+        }
+    }
+
+    .tox-dialog__title {
+        font-size: 16px;
+        font-weight: 500;
+        padding: 16px;
+        color: @text-color;
+    }
+
+    .tox-dialog__footer {
+        padding: 10px 16px;
+        border-top: @border-color-split solid 1px;
+    }
+
+    .tox-dialog__body {
+        font-size: 14px;
+        color: @text-color;
+
+        &-nav {
+            padding: 2px 0;
+            height: 100%;
+            border-right: @border-color-split solid 1px;
+
+            &-item {
+                margin: 2px 0;
+                height: 40px;
+                display: flex;
+                align-items: center;
+                padding: 0 16px;
+                position: relative;
+                border: none;
+                width: 100%;
+                box-sizing: border-box;
+
+                &--active {
+                    background: color(~`colorPalette('@{primary-color}', 1) `);
+                    color: @primary-color;
+
+                    &::after {
+                        content: '';
+                        position: absolute;
+                        top: 0;
+                        bottom: 0;
+                        right: -1px;
+                        width: 3px;
+                        background: @primary-color;
+                    }
+                }
+            }
+        }
+    }
+
+    .tox-button {
+        border-radius: @border-radius-base;
+        background: @primary-color;
+        border-color: @primary-color;
+        font-weight: normal;
+        transition: all @animation-duration-base;
+
+        &:hover {
+            background: color(~`colorPalette('@{primary-color}', 5) `);
+            border-color: color(~`colorPalette('@{primary-color}', 5) `);
+        }
+
+        &--secondary {
+            background: transparent;
+            border-color: @border-color-base;
+            color: @text-color;
+
+            &:hover {
+                color: @primary-color;
+                border-color: @primary-color;
+                background: transparent;
+            }
+        }
+
+        &--naked {
+            &,
+            &:hover {
+                background: transparent;
+                border-color: transparent;
+            }
+        }
+    }
+
+    .tox-label {
+        color: @text-color;
+        line-height: 32px;
+    }
+
+    .tox-textfield,
+    .tox-textarea-wrap,
+    .tox-selectfield select,
+    .tox-listboxfield .tox-listbox--select {
+        border-radius: @border-radius-base;
+        border-color: @border-color-base;
+        padding: 3px 11px;
+        min-height: 32px;
+        color: @text-color;
+
+        &:focus-within,
+        &:focus {
+            box-shadow: 0 0 0 2px color(~`colorPalette('@{primary-color}', 1) `);
+            border-color: @primary-color;
+        }
+    }
+
+    .tox-checkbox__icons {
+        padding: 0;
+        box-shadow: none;
+    }
+
+    .tox-checkbox__label {
+        font-size: 14px;
+    }
+
+    .tox-listbox__select-label {
+        font-size: 14px;
+        padding: 0;
+        margin: 0;
+    }
+
+    .tox-dialog__table tbody tr {
+        border-bottom-color: @border-color-split;
+    }
+}
+
+.x-editor {
+    .mce-content-body {
+        margin: 0;
+        outline: none;
+    }
+}

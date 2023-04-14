@@ -1,4 +1,10 @@
 <template>
+    <a-page-header
+        class="ant-page-header-wrap"
+        title="基础表单"
+        :ghost="false">
+        表单页用于向用户收集或验证信息，基础表单常见于数据项较少的表单场景。
+    </a-page-header>
     <a-card :bordered="false">
         <a-form
             :label-col="{ sm: 7, lg: 7 }"
@@ -38,7 +44,7 @@
                 <template #label>
                     客户（选填）
                     <a-tooltip title="目标的服务对象">
-                        <icon-info-circle-outlined />
+                        <info-circle-outlined />
                     </a-tooltip>
                 </template>
                 <a-input
@@ -81,10 +87,12 @@
 </template>
 
 <script>
+import { InfoCircleOutlined } from '@ant-design/icons-vue'
 import useForm from '@/hooks/useForm'
 
 export default {
     name: 'formBasic',
+    components: { InfoCircleOutlined },
     setup() {
         const targetList = [
             { label: '公开', value: 1 },

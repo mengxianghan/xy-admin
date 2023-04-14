@@ -15,7 +15,7 @@
                             size="large"
                             placeholder="admin">
                             <template #prefix>
-                                <icon-user-outlined></icon-user-outlined>
+                                <user-outlined></user-outlined>
                             </template>
                         </a-input>
                     </a-form-item>
@@ -27,7 +27,7 @@
                             placeholder="123456"
                             @pressEnter="handleLogin">
                             <template #prefix>
-                                <icon-lock-outlined></icon-lock-outlined>
+                                <lock-outlined></lock-outlined>
                             </template>
                         </a-input>
                     </a-form-item>
@@ -57,7 +57,7 @@
                             size="large"
                             placeholder="手机号码">
                             <template #prefix>
-                                <icon-mobile-outlined></icon-mobile-outlined>
+                                <mobile-outlined></mobile-outlined>
                             </template>
                         </a-input>
                     </a-form-item>
@@ -68,7 +68,7 @@
                             placeholder="短信验证码"
                             @pressEnter="handleLogin">
                             <template #prefix>
-                                <icon-lock-outlined></icon-lock-outlined>
+                                <lock-outlined></lock-outlined>
                             </template>
                             <template #suffix>
                                 <span class="cursor-pointer">获取验证码</span>
@@ -90,11 +90,11 @@
             <!-- 二维码登录 -->
             <a-tab-pane
                 key="qrcode"
-                tab="二维码登录"
-                class="align-center">
+                tab="二维码登录">
                 <x-qr-code
-                    text="https://mengxianghan.github.io/xy-admin/demo/"
-                    :size="240"></x-qr-code>
+                    class="mx-auto"
+                    value="https://mengxianghan.github.io/xy-admin/demo/"
+                    :size="200"></x-qr-code>
                 <a-divider plain>
                     <div class="color-secondary">扫码后点击"确认"，即可完成登录</div>
                 </a-divider>
@@ -109,10 +109,13 @@ import { useAppStore, useUserStore, useRouterStore } from '@/store'
 import { useRoute, useRouter } from 'vue-router'
 import { message, Modal, notification } from 'ant-design-vue'
 import { timeFix } from '@/utils'
+import { UserOutlined, LockOutlined, MobileOutlined } from '@ant-design/icons-vue'
+import { CODE_SUCCESS } from '@/config/http'
 import useForm from '@/hooks/useForm'
 
 export default {
     name: 'login',
+    components: { UserOutlined, LockOutlined, MobileOutlined },
     setup() {
         const { formState, formRef, formRules } = useForm()
         const appStore = useAppStore()
@@ -149,7 +152,7 @@ export default {
                         message.error('登录失败')
                     })
                 loading.value = false
-                if (200 === code) {
+                if (CODE_SUCCESS === code) {
                     // 加载完成
                     if (appStore.complete) {
                         goIndex()

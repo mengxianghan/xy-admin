@@ -14,8 +14,7 @@
             :custom-request="({ file }) => customRequest(file)"
             :accept="accept"
             :disabled="disabled">
-            <slot v-if="$slots.default"></slot>
-            <template v-else>
+            <slot>
                 <div
                     class="x-upload-btn"
                     :class="{
@@ -25,16 +24,20 @@
                         width: `${width}px`,
                         height: `${height}px`,
                     }">
-                    <component
-                        :is="icon"
-                        class="x-upload-btn__icon" />
+                    <div class="x-upload-btn__icon">
+                        <slot name="icon">
+                            <plus-outlined></plus-outlined>
+                        </slot>
+                    </div>
                     <div
                         v-if="text"
                         class="x-upload-btn__txt">
-                        {{ text }}
+                        <slot name="text">
+                            {{ text }}
+                        </slot>
                     </div>
                 </div>
-            </template>
+            </slot>
         </a-upload>
         <div
             v-for="(item, index) in fileList"
@@ -47,20 +50,22 @@
                 width: `${width}px`,
                 height: `${height}px`,
             }">
-            <img :src="item.src" />
+            <img
+                :src="item.src"
+                alt="" />
             <template v-if="['error', 'done'].includes(STATUS_ENUM.getKey(item.status))">
                 <div class="x-upload-actions">
                     <div
                         v-if="STATUS_ENUM.is('done', item.status)"
                         class="x-upload-action"
-                        @click="handlePreview(item)">
-                        <icon-eye-outlined />
+                        @click="handlePreview(item, index)">
+                        <eye-outlined />
                     </div>
                     <div
                         v-if="!disabled"
                         class="x-upload-action"
                         @click="handleRemove(index)">
-                        <icon-delete-outlined />
+                        <delete-outlined />
                     </div>
                 </div>
             </template>
@@ -103,12 +108,12 @@ import { deepMerge } from '@/utils'
 import { STATUS_ENUM } from './config'
 import { filesize } from 'filesize'
 import { some, findIndex, includes } from 'lodash-es'
+import { EyeOutlined, DeleteOutlined, PlusOutlined } from '@ant-design/icons-vue'
 import Sortable from 'sortablejs'
 import filesizeParser from 'filesize-parser'
-import api from '@/api'
 
 import Preview from '../Preview'
-import CropperDialog from '../CropperDialog.vue'
+import CropperDialog from '../Cropper/CropperDialog.vue'
 
 /**
  * 图片上传
@@ -116,7 +121,6 @@ import CropperDialog from '../CropperDialog.vue'
  * @property {boolean} multiple 批量上传，默认：false
  * @property {number} width 宽，默认：120，单位：px
  * @property {number} height 高，默认：120，单位：px
- * @property {string} icon 图标
  * @property {string} text 文案
  * @property {string | number} maxSize 最大限制，默认：2M
  * @property {string} accept 允许上传文件类型，默认：image/*
@@ -125,11 +129,11 @@ import CropperDialog from '../CropperDialog.vue'
  * @property {boolean} cropper 裁剪，仅支持单文件上传，默认：false，
  * @property {number} aspectRatio 比例，默认：自由裁剪
  * @property {number} quality 图片质量，取值范围：0-1，默认：1
- * @property {boolean} dragsort 拖拽排序，默认：false
+ * @property {boolean} dragSort 拖拽排序，默认：false
  */
 export default {
     name: 'XUploadImage',
-    components: { CropperDialog },
+    components: { CropperDialog, EyeOutlined, DeleteOutlined, PlusOutlined },
     props: {
         modelValue: {
             type: [String, Array],
@@ -146,10 +150,6 @@ export default {
         height: {
             type: Number,
             default: 120,
-        },
-        icon: {
-            type: String,
-            default: 'icon-plus-outlined',
         },
         text: {
             type: String,
@@ -183,11 +183,12 @@ export default {
             type: Number,
             default: 1,
         },
-        dragsort: {
+        dragSort: {
             type: Boolean,
             default: false,
         },
     },
+    slots: ['icon', 'text'],
     emits: ['update:modelValue'],
     setup(props, { emit }) {
         const { onFieldChange } = Form.useInjectFormItemContext()
@@ -199,7 +200,7 @@ export default {
 
         const loading = computed(() => fileList.value.some((o) => STATUS_ENUM.is('uploading', o.status)))
         const showUploadBtn = computed(() => props.multiple || !fileList.value.length)
-        const dragsortDisabled = computed(() => (props.dragsort && !props.disabled ? false : true))
+        const dragSortDisabled = computed(() => !(props.dragSort && !props.disabled))
 
         watch(
             () => props.modelValue,
@@ -209,7 +210,7 @@ export default {
         )
 
         watch(
-            () => dragsortDisabled.value,
+            () => dragSortDisabled.value,
             () => {
                 initDragSort()
             }
@@ -259,7 +260,7 @@ export default {
             sortable.value = Sortable.create(uploadImageRef.value, {
                 handle: '.j-upload-item',
                 animation: 200,
-                disabled: dragsortDisabled.value,
+                disabled: dragSortDisabled.value,
                 onEnd: ({ newIndex, oldIndex }) => {
                     const dragData = fileList.value.splice(oldIndex - 1, 1)[0]
                     fileList.value.splice(newIndex - 1, 0, dragData)
@@ -271,11 +272,19 @@ export default {
         /**
          * 预览
          * @param {*} record
+         * @param {number} index 索引
          */
-        function handlePreview(record) {
-            Preview({
-                urls: [record.src],
-            })
+        function handlePreview(record, index) {
+            if (props.multiple) {
+                // 多选
+                Preview({
+                    urls: props.modelValue,
+                    current: index,
+                })
+            } else {
+                // 单选
+                Preview(record.src)
+            }
         }
 
         /**
@@ -304,7 +313,7 @@ export default {
             if (!checkFileSize) {
                 message.warning(`已忽略超过 ${filesize(maxFileSize)} 的文件`)
             }
-            const checkCropper = props.cropper ? (props.multiple ? true : false) : true
+            const checkCropper = props.cropper ? props.multiple : true
             if (props.cropper && !props.multiple) {
                 const fileReader = new FileReader()
                 fileReader.readAsDataURL(file)
@@ -357,17 +366,29 @@ export default {
             const index = findIndex(fileList.value, { status: STATUS_ENUM.getValue('wait') })
             const record = fileList.value[index]
             record.status = STATUS_ENUM.getValue('uploading')
-            const { code } = await api.common.upload({
-                file: record?.file,
-            })
-            if (200 === code) {
-                // 上传进度，真实接口可改为真实数据
-                record.percent = 100
-                record.status = STATUS_ENUM.getValue('done')
-                // record.src = data?.src
-                trigger()
-                await doUpload()
-            }
+
+            // 模拟示例
+            record.percent = 100
+            record.status = STATUS_ENUM.getValue('done')
+            trigger()
+            await doUpload()
+
+            // 接口示例
+            // const { code } = await api.common.upload({
+            //     file: record?.file,
+            // })
+            // if (CODE_SUCCESS === code) {
+            //     // 上传进度
+            //     record.percent = 100
+            //     // 上传状态，根据实际情况更新
+            //     record.status = STATUS_ENUM.getValue('done')
+            //     // 更新文件 url
+            //     record.src = data?.src
+            //     // 触发事件
+            //     trigger()
+            //     // 递归上传，检查是否还有未上传的文件
+            //     await doUpload()
+            // }
         }
 
         /**
@@ -390,7 +411,7 @@ export default {
          * 触发
          */
         function trigger() {
-            let value = ''
+            let value
             // 判断是否多选
             if (props.multiple) {
                 // 多选

@@ -15,6 +15,7 @@
 
 @text-color: rgba(0, 0, 0, 0.85); // 主文本色
 @text-color-secondary: rgba(0, 0, 0, 0.65); // 次文本色
+@text-color-caption: rgba(0, 0, 0, 0.45); // 说明文本色
 
 @background-color-base: hsv(0, 0, 96%); // 背景色
 @background-color-mask: rgba(0, 0, 0, 0.45); // 遮照
@@ -42,7 +43,19 @@
 @border-radius-round: 10em;
 @border-color-base: hsv(0, 0, 85%); // 边框色
 @border-color-split: hsv(0, 0, 94%);
-@box-shadow-base: 0 2px 8px rgba(0, 0, 0, 0.15); // 浮层阴影
+
+// Shadow
+@shadow-color: rgba(0, 0, 0, 0.15);
+@box-shadow-base: @shadow-2;
+@shadow-1-up: 0 -6px 16px -8px rgba(0, 0, 0, 0.08), 0 -9px 28px 0 rgba(0, 0, 0, 0.05),
+    0 -12px 48px 16px rgba(0, 0, 0, 0.03);
+@shadow-1-down: 0 6px 16px -8px rgba(0, 0, 0, 0.08), 0 9px 28px 0 rgba(0, 0, 0, 0.05),
+    0 12px 48px 16px rgba(0, 0, 0, 0.03);
+@shadow-1-left: -6px 0 16px -8px rgba(0, 0, 0, 0.08), -9px 0 28px 0 rgba(0, 0, 0, 0.05),
+    -12px 0 48px 16px rgba(0, 0, 0, 0.03);
+@shadow-1-right: 6px 0 16px -8px rgba(0, 0, 0, 0.08), 9px 0 28px 0 rgba(0, 0, 0, 0.05),
+    12px 0 48px 16px rgba(0, 0, 0, 0.03);
+@shadow-2: 0 3px 6px -4px rgba(0, 0, 0, 0.12), 0 6px 16px 0 rgba(0, 0, 0, 0.08), 0 9px 28px 8px rgba(0, 0, 0, 0.05);
 
 // Buttons
 @btn-shadow: none;
@@ -68,3 +81,6 @@
 @layout-header-background: #001529;
 @layout-sider-background: @layout-header-background;
 @layout-sider-background-light: #fff;
+
+// PageHeader
+@page-header-padding: @padding-md;

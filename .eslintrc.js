@@ -18,6 +18,7 @@ module.exports = {
     plugins: ['vue'],
     globals: {
         __APP_INFO__: true,
+        tinymce: true,
     },
     rules: {
         'vue/multi-word-component-names': 'off',

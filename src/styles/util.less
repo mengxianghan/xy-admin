@@ -8,6 +8,7 @@ each(left center right, {
 // Color
 each({
     secondary: @text-color-secondary;
+    caption: @text-color-caption;
     heading: @heading-color;
     disabled: @disabled-color;
     placeholder: @disabled-color;
@@ -25,6 +26,13 @@ each({
 each(12 14 16 18 24, {
     .fs-@{value} {
         font-size: @value * 1px !important;
+    }
+})
+
+// FontWeight
+each(400 500 600, {
+    .fw-@{value} {
+        font-weight: @value !important;
     }
 })
 
@@ -69,10 +77,11 @@ each({
 each({
     display: block;
     display: flex;
-    display: inline-bolck;
+    display: inline-block;
     display: inline-flex;
     flex-direction: column;
     flex-direction: row;
+    flex-wrap: wrap;
     align-items: center;
     align-items: flex-end;
     align-items: flex-start;

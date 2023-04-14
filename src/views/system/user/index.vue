@@ -85,11 +85,12 @@
 <script>
 import { onMounted, ref } from 'vue'
 import { message, Modal } from 'ant-design-vue'
-
+import { CODE_SUCCESS } from '@/config/http'
 import api from '@/api'
 import usePagination from '@/hooks/usePagination'
 
 import EditDialog from './components/EditDialog.vue'
+
 export default {
     name: 'systemUser',
     components: {
@@ -127,7 +128,7 @@ export default {
                 roleLoading.value = false
             })
             roleLoading.value = false
-            if (200 === code) {
+            if (CODE_SUCCESS === code) {
                 roleList.value = [
                     {
                         name: '全部',
@@ -154,7 +155,7 @@ export default {
                     loading.value = false
                 })
             loading.value = false
-            if (200 === code) {
+            if (CODE_SUCCESS === code) {
                 const { rows, total } = data
                 userList.value = rows
                 pagination.total = total
@@ -185,7 +186,7 @@ export default {
                     const { code } = await api.common.deleteData({ id }).catch(() => {
                         loading.value = false
                     })
-                    if (200 === code) {
+                    if (CODE_SUCCESS === code) {
                         message.success('删除成功')
                         await getUserPageList()
                     } else {

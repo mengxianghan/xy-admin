@@ -1,97 +1,197 @@
 <template>
     <a-modal
         width="100%"
-        wrap-class-name="full-modal"
+        wrap-class-name="x-preview-wrap"
         destroy-on-close
         :visible="visible"
+        :closable="false"
         :footer="false"
-        @cancel="handleClose">
-        <div class="x-preview__content">
-            <img
-                :src="url"
-                :style="styles" />
+        :after-close="onAfterClose">
+        <div
+            class="x-preview__content"
+            :style="cpContentStyle">
+            <template v-if="cpFileType === 'image'">
+                <img
+                    ref="imgRef"
+                    alt=""
+                    class="x-preview__image"
+                    :src="cpUrl"
+                    :style="cpImageStyle"
+                    @mousedown="onMoveStart" />
+            </template>
+            <template v-if="cpFileType === 'video'">
+                <video
+                    controls
+                    :src="cpUrl"></video>
+            </template>
+            <template v-if="cpFileType === 'audio'">
+                <audio
+                    controls
+                    :src="cpUrl"></audio>
+            </template>
         </div>
 
-        <template v-if="prevBtn || nextBtn">
+        <template v-if="cpShowPrevNextBtn">
+            <!-- 上一个 -->
             <div
-                v-if="prevBtn"
-                class="x-preview__left-btn"
-                @click="handleAction(ACTION_ENUM.getValue('prev'))">
-                <left-outlined />
+                class="x-preview__action-btn x-preview__prev-btn"
+                :class="{
+                    'x-preview__action-btn--disabled': cpPrevBtnDisabled,
+                }"
+                @click="handlePrev">
+                <left-outlined></left-outlined>
             </div>
-
+            <!-- 下一个 -->
             <div
-                v-if="nextBtn"
-                class="x-preview__right-btn"
-                @click="handleAction(ACTION_ENUM.getValue('next'))">
-                <right-outlined />
+                class="x-preview__action-btn x-preview__next-btn"
+                :class="{
+                    'x-preview__action-btn--disabled': cpNextBtnDisabled,
+                }"
+                @click="handleNext">
+                <right-outlined></right-outlined>
             </div>
         </template>
 
-        <!--<div class="x-preview-action-bar">
-            <div class="x-preview-action-bar-item"
-                 @click="handleAction(ACTION_ENUM.getValue('zoomOut'))">
-                <icon-zoom-out-outlined/>
+        <!-- 操作按钮 -->
+        <div class="x-preview__top">
+            <div class="x-preview__pages">{{ cur + 1 }}/{{ urls.length }}</div>
+            <div class="x-preview__action">
+                <template v-if="cpFileType === 'image'">
+                    <!-- 缩小 -->
+                    <div
+                        class="x-preview__action-btn"
+                        :class="{
+                            'x-preview__action-btn--disabled': cpZoomOutBtnDisabled,
+                        }"
+                        @click="handleZoomOut">
+                        <zoom-out-outlined />
+                    </div>
+                    <!-- 放大 -->
+                    <div
+                        class="x-preview__action-btn"
+                        @click="handleZoomIn">
+                        <zoom-in-outlined />
+                    </div>
+                    <!-- 左旋转 -->
+                    <div
+                        class="x-preview__action-btn"
+                        @click="handleRotateLeft">
+                        <rotate-left-outlined />
+                    </div>
+                    <!-- 右旋转 -->
+                    <div
+                        class="x-preview__action-btn"
+                        @click="handleRotateRight">
+                        <rotate-right-outlined />
+                    </div>
+                </template>
+                <!-- 关闭 -->
+                <div
+                    class="x-preview__action-btn"
+                    @click="handleClose">
+                    <close-outlined></close-outlined>
+                </div>
             </div>
-            <div class="x-preview-action-bar-item"
-                 @click="handleAction(ACTION_ENUM.getValue('zoomIn'))">
-                <icon-zoom-in-outlined/>
-            </div>
-            <div class="x-preview-action-bar-item"
-                 @click="handleAction(ACTION_ENUM.getValue('fullscreen'))">
-                <icon-fullscreen-outlined/>
-            </div>
-            <div class="x-preview-action-bar-item"
-                 @click="handleAction(ACTION_ENUM.getValue('rotateLeft'))">
-                <icon-rotate-left-outlined/>
-            </div>
-            <div class="x-preview-action-bar-item"
-                 @click="handleAction(ACTION_ENUM.getValue('rotateRight'))">
-                <icon-rotate-right-outlined/>
-            </div>
-        </div>-->
+        </div>
     </a-modal>
 </template>
 
 <script>
-import { computed, ref, watch } from 'vue'
+import { computed, ref, reactive } from 'vue'
 import { Modal as AModal } from 'ant-design-vue'
-import { LeftOutlined, RightOutlined } from '@ant-design/icons-vue'
-import { ACTION_ENUM } from './config'
+import {
+    LeftOutlined,
+    RightOutlined,
+    ZoomOutOutlined,
+    ZoomInOutlined,
+    RotateLeftOutlined,
+    RotateRightOutlined,
+    CloseOutlined,
+} from '@ant-design/icons-vue'
 
 /**
- * @property {array} urlList 文件列表
+ * @property {array} urls 文件
+ * @property {number} current 当前显示
+ * @property {function} afterClose 关闭后的回调函数
  */
 export default {
-    name: 'Preview',
+    name: 'XPreview',
     components: {
         AModal,
         LeftOutlined,
         RightOutlined,
+        ZoomInOutlined,
+        ZoomOutOutlined,
+        RotateLeftOutlined,
+        RotateRightOutlined,
+        CloseOutlined,
     },
     props: {
         urls: {
             type: Array,
             default: () => [],
         },
+        current: {
+            type: Number,
+            default: 0,
+        },
+        afterClose: {
+            type: Function,
+            default: () => {},
+        },
     },
     setup(props) {
-        const styles = ref({})
-        const current = ref(0)
-        const prevBtn = ref(true)
-        const nextBtn = ref(true)
         const visible = ref(false)
+        const scale = ref(1)
+        const rotate = ref(0)
+        const imgRef = ref()
+        const cur = ref(0)
 
-        const url = computed(() => props.urls[current.value])
+        const state = reactive({
+            startLeft: 0,
+            startTop: 0,
+            startX: null,
+            startY: null,
+            left: 0,
+            top: 0,
+        })
 
-        watch(
-            () => props.urls,
-            (val) => {
-                prevBtn.value = val.length > 0 && current.value > 0
-                nextBtn.value = val.length > 0 && current.value < val.length - 1
-            },
-            { immediate: true }
-        )
+        const cpContentStyle = computed(() => {
+            if (cpFileType.value === 'image') {
+                return {
+                    transform: `translate3d(${state.left}px, ${state.top}px, 0)`,
+                }
+            }
+            return {}
+        })
+        const cpImageStyle = computed(() => ({
+            transform: `scale3d(${scale.value}, ${scale.value}, 1) rotate(${rotate.value}deg)`,
+        }))
+        const cpUrl = computed(() => props.urls?.[cur.value])
+        const cpShowPrevNextBtn = computed(() => props.urls.length > 1)
+        const cpZoomOutBtnDisabled = computed(() => scale.value <= 1)
+        const cpPrevBtnDisabled = computed(() => cur.value <= 0)
+        const cpNextBtnDisabled = computed(() => cur.value >= props.urls.length - 1)
+        const cpFileType = computed(() => {
+            const suffix = cpUrl.value.slice(cpUrl.value.lastIndexOf('.') + 1).toLowerCase()
+            if (['mp4'].includes(suffix)) {
+                return 'video'
+            }
+            if (['mp3'].includes(suffix)) {
+                return 'audio'
+            }
+            return 'image'
+        })
+
+        init()
+
+        /**
+         * 初始化
+         */
+        function init() {
+            const urlsLen = props.urls.length
+            cur.value = props.current < urlsLen - 1 ? props.current : props.current % urlsLen
+        }
 
         /**
          * 打开
@@ -108,68 +208,122 @@ export default {
         }
 
         /**
-         * 操作
-         * @param type
+         * 上一个
          */
-        function handleAction(type) {
-            switch (type) {
-                // 缩小
-                case ACTION_ENUM.getValue('zoomOut'):
-                    break
-                // 放大
-                case ACTION_ENUM.getValue('zoomIn'):
-                    break
-                // 全屏
-                case ACTION_ENUM.getValue('fullscreen'):
-                    console.log('全屏')
-                    break
-                // 向左旋转
-                case ACTION_ENUM.getValue('rotateLeft'):
-                    break
-                // 向右旋转
-                case ACTION_ENUM.getValue('rotateRight'):
-                    break
-                // 上一个
-                case ACTION_ENUM.getValue('prev'):
-                    if (current.value > 0) {
-                        current.value -= 1
-                    }
-                    onCurrentChange()
-                    break
-                // 下一个
-                case ACTION_ENUM.getValue('next'):
-                    if (current.value < props.urls.length - 1) {
-                        current.value += 1
-                    }
-                    onCurrentChange()
-                    break
-            }
+        function handlePrev() {
+            if (cpPrevBtnDisabled.value) return
+            cur.value -= 1
         }
 
         /**
-         * current 发生改变
+         * 下一个
          */
-        function onCurrentChange() {
-            prevBtn.value = current.value > 0
-            nextBtn.value = current.value < props.urls.length - 1
+        function handleNext() {
+            if (cpNextBtnDisabled.value) return
+            cur.value += 1
+        }
+
+        /**
+         * 放大
+         */
+        function handleZoomIn() {
+            scale.value += 1
+        }
+
+        /**
+         * 缩小
+         */
+        function handleZoomOut() {
+            if (cpZoomOutBtnDisabled.value) return
+            if (scale.value <= 1) return
+            scale.value -= 1
+        }
+
+        /**
+         * 左旋转
+         */
+        function handleRotateLeft() {
+            rotate.value -= 90
+        }
+
+        /**
+         * 右旋转
+         */
+        function handleRotateRight() {
+            rotate.value += 90
+        }
+
+        /**
+         * 关闭后
+         */
+        function onAfterClose() {
+            props.afterClose?.()
+        }
+
+        /**
+         * 开始移动
+         * @param {HTMLElement} e
+         */
+        function onMoveStart(e) {
+            e.preventDefault()
+            state.startX = e.pageX
+            state.startY = e.pageY
+
+            window.addEventListener('mousemove', onMoving)
+            window.addEventListener('mouseup', onMoveEnd)
+        }
+
+        /**
+         * 移动中
+         * @param {HTMLElement} e
+         */
+        function onMoving(e) {
+            const offsetX = e.pageX - state.startX
+            const offsetY = e.pageY - state.startY
+
+            state.left = state.startLeft + offsetX
+            state.top = state.startTop + offsetY
+        }
+
+        /**
+         * 移动结束
+         */
+        function onMoveEnd() {
+            state.startLeft = state.left
+            state.startTop = state.top
+            window.removeEventListener('mousemove', onMoving)
+            window.removeEventListener('mouseup', onMoveEnd)
         }
 
         return {
-            styles,
-            url,
             visible,
-            prevBtn,
-            nextBtn,
+            cur,
+            imgRef,
+            cpContentStyle,
+            cpImageStyle,
+            cpUrl,
+            cpShowPrevNextBtn,
+            cpZoomOutBtnDisabled,
+            cpPrevBtnDisabled,
+            cpNextBtnDisabled,
+            cpFileType,
             handleOpen,
             handleClose,
-            handleAction,
+            handleNext,
+            handlePrev,
+            handleZoomIn,
+            handleZoomOut,
+            handleRotateLeft,
+            handleRotateRight,
+            onAfterClose,
+            onMoveStart,
         }
     },
 }
 </script>
 
 <style lang="less">
-.full-modal {
+.x-preview-wrap {
     .ant-modal {
         max-width: 100%;
         top: 0;
@@ -186,27 +340,15 @@ export default {
         border-radius: 0;
     }
 
-    .ant-modal-close {
-        top: 40px;
-        right: 40px;
-    }
-
-    .ant-modal-close-x {
-        width: 44px;
-        height: 44px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        line-height: 1;
-        border-radius: @border-radius-round;
-        background: @background-color-mask;
-        color: #fff;
-        font-size: 14px;
-    }
-
     .ant-modal-body {
         flex: 1;
         padding: 0;
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        user-select: none;
     }
 }
 </style>
@@ -214,73 +356,77 @@ export default {
 <style lang="less" scoped>
 .x-preview {
     &__content {
-        position: fixed;
-        width: 100%;
-        height: 100%;
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        transition: transform 0.3s cubic-bezier(0.215, 0.61, 0.355, 1) 0s;
+        text-align: center;
         display: flex;
         align-items: center;
         justify-content: center;
-
-        > * {
-            max-width: 100%;
-            max-height: 100%;
-            transition: all 0.3s;
-        }
     }
 
-    &-action-bar {
+    &__image {
+        transition: transform 0.3s cubic-bezier(0.215, 0.61, 0.355, 1) 0s;
+        cursor: grab;
+        max-width: 100%;
+        max-height: 100%;
+    }
+
+    &__top {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
         display: flex;
         align-items: center;
-        justify-content: center;
-        flex-wrap: nowrap;
-        color: #fff;
-        position: fixed;
-        bottom: 40px;
-        background: @background-color-mask;
-        border-radius: @border-radius-round;
-        left: 50%;
-        transform: translate3d(-50%, 0, 0);
-        height: 44px;
-        padding: 0 16px;
-        font-size: 16px;
-        z-index: 100;
-
-        &-item {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 0 8px;
-            cursor: pointer;
-        }
+        background: rgba(0, 0, 0, 0.1);
     }
 
-    &__left,
-    &__right {
+    &__pages {
+        color: rgba(255, 255, 255, 0.8);
+        margin: 16px;
+    }
+
+    &__action {
+        margin: 0 0 0 auto;
+        display: flex;
+        align-items: center;
+
         &-btn {
-            width: 44px;
+            min-width: 44px;
             height: 44px;
             display: flex;
             align-items: center;
             justify-content: center;
-            line-height: 1;
-            border-radius: @border-radius-round;
-            background: @background-color-mask;
-            color: #fff;
-            position: fixed;
-            top: 0;
-            bottom: 0;
-            margin: auto;
-            z-index: 100;
+            font-size: 16px;
             cursor: pointer;
+            color: rgba(255, 255, 255, 0.8);
+
+            &--disabled {
+                cursor: not-allowed;
+                color: rgba(255, 255, 255, 0.25);
+            }
         }
     }
 
-    &__left-btn {
-        left: 40px;
+    &__prev-btn,
+    &__next-btn {
+        position: absolute;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.1);
+        top: 50%;
+        transform: translate(0, -50%);
     }
 
-    &__right-btn {
-        right: 40px;
+    &__prev-btn {
+        left: 16px;
+    }
+
+    &__next-btn {
+        right: 16px;
     }
 }
 </style>

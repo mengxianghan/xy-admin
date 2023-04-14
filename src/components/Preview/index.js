@@ -1,21 +1,60 @@
-import { createVNode, render } from 'vue'
+import { createApp } from 'vue'
 
 import PreviewConstructor from './Preview.vue'
 
-let vnode = null
+let container = null
+let app = null
+let vm = null
 
-const Preview = (props = {}) => {
-    vnode = createVNode(PreviewConstructor, props)
-    const container = document.createElement('div')
-    render(vnode, container)
-    vnode.component?.proxy?.handleOpen()
-    return Preview
+/**
+ * 返回
+ */
+function popstateListener() {
+    close()
 }
 
-Preview.close = () => {
-    if (!vnode) return
-    vnode.component.exposed?.handleClose()
-    vnode = null
+function open(payload, index) {
+    close()
+    let props = {
+        index: typeof index === 'number' ? index : 0,
+    }
+    container = document.createElement('div')
+    if (typeof payload === 'string') {
+        props.urls = [payload]
+    }
+    if (Array.isArray(payload)) {
+        props.urls = payload
+    }
+    if (Object.prototype.toString.call(payload) === '[object Object]') {
+        props = payload
+    }
+    app = createApp(PreviewConstructor, {
+        ...props,
+        afterClose: close,
+    })
+    vm = app.mount(container)
+    document.body.appendChild(container)
+    vm.visible = true
+    window.addEventListener('popstate', popstateListener)
 }
+
+function close() {
+    if (app) {
+        app.unmount()
+        vm.visible = false
+    }
+    if (container) {
+        container.remove()
+    }
+    container = null
+    app = null
+    vm = null
+
+    window.removeEventListener('popstate', popstateListener)
+}
+
+const Preview = open
+
+Preview.close = close
 
 export default Preview

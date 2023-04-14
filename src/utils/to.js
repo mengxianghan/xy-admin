@@ -1,17 +1,17 @@
 /**
  * 树形结构转线形结构
- * @param {array} list
- * @param {object} fields
+ * @param {array} data
+ * @param {object} fieldNames
  * @return {*[]}
  */
-export const tree2list = (list = [], fields = { children: 'children' }) => {
+export const tree2list = (data = [], fieldNames = { children: 'children' }) => {
     let result = []
-    if (!Array.isArray(list)) return result
-    list.forEach((item) => {
+    if (!Array.isArray(data)) return result
+    data.forEach((item) => {
         let temp = []
         result.push(item)
-        if (item[fields.children] && item[fields.children].length) {
-            let children = tree2list(item[fields.children], fields)
+        if (item[fieldNames.children] && item[fieldNames.children].length) {
+            let children = tree2list(item[fieldNames.children], fieldNames)
             if (children.length) {
                 temp = children
             }
@@ -23,27 +23,27 @@ export const tree2list = (list = [], fields = { children: 'children' }) => {
 
 /**
  * 线形数据转树形数据
- * @param {array} list
+ * @param {array} data
  * @param {string | number} parentValue
- * @param {object} fields
+ * @param {object} fieldNames
  * @return {*[]}
  */
 export const list2tree = (
-    list = [],
+    data = [],
     parentValue = '0',
-    fields = {
+    fieldNames = {
         key: 'id',
         children: 'children',
         parentKey: 'parentId',
     }
 ) => {
     const result = []
-    list.forEach((item) => {
-        if (item[fields.parentKey] === parentValue) {
+    data.forEach((item) => {
+        if (item[fieldNames.parentKey] === parentValue) {
             let temp = item
-            let children = list2tree(list, item[fields.key])
+            let children = list2tree(data, item[fieldNames.key])
             if (children.length) {
-                temp[fields.children] = children
+                temp[fieldNames.children] = children
             }
             result.push(temp)
         }

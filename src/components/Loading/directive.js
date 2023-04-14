@@ -2,11 +2,9 @@ import { createVNode, render } from 'vue'
 
 import LoadingConstructor from './Loading.vue'
 
-let container = null
-
 function show(el) {
     hide(el)
-    container = document.createElement('div')
+    const container = document.createElement('div')
     const props = {
         type: 'directive',
     }
@@ -16,16 +14,16 @@ function show(el) {
     }
     const vnode = createVNode(LoadingConstructor, props)
     render(vnode, container)
+    container.classList.add('x-loading-container')
+    el.classList.add('x-loading-wrap')
     el.style.position = 'relative'
     el.style.overflow = 'hidden'
     el.appendChild(container)
 }
 
 function hide(el) {
-    if (container) {
-        container.remove()
-        container = null
-    }
+    el.classList.remove('x-loading-wrap')
+    el.querySelector('.x-loading-container')?.remove()
     el.style.position = ''
     el.style.overflow = ''
 }
