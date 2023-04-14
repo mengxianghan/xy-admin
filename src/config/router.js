@@ -457,7 +457,7 @@ export const asyncRouterMap = [
             {
                 path: 'custom-layout',
                 name: 'otherCustomLayout',
-                component: 'list/basic/index.vue',
+                component: 'list/basic-list/index.vue',
                 meta: {
                     layout: 'CustomLayout',
                     title: '自定义框架',
