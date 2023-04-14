@@ -25,7 +25,7 @@ export default defineConfig({
     head: [
         [
             'script',
-            { type: 'application/javascript', src: 'http://xy-admin.xuanyunet.com/libs/tinymce/tinymce.min.js' },
+            { type: 'application/javascript', src: 'http://localhost:9211/libs/tinymce/tinymce.min.js' },
         ],
     ],
     vite: {
@@ -38,17 +38,6 @@ export default defineConfig({
             cssTarget: 'chrome80',
             brotliSize: false,
             chunkSizeWarningLimit: 2000,
-            // rollupOptions: {
-            //     output: {
-            //         manualChunks: {
-            //             'lodash-es': ['lodash-es'],
-            //             'ant-design-vue': ['ant-design-vue'],
-            //             echarts: ['echarts'],
-            //             qrcode: ['qrcode'],
-            //             cropper: ['cropperjs'],
-            //         },
-            //     },
-            // },
         },
         css: {
             preprocessorOptions: {
@@ -74,9 +63,5 @@ export default defineConfig({
                 '@': path.resolve(__dirname, '../../src'),
             },
         },
-        // ssr: {
-        //     format: 'cjs',
-        //     noExternal: ['ant-design-vue', '@ant-design/icons-vue'],
-        // },
     },
 })
