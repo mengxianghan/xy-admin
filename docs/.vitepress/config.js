@@ -25,7 +25,7 @@ export default defineConfig({
     head: [
         [
             'script',
-            { type: 'application/javascript', src: 'http://localhost:9211/libs/tinymce/tinymce.min.js' },
+            { type: 'application/javascript', src: 'http://xy-admin.xuanyunet.com/libs/tinymce/tinymce.min.js' },
         ],
     ],
     vite: {
