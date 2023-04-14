@@ -1,1 +1,0 @@
-import{r as e,h as a,i as s,s as r}from"./index.7b6fce2d.js";import"./tinymce.b4091e4a.js";import"./echarts.98d40a9a.js";const m={__name:"Message",setup(n){const t=e([]);return(c,l)=>{const o=a("a-list");return s(),r(o,{"item-layout":"horizontal","data-source":t.value},null,8,["data-source"])}}};export{m as default};
