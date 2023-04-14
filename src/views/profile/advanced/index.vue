@@ -1,7 +1,8 @@
 <template>
     <a-page-header
         class="ant-page-header-wrap"
-        title="单号：234231029431">
+        title="单号：234231029431"
+        :ghost="false">
         <template #extra>
             <a-space>
                 <a-button>操作一</a-button>

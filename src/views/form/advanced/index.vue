@@ -1,7 +1,8 @@
 <template>
     <a-page-header
         class="ant-page-header-wrap"
-        title="高级表单">
+        title="高级表单"
+        :ghost="false">
         高级表单常见于一次性输入和提交大批量数据的场景。
     </a-page-header>
     <a-form layout="vertical">

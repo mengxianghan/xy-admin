@@ -1,7 +1,8 @@
 <template>
     <a-page-header
         class="ant-page-header-wrap"
-        title="卡片列表">
+        title="卡片列表"
+        :ghost="false">
         <a-row
             type="flex"
             align="middle">

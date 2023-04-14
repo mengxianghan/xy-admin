@@ -1,7 +1,8 @@
 <template>
     <a-page-header
         class="ant-page-header-wrap"
-        :title="cpPageTitle">
+        :title="cpPageTitle"
+        :ghost="false">
         <div
             :style="{
                 width: '520px',

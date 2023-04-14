@@ -1,7 +1,8 @@
 <template>
     <a-page-header
         class="ant-page-header-wrap"
-        title="基础详情页">
+        title="基础详情页"
+        :ghost="false">
     </a-page-header>
     <a-card :bordered="false">
         <a-descriptions title="退款申请">
