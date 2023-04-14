@@ -61,11 +61,13 @@ export default {
 :::
 
 ## 接口接入
+
 ::: tip
+
 1. 高亮部分为数据请求逻辑，根据实际情况做调整
 2. `getData` 方法中可根据 `level` 实现不同层级请求不同的接口来填充数据
 3. `getRegionList` 请求数据的接口返回一个 `Promise`。节点数据结构：`{ label: '', value: '' }`
-:::
+   :::
 
 [//]: # (::: details 代码示例)
 

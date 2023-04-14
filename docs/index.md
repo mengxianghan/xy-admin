@@ -3,12 +3,12 @@
 layout: home
 
 hero:
-  name: XY Admin
+  name: XYAdmin
   text: 开箱即用的中台前端解决方案
   tagline: 基于 Vue3 + Pinia + Vite + And Design Vue 打造
   image: 
     src: http://cdn.xuanyunet.com/images/logo.svg
-    alt: XY Admin
+    alt: XYAdmin
   actions:
     - theme: brand
       text: 开始使用

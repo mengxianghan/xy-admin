@@ -187,7 +187,7 @@ export default {
 <script setup>
 import { ref } from 'vue';
 import { notification, message } from 'ant-design-vue';
-import cropperImg from '@/views/component/cropper/images/cropper.png';
+import cropperImg from '@/assets/avatar.jpg';
 
 const cropperRef = ref();
 const cropper = ref(null);

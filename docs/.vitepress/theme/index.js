@@ -1,4 +1,3 @@
-import { inBrowser } from "vitepress"
 import DefaultTheme from 'vitepress/theme'
 import antd from 'ant-design-vue'
 import components from '@/components'

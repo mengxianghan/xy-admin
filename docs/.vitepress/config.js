@@ -5,8 +5,8 @@ import sidebar from './sidebar'
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
-    title: 'XY Admin',
-    description: 'xy-admin 使用手册',
+    title: 'XYAdmin',
+    description: 'xy admin 使用手册',
     appearance: false,
     themeConfig: {
         logo: 'http://cdn.xuanyunet.com/images/logo.svg',
@@ -16,7 +16,7 @@ export default defineConfig({
         sidebar,
         socialLinks: [{ icon: 'github', link: 'https://github.com/mengxianghan/xy-admin' }],
         footer: {
-            message: '本文档内容版权为 XY Admin 作者所有，保留所有权利。',
+            message: '本文档内容版权为 XYAdmin 作者所有，保留所有权利。',
         },
     },
     markdown: {
@@ -38,18 +38,17 @@ export default defineConfig({
             cssTarget: 'chrome80',
             brotliSize: false,
             chunkSizeWarningLimit: 2000,
-            rollupOptions: {
-                output: {
-                    manualChunks: {
-                        'lodash-es': ['lodash-es'],
-                        'ant-design-vue': ['ant-design-vue'],
-                        tinymce: ['tinymce'],
-                        echarts: ['echarts'],
-                        qrcode: ['qrcode'],
-                        cropper: ['cropperjs'],
-                    },
-                },
-            },
+            // rollupOptions: {
+            //     output: {
+            //         manualChunks: {
+            //             'lodash-es': ['lodash-es'],
+            //             'ant-design-vue': ['ant-design-vue'],
+            //             echarts: ['echarts'],
+            //             qrcode: ['qrcode'],
+            //             cropper: ['cropperjs'],
+            //         },
+            //     },
+            // },
         },
         css: {
             preprocessorOptions: {
@@ -75,9 +74,9 @@ export default defineConfig({
                 '@': path.resolve(__dirname, '../../src'),
             },
         },
-        ssr: {
-            format: 'cjs',
-            noExternal: ['ant-design-vue', '@ant-design/icons-vue'],
-        },
+        // ssr: {
+        //     format: 'cjs',
+        //     noExternal: ['ant-design-vue', '@ant-design/icons-vue'],
+        // },
     },
 })

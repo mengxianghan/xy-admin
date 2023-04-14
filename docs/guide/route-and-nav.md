@@ -17,7 +17,7 @@
 
 完整的路由结构
 
-```json
+```json5
 {
   "path": "", // 必填，路径，允许填写 http|https
   "name": "", // 必填，路由名称，唯一
@@ -34,7 +34,8 @@
     "active": "", // 选填，打开页面要高亮的菜单，一般用于被隐藏的页面，要高亮菜单的 name
     "permission": [], // 选填，用来配置这个路由的权限，如果配置了将会验证当前用户的权限，并决定是否展示 *（默认情况下）
     "action": [], // 选填，根据业务需要
-    "url": "", // iframe url，配合 type="iframe" 使用
+    "url": "", // iframe url，type="iframe" 时有效
+    "query": {}, // 菜单携带的固定参数
   },
   "children": [], // 子路由
 }
@@ -42,7 +43,7 @@
 
 
 ## 菜单
-菜单根据 `src/config/router.js` 生成，具体逻辑在 `src/router/util.js` 中的 `generateMenuList` 方法实现。
+菜单根据 `src/config/router.js` 生成，具体逻辑由 `src/router/util.js` 中的 `generateMenuList` 方法实现。
 
 
 ## 需求实例
@@ -50,71 +51,50 @@
 上面对这部分的实现概要进行了介绍，接下来通过实际的案例来说明具体该怎么做。
 
 
-### 菜单跳转到外部地址
+### 跳转外部地址
 
-```json
+```json5
 {
   "path": "http://admin.xuanyunet.com",
   "name": "demo",
   "meta": {
-    "title": "演示", 
-    "target": "_blank"  //打开到新窗口
+    "title": "演示",
+    "target": "_blank" // 打开到新窗口
   }
 }
 ```
 
-配置后，会默认生成相关的路由及导航。
+### 打开 iframe
 
+```json5
+{
+  "path": "demo",
+  "name": "demo",
+  "meta": {
+    "title:": "演示",
+    "type": "iframe", // 使用 iframe 方式打开
+    "url": "https://cn.vuejs.org", // 打开的 iframe url
+  }
+}
+```
 
-### 新增布局
+### 自定义布局
 
 在脚手架中我们通过嵌套路由或指定 `meta.layout` 来实现布局模板。 
-
-
-#### 嵌套路由方式
-```json
+```json5
 {
   "path": "custom-layout",
   "name": "customLayout",
-  "component": CustomLayout,
+  "component": "/custom-layout.vue",
   "meta": {
     "title": "自定义布局",
-    "isMenu": true
-  },
-  "children": [
-    {
-      "path": "welcome",
-      "name": "welcome",
-      "component": "welcome/index.vue",
-      "meta": {
-        "title": "欢迎页",
-        "isMenu": true
-      }
-    }
-  ]
-}
-```
-
-#### 指定 `meta.layout` 方式
-
-```json
-{
-  "path": "custom-layout",
-  "name": "customLayout",
-  "component": "list/basic/index.vue",
-  "meta": {
-    "layout": "CustomLayout",
-    "title": "自定义模板",
-    "isMenu": true,
-    "target": "_blank",
-    "keepAlive": true
+    "layout": "CustomLayout", // 在 `/src/layouts/` 目录下创建同名文件并导出
   }
 }
 ```
-通过 `meta.layout` 指定后，需要在 `src/layouts/` 目录下创建一个同名文件并导出
 
 ::: tip
 1. 路由自定义 Icon 请引入自定义 svg Icon 文件，然后传递给路由的 meta.icon 参数即可
-2. 请注意 component: () => import('..') 方式引入路由的页面组件为 懒加载模式。具体可以看 Vue 官方文档
-3. 无需控制权限的路由活着需要在未登录情况访问的路由，可以定义在 `src/router/config.js` 下的 whiteList 中
+2. 请注意 component: () => import('..') 方式引入路由的页面组件为懒加载模式。具体可以看 Vue 官方文档
+3. 无需控制权限的路由或需要在未登录情况访问的路由，可以定义在 `/src/router/config.js` 下的 whiteList 中
 :::

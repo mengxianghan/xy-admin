@@ -75,11 +75,12 @@ export default {
 <script setup>
 import { ref } from 'vue';
 import { message } from 'ant-design-vue';
+import cropperImg from '@/assets/avatar.jpg';
 
 const cropperDialogRef = ref();
 
 function handleOpen(){
-    cropperDialogRef.value.handleOpen('/images/login.png');
+    cropperDialogRef.value.handleOpen(cropperImg);
 }
 
 function onOk(file){

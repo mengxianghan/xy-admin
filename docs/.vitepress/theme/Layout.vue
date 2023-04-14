@@ -5,8 +5,8 @@
 </template>
 
 <script>
-import { ConfigProvider } from "ant-design-vue"
-import zhCN from "ant-design-vue/es/locale/zh_CN"
+import { ConfigProvider } from 'ant-design-vue'
+import zhCN from './locale/zh_CN'
 import DefaultTheme from 'vitepress/theme'
 import dayjs from 'dayjs'
 import 'dayjs/locale/zh-cn'
@@ -19,12 +19,10 @@ export default {
         const locale = zhCN
 
         return {
-            locale
+            locale,
         }
-    }
+    },
 }
 </script>
 
-<style lang="scss" scoped>
-
-</style>
+<style lang="less" scoped></style>
