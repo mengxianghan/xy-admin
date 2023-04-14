@@ -3,14 +3,16 @@
         <a-spin
             size="small"
             :spinning="spinning">
-            <tiny-editor
-                v-model="content"
-                v-bind="$attrs"
-                api-key=""
-                :init="opts"
-                :disabled="disabled"
-                :placeholder="placeholder"
-                @init="onInit"></tiny-editor>
+            <div class="x-editor__content">
+                <tiny-editor
+                    v-model="content"
+                    v-bind="$attrs"
+                    api-key=""
+                    :init="opts"
+                    :disabled="disabled"
+                    :placeholder="placeholder"
+                    @init="onInit"></tiny-editor>
+            </div>
         </a-spin>
     </div>
 </template>
@@ -117,7 +119,9 @@ export default {
 
 <style lang="less" scoped>
 .x-editor {
-    min-height: 32px;
+    &__content {
+        min-height: 32px;
+    }
 
     textarea {
         display: none;
