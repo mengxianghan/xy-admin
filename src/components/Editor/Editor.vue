@@ -1,10 +1,12 @@
 <template>
     <div class="x-editor">
-        <a-spin :spinning="spinning">
+        <a-spin
+            size="small"
+            :spinning="spinning">
             <tiny-editor
                 v-model="content"
                 v-bind="$attrs"
-                api-key="d6vzo7lwm6my7lu42uk2jhnhui7cdk842rb0tzc6sfxgffgm"
+                api-key=""
                 :init="opts"
                 :disabled="disabled"
                 :placeholder="placeholder"
@@ -19,10 +21,6 @@ import { deepMerge } from '@/utils'
 import { Form } from 'ant-design-vue'
 
 import TinyEditor from '@tinymce/tinymce-vue'
-// import tinymce from 'tinymce/tinymce'
-//
-// import 'tinymce/themes/silver'
-// import 'tinymce/icons/default'
 
 /**
  * @property {string} modelValue v-model
@@ -120,6 +118,8 @@ export default {
 
 <style lang="less" scoped>
 .x-editor {
+    min-height: 32px;
+
     textarea {
         display: none;
     }
