@@ -168,23 +168,3 @@ export function getIndexRouter(menuList) {
     }
     return index
 }
-
-/**
- * 获取有效路由
- */
-export function getValidRoute(data) {
-    let validRoute = null
-    for (let item of data) {
-        if (item.children && item.children.length) {
-            let temp = getValidRoute(item.children)
-            if (temp && Object.keys(temp).length) {
-                validRoute = temp
-                break
-            }
-        } else {
-            validRoute = item
-            break
-        }
-    }
-    return validRoute
-}
