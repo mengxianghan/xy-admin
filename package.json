@@ -1,7 +1,7 @@
 {
   "name": "xy-admin",
   "private": true,
-  "version": "2.4.0",
+  "version": "2.5.0",
   "scripts": {
     "dev": "vite --mode dev",
     "build:test": "vite build --mode test",
@@ -11,16 +11,16 @@
     "report": "vite build --mode prod",
     "lint": "eslint --ext .js,.vue --ignore-path .eslintignore --fix src",
     "prepare": "husky install",
-    "dev:docs": "vitepress dev docs",
-    "build:docs": "vitepress build docs",
-    "preview:docs": "vitepress preview docs"
+    "docs:dev": "vitepress dev docs",
+    "docs:build": "vitepress build docs",
+    "docs:preview": "vitepress build docs && vitepress preview docs"
   },
   "lint-staged": {
     "src/**/*.{js,vue}": "eslint --ext .js,.vue .eslintignore --no-cache --fix"
   },
   "dependencies": {
     "@ant-design/icons-vue": "^6.1.0",
-    "@tinymce/tinymce-vue": "^5.0.0",
+    "@tinymce/tinymce-vue": "^5.1.0",
     "ant-design-vue": "^3.2.16",
     "axios": "^0.27.2",
     "cropperjs": "^1.5.12",
@@ -38,7 +38,7 @@
     "qiniu-js": "^3.4.1",
     "qrcode": "^1.5.1",
     "sortablejs": "^1.15.0",
-    "tinymce": "^5.10.5",
+    "tinymce": "^6.4.1",
     "vue": "^3.2.47",
     "vue-router": "^4.1.6",
     "xy-enum": "^1.2.0",
