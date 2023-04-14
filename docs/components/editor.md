@@ -80,9 +80,6 @@ const loaded = ref(false);
 const timer = ref(null);
 
 const options = {
-    language_url: 'http://xy-admin.xuanyunet.com/libs/tinymce/langs/zh_CN.js',
-    skin_url: 'http://xy-admin.xuanyunet.com/libs/tinymce/skins/ui/oxide',
-    content_css: 'http://xy-admin.xuanyunet.com/libs/tinymce/skins/content/default/content.css',
     height: 400
 };
 
