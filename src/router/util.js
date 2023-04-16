@@ -34,12 +34,13 @@ export function formatRoutes(routes = [], parent = {}) {
                     _openKeys: item?.meta?.isLink
                         ? []
                         : [...(parent?.meta?._openKeys ?? []), meta?.active ?? item?.name],
-                    _breadcrumb: [...(parent?.meta?._breadcrumb ?? []), item],
                     _isLink: isLink,
                     _isIframe: isIframe,
                     ...meta,
                 },
             }
+            // 面包屑导航
+            route.meta._breadcrumb = [...(parent?.meta?._breadcrumb ?? []), route]
             // 重定向
             item.redirect && (route.redirect = item.redirect)
             // 是否有子菜单，并递归处理
