@@ -6,10 +6,14 @@
     color: @text-color;
     font-size: 14px;
 
-    &:not(.tox-tinymce-inline) {
-        border: @border-color-base solid 1px;
-        border-radius: @border-radius-base;
+    &.tox-tinymce {
+        &:not(.tox-tinymce-inline) {
+            border: @border-color-base solid 1px;
+            border-radius: @border-radius-base;
+        }
+    }
 
+    &:not(.tox-tinymce-inline) {
         .tox-editor-header {
             box-shadow: none;
             border-bottom: @border-color-split solid 1px;
