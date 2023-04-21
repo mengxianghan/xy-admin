@@ -53,8 +53,7 @@ export function formatRoutes(routes = [], parent = {}) {
 }
 
 /**
- * 过滤路由
- * 移除没有权限的路由
+ * 将没有权限的路由过滤掉
  * @param routes
  * @param userPermission
  * @return {*}
