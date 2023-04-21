@@ -95,23 +95,26 @@ export function flattenRoutes(routes = []) {
  */
 export function generateRoutes(routes) {
     const result = []
-    flattenRoutes(routes).forEach((item) => {
-        const {
-            meta: { layout = '' },
-        } = item
-        const modules = import.meta.glob('../layouts/**/*.vue')
-        let index = result.findIndex((o) => o.name === layout)
-        if (index === -1) {
-            result.push({
-                path: '',
-                name: layout,
-                component: layouts[layout] || modules[`../layouts/${layout}${layout.endsWith('.vue') ? '' : '.vue'}`],
-                children: [],
-            })
-            index = result.length - 1
-        }
-        result[index].children.push(item)
-    })
+    flattenRoutes(routes)
+        .filter((item) => item.component) // 过滤掉无效的 route
+        .forEach((item) => {
+            const {
+                meta: { layout = '' },
+            } = item
+            const modules = import.meta.glob('../layouts/**/*.vue')
+            let index = result.findIndex((o) => o.name === layout)
+            if (index === -1) {
+                result.push({
+                    path: '',
+                    name: layout,
+                    component:
+                        layouts[layout] || modules[`../layouts/${layout}${layout.endsWith('.vue') ? '' : '.vue'}`],
+                    children: [],
+                })
+                index = result.length - 1
+            }
+            result[index].children.push(item)
+        })
     return result
 }
 
