@@ -35,13 +35,13 @@ export default {
     emits: ['click'],
     setup(props, { emit }) {
         const cpComponentName = computed(() =>
-            props.dataSource?.path ? (props.dataSource?.meta?.isLink ? 'a' : RouterLink) : 'div'
+            props.dataSource?.path ? (props.dataSource?.meta?._isLink ? 'a' : RouterLink) : 'div'
         )
         const cpComponentAttrs = computed(() => {
             const { meta, path } = props.dataSource
             const attrs = {}
             if (props.dataSource?.path) {
-                if (props.dataSource?.meta?.isLink) {
+                if (props.dataSource?.meta?._isLink) {
                     attrs.href = path
                 } else {
                     attrs.to = {

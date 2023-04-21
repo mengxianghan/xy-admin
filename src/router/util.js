@@ -18,10 +18,7 @@ export function formatRoutes(routes = [], parent = {}) {
             const isIframe = meta?.type === 'iframe'
             const route = {
                 // 如果路由设置的 path 是 / 开头或是外链，则默认使用 path，否则动态拼接路由地址
-                path:
-                    new RegExp('^\\/.*').test(item.path) || item?.meta?.isLink
-                        ? item.path
-                        : `${parent?.path ?? ''}/${item.path}`,
+                path: new RegExp('^\\/.*').test(item.path) || isLink ? item.path : `${parent?.path ?? ''}/${item.path}`,
                 // 路由名称，建议唯一
                 name: item.name || '',
                 // 路由对应的页面，动态加载
@@ -31,9 +28,7 @@ export function formatRoutes(routes = [], parent = {}) {
                     target: meta?.target || '',
                     layout: meta?.layout || parent?.meta?.layout || 'BasicLayout',
                     actions: meta?.actions ?? ['*'],
-                    _openKeys: item?.meta?.isLink
-                        ? []
-                        : [...(parent?.meta?._openKeys ?? []), meta?.active ?? item?.name],
+                    _openKeys: isLink ? [] : [...(parent?.meta?._openKeys ?? []), meta?.active ?? item?.name],
                     _isLink: isLink,
                     _isIframe: isIframe,
                     ...meta,
