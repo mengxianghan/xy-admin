@@ -185,7 +185,6 @@ export default {
         &__label {
             flex-shrink: 0;
             line-height: inherit;
-            text-align: right;
         }
 
         &__content {

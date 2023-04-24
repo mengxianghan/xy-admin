@@ -88,6 +88,10 @@ export default {
             type: Number,
             default: 0,
         },
+        labelAlign: {
+            type: String,
+            default: 'right',
+        },
         footer: {
             type: Boolean,
             default: false,
@@ -129,6 +133,7 @@ export default {
         const cpShowFooterSlot = computed(() => slots.footer)
         const cpClassNames = computed(() => ({
             [`x-filter--${props.size}`]: true,
+            [`x-filter--label-align-${props.labelAlign}`]: true,
         }))
 
         useFilterCtx({
@@ -210,6 +215,19 @@ export default {
 
         .ant-space {
             margin-left: @margin-xs;
+        }
+    }
+
+    &--label-align {
+        &-left {
+            :deep(.x-filter-item__label) {
+                text-align: left;
+            }
+        }
+        &-right {
+            :deep(.x-filter-item__label) {
+                text-align: right;
+            }
         }
     }
 }

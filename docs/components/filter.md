@@ -430,6 +430,7 @@ export default {
 | dataSource       | 数据数组，具体详见[下表](#datasource)                                                  | `array`   | `[]`              |
 | colon            | 是否显示冒号                                                                      | `boolean` | `true`            |
 | labelWidth       | label 标签宽度                                                                  | `number`  | `80`              |
+| labelAlign       | label 内容对齐方式，可选：`left`、`right`                                              | `string`  | `right`           |
 | footer           | 底部内容 `确定` `重置` 按钮                                                           | `boolean` | `false`           |
 | okText           | 确认按钮文字                                                                      | `string`  | `确定`              |
 | okType           | 确认按钮类型，可选：`primary`、`ghost`、`dashed`、`link`、`text`、`default`                | `string`  | `primary`         |
