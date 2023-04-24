@@ -22,7 +22,7 @@ import FilterTagItem from './FilterTagItem.vue'
  * @property {string | number} options.label 显示的名称
  * @property {string | number} options.value 选中后的值
  * @property {boolean} multiple 是否多选，默认：false
- * @property {boolean} allowClear 是否允许取消，仅单选有效，多选默认支持取消，默认：false
+ * @property {boolean} toggle 切换选中/取消选中，仅单选有效，多选默认支持取消，默认：false
  */
 export default {
     name: 'XFilterTag',
@@ -41,7 +41,7 @@ export default {
             type: Boolean,
             default: false,
         },
-        allowClear: {
+        toggle: {
             type: Boolean,
             default: false,
         },
@@ -84,7 +84,7 @@ export default {
                 }
             } else {
                 // 单选，判断是否允许取消
-                if (props.allowClear) {
+                if (props.toggle) {
                     // 允许取消，判断是否选中，并赋值
                     curValue.value = curValue.value === value ? null : value
                 } else {

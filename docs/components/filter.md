@@ -377,7 +377,7 @@ export default {
         const list = ref([{
             label: '单选',
             key: 'key',
-            allowClear: true,
+            toggle: true,
             options: [
                 { label: '不限', value: 0 },
                 { label: '选项1', value: 1 },
@@ -476,7 +476,7 @@ export default {
 | label       | 名称；必填                           | `string`  | `-`     |
 | key         | 唯一索引；必填                         | `string`  | `-`     |
 | multiple    | 多选                              | `boolean` | `-`     |
-| allowClear  | 是否可以清除；`multiple=false` 有效      | `boolean` | `false` |
+| toggle      | 切换选中/取消选中；`multiple=false` 有效   | `boolean` | `false` |
 | collapsible | 是否可以展开/收起，设置为 `true` 且标签超过一行时有效 | `boolean` | `false` |
 | collapsed   | 默认展开/收起状态                       | `boolean` | `false` |
 | options     | 选项列表，具体项见[下表](#options)         | `array`   | `-`     |
@@ -486,12 +486,12 @@ export default {
 
 #### 参数
 
-| 名称         | 说明                         | 类型                        | 默认值     |
-|------------|----------------------------|---------------------------|---------|
-| v-model    | 当前输入值                      | `array` `string` `number` | `-`     |
-| multiple   | 多选                         | `boolean`                 | `false` |
-| allowClear | 是否可以清除；`multiple=false` 有效 | `boolean`                 | `false` |
-| options    | 选项列表，具体项见[下表](#options)    | `array`                   | `-`     |
+| 名称       | 说明                            | 类型                        | 默认值     |
+|----------|-------------------------------|---------------------------|---------|
+| v-model  | 当前输入值                         | `array` `string` `number` | `-`     |
+| multiple | 多选                            | `boolean`                 | `false` |
+| toggle   | 切换选中/取消选中；`multiple=false` 有效 | `boolean`                 | `false` |
+| options  | 选项列表，具体项见[下表](#options)       | `array`                   | `-`     |
 
 #### 插槽
 
@@ -556,7 +556,7 @@ const list = ref([{
 const list1 = ref([{
         label: '单选',
         key: 'key',
-        allowClear: true,
+        toggle: true,
         options: [
             { label: '不限', value: 0 },
             { label: '选项1', value: 1 },
@@ -583,7 +583,7 @@ const list1 = ref([{
 const list2 = ref([{
         label: '单选',
         key: 'key',
-        allowClear: true,
+        toggle: true,
         collapsible: true,
         options: [
             { label: '不限', value: 0 },
