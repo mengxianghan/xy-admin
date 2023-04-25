@@ -1,30 +1,38 @@
 import { provide, inject } from 'vue'
-import { filterCtxKey, filterTagCtxKey, filterTagSelectedValueKey } from './config'
+import { FILTER_KEY, FILTER_TAG_KEY, FILTER_TAG_SELECTED_VALUE_KEY, FILTER_ITEM_DATA_SOURCE_KEY } from './config'
 
 export const useFilterCtx = (props) => {
-    provide(filterCtxKey, props)
+    provide(FILTER_KEY, props)
 }
 
 export const useInjectFilterCtx = () => {
-    return inject(filterCtxKey, {
+    return inject(FILTER_KEY, {
         onChange: () => {},
     })
 }
 
+export const useFilterItemDataSourceCtx = (props) => {
+    provide(FILTER_ITEM_DATA_SOURCE_KEY, props)
+}
+
+export const useInjectFilterItemDataSourceCtx = () => {
+    return inject(FILTER_ITEM_DATA_SOURCE_KEY)
+}
+
 export const useFilterTagCtx = (props) => {
-    provide(filterTagCtxKey, props)
+    provide(FILTER_TAG_KEY, props)
 }
 
 export const useInjectFilterTagCtx = () => {
-    return inject(filterTagCtxKey, {
+    return inject(FILTER_TAG_KEY, {
         onTagClick: () => {},
     })
 }
 
 export const useFilterTagSelectedValueCtx = (props) => {
-    provide(filterTagSelectedValueKey, props)
+    provide(FILTER_TAG_SELECTED_VALUE_KEY, props)
 }
 
 export const useInjectFilterTagSelectedValueCtx = () => {
-    return inject(filterTagSelectedValueKey)
+    return inject(FILTER_TAG_SELECTED_VALUE_KEY)
 }

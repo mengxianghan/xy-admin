@@ -27,9 +27,18 @@ export default {
         const { multiple, onTagClick } = useInjectFilterTagCtx()
         const selectedKeys = useInjectFilterTagSelectedValueCtx()
 
+        const cpIsSelect = computed(() => {
+            if (multiple.value) {
+                // 多选
+                return Array.isArray(selectedKeys.value) ? selectedKeys.value?.includes(props.value) : false
+            } else {
+                // 单选
+                return selectedKeys.value === props.value
+            }
+        })
         const cpClassNames = computed(() => {
             return {
-                'x-filter-tag-item--active': isSelect(),
+                'x-filter-tag-item--active': cpIsSelect.value,
             }
         })
 
@@ -38,16 +47,6 @@ export default {
          */
         function handleClick() {
             onTagClick({ value: props.value })
-        }
-
-        function isSelect() {
-            if (multiple.value) {
-                // 多选
-                return Array.isArray(selectedKeys.value) ? selectedKeys.value?.includes(props.value) : false
-            } else {
-                // 单选
-                return selectedKeys.value === props.value
-            }
         }
 
         return {

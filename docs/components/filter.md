@@ -26,7 +26,6 @@ export default {
             label: '单选',
             key: 'key',
             options: [
-                { label: '不限', value: 0 },
                 { label: '选项1', value: 1 },
                 { label: '选项2', value: 2 },
                 { label: '选项3', value: 3 },
@@ -92,7 +91,7 @@ export default {
         const list = ref([{
             label: '单选',
             key: 'key',
-            allowClear: true,
+            toggle: true,
             options: [
                 { label: '不限', value: 0 },
                 { label: '选项1', value: 1 },
@@ -218,7 +217,7 @@ export default {
 <x-filter v-model="content" footer :data-source="list2" :label-width="100">
     <template #default="{ record }">
         <template v-if="record.key === 'diy'">
-            <x-filter-item :label="record.label">
+            <x-filter-item :data-source="record">
                 <template #label>
                     <a-space :size="4">
                         {{ record.label }}
@@ -229,21 +228,9 @@ export default {
                     </a-space>
                 </template>
                 <x-filter-tag v-model="content[record.key]">
-                    <x-filter-tag-item :value="1">
-                        <span class="mr-4-1">🇨🇳</span>
-                        <span>中国</span>
-                    </x-filter-tag-item>
-                    <x-filter-tag-item :value="2">
-                        <span class="mr-4-1">🇨🇺</span>
-                        <span>美国</span>
-                    </x-filter-tag-item>
-                    <x-filter-tag-item :value="3">
-                        <span class="mr-4-1">🇯🇵</span>
-                        <span>日本</span>
-                    </x-filter-tag-item>
-                    <x-filter-tag-item :value="4">
-                        <span class="mr-4-1">🇰🇷</span>
-                        <span>韩国</span>
+                    <x-filter-tag-item v-for="item in record.options" :key="item.value" :value="item.value">
+                        <span v-if="item.icon" class="mr-4-1">{{item.icon}}</span>
+                        <span>{{item.label}}</span>
                     </x-filter-tag-item>
                 </x-filter-tag>
             </x-filter-item>
@@ -293,10 +280,10 @@ export default {
 ```vue
 
 <template>
-    <x-filter v-model="content" footer :data-source="list" :label-width="100">
+    <x-filter v-model="content" footer :data-source="list2" :label-width="100">
         <template #default="{ record }">
             <template v-if="record.key === 'diy'">
-                <x-filter-item :label="record.label">
+                <x-filter-item :data-source="record">
                     <template #label>
                         <a-space :size="4">
                             {{ record.label }}
@@ -307,21 +294,9 @@ export default {
                         </a-space>
                     </template>
                     <x-filter-tag v-model="content[record.key]">
-                        <x-filter-tag-item :value="1">
-                            <span class="mr-4-1">🇨🇳</span>
-                            <span>中国</span>
-                        </x-filter-tag-item>
-                        <x-filter-tag-item :value="2">
-                            <span class="mr-4-1">🇨🇺</span>
-                            <span>美国</span>
-                        </x-filter-tag-item>
-                        <x-filter-tag-item :value="3">
-                            <span class="mr-4-1">🇯🇵</span>
-                            <span>日本</span>
-                        </x-filter-tag-item>
-                        <x-filter-tag-item :value="4">
-                            <span class="mr-4-1">🇰🇷</span>
-                            <span>韩国</span>
+                        <x-filter-tag-item v-for="item in record.options" :key="item.value" :value="item.value">
+                            <span v-if="item.icon" class="mr-4-1">{{item.icon}}</span>
+                            <span>{{item.label}}</span>
                         </x-filter-tag-item>
                     </x-filter-tag>
                 </x-filter-item>
@@ -340,9 +315,9 @@ export default {
             <template v-if="record.key === 'range'">
                 <x-filter-item :label="record.label">
                     <a-space>
-                        <a-input v-model:value="content['range1']"></a-input>
+                        <a-input v-model:value="content.range1"></a-input>
                         <span>-</span>
-                        <a-input v-model:value="content['range2']"></a-input>
+                        <a-input v-model:value="content.range2"></a-input>
                     </a-space>
                 </x-filter-item>
             </template>
@@ -378,13 +353,29 @@ export default {
             label: '单选',
             key: 'key',
             toggle: true,
+            collapsible: true,
             options: [
-                { label: '不限', value: 0 },
+                { label: '不限', value: 0, isAll: true },
                 { label: '选项1', value: 1 },
                 { label: '选项2', value: 2 },
                 { label: '选项3', value: 3 },
                 { label: '选项4', value: 4 },
                 { label: '选项5', value: 5 },
+                { label: '选项6', value: 6 },
+                { label: '选项7', value: 7 },
+                { label: '选项8', value: 8 },
+                { label: '选项9', value: 9 },
+                { label: '选项10', value: 10 },
+                { label: '选项11', value: 11 },
+                { label: '选项12', value: 12 },
+                { label: '选项13', value: 13 },
+                { label: '选项14', value: 14 },
+                { label: '选项15', value: 15 },
+                { label: '选项16', value: 16 },
+                { label: '选项17', value: 17 },
+                { label: '选项18', value: 18 },
+                { label: '选项19', value: 19 },
+                { label: '选项20', value: 20 },
             ],
         },
             {
@@ -398,6 +389,18 @@ export default {
                     { label: '选项4', value: 4 },
                     { label: '选项5', value: 5 },
                 ],
+            },
+            {
+                label: 'DIY',
+                key: 'diy',
+                multiple: true,
+                options: [
+                    { label: '不限', value: 0, isAll: true },
+                    { label: '中国', value: 1, icon: '🇨🇳' },
+                    { label: '美国', value: 2, icon: '🇺🇸' },
+                    { label: '日本', value: 3, icon: '🇯🇵' },
+                    { label: '韩国', value: 4, icon: '🇰🇷' },
+                ]
             },
             { label: '输入框', key: 'input' },
             { label: '区间', key: 'range' },
@@ -526,12 +529,16 @@ import { ref } from 'vue';
 import { message } from 'ant-design-vue';
 import { InfoCircleOutlined, QuestionCircleOutlined } from '@ant-design/icons-vue';
 
-const content = ref({});
+const content = ref({
+    key: 0,
+    key1: [0],
+    diy: [0]
+});
+
 const list = ref([{
         label: '单选',
         key: 'key',
         options: [
-            { label: '不限', value: 0 },
             { label: '选项1', value: 1 },
             { label: '选项2', value: 2 },
             { label: '选项3', value: 3 },
@@ -558,7 +565,6 @@ const list1 = ref([{
         key: 'key',
         toggle: true,
         options: [
-            { label: '不限', value: 0 },
             { label: '选项1', value: 1 },
             { label: '选项2', value: 2 },
             { label: '选项3', value: 3 },
@@ -580,13 +586,14 @@ const list1 = ref([{
     },
 ]);
 
-const list2 = ref([{
+const list2 = ref([
+    {
         label: '单选',
         key: 'key',
         toggle: true,
         collapsible: true,
         options: [
-            { label: '不限', value: 0 },
+            { label: '不限', value: 0, isAll: true },
             { label: '选项1', value: 1 },
             { label: '选项2', value: 2 },
             { label: '选项3', value: 3 },
@@ -621,7 +628,18 @@ const list2 = ref([{
             { label: '选项5', value: 5 },
         ],
     },
-    { label: 'DIY', key: 'diy' },
+    { 
+        label: 'DIY',
+        key: 'diy', 
+        multiple: true,
+        options: [
+            { label: '不限', value: 0, isAll: true },
+            { label: '中国', value: 1, icon: '🇨🇳' },
+            { label: '美国', value: 2, icon: '🇺🇸' },
+            { label: '日本', value: 3, icon: '🇯🇵' },
+            { label: '韩国', value: 4, icon: '🇰🇷' },
+        ] 
+    },
     { label: '输入框', key: 'input' },
     { label: '区间', key: 'range' },
     { label: '下拉选择', key: 'select' },

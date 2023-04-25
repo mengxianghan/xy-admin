@@ -22,9 +22,6 @@
                 <slot>
                     <filter-tag
                         :model-value="modelValue"
-                        :options="dataSource.options"
-                        :multiple="dataSource.multiple"
-                        :toggle="dataSource.toggle"
                         @change="onTagChange"></filter-tag>
                 </slot>
             </div>
@@ -46,7 +43,7 @@
 
 <script>
 import { computed, ref, watchEffect, nextTick, onMounted, reactive } from 'vue'
-import { useInjectFilterCtx } from './context'
+import { useFilterItemDataSourceCtx, useInjectFilterCtx } from './context'
 import FilterTag from './FilterTag.vue'
 
 /**
@@ -125,6 +122,8 @@ export default {
             if (curValue.value === props.modelValue) return
             curValue.value = props.modelValue
         })
+
+        useFilterItemDataSourceCtx(props.dataSource)
 
         onMounted(async () => {
             await nextTick()
