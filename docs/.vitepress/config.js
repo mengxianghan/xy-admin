@@ -18,6 +18,11 @@ export default defineConfig({
         footer: {
             message: '本文档内容版权为 XYAdmin 作者所有，保留所有权利。',
         },
+        algolia: {
+            appId: 'U22360281K',
+            apiKey: '3e6f9ead870588058fc7d07ae6a344fa',
+            indexName: 'xy-admin-xuanyunet',
+        },
     },
     markdown: {
         lineNumbers: true,
