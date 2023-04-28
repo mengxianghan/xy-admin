@@ -3,7 +3,7 @@
         <slot>
             <filter-tag-item
                 v-for="item in options"
-                :key="item.value"
+                :key="item.value || item.label"
                 :value="item.value">
                 {{ item.label }}
             </filter-tag-item>
@@ -13,16 +13,12 @@
 
 <script>
 import { ref, watch, computed } from 'vue'
-import { useFilterTagCtx, useFilterTagSelectedValueCtx } from './context'
+import { useFilterTagCtx, useFilterTagSelectedValueCtx, useInjectFilterItemDataSourceCtx } from './context'
+import { get, find } from 'lodash-es'
 import FilterTagItem from './FilterTagItem.vue'
 
 /**
  * @property {array | string | number} modelValue
- * @property {array} options 标签选项
- * @property {string | number} options.label 显示的名称
- * @property {string | number} options.value 选中后的值
- * @property {boolean} multiple 是否多选，默认：false
- * @property {boolean} allowClear 是否允许取消，仅单选有效，多选默认支持取消，默认：false
  */
 export default {
     name: 'XFilterTag',
@@ -33,23 +29,16 @@ export default {
         modelValue: {
             type: [Array, String, Number],
         },
-        options: {
-            type: Array,
-            default: () => [],
-        },
-        multiple: {
-            type: Boolean,
-            default: false,
-        },
-        allowClear: {
-            type: Boolean,
-            default: false,
-        },
     },
     slots: ['default'],
     emits: ['update:modelValue', 'change'],
     setup(props, { emit }) {
+        const { options, multiple, toggle } = useInjectFilterItemDataSourceCtx()
+
         const curValue = ref()
+
+        const cpHasAll = computed(() => options.some((item) => item.isAll))
+        const cpAllOptionItem = computed(() => find(options, { isAll: true }))
 
         watch(
             () => props.modelValue,
@@ -61,7 +50,7 @@ export default {
         )
 
         useFilterTagCtx({
-            multiple: computed(() => props.multiple),
+            multiple: computed(() => multiple),
             onTagClick,
         })
         useFilterTagSelectedValueCtx(curValue)
@@ -71,25 +60,53 @@ export default {
          * @param {string | number} value
          */
         function onTagClick({ value }) {
-            if (props.multiple) {
+            const isAll = get(find(options, { value }), 'isAll', false)
+            // 判断是否多选
+            if (multiple) {
+                // 多选
                 curValue.value = curValue.value || []
-                // 多选，判断是否选中
-                const index = curValue.value.indexOf(value)
-                if (index > -1) {
-                    // 选中，从选中列表移除
-                    curValue.value.splice(index, 1)
+                // 判断是否 “全部” 选项
+                if (isAll) {
+                    // 是
+                    curValue.value = [cpAllOptionItem.value?.value]
                 } else {
-                    // 未选中，添加到选中列表
-                    curValue.value.push(value)
+                    // 不是“全部”选项，判断是否包含全部选项
+                    const allIndex = curValue.value.indexOf(cpAllOptionItem.value?.value)
+                    if (allIndex > -1) {
+                        // 将“全部”选项移除
+                        curValue.value.splice(allIndex, 1)
+                    }
+                    const index = curValue.value.indexOf(value)
+                    if (index > -1) {
+                        // 选中，从选中列表移除
+                        curValue.value.splice(index, 1)
+                    } else {
+                        // 未选中，添加到选中列表
+                        curValue.value.push(value)
+                    }
+                }
+                // 有“全部”选项 && 没有任何选中值
+                if (cpHasAll.value && !curValue.value.length) {
+                    curValue.value = [cpAllOptionItem.value?.value]
                 }
             } else {
-                // 单选，判断是否允许取消
-                if (props.allowClear) {
-                    // 允许取消，判断是否选中，并赋值
-                    curValue.value = curValue.value === value ? null : value
+                // 单选，判断是否 “全部” 选项
+                if (isAll) {
+                    // 不是
+                    curValue.value = cpHasAll.value ? cpAllOptionItem.value?.value : ''
                 } else {
-                    // 不允许取消
-                    curValue.value = value
+                    // 判断是否允许取消
+                    if (toggle) {
+                        // 允许取消，判断是否选中，并赋值
+                        curValue.value = curValue.value === value ? null : value
+                    } else {
+                        // 不允许取消
+                        curValue.value = value
+                    }
+                }
+                // 有“全部选项” && 没有任何选中值
+                if (cpHasAll.value && ['', null, undefined].includes(curValue.value)) {
+                    curValue.value = cpAllOptionItem.value?.value
                 }
             }
             trigger()
@@ -103,8 +120,8 @@ export default {
             emit(
                 'change',
                 curValue.value,
-                props.options.filter((item) => {
-                    if (props.multiple) {
+                options.filter((item) => {
+                    if (multiple) {
                         curValue.value = curValue.value || []
                         return curValue.value.includes(item.value)
                     } else {
@@ -114,7 +131,9 @@ export default {
             )
         }
 
-        return {}
+        return {
+            options,
+        }
     },
 }
 </script>

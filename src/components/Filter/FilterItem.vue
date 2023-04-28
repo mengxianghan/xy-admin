@@ -22,9 +22,6 @@
                 <slot>
                     <filter-tag
                         :model-value="modelValue"
-                        :options="dataSource.options"
-                        :multiple="dataSource.multiple"
-                        :allow-clear="dataSource.allowClear"
                         @change="onTagChange"></filter-tag>
                 </slot>
             </div>
@@ -46,7 +43,7 @@
 
 <script>
 import { computed, ref, watchEffect, nextTick, onMounted, reactive } from 'vue'
-import { useInjectFilterCtx } from './context'
+import { useFilterItemDataSourceCtx, useInjectFilterCtx } from './context'
 import FilterTag from './FilterTag.vue'
 
 /**
@@ -55,7 +52,7 @@ import FilterTag from './FilterTag.vue'
  * @property {string | number} dataSource.label 名称，必填
  * @property {string | number} dataSource.key 索引，必填，多条件不允许重复
  * @property {boolean} dataSource.multiple 是否可以多选
- * @property {boolean} dataSource.allowClear 是否可以清除，仅限单选。默认：false
+ * @property {boolean} dataSource.toggle 切换选中/取消选中，仅限单选。默认：false
  * @property {boolean} dataSource.collapsible 是否可收起。默认：false
  * @property {boolean} dataSource.collapsed 当前收起状态。
  * @property {array} dataSource.options 选项列表
@@ -126,6 +123,8 @@ export default {
             curValue.value = props.modelValue
         })
 
+        useFilterItemDataSourceCtx(props.dataSource)
+
         onMounted(async () => {
             await nextTick()
             content.defaultHeight = parseInt(window.getComputedStyle(contentRef.value).getPropertyValue('line-height'))
@@ -185,7 +184,6 @@ export default {
         &__label {
             flex-shrink: 0;
             line-height: inherit;
-            text-align: right;
         }
 
         &__content {

@@ -74,4 +74,5 @@ export default {
             ],
         },
     ],
+    '/npm/': [{ text: 'XYAxios', link: '/npm/xy-axios' }],
 }
