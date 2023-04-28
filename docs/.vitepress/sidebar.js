@@ -74,5 +74,8 @@ export default {
             ],
         },
     ],
-    '/npm/': [{ text: 'XYAxios', link: '/npm/xy-axios' }],
+    '/npm/': [
+        { text: 'XYAxios', link: '/npm/xy-axios' },
+        { text: 'XYAliOSS', link: '/npm/xy-ali-oss' },
+    ],
 }
