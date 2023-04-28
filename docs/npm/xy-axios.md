@@ -22,21 +22,21 @@ npm install axios xy-axios -S
 ### 基础用法
 
 ```js
-import XYAxios from 'xy-axios'
+import XYAxios from "xy-axios";
 
 const options = {
-    baseURL: 'https://api.example.com',
+    baseURL: "https://api.example.com",
     timeout: 1000
-}
+};
 
-const request = new XYAxios(options)
+const request = new XYAxios(options);
 
-request.get('/getPageList', { current: 1, pageSize: 1 })
+request.get("/getPageList", { current: 1, pageSize: 1 })
     .then((res) => {
-        console.log(res)
+        console.log(res);
     })
     .catch((err) => {
-    })
+    });
 ```
 
 ### 拦截器
@@ -268,21 +268,21 @@ instance.store.patch(url[, data[, config]])
 
 instance.store.getUri([config])
 
-## 请求配置
+## 配置
 这是创建请求时可以用的配置项。仅列举出了`XYAxios`新增的配置。其他配置请参考 [Axios 请求配置](https://www.axios-http.cn/docs/req_config)
 
-```js
+```
 {
-  // 启用终止控制器。启用后会将同时发送的相同地请求取消
-  enableAbortController: false,
-  // 请求拦截回调
-  interceptorRequest: function(request){},
-  // 请求异常回调
-  interceptorRequestCatch: function(err){},
-  // 响应拦截回调
-  interceptorResponse: function(response, controller){},
-  // 响应拦截异常回调
-  interceptorResponseCatch: function(err){}
+    // 启用终止控制器。启用后会将同时发送的相同地请求取消
+    enableAbortController: false,
+    // 请求拦截回调
+    interceptorRequest: (request)=>{},
+    // 请求异常回调
+    interceptorRequestCatch: function(err){},
+    // 响应拦截回调
+    interceptorResponse: function(response, controller){},
+    // 响应拦截异常回调
+    interceptorResponseCatch: function(err){}
 }
 ```
 更多使用方法参考 [Axios](https://www.axios-http.cn/docs/intro)
