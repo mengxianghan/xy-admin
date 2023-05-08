@@ -1,6 +1,4 @@
-# XYAliOSS 网络请求库
-
-基于 `Axios` 网络请求库
+# XYAliOSS 阿里云 OSS 上传
 
 ## 安装
 
@@ -14,7 +12,7 @@ npm install ali-oss xy-ali-oss -S
 
 ```html
 
-<script src="https://cdn.jsdelivr.net/npm/ali-oss@6.17.1/dist/aliyun-oss-sdk.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/ali-oss/dist/aliyun-oss-sdk.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/xy-ali-oss/dist/index.min.js"></script>
 ```
 
@@ -22,14 +20,17 @@ npm install ali-oss xy-ali-oss -S
 
 ```json5
 {
-  // 文件名称
-  "name": "",
-  // 上传后的文件 url
-  "url": "",
-  // 文件后缀
-  "suffix": "",
-  // 元信息
-  "meta": {}
+  code: 200,
+  data: {
+    // 文件名称
+    name: '',
+    // 上传后的文件 url
+    url: '',
+    // 文件后缀
+    suffix: '',
+    // 元信息
+    meta: {},
+  },
 }
 ```
 
@@ -38,18 +39,22 @@ npm install ali-oss xy-ali-oss -S
 ### 基础用法
 
 ```html
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport"
-        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta charset="UTF-8" />
+  <meta
+    name="viewport"
+    content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
+  <meta
+    http-equiv="X-UA-Compatible"
+    content="ie=edge" />
   <title>example</title>
 </head>
 <body>
-
-<input type="file" id="file">
+<input
+  type="file"
+  id="file" />
 <button id="upload">上传</button>
 
 <script src="https://cdn.jsdelivr.net/npm/ali-oss@6.17.1/dist/aliyun-oss-sdk.min.js"></script>
@@ -58,21 +63,23 @@ npm install ali-oss xy-ali-oss -S
 <script>
   const options = {
     // yourRegion填写Bucket所在地域。以华东1（杭州）为例，Region填写为oss-cn-hangzhou。
-    region: "yourRegion",
+    region: 'yourRegion',
     // 从STS服务获取的临时访问密钥（AccessKey ID和AccessKey Secret）。
-    accessKeyId: "yourAccessKeyId",
-    accessKeySecret: "yourAccessKeySecret",
+    accessKeyId: 'yourAccessKeyId',
+    accessKeySecret: 'yourAccessKeySecret',
     // 填写Bucket名称。
-    bucket: "examplebucket"
-  };
-  const oss = new XYAliOSS(options);
+    bucket: 'examplebucket',
+  }
+  const oss = new XYAliOSS(options)
 
-  // 分片上传
-  document.getElementById("upload").addEventListener("click", async () => {
-    const file = document.getElementById("file").files[0];
-    const result = await oss.put(file.name, file);
-    console.log(result);
-  });
+  // 上传
+  document.getElementById('upload').addEventListener('click', async () => {
+    const file = document.getElementById('file').files[0]
+    const result = await oss.put(file.name, file, {
+      rename: false, // 可以单独控制是否重新命名
+    })
+    console.log(result)
+  })
 </script>
 </body>
 </html>
@@ -81,18 +88,22 @@ npm install ali-oss xy-ali-oss -S
 ### 异步获取配置
 
 ```html
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport"
-        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta charset="UTF-8" />
+  <meta
+    name="viewport"
+    content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
+  <meta
+    http-equiv="X-UA-Compatible"
+    content="ie=edge" />
   <title>example</title>
 </head>
 <body>
-
-<input type="file" id="file">
+<input
+  type="file"
+  id="file" />
 <button id="upload">上传</button>
 
 <script src="https://cdn.jsdelivr.net/npm/ali-oss@6.17.1/dist/aliyun-oss-sdk.min.js"></script>
@@ -133,7 +144,7 @@ npm install ali-oss xy-ali-oss -S
   };
   const oss = new XYAliOSS(options);
 
-  // 分片上传
+  // 上传
   document.getElementById("upload").addEventListener("click", async () => {
     const file = document.getElementById("file").files[0];
     const result = await oss.put(file.name, file);
@@ -147,18 +158,22 @@ npm install ali-oss xy-ali-oss -S
 ### 分片上传
 
 ```html
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport"
-        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta charset="UTF-8" />
+  <meta
+    name="viewport"
+    content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
+  <meta
+    http-equiv="X-UA-Compatible"
+    content="ie=edge" />
   <title>example</title>
 </head>
 <body>
-
-<input type="file" id="file">
+<input
+  type="file"
+  id="file" />
 <button id="upload">上传</button>
 
 <script src="https://cdn.jsdelivr.net/npm/ali-oss@6.17.1/dist/aliyun-oss-sdk.min.js"></script>
@@ -167,25 +182,26 @@ npm install ali-oss xy-ali-oss -S
 <script>
   const options = {
     // yourRegion填写Bucket所在地域。以华东1（杭州）为例，Region填写为oss-cn-hangzhou。
-    region: "yourRegion",
+    region: 'yourRegion',
     // 从STS服务获取的临时访问密钥（AccessKey ID和AccessKey Secret）。
-    accessKeyId: "yourAccessKeyId",
-    accessKeySecret: "yourAccessKeySecret",
+    accessKeyId: 'yourAccessKeyId',
+    accessKeySecret: 'yourAccessKeySecret',
     // 填写Bucket名称。
-    bucket: "examplebucket"
-  };
-  const oss = new XYAliOSS(options);
+    bucket: 'examplebucket',
+  }
+  const oss = new XYAliOSS(options)
 
   // 分片上传
-  document.getElementById("upload").addEventListener("click", async () => {
-    const file = document.getElementById("file").files[0];
+  document.getElementById('upload').addEventListener('click', async () => {
+    const file = document.getElementById('file').files[0]
     const result = await oss.multipartUpload(file.name, file, {
       progress: (percent, cpt, res) => {
         // 在这里可以添加进度
-      }
-    });
-    console.log(result);
-  });
+        console.log(`上传进度：${percent}`)
+      },
+    })
+    console.log(result)
+  })
 </script>
 </body>
 </html>
@@ -194,18 +210,22 @@ npm install ali-oss xy-ali-oss -S
 ### 断点续传
 
 ```html
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport"
-        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta charset="UTF-8" />
+  <meta
+    name="viewport"
+    content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
+  <meta
+    http-equiv="X-UA-Compatible"
+    content="ie=edge" />
   <title>example</title>
 </head>
 <body>
-
-<input type="file" id="file">
+<input
+  type="file"
+  id="file" />
 <button id="upload">上传</button>
 <button id="pause">暂停</button>
 <button id="resume">继续上传</button>
@@ -215,111 +235,113 @@ npm install ali-oss xy-ali-oss -S
 <script src="https://cdn.jsdelivr.net/npm/xy-ali-oss/dist/index.min.js"></script>
 <script src=""></script>
 <script>
-  let abortCheckpoint = null;
+  let abortCheckpoint = null
   const options = {
     // yourRegion填写Bucket所在地域。以华东1（杭州）为例，Region填写为oss-cn-hangzhou。
-    region: "yourRegion",
+    region: 'yourRegion',
     // 从STS服务获取的临时访问密钥（AccessKey ID和AccessKey Secret）。
-    accessKeyId: "yourAccessKeyId",
-    accessKeySecret: "yourAccessKeySecret",
+    accessKeyId: 'yourAccessKeyId',
+    accessKeySecret: 'yourAccessKeySecret',
     // 填写Bucket名称。
-    bucket: "examplebucket"
-  };
-  const oss = new XYAliOSS(options);
+    bucket: 'examplebucket',
+  }
+  const oss = new XYAliOSS(options)
 
-  let abortCheckpoint = null;
+  let abortCheckpoint = null
 
   // 分片上传
-  document.getElementById("upload").addEventListener("click", async () => {
-    const file = document.getElementById("file").files[0];
+  document.getElementById('upload').addEventListener('click', async () => {
+    const file = document.getElementById('file').files[0]
     const result = await oss.multipartUpload(file.name, file, {
       progress: (percent, cpt, res) => {
-        abortCheckpoint = cpt;
-      }
-    });
-    console.log(result);
-  });
+        abortCheckpoint = cpt
+      },
+    })
+    console.log(result)
+  })
 
   // 暂停
-  document.getElementById("pause").addEventListener("click", async () => {
-    const store = await oss.getStore();
-    store.cancel();
-  });
+  document.getElementById('pause').addEventListener('click', async () => {
+    const store = await oss.getStore()
+    store.cancel()
+  })
 
   // 继续上传
-  document.getElementById("resume").addEventListener("click", async () => {
-    const result = await oss.resumeMultipartUpload(abortCheckpoint.uploadId, abortCheckpoint.file, {
+  document.getElementById('resume').addEventListener('click', async () => {
+    const result = await oss.multipartUpload(abortCheckpoint.uploadId, abortCheckpoint.file, {
       checkpoint: abortCheckpoint,
       progress: (percent, cpt) => {
-        abortCheckpoint = cpt;
-      }
-    });
-    console.log(result);
-  });
+        abortCheckpoint = cpt
+      },
+    })
+    console.log(result)
+  })
 
   // 中断上传
-  document.getElementById("abort").addEventListener("click", async () => {
-    const store = await oss.getStore();
-    store.abortMultipartUpload(abortCheckpoint.name, abortCheckpoint.uploadId);
-  });
+  document.getElementById('abort').addEventListener('click', async () => {
+    const store = await oss.getStore()
+    store.abortMultipartUpload(abortCheckpoint.name, abortCheckpoint.uploadId)
+  })
 </script>
 </body>
 </html>
 ```
 
-## XYAliOSS 实例
+## API
 
-### 创建一个新实例
+### 参数
 
-new XYAliOSS(options)
+这是创建实例时可以用的配置项。仅列举出了`XYAliOSS`配置和基础配置。[详细配置](https://help.aliyun.com/product/31815.html)
 
-```js
-const instance = new XYAliOSS({})
-```
+| 名称                      | 说明                                   | 类型         | 默认值                                           |
+|-------------------------|--------------------------------------|------------|-----------------------------------------------|
+| async                   | 是否异步获取配置信息，配合 getOptions 使用。默认：false | `boolean`  | `false`                                       |
+| rename                  | 使用 GUID 生成新的文件名。                     | `boolean`  | `true`                                        |
+| rootPath                | 上传文件储存的根目录                           | `string`   | `-`                                           |
+| enableCdn               | 启用 cdn                               | `boolean`  | `false`                                       |
+| cdnUrl                  | cdn 域名                               | `string`   | `-`                                           |
+| retryCount              | 重试次数，上传失败后重试的次数，仅分片上传有效              | `number`   | `5`                                           |
+| refreshSTSTokenInterval | STSToken 刷新间隔                        | `number`   | `300000`                                      |
+| config                  | 基础配置                                 | `object`   | `{ headers: { 'Cache-Control': 'public' }, }` |
+| refreshSTSToken         | 刷新 STSToken                          | `function` | `()=>{}`                                      |
+| getOptions              | 异步获取配置信息，async=true 时有效；支持配置中所有的配置项。 | `function` | `()=>{}`                                      |
 
-### 实例方法
+### 方法
 
-**以下是可用的实例方法。指定的配置将与实例的配置合并。**
+**创建实例**
+
+const instance = new XYAliOSS(options)
+
+---
+
+**基础实例方法**
 
 instance.put(filename, file[, config])
 
 instance.multipartUpload(filename, file[, config])
 
-instance.resumeMultipartUpload(url[, data[, config]])
+---
 
 **其他实例方法**
+
 使用其他实例需要先获取`Store`，由于支持异步设置配置项，所以`getStore`通过`Promise`返回
+
+第一步，获取 store：
 
 const store = await instance.getStore()
 
+第二步，使用：
+
 store.cancel(url[, config])
+
+store.abortMultipartUpload(filename, uploadId)
 
 store.append(filename, target)
 
-## 配置
+## 依赖
 
-这是创建实例时可以用的配置项。仅列举出了`XYAliOSS`配置和基础配置。[更多玩法](https://help.aliyun.com/product/31815.html)
+[ali-oss](https://www.npmjs.com/package/ali-oss)
 
-```
-{
-    // 是否异步获取配置信息，配合 getOptions 使用。默认：false
-    async: false,
-    // 使用 GUID 生成新的文件名。默认：true
-    rename: true,
-    // 上传文件储存的根目录
-    rootPath: '',
-    // cdn 域名，开启 cname 后优先使用 cname
-    cdnUrl: '',
-    // STSToken 刷新间隔
-    refreshSTSTokenInterval: 300000,
-    config: {
-        headers: { 'Cache-Control': 'public' },
-    },
-    // 刷新 STSToken
-    refreshSTSToken: () => {},
-    // 异步获取配置信息，async=true 时有效；支持配置中所有的配置项。
-    getOptions: async ()=>{},
-}
-```
+## 参考文档
 
-更多使用方法参考 [Axios](https://www.axios-http.cn/docs/intro)
+[对象储存](https://help.aliyun.com/product/31815.html)

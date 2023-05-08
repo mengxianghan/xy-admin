@@ -75,7 +75,9 @@ export default {
         },
     ],
     '/npm/': [
-        { text: 'XYAxios', link: '/npm/xy-axios' },
-        { text: 'XYAliOSS', link: '/npm/xy-ali-oss' },
+        { text: 'xy-ali-oss', link: '/npm/xy-ali-oss' },
+        { text: 'xy-http', link: '/npm/xy-http' },
+        { text: 'xy-enum', link: '/npm/xy-enum' },
+        { text: 'xy-storage', link: '/npm/xy-storage' },
     ],
 }
