@@ -143,10 +143,10 @@ export default {
 
 | 名称       | 说明          | 类型               | 默认值       |
 |----------|-------------|------------------|-----------|
-| icon     | 图标          | `string`、`VNode` | `loading` |
-| title    | title 文字    | `string`、`VNode` | `正在努力加载`  |
-| subTitle | subTitle 文字 | `string`、`VNode` | -         |
-| extra    | 操作区         | `string`、`VNode` | -         |
+| icon     | 图标          | `string` `VNode` | `loading` |
+| title    | title 文字    | `string` `VNode` | `正在努力加载`  |
+| subTitle | subTitle 文字 | `string` `VNode` | -         |
+| extra    | 操作区         | `string` `VNode` | -         |
 
 ### 方法
 

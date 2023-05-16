@@ -433,15 +433,15 @@ export default {
 | dataSource       | 数据数组，具体详见[下表](#datasource)                                                  | `array`   | `[]`              |
 | colon            | 是否显示冒号                                                                      | `boolean` | `true`            |
 | labelWidth       | label 标签宽度                                                                  | `number`  | `80`              |
-| labelAlign       | label 内容对齐方式，可选：`left`、`right`                                              | `string`  | `right`           |
+| labelAlign       | label 内容对齐方式，可选：`left` `right`                                              | `string`  | `right`           |
 | footer           | 底部内容 `确定` `重置` 按钮                                                           | `boolean` | `false`           |
 | okText           | 确认按钮文字                                                                      | `string`  | `确定`              |
-| okType           | 确认按钮类型，可选：`primary`、`ghost`、`dashed`、`link`、`text`、`default`                | `string`  | `primary`         |
+| okType           | 确认按钮类型，可选：`primary` `ghost` `dashed` `link` `text` `default`                | `string`  | `primary`         |
 | okButtonProps    | 确认按钮 `props`，具体详见[AntDesignVue](https://antdv.com/components/button-cn#API) | `object`  | `{ ghost: true }` |
 | resetText        | 重置按钮文字                                                                      | `string`  | `重置`              |
-| resetType        | 重置按钮类型，可选：`primary`、`ghost`、`dashed`、`link`、`text`、`default`                | `string`  | `default`         |
+| resetType        | 重置按钮类型，可选：`primary` `ghost` `dashed` `link` `text` `default`                | `string`  | `default`         |
 | resetButtonProps | 重置按钮 `props`，具体详见[AntDesignVue](https://antdv.com/components/button-cn#API) | `object`  |                   |
-| size             | 尺寸，可选：`default`、`small`                                                     | `string`  | `default`         |
+| size             | 尺寸，可选：`default` `small`                                                     | `string`  | `default`         |
 
 #### 插槽
 
@@ -460,7 +460,7 @@ export default {
 
 | 名称         | 说明                       | 类型                                 | 默认值  |
 |------------|--------------------------|------------------------------------|------|
-| dataSource | 数据，具体项见[下表](#datasource) | `object`、`array`、`string`、`number` | `-`  |
+| dataSource | 数据，具体项见[下表](#datasource) | `object` `array` `string` `number` | `-`  |
 | labelWidth | label 标签宽度               | `number`                           | `80` |
 | label      | label 标签内容               | `string`                           | `-`  |
 

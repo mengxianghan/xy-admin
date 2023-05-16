@@ -85,7 +85,7 @@ export default {
 |-----------|-----------|-------------------|-----------|
 | bodyStyle | 内容区域自定义样式 | `object`          | -         |
 | bordered  | 是否有边框     | `boolean`         | `false`   | 
-| size      | card 的尺寸  | `default`、`small` | `default` |
+| size      | card 的尺寸  | `default` `small` | `default` |
 
 ### 插槽
 

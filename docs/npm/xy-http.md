@@ -242,31 +242,37 @@ readFile.get('https://cdn.example.com/1.txt')
 
 ### 方法
 
-**基础实例方法。指定的配置将与实例的配置合并。**
+**基础实例方法**
 
-instance.request(config)
+request(config)
 
-instance.get(url[, params[, config]])
+get(url[, params[, config]])
 
-instance.delete(url[, data[, config]])
+delete(url[, data[, config]])
 
-instance.post(url[, data[, config]])
+post(url[, data[, config]])
 
-instance.put(url[, data[, config]])
+put(url[, data[, config]])
 
-instance.upload(url, formData[, config])
+upload(url, formData[, config])
 
-instance.download(url[, config])
+download(url[, config])
 
 **其他实例方法**
 
-instance.store.head(url[, config])
+第一步获取 store：
 
-instance.store.options(url[, config])
+const store = instance.store
 
-instance.store.patch(url[, data[, config]])
+第二步使用：
 
-instance.store.getUri([config])
+store.head(url[, config])
+
+store.options(url[, config])
+
+store.patch(url[, data[, config]])
+
+store.getUri([config])
 
 ## 依赖
 

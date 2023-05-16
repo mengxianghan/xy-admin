@@ -23,17 +23,17 @@ npm install xy-enum -S
 import XYEnum from "xy-enum";
 
 const myEnum = new XYEnum([
-  { key: "key1", value: 1, desc: "选项1" },
-  { key: "key2", value: 2, desc: "选项2" },
-  { key: "key3", value: 3, desc: "选项3" },
-  { key: "key4", value: 4, desc: "选项4" }
+    { key: "key1", value: 1, desc: "选项1" },
+    { key: "key2", value: 2, desc: "选项2" },
+    { key: "key3", value: 3, desc: "选项3" },
+    { key: "key4", value: 4, desc: "选项4" }
 ]);
 
 // 通过 value 获取 key
-myEnum.getKey("key1");
+myEnum.getKey(1);
 
 // 通过 key 获取 value
-myEnum.getValue(1);
+myEnum.getValue('key1');
 
 // 通过 key 获取 desc
 myEnum.getDesc("key1");
@@ -72,16 +72,16 @@ myEnum.is([1, 2, 3], "key1");
 import XYEnum from "xy-enum";
 
 const myEnum = new XYEnum(
-  [
-    { key: "key1", value: 1, desc: "选项1" },
-    { key: "key2", value: 2, desc: "选项2" },
-    { key: "key3", value: 3, desc: "选项3" },
-    { key: "key4", value: 4, desc: "选项4" }
-  ]);
+    [
+        { key: "key1", value: 1, desc: "选项1" },
+        { key: "key2", value: 2, desc: "选项2" },
+        { key: "key3", value: 3, desc: "选项3" },
+        { key: "key4", value: 4, desc: "选项4" }
+    ]);
 
 const options = myEnum.getOptions({
-  id: "value",
-  title: "desc"
+    id: "value",
+    title: "desc"
 });
 ```
 
@@ -95,29 +95,30 @@ const options = myEnum.getOptions({
 
 #### Data
 
-以下三个字段为必填项，其他字段根据实际业务场景定义
+以下三个字段为必填项
 
 | 名称    | 说明                            | 类型                |
 |-------|-------------------------------|-------------------|
-| key   | 通过 key，可以获取对应数据               | `number`、`string` |
-| value | 通过 value，可以获取对应数据             | `number`、`string` |
-| desc  | 描述，在 getOptions 中会作为 label 返回 | `number`、`string` |
-| ...   | ...                           | ...               |
+| key   | 通过 key 可以获取对应数据               | `number` `string` |
+| value | 通过 value 可以获取对应数据             | `number` `string` |
+| desc  | 描述，在 getOptions 中会作为 label 返回 | `number` `string` |
+| ...   | 其他字段根据实际业务场景定义                | ...               |
 
 ### 方法
 
-instance.get(content)
+get(val)
 
-instance.getKey(content)
+getKey(val)
 
-instance.getValue(content)
+getValue(val)
 
-instance.getDesc(content)
+getDesc(val)
 
-instance.getOptions([config])
+getOptions([config])
 
-instance.getList()
+getList()
 
-instance.is(content, target)
+is(val1, val2)
 
-instance.has(content)
+has(val)
+

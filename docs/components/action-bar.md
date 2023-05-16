@@ -131,7 +131,7 @@ export default {
 
 | 名称        | 说明                     | 类型        | 默认值       |
 |-----------|------------------------|-----------|-----------|
-| type      | 类型，可选：`default`、`card` | `string`  | `default` |
+| type      | 类型，可选：`default` `card` | `string`  | `default` |
 | hoverable | 鼠标移过时可浮起               | `boolean` | `false`   |
 | bodyStyle | 内容区域自定义样式              | `object`  | `-`       |
 | bordered  | 是否有边框，type='card' 时有效  | `boolean` | `true`    |
