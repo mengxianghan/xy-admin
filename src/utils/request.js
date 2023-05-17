@@ -1,10 +1,39 @@
-import Http from './http'
+import XYHttp from 'xy-http'
 import jschardet from 'jschardet'
+import { useUserStore } from '@/store'
+import { message } from 'ant-design-vue'
+
+const MSG_ERROR_KEY = Symbol('GLOBAL_ERROR')
+
+const options = {
+    enableAbortController: true,
+    interceptorRequest: (request) => {
+        const userStore = useUserStore()
+        const isLogin = userStore.isLogin
+        const token = userStore.token
+
+        if (isLogin) {
+            request.headers['AUTH-TOKEN'] = token
+        }
+    },
+    interceptorRequestCatch: () => {},
+    interceptorResponse: (response) => {
+        // 错误处理
+        const { code, msg = 'Network Error' } = response.data || {}
+        if (![200].includes(code)) {
+            message.error({
+                content: msg,
+                key: MSG_ERROR_KEY,
+            })
+        }
+    },
+    interceptorResponseCatch: () => {},
+}
 
 /**
  * 读取文件
  */
-class ReadFile extends Http {
+class ReadFile extends XYHttp {
     constructor() {
         super({
             baseURL: '',
@@ -41,16 +70,13 @@ class ReadFile extends Http {
     }
 }
 
-class Api extends Http {
-    constructor(baseURL) {
-        super({
-            baseURL,
-        })
-    }
-}
-
 export default {
     readFile: new ReadFile(),
-    api: new Api(),
-    default: new Api(`${import.meta.env.VITE_API_DEFAULT}`),
+    api: new XYHttp({
+        ...options,
+    }),
+    default: new XYHttp({
+        ...options,
+        baseURL: `${import.meta.env.VITE_API_DEFAULT}`,
+    }),
 }
