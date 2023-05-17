@@ -10,10 +10,10 @@ const { local } = useStorage()
 
 const useUserStore = defineStore('user', {
     state: () => ({
-        isLogin: local.get(STORAGE_IS_LOGIN, false),
-        userInfo: local.get(STORAGE_USER_INFO, null),
-        token: local.get(STORAGE_TOKEN, ''),
-        permission: local.get(STORAGE_PERMISSION, []),
+        isLogin: local.getItem(STORAGE_IS_LOGIN, false),
+        userInfo: local.getItem(STORAGE_USER_INFO, null),
+        token: local.getItem(STORAGE_TOKEN, ''),
+        permission: local.getItem(STORAGE_PERMISSION, []),
     }),
     getters: {},
     actions: {
@@ -37,9 +37,9 @@ const useUserStore = defineStore('user', {
                             token,
                             isLogin,
                         })
-                        local.set(STORAGE_USER_INFO, others)
-                        local.set(STORAGE_TOKEN, token)
-                        local.set(STORAGE_IS_LOGIN, isLogin)
+                        local.setItem(STORAGE_USER_INFO, others)
+                        local.setItem(STORAGE_TOKEN, token)
+                        local.setItem(STORAGE_IS_LOGIN, isLogin)
                     }
                     resolve(result)
                 })()
@@ -56,9 +56,9 @@ const useUserStore = defineStore('user', {
                     token: '',
                     userInfo: null,
                 })
-                local.remove(STORAGE_IS_LOGIN)
-                local.remove(STORAGE_TOKEN)
-                local.remove(STORAGE_USER_INFO)
+                local.removeItem(STORAGE_IS_LOGIN)
+                local.removeItem(STORAGE_TOKEN)
+                local.removeItem(STORAGE_USER_INFO)
                 appStore.complete = false
                 resolve()
             })

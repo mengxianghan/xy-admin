@@ -35,15 +35,14 @@
     "nanoid": "^4.0.1",
     "nprogress": "^0.2.0",
     "pinia": "^2.0.30",
-    "qiniu-js": "^3.4.1",
     "qrcode": "^1.5.1",
     "sortablejs": "^1.15.0",
     "tinymce": "^6.4.1",
     "vue": "^3.2.47",
     "vue-router": "^4.1.6",
-    "xy-enum": "^1.2.0",
-    "xy-qiniu": "^1.0.0",
-    "xy-storage": "^3.0.2"
+    "xy-enum": "^1.4.0",
+    "xy-http": "^1.0.0",
+    "xy-storage": "^3.1.0"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^4.0.0",
