@@ -1,83 +1,68 @@
 <template>
     <x-search-bar class="mb-8-2">
-        <a-form
-            layout="inline"
-            :label-col="{ style: { width: '100px' } }">
-            <a-row :gutter="16">
-                <a-col
-                    :sm="24"
-                    :md="24"
-                    :xl="8">
-                    <a-form-item>
-                        <template #label>
-                            规则名称
-                            <a-tooltip title="规则名称是唯一的 key">
-                                <question-circle-outlined class="ml-4-1 color-placeholder" />
-                            </a-tooltip>
-                        </template>
-                        <a-input></a-input>
-                    </a-form-item>
-                </a-col>
-                <a-col
-                    :sm="24"
-                    :md="24"
-                    :xl="8">
-                    <a-form-item label="描述">
-                        <a-input></a-input>
-                    </a-form-item>
-                </a-col>
-                <template v-if="searchBarExpand">
-                    <a-col
-                        :sm="24"
-                        :md="24"
-                        :xl="8">
-                        <a-form-item label="服务调用次数">
+        <template #default="{ gutter, colSpan }">
+            <a-form
+                layout="inline"
+                :label-col="{ style: { width: '100px' } }">
+                <a-row :gutter="gutter">
+                    <a-col v-bind="colSpan">
+                        <a-form-item>
+                            <template #label>
+                                规则名称
+                                <a-tooltip title="规则名称是唯一的 key">
+                                    <question-circle-outlined class="ml-4-1 color-placeholder" />
+                                </a-tooltip>
+                            </template>
                             <a-input></a-input>
                         </a-form-item>
                     </a-col>
-                    <a-col
-                        :sm="24"
-                        :md="24"
-                        :xl="8">
-                        <a-form-item label="状态">
-                            <a-select></a-select>
+                    <a-col v-bind="colSpan">
+                        <a-form-item label="描述">
+                            <a-input></a-input>
                         </a-form-item>
                     </a-col>
+                    <template v-if="searchBarExpand">
+                        <a-col v-bind="colSpan">
+                            <a-form-item label="服务调用次数">
+                                <a-input></a-input>
+                            </a-form-item>
+                        </a-col>
+                        <a-col v-bind="colSpan">
+                            <a-form-item label="状态">
+                                <a-select></a-select>
+                            </a-form-item>
+                        </a-col>
+                        <a-col v-bind="colSpan">
+                            <a-form-item label="上次调度时间">
+                                <a-date-picker placeholder=""></a-date-picker>
+                            </a-form-item>
+                        </a-col>
+                    </template>
                     <a-col
-                        :sm="24"
-                        :md="24"
-                        :xl="8">
-                        <a-form-item label="上次调度时间">
-                            <a-date-picker placeholder=""></a-date-picker>
-                        </a-form-item>
+                        class="align-right"
+                        v-bind="colSpan">
+                        <a-space>
+                            <a-button>重置</a-button>
+                            <a-button
+                                type="primary"
+                                ghost
+                                @click="handleSearch">
+                                搜索
+                            </a-button>
+                            <a @click="() => (searchBarExpand = !searchBarExpand)">
+                                展开
+                                <template v-if="searchBarExpand">
+                                    <up-outlined :style="{ fontSize: '12px' }"></up-outlined>
+                                </template>
+                                <template v-else>
+                                    <down-outlined :style="{ fontSize: '12px' }"></down-outlined>
+                                </template>
+                            </a>
+                        </a-space>
                     </a-col>
-                </template>
-                <a-col
-                    class="align-right"
-                    :sm="24"
-                    :md="24"
-                    :xl="8">
-                    <a-space>
-                        <a-button>重置</a-button>
-                        <a-button
-                            type="primary"
-                            ghost
-                            @click="handleSearch">
-                            搜索
-                        </a-button>
-                        <a @click="() => (searchBarExpand = !searchBarExpand)">
-                            展开
-                            <template v-if="searchBarExpand">
-                                <up-outlined :style="{ fontSize: '12px' }"></up-outlined>
-                            </template>
-                            <template v-else>
-                                <down-outlined :style="{ fontSize: '12px' }"></down-outlined>
-                            </template>
-                        </a>
-                    </a-space>
-                </a-col>
-            </a-row>
-        </a-form>
+                </a-row>
+            </a-form>
+        </template>
     </x-search-bar>
     <a-card :bordered="false">
         <x-action-bar class="mb-8-2">
