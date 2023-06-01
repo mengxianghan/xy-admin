@@ -17,16 +17,16 @@
 </template>
 
 <script>
-import { xloading } from '@/components'
+import { loading } from '@/components'
 
 export default {
     setup() {
 
         function handleShow() {
-            xloading()
+            loading()
 
             setTimeout(() => {
-                xloading.hide()
+                loading.hide()
             }, 3000)
         }
 
@@ -56,14 +56,14 @@ export default {
 
 <script>
 import { h } from 'vue';
-import { xloading } from '@/components';
+import { loading } from '@/components';
 import { Button } from 'ant-design-vue';
 import { SmileOutlined } from '@ant-design/icons-vue';
 
 export default {
     setup() {
         function handleShow() {
-            xloading({
+            loading({
                 icon: h(SmileOutlined),
                 title: '自定义标题',
                 subTitle: '正在努力加载',
@@ -75,7 +75,7 @@ export default {
             });
 
             setTimeout(() => {
-                xloading.hide()
+                loading.hide()
             }, 3000)
         }
 
@@ -104,12 +104,12 @@ export default {
 </template>
 
 <script>
-import { xloading } from '@/components';
+import { loading } from '@/components';
 
 export default {
     setup() {
         function handleShow() {
-            const loading = xloading({
+            const loading = loading({
                 title: '倒计时 3 秒'
             });
 
@@ -122,7 +122,7 @@ export default {
                     });
                 } else {
                     clearInterval(timer);
-                    xloading.hide();
+                    loading.hide();
                 }
             }, 1000);
         }
@@ -158,16 +158,16 @@ export default {
 import { h } from 'vue';
 import { Button } from 'ant-design-vue';
 import { SmileOutlined } from '@ant-design/icons-vue';
-import xloading from '@/components/Loading';
+import loading from '@/components/Loading';
 
 function handleShow(){
-    xloading();
+    loading();
 
     hide();
 }
 
 function handleCustom(){
-    xloading({
+    loading({
         icon: h(SmileOutlined),
         title: '自定义标题',
         subTitle: '正在努力加载',
@@ -182,7 +182,7 @@ function handleCustom(){
 }
 
 function handleUpdate(){
-    const loading = xloading({
+    const loading = loading({
         title: '倒计时 3 秒'
     });
 
@@ -195,14 +195,14 @@ function handleUpdate(){
             });
         } else {
             clearInterval(timer);
-            xloading.hide();
+            loading.hide();
         }
     }, 1000);
 }
 
 function hide(){
     setTimeout(()=>{
-        xloading.hide()
+        loading.hide()
     }, 3000)
 }
 </script>

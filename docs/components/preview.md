@@ -17,13 +17,13 @@
 </template>
 
 <script>
-import { xpreview } from '@/components'
+import { preview } from '@/components'
 
 export default {
     setup() {
 
         function handlePreview() {
-            xpreview('http://cdn.xuanyunet.com/test/1.jpeg')
+            preview('http://cdn.xuanyunet.com/test/1.jpeg')
         }
 
         return {
@@ -51,13 +51,13 @@ export default {
 </template>
 
 <script>
-import { xpreview } from '@/components'
+import { preview } from '@/components'
 
 export default {
     setup() {
 
         function handlePreview() {
-            xpreview({
+            preview({
                 urls: ['http://cdn.xuanyunet.com/test/1.jpeg', 'http://cdn.xuanyunet.com/test/2.jpeg', 'http://cdn.xuanyunet.com/test/3.jpeg'],
                 current: 1
             })
@@ -88,13 +88,13 @@ export default {
 </template>
 
 <script>
-import { xpreview } from '@/components'
+import { preview } from '@/components'
 
 export default {
     setup() {
 
         function handlePreview() {
-            xpreview({
+            preview({
                 urls: ['http://cdn.xuanyunet.com/test/1.jpeg', 'http://cdn.xuanyunet.com/test/1.mp3', 'http://cdn.xuanyunet.com/test/1.mp4'],
             })
         }
@@ -119,21 +119,21 @@ export default {
 | current | 预览起始位置索引                          | `number` | `0` |
 
 <script setup>
-import xpreview from '@/components/Preview';
+import preview from '@/components/Preview';
 
 function handlePreview(){
-    xpreview('http://cdn.xuanyunet.com/test/1.jpeg')
+    preview('http://cdn.xuanyunet.com/test/1.jpeg')
 }
 
 function handlePreview2(){
-    xpreview({
+    preview({
         urls: ['http://cdn.xuanyunet.com/test/1.jpeg', 'http://cdn.xuanyunet.com/test/2.jpeg', 'http://cdn.xuanyunet.com/test/3.jpeg'],
         current: 1
     })
 }
 
 function handlePreview3(){
-    xpreview({
+    preview({
         urls: ['http://cdn.xuanyunet.com/test/1.jpeg', 'http://cdn.xuanyunet.com/test/1.mp3', 'http://cdn.xuanyunet.com/test/1.mp4'],
     })
 }
