@@ -2,18 +2,19 @@
     <x-search-bar class="mb-8-2">
         <template #default="{ gutter, colSpan }">
             <a-form
+                :model="searchForm"
                 layout="inline"
                 :label-col="{ style: { width: '100px' } }">
                 <a-row :gutter="gutter">
                     <a-col v-bind="colSpan">
-                        <a-form-item>
+                        <a-form-item name="title">
                             <template #label>
                                 规则名称
                                 <a-tooltip title="规则名称是唯一的 key">
                                     <question-circle-outlined class="ml-4-1 color-placeholder" />
                                 </a-tooltip>
                             </template>
-                            <a-input></a-input>
+                            <a-input v-model:value="searchForm.title"></a-input>
                         </a-form-item>
                     </a-col>
                     <a-col v-bind="colSpan">
@@ -176,7 +177,7 @@ const columns = [
     { title: '状态', dataIndex: 'status' },
     { title: '操作', key: 'action', width: 180 },
 ]
-const { list, pagination, loading, resetPagination } = usePagination()
+const { list, pagination, loading, resetPagination, searchForm } = usePagination()
 const editDialogRef = ref()
 const searchBarExpand = ref(false)
 const size = ref('default')
