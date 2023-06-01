@@ -32,12 +32,12 @@
     </a-card>
 </template>
 
-<script>
+<script setup>
 import { CloseCircleOutlined, RightOutlined } from '@ant-design/icons-vue'
-export default {
+
+defineOptions({
     name: 'resultFail',
-    components: { CloseCircleOutlined, RightOutlined },
-}
+})
 </script>
 
 <style lang="less" scoped></style>

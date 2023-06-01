@@ -2,17 +2,12 @@
     <a-list :data-source="list"></a-list>
 </template>
 
-<script>
-export default {
+<script setup>
+defineOptions({
     name: 'ProjectList',
-    setup() {
-        const list = []
+})
 
-        return {
-            list,
-        }
-    },
-}
+const list = []
 </script>
 
 <style lang="less" scoped></style>

@@ -22,34 +22,23 @@
     </a-row>
 </template>
 
-<script>
+<script setup>
 import { ref } from 'vue'
 import UserInfoCard from './components/UserInfoCard.vue'
 import ArticleList from './components/ArticleList.vue'
 import AppList from './components/AppList.vue'
 import ProjectList from './components/ProjectList.vue'
 
-export default {
-    components: {
-        UserInfoCard,
-        ArticleList,
-        AppList,
-        ProjectList,
-    },
-    setup() {
-        const tabList = [
-            { key: 'article', tab: '文章' },
-            { key: 'app', tab: '应用' },
-            { key: 'project', tab: '项目' },
-        ]
-        const activeTabKey = ref('article')
+defineOptions({
+    name: 'userCenter',
+})
 
-        return {
-            tabList,
-            activeTabKey,
-        }
-    },
-}
+const tabList = [
+    { key: 'article', tab: '文章' },
+    { key: 'app', tab: '应用' },
+    { key: 'project', tab: '项目' },
+]
+const activeTabKey = ref('article')
 </script>
 
 <style lang="less" scoped></style>

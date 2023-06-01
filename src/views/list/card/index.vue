@@ -92,7 +92,7 @@
     </a-list>
 </template>
 
-<script>
+<script setup>
 import { onMounted } from 'vue'
 import { LinkOutlined } from '@ant-design/icons-vue'
 import { SettingOutlined, EditOutlined, EllipsisOutlined } from '@ant-design/icons-vue'
@@ -100,35 +100,28 @@ import { CODE_SUCCESS } from '@/config/http'
 import api from '@/api'
 import usePagination from '@/hooks/usePagination'
 
-export default {
+defineOptions({
     name: 'listCard',
-    components: { LinkOutlined, SettingOutlined, EditOutlined, EllipsisOutlined },
-    setup() {
-        const { loading, list } = usePagination()
+})
 
-        onMounted(() => {
-            getPageList()
-        })
+const { loading, list } = usePagination()
 
-        /**
-         * 获取分页列表
-         */
-        async function getPageList() {
-            loading.value = true
-            const { code, data } = await api.common.getPageList().catch(() => {
-                loading.value = false
-            })
-            loading.value = false
-            if (CODE_SUCCESS === code) {
-                list.value = [{}, ...data.rows]
-            }
-        }
+onMounted(() => {
+    getPageList()
+})
 
-        return {
-            list,
-            loading,
-        }
-    },
+/**
+ * 获取分页列表
+ */
+async function getPageList() {
+    loading.value = true
+    const { code, data } = await api.common.getPageList().catch(() => {
+        loading.value = false
+    })
+    loading.value = false
+    if (CODE_SUCCESS === code) {
+        list.value = [{}, ...data.rows]
+    }
 }
 </script>
 

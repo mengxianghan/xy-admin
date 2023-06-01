@@ -45,76 +45,67 @@
     </a-card>
 </template>
 
-<script>
+<script setup>
 import { onMounted, ref } from 'vue'
 import { message, Modal } from 'ant-design-vue'
 import { CODE_SUCCESS } from '@/config/http'
 import api from '@/api'
 import usePagination from '@/hooks/usePagination'
 
-export default {
+defineOptions({
     name: 'MenuTree',
-    emits: ['select', 'ready'],
-    setup(props, { emit }) {
-        const { list, loading } = usePagination()
-        const selectedKeys = ref([])
-        const keyword = ref('')
+})
 
-        onMounted(() => {
-            getMenuList()
-        })
+const emit = defineEmits(['select', 'ready'])
 
-        /**
-         * 获取菜单列表
-         */
-        async function getMenuList() {
-            loading.value = true
-            const { code, data } = await api.system.getNewMenuList().catch(() => {
-                loading.value = false
-            })
-            loading.value = false
-            if (CODE_SUCCESS === code) {
-                const { rows } = data
-                list.value = rows
-                emit('ready', rows)
-            }
-        }
+const { list, loading } = usePagination()
+const selectedKeys = ref([])
+const keyword = ref('')
 
-        /**
-         * 选择菜单
-         * @param keys
-         * @param node
-         */
-        function handleSelect(keys, { node }) {
-            if (!keys.length) {
-                return
-            }
-            selectedKeys.value = keys
-            emit('select', node)
-        }
+onMounted(() => {
+    getMenuList()
+})
 
-        /**
-         * 删除
-         */
-        function handleDelete() {
-            Modal.confirm({
-                title: '删除提示',
-                content: '确认删除？',
-                onOk: async () => {
-                    message.info('点击了删除')
-                },
-            })
-        }
+/**
+ * 获取菜单列表
+ */
+async function getMenuList() {
+    loading.value = true
+    const { code, data } = await api.system.getNewMenuList().catch(() => {
+        loading.value = false
+    })
+    loading.value = false
+    if (CODE_SUCCESS === code) {
+        const { rows } = data
+        list.value = rows
+        emit('ready', rows)
+    }
+}
 
-        return {
-            keyword,
-            loading,
-            selectedKeys,
-            list,
-            handleSelect,
-            handleDelete,
-        }
-    },
+/**
+ * 选择菜单
+ * @param keys
+ * @param node
+ */
+function handleSelect(keys, { node }) {
+    if (!keys.length) {
+        return
+    }
+    selectedKeys.value = keys
+    emit('select', node)
+}
+
+/**
+ * 删除
+ */
+function handleDelete() {
+    Modal.confirm({
+        title: '删除提示',
+        content: '确认删除？',
+        onOk: async () => {
+            message.info('点击了删除')
+        },
+    })
 }
 </script>
 

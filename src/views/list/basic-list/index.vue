@@ -106,7 +106,7 @@
         @ok="onOk" />
 </template>
 
-<script>
+<script setup>
 import { onMounted, ref } from 'vue'
 import { message, Modal } from 'ant-design-vue'
 import { DownOutlined } from '@ant-design/icons-vue'
@@ -115,99 +115,83 @@ import api from '@/api'
 import EditDialog from './components/EditDialog.vue'
 import usePagination from '@/hooks/usePagination'
 
-export default {
+defineOptions({
     name: 'listBasicList',
-    components: {
-        EditDialog,
-        DownOutlined,
-    },
-    setup() {
-        const { list, pagination, loading, resetPagination, searchForm } = usePagination()
-        const editDialogRef = ref()
+})
 
-        pagination.onChange = (page, pageSize) => {
-            pagination.current = page
-            pagination.pageSize = pageSize
-            getPageList()
-        }
+const { list, pagination, loading, resetPagination, searchForm } = usePagination()
+const editDialogRef = ref()
 
-        searchForm.value = {
-            status: 0,
-        }
+pagination.onChange = (page, pageSize) => {
+    pagination.current = page
+    pagination.pageSize = pageSize
+    getPageList()
+}
 
-        onMounted(() => {
-            getPageList()
+searchForm.value = {
+    status: 0,
+}
+
+onMounted(() => {
+    getPageList()
+})
+
+/**
+ * 获取分页列表
+ */
+async function getPageList() {
+    const { pageSize, current } = pagination
+    loading.value = true
+    const { code, data } = await api.common
+        .getPageList({
+            pageSize,
+            page: current,
         })
-
-        /**
-         * 获取分页列表
-         */
-        async function getPageList() {
-            const { pageSize, current } = pagination
-            loading.value = true
-            const { code, data } = await api.common
-                .getPageList({
-                    pageSize,
-                    page: current,
-                })
-                .catch(() => {
-                    loading.value = false
-                })
+        .catch(() => {
             loading.value = false
-            if (CODE_SUCCESS === code) {
-                list.value = data.rows
-                pagination.total = data.total
-            }
-        }
+        })
+    loading.value = false
+    if (CODE_SUCCESS === code) {
+        list.value = data.rows
+        pagination.total = data.total
+    }
+}
 
-        /**
-         * 搜索
-         */
-        function handleSearch() {
-            resetPagination()
-            getPageList()
-        }
+/**
+ * 搜索
+ */
+function handleSearch() {
+    resetPagination()
+    getPageList()
+}
 
-        /**
-         * 删除
-         */
-        function handleDelete({ id }) {
-            Modal.confirm({
-                title: '删除任务',
-                content: '确定删除该任务吗？',
-                onOk: async () => {
-                    loading.value = true
-                    const { code } = await api.common.deleteData({ id }).catch(() => {
-                        loading.value = false
-                    })
-                    if (CODE_SUCCESS === code) {
-                        message.success('删除成功')
-                        await getPageList()
-                    } else {
-                        loading.value = false
-                    }
-                },
+/**
+ * 删除
+ */
+function handleDelete({ id }) {
+    Modal.confirm({
+        title: '删除任务',
+        content: '确定删除该任务吗？',
+        onOk: async () => {
+            loading.value = true
+            const { code } = await api.common.deleteData({ id }).catch(() => {
+                loading.value = false
             })
-        }
+            if (CODE_SUCCESS === code) {
+                message.success('删除成功')
+                await getPageList()
+            } else {
+                loading.value = false
+            }
+        },
+    })
+}
 
-        /**
-         * 完成
-         */
-        function onOk() {
-            getPageList()
-        }
-
-        return {
-            pagination,
-            searchForm,
-            list,
-            loading,
-            editDialogRef,
-            handleSearch,
-            handleDelete,
-            onOk,
-        }
-    },
+/**
+ * 完成
+ */
+function onOk() {
+    getPageList()
 }
 </script>
 

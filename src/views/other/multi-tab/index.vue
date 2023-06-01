@@ -38,77 +38,65 @@
     </div>
 </template>
 
-<script>
+<script setup>
 import { useRouter } from 'vue-router'
 import { onMounted, ref } from 'vue'
 import useMultiTab from '@/hooks/useMultiTab'
 import dayjs from 'dayjs'
 
-export default {
+defineOptions({
     name: 'otherMultiTab',
-    setup() {
-        const router = useRouter()
-        const { reload, close, closeOther, setTitle } = useMultiTab()
-        const date = ref('')
-        const title = ref('自定义名称')
+})
 
-        onMounted(() => {
-            date.value = dayjs().format('YYYY-MM-DD HH:mm:ss')
-        })
+const router = useRouter()
+const { reload, close, closeOther, setTitle } = useMultiTab()
+const date = ref('')
+const title = ref('自定义名称')
 
-        /**
-         * 打开欢迎页
-         */
-        function handleOpen() {
-            router.push({ name: 'welcome' })
-        }
+onMounted(() => {
+    date.value = dayjs().format('YYYY-MM-DD HH:mm:ss')
+})
 
-        /**
-         * 刷新当前
-         */
-        function handleReload() {
-            reload()
-        }
+/**
+ * 打开欢迎页
+ */
+function handleOpen() {
+    router.push({ name: 'welcome' })
+}
 
-        /**
-         * 关闭
-         */
-        function handleClose() {
-            close()
-        }
+/**
+ * 刷新当前
+ */
+function handleReload() {
+    reload()
+}
 
-        /**
-         * 关闭其他
-         */
-        function handleCloseOther() {
-            closeOther()
-        }
+/**
+ * 关闭
+ */
+function handleClose() {
+    close()
+}
 
-        /**
-         * 设置标题
-         */
-        function handleSetTitle() {
-            setTitle(title.value)
-        }
+/**
+ * 关闭其他
+ */
+function handleCloseOther() {
+    closeOther()
+}
 
-        /**
-         * 还原标题
-         */
-        function handleRevertTitle() {
-            setTitle(router.currentRoute.value.meta?.title)
-        }
+/**
+ * 设置标题
+ */
+function handleSetTitle() {
+    setTitle(title.value)
+}
 
-        return {
-            date,
-            title,
-            handleOpen,
-            handleReload,
-            handleClose,
-            handleCloseOther,
-            handleSetTitle,
-            handleRevertTitle,
-        }
-    },
+/**
+ * 还原标题
+ */
+function handleRevertTitle() {
+    setTitle(router.currentRoute.value.meta?.title)
 }
 </script>
 

@@ -53,13 +53,12 @@
     </a-row>
 </template>
 
-<script>
+<script setup>
 import { UploadOutlined } from '@ant-design/icons-vue'
-export default {
+
+defineOptions({
     name: 'Basic',
-    components: { UploadOutlined },
-    setup() {},
-}
+})
 </script>
 
 <style lang="less" scoped></style>

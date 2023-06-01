@@ -48,7 +48,7 @@
     <dict-type-edit-dialog ref="dictTypeEditDialogRef" />
 </template>
 
-<script>
+<script setup>
 import { ref, onMounted } from 'vue'
 import { message, Modal } from 'ant-design-vue'
 import { CODE_SUCCESS } from '@/config/http'
@@ -56,80 +56,68 @@ import api from '@/api'
 import usePagination from '@/hooks/usePagination'
 import DictTypeEditDialog from './DictTypeEditDialog.vue'
 
-export default {
+defineOptions({
     name: 'DictTypeTree',
-    components: { DictTypeEditDialog },
-    emits: ['select'],
-    setup(props, { emit }) {
-        const { loading, list } = usePagination()
-        const selectedKeys = ref([])
-        const searchValue = ref('')
-        const dictTypeEditDialogRef = ref()
+})
+const emit = defineEmits(['select'])
 
-        onMounted(() => {
-            getDictTypeList()
-        })
+const { loading, list } = usePagination()
+const selectedKeys = ref([])
+const searchValue = ref('')
+const dictTypeEditDialogRef = ref()
 
-        /**
-         * 获取字典分类列表
-         * @return {Promise<void>}
-         */
-        async function getDictTypeList() {
-            loading.value = true
-            const { code, data } = await api.system.getDictTypeList().catch(() => {
-                loading.value = false
-            })
-            loading.value = false
-            if (CODE_SUCCESS === code) {
-                const { rows } = data
-                list.value = rows
-            }
-        }
+onMounted(() => {
+    getDictTypeList()
+})
 
-        /**
-         * 切换分类
-         * @param keys
-         * @param node
-         */
-        function handleSelect(keys, { node }) {
-            if (!keys.length) {
-                return
-            }
-            selectedKeys.value = keys
-            trigger(node)
-        }
+/**
+ * 获取字典分类列表
+ * @return {Promise<void>}
+ */
+async function getDictTypeList() {
+    loading.value = true
+    const { code, data } = await api.system.getDictTypeList().catch(() => {
+        loading.value = false
+    })
+    loading.value = false
+    if (CODE_SUCCESS === code) {
+        const { rows } = data
+        list.value = rows
+    }
+}
 
-        /**
-         * 删除分类
-         */
-        function handleDelete() {
-            Modal.confirm({
-                title: '删除提示',
-                content: '确认删除？',
-                onOk: async () => {
-                    message.info('点击了删除')
-                },
-            })
-        }
+/**
+ * 切换分类
+ * @param keys
+ * @param node
+ */
+function handleSelect(keys, { node }) {
+    if (!keys.length) {
+        return
+    }
+    selectedKeys.value = keys
+    trigger(node)
+}
 
-        /**
-         * 触发
-         * @param value
-         */
-        function trigger(value) {
-            emit('select', value)
-        }
+/**
+ * 删除分类
+ */
+function handleDelete() {
+    Modal.confirm({
+        title: '删除提示',
+        content: '确认删除？',
+        onOk: async () => {
+            message.info('点击了删除')
+        },
+    })
+}
 
-        return {
-            searchValue,
-            dictTypeEditDialogRef,
-            selectedKeys,
-            list,
-            loading,
-            handleSelect,
-            handleDelete,
-        }
-    },
+/**
+ * 触发
+ * @param value
+ */
+function trigger(value) {
+    emit('select', value)
 }
 </script>
 

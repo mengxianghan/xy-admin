@@ -20,9 +20,13 @@
     </a-input>
 </template>
 
-<script>
+<script setup>
 import { onMounted, ref, watch } from 'vue'
 import { Form } from 'ant-design-vue'
+
+defineOptions({
+    name: 'XUploadInput',
+})
 
 /**
  * 文件上传
@@ -31,96 +35,86 @@ import { Form } from 'ant-design-vue'
  * @property {string} loadingBtnText 上传中按钮内容。默认：上传中
  * @property {boolean} allowClear 允许清空。默认：true
  */
-export default {
-    name: 'XUploadInput',
-    props: {
-        modelValue: {
-            type: String,
-            default: '',
-        },
-        btnText: {
-            type: String,
-            default: '选择文件',
-        },
-        loadingBtnText: {
-            type: String,
-            default: '上传中',
-        },
-        allowClear: {
-            type: Boolean,
-            default: true,
-        },
+const props = defineProps({
+    modelValue: {
+        type: String,
+        default: '',
     },
-    emits: ['update:modelValue', 'change'],
-    setup(props, { emit }) {
-        const { onFieldChange } = Form.useInjectFormItemContext()
-        const loading = ref(false)
-        const currentValue = ref('')
-
-        watch(
-            () => props.modelValue,
-            (val) => {
-                if (currentValue.value !== val) {
-                    currentValue.value = val
-                }
-            }
-        )
-
-        onMounted(() => {
-            currentValue.value = props.modelValue
-        })
-
-        /**
-         * 内容发生改变
-         * @param e
-         */
-        function onInput(e) {
-            trigger(e.target.value)
-        }
-
-        /**
-         * 自定义上传
-         * @param info
-         */
-        async function customRequest(info) {
-            const { file } = info
-
-            // 演示
-            loading.value = true
-            setTimeout(() => {
-                loading.value = false
-                currentValue.value = file.name
-                trigger(currentValue.value)
-            }, 2000)
-
-            // 真实业务场景
-            // loading.value = true
-            // const { code, data } = await api.common.upload({
-            //     file,
-            // })
-            // loading.value = false
-            // if (CODE_SUCCESS === code) {
-            //     currentValue.value = data?.src
-            //     trigger(currentValue.value)
-            // }
-        }
-
-        /**
-         * 触发
-         */
-        function trigger(value) {
-            emit('update:modelValue', value)
-            emit('change', value)
-            onFieldChange()
-        }
-
-        return {
-            currentValue,
-            loading,
-            onInput,
-            customRequest,
-        }
+    btnText: {
+        type: String,
+        default: '选择文件',
     },
+    loadingBtnText: {
+        type: String,
+        default: '上传中',
+    },
+    allowClear: {
+        type: Boolean,
+        default: true,
+    },
+})
+
+const emit = defineEmits(['update:modelValue', 'change'])
+
+const { onFieldChange } = Form.useInjectFormItemContext()
+const loading = ref(false)
+const currentValue = ref('')
+
+watch(
+    () => props.modelValue,
+    (val) => {
+        if (currentValue.value !== val) {
+            currentValue.value = val
+        }
+    }
+)
+
+onMounted(() => {
+    currentValue.value = props.modelValue
+})
+
+/**
+ * 内容发生改变
+ * @param e
+ */
+function onInput(e) {
+    trigger(e.target.value)
+}
+
+/**
+ * 自定义上传
+ * @param info
+ */
+async function customRequest(info) {
+    const { file } = info
+
+    // 演示
+    loading.value = true
+    setTimeout(() => {
+        loading.value = false
+        currentValue.value = file.name
+        trigger(currentValue.value)
+    }, 2000)
+
+    // 真实业务场景
+    // loading.value = true
+    // const { code, data } = await api.common.upload({
+    //     file,
+    // })
+    // loading.value = false
+    // if (CODE_SUCCESS === code) {
+    //     currentValue.value = data?.src
+    //     trigger(currentValue.value)
+    // }
+}
+
+/**
+ * 触发
+ */
+function trigger(value) {
+    emit('update:modelValue', value)
+    emit('change', value)
+    onFieldChange()
 }
 </script>
 

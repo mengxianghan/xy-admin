@@ -93,7 +93,7 @@
     </a-card>
 </template>
 
-<script>
+<script setup>
 import { ref } from 'vue'
 import { StarOutlined, LikeOutlined, MessageOutlined } from '@ant-design/icons-vue'
 import { CODE_SUCCESS } from '@/config/http'
@@ -101,88 +101,77 @@ import usePagination from '@/hooks/usePagination'
 import PageHeader from '../components/PageHeader.vue'
 import api from '@/api'
 
-export default {
+defineOptions({
     name: 'listSearchArticles',
-    components: { PageHeader, StarOutlined, LikeOutlined, MessageOutlined },
-    setup() {
-        const { list, pagination, loading, resetPagination, searchForm } = usePagination()
+})
 
-        const filterData = ref([
-            {
-                key: 'category',
-                label: '所属类目',
-                options: [
-                    { label: '全部', value: 0 },
-                    { label: '类目1', value: 1 },
-                    { label: '类目2', value: 2 },
-                    { label: '类目3', value: 3 },
-                    { label: '类目4', value: 4 },
-                    { label: '类目5', value: 5 },
-                    { label: '类目6', value: 6 },
-                    { label: '类目7', value: 7 },
-                    { label: '类目8', value: 8 },
-                ],
-            },
-            {
-                key: 'owner',
-                label: 'owner',
-            },
-            {
-                key: 'other',
-                label: '活跃用户',
-            },
-        ])
+const { list, pagination, loading, resetPagination, searchForm } = usePagination()
 
-        pagination.onChange = (page, pageSize) => {
-            pagination.current = page
-            pagination.pageSize = pageSize
-            getPageList()
-        }
-
-        searchForm.value = {
-            owner: [1, 2],
-        }
-
-        getPageList()
-
-        /**
-         * 获取分页列表
-         */
-        async function getPageList() {
-            const { pageSize, current } = pagination
-            loading.value = true
-            const { code, data } = await api.common
-                .getPageList({
-                    pageSize,
-                    page: current,
-                })
-                .catch(() => {
-                    loading.value = false
-                })
-            loading.value = false
-            if (CODE_SUCCESS === code) {
-                list.value = data.rows
-                pagination.total = data.total
-            }
-        }
-
-        /**
-         * 搜索
-         */
-        function handleSearch() {
-            resetPagination()
-            getPageList()
-        }
-
-        return {
-            filterData,
-            searchForm,
-            list,
-            pagination,
-            loading,
-            handleSearch,
-        }
+const filterData = ref([
+    {
+        key: 'category',
+        label: '所属类目',
+        options: [
+            { label: '全部', value: 0 },
+            { label: '类目1', value: 1 },
+            { label: '类目2', value: 2 },
+            { label: '类目3', value: 3 },
+            { label: '类目4', value: 4 },
+            { label: '类目5', value: 5 },
+            { label: '类目6', value: 6 },
+            { label: '类目7', value: 7 },
+            { label: '类目8', value: 8 },
+        ],
     },
+    {
+        key: 'owner',
+        label: 'owner',
+    },
+    {
+        key: 'other',
+        label: '活跃用户',
+    },
+])
+
+pagination.onChange = (page, pageSize) => {
+    pagination.current = page
+    pagination.pageSize = pageSize
+    getPageList()
+}
+
+searchForm.value = {
+    owner: [1, 2],
+}
+
+getPageList()
+
+/**
+ * 获取分页列表
+ */
+async function getPageList() {
+    const { pageSize, current } = pagination
+    loading.value = true
+    const { code, data } = await api.common
+        .getPageList({
+            pageSize,
+            page: current,
+        })
+        .catch(() => {
+            loading.value = false
+        })
+    loading.value = false
+    if (CODE_SUCCESS === code) {
+        list.value = data.rows
+        pagination.total = data.total
+    }
+}
+
+/**
+ * 搜索
+ */
+function handleSearch() {
+    resetPagination()
+    getPageList()
 }
 </script>
 

@@ -17,12 +17,15 @@
     </div>
 </template>
 
-<script>
+<script setup>
 import { onMounted, ref, watch } from 'vue'
 import { deepMerge } from '@/utils'
 import { Form } from 'ant-design-vue'
 import TinyEditor from '@tinymce/tinymce-vue'
 
+defineOptions({
+    name: 'XEditor',
+})
 /**
  * @property {string} modelValue v-model
  * @property {object} options 配置
@@ -30,88 +33,77 @@ import TinyEditor from '@tinymce/tinymce-vue'
  * @property {string} placeholder 占位文案
  * @property {boolean} disabled 禁用，默认：false
  */
-export default {
-    name: 'XEditor',
-    components: { TinyEditor },
-    props: {
-        modelValue: {
-            type: String,
-            default: '',
-        },
-        options: {
-            type: Object,
-            default: () => ({}),
-        },
-        height: {
-            type: Number,
-            default: 300,
-        },
-        placeholder: {
-            type: String,
-            default: '',
-        },
-        disabled: {
-            type: Boolean,
-            default: false,
-        },
+const props = defineProps({
+    modelValue: {
+        type: String,
+        default: '',
     },
-    emits: ['update:modelValue', 'ready'],
-    setup(props, { emit }) {
-        const spinning = ref(true)
-        const content = ref('')
-        const opts = deepMerge(
-            {
-                language: 'zh-Hans',
-                height: 480,
-                branding: false,
-                resize: false,
-                promotion: false,
-                content_style: `
+    options: {
+        type: Object,
+        default: () => ({}),
+    },
+    height: {
+        type: Number,
+        default: 300,
+    },
+    placeholder: {
+        type: String,
+        default: '',
+    },
+    disabled: {
+        type: Boolean,
+        default: false,
+    },
+})
+
+const emit = defineEmits(['update:modelValue', 'ready'])
+
+const spinning = ref(true)
+const content = ref('')
+const opts = deepMerge(
+    {
+        language: 'zh-Hans',
+        height: 480,
+        branding: false,
+        resize: false,
+        promotion: false,
+        content_style: `
                 * {margin: 0; padding: 0; hyphens: auto;text-rendering: optimizeLegibility;-webkit-font-smoothing: antialiased;}
                 body {font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Helvetica, Segoe UI, Arial, Roboto, 'PingFang SC', 'miui', 'Hiragino Sans GB', 'Microsoft Yahei', sans-serif}
                 .mce-content-body {margin: 12px; font-size: 14px;}
             `,
-            },
-            props.options
-        )
-        const { onFieldChange } = Form.useInjectFormItemContext()
-
-        watch(
-            () => props.modelValue,
-            (val) => {
-                if (val === content.value) return
-                content.value = val
-            }
-        )
-        watch(
-            () => content.value,
-            (val) => {
-                emit('update:modelValue', val)
-                onFieldChange()
-            }
-        )
-
-        onMounted(() => {
-            content.value = props.modelValue
-            tinymce.init({})
-        })
-
-        /**
-         * 初始化
-         * @param e
-         */
-        function onInit(e) {
-            spinning.value = false
-            emit('ready', e.target)
-        }
-
-        return {
-            spinning,
-            content,
-            opts,
-            onInit,
-        }
     },
+    props.options
+)
+const { onFieldChange } = Form.useInjectFormItemContext()
+
+watch(
+    () => props.modelValue,
+    (val) => {
+        if (val === content.value) return
+        content.value = val
+    }
+)
+watch(
+    () => content.value,
+    (val) => {
+        emit('update:modelValue', val)
+        onFieldChange()
+    }
+)
+
+onMounted(() => {
+    content.value = props.modelValue
+    tinymce.init({})
+})
+
+/**
+ * 初始化
+ * @param e
+ */
+function onInit(e) {
+    spinning.value = false
+    emit('ready', e.target)
 }
 </script>
 

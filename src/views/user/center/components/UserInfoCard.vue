@@ -45,58 +45,47 @@
     </a-card>
 </template>
 
-<script>
+<script setup>
 import { HomeOutlined, IdcardOutlined, ClusterOutlined } from '@ant-design/icons-vue'
 
-export default {
+defineOptions({
     name: 'UserInfoCard',
-    components: {
-        HomeOutlined,
-        IdcardOutlined,
-        ClusterOutlined,
-    },
-    setup() {
-        const tagList = ['很有想法的', '专注设计', '辣~', '大长腿', '川妹子', '海纳百川']
+})
 
-        const teamList = [
-            {
-                id: 1,
-                name: '科学搬砖组',
-                color: '#00acf4',
-            },
-            {
-                id: 2,
-                name: '全组都是吴彦祖',
-                color: '#e51039',
-            },
-            {
-                id: 3,
-                name: '中二少女团',
-                color: '#eb602a',
-            },
-            {
-                id: 4,
-                name: '程序员日常',
-                color: '#00101e',
-            },
-            {
-                id: 5,
-                name: '高逼格设计天团',
-                color: '#7e52b5',
-            },
-            {
-                id: 6,
-                name: '骗你来学计算机',
-                color: '#1ed7fd',
-            },
-        ]
+const tagList = ['很有想法的', '专注设计', '辣~', '大长腿', '川妹子', '海纳百川']
 
-        return {
-            tagList,
-            teamList,
-        }
+const teamList = [
+    {
+        id: 1,
+        name: '科学搬砖组',
+        color: '#00acf4',
     },
-}
+    {
+        id: 2,
+        name: '全组都是吴彦祖',
+        color: '#e51039',
+    },
+    {
+        id: 3,
+        name: '中二少女团',
+        color: '#eb602a',
+    },
+    {
+        id: 4,
+        name: '程序员日常',
+        color: '#00101e',
+    },
+    {
+        id: 5,
+        name: '高逼格设计天团',
+        color: '#7e52b5',
+    },
+    {
+        id: 6,
+        name: '骗你来学计算机',
+        color: '#1ed7fd',
+    },
+]
 </script>
 
 <style lang="less" scoped></style>

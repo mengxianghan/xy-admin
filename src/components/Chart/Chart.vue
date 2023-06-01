@@ -4,10 +4,14 @@
         class="x-chart"></div>
 </template>
 
-<script>
+<script setup>
 import { onMounted, ref, markRaw, watch, onBeforeMount } from 'vue'
 
 import * as echarts from 'echarts'
+
+defineOptions({
+    name: 'XChart',
+})
 
 /**
  * 图表
@@ -15,81 +19,74 @@ import * as echarts from 'echarts'
  * @property {number | string} width 宽
  * @property {number | string} height 高
  */
-export default {
-    name: 'XChart',
-    props: {
-        options: {
-            type: Object,
-            default: () => ({}),
-        },
-        width: {
-            type: [Number, String],
-            default: 'auto',
-        },
-        height: {
-            type: [Number, String],
-            default: 'auto',
-        },
+const props = defineProps({
+    options: {
+        type: Object,
+        default: () => ({}),
     },
-    emits: ['init'],
-    setup(props, { emit }) {
-        const chart = ref(null)
-        const chartRef = ref()
-
-        watch(
-            () => props.options,
-            () => init(),
-            {
-                deep: true,
-            }
-        )
-
-        onMounted(() => {
-            init()
-        })
-
-        onBeforeMount(() => {
-            if (!chart.value) return
-            chart.value.dispose()
-        })
-
-        /**
-         * 初始化
-         * @private
-         */
-        function init() {
-            echarts.registerTheme('chart', {
-                legend: {
-                    itemWidth: 14,
-                    itemHeight: 14,
-                },
-                bar: {
-                    barWidth: 30,
-                    backgroundStyle: {
-                        color: 'rgba(180, 180, 180, 0.2)',
-                    },
-                    showBackground: true,
-                },
-            })
-
-            chart.value = markRaw(
-                echarts.init(chartRef.value, 'chart', {
-                    width: props.width,
-                    height: props.height,
-                })
-            )
-
-            setTimeout(() => {
-                chart.value.setOption(props.options, true)
-                chart.value.resize()
-                emit('ready', chart.value)
-            }, 100)
-        }
-
-        return {
-            chartRef,
-        }
+    width: {
+        type: [Number, String],
+        default: 'auto',
     },
+    height: {
+        type: [Number, String],
+        default: 'auto',
+    },
+})
+
+const emit = defineEmits(['init'])
+
+const chart = ref(null)
+const chartRef = ref()
+
+watch(
+    () => props.options,
+    () => init(),
+    {
+        deep: true,
+    }
+)
+
+onMounted(() => {
+    init()
+})
+
+onBeforeMount(() => {
+    if (!chart.value) return
+    chart.value.dispose()
+})
+
+/**
+ * 初始化
+ * @private
+ */
+function init() {
+    echarts.registerTheme('chart', {
+        legend: {
+            itemWidth: 14,
+            itemHeight: 14,
+        },
+        bar: {
+            barWidth: 30,
+            backgroundStyle: {
+                color: 'rgba(180, 180, 180, 0.2)',
+            },
+            showBackground: true,
+        },
+    })
+
+    chart.value = markRaw(
+        echarts.init(chartRef.value, 'chart', {
+            width: props.width,
+            height: props.height,
+        })
+    )
+
+    setTimeout(() => {
+        chart.value.setOption(props.options, true)
+        chart.value.resize()
+        emit('ready', chart.value)
+    }, 100)
 }
 </script>
 

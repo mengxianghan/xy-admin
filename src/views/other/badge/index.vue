@@ -13,32 +13,26 @@
     </a-card>
 </template>
 
-<script>
+<script setup>
 import { ref } from 'vue'
 import useMenu from '@/hooks/useMenu'
-export default {
+
+defineOptions({
     name: 'otherBadge',
-    setup() {
-        const form = ref({
-            name: 'welcome',
-            count: 10,
-        })
-        const { setBadge } = useMenu()
+})
 
-        function handleSet() {
-            setBadge(form.value?.name, form.value?.count)
-        }
+const form = ref({
+    name: 'welcome',
+    count: 10,
+})
+const { setBadge } = useMenu()
 
-        function handleClear() {
-            setBadge(form.value?.name, 0)
-        }
+function handleSet() {
+    setBadge(form.value?.name, form.value?.count)
+}
 
-        return {
-            form,
-            handleSet,
-            handleClear,
-        }
-    },
+function handleClear() {
+    setBadge(form.value?.name, 0)
 }
 </script>
 

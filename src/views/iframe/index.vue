@@ -11,26 +11,20 @@
     </div>
 </template>
 
-<script>
+<script setup>
 import { computed, ref } from 'vue'
 import { useRoute } from 'vue-router'
 import { useMultiTabStore } from '@/store'
 
-export default {
+defineOptions({
     name: 'iframePage',
-    setup() {
-        const multiTabStore = useMultiTabStore()
-        const route = useRoute()
+})
 
-        const url = ref(route.meta?.url)
-        const cpIframeList = computed(() => multiTabStore.iframeList)
+const multiTabStore = useMultiTabStore()
+const route = useRoute()
 
-        return {
-            cpIframeList,
-            url,
-        }
-    },
-}
+const url = ref(route.meta?.url)
+const cpIframeList = computed(() => multiTabStore.iframeList)
 </script>
 
 <style lang="less" scoped>

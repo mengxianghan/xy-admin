@@ -40,57 +40,45 @@
     </a-list>
 </template>
 
-<script>
+<script setup>
 import { StarOutlined, LikeOutlined, MessageOutlined } from '@ant-design/icons-vue'
 import { CODE_SUCCESS } from '@/config/http'
 import usePagination from '@/hooks/usePagination.js'
 import api from '@/api'
 
-export default {
+defineOptions({
     name: 'ArticleList',
-    components: {
-        StarOutlined,
-        LikeOutlined,
-        MessageOutlined,
-    },
-    setup() {
-        const { list, loading, pagination } = usePagination()
+})
 
-        pagination.onChange = (page, pageSize) => {
-            pagination.current = page
-            pagination.pageSize = pageSize
-            getPageList()
-        }
+const { list, loading, pagination } = usePagination()
 
-        getPageList()
+pagination.onChange = (page, pageSize) => {
+    pagination.current = page
+    pagination.pageSize = pageSize
+    getPageList()
+}
 
-        /**
-         * 获取分页列表
-         */
-        async function getPageList() {
-            const { pageSize, current } = pagination
-            loading.value = true
-            const { code, data } = await api.common
-                .getPageList({
-                    pageSize,
-                    page: current,
-                })
-                .catch(() => {
-                    loading.value = false
-                })
+getPageList()
+
+/**
+ * 获取分页列表
+ */
+async function getPageList() {
+    const { pageSize, current } = pagination
+    loading.value = true
+    const { code, data } = await api.common
+        .getPageList({
+            pageSize,
+            page: current,
+        })
+        .catch(() => {
             loading.value = false
-            if (CODE_SUCCESS === code) {
-                list.value = data.rows
-                pagination.total = data.total
-            }
-        }
-
-        return {
-            list,
-            loading,
-            pagination,
-        }
-    },
+        })
+    loading.value = false
+    if (CODE_SUCCESS === code) {
+        list.value = data.rows
+        pagination.total = data.total
+    }
 }
 </script>
 

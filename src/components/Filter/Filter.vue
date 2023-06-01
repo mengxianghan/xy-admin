@@ -48,10 +48,14 @@
     </div>
 </template>
 
-<script>
-import { computed, ref, watch } from 'vue'
+<script setup>
+import { computed, ref, useSlots, watch } from 'vue'
 import { useFilterCtx } from './context'
 import FilterItem from './FilterItem.vue'
+
+defineOptions({
+    name: 'XFilter',
+})
 
 /**
  * 筛选组件
@@ -68,134 +72,123 @@ import FilterItem from './FilterItem.vue'
  * @property {object} resetButtonProps 重置按钮 props，详见：https://antdv.com/components/button-cn#API
  * @property {string} size 尺寸，可选：default、small。默认：default
  */
-export default {
-    name: 'XFilter',
-    components: { FilterItem },
-    props: {
-        modelValue: {
-            type: Object,
-            default: () => ({}),
-        },
-        dataSource: {
-            type: Array,
-            default: () => [],
-        },
-        colon: {
-            type: Boolean,
-            default: true,
-        },
-        labelWidth: {
-            type: Number,
-            default: 0,
-        },
-        labelAlign: {
-            type: String,
-            default: 'right',
-        },
-        footer: {
-            type: Boolean,
-            default: false,
-        },
-        okText: {
-            type: String,
-            default: '确定',
-        },
-        okType: {
-            type: String,
-            default: 'primary',
-        },
-        okButtonProps: {
-            type: Object,
-            default: () => ({
-                ghost: true,
-            }),
-        },
-        resetText: {
-            type: String,
-            default: '重置',
-        },
-        resetType: {
-            type: String,
-        },
-        resetButtonProps: {
-            type: Object,
-            default: () => ({}),
-        },
-        size: {
-            type: String,
-            default: 'default',
-        },
+const props = defineProps({
+    modelValue: {
+        type: Object,
+        default: () => ({}),
     },
-    slots: ['default', 'footer', 'collapse'],
-    emits: ['change', 'update:modelValue', 'ok', 'reset'],
-    setup(props, { emit, slots }) {
-        const curValue = ref(new Map(Object.entries(props.modelValue)))
-        const cpShowFooterSlot = computed(() => slots.footer)
-        const cpClassNames = computed(() => ({
-            [`x-filter--${props.size}`]: true,
-            [`x-filter--label-align-${props.labelAlign}`]: true,
-        }))
-
-        useFilterCtx({
-            colon: computed(() => props.colon),
-            labelWidth: computed(() => props.labelWidth),
-            onChange: trigger,
-        })
-
-        watch(
-            () => props.modelValue,
-            (val) => {
-                if (Object.fromEntries(curValue.value) === val) return
-                curValue.value = new Map(Object.entries(val))
-            },
-            { deep: true }
-        )
-
-        /**
-         * 获取子节点当前值
-         * @param {string | number} key
-         */
-        function getModelValue(key) {
-            return curValue.value.get(key)
-        }
-
-        /**
-         * 确定
-         */
-        function handleOk() {
-            emit('ok')
-        }
-
-        /**
-         * 取消
-         */
-        function handleReset() {
-            emit('reset')
-        }
-
-        /**
-         * 触发
-         * @private
-         */
-        function trigger(key, value) {
-            if (value === null || value === undefined) {
-                curValue.value.delete(key)
-            } else {
-                curValue.value.set(key, value)
-            }
-            const val = Object.fromEntries(curValue.value)
-            emit('update:modelValue', val)
-            emit('change', val)
-        }
-
-        return {
-            cpShowFooterSlot,
-            cpClassNames,
-            getModelValue,
-            handleOk,
-            handleReset,
-        }
+    dataSource: {
+        type: Array,
+        default: () => [],
     },
+    colon: {
+        type: Boolean,
+        default: true,
+    },
+    labelWidth: {
+        type: Number,
+        default: 0,
+    },
+    labelAlign: {
+        type: String,
+        default: 'right',
+    },
+    footer: {
+        type: Boolean,
+        default: false,
+    },
+    okText: {
+        type: String,
+        default: '确定',
+    },
+    okType: {
+        type: String,
+        default: 'primary',
+    },
+    okButtonProps: {
+        type: Object,
+        default: () => ({
+            ghost: true,
+        }),
+    },
+    resetText: {
+        type: String,
+        default: '重置',
+    },
+    resetType: {
+        type: String,
+    },
+    resetButtonProps: {
+        type: Object,
+        default: () => ({}),
+    },
+    size: {
+        type: String,
+        default: 'default',
+    },
+})
+
+const emit = defineEmits(['change', 'update:modelValue', 'ok', 'reset'])
+
+const slots = useSlots(['default', 'footer', 'collapse'])
+
+const curValue = ref(new Map(Object.entries(props.modelValue)))
+const cpShowFooterSlot = computed(() => slots.footer)
+const cpClassNames = computed(() => ({
+    [`x-filter--${props.size}`]: true,
+    [`x-filter--label-align-${props.labelAlign}`]: true,
+}))
+
+useFilterCtx({
+    colon: computed(() => props.colon),
+    labelWidth: computed(() => props.labelWidth),
+    onChange: trigger,
+})
+
+watch(
+    () => props.modelValue,
+    (val) => {
+        if (Object.fromEntries(curValue.value) === val) return
+        curValue.value = new Map(Object.entries(val))
+    },
+    { deep: true }
+)
+
+/**
+ * 获取子节点当前值
+ * @param {string | number} key
+ */
+function getModelValue(key) {
+    return curValue.value.get(key)
+}
+
+/**
+ * 确定
+ */
+function handleOk() {
+    emit('ok')
+}
+
+/**
+ * 取消
+ */
+function handleReset() {
+    emit('reset')
+}
+
+/**
+ * 触发
+ * @private
+ */
+function trigger(key, value) {
+    if (value === null || value === undefined) {
+        curValue.value.delete(key)
+    } else {
+        curValue.value.set(key, value)
+    }
+    const val = Object.fromEntries(curValue.value)
+    emit('update:modelValue', val)
+    emit('change', val)
 }
 </script>
 

@@ -160,28 +160,22 @@
     </a-form>
 </template>
 
-<script>
-export default {
+<script setup>
+defineOptions({
     name: 'formAdvanced',
-    setup() {
-        const columns = [
-            { title: '成员姓名', dataIndex: 'name' },
-            { title: '工号', dataIndex: 'number' },
-            { title: '所属部门', dataIndex: 'department' },
-            { title: '操作', dataIndex: 'action', key: 'action' },
-        ]
-        const list = [
-            { id: '1', name: 'John Brown', number: '00001', department: 'New York No. 1 Lake Park' },
-            { id: '2', name: 'Jim Green', number: '00002', department: 'London No. 1 Lake Park' },
-            { id: '3', name: 'Joe Black', number: '00003', department: 'Sidney No. 1 Lake Park' },
-        ]
+})
 
-        return {
-            columns,
-            list,
-        }
-    },
-}
+const columns = [
+    { title: '成员姓名', dataIndex: 'name' },
+    { title: '工号', dataIndex: 'number' },
+    { title: '所属部门', dataIndex: 'department' },
+    { title: '操作', dataIndex: 'action', key: 'action' },
+]
+const list = [
+    { id: '1', name: 'John Brown', number: '00001', department: 'New York No. 1 Lake Park' },
+    { id: '2', name: 'Jim Green', number: '00002', department: 'London No. 1 Lake Park' },
+    { id: '3', name: 'Joe Black', number: '00003', department: 'Sidney No. 1 Lake Park' },
+]
 </script>
 
 <style lang="less" scoped></style>

@@ -28,11 +28,14 @@
     </div>
 </template>
 
-<script>
+<script setup>
 import { ref, toRefs, onMounted, watch } from 'vue'
 import { ReloadOutlined } from '@ant-design/icons-vue'
 import QRCode from 'qrcode'
 
+defineOptions({
+    name: 'XQrCode',
+})
 /**
  * 二维码
  * @property {string} value 内容
@@ -46,150 +49,142 @@ import QRCode from 'qrcode'
  * @property {string} errorLevel 纠错等级。默认：M，【L=low, M=medium, Q=quartile, H=high】
  * @property {string} status 状态，【active=有效，loading=加载中，expired=已过期】
  */
-export default {
-    name: 'XQrCode',
-    props: {
-        value: {
-            type: String,
-            required: true,
-            default: '',
-        },
-        size: {
-            type: Number,
-            default: 120,
-        },
-        color: {
-            type: String,
-            default: '#000',
-        },
-        backgroundColor: {
-            type: String,
-            default: '#fff',
-        },
-        icon: {
-            type: String,
-            default: '',
-        },
-        iconSize: {
-            type: Number,
-            default: 30,
-        },
-        iconPadding: {
-            type: Number,
-            default: 0,
-        },
-        iconBackgroundColor: {
-            type: String,
-            default: '',
-        },
-        errorLevel: {
-            type: String,
-            default: 'M',
-        },
-        status: {
-            type: String,
-            default: 'active',
-        },
+const props = defineProps({
+    value: {
+        type: String,
+        required: true,
+        default: '',
     },
-    components: {
-        ReloadOutlined,
+    size: {
+        type: Number,
+        default: 120,
     },
-    emits: ['refresh'],
-    setup(props, { emit }) {
-        const qrCodeRef = ref()
-
-        watch(
-            () => toRefs(props),
-            () => {
-                init()
-            },
-            {
-                deep: true,
-            }
-        )
-
-        onMounted(() => {
-            init()
-        })
-
-        /**
-         * 初始化
-         * @return {Promise<void>}
-         */
-        async function init() {
-            await renderQRCode()
-            if (props.icon) {
-                await renderIcon()
-            }
-            emit('ready', qrCodeRef.value)
-        }
-
-        /**
-         * 渲染二维码
-         * @return {Promise<unknown>}
-         */
-        async function renderQRCode() {
-            return new Promise((resolve) => {
-                ;(async () => {
-                    await QRCode.toCanvas(qrCodeRef.value, props.value, {
-                        width: props.size,
-                        color: {
-                            dark: props.color,
-                            light: props.backgroundColor,
-                        },
-                        errorCorrectionLevel: props.errorLevel,
-                        margin: 0,
-                    })
-                    resolve()
-                })()
-            })
-        }
-
-        /**
-         * 渲染 icon
-         * @return {Promise<unknown>}
-         */
-        async function renderIcon() {
-            return new Promise((resolve) => {
-                let img = new Image()
-                img.src = props.icon
-                const logoPos = (props.size - props.iconSize) / 2
-                const rectSize = props.iconSize + props.iconPadding
-                const rectPos = (props.size - rectSize) / 2
-                let ctx = qrCodeRef.value.getContext('2d')
-                img.onload = () => {
-                    if (props.iconBackgroundColor) {
-                        ctx.fillStyle = props.iconBackgroundColor
-                        ctx.fillRect(rectPos, rectPos, rectSize, rectSize)
-                    }
-                    ctx.drawImage(img, logoPos, logoPos, props.iconSize, props.iconSize)
-                    resolve()
-                }
-            })
-        }
-
-        /**
-         * 刷新
-         */
-        function handleRefresh() {
-            emit('refresh')
-        }
-
-        /**
-         * 转换成 data URI
-         * @returns {Promise<*>}
-         */
-        async function toDataURL() {
-            return qrCodeRef.value.toDataURL('image/png')
-        }
-
-        return {
-            qrCodeRef,
-            toDataURL,
-            handleRefresh,
-        }
+    color: {
+        type: String,
+        default: '#000',
     },
+    backgroundColor: {
+        type: String,
+        default: '#fff',
+    },
+    icon: {
+        type: String,
+        default: '',
+    },
+    iconSize: {
+        type: Number,
+        default: 30,
+    },
+    iconPadding: {
+        type: Number,
+        default: 0,
+    },
+    iconBackgroundColor: {
+        type: String,
+        default: '',
+    },
+    errorLevel: {
+        type: String,
+        default: 'M',
+    },
+    status: {
+        type: String,
+        default: 'active',
+    },
+})
+
+const emit = defineEmits(['refresh'])
+
+const qrCodeRef = ref()
+
+watch(
+    () => toRefs(props),
+    () => {
+        init()
+    },
+    {
+        deep: true,
+    }
+)
+
+onMounted(() => {
+    init()
+})
+
+/**
+ * 初始化
+ * @return {Promise<void>}
+ */
+async function init() {
+    await renderQRCode()
+    if (props.icon) {
+        await renderIcon()
+    }
+    emit('ready', qrCodeRef.value)
 }
+
+/**
+ * 渲染二维码
+ * @return {Promise<unknown>}
+ */
+async function renderQRCode() {
+    return new Promise((resolve) => {
+        ;(async () => {
+            await QRCode.toCanvas(qrCodeRef.value, props.value, {
+                width: props.size,
+                color: {
+                    dark: props.color,
+                    light: props.backgroundColor,
+                },
+                errorCorrectionLevel: props.errorLevel,
+                margin: 0,
+            })
+            resolve()
+        })()
+    })
+}
+
+/**
+ * 渲染 icon
+ * @return {Promise<unknown>}
+ */
+async function renderIcon() {
+    return new Promise((resolve) => {
+        let img = new Image()
+        img.src = props.icon
+        const logoPos = (props.size - props.iconSize) / 2
+        const rectSize = props.iconSize + props.iconPadding
+        const rectPos = (props.size - rectSize) / 2
+        let ctx = qrCodeRef.value.getContext('2d')
+        img.onload = () => {
+            if (props.iconBackgroundColor) {
+                ctx.fillStyle = props.iconBackgroundColor
+                ctx.fillRect(rectPos, rectPos, rectSize, rectSize)
+            }
+            ctx.drawImage(img, logoPos, logoPos, props.iconSize, props.iconSize)
+            resolve()
+        }
+    })
+}
+
+/**
+ * 刷新
+ */
+function handleRefresh() {
+    emit('refresh')
+}
+
+/**
+ * 转换成 data URI
+ * @returns {Promise<*>}
+ */
+async function toDataURL() {
+    return qrCodeRef.value.toDataURL('image/png')
+}
+
+defineExpose({
+    toDataURL,
+})
 </script>
 
 <style lang="less" scoped>

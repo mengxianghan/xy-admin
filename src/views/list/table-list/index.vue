@@ -68,7 +68,7 @@
                         <a @click="() => (searchBarExpand = !searchBarExpand)">
                             展开
                             <component
-                                :is="`${searchBarExpand ? 'UpOutlined' : 'DownOutlined'}`"
+                                :is="`${searchBarExpand ? UpOutlined : DownOutlined}`"
                                 :style="{ fontSize: '12px' }"></component>
                         </a>
                     </a-space>
@@ -162,7 +162,7 @@
         @ok="onOk" />
 </template>
 
-<script>
+<script setup>
 import { onMounted, ref } from 'vue'
 import { message, Modal } from 'ant-design-vue'
 import {
@@ -178,125 +178,100 @@ import api from '@/api'
 import EditDialog from './components/EditDialog.vue'
 import usePagination from '@/hooks/usePagination'
 
-export default {
+defineOptions({
     name: 'listTableList',
-    components: {
-        EditDialog,
-        UpOutlined,
-        DownOutlined,
-        ReloadOutlined,
-        ColumnHeightOutlined,
-        SettingOutlined,
-        QuestionCircleOutlined,
-    },
-    setup() {
-        const columns = [
-            { title: '规则名称', dataIndex: 'title' },
-            { title: '描述', dataIndex: 'desc' },
-            { title: '状态', dataIndex: 'status' },
-            { title: '操作', key: 'action', width: 180 },
-        ]
-        const { list, pagination, loading, resetPagination } = usePagination()
-        const editDialogRef = ref()
-        const searchBarExpand = ref(false)
-        const size = ref('default')
+})
 
-        onMounted(() => {
-            getPageList()
+const columns = [
+    { title: '规则名称', dataIndex: 'title' },
+    { title: '描述', dataIndex: 'desc' },
+    { title: '状态', dataIndex: 'status' },
+    { title: '操作', key: 'action', width: 180 },
+]
+const { list, pagination, loading, resetPagination } = usePagination()
+const editDialogRef = ref()
+const searchBarExpand = ref(false)
+const size = ref('default')
+
+onMounted(() => {
+    getPageList()
+})
+
+/**
+ * 获取分页列表
+ */
+async function getPageList() {
+    const { pageSize, current } = pagination
+    loading.value = true
+    const { code, data } = await api.common
+        .getPageList({
+            pageSize,
+            page: current,
         })
-
-        /**
-         * 获取分页列表
-         */
-        async function getPageList() {
-            const { pageSize, current } = pagination
-            loading.value = true
-            const { code, data } = await api.common
-                .getPageList({
-                    pageSize,
-                    page: current,
-                })
-                .catch(() => {
-                    loading.value = false
-                })
+        .catch(() => {
             loading.value = false
-            if (CODE_SUCCESS === code) {
-                list.value = data.rows
-                pagination.total = data.total
-            }
-        }
+        })
+    loading.value = false
+    if (CODE_SUCCESS === code) {
+        list.value = data.rows
+        pagination.total = data.total
+    }
+}
 
-        /**
-         * 搜索
-         */
-        function handleSearch() {
-            resetPagination()
-            getPageList()
-        }
+/**
+ * 搜索
+ */
+function handleSearch() {
+    resetPagination()
+    getPageList()
+}
 
-        /**
-         * 删除
-         */
-        function handleDelete({ id }) {
-            Modal.confirm({
-                title: '删除提示',
-                content: '确认删除？',
-                onOk: async () => {
-                    loading.value = true
-                    const { code } = await api.common.deleteData({ id }).catch(() => {
-                        loading.value = false
-                    })
-                    if (CODE_SUCCESS === code) {
-                        message.success('删除成功')
-                        await getPageList()
-                    } else {
-                        loading.value = false
-                    }
-                },
+/**
+ * 删除
+ */
+function handleDelete({ id }) {
+    Modal.confirm({
+        title: '删除提示',
+        content: '确认删除？',
+        onOk: async () => {
+            loading.value = true
+            const { code } = await api.common.deleteData({ id }).catch(() => {
+                loading.value = false
             })
-        }
+            if (CODE_SUCCESS === code) {
+                message.success('删除成功')
+                await getPageList()
+            } else {
+                loading.value = false
+            }
+        },
+    })
+}
 
-        /**
-         * 密度
-         * @param {string} key
-         */
-        function handleSize({ key }) {
-            size.value = key
-        }
+/**
+ * 密度
+ * @param {string} key
+ */
+function handleSize({ key }) {
+    size.value = key
+}
 
-        /**
-         * 表格发生改变
-         * @param current
-         * @param pageSize
-         */
-        function onTableChange({ current, pageSize }) {
-            pagination.current = current
-            pagination.pageSize = pageSize
-            getPageList()
-        }
+/**
+ * 表格发生改变
+ * @param current
+ * @param pageSize
+ */
+function onTableChange({ current, pageSize }) {
+    pagination.current = current
+    pagination.pageSize = pageSize
+    getPageList()
+}
 
-        /**
-         * 完成
-         */
-        function onOk() {
-            getPageList()
-        }
-
-        return {
-            columns,
-            pagination,
-            list,
-            loading,
-            editDialogRef,
-            searchBarExpand,
-            size,
-            handleSearch,
-            handleDelete,
-            handleSize,
-            onTableChange,
-            onOk,
-        }
-    },
+/**
+ * 完成
+ */
+function onOk() {
+    getPageList()
 }
 </script>
 

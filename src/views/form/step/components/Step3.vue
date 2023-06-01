@@ -70,22 +70,18 @@
     </div>
 </template>
 
-<script>
-export default {
+<script setup>
+defineOptions({
     name: 'Step3',
-    emits: ['finish'],
-    setup(props, { emit }) {
-        /**
-         * 结束
-         */
-        function handleFinish() {
-            emit('finish')
-        }
+})
 
-        return {
-            handleFinish,
-        }
-    },
+const emit = defineEmits(['finish'])
+
+/**
+ * 结束
+ */
+function handleFinish() {
+    emit('finish')
 }
 </script>
 

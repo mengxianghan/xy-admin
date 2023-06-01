@@ -22,19 +22,14 @@
     </a-list>
 </template>
 
-<script>
+<script setup>
 import { ref } from 'vue'
 
-export default {
+defineOptions({
     name: 'Custom',
-    setup() {
-        const themeColor = ref(false)
+})
 
-        return {
-            themeColor,
-        }
-    },
-}
+const themeColor = ref(false)
 </script>
 
 <style lang="less" scoped></style>

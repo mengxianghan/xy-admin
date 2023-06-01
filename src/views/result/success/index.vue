@@ -54,12 +54,12 @@
     </a-card>
 </template>
 
-<script>
+<script setup>
 import { DingdingOutlined } from '@ant-design/icons-vue'
-export default {
+
+defineOptions({
     name: 'resultSuccess',
-    components: { DingdingOutlined },
-}
+})
 </script>
 
 <style lang="less" scoped></style>

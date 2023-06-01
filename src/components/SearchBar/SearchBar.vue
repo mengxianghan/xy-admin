@@ -6,29 +6,24 @@
     </a-card>
 </template>
 
-<script>
-import { computed, useAttrs } from 'vue'
+<script setup>
+import { computed, useAttrs, useSlots } from 'vue'
+
+defineOptions({
+    name: 'XSearchBar',
+})
 
 /**
  * 搜索条
  */
-export default {
-    name: 'XSearchBar',
-    props: {},
-    slots: ['default'],
-    setup() {
-        const attrs = useAttrs()
+useSlots(['default'])
 
-        const cpAttrs = computed(() => ({
-            bordered: false,
-            ...attrs,
-        }))
+const attrs = useAttrs()
 
-        return {
-            cpAttrs,
-        }
-    },
-}
+const cpAttrs = computed(() => ({
+    bordered: false,
+    ...attrs,
+}))
 </script>
 
 <style lang="less" scoped>

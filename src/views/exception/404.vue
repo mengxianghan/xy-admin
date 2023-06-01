@@ -13,22 +13,17 @@
     </a-result>
 </template>
 
-<script>
+<script setup>
 import { useRouter } from 'vue-router'
 
-export default {
+defineOptions({
     name: '404',
-    setup() {
-        const router = useRouter()
+})
 
-        const handleBack = () => {
-            router.back()
-        }
+const router = useRouter()
 
-        return {
-            handleBack,
-        }
-    },
+const handleBack = () => {
+    router.back()
 }
 </script>
 

@@ -9,10 +9,10 @@
     </a-result>
 </template>
 
-<script>
-export default {
+<script setup>
+defineOptions({
     name: '403',
-}
+})
 </script>
 
 <style lang="less" scoped></style>

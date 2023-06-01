@@ -15,10 +15,14 @@
     </div>
 </template>
 
-<script>
+<script setup>
 import { ref } from 'vue'
 import { LoadingOutlined } from '@ant-design/icons-vue'
 import { computed, h } from 'vue'
+
+defineOptions({
+    name: 'XLoading',
+})
 
 /**
  * @property {string} type 类型，默认：default；【default=默认，directive=指令】
@@ -26,81 +30,72 @@ import { computed, h } from 'vue'
  * @property {string | object} subTitle 自标题
  * @property {string | object} extra 操作区
  */
-export default {
-    name: 'XLoading',
-    props: {
-        type: {
-            type: String,
-            default: 'default',
-        },
-        icon: {
-            type: [Object, String],
-            default: 'loading',
-        },
-        title: {
-            type: [Object, String],
-            default: '正在努力加载',
-        },
-        subTitle: {
-            type: [Object, String],
-        },
-        extra: {
-            type: [Object, String],
-        },
+const props = defineProps({
+    type: {
+        type: String,
+        default: 'default',
     },
-    setup(props) {
-        const state = ref({
-            icon: props.icon,
-            title: props.title,
-            subTitle: props.subTitle,
-            extra: props.extra,
-        })
-
-        const cpClassNames = computed(() => ({
-            [`x-loading--${props.type}`]: true,
-        }))
-        const cpIcon = computed(() => {
-            const iconObj = {
-                loading: LoadingOutlined,
-            }
-            const icon = iconObj[state.value.icon] ? h(iconObj[state.value.icon]) : state.value.icon
-            return h('div', { class: 'x-loading__icon' }, [icon])
-        })
-        const cpTitle = computed(() => {
-            return h('div', { class: 'x-loading__title' }, { default: () => state.value.title })
-        })
-        const cpSubTitle = computed(() => {
-            return h('div', { class: 'x-loading__sub-title' }, { default: () => state.value.subTitle })
-        })
-        const cpExtra = computed(() => {
-            return h('div', { class: 'x-loading__extra' }, { default: () => state.value.extra })
-        })
-
-        /**
-         * 更新
-         * @param {object} options
-         * @param {string | object} options.icon
-         * @param {string | object} options.title
-         * @param {string | object} options.subTitle
-         * @param {string | object} options.extra
-         */
-        function setOption(options = {}) {
-            state.value = {
-                ...state.value,
-                ...options,
-            }
-        }
-
-        return {
-            cpClassNames,
-            cpIcon,
-            cpTitle,
-            cpSubTitle,
-            cpExtra,
-            setOption,
-        }
+    icon: {
+        type: [Object, String],
+        default: 'loading',
     },
+    title: {
+        type: [Object, String],
+        default: '正在努力加载',
+    },
+    subTitle: {
+        type: [Object, String],
+    },
+    extra: {
+        type: [Object, String],
+    },
+})
+
+const state = ref({
+    icon: props.icon,
+    title: props.title,
+    subTitle: props.subTitle,
+    extra: props.extra,
+})
+
+const cpClassNames = computed(() => ({
+    [`x-loading--${props.type}`]: true,
+}))
+const cpIcon = computed(() => {
+    const iconObj = {
+        loading: LoadingOutlined,
+    }
+    const icon = iconObj[state.value.icon] ? h(iconObj[state.value.icon]) : state.value.icon
+    return h('div', { class: 'x-loading__icon' }, [icon])
+})
+const cpTitle = computed(() => {
+    return h('div', { class: 'x-loading__title' }, { default: () => state.value.title })
+})
+const cpSubTitle = computed(() => {
+    return h('div', { class: 'x-loading__sub-title' }, { default: () => state.value.subTitle })
+})
+const cpExtra = computed(() => {
+    return h('div', { class: 'x-loading__extra' }, { default: () => state.value.extra })
+})
+
+/**
+ * 更新
+ * @param {object} options
+ * @param {string | object} options.icon
+ * @param {string | object} options.title
+ * @param {string | object} options.subTitle
+ * @param {string | object} options.extra
+ */
+function setOption(options = {}) {
+    state.value = {
+        ...state.value,
+        ...options,
+    }
 }
+
+defineExpose({
+    setOption,
+})
 </script>
 
 <style lang="less" scoped>

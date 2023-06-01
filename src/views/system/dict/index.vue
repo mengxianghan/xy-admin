@@ -83,7 +83,7 @@
         @ok="onOk" />
 </template>
 
-<script>
+<script setup>
 import { ref } from 'vue'
 import { message, Modal } from 'ant-design-vue'
 import { CODE_SUCCESS } from '@/config/http'
@@ -92,132 +92,111 @@ import usePagination from '@/hooks/usePagination'
 import Edit from './components/Edit.vue'
 import DictTypeTree from './components/DictTypeTree.vue'
 
-export default {
+defineOptions({
     name: 'systemDict',
-    components: {
-        Edit,
-        DictTypeTree,
-    },
-    setup() {
-        const { list, pagination, loading, resetPagination, searchForm } = usePagination()
-        const selectedRowKeys = ref([])
-        const editRef = ref()
-        const dictTypeInfo = ref(null)
+})
 
-        const columns = [
-            { title: '名称', dataIndex: 'name' },
-            { title: '键值', dataIndex: 'keyValue', width: 240 },
-            { title: '是否有效', key: 'valid', dataIndex: 'valid', width: 120 },
-            { title: '操作', key: 'action', width: 120 },
-        ]
+const { list, pagination, loading, resetPagination, searchForm } = usePagination()
+const selectedRowKeys = ref([])
+const editRef = ref()
+const dictTypeInfo = ref(null)
 
-        /**
-         * 获取分页列表
-         */
-        async function getPageList() {
-            const { pageSize, current } = pagination
+const columns = [
+    { title: '名称', dataIndex: 'name' },
+    { title: '键值', dataIndex: 'keyValue', width: 240 },
+    { title: '是否有效', key: 'valid', dataIndex: 'valid', width: 120 },
+    { title: '操作', key: 'action', width: 120 },
+]
+
+/**
+ * 获取分页列表
+ */
+async function getPageList() {
+    const { pageSize, current } = pagination
+    loading.value = true
+    const { code, data } = await api.common
+        .getPageList({
+            pageSize,
+            page: current,
+            ...searchForm.value,
+        })
+        .catch(() => {
+            loading.value = false
+        })
+    loading.value = false
+    if (CODE_SUCCESS === code) {
+        list.value = data.rows
+        pagination.total = data.total
+    }
+}
+
+/**
+ * 搜索
+ */
+function handleSearch() {
+    resetPagination()
+    getPageList()
+}
+
+/**
+ * 删除
+ */
+async function handleDelete({ id }) {
+    Modal.confirm({
+        title: '删除提示',
+        content: '确认删除？',
+        onOk: async () => {
             loading.value = true
-            const { code, data } = await api.common
-                .getPageList({
-                    pageSize,
-                    page: current,
-                    ...searchForm.value,
+            const { code } = await api.common
+                .deleteData({
+                    id,
                 })
                 .catch(() => {
                     loading.value = false
                 })
-            loading.value = false
             if (CODE_SUCCESS === code) {
-                list.value = data.rows
-                pagination.total = data.total
+                message.success('删除成功')
+                await getPageList()
+            } else {
+                loading.value = false
             }
-        }
+        },
+    })
+}
 
-        /**
-         * 搜索
-         */
-        function handleSearch() {
-            resetPagination()
-            getPageList()
-        }
+/**
+ * 表格发生改变
+ * @param current
+ * @param pageSize
+ */
+function onTableChange({ current, pageSize }) {
+    pagination.current = current
+    pagination.pageSize = pageSize
+    getPageList()
+}
 
-        /**
-         * 删除
-         */
-        async function handleDelete({ id }) {
-            Modal.confirm({
-                title: '删除提示',
-                content: '确认删除？',
-                onOk: async () => {
-                    loading.value = true
-                    const { code } = await api.common
-                        .deleteData({
-                            id,
-                        })
-                        .catch(() => {
-                            loading.value = false
-                        })
-                    if (CODE_SUCCESS === code) {
-                        message.success('删除成功')
-                        await getPageList()
-                    } else {
-                        loading.value = false
-                    }
-                },
-            })
-        }
+/**
+ * 选择
+ */
+function onSelectChange(keys) {
+    selectedRowKeys.value = keys
+}
 
-        /**
-         * 表格发生改变
-         * @param current
-         * @param pageSize
-         */
-        function onTableChange({ current, pageSize }) {
-            pagination.current = current
-            pagination.pageSize = pageSize
-            getPageList()
-        }
+/**
+ * 选择分类
+ * @param info
+ */
+function onDictTypeSelect(info) {
+    dictTypeInfo.value = info
+    searchForm.value.type = info.key
+    getPageList()
+}
 
-        /**
-         * 选择
-         */
-        function onSelectChange(keys) {
-            selectedRowKeys.value = keys
-        }
-
-        /**
-         * 选择分类
-         * @param info
-         */
-        function onDictTypeSelect(info) {
-            dictTypeInfo.value = info
-            searchForm.value.type = info.key
-            getPageList()
-        }
-
-        /**
-         * 完成
-         */
-        function onOk() {
-            getPageList()
-        }
-
-        return {
-            editRef,
-            columns,
-            loading,
-            list,
-            pagination,
-            dictTypeInfo,
-            selectedRowKeys,
-            handleSearch,
-            handleDelete,
-            onTableChange,
-            onSelectChange,
-            onDictTypeSelect,
-            onOk,
-        }
-    },
+/**
+ * 完成
+ */
+function onOk() {
+    getPageList()
 }
 </script>
 

@@ -38,55 +38,46 @@
     </div>
 </template>
 
-<script>
+<script setup>
 import { ref } from 'vue'
 import useForm from '@/hooks/useForm'
 
-export default {
+defineOptions({
     name: 'Step2',
-    emits: ['next', 'prev'],
-    setup(props, { emit }) {
-        const { formState, formRules, formRef } = useForm()
-        const loading = ref(false)
+})
 
-        formRules.value = {
-            paymentPassword: [{ required: true, message: '请输入支付密码' }],
-        }
+const emit = defineEmits(['next', 'prev'])
 
-        /**
-         * 下一步
-         */
-        function handleNext() {
-            loading.value = true
-            formRef.value
-                .validate()
-                .then(() => {
-                    setTimeout(() => {
-                        loading.value = false
-                        emit('next')
-                    }, 1500)
-                })
-                .catch(() => {
-                    loading.value = false
-                })
-        }
+const { formState, formRules, formRef } = useForm()
+const loading = ref(false)
 
-        /**
-         * 上一步
-         */
-        function handlePrev() {
-            emit('prev')
-        }
+formRules.value = {
+    paymentPassword: [{ required: true, message: '请输入支付密码' }],
+}
 
-        return {
-            formRef,
-            formState,
-            formRules,
-            loading,
-            handleNext,
-            handlePrev,
-        }
-    },
+/**
+ * 下一步
+ */
+function handleNext() {
+    loading.value = true
+    formRef.value
+        .validate()
+        .then(() => {
+            setTimeout(() => {
+                loading.value = false
+                emit('next')
+            }, 1500)
+        })
+        .catch(() => {
+            loading.value = false
+        })
+}
+
+/**
+ * 上一步
+ */
+function handlePrev() {
+    emit('prev')
 }
 </script>
 

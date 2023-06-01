@@ -7,53 +7,49 @@
     </div>
 </template>
 
-<script>
-import { computed } from 'vue'
+<script setup>
+import { computed, useSlots } from 'vue'
 import { useInjectFilterTagCtx, useInjectFilterTagSelectedValueCtx } from './context'
+
+defineOptions({
+    name: 'XFilterTagItem',
+})
 
 /**
  * @property {string | number} 唯一值，选中时抛出
  */
-export default {
-    name: 'XFilterTagItem',
-    props: {
-        value: {
-            type: [String, Number],
-            required: true,
-        },
+const props = defineProps({
+    value: {
+        type: [String, Number],
+        required: true,
     },
-    slots: ['default'],
-    setup(props) {
-        const { multiple, onTagClick } = useInjectFilterTagCtx()
-        const selectedKeys = useInjectFilterTagSelectedValueCtx()
+})
 
-        const cpIsSelect = computed(() => {
-            if (multiple.value) {
-                // 多选
-                return Array.isArray(selectedKeys.value) ? selectedKeys.value?.includes(props.value) : false
-            } else {
-                // 单选
-                return selectedKeys.value === props.value
-            }
-        })
-        const cpClassNames = computed(() => {
-            return {
-                'x-filter-tag-item--active': cpIsSelect.value,
-            }
-        })
+useSlots(['default'])
 
-        /**
-         * 点击
-         */
-        function handleClick() {
-            onTagClick({ value: props.value })
-        }
+const { multiple, onTagClick } = useInjectFilterTagCtx()
+const selectedKeys = useInjectFilterTagSelectedValueCtx()
 
-        return {
-            cpClassNames,
-            handleClick,
-        }
-    },
+const cpIsSelect = computed(() => {
+    if (multiple.value) {
+        // 多选
+        return Array.isArray(selectedKeys.value) ? selectedKeys.value?.includes(props.value) : false
+    } else {
+        // 单选
+        return selectedKeys.value === props.value
+    }
+})
+const cpClassNames = computed(() => {
+    return {
+        'x-filter-tag-item--active': cpIsSelect.value,
+    }
+})
+
+/**
+ * 点击
+ */
+function handleClick() {
+    onTagClick({ value: props.value })
 }
 </script>
 

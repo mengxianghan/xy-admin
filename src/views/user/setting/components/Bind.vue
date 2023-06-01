@@ -29,35 +29,30 @@
     </a-list>
 </template>
 
-<script>
+<script setup>
 import { TaobaoOutlined, AlipayOutlined, DingdingOutlined } from '@ant-design/icons-vue'
 
-export default {
+defineOptions({
     name: 'Bind',
-    setup() {
-        const list = [
-            { id: '1', title: '绑定淘宝', description: '当前未绑定淘宝账号', avatar: TaobaoOutlined, color: '#ff5800' },
-            {
-                id: '2',
-                title: '绑定支付宝',
-                description: '当前未绑定支付宝账号',
-                avatar: AlipayOutlined,
-                color: '#1677ff',
-            },
-            {
-                id: '3',
-                title: '绑定钉钉',
-                description: '当前未绑定钉钉账号',
-                avatar: DingdingOutlined,
-                color: '#007fff',
-            },
-        ]
+})
 
-        return {
-            list,
-        }
+const list = [
+    { id: '1', title: '绑定淘宝', description: '当前未绑定淘宝账号', avatar: TaobaoOutlined, color: '#ff5800' },
+    {
+        id: '2',
+        title: '绑定支付宝',
+        description: '当前未绑定支付宝账号',
+        avatar: AlipayOutlined,
+        color: '#1677ff',
     },
-}
+    {
+        id: '3',
+        title: '绑定钉钉',
+        description: '当前未绑定钉钉账号',
+        avatar: DingdingOutlined,
+        color: '#007fff',
+    },
+]
 </script>
 
 <style lang="less" scoped></style>

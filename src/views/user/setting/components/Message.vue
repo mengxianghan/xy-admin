@@ -20,23 +20,18 @@
     </a-list>
 </template>
 
-<script>
+<script setup>
 import { ref } from 'vue'
 
-export default {
+defineOptions({
     name: 'Message',
-    setup() {
-        const list = ref([
-            { id: '1', title: '账户密码', description: '其他用户的消息将以站内信的形式通知', checked: true },
-            { id: '2', title: '系统消息', description: '系统消息将以站内信的形式通知', checked: true },
-            { id: '3', title: '待办任务', description: '待办任务将以站内信的形式通知', checked: true },
-        ])
+})
 
-        return {
-            list,
-        }
-    },
-}
+const list = ref([
+    { id: '1', title: '账户密码', description: '其他用户的消息将以站内信的形式通知', checked: true },
+    { id: '2', title: '系统消息', description: '系统消息将以站内信的形式通知', checked: true },
+    { id: '3', title: '待办任务', description: '待办任务将以站内信的形式通知', checked: true },
+])
 </script>
 
 <style lang="less" scoped></style>

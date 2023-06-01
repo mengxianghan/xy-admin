@@ -29,45 +29,32 @@
     </a-card>
 </template>
 
-<script>
+<script setup>
 import { ref } from 'vue'
 import Step1 from './components/Step1.vue'
 import Step2 from './components/Step2.vue'
 import Step3 from './components/Step3.vue'
 
-export default {
+defineOptions({
     name: 'formStep',
-    components: {
-        Step1,
-        Step2,
-        Step3,
-    },
-    setup() {
-        const currentTab = ref(0)
+})
 
-        function handleNext() {
-            if (currentTab.value < 2) {
-                currentTab.value += 1
-            }
-        }
+const currentTab = ref(0)
 
-        function handlePrev() {
-            if (currentTab.value > 0) {
-                currentTab.value -= 1
-            }
-        }
+function handleNext() {
+    if (currentTab.value < 2) {
+        currentTab.value += 1
+    }
+}
 
-        function handleFinish() {
-            currentTab.value = 0
-        }
+function handlePrev() {
+    if (currentTab.value > 0) {
+        currentTab.value -= 1
+    }
+}
 
-        return {
-            currentTab,
-            handleNext,
-            handlePrev,
-            handleFinish,
-        }
-    },
+function handleFinish() {
+    currentTab.value = 0
 }
 </script>
 

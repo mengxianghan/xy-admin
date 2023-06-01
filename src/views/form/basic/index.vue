@@ -86,57 +86,46 @@
     </a-card>
 </template>
 
-<script>
+<script setup>
 import { InfoCircleOutlined } from '@ant-design/icons-vue'
 import useForm from '@/hooks/useForm'
 
-export default {
+defineOptions({
     name: 'formBasic',
-    components: { InfoCircleOutlined },
-    setup() {
-        const targetList = [
-            { label: '公开', value: 1 },
-            { label: '部分公开', value: 2 },
-            { label: '不公开', value: 3 },
-        ]
-        const { formRef, formState, formRules, resetForm } = useForm()
+})
 
-        formState.value = {
-            field8: 1,
-        }
+const targetList = [
+    { label: '公开', value: 1 },
+    { label: '部分公开', value: 2 },
+    { label: '不公开', value: 3 },
+]
+const { formRef, formState, formRules, resetForm } = useForm()
 
-        formRules.value = {
-            field1: { required: true, message: '请输入标题' },
-            field2: { required: true, message: '请选择起止日期' },
-            field3: { required: true, message: '请输入目标描述' },
-            field4: { required: true, message: '请输入衡量标准' },
-        }
+formState.value = {
+    field8: 1,
+}
 
-        /**
-         * 提交表单
-         */
-        function handleOk() {
-            formRef.value.validateFields().then((values) => {
-                console.log(values)
-            })
-        }
+formRules.value = {
+    field1: { required: true, message: '请输入标题' },
+    field2: { required: true, message: '请选择起止日期' },
+    field3: { required: true, message: '请输入目标描述' },
+    field4: { required: true, message: '请输入衡量标准' },
+}
 
-        /**
-         * 取消
-         */
-        function handleCancel() {
-            resetForm()
-        }
+/**
+ * 提交表单
+ */
+function handleOk() {
+    formRef.value.validateFields().then((values) => {
+        console.log(values)
+    })
+}
 
-        return {
-            formRef,
-            formRules,
-            formState,
-            targetList,
-            handleOk,
-            handleCancel,
-        }
-    },
+/**
+ * 取消
+ */
+function handleCancel() {
+    resetForm()
 }
 </script>
 

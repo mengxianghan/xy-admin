@@ -32,32 +32,23 @@
     </a-page-header>
 </template>
 
-<script>
+<script setup>
 import { computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 
-export default {
+defineOptions({
     name: 'PageHeader',
-    setup() {
-        const route = useRoute()
-        const router = useRouter()
+})
 
-        const cpPageTitle = computed(() => route?.meta?.title)
-        const cpActiveKey = computed(() => route?.name)
+const route = useRoute()
+const router = useRouter()
 
-        function onTabChange(_activeKey) {
-            router.push({ name: _activeKey })
-        }
+const cpPageTitle = computed(() => route?.meta?.title)
+const cpActiveKey = computed(() => route?.name)
 
-        return {
-            cpPageTitle,
-            cpActiveKey,
-            onTabChange,
-        }
-    },
+function onTabChange(_activeKey) {
+    router.push({ name: _activeKey })
 }
 </script>
-
-<script setup></script>
 
 <style lang="less" scoped></style>

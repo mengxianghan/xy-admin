@@ -103,7 +103,7 @@
     </div>
 </template>
 
-<script>
+<script setup>
 import { ref, computed, onMounted } from 'vue'
 import { useAppStore, useUserStore, useRouterStore } from '@/store'
 import { useRoute, useRouter } from 'vue-router'
@@ -113,100 +113,90 @@ import { UserOutlined, LockOutlined, MobileOutlined } from '@ant-design/icons-vu
 import { CODE_SUCCESS } from '@/config/http'
 import useForm from '@/hooks/useForm'
 
-export default {
+defineOptions({
     name: 'login',
-    components: { UserOutlined, LockOutlined, MobileOutlined },
-    setup() {
-        const { formState, formRef, formRules } = useForm()
-        const appStore = useAppStore()
-        const userStore = useUserStore()
-        const routerStore = useRouterStore()
-        const router = useRouter()
-        const route = useRoute()
-        const loading = ref(false)
-        const redirect = computed(() => decodeURIComponent(route.query?.redirect ?? ''))
+})
 
-        formRules.value = {
-            username: { required: true, message: '请输入用户名' },
-            password: { required: true, message: '请输入密码' },
-        }
+const { formState, formRef, formRules } = useForm()
+const appStore = useAppStore()
+const userStore = useUserStore()
+const routerStore = useRouterStore()
+const router = useRouter()
+const route = useRoute()
+const loading = ref(false)
+const redirect = computed(() => decodeURIComponent(route.query?.redirect ?? ''))
 
-        onMounted(() => {
-            // 清理登录信息
-            userStore.logout()
-        })
+formRules.value = {
+    username: { required: true, message: '请输入用户名' },
+    password: { required: true, message: '请输入密码' },
+}
 
-        /**
-         * 登录
-         * @return {Promise<void>}
-         */
-        async function handleLogin() {
-            formRef.value.validate().then(async (values) => {
-                loading.value = true
-                const { code } = await userStore
-                    .login({
-                        ...values,
-                    })
-                    .catch(() => {
-                        loading.value = false
-                        message.error('登录失败')
-                    })
+onMounted(() => {
+    // 清理登录信息
+    userStore.logout()
+})
+
+/**
+ * 登录
+ * @return {Promise<void>}
+ */
+async function handleLogin() {
+    formRef.value.validate().then(async (values) => {
+        loading.value = true
+        const { code } = await userStore
+            .login({
+                ...values,
+            })
+            .catch(() => {
                 loading.value = false
-                if (CODE_SUCCESS === code) {
-                    // 加载完成
-                    if (appStore.complete) {
-                        goIndex()
-                    } else {
-                        await appStore.init()
-                        goIndex()
-                    }
-                }
+                message.error('登录失败')
             })
-        }
-
-        /**
-         * 获取首页路由
-         * @return {*}
-         */
-        function getIndexRouter() {
-            const indexRouter = routerStore.indexRouter
-            if (!indexRouter) {
-                Modal.warning({
-                    title: '系统提示',
-                    content: '没有任何权限，请联系系统管理员',
-                    onOk: () => {
-                        window.location.reload()
-                    },
-                })
-            }
-            return indexRouter
-        }
-
-        /**
-         * 去首页
-         */
-        function goIndex() {
-            if (redirect.value) {
-                location.href = redirect.value
+        loading.value = false
+        if (CODE_SUCCESS === code) {
+            // 加载完成
+            if (appStore.complete) {
+                goIndex()
             } else {
-                const indexRouter = getIndexRouter()
-                if (!indexRouter) return
-                router.push(indexRouter)
+                await appStore.init()
+                goIndex()
             }
-            notification.success({
-                message: '欢迎',
-                description: `${timeFix()}，欢迎回来`,
-            })
         }
+    })
+}
 
-        return {
-            formRef,
-            formRules,
-            loading,
-            formState,
-            handleLogin,
-        }
-    },
+/**
+ * 获取首页路由
+ * @return {*}
+ */
+function getIndexRouter() {
+    const indexRouter = routerStore.indexRouter
+    if (!indexRouter) {
+        Modal.warning({
+            title: '系统提示',
+            content: '没有任何权限，请联系系统管理员',
+            onOk: () => {
+                window.location.reload()
+            },
+        })
+    }
+    return indexRouter
+}
+
+/**
+ * 去首页
+ */
+function goIndex() {
+    if (redirect.value) {
+        location.href = redirect.value
+    } else {
+        const indexRouter = getIndexRouter()
+        if (!indexRouter) return
+        router.push(indexRouter)
+    }
+    notification.success({
+        message: '欢迎',
+        description: `${timeFix()}，欢迎回来`,
+    })
 }
 </script>
 

@@ -69,41 +69,34 @@
     </div>
 </template>
 
-<script>
+<script setup>
 import useForm from '@/hooks/useForm'
 
-export default {
+defineOptions({
     name: 'Step1',
-    emits: ['next'],
-    setup(props, { emit }) {
-        const { formState, formRef, formRules } = useForm()
+})
 
-        formRules.value = {
-            paymentUser: [{ required: true, message: '付款账户必须填写' }],
-            payType: [{ required: true, message: '收款账户必须填写' }],
-            name: [{ required: true, message: '收款人名称必须核对' }],
-            money: [{ required: true, message: '转账金额必须填写' }],
-        }
+const emit = defineEmits(['next'])
 
-        /**
-         * 下一步
-         */
-        function handleNext() {
-            formRef.value
-                .validate()
-                .then(() => {
-                    emit('next')
-                })
-                .catch(() => {})
-        }
+const { formState, formRef, formRules } = useForm()
 
-        return {
-            formRef,
-            formState,
-            formRules,
-            handleNext,
-        }
-    },
+formRules.value = {
+    paymentUser: [{ required: true, message: '付款账户必须填写' }],
+    payType: [{ required: true, message: '收款账户必须填写' }],
+    name: [{ required: true, message: '收款人名称必须核对' }],
+    money: [{ required: true, message: '转账金额必须填写' }],
+}
+
+/**
+ * 下一步
+ */
+function handleNext() {
+    formRef.value
+        .validate()
+        .then(() => {
+            emit('next')
+        })
+        .catch(() => {})
 }
 </script>
 

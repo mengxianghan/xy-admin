@@ -173,37 +173,30 @@
     </a-card>
 </template>
 
-<script>
+<script setup>
 import { ref } from 'vue'
 import { EllipsisOutlined, DingdingOutlined } from '@ant-design/icons-vue'
 
-export default {
+defineOptions({
     name: 'profileAdvanced',
-    components: { EllipsisOutlined, DingdingOutlined },
-    setup() {
-        const tabList = [
-            {
-                key: '1',
-                tab: '操作日志一',
-            },
-            {
-                key: '2',
-                tab: '操作日志二',
-            },
-            {
-                key: '3',
-                tab: '操作日志三',
-            },
-        ]
+})
 
-        const activeTabKey = ref('1')
-
-        return {
-            tabList,
-            activeTabKey,
-        }
+const tabList = [
+    {
+        key: '1',
+        tab: '操作日志一',
     },
-}
+    {
+        key: '2',
+        tab: '操作日志二',
+    },
+    {
+        key: '3',
+        tab: '操作日志三',
+    },
+]
+
+const activeTabKey = ref('1')
 </script>
 
 <style lang="less" scoped></style>

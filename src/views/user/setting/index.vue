@@ -26,7 +26,7 @@
     </a-card>
 </template>
 
-<script>
+<script setup>
 import { computed, ref, markRaw } from 'vue'
 import { head, find } from 'lodash-es'
 import Basic from './components/Basic.vue'
@@ -35,36 +35,20 @@ import Custom from './components/Custom.vue'
 import Bind from './components/Bind.vue'
 import Message from './components/Message.vue'
 
-export default {
+defineOptions({
     name: 'userSetting',
-    components: {
-        Basic,
-        Safe,
-        Custom,
-        Bind,
-        Message,
-    },
-    setup() {
-        const menuList = ref([
-            { name: '基本设置', key: 'basic', component: markRaw(Basic) },
-            { name: '安全设置', key: 'safe', component: markRaw(Safe) },
-            { name: '个性化', key: 'custom', component: markRaw(Custom) },
-            { name: '账号绑定', key: 'bind', component: markRaw(Bind) },
-            { name: '新消息通知', key: 'message', component: markRaw(Message) },
-        ])
-        const selectedKeys = ref(['basic'])
-        const cpSelectedMenu = computed(() => find(menuList.value, { key: head(selectedKeys.value) }))
+})
 
-        return {
-            cpSelectedMenu,
-            selectedKeys,
-            menuList,
-        }
-    },
-}
+const menuList = ref([
+    { name: '基本设置', key: 'basic', component: markRaw(Basic) },
+    { name: '安全设置', key: 'safe', component: markRaw(Safe) },
+    { name: '个性化', key: 'custom', component: markRaw(Custom) },
+    { name: '账号绑定', key: 'bind', component: markRaw(Bind) },
+    { name: '新消息通知', key: 'message', component: markRaw(Message) },
+])
+const selectedKeys = ref(['basic'])
+const cpSelectedMenu = computed(() => find(menuList.value, { key: head(selectedKeys.value) }))
 </script>
-
-<script setup></script>
 
 <style lang="less" scoped>
 :deep(.setting-title) {

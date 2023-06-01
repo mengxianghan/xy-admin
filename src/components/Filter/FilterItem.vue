@@ -41,10 +41,14 @@
     </div>
 </template>
 
-<script>
-import { computed, ref, watchEffect, nextTick, onMounted, reactive } from 'vue'
+<script setup>
+import { computed, ref, watchEffect, nextTick, onMounted, reactive, useSlots } from 'vue'
 import { useFilterItemDataSourceCtx, useInjectFilterCtx } from './context'
 import FilterTag from './FilterTag.vue'
+
+defineOptions({
+    name: 'XFilterItem',
+})
 
 /**
  * @property {object | array | string | number} 当前输入值
@@ -61,106 +65,81 @@ import FilterTag from './FilterTag.vue'
  * @property {number} labelWidth 标签宽度，默认：80
  * @property {string} label label 标签内容
  */
-export default {
-    name: 'XFilterItem',
-    components: {
-        FilterTag,
+const props = defineProps({
+    modelValue: {
+        type: [Object, Array, String, Number],
     },
-    props: {
-        modelValue: {
-            type: [Object, Array, String, Number],
-        },
-        dataSource: {
-            type: Object,
-            default: () => ({}),
-        },
-        labelWidth: {
-            type: Number,
-            default: 80,
-        },
-        label: {
-            type: String,
-            default: '',
-        },
+    dataSource: {
+        type: Object,
+        default: () => ({}),
     },
-    slots: ['default', 'label', 'collapse'],
-    setup(props) {
-        const { labelWidth, colon, onChange } = useInjectFilterCtx()
-        const curValue = ref({})
-        const contentRef = ref()
-        const contentInnerRef = ref()
-        const collapsed = ref(props.dataSource.collapsed)
+    labelWidth: {
+        type: Number,
+        default: 80,
+    },
+    label: {
+        type: String,
+        default: '',
+    },
+})
 
-        const content = reactive({
-            defaultHeight: null,
-        })
-        const contentInner = reactive({
-            height: null,
-        })
+useSlots(['default', 'label', 'collapse'])
 
-        const cpLabelWidth = computed(() => labelWidth.value || props.labelWidth)
-        const cpCollapsible = computed(
-            () => props.dataSource.collapsible && contentInner.height > content.defaultHeight
-        )
-        const cpContentStyle = computed(() => {
-            const styles = {
-                height: '',
+const { labelWidth: _labelWidth, colon, onChange } = useInjectFilterCtx()
+const curValue = ref({})
+const contentRef = ref()
+const contentInnerRef = ref()
+const collapsed = ref(props.dataSource.collapsed)
+
+const content = reactive({
+    defaultHeight: null,
+})
+const contentInner = reactive({
+    height: null,
+})
+
+const cpLabelWidth = computed(() => _labelWidth.value || props.labelWidth)
+const cpCollapsible = computed(() => props.dataSource.collapsible && contentInner.height > content.defaultHeight)
+const cpContentStyle = computed(() => {
+    const styles = {
+        height: '',
+    }
+    if (cpCollapsible.value) {
+        if (collapsed.value) {
+            styles.height = 'auto'
+        } else {
+            if (content.defaultHeight) {
+                styles.height = `${content.defaultHeight}px`
             }
-            if (cpCollapsible.value) {
-                if (collapsed.value) {
-                    styles.height = 'auto'
-                } else {
-                    if (content.defaultHeight) {
-                        styles.height = `${content.defaultHeight}px`
-                    }
-                }
-            }
-            return styles
-        })
-
-        watchEffect(() => {
-            if (curValue.value === props.modelValue) return
-            curValue.value = props.modelValue
-        })
-
-        useFilterItemDataSourceCtx(props.dataSource)
-
-        onMounted(async () => {
-            await nextTick()
-            content.defaultHeight = parseInt(window.getComputedStyle(contentRef.value).getPropertyValue('line-height'))
-            contentInner.height = contentInnerRef.value.offsetHeight
-        })
-
-        /**
-         * 展开/收起
-         */
-        function handleCollapse() {
-            collapsed.value = !collapsed.value
         }
+    }
+    return styles
+})
 
-        function onTagChange(value) {
-            onChange(props.dataSource.key, value)
-        }
+watchEffect(() => {
+    if (curValue.value === props.modelValue) return
+    curValue.value = props.modelValue
+})
 
-        return {
-            colon,
-            curValue,
-            collapsed,
-            content,
-            contentInner,
-            contentRef,
-            contentInnerRef,
-            cpLabelWidth,
-            cpContentStyle,
-            cpCollapsible,
-            handleCollapse,
-            onTagChange,
-        }
-    },
+useFilterItemDataSourceCtx(props.dataSource)
+
+onMounted(async () => {
+    await nextTick()
+    content.defaultHeight = parseInt(window.getComputedStyle(contentRef.value).getPropertyValue('line-height'))
+    contentInner.height = contentInnerRef.value.offsetHeight
+})
+
+/**
+ * 展开/收起
+ */
+function handleCollapse() {
+    collapsed.value = !collapsed.value
+}
+
+function onTagChange(value) {
+    onChange(props.dataSource.key, value)
 }
 </script>
-
-<script setup></script>
 
 <style lang="less" scoped>
 .x-filter {

@@ -81,7 +81,7 @@
     </a-row>
 </template>
 
-<script>
+<script setup>
 import { computed, onMounted, ref } from 'vue'
 import { useUserStore } from '@/store'
 import { timeFix } from '@/utils'
@@ -89,36 +89,27 @@ import { CODE_SUCCESS } from '@/config/http'
 import { getAssetsFile } from '@/utils/get'
 import api from '@/api'
 
-export default {
+defineOptions({
     name: 'welcome',
-    setup() {
-        const userStore = useUserStore()
-        const title = import.meta.env.VITE_TITLE
-        const cpUserInfo = computed(() => userStore.userInfo)
-        const cpUserName = computed(() => `${timeFix()}，${cpUserInfo.value?.username}`)
-        const dynamicList = ref([])
-        const { version } = __APP_INFO__
+})
 
-        onMounted(() => {
-            getData()
-        })
+const userStore = useUserStore()
+const title = import.meta.env.VITE_TITLE
+const cpUserInfo = computed(() => userStore.userInfo)
+const cpUserName = computed(() => `${timeFix()}，${cpUserInfo.value?.username}`)
+const dynamicList = ref([])
+const { version } = __APP_INFO__
 
-        async function getData() {
-            const { code, data } = await api.common.getWelcomeData()
-            if (CODE_SUCCESS === code) {
-                const { dynamicRows } = data
-                dynamicList.value = dynamicRows
-            }
-        }
+onMounted(() => {
+    getData()
+})
 
-        return {
-            getAssetsFile,
-            title,
-            version,
-            dynamicList,
-            cpUserName,
-        }
-    },
+async function getData() {
+    const { code, data } = await api.common.getWelcomeData()
+    if (CODE_SUCCESS === code) {
+        const { dynamicRows } = data
+        dynamicList.value = dynamicRows
+    }
 }
 </script>
 

@@ -96,7 +96,7 @@
     </a-modal>
 </template>
 
-<script>
+<script setup>
 import { computed, ref, reactive } from 'vue'
 import { Modal as AModal } from 'ant-design-vue'
 import {
@@ -109,217 +109,186 @@ import {
     CloseOutlined,
 } from '@ant-design/icons-vue'
 
+defineOptions({
+    name: 'XPreview',
+})
 /**
  * @property {array} urls 文件
  * @property {number} current 当前显示
  * @property {function} afterClose 关闭后的回调函数
  */
-export default {
-    name: 'XPreview',
-    components: {
-        AModal,
-        LeftOutlined,
-        RightOutlined,
-        ZoomInOutlined,
-        ZoomOutOutlined,
-        RotateLeftOutlined,
-        RotateRightOutlined,
-        CloseOutlined,
+const props = defineProps({
+    urls: {
+        type: Array,
+        default: () => [],
     },
-    props: {
-        urls: {
-            type: Array,
-            default: () => [],
-        },
-        current: {
-            type: Number,
-            default: 0,
-        },
-        afterClose: {
-            type: Function,
-            default: () => {},
-        },
+    current: {
+        type: Number,
+        default: 0,
     },
-    setup(props) {
-        const visible = ref(false)
-        const scale = ref(1)
-        const rotate = ref(0)
-        const imgRef = ref()
-        const cur = ref(0)
+    afterClose: {
+        type: Function,
+        default: () => {},
+    },
+})
 
-        const state = reactive({
-            startLeft: 0,
-            startTop: 0,
-            startX: null,
-            startY: null,
-            left: 0,
-            top: 0,
-        })
+const visible = ref(false)
+const scale = ref(1)
+const rotate = ref(0)
+const imgRef = ref()
+const cur = ref(0)
 
-        const cpContentStyle = computed(() => {
-            if (cpFileType.value === 'image') {
-                return {
-                    transform: `translate3d(${state.left}px, ${state.top}px, 0)`,
-                }
-            }
-            return {}
-        })
-        const cpImageStyle = computed(() => ({
-            transform: `scale3d(${scale.value}, ${scale.value}, 1) rotate(${rotate.value}deg)`,
-        }))
-        const cpUrl = computed(() => props.urls?.[cur.value])
-        const cpShowPrevNextBtn = computed(() => props.urls.length > 1)
-        const cpZoomOutBtnDisabled = computed(() => scale.value <= 1)
-        const cpPrevBtnDisabled = computed(() => cur.value <= 0)
-        const cpNextBtnDisabled = computed(() => cur.value >= props.urls.length - 1)
-        const cpFileType = computed(() => {
-            const suffix = cpUrl.value.slice(cpUrl.value.lastIndexOf('.') + 1).toLowerCase()
-            if (['mp4'].includes(suffix)) {
-                return 'video'
-            }
-            if (['mp3'].includes(suffix)) {
-                return 'audio'
-            }
-            return 'image'
-        })
+const state = reactive({
+    startLeft: 0,
+    startTop: 0,
+    startX: null,
+    startY: null,
+    left: 0,
+    top: 0,
+})
 
-        init()
-
-        /**
-         * 初始化
-         */
-        function init() {
-            const urlsLen = props.urls.length
-            cur.value = props.current < urlsLen - 1 ? props.current : props.current % urlsLen
-        }
-
-        /**
-         * 打开
-         */
-        function handleOpen() {
-            visible.value = true
-        }
-
-        /**
-         * 关闭
-         */
-        function handleClose() {
-            visible.value = false
-        }
-
-        /**
-         * 上一个
-         */
-        function handlePrev() {
-            if (cpPrevBtnDisabled.value) return
-            cur.value -= 1
-        }
-
-        /**
-         * 下一个
-         */
-        function handleNext() {
-            if (cpNextBtnDisabled.value) return
-            cur.value += 1
-        }
-
-        /**
-         * 放大
-         */
-        function handleZoomIn() {
-            scale.value += 1
-        }
-
-        /**
-         * 缩小
-         */
-        function handleZoomOut() {
-            if (cpZoomOutBtnDisabled.value) return
-            if (scale.value <= 1) return
-            scale.value -= 1
-        }
-
-        /**
-         * 左旋转
-         */
-        function handleRotateLeft() {
-            rotate.value -= 90
-        }
-
-        /**
-         * 右旋转
-         */
-        function handleRotateRight() {
-            rotate.value += 90
-        }
-
-        /**
-         * 关闭后
-         */
-        function onAfterClose() {
-            props.afterClose?.()
-        }
-
-        /**
-         * 开始移动
-         * @param {HTMLElement} e
-         */
-        function onMoveStart(e) {
-            e.preventDefault()
-            state.startX = e.pageX
-            state.startY = e.pageY
-
-            window.addEventListener('mousemove', onMoving)
-            window.addEventListener('mouseup', onMoveEnd)
-        }
-
-        /**
-         * 移动中
-         * @param {HTMLElement} e
-         */
-        function onMoving(e) {
-            const offsetX = e.pageX - state.startX
-            const offsetY = e.pageY - state.startY
-
-            state.left = state.startLeft + offsetX
-            state.top = state.startTop + offsetY
-        }
-
-        /**
-         * 移动结束
-         */
-        function onMoveEnd() {
-            state.startLeft = state.left
-            state.startTop = state.top
-            window.removeEventListener('mousemove', onMoving)
-            window.removeEventListener('mouseup', onMoveEnd)
-        }
-
+const cpContentStyle = computed(() => {
+    if (cpFileType.value === 'image') {
         return {
-            visible,
-            cur,
-            imgRef,
-            cpContentStyle,
-            cpImageStyle,
-            cpUrl,
-            cpShowPrevNextBtn,
-            cpZoomOutBtnDisabled,
-            cpPrevBtnDisabled,
-            cpNextBtnDisabled,
-            cpFileType,
-            handleOpen,
-            handleClose,
-            handleNext,
-            handlePrev,
-            handleZoomIn,
-            handleZoomOut,
-            handleRotateLeft,
-            handleRotateRight,
-            onAfterClose,
-            onMoveStart,
+            transform: `translate3d(${state.left}px, ${state.top}px, 0)`,
         }
-    },
+    }
+    return {}
+})
+const cpImageStyle = computed(() => ({
+    transform: `scale3d(${scale.value}, ${scale.value}, 1) rotate(${rotate.value}deg)`,
+}))
+const cpUrl = computed(() => props.urls?.[cur.value])
+const cpShowPrevNextBtn = computed(() => props.urls.length > 1)
+const cpZoomOutBtnDisabled = computed(() => scale.value <= 1)
+const cpPrevBtnDisabled = computed(() => cur.value <= 0)
+const cpNextBtnDisabled = computed(() => cur.value >= props.urls.length - 1)
+const cpFileType = computed(() => {
+    const suffix = cpUrl.value.slice(cpUrl.value.lastIndexOf('.') + 1).toLowerCase()
+    if (['mp4'].includes(suffix)) {
+        return 'video'
+    }
+    if (['mp3'].includes(suffix)) {
+        return 'audio'
+    }
+    return 'image'
+})
+
+init()
+
+/**
+ * 初始化
+ */
+function init() {
+    const urlsLen = props.urls.length
+    cur.value = props.current < urlsLen - 1 ? props.current : props.current % urlsLen
 }
+
+/**
+ * 打开
+ */
+function handleOpen() {
+    visible.value = true
+}
+
+/**
+ * 关闭
+ */
+function handleClose() {
+    visible.value = false
+}
+
+/**
+ * 上一个
+ */
+function handlePrev() {
+    if (cpPrevBtnDisabled.value) return
+    cur.value -= 1
+}
+
+/**
+ * 下一个
+ */
+function handleNext() {
+    if (cpNextBtnDisabled.value) return
+    cur.value += 1
+}
+
+/**
+ * 放大
+ */
+function handleZoomIn() {
+    scale.value += 1
+}
+
+/**
+ * 缩小
+ */
+function handleZoomOut() {
+    if (cpZoomOutBtnDisabled.value) return
+    if (scale.value <= 1) return
+    scale.value -= 1
+}
+
+/**
+ * 左旋转
+ */
+function handleRotateLeft() {
+    rotate.value -= 90
+}
+
+/**
+ * 右旋转
+ */
+function handleRotateRight() {
+    rotate.value += 90
+}
+
+/**
+ * 关闭后
+ */
+function onAfterClose() {
+    props.afterClose?.()
+}
+
+/**
+ * 开始移动
+ * @param {HTMLElement} e
+ */
+function onMoveStart(e) {
+    e.preventDefault()
+    state.startX = e.pageX
+    state.startY = e.pageY
+
+    window.addEventListener('mousemove', onMoving)
+    window.addEventListener('mouseup', onMoveEnd)
+}
+
+/**
+ * 移动中
+ * @param {HTMLElement} e
+ */
+function onMoving(e) {
+    const offsetX = e.pageX - state.startX
+    const offsetY = e.pageY - state.startY
+
+    state.left = state.startLeft + offsetX
+    state.top = state.startTop + offsetY
+}
+
+/**
+ * 移动结束
+ */
+function onMoveEnd() {
+    state.startLeft = state.left
+    state.startTop = state.top
+    window.removeEventListener('mousemove', onMoving)
+    window.removeEventListener('mouseup', onMoveEnd)
+}
+
+defineExpose({
+    handleOpen,
+})
 </script>
 
 <style lang="less">

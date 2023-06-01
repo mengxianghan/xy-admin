@@ -11,31 +11,29 @@
     </a-card>
 </template>
 
-<script>
+<script setup>
 import { computed } from 'vue'
+
+defineOptions({
+    name: 'XActionBar',
+})
 
 /**
  * 操作条
  * @property {string} type 类型，【default=默认，card=卡片】
  */
-export default {
-    name: 'XActionBar',
-    props: {
-        type: {
-            type: String,
-            default: 'default',
-        },
+const props = defineProps({
+    type: {
+        type: String,
+        default: 'default',
     },
-    setup(props) {
-        const classNames = computed(() => {
-            return {
-                [`x-action-bar--${props.type || 'default'}`]: true,
-            }
-        })
+})
 
-        return { classNames }
-    },
-}
+const classNames = computed(() => {
+    return {
+        [`x-action-bar--${props.type || 'default'}`]: true,
+    }
+})
 </script>
 
 <style lang="less" scoped>

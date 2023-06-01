@@ -37,65 +37,56 @@
     </a-table>
 </template>
 
-<script>
+<script setup>
 import { onMounted, ref, watch } from 'vue'
 import { cloneDeep } from 'lodash-es'
 import { PlusOutlined, DeleteOutlined } from '@ant-design/icons-vue'
+
+defineOptions({
+    name: 'XFormTable',
+})
 
 /**
  * 表单表格
  * @property {array} modelValue v-model
  * @property {object} rowTpl 行模板
  */
-export default {
-    name: 'XFormTable',
-    components: {
-        PlusOutlined,
-        DeleteOutlined,
+const props = defineProps({
+    modelValue: {
+        type: Array,
+        default: () => [],
     },
-    props: {
-        modelValue: {
-            type: Array,
-            default: () => [],
-        },
-        rowTpl: {
-            type: Object,
-            default: () => ({}),
-        },
+    rowTpl: {
+        type: Object,
+        default: () => ({}),
     },
-    emits: ['update:modelValue', 'add', 'delete'],
-    setup(props, { emit }) {
-        const list = ref([])
+})
 
-        watch(list, (val) => emit('update:modelValue', val), { deep: true })
+const emit = defineEmits(['update:modelValue', 'add', 'delete'])
 
-        onMounted(() => {
-            list.value = props.modelValue
-        })
+const list = ref([])
 
-        /**
-         * 新增
-         */
-        function handleAdd() {
-            list.value.push(cloneDeep(props.rowTpl))
-            emit('add')
-        }
+watch(list, (val) => emit('update:modelValue', val), { deep: true })
 
-        /**
-         * 删除
-         */
-        function handleDelete(index) {
-            const delRecord = props.modelValue[index]
-            list.value.splice(index, 1)
-            emit('delete', { record: delRecord })
-        }
+onMounted(() => {
+    list.value = props.modelValue
+})
 
-        return {
-            list,
-            handleAdd,
-            handleDelete,
-        }
-    },
+/**
+ * 新增
+ */
+function handleAdd() {
+    list.value.push(cloneDeep(props.rowTpl))
+    emit('add')
+}
+
+/**
+ * 删除
+ */
+function handleDelete(index) {
+    const delRecord = props.modelValue[index]
+    list.value.splice(index, 1)
+    emit('delete', { record: delRecord })
 }
 </script>
 
