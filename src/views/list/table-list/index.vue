@@ -67,9 +67,12 @@
                         </a-button>
                         <a @click="() => (searchBarExpand = !searchBarExpand)">
                             展开
-                            <component
-                                :is="`${searchBarExpand ? UpOutlined : DownOutlined}`"
-                                :style="{ fontSize: '12px' }"></component>
+                            <template v-if="searchBarExpand">
+                                <up-outlined :style="{ fontSize: '12px' }"></up-outlined>
+                            </template>
+                            <template v-else>
+                                <down-outlined :style="{ fontSize: '12px' }"></down-outlined>
+                            </template>
                         </a>
                     </a-space>
                 </a-col>
