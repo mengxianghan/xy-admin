@@ -42,8 +42,8 @@ const componentList = [
     UploadInput,
 ]
 
-export const xloading = Loading
-export const xpreview = Preview
+export const loading = Loading
+export const preview = Preview
 
 export default {
     install(app) {
@@ -51,8 +51,8 @@ export default {
             app.component(component.name, component)
         })
 
-        app.config.globalProperties.$xloading = Loading
-        app.config.globalProperties.$xpreview = Preview
+        app.config.globalProperties.$loading = Loading
+        app.config.globalProperties.$preview = Preview
 
         setupLoadingDirective(app)
 
