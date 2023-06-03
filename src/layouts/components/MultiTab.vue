@@ -224,7 +224,7 @@ export default {
     }
 
     :deep(.ant-tabs-card > .ant-tabs-nav .ant-tabs-tab-active) {
-        background: #fafafa;
+        background: color(~`colorPalette('@{primary-color}', 1) `);
     }
 
     :deep(.ant-tabs-card > .ant-tabs-nav .ant-tabs-nav-more) {
