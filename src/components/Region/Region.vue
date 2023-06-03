@@ -57,10 +57,9 @@ onMounted(() => {
 })
 
 /**
- * 加载下一级
+ * 加载数据
  */
-// eslint-disable-next-line no-unused-vars
-async function getChildrenData(selectedOptions) {
+async function onLoadData(selectedOptions) {
     const targetOption = last(selectedOptions)
     await getData(targetOption?.value ?? 0, selectedOptions.length + 1)
 }
