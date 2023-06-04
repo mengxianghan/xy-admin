@@ -12,6 +12,7 @@ dist
 dist-ssr
 *.local
 */.vitepress/cache/**/*
+*/.vitepress/.temp/**
 
 # Editor directories and files
 .vscode/*
