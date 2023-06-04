@@ -33,15 +33,10 @@ api/
 其中，`/src/utils/request` 是基于 `axios` 的封装，便于统一处理 `POST`，`GET` 等请求参数，请求头，以及错误提示信息等。 它封装了全局 `request` 拦截器、`response` 拦截器、统一的错误处理、`baseURL` 设置等。
 
 ::: code-group
-<<< @/../src/utils/request/index.js {52-56}
-
-<<< @/../src/utils/request/http.js
-
-<<< @/../src/utils/request/pending.js
-
+<<< @/../src/utils/request.js {73-82}
 :::
 
-通过配置 `baseURL` 可支持请求多服务接口，详见 `/src/utils/request/index.js` 第 `52-56` 行
+通过配置 `baseURL` 可支持请求多服务接口，详见 `/src/utils/request.js` 第 `73~82` 行
 
 ::: warning
 在使用正式请求时务必执行以上流程中的 1、2、3，否则可能会出现接口请求不通的情况。
