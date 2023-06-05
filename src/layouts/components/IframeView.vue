@@ -11,25 +11,19 @@
     </div>
 </template>
 
-<script>
+<script setup>
 import { computed } from 'vue'
 import { useMultiTabStore } from '@/store'
 import { useRoute } from 'vue-router'
 
-export default {
+defineOptions({
     name: 'IframeView',
-    setup() {
-        const route = useRoute()
-        const multiTabStore = useMultiTabStore()
-        const iframeList = computed(() => multiTabStore.iframeList)
-        const cpIsIframe = computed(() => route?.meta?._isIframe)
+})
 
-        return {
-            iframeList,
-            cpIsIframe,
-        }
-    },
-}
+const route = useRoute()
+const multiTabStore = useMultiTabStore()
+const iframeList = computed(() => multiTabStore.iframeList)
+const cpIsIframe = computed(() => route?.meta?._isIframe)
 </script>
 
 <style lang="less" scoped>

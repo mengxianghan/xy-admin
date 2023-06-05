@@ -26,49 +26,41 @@
     </a-layout-sider>
 </template>
 
-<script>
-import { computed } from 'vue'
+<script setup>
+import { computed, useSlots } from 'vue'
 import { useAppStore } from '@/store'
 import { storeToRefs } from 'pinia'
 import LogoCard from './LogoCard.vue'
+
+defineOptions({
+    name: 'BasicSide',
+})
 
 /**
  * @property {boolean} collapsed 当前收起状态
  * @property {boolean} showHeader 显示头部
  */
-export default {
-    name: 'BasicSide',
-    components: {
-        LogoCard,
+defineProps({
+    theme: {
+        type: String,
     },
-    props: {
-        theme: {
-            type: String,
-        },
-        collapsed: {
-            type: Boolean,
-            default: false,
-        },
-        showHeader: {
-            type: Boolean,
-            default: true,
-        },
+    collapsed: {
+        type: Boolean,
+        default: false,
     },
-    setup(props, { slots }) {
-        const appStore = useAppStore()
-
-        const { config } = storeToRefs(appStore)
-
-        const cpShowDefaultSlot = computed(() => !!slots.default)
-        const cpShowFooterSlot = computed(() => !!slots.footer)
-
-        return {
-            config,
-            cpShowDefaultSlot,
-            cpShowFooterSlot,
-        }
+    showHeader: {
+        type: Boolean,
+        default: true,
     },
-}
+})
+const slots = useSlots()
+
+const appStore = useAppStore()
+
+const { config } = storeToRefs(appStore)
+
+const cpShowDefaultSlot = computed(() => !!slots.default)
+const cpShowFooterSlot = computed(() => !!slots.footer)
 </script>
 
 <style lang="less" scoped>

@@ -66,7 +66,7 @@
     </div>
 </template>
 
-<script>
+<script setup>
 import { onMounted, computed, ref, nextTick } from 'vue'
 import { useMultiTabStore } from '@/store'
 import { useRouter, onBeforeRouteUpdate } from 'vue-router'
@@ -74,84 +74,69 @@ import { ReloadOutlined, CloseOutlined } from '@ant-design/icons-vue'
 import useMultiTab from '@/hooks/useMultiTab'
 import Sortable from 'sortablejs'
 
-export default {
+defineOptions({
     name: 'MultiTab',
-    components: { ReloadOutlined, CloseOutlined },
-    setup() {
-        const multiTabStore = useMultiTabStore()
-        const router = useRouter()
-        const {
-            getSimpleRoute,
-            open,
-            close: handleClose,
-            closeLeft: handleCloseLeft,
-            closeRight: handleCloseRight,
-            closeOther: handleCloseOther,
-            reload,
-        } = useMultiTab()
+})
 
-        const multiTabList = computed(() => multiTabStore.list)
-        const current = computed(() => multiTabStore.current)
-        const spin = ref(false)
-        const multiTabRef = ref()
+const multiTabStore = useMultiTabStore()
+const router = useRouter()
+const {
+    getSimpleRoute,
+    open,
+    close: handleClose,
+    closeLeft: handleCloseLeft,
+    closeRight: handleCloseRight,
+    closeOther: handleCloseOther,
+    reload,
+} = useMultiTab()
 
-        /**
-         * 路由发生变化
-         */
-        onBeforeRouteUpdate((to) => {
-            open(getSimpleRoute(to))
-        })
+const multiTabList = computed(() => multiTabStore.list)
+const current = computed(() => multiTabStore.current)
+const spin = ref(false)
+const multiTabRef = ref()
 
-        onMounted(async () => {
-            open(getSimpleRoute(router.currentRoute.value))
-            await nextTick()
-            initDragSort()
-        })
+/**
+ * 路由发生变化
+ */
+onBeforeRouteUpdate((to) => {
+    open(getSimpleRoute(to))
+})
 
-        /**
-         * 重新加载
-         * @param route
-         */
-        function handleReload(route) {
-            reload(route)
-            spin.value = true
-            setTimeout(() => {
-                spin.value = false
-            }, 1000)
-        }
+onMounted(async () => {
+    open(getSimpleRoute(router.currentRoute.value))
+    await nextTick()
+    initDragSort()
+})
 
-        /**
-         * 切换标签页
-         * @param index
-         */
-        function handleSwitch(index) {
-            router.push(multiTabList.value[index])
-        }
+/**
+ * 重新加载
+ * @param route
+ */
+function handleReload(route) {
+    reload(route)
+    spin.value = true
+    setTimeout(() => {
+        spin.value = false
+    }, 1000)
+}
 
-        /**
-         * 初始化拖拽
-         */
-        function initDragSort() {
-            Sortable.create(multiTabRef.value.querySelector('.ant-tabs-nav-list'), {
-                handle: '.ant-tabs-tab',
-                draggable: '.ant-tabs-tab',
-                animation: 200,
-            })
-        }
+/**
+ * 切换标签页
+ * @param index
+ */
+function handleSwitch(index) {
+    router.push(multiTabList.value[index])
+}
 
-        return {
-            current,
-            multiTabList,
-            multiTabRef,
-            spin,
-            handleClose,
-            handleCloseLeft,
-            handleCloseRight,
-            handleCloseOther,
-            handleReload,
-            handleSwitch,
-        }
-    },
+/**
+ * 初始化拖拽
+ */
+function initDragSort() {
+    Sortable.create(multiTabRef.value.querySelector('.ant-tabs-nav-list'), {
+        handle: '.ant-tabs-tab',
+        draggable: '.ant-tabs-tab',
+        animation: 200,
+    })
 }
 </script>
 

@@ -12,28 +12,19 @@
     </a-layout-content>
 </template>
 
-<script>
+<script setup>
 import { computed } from 'vue'
 import { useMultiTabStore } from '@/store'
 import IframeView from './IframeView.vue'
 
-export default {
+defineOptions({
     name: 'BasicContent',
-    components: {
-        IframeView,
-    },
-    setup() {
-        const multiTabStore = useMultiTabStore()
+})
 
-        const cpCacheList = computed(() => multiTabStore.cacheList)
-        const cpKeepAlive = computed(() => multiTabStore.keepAlive)
+const multiTabStore = useMultiTabStore()
 
-        return {
-            cpCacheList,
-            cpKeepAlive,
-        }
-    },
-}
+const cpCacheList = computed(() => multiTabStore.cacheList)
+const cpKeepAlive = computed(() => multiTabStore.keepAlive)
 </script>
 
 <style lang="less" scoped>

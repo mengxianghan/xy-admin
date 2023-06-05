@@ -5,7 +5,9 @@
         <template
             v-if="dataSource.meta && dataSource.meta.icon"
             #icon>
-            <component :is="dataSource.meta.icon" />
+            <component
+                :is="dataSource.meta.icon"
+                class="anticon" />
         </template>
         <template
             v-if="dataSource.meta && dataSource.meta.title"
@@ -33,22 +35,21 @@
     </a-sub-menu>
 </template>
 
-<script>
+<script setup>
 import MenuLink from './MenuLink.vue'
 
+defineOptions({
+    name: 'SubMenu',
+})
 /**
  * @property {object} dataSource
  */
-export default {
-    name: 'SubMenu',
-    components: { MenuLink },
-    props: {
-        dataSource: {
-            type: Object,
-            default: () => ({}),
-        },
+defineProps({
+    dataSource: {
+        type: Object,
+        default: () => ({}),
     },
-}
+})
 </script>
 
 <style lang="less" scoped></style>

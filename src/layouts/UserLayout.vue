@@ -29,22 +29,14 @@
     </div>
 </template>
 
-<script>
+<script setup>
 import { getAssetsFile } from '@/utils/get'
 
-export default {
+defineOptions({
     name: 'UserLayout',
-    setup() {
-        const title = import.meta.env.VITE_TITLE
-        const { version } = __APP_INFO__
-
-        return {
-            title,
-            version,
-            getAssetsFile,
-        }
-    },
-}
+})
+const title = import.meta.env.VITE_TITLE
+const { version } = __APP_INFO__
 </script>
 
 <style lang="less" scoped>

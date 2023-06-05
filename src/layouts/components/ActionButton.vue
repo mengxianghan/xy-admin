@@ -12,31 +12,26 @@
     </a-button>
 </template>
 
-<script>
+<script setup>
 import { storeToRefs } from 'pinia'
-import { computed } from 'vue'
+import { computed, useSlots } from 'vue'
 import { useAppStore } from '@/store'
 
-export default {
+defineOptions({
     name: 'ActionButton',
-    emits: ['click'],
-    setup(props, { slots, emit }) {
-        const appStore = useAppStore()
+})
 
-        const { config } = storeToRefs(appStore)
+const emit = defineEmits(['click'])
+const slots = useSlots()
 
-        const cpShowIconSlot = computed(() => !!slots.icon)
+const appStore = useAppStore()
 
-        function handleClick() {
-            emit('click')
-        }
+const { config } = storeToRefs(appStore)
 
-        return {
-            config,
-            cpShowIconSlot,
-            handleClick,
-        }
-    },
+const cpShowIconSlot = computed(() => !!slots.icon)
+
+function handleClick() {
+    emit('click')
 }
 </script>
 

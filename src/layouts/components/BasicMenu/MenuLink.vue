@@ -17,57 +17,55 @@
     </component>
 </template>
 
-<script>
+<script setup>
 import { computed } from 'vue'
 import { RouterLink } from 'vue-router'
 
+defineOptions({
+    name: 'MenuLink',
+})
 /**
  * @property {object} dataSource
  */
-export default {
-    name: 'MenuLink',
-    props: {
-        dataSource: {
-            type: Object,
-            default: () => ({}),
-        },
+const props = defineProps({
+    dataSource: {
+        type: Object,
+        default: () => ({}),
     },
-    emits: ['click'],
-    setup(props, { emit }) {
-        const cpComponentName = computed(() =>
-            props.dataSource?.path ? (props.dataSource?.meta?._isLink ? 'a' : RouterLink) : 'div'
-        )
-        const cpComponentAttrs = computed(() => {
-            const { meta, path } = props.dataSource
-            const attrs = {}
-            if (props.dataSource?.path) {
-                if (props.dataSource?.meta?._isLink) {
-                    attrs.href = path
-                } else {
-                    attrs.to = {
-                        path,
-                        query: meta?.query ?? {},
-                    }
-                }
+})
+
+const emit = defineEmits(['click'])
+
+const cpComponentName = computed(() =>
+    props.dataSource?.path ? (props.dataSource?.meta?._isLink ? 'a' : RouterLink) : 'div'
+)
+const cpComponentAttrs = computed(() => {
+    const { meta, path } = props.dataSource
+    const attrs = {}
+    if (props.dataSource?.path) {
+        if (props.dataSource?.meta?._isLink) {
+            attrs.href = path
+        } else {
+            attrs.to = {
+                path,
+                query: meta?.query ?? {},
             }
-
-            return attrs
-        })
-
-        function handleClick() {
-            if (props.dataSource?.props) {
-                props.dataSource?.props?.click?.call(null, props.dataSource)
-            }
-            emit('click', props.dataSource)
         }
+    }
 
-        return {
-            cpComponentName,
-            cpComponentAttrs,
-            handleClick,
-        }
-    },
+    return attrs
+})
+
+function handleClick() {
+    if (props.dataSource?.props) {
+        props.dataSource?.props?.click?.call(null, props.dataSource)
+    }
+    emit('click', props.dataSource)
 }
+
+defineExpose({
+    handleClick,
+})
 </script>
 
 <style lang="less" scoped>

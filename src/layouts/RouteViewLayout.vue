@@ -2,10 +2,10 @@
     <router-view />
 </template>
 
-<script>
-export default {
+<script setup>
+defineOptions({
     name: 'RouteViewLayout',
-}
+})
 </script>
 
 <style lang="less" scoped></style>

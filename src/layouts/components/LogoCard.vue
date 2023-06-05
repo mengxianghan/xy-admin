@@ -9,48 +9,41 @@
     </div>
 </template>
 
-<script>
+<script setup>
 import { computed } from 'vue'
 import { useAppStore } from '@/store'
 import { storeToRefs } from 'pinia'
 import { ICON_LOGO, TITLE } from '@/config'
 
+defineOptions({
+    name: 'LogoCard',
+})
+
 /**
  * @property {string} theme 主题【light=亮色，black=暗色】
  * @property {boolean} collapsed 当前收起状态
  */
-export default {
-    name: 'LogoCard',
-    props: {
-        theme: {
-            type: String,
-            default: 'light',
-        },
-        collapsed: {
-            type: Boolean,
-            default: false,
-        },
+const props = defineProps({
+    theme: {
+        type: String,
+        default: 'light',
     },
-    setup(props) {
-        const appStore = useAppStore()
-
-        const { config } = storeToRefs(appStore)
-
-        const cpClassNames = computed(() => {
-            return {
-                [`logo-card--${props.theme}`]: true,
-                'logo-card--collapsed': props.collapsed,
-            }
-        })
-
-        return {
-            ICON_LOGO,
-            TITLE,
-            config,
-            cpClassNames,
-        }
+    collapsed: {
+        type: Boolean,
+        default: false,
     },
-}
+})
+
+const appStore = useAppStore()
+
+const { config } = storeToRefs(appStore)
+
+const cpClassNames = computed(() => {
+    return {
+        [`logo-card--${props.theme}`]: true,
+        'logo-card--collapsed': props.collapsed,
+    }
+})
 </script>
 
 <style lang="less" scoped>

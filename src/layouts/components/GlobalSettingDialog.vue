@@ -87,62 +87,53 @@
     </a-drawer>
 </template>
 
-<script>
+<script setup>
 import { ref } from 'vue'
 import { useAppStore } from '@/store'
 import { storeToRefs } from 'pinia'
 import { CheckOutlined } from '@ant-design/icons-vue'
 
-export default {
+defineOptions({
     name: 'GlobalSettingDialog',
-    components: { CheckOutlined },
-    setup() {
-        const appStore = useAppStore()
+})
 
-        const { config } = storeToRefs(appStore)
+const appStore = useAppStore()
 
-        const visible = ref(false)
-        const themeList = ref([
-            { value: 'light', label: '亮色模式' },
-            { value: 'dark', label: '暗色模式' },
-        ])
-        const menuModeList = ref([
-            { value: 'side', label: '侧边菜单' },
-            { value: 'top', label: '顶部菜单' },
-            { value: 'mix', label: '混合菜单' },
-        ])
+const { config } = storeToRefs(appStore)
 
-        function handleOpen() {
-            visible.value = true
-        }
+const visible = ref(false)
+const themeList = ref([
+    { value: 'light', label: '亮色模式' },
+    { value: 'dark', label: '暗色模式' },
+])
+const menuModeList = ref([
+    { value: 'side', label: '侧边菜单' },
+    { value: 'top', label: '顶部菜单' },
+    { value: 'mix', label: '混合菜单' },
+])
 
-        function handleSideTheme({ value }) {
-            config.value.sideTheme = value
-        }
-
-        function handleHeaderTheme({ value }) {
-            config.value.headerTheme = value
-        }
-
-        function handleMenuMode({ value }) {
-            config.value.menuMode = value
-            if (value === 'mix') {
-                config.value.sideTheme = 'light'
-            }
-        }
-
-        return {
-            config,
-            visible,
-            themeList,
-            menuModeList,
-            handleOpen,
-            handleSideTheme,
-            handleHeaderTheme,
-            handleMenuMode,
-        }
-    },
+function handleOpen() {
+    visible.value = true
 }
+
+function handleSideTheme({ value }) {
+    config.value.sideTheme = value
+}
+
+function handleHeaderTheme({ value }) {
+    config.value.headerTheme = value
+}
+
+function handleMenuMode({ value }) {
+    config.value.menuMode = value
+    if (value === 'mix') {
+        config.value.sideTheme = 'light'
+    }
+}
+
+defineExpose({
+    handleOpen,
+})
 </script>
 
 <style lang="less" scoped>

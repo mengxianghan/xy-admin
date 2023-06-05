@@ -51,8 +51,8 @@
     </a-layout-header>
 </template>
 
-<script>
-import { computed } from 'vue'
+<script setup>
+import { computed, useSlots } from 'vue'
 import { useUserStore, useAppStore } from '@/store'
 import { Modal } from 'ant-design-vue'
 import { useRouter } from 'vue-router'
@@ -60,75 +60,59 @@ import { storeToRefs } from 'pinia'
 import { SettingOutlined, UserOutlined, LoginOutlined } from '@ant-design/icons-vue'
 import ActionButton from './ActionButton.vue'
 
+defineOptions({
+    name: 'BasicHeader',
+})
+
 /**
  * @property {string} theme 主题【light=亮色，dark=暗色】
  */
-export default {
-    name: 'BasicHeader',
-    components: {
-        ActionButton,
-        SettingOutlined,
-        UserOutlined,
-        LoginOutlined,
+const props = defineProps({
+    theme: {
+        type: String,
+        default: 'light',
     },
-    props: {
-        theme: {
-            type: String,
-            default: 'light',
-        },
-    },
-    emits: ['setting'],
-    setup(props, { slots, emit }) {
-        const userStore = useUserStore()
-        const appStore = useAppStore()
-        const router = useRouter()
+})
+const emit = defineEmits(['setting'])
+const slots = useSlots()
 
-        const { config } = storeToRefs(appStore)
+const userStore = useUserStore()
+const appStore = useAppStore()
+const router = useRouter()
 
-        const cpClassNames = computed(() => ({
-            [`basic-header--${props.theme}`]: true,
-        }))
-        const cpShowLeftSlot = computed(() => !!slots.left)
-        const cpShowDefaultSlot = computed(() => !!slots.default)
-        const cpIsLogin = computed(() => userStore.isLogin)
-        const cpUserInfo = computed(() => userStore.userInfo)
+const { config } = storeToRefs(appStore)
 
-        /**
-         * 退出登录
-         */
-        function handleLogout() {
-            Modal.confirm({
-                title: '注销登录？',
-                okText: '确认',
-                cancelText: '取消',
-                onOk: () => {
-                    userStore.logout().then(() => {
-                        router.push({
-                            name: 'login',
-                        })
-                    })
-                },
+const cpClassNames = computed(() => ({
+    [`basic-header--${props.theme}`]: true,
+}))
+const cpShowLeftSlot = computed(() => !!slots.left)
+const cpShowDefaultSlot = computed(() => !!slots.default)
+const cpIsLogin = computed(() => userStore.isLogin)
+const cpUserInfo = computed(() => userStore.userInfo)
+
+/**
+ * 退出登录
+ */
+function handleLogout() {
+    Modal.confirm({
+        title: '注销登录？',
+        okText: '确认',
+        cancelText: '取消',
+        onOk: () => {
+            userStore.logout().then(() => {
+                router.push({
+                    name: 'login',
+                })
             })
-        }
+        },
+    })
+}
 
-        /**
-         * 系统设置
-         */
-        function handleSetting() {
-            emit('setting')
-        }
-
-        return {
-            config,
-            cpClassNames,
-            cpShowLeftSlot,
-            cpShowDefaultSlot,
-            cpIsLogin,
-            cpUserInfo,
-            handleLogout,
-            handleSetting,
-        }
-    },
+/**
+ * 系统设置
+ */
+function handleSetting() {
+    emit('setting')
 }
 </script>
 

@@ -98,12 +98,12 @@
     <global-setting-dialog ref="globalSettingDialogRef"></global-setting-dialog>
 </template>
 
-<script>
+<script setup>
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { useAppStore } from '@/store'
 import { storeToRefs } from 'pinia'
-import { RollbackOutlined, MenuUnfoldOutlined, MenuFoldOutlined } from '@ant-design/icons-vue'
+import { RollbackOutlined } from '@ant-design/icons-vue'
 import useMenu from './hooks/useMenu'
 import MultiTab from './components/MultiTab.vue'
 import ActionButton from './components/ActionButton.vue'
@@ -114,65 +114,38 @@ import BasicMenu from './components/BasicMenu/BasicMenu.vue'
 import LogoCard from './components/LogoCard.vue'
 import GlobalSettingDialog from './components/GlobalSettingDialog.vue'
 
-export default {
+defineOptions({
     name: 'BasicLayout',
-    components: {
-        MultiTab,
-        ActionButton,
-        BasicHeader,
-        BasicSide,
-        BasicContent,
-        LogoCard,
-        BasicMenu,
-        GlobalSettingDialog,
-        RollbackOutlined,
-        MenuUnfoldOutlined,
-        MenuFoldOutlined,
-    },
-    setup() {
-        const appStore = useAppStore()
-        const router = useRouter()
-        const { sideMenuList, topMenuList } = useMenu()
+})
 
-        const { config } = storeToRefs(appStore)
+const appStore = useAppStore()
+const router = useRouter()
+const { sideMenuList, topMenuList } = useMenu()
 
-        const refreshing = ref(false)
-        const collapsed = ref(false)
-        const globalSettingDialogRef = ref()
+const { config } = storeToRefs(appStore)
 
-        /**
-         * 左侧菜单展开/收起
-         */
-        function handleCollapsed() {
-            collapsed.value = !collapsed.value
-        }
+const collapsed = ref(false)
+const globalSettingDialogRef = ref()
 
-        /**
-         * 返回
-         */
-        function handleBack() {
-            router.back()
-        }
+/**
+ * 左侧菜单展开/收起
+ */
+function handleCollapsed() {
+    collapsed.value = !collapsed.value
+}
 
-        /**
-         * 设置
-         */
-        function handleSetting() {
-            globalSettingDialogRef.value.handleOpen()
-        }
+/**
+ * 返回
+ */
+function handleBack() {
+    router.back()
+}
 
-        return {
-            sideMenuList,
-            topMenuList,
-            collapsed,
-            refreshing,
-            config,
-            globalSettingDialogRef,
-            handleCollapsed,
-            handleBack,
-            handleSetting,
-        }
-    },
+/**
+ * 设置
+ */
+function handleSetting() {
+    globalSettingDialogRef.value.handleOpen()
 }
 </script>
 
