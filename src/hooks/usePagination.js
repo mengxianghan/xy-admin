@@ -1,4 +1,4 @@
-import { ref, reactive } from 'vue'
+import { reactive, ref } from 'vue'
 
 export default (options = {}) => {
     const loading = ref(false)

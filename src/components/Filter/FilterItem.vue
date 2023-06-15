@@ -42,9 +42,10 @@
 </template>
 
 <script setup>
-import { computed, ref, watchEffect, nextTick, onMounted, reactive, useSlots } from 'vue'
-import { useFilterItemDataSourceCtx, useInjectFilterCtx } from './context'
+import { computed, nextTick, onMounted, reactive, ref, useSlots, watchEffect } from 'vue'
+
 import FilterTag from './FilterTag.vue'
+import { useFilterItemDataSourceCtx, useInjectFilterCtx } from './context'
 
 defineOptions({
     name: 'XFilterItem',

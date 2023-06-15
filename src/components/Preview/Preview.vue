@@ -97,16 +97,17 @@
 </template>
 
 <script setup>
-import { computed, ref, reactive } from 'vue'
 import { Modal as AModal } from 'ant-design-vue'
+import { computed, reactive, ref } from 'vue'
+
 import {
+    CloseOutlined,
     LeftOutlined,
     RightOutlined,
-    ZoomOutOutlined,
-    ZoomInOutlined,
     RotateLeftOutlined,
     RotateRightOutlined,
-    CloseOutlined,
+    ZoomInOutlined,
+    ZoomOutOutlined,
 } from '@ant-design/icons-vue'
 
 defineOptions({

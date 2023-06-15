@@ -61,12 +61,14 @@
 </template>
 
 <script setup>
+import { Modal, message } from 'ant-design-vue'
 import { onMounted, ref } from 'vue'
-import { menuTypeEnum } from '@/enums/system'
-import { message, Modal } from 'ant-design-vue'
-import { CODE_SUCCESS } from '@/config/http'
+
 import api from '@/api'
+import { CODE_SUCCESS } from '@/config/http'
+import { menuTypeEnum } from '@/enums/system'
 import usePagination from '@/hooks/usePagination'
+
 import EditDialog from './components/EditDialog.vue'
 
 defineOptions({

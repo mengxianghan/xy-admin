@@ -1,10 +1,11 @@
 import { defineStore } from 'pinia'
-import { useStorage } from '@/utils/storage'
-import { STORAGE_IS_LOGIN, STORAGE_USER_INFO, STORAGE_TOKEN, STORAGE_PERMISSION } from '@/config/storage'
+
+import api from '@/api'
 import { CODE_SUCCESS } from '@/config/http'
+import { STORAGE_IS_LOGIN, STORAGE_PERMISSION, STORAGE_TOKEN, STORAGE_USER_INFO } from '@/config/storage'
+import { useStorage } from '@/utils/storage'
 
 import useAppStore from './app'
-import api from '@/api'
 
 const { local } = useStorage()
 

@@ -83,11 +83,12 @@
 
 <script setup>
 import { computed, onMounted, ref } from 'vue'
+
+import api from '@/api'
+import { CODE_SUCCESS } from '@/config/http'
 import { useUserStore } from '@/store'
 import { timeFix } from '@/utils'
-import { CODE_SUCCESS } from '@/config/http'
 import { getAssetsFile } from '@/utils/get'
-import api from '@/api'
 
 defineOptions({
     name: 'welcome',

@@ -81,10 +81,12 @@
 
 <script setup>
 import { ref } from 'vue'
+
+import api from '@/api'
 import { CODE_SUCCESS } from '@/config/http'
 import usePagination from '@/hooks/usePagination'
+
 import PageHeader from '../components/PageHeader.vue'
-import api from '@/api'
 
 defineOptions({
     name: 'listSearchProjects',

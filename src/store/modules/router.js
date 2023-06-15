@@ -1,11 +1,12 @@
 import { defineStore } from 'pinia'
-import { notFoundRouter } from '@/router/config'
+
 import { asyncRouterMap } from '@/config/router'
-import { generateRoutes, getIndexRouter, filterRoutes, formatRoutes, generateMenuList } from '@/router/util'
+import router from '@/router'
+import { notFoundRouter } from '@/router/config'
+import { filterRoutes, formatRoutes, generateMenuList, generateRoutes, getIndexRouter } from '@/router/util'
 import { findTree } from '@/utils'
 
 import useUserStore from './user'
-import router from '@/router'
 
 const useRouterStore = defineStore('router', {
     state: () => ({

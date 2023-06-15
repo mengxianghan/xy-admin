@@ -24,10 +24,11 @@
 
 <script setup>
 import { ref } from 'vue'
-import UserInfoCard from './components/UserInfoCard.vue'
-import ArticleList from './components/ArticleList.vue'
+
 import AppList from './components/AppList.vue'
+import ArticleList from './components/ArticleList.vue'
 import ProjectList from './components/ProjectList.vue'
+import UserInfoCard from './components/UserInfoCard.vue'
 
 defineOptions({
     name: 'userCenter',

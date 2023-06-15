@@ -49,11 +49,13 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
-import { message, Modal } from 'ant-design-vue'
-import { CODE_SUCCESS } from '@/config/http'
+import { Modal, message } from 'ant-design-vue'
+import { onMounted, ref } from 'vue'
+
 import api from '@/api'
+import { CODE_SUCCESS } from '@/config/http'
 import usePagination from '@/hooks/usePagination'
+
 import DictTypeEditDialog from './DictTypeEditDialog.vue'
 
 defineOptions({

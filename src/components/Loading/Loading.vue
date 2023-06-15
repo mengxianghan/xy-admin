@@ -17,8 +17,9 @@
 
 <script setup>
 import { ref } from 'vue'
-import { LoadingOutlined } from '@ant-design/icons-vue'
 import { computed, h } from 'vue'
+
+import { LoadingOutlined } from '@ant-design/icons-vue'
 
 defineOptions({
     name: 'XLoading',

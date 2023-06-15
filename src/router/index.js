@@ -1,4 +1,5 @@
-import { createRouter, createWebHistory, createWebHashHistory } from 'vue-router'
+import { createRouter, createWebHashHistory, createWebHistory } from 'vue-router'
+
 import { constantRouterMap } from './config'
 
 const { VITE_ROUTER_HISTORY, VITE_PUBLIC_PATH } = import.meta.env

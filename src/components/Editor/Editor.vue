@@ -18,10 +18,12 @@
 </template>
 
 <script setup>
-import { onMounted, ref, watch } from 'vue'
-import { deepMerge } from '@/utils'
 import { Form } from 'ant-design-vue'
+import { onMounted, ref, watch } from 'vue'
+
 import TinyEditor from '@tinymce/tinymce-vue'
+
+import { deepMerge } from '@/utils'
 
 defineOptions({
     name: 'XEditor',

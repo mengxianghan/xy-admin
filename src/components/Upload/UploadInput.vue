@@ -21,8 +21,8 @@
 </template>
 
 <script setup>
-import { onMounted, ref, watch } from 'vue'
 import { Form } from 'ant-design-vue'
+import { onMounted, ref, watch } from 'vue'
 
 defineOptions({
     name: 'XUploadInput',

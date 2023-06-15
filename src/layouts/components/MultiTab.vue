@@ -67,12 +67,14 @@
 </template>
 
 <script setup>
-import { onMounted, computed, ref, nextTick } from 'vue'
-import { useMultiTabStore } from '@/store'
-import { useRouter, onBeforeRouteUpdate } from 'vue-router'
-import { ReloadOutlined, CloseOutlined } from '@ant-design/icons-vue'
-import useMultiTab from '@/hooks/useMultiTab'
 import Sortable from 'sortablejs'
+import { computed, nextTick, onMounted, ref } from 'vue'
+import { onBeforeRouteUpdate, useRouter } from 'vue-router'
+
+import { CloseOutlined, ReloadOutlined } from '@ant-design/icons-vue'
+
+import useMultiTab from '@/hooks/useMultiTab'
+import { useMultiTabStore } from '@/store'
 
 defineOptions({
     name: 'MultiTab',

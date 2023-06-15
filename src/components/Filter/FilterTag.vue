@@ -12,10 +12,11 @@
 </template>
 
 <script setup>
-import { ref, watch, computed, useSlots } from 'vue'
-import { useFilterTagCtx, useFilterTagSelectedValueCtx, useInjectFilterItemDataSourceCtx } from './context'
-import { get, find } from 'lodash-es'
+import { find, get } from 'lodash-es'
+import { computed, ref, useSlots, watch } from 'vue'
+
 import FilterTagItem from './FilterTagItem.vue'
+import { useFilterTagCtx, useFilterTagSelectedValueCtx, useInjectFilterItemDataSourceCtx } from './context'
 
 /**
  * @property {array | string | number} modelValue

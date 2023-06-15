@@ -39,10 +39,11 @@
 </template>
 
 <script setup>
-import { useRouter } from 'vue-router'
-import { onMounted, ref } from 'vue'
-import useMultiTab from '@/hooks/useMultiTab'
 import dayjs from 'dayjs'
+import { onMounted, ref } from 'vue'
+import { useRouter } from 'vue-router'
+
+import useMultiTab from '@/hooks/useMultiTab'
 
 defineOptions({
     name: 'otherMultiTab',

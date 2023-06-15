@@ -9,11 +9,12 @@
 </template>
 
 <script setup>
-import { findTree, mapping } from '@/utils'
-import { onMounted, ref, watch } from 'vue'
-import { message, Form } from 'ant-design-vue'
+import { Form, message } from 'ant-design-vue'
 import { last, pick } from 'lodash-es'
+import { onMounted, ref, watch } from 'vue'
+
 import { CODE_SUCCESS } from '@/config/http'
+import { findTree, mapping } from '@/utils'
 
 defineOptions({
     name: 'XRegion',

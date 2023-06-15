@@ -1,9 +1,7 @@
-import { whiteList } from '@/router/config'
-
-import { useAppStore, useUserStore } from '@/store'
-
-import router from '@/router'
 import { createProgress } from '@/plugins/progress'
+import router from '@/router'
+import { whiteList } from '@/router/config'
+import { useAppStore, useUserStore } from '@/store'
 
 const progress = createProgress()
 

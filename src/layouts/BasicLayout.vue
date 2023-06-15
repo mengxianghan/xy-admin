@@ -99,20 +99,23 @@
 </template>
 
 <script setup>
+import { storeToRefs } from 'pinia'
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
-import { useAppStore } from '@/store'
-import { storeToRefs } from 'pinia'
+
 import { RollbackOutlined } from '@ant-design/icons-vue'
-import useMenu from './hooks/useMenu'
-import MultiTab from './components/MultiTab.vue'
+
+import { useAppStore } from '@/store'
+
 import ActionButton from './components/ActionButton.vue'
-import BasicHeader from './components/BasicHeader.vue'
-import BasicSide from './components/BasicSide.vue'
 import BasicContent from './components/BasicContent.vue'
+import BasicHeader from './components/BasicHeader.vue'
 import BasicMenu from './components/BasicMenu/BasicMenu.vue'
-import LogoCard from './components/LogoCard.vue'
+import BasicSide from './components/BasicSide.vue'
 import GlobalSettingDialog from './components/GlobalSettingDialog.vue'
+import LogoCard from './components/LogoCard.vue'
+import MultiTab from './components/MultiTab.vue'
+import useMenu from './hooks/useMenu'
 
 defineOptions({
     name: 'BasicLayout',

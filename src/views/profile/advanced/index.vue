@@ -175,7 +175,8 @@
 
 <script setup>
 import { ref } from 'vue'
-import { EllipsisOutlined, DingdingOutlined } from '@ant-design/icons-vue'
+
+import { DingdingOutlined, EllipsisOutlined } from '@ant-design/icons-vue'
 
 defineOptions({
     name: 'profileAdvanced',

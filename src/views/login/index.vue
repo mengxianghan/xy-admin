@@ -104,14 +104,16 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted } from 'vue'
-import { useAppStore, useUserStore, useRouterStore } from '@/store'
+import { Modal, message, notification } from 'ant-design-vue'
+import { computed, onMounted, ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import { message, Modal, notification } from 'ant-design-vue'
-import { timeFix } from '@/utils'
-import { UserOutlined, LockOutlined, MobileOutlined } from '@ant-design/icons-vue'
+
+import { LockOutlined, MobileOutlined, UserOutlined } from '@ant-design/icons-vue'
+
 import { CODE_SUCCESS } from '@/config/http'
 import useForm from '@/hooks/useForm'
+import { useAppStore, useRouterStore, useUserStore } from '@/store'
+import { timeFix } from '@/utils'
 
 defineOptions({
     name: 'login',

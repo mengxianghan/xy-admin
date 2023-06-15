@@ -27,9 +27,11 @@
 </template>
 
 <script setup>
-import { computed, useSlots } from 'vue'
-import { useAppStore } from '@/store'
 import { storeToRefs } from 'pinia'
+import { computed, useSlots } from 'vue'
+
+import { useAppStore } from '@/store'
+
 import LogoCard from './LogoCard.vue'
 
 defineOptions({

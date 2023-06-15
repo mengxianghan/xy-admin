@@ -16,10 +16,9 @@
 </template>
 
 <script setup>
-import { onMounted, ref, watch } from 'vue'
-
 import Cropper from 'cropperjs'
 import 'cropperjs/dist/cropper.min.css'
+import { onMounted, ref, watch } from 'vue'
 
 defineOptions({
     name: 'XCropper',

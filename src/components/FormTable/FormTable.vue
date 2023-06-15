@@ -38,9 +38,10 @@
 </template>
 
 <script setup>
-import { onMounted, ref, watch } from 'vue'
 import { cloneDeep } from 'lodash-es'
-import { PlusOutlined, DeleteOutlined } from '@ant-design/icons-vue'
+import { onMounted, ref, watch } from 'vue'
+
+import { DeleteOutlined, PlusOutlined } from '@ant-design/icons-vue'
 
 defineOptions({
     name: 'XFormTable',

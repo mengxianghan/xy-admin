@@ -1,5 +1,6 @@
-import { provide, inject } from 'vue'
-import { FILTER_KEY, FILTER_TAG_KEY, FILTER_TAG_SELECTED_VALUE_KEY, FILTER_ITEM_DATA_SOURCE_KEY } from './config'
+import { inject, provide } from 'vue'
+
+import { FILTER_ITEM_DATA_SOURCE_KEY, FILTER_KEY, FILTER_TAG_KEY, FILTER_TAG_SELECTED_VALUE_KEY } from './config'
 
 export const useFilterCtx = (props) => {
     provide(FILTER_KEY, props)

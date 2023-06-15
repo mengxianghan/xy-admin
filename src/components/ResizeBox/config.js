@@ -1,9 +1,9 @@
+import Enum from 'xy-enum'
+
 export const DIRECTION_LEFT = 'left'
 export const DIRECTION_RIGHT = 'right'
 export const DIRECTION_TOP = 'top'
 export const DIRECTION_BOTTOM = 'bottom'
-
-import Enum from 'xy-enum'
 
 // 方向
 export const directionEnum = new Enum([

@@ -5,9 +5,8 @@
 </template>
 
 <script setup>
-import { onMounted, ref, markRaw, watch, onBeforeMount } from 'vue'
-
 import * as echarts from 'echarts'
+import { markRaw, onBeforeMount, onMounted, ref, watch } from 'vue'
 
 defineOptions({
     name: 'XChart',

@@ -46,7 +46,7 @@
 </template>
 
 <script setup>
-import { HomeOutlined, IdcardOutlined, ClusterOutlined } from '@ant-design/icons-vue'
+import { ClusterOutlined, HomeOutlined, IdcardOutlined } from '@ant-design/icons-vue'
 
 defineOptions({
     name: 'UserInfoCard',

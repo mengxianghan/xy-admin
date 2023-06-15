@@ -88,10 +88,12 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
-import { useAppStore } from '@/store'
 import { storeToRefs } from 'pinia'
+import { ref } from 'vue'
+
 import { CheckOutlined } from '@ant-design/icons-vue'
+
+import { useAppStore } from '@/store'
 
 defineOptions({
     name: 'GlobalSettingDialog',

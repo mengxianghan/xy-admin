@@ -1,7 +1,8 @@
-import { watch, ref } from 'vue'
-import { useAppStore, useRouterStore } from '@/store'
-import { useRoute } from 'vue-router'
 import { get, head, omit } from 'lodash-es'
+import { ref, watch } from 'vue'
+import { useRoute } from 'vue-router'
+
+import { useAppStore, useRouterStore } from '@/store'
 
 export default () => {
     const appStore = useAppStore()

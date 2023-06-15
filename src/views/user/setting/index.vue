@@ -27,13 +27,14 @@
 </template>
 
 <script setup>
-import { computed, ref, markRaw } from 'vue'
-import { head, find } from 'lodash-es'
+import { find, head } from 'lodash-es'
+import { computed, markRaw, ref } from 'vue'
+
 import Basic from './components/Basic.vue'
-import Safe from './components/Safe.vue'
-import Custom from './components/Custom.vue'
 import Bind from './components/Bind.vue'
+import Custom from './components/Custom.vue'
 import Message from './components/Message.vue'
+import Safe from './components/Safe.vue'
 
 defineOptions({
     name: 'userSetting',

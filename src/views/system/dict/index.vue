@@ -84,13 +84,15 @@
 </template>
 
 <script setup>
+import { Modal, message } from 'ant-design-vue'
 import { ref } from 'vue'
-import { message, Modal } from 'ant-design-vue'
-import { CODE_SUCCESS } from '@/config/http'
+
 import api from '@/api'
+import { CODE_SUCCESS } from '@/config/http'
 import usePagination from '@/hooks/usePagination'
-import Edit from './components/Edit.vue'
+
 import DictTypeTree from './components/DictTypeTree.vue'
+import Edit from './components/Edit.vue'
 
 defineOptions({
     name: 'systemDict',

@@ -29,9 +29,10 @@
 </template>
 
 <script setup>
-import { ref, toRefs, onMounted, watch } from 'vue'
-import { ReloadOutlined } from '@ant-design/icons-vue'
 import QRCode from 'qrcode'
+import { onMounted, ref, toRefs, watch } from 'vue'
+
+import { ReloadOutlined } from '@ant-design/icons-vue'
 
 defineOptions({
     name: 'XQrCode',

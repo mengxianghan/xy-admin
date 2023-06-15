@@ -20,7 +20,8 @@
 </template>
 
 <script setup>
-import { computed, ref, reactive, useSlots } from 'vue'
+import { computed, reactive, ref, useSlots } from 'vue'
+
 import { directionEnum } from './config'
 
 defineOptions({

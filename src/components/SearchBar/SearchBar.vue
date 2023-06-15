@@ -9,7 +9,7 @@
 </template>
 
 <script setup>
-import { computed, useAttrs, useSlots, ref } from 'vue'
+import { computed, ref, useAttrs, useSlots } from 'vue'
 
 defineOptions({
     name: 'XSearchBar',

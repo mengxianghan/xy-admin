@@ -101,19 +101,21 @@
 </template>
 
 <script setup>
-import { computed, onMounted, ref, useSlots, watch } from 'vue'
-import { nanoid } from 'nanoid'
 import { Form, message } from 'ant-design-vue'
-import { deepMerge } from '@/utils'
-import { STATUS_ENUM } from './config'
 import { filesize } from 'filesize'
-import { some, findIndex, includes } from 'lodash-es'
-import { EyeOutlined, DeleteOutlined, PlusOutlined } from '@ant-design/icons-vue'
-import Sortable from 'sortablejs'
 import filesizeParser from 'filesize-parser'
+import { findIndex, includes, some } from 'lodash-es'
+import { nanoid } from 'nanoid'
+import Sortable from 'sortablejs'
+import { computed, onMounted, ref, useSlots, watch } from 'vue'
 
-import Preview from '../Preview'
+import { DeleteOutlined, EyeOutlined, PlusOutlined } from '@ant-design/icons-vue'
+
+import { deepMerge } from '@/utils'
+
 import CropperDialog from '../Cropper/CropperDialog.vue'
+import Preview from '../Preview'
+import { STATUS_ENUM } from './config'
 
 defineOptions({
     name: 'XUploadImage',

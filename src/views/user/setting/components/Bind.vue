@@ -30,7 +30,7 @@
 </template>
 
 <script setup>
-import { TaobaoOutlined, AlipayOutlined, DingdingOutlined } from '@ant-design/icons-vue'
+import { AlipayOutlined, DingdingOutlined, TaobaoOutlined } from '@ant-design/icons-vue'
 
 defineOptions({
     name: 'Bind',

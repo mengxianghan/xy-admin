@@ -10,10 +10,11 @@
 </template>
 
 <script setup>
-import { computed } from 'vue'
-import { useAppStore } from '@/store'
 import { storeToRefs } from 'pinia'
+import { computed } from 'vue'
+
 import { ICON_LOGO, TITLE } from '@/config'
+import { useAppStore } from '@/store'
 
 defineOptions({
     name: 'LogoCard',

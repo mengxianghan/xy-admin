@@ -1,4 +1,5 @@
 import Mock from 'mockjs'
+
 import { builder, getQueryParams } from '../util'
 
 // 获取欢迎页数据

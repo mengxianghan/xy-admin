@@ -50,8 +50,9 @@
 
 <script setup>
 import { computed, ref, useSlots, watch } from 'vue'
-import { useFilterCtx } from './context'
+
 import FilterItem from './FilterItem.vue'
+import { useFilterCtx } from './context'
 
 defineOptions({
     name: 'XFilter',
