@@ -1,5 +1,5 @@
 <template>
-    <a-card :bordered="false">
+    <a-card>
         <a-result status="error">
             <template #title>提交失败</template>
             <template #subTitle>请核对并修改以下信息后，再重新提交。</template>

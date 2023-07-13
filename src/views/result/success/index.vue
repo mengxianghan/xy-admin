@@ -1,5 +1,5 @@
 <template>
-    <a-card :bordered="false">
+    <a-card>
         <a-result status="success">
             <template #title>提交成功</template>
             <template #subTitle

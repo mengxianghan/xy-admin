@@ -1,17 +1,16 @@
 <template>
     <a-row :gutter="16">
         <a-col
-            class="mb-8-2"
+            :lg="7"
             :md="24"
-            :lg="7">
+            class="mb-8-2">
             <user-info-card></user-info-card>
         </a-col>
         <a-col
-            :md="24"
-            :lg="17">
+            :lg="17"
+            :md="24">
             <a-card
                 :active-tab-key="activeTabKey"
-                :bordered="false"
                 :tab-list="tabList"
                 @tabChange="(key) => (activeTabKey = key)">
                 <article-list v-if="activeTabKey === 'article'"></article-list>

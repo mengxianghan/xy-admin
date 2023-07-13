@@ -56,7 +56,7 @@ const classNames = computed(() => {
     &__extra {
         > :deep(*) {
             &:not(:first-child) {
-                margin-left: @margin-sm;
+                margin-left: 12px;
             }
         }
 

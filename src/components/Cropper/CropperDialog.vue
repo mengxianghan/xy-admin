@@ -2,7 +2,7 @@
     <a-modal
         destroy-on-close
         title="裁剪图片"
-        :visible="visible"
+        :open="open"
         :after-close="onAfterClose"
         :width="568"
         :confirm-loading="loading"
@@ -43,7 +43,7 @@ defineProps({
 
 const emit = defineEmits(['ok', 'cancel'])
 
-const visible = ref(false)
+const open = ref(false)
 const cropperRef = ref()
 const imgSrc = ref('')
 const loading = ref(false)
@@ -54,7 +54,7 @@ const loading = ref(false)
  */
 function handleOpen(src) {
     imgSrc.value = src
-    visible.value = true
+    open.value = true
 }
 
 /**
@@ -64,7 +64,7 @@ async function handleOk() {
     loading.value = true
     const file = await cropperRef.value?.getFile()
     loading.value = false
-    visible.value = false
+    open.value = false
     emit('ok', file)
 }
 
@@ -72,7 +72,7 @@ async function handleOk() {
  * 关闭
  */
 function handleCancel() {
-    visible.value = false
+    open.value = false
     emit('cancel')
 }
 

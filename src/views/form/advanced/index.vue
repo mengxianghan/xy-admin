@@ -1,28 +1,27 @@
 <template>
     <a-page-header
+        :ghost="false"
         class="ant-page-header-wrap"
-        title="高级表单"
-        :ghost="false">
+        title="高级表单">
         高级表单常见于一次性输入和提交大批量数据的场景。
     </a-page-header>
     <a-form layout="vertical">
         <a-card
             class="mb-8-2"
-            title="仓库管理"
-            :bordered="false">
+            title="仓库管理">
             <a-row :gutter="8">
                 <a-col
-                    :sm="24"
+                    :lg="6"
                     :md="12"
-                    :lg="6">
+                    :sm="24">
                     <a-form-item label="仓库名">
                         <a-input allow-clear></a-input>
                     </a-form-item>
                 </a-col>
                 <a-col
-                    :sm="24"
-                    :md="12"
                     :lg="8"
+                    :md="12"
+                    :sm="24"
                     :xl="{ span: 6, offset: 2 }">
                     <a-form-item label="仓库域名">
                         <a-input allow-clear>
@@ -32,37 +31,37 @@
                     </a-form-item>
                 </a-col>
                 <a-col
-                    :sm="24"
-                    :md="24"
                     :lg="10"
+                    :md="24"
+                    :sm="24"
                     :xl="{ span: 8, offset: 2 }">
                     <a-form-item label="仓库管理员">
                         <a-select allow-clear></a-select>
                     </a-form-item>
                 </a-col>
                 <a-col
-                    :sm="24"
+                    :lg="6"
                     :md="12"
-                    :lg="6">
+                    :sm="24">
                     <a-form-item label="审批人">
                         <a-input allow-clear></a-input>
                     </a-form-item>
                 </a-col>
                 <a-col
-                    :sm="24"
-                    :md="12"
                     :lg="8"
+                    :md="12"
+                    :sm="24"
                     :xl="{ span: 6, offset: 2 }">
                     <a-form-item label="生效日期">
                         <a-range-picker
-                            allow-clear
-                            :style="{ width: '100%' }"></a-range-picker>
+                            :style="{ width: '100%' }"
+                            allow-clear></a-range-picker>
                     </a-form-item>
                 </a-col>
                 <a-col
-                    :sm="24"
-                    :md="24"
                     :lg="10"
+                    :md="24"
+                    :sm="24"
                     :xl="{ span: 8, offset: 2 }">
                     <a-form-item label="仓库类型">
                         <a-select allow-clear></a-select>
@@ -72,59 +71,58 @@
         </a-card>
         <a-card
             class="mb-8-2"
-            title="任务管理"
-            :bordered="false">
+            title="任务管理">
             <a-row :gutter="8">
                 <a-col
-                    :sm="24"
+                    :lg="6"
                     :md="12"
-                    :lg="6">
+                    :sm="24">
                     <a-form-item label="任务名">
                         <a-input allow-clear></a-input>
                     </a-form-item>
                 </a-col>
                 <a-col
-                    :sm="24"
-                    :md="12"
                     :lg="8"
+                    :md="12"
+                    :sm="24"
                     :xl="{ span: 6, offset: 2 }">
                     <a-form-item label="任务描述">
-                        <a-input allow-clear> </a-input>
+                        <a-input allow-clear></a-input>
                     </a-form-item>
                 </a-col>
                 <a-col
-                    :sm="24"
-                    :md="24"
                     :lg="10"
+                    :md="24"
+                    :sm="24"
                     :xl="{ span: 8, offset: 2 }">
                     <a-form-item label="执行人">
                         <a-select allow-clear></a-select>
                     </a-form-item>
                 </a-col>
                 <a-col
-                    :sm="24"
+                    :lg="6"
                     :md="12"
-                    :lg="6">
+                    :sm="24">
                     <a-form-item label="责任人">
                         <a-input allow-clear></a-input>
                     </a-form-item>
                 </a-col>
                 <a-col
-                    :sm="24"
-                    :md="12"
                     :lg="8"
+                    :md="12"
+                    :sm="24"
                     :xl="{ span: 6, offset: 2 }">
                     <a-form-item label="生效日期">
                         <a-date-picker
+                            :style="{ width: '100%' }"
                             allow-clear
-                            placeholder=""
-                            :style="{ width: '100%' }"></a-date-picker>
+                            placeholder=""></a-date-picker>
                     </a-form-item>
                 </a-col>
                 <a-col
-                    :sm="24"
-                    :md="24"
                     :lg="10"
+                    :md="24"
+                    :sm="24"
                     :xl="{ span: 8, offset: 2 }">
                     <a-form-item label="任务类型">
                         <a-select allow-clear></a-select>
@@ -132,14 +130,12 @@
                 </a-col>
             </a-row>
         </a-card>
-        <a-card
-            title="成员管理"
-            :bordered="false">
+        <a-card title="成员管理">
             <a-table
-                row-key="id"
                 :columns="columns"
                 :data-source="list"
-                :pagination="false">
+                :pagination="false"
+                row-key="id">
                 <template #bodyCell="{ column }">
                     <template v-if="column.key === 'action'">
                         <x-action-button>编辑</x-action-button>
@@ -148,8 +144,8 @@
             </a-table>
 
             <a-button
-                class="mt-8-2"
                 block
+                class="mt-8-2"
                 type="dashed">
                 <template #icon>
                     <icon-plus-outlined></icon-plus-outlined>

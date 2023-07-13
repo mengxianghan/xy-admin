@@ -141,7 +141,7 @@ defineExpose({
         flex: 0 0 400px;
         height: 100%;
         background: @background-color-base;
-        margin: 0 @margin-md 0 0;
+        margin: 0 16px 0 0;
 
         img {
             display: none;
@@ -155,7 +155,7 @@ defineExpose({
         h4 {
             font-weight: normal;
             font-size: 12px;
-            margin-bottom: @margin-sm;
+            margin-bottom: 12px;
         }
 
         &-img {

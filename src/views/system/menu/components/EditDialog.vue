@@ -1,6 +1,6 @@
 <template>
     <a-modal
-        :visible="modal.visible"
+        :open="modal.open"
         :title="modal.title"
         :width="640"
         :confirm-loading="modal.confirmLoading"

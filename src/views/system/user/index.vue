@@ -1,31 +1,21 @@
 <template>
     <a-row
-        type="flex"
         :gutter="16"
-        :style="{
-            position: 'absolute',
-            left: 0,
-            right: 0,
-            top: 0,
-            bottom: 0,
-        }">
+        type="flex">
         <a-col flex="0 0 240px">
             <a-card
                 v-loading="roleLoading"
-                :bordered="false"
                 type="flex">
                 <a-tree
+                    :field-names="{ title: 'name', children: 'children', key: 'key' }"
                     :selected-keys="selectedKeys"
                     :tree-data="roleList"
-                    :field-names="{ title: 'name', children: 'children', key: 'key' }"
                     block-node
                     @select="handleRole"></a-tree>
             </a-card>
         </a-col>
         <a-col flex="1">
-            <a-card
-                :bordered="false"
-                type="flex">
+            <a-card type="flex">
                 <x-action-bar class="mb-8-2">
                     <a-button
                         type="primary"
@@ -48,8 +38,8 @@
                                     </a-col>
                                     <a-col>
                                         <a-button
-                                            type="primary"
                                             ghost
+                                            type="primary"
                                             >搜索
                                         </a-button>
                                     </a-col>
@@ -83,7 +73,7 @@
 </template>
 
 <script setup>
-import { Modal, message } from 'ant-design-vue'
+import { message, Modal } from 'ant-design-vue'
 import { onMounted, ref } from 'vue'
 
 import api from '@/api'

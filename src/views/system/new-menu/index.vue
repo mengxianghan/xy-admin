@@ -1,24 +1,15 @@
 <template>
     <a-row
-        type="flex"
         :gutter="16"
-        :style="{
-            position: 'absolute',
-            left: 0,
-            right: 0,
-            top: 0,
-            bottom: 0,
-        }">
+        type="flex">
         <a-col flex="0 0 300px">
             <menu-tree
-                @select="onMenuSelect"
-                @ready="onMenuReady"></menu-tree>
+                @ready="onMenuReady"
+                @select="onMenuSelect"></menu-tree>
         </a-col>
         <template v-if="!menuInfo">
             <a-col flex="1">
-                <a-card
-                    :bordered="false"
-                    type="flex">
+                <a-card type="flex">
                     <a-empty description="请选择菜单"></a-empty>
                 </a-card>
             </a-col>
@@ -26,12 +17,11 @@
         <template v-else>
             <a-col flex="1">
                 <a-card
-                    :bordered="false"
                     :title="menuInfo.name"
                     type="flex">
                     <a-form
-                        :model="formState"
-                        :label-col="{ style: { width: '100px' } }">
+                        :label-col="{ style: { width: '100px' } }"
+                        :model="formState">
                         <a-form-item
                             label="名称"
                             name="name">
@@ -40,8 +30,8 @@
                         <a-form-item label="所属上级">
                             <a-tree-select
                                 v-model:value="formState.parent_id"
-                                :tree-data="menuList"
                                 :field-names="{ children: 'children', label: 'name', key: 'key', value: 'key' }"
+                                :tree-data="menuList"
                                 tree-default-expand-all></a-tree-select>
                         </a-form-item>
                         <a-form-item
@@ -56,9 +46,9 @@
                                 ]"></a-radio-group>
                         </a-form-item>
                         <a-form-item
+                            extra="系统唯一且与内置组件名一致，否则导致缓存失效"
                             label="别名"
-                            name="alias"
-                            extra="系统唯一且与内置组件名一致，否则导致缓存失效">
+                            name="alias">
                             <a-input v-model:value="formState.alias"></a-input>
                         </a-form-item>
                         <a-form-item
@@ -82,20 +72,20 @@
                             <a-input v-model:value="formState.view"></a-input>
                         </a-form-item>
                         <a-form-item
+                            extra="子节点或详情页需要高亮的上级菜单别名"
                             label="菜单高亮"
-                            name="active"
-                            extra="子节点或详情页需要高亮的上级菜单别名">
+                            name="active">
                             <a-input v-model:value="formState.active"></a-input>
                         </a-form-item>
                         <a-form-item
+                            extra="不显示在导航中，但依然可以访问，例如详情页"
                             label="隐藏"
-                            name="is_menu"
-                            extra="不显示在导航中，但依然可以访问，例如详情页">
+                            name="is_menu">
                             <a-switch v-model:checked="formState.is_menu"></a-switch>
                         </a-form-item>
                         <a-form-item
-                            label="&nbsp;"
-                            :colon="false">
+                            :colon="false"
+                            label="&nbsp;">
                             <a-button type="primary">保存</a-button>
                         </a-form-item>
                     </a-form>
@@ -103,7 +93,6 @@
             </a-col>
             <a-col flex="1">
                 <a-card
-                    :bordered="false"
                     title="权限按钮"
                     type="flex">
                     <x-form-table
@@ -111,15 +100,15 @@
                         :row-tpl="{ name: '', alias: '' }"
                         bordered>
                         <a-table-column
-                            title="名称"
-                            data-index="name">
+                            data-index="name"
+                            title="名称">
                             <template #default="{ record }">
                                 <a-input v-model:value="record.name" />
                             </template>
                         </a-table-column>
                         <a-table-column
-                            title="标识"
-                            data-index="alias">
+                            data-index="alias"
+                            title="标识">
                             <template #default="{ record }">
                                 <a-input v-model:value="record.alias" />
                             </template>

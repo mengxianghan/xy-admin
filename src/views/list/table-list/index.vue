@@ -2,9 +2,9 @@
     <x-search-bar class="mb-8-2">
         <template #default="{ gutter, colSpan }">
             <a-form
+                :label-col="{ style: { width: '100px' } }"
                 :model="searchForm"
-                layout="inline"
-                :label-col="{ style: { width: '100px' } }">
+                layout="inline">
                 <a-row :gutter="gutter">
                     <a-col v-bind="colSpan">
                         <a-form-item name="title">
@@ -45,8 +45,8 @@
                         <a-space>
                             <a-button>重置</a-button>
                             <a-button
-                                type="primary"
                                 ghost
+                                type="primary"
                                 @click="handleSearch">
                                 搜索
                             </a-button>
@@ -65,7 +65,7 @@
             </a-form>
         </template>
     </x-search-bar>
-    <a-card :bordered="false">
+    <a-card>
         <x-action-bar class="mb-8-2">
             <a-button
                 type="primary"
@@ -116,9 +116,9 @@
         </x-action-bar>
         <a-table
             :columns="columns"
-            :pagination="pagination"
             :data-source="list"
             :loading="loading"
+            :pagination="pagination"
             :size="size"
             row-key="id"
             @change="onTableChange">
@@ -152,7 +152,7 @@
 </template>
 
 <script setup>
-import { Modal, message } from 'ant-design-vue'
+import { message, Modal } from 'ant-design-vue'
 import { onMounted, ref } from 'vue'
 
 import {

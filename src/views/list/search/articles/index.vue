@@ -1,8 +1,6 @@
 <template>
     <page-header></page-header>
-    <a-card
-        class="mb-8-2"
-        :bordered="false">
+    <a-card class="mb-8-2">
         <x-filter
             v-model="searchForm"
             :data-source="filterData"
@@ -50,7 +48,7 @@
         </x-filter>
     </a-card>
 
-    <a-card :bordered="false">
+    <a-card>
         <a-list
             row-key="id"
             item-layout="vertical"

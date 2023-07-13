@@ -3,7 +3,7 @@
         width="100%"
         wrap-class-name="x-preview-wrap"
         destroy-on-close
-        :visible="visible"
+        :open="open"
         :closable="false"
         :footer="false"
         :after-close="onAfterClose">
@@ -133,7 +133,7 @@ const props = defineProps({
     },
 })
 
-const visible = ref(false)
+const open = ref(false)
 const scale = ref(1)
 const rotate = ref(0)
 const imgRef = ref()
@@ -189,14 +189,14 @@ function init() {
  * 打开
  */
 function handleOpen() {
-    visible.value = true
+    open.value = true
 }
 
 /**
  * 关闭
  */
 function handleClose() {
-    visible.value = false
+    open.value = false
 }
 
 /**

@@ -16,15 +16,15 @@
         </div>
         <!-- 右侧 -->
         <div class="basic-header__right">
-            <a-space :size="0">
+            <a-space :size="16">
                 <action-button @click="handleSetting">
                     <setting-outlined></setting-outlined>
                 </action-button>
 
                 <a-dropdown :trigger="['click']">
-                    <action-button>
+                    <action-button :style="{ height: '44px' }">
                         <a-avatar
-                            class="mr-8-1"
+                            class="mr-8-1 display-inline-flex justify-content-center"
                             :size="24">
                             <template #icon>
                                 <user-outlined />
@@ -35,10 +35,8 @@
                     <a-spin />
                     <template #overlay>
                         <a-menu>
-                            <a-menu-divider></a-menu-divider>
                             <a-menu-item
                                 key="logout"
-                                class="color-error"
                                 @click="handleLogout">
                                 <login-outlined></login-outlined>
                                 退出登录
@@ -155,7 +153,6 @@ function handleSetting() {
 
     &--light {
         background: @layout-sider-background-light;
-        box-shadow: 0 1px 4px rgba(0, 21, 41, 0.08);
     }
 
     &--dark {

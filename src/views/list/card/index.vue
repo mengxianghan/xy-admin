@@ -45,10 +45,8 @@
         :loading="loading">
         <template #renderItem="{ item }">
             <template v-if="!item.id">
-                <a-list-item>
-                    <a-card
-                        :bordered="false"
-                        :body-style="{ padding: 0 }">
+                <a-list-item :style="{ padding: '0' }">
+                    <a-card :body-style="{ padding: 0 }">
                         <a-button
                             type="dashed"
                             class="create-btn">
@@ -59,8 +57,8 @@
                 </a-list-item>
             </template>
             <template v-else>
-                <a-list-item>
-                    <a-card :bordered="false">
+                <a-list-item :style="{ padding: '0' }">
+                    <a-card>
                         <a-card-meta :title="item.title">
                             <template #avatar>
                                 <a-avatar :src="item.avatar" />

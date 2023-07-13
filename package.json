@@ -21,8 +21,9 @@
     },
     "dependencies": {
         "@ant-design/icons-vue": "^6.1.0",
+        "@icon-park/vue-next": "^1.4.2",
         "@tinymce/tinymce-vue": "^5.1.0",
-        "ant-design-vue": "^3.2.20",
+        "ant-design-vue": "^4.0.0-rc.6",
         "axios": "^1.4.0",
         "cropperjs": "^1.5.13",
         "dayjs": "^1.11.7",
@@ -46,7 +47,6 @@
         "xy-storage": "^3.1.0"
     },
     "devDependencies": {
-        "@trivago/prettier-plugin-sort-imports": "^4.1.1",
         "@vitejs/plugin-vue": "^4.2.3",
         "eslint": "^8.41.0",
         "eslint-config-prettier": "^8.8.0",

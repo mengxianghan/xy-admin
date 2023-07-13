@@ -4,7 +4,7 @@ export default () => {
     const modal = ref({
         type: '',
         title: '',
-        visible: false,
+        open: false,
         confirmLoading: false,
     })
 
@@ -25,7 +25,7 @@ export default () => {
      */
     function showModal(options = {}) {
         setModal({
-            visible: true,
+            open: true,
             ...options,
         })
     }
@@ -36,7 +36,7 @@ export default () => {
     function hideModal() {
         setModal({
             type: '',
-            visible: false,
+            open: false,
             confirmLoading: false,
         })
     }

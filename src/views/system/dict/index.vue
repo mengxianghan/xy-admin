@@ -1,21 +1,12 @@
 <template>
     <a-row
-        type="flex"
         :gutter="16"
-        :style="{
-            position: 'absolute',
-            left: 0,
-            right: 0,
-            top: 0,
-            bottom: 0,
-        }">
+        type="flex">
         <a-col flex="0 0 300px">
             <dict-type-tree @select="onDictTypeSelect" />
         </a-col>
         <a-col flex="1">
-            <a-card
-                :bordered="false"
-                type="flex">
+            <a-card type="flex">
                 <template v-if="!dictTypeInfo">
                     <a-empty description="请选择字典分类"></a-empty>
                 </template>
@@ -42,8 +33,8 @@
                                         </a-col>
                                         <a-col>
                                             <a-button
-                                                type="primary"
                                                 ghost
+                                                type="primary"
                                                 @click="handleSearch"
                                                 >搜索
                                             </a-button>
@@ -55,11 +46,11 @@
                     </x-action-bar>
                     <a-table
                         :columns="columns"
-                        :pagination="pagination"
                         :data-source="list"
                         :loading="loading"
-                        row-key="id"
+                        :pagination="pagination"
                         :row-selection="{ selectedRowKeys: selectedRowKeys, onChange: onSelectChange }"
+                        row-key="id"
                         @change="onTableChange">
                         <template #bodyCell="{ column, record }">
                             <template v-if="'valid' === column.key">
@@ -69,7 +60,7 @@
                             </template>
                             <template v-if="'action' === column.key">
                                 <x-action-button @click="$refs.editRef.handleEdit(record)">编辑</x-action-button>
-                                <x-action-button @click="handleDelete(record)"> 删除 </x-action-button>
+                                <x-action-button @click="handleDelete(record)"> 删除</x-action-button>
                             </template>
                         </template>
                     </a-table>
@@ -84,7 +75,7 @@
 </template>
 
 <script setup>
-import { Modal, message } from 'ant-design-vue'
+import { message, Modal } from 'ant-design-vue'
 import { ref } from 'vue'
 
 import api from '@/api'

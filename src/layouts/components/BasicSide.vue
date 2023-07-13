@@ -1,17 +1,17 @@
 <template>
     <a-layout-sider
-        class="basic-side"
-        breakpoint="lg"
         :collapsed="collapsed"
         :collapsed-width="config.sideCollapsedWidth"
+        :theme="theme"
         :width="config.sideWidth"
-        :theme="theme">
+        breakpoint="lg"
+        class="basic-side">
         <div
             v-if="showHeader"
             class="basic-side__header">
             <logo-card
-                :theme="theme"
-                :collapsed="collapsed"></logo-card>
+                :collapsed="collapsed"
+                :theme="theme"></logo-card>
         </div>
         <div
             v-if="cpShowDefaultSlot"
@@ -74,6 +74,7 @@ const cpShowFooterSlot = computed(() => !!slots.footer)
     z-index: 120;
     box-shadow: 1px 0 4px rgba(0, 21, 41, 0.08);
     transition: all @animation-duration-base, background 0s;
+    overflow: hidden;
 
     :deep(.ant-layout-sider-children) {
         height: 100%;
@@ -89,7 +90,21 @@ const cpShowFooterSlot = computed(() => !!slots.footer)
         flex: 1;
         min-height: 0;
         overflow: auto;
+
         .scrollbar-black();
+
+        :deep(.basic-menu__title) {
+            width: 100%;
+            display: flex;
+            align-items: center;
+
+            .ant-badge {
+                margin: 0 0 0 auto;
+                .ant-badge-count {
+                    box-shadow: none;
+                }
+            }
+        }
     }
 
     &__footer {

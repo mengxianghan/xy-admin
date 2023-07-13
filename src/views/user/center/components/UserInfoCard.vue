@@ -1,5 +1,5 @@
 <template>
-    <a-card :bordered="false">
+    <a-card>
         <div class="align-center mb-8-3">
             <a-avatar
                 class="mb-4-5"

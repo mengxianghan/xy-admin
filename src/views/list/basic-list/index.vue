@@ -1,7 +1,5 @@
 <template>
-    <a-card
-        class="mb-8-2"
-        :bordered="false">
+    <a-card class="mb-8-2">
         <a-row class="align-center">
             <a-col
                 :xs="24"
@@ -26,9 +24,7 @@
             </a-col>
         </a-row>
     </a-card>
-    <a-card
-        title="基本列表"
-        :bordered="false">
+    <a-card title="基本列表">
         <template #extra>
             <a-space>
                 <a-radio-group

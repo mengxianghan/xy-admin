@@ -12,15 +12,15 @@
                 </basic-side>
                 <a-layout>
                     <basic-header
-                        class="pr-8-2"
+                        class="px-8-2"
                         :theme="config.headerTheme"
                         @setting="handleSetting">
                         <template #left>
-                            <a-space :size="0">
+                            <a-space :size="16">
                                 <action-button @click="handleCollapsed">
                                     <template #icon>
                                         <component
-                                            :is="collapsed ? 'menu-unfold-outlined' : 'menu-fold-outlined'"
+                                            :is="collapsed ? MenuUnfoldOutlined : MenuFoldOutlined"
                                             :style="{ fontSize: '14px' }"></component>
                                     </template>
                                 </action-button>
@@ -103,7 +103,7 @@ import { storeToRefs } from 'pinia'
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 
-import { RollbackOutlined } from '@ant-design/icons-vue'
+import { RollbackOutlined, MenuUnfoldOutlined, MenuFoldOutlined } from '@ant-design/icons-vue'
 
 import { useAppStore } from '@/store'
 

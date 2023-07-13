@@ -1,5 +1,5 @@
 <template>
-    <a-card :bordered="false">
+    <a-card>
         <x-action-bar class="mb-8-2">
             <a-button
                 type="primary"

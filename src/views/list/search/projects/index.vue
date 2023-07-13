@@ -1,8 +1,6 @@
 <template>
     <page-header></page-header>
-    <a-card
-        class="mb-8-2"
-        :bordered="false">
+    <a-card class="mb-8-2">
         <x-filter
             v-model="searchForm"
             :data-source="filterData"
@@ -14,16 +12,16 @@
                         <a-row :gutter="40">
                             <a-col>
                                 <a-select
-                                    placeholder="不限"
-                                    :style="{ minWidth: '100px' }"></a-select>
+                                    :style="{ minWidth: '100px' }"
+                                    placeholder="不限"></a-select>
                             </a-col>
                             <a-col>
                                 <a-form-item
-                                    label="好评度"
-                                    class="mb-0">
+                                    class="mb-0"
+                                    label="好评度">
                                     <a-select
-                                        placeholder="不限"
-                                        :style="{ minWidth: '100px' }"></a-select>
+                                        :style="{ minWidth: '100px' }"
+                                        placeholder="不限"></a-select>
                                 </a-form-item>
                             </a-col>
                         </a-row>
@@ -34,30 +32,28 @@
     </a-card>
 
     <a-list
-        row-key="id"
-        item-layout="vertical"
-        :grid="{ gutter: 16, md: 2, lg: 2, xl: 3, xxl: 4 }"
         :data-source="list"
-        :loading="loading">
+        :grid="{ gutter: 16, md: 2, lg: 2, xl: 3, xxl: 4 }"
+        :loading="loading"
+        item-layout="vertical"
+        row-key="id">
         <template #renderItem="{ item }">
             <a-list-item key="item.title">
-                <a-card
-                    hoverable
-                    :bordered="false">
+                <a-card hoverable>
                     <template #cover>
                         <img
-                            alt=""
-                            :src="item.cover" />
+                            :src="item.cover"
+                            alt="" />
                     </template>
                     <a-card-meta :title="item.title">
                         <template #description>
                             <div>{{ item.desc1 }}</div>
                             <a-row
-                                class="mt-4-3"
-                                type="flex"
+                                :style="{ lineHeight: 1 }"
                                 align="middle"
+                                class="mt-4-3"
                                 justify="space-between"
-                                :style="{ lineHeight: 1 }">
+                                type="flex">
                                 <a-col class="fs-12">
                                     {{ item.time1 }}
                                 </a-col>
@@ -66,8 +62,8 @@
                                         <a-avatar
                                             v-for="user in item.userList"
                                             :key="user.id"
-                                            :src="user.avatar"
-                                            :size="22"></a-avatar>
+                                            :size="22"
+                                            :src="user.avatar"></a-avatar>
                                     </a-avatar-group>
                                 </a-col>
                             </a-row>

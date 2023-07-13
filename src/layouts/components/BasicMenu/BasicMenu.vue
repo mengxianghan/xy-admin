@@ -1,11 +1,11 @@
 <template>
     <a-menu
-        class="basic-menu"
-        :theme="theme"
-        :mode="mode"
-        :inline-collapsed="collapsed"
-        :open-keys="cpOpenKeys"
         v-model:selected-keys="selectedKeys"
+        :inline-collapsed="collapsed"
+        :mode="mode"
+        :open-keys="cpOpenKeys"
+        :theme="theme"
+        class="basic-menu"
         @openChange="onOpenChange">
         <template
             v-for="item in dataList"
@@ -97,89 +97,4 @@ function onOpenChange(value) {
 }
 </script>
 
-<style lang="less" scoped>
-.basic-menu {
-    transition: background 0s;
-
-    :deep(.basic-menu__title) {
-        display: flex;
-        align-items: center;
-
-        .anticon {
-            display: inline-flex;
-        }
-    }
-
-    :deep(.basic-menu__text) {
-        flex: 1;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-    }
-
-    :deep(.basic-menu__badge) {
-        .ant-badge-count,
-        .ant-badge-dot {
-            box-shadow: none;
-        }
-    }
-
-    &.ant-menu-inline {
-        border-right: none;
-
-        :deep(.ant-menu-item),
-        :deep(.ant-menu-submenu-title) {
-            width: 100%;
-        }
-
-        &.ant-menu-root {
-            :deep(.ant-menu-item),
-            :deep(.ant-menu-submenu-title) {
-                transition: background 0s;
-            }
-        }
-    }
-
-    :deep(.ant-menu-submenu .ant-menu-sub) {
-        transition: background 0s;
-    }
-
-    &.ant-menu-horizontal {
-        :deep(.basic__badge) {
-            margin-left: @margin-xs;
-        }
-
-        :deep(.ant-menu-submenu) {
-            padding: 0 @padding-md;
-        }
-
-        :deep(.ant-menu-submenu::after),
-        :deep(.ant-menu-submenu-selected::after) {
-            left: @padding-md;
-            right: @padding-md;
-        }
-
-        :deep(> .ant-menu-item a::before) {
-            bottom: 0;
-        }
-
-        &.ant-menu-dark {
-            :deep(.ant-menu-submenu-selected) {
-                background: @primary-color;
-            }
-        }
-
-        &:not(.ant-menu-dark) {
-            :deep(> .ant-menu-item),
-            :deep(> .ant-menu-submenu) {
-                margin-top: 0;
-            }
-        }
-
-        :deep(.ant-menu-item),
-        :deep(.ant-menu-submenu) {
-            top: 0;
-        }
-    }
-}
-</style>
+<style lang="less" scoped></style>

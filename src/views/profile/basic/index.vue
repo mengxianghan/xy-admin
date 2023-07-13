@@ -4,7 +4,7 @@
         title="基础详情页"
         :ghost="false">
     </a-page-header>
-    <a-card :bordered="false">
+    <a-card>
         <a-descriptions title="退款申请">
             <a-descriptions-item label="取货单号">1000000000</a-descriptions-item>
             <a-descriptions-item label="状态">已取货</a-descriptions-item>

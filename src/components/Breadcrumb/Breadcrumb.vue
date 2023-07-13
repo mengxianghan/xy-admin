@@ -26,7 +26,7 @@ const list = computed(() => router.currentRoute.value?.meta?._breadcrumb)
     background: #fff;
     display: flex;
     align-items: center;
-    padding: @padding-md;
+    padding: 16px;
     box-shadow: 0 1px 4px rgba(0, 21, 41, 0.08);
 }
 </style>

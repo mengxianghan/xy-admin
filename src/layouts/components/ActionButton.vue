@@ -13,10 +13,7 @@
 </template>
 
 <script setup>
-import { storeToRefs } from 'pinia'
 import { computed, useSlots } from 'vue'
-
-import { useAppStore } from '@/store'
 
 defineOptions({
     name: 'ActionButton',
@@ -24,10 +21,6 @@ defineOptions({
 
 const emit = defineEmits(['click'])
 const slots = useSlots()
-
-const appStore = useAppStore()
-
-const { config } = storeToRefs(appStore)
 
 const cpShowIconSlot = computed(() => !!slots.icon)
 
@@ -38,12 +31,14 @@ function handleClick() {
 
 <style lang="less" scoped>
 .action-btn {
-    min-width: v-bind('config.headerHeight + "px"');
-    height: v-bind('config.headerHeight + "px"');
+    min-width: 36px;
+    height: 36px;
     border: none;
     position: relative;
     font-size: 14px;
     color: currentColor;
+    padding-left: 11px;
+    padding-right: 11px;
 
     &:hover {
         color: currentColor;

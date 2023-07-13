@@ -34,14 +34,14 @@ function open(payload, index) {
     })
     vm = app.mount(container)
     document.body.appendChild(container)
-    vm.visible = true
+    vm.open = true
     window.addEventListener('popstate', popstateListener)
 }
 
 function close() {
     if (app) {
         app.unmount()
-        vm.visible = false
+        vm.open = false
     }
     if (container) {
         container.remove()

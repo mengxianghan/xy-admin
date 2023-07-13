@@ -1,17 +1,15 @@
 <template>
-    <a-card
-        :bordered="false"
-        class="mb-8-2">
+    <a-card class="mb-8-2">
         <h2>{{ cpUserName }} ，祝你开心每一天！</h2>
         <p class="mb-0">某某某公司－某某某部门－某某某岗位</p>
     </a-card>
 
     <a-row :gutter="16">
         <a-col :lg="18">
-            <a-card :bordered="false">
+            <a-card>
                 <a-row
-                    type="flex"
-                    class="align-center">
+                    class="align-center"
+                    type="flex">
                     <a-col flex="1">
                         <a-statistic
                             title="我的待办"
@@ -36,12 +34,11 @@
             </a-card>
 
             <a-card
-                :bordered="false"
-                title="动态"
-                class="mt-8-2">
+                class="mt-8-2"
+                title="动态">
                 <a-list
-                    item-layout="horizontal"
-                    :data-source="dynamicList">
+                    :data-source="dynamicList"
+                    item-layout="horizontal">
                     <template #renderItem="{ item }">
                         <a-list-item>
                             <a-list-item-meta :description="item.time">
@@ -58,22 +55,19 @@
             </a-card>
         </a-col>
         <a-col :lg="6">
-            <a-card
-                :bordered="false"
-                title="关于">
+            <a-card title="关于">
                 <div>高性能 / 精致 / 优雅。基于 vue3 + ant-design-vue 的中后台前端解决方案。</div>
             </a-card>
             <a-card
-                :bordered="false"
-                title="版本信息"
-                class="mt-8-2">
+                class="mt-8-2"
+                title="版本信息">
                 <a-result
-                    :title="`${title} ${version}`"
-                    :sub-title="`最新版本 ${version}`">
+                    :sub-title="`最新版本 ${version}`"
+                    :title="`${title} ${version}`">
                     <template #icon>
                         <img
-                            alt=""
-                            :src="getAssetsFile('upgrade.svg')" />
+                            :src="getAssetsFile('upgrade.svg')"
+                            alt="" />
                     </template>
                 </a-result>
             </a-card>

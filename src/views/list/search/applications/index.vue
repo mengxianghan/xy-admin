@@ -1,8 +1,6 @@
 <template>
     <page-header></page-header>
-    <a-card
-        class="mb-8-2"
-        :bordered="false">
+    <a-card class="mb-8-2">
         <x-filter
             v-model="searchForm"
             :data-source="filterData"
@@ -14,16 +12,16 @@
                         <a-row :gutter="40">
                             <a-col>
                                 <a-select
-                                    placeholder="不限"
-                                    :style="{ minWidth: '100px' }"></a-select>
+                                    :style="{ minWidth: '100px' }"
+                                    placeholder="不限"></a-select>
                             </a-col>
                             <a-col>
                                 <a-form-item
-                                    label="好评度"
-                                    class="mb-0">
+                                    class="mb-0"
+                                    label="好评度">
                                     <a-select
-                                        placeholder="不限"
-                                        :style="{ minWidth: '100px' }"></a-select>
+                                        :style="{ minWidth: '100px' }"
+                                        placeholder="不限"></a-select>
                                 </a-form-item>
                             </a-col>
                         </a-row>
@@ -34,29 +32,28 @@
     </a-card>
 
     <a-list
-        row-key="id"
-        item-layout="vertical"
-        :grid="{ gutter: 16, md: 2, lg: 2, xl: 3, xxl: 4 }"
         :data-source="list"
-        :loading="loading">
+        :grid="{ gutter: 16, md: 2, lg: 2, xl: 3, xxl: 4 }"
+        :loading="loading"
+        item-layout="vertical"
+        row-key="id">
         <template #renderItem="{ item }">
             <a-list-item key="item.title">
                 <a-card
-                    hoverable
                     :body-style="{ padding: '24px' }"
-                    :bordered="false">
+                    hoverable>
                     <a-card-meta :title="item.title">
                         <template #avatar>
                             <a-avatar
-                                :src="item.avatar"
-                                :size="24" />
+                                :size="24"
+                                :src="item.avatar" />
                         </template>
                         <template #description>
                             <a-row type="flex">
                                 <a-col flex="1">
                                     <a-statistic
-                                        title="活跃用户"
-                                        :value="item.activeUsers">
+                                        :value="item.activeUsers"
+                                        title="活跃用户">
                                         <template #suffix>
                                             <span class="fs-14">万</span>
                                         </template>
@@ -64,8 +61,8 @@
                                 </a-col>
                                 <a-col flex="1">
                                     <a-statistic
-                                        title="新增用户"
-                                        :value="item.newUsers">
+                                        :value="item.newUsers"
+                                        title="新增用户">
                                     </a-statistic>
                                 </a-col>
                             </a-row>

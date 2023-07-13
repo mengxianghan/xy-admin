@@ -26,7 +26,6 @@ const colSpan = ref({ sm: 24, md: 24, xl: 8 })
 const attrs = useAttrs()
 
 const cpAttrs = computed(() => ({
-    bordered: false,
     ...attrs,
 }))
 </script>

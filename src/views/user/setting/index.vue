@@ -1,7 +1,5 @@
 <template>
-    <a-card
-        :bordered="false"
-        :body-style="{ paddingLeft: 0, paddingRight: 0 }">
+    <a-card :body-style="{ paddingLeft: 0, paddingRight: 0 }">
         <a-row type="flex">
             <a-col flex="0 0 224px">
                 <a-menu
@@ -15,8 +13,8 @@
                 </a-menu>
             </a-col>
             <a-col
-                flex="auto"
-                class="px-8-5">
+                class="px-8-5"
+                flex="auto">
                 <div class="setting-title">{{ cpSelectedMenu.name }}</div>
                 <keep-alive>
                     <component :is="cpSelectedMenu.component"></component>

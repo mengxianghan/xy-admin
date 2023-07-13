@@ -1,6 +1,6 @@
 <template>
     <a-drawer
-        v-model:visible="visible"
+        v-model:open="open"
         title="系统设置"
         :closable="false"
         :width="300">
@@ -103,7 +103,7 @@ const appStore = useAppStore()
 
 const { config } = storeToRefs(appStore)
 
-const visible = ref(false)
+const open = ref(false)
 const themeList = ref([
     { value: 'light', label: '亮色模式' },
     { value: 'dark', label: '暗色模式' },
@@ -115,7 +115,7 @@ const menuModeList = ref([
 ])
 
 function handleOpen() {
-    visible.value = true
+    open.value = true
 }
 
 function handleSideTheme({ value }) {

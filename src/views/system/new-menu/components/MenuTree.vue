@@ -1,6 +1,5 @@
 <template>
     <a-card
-        :bordered="false"
         v-loading="loading"
         type="flex">
         <template #title>
@@ -17,11 +16,11 @@
         </template>
         <a-tree
             v-if="!loading"
+            :field-names="{ title: 'name', children: 'children', key: 'key' }"
             :selected-keys="selectedKeys"
             :tree-data="list"
-            :field-names="{ title: 'name', children: 'children', key: 'key' }"
-            default-expand-all
             block-node
+            default-expand-all
             @select="handleSelect">
             <template #title="record">
                 <div class="tree-row">
@@ -46,7 +45,7 @@
 </template>
 
 <script setup>
-import { Modal, message } from 'ant-design-vue'
+import { message, Modal } from 'ant-design-vue'
 import { onMounted, ref } from 'vue'
 
 import api from '@/api'
