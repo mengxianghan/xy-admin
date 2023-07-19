@@ -1,13 +1,24 @@
-/**
- * 动态路由
- */
+import {
+    FormOutlined,
+    SmileOutlined,
+    TableOutlined,
+    ProfileOutlined,
+    CheckCircleOutlined,
+    WarningOutlined,
+    UserOutlined,
+    SettingOutlined,
+    LinkOutlined,
+    LayoutOutlined,
+    EllipsisOutlined,
+} from '@ant-design/icons-vue'
+
 export const asyncRouterMap = [
     {
         path: 'welcome',
         name: 'welcome',
         component: 'welcome/index.vue',
         meta: {
-            icon: 'IconSmileOutlined',
+            icon: SmileOutlined,
             title: '欢迎页',
             isMenu: true,
             keepAlive: true,
@@ -19,7 +30,7 @@ export const asyncRouterMap = [
         name: 'form',
         component: 'RouteViewLayout',
         meta: {
-            icon: 'IconFormOutlined',
+            icon: FormOutlined,
             title: '表单页',
             isMenu: true,
             keepAlive: true,
@@ -66,7 +77,7 @@ export const asyncRouterMap = [
         name: 'list',
         component: 'RouteViewLayout',
         meta: {
-            icon: 'IconTableOutlined',
+            icon: TableOutlined,
             title: '列表页',
             isMenu: true,
             keepAlive: true,
@@ -158,7 +169,7 @@ export const asyncRouterMap = [
         name: 'profile',
         component: 'RouteViewLayout',
         meta: {
-            icon: 'IconProfileOutlined',
+            icon: ProfileOutlined,
             title: '详情页',
             isMenu: true,
             keepAlive: true,
@@ -194,7 +205,7 @@ export const asyncRouterMap = [
         name: 'result',
         component: 'RouteViewLayout',
         meta: {
-            icon: 'IconCheckCircleOutlined',
+            icon: CheckCircleOutlined,
             title: '结果页',
             isMenu: true,
             keepAlive: true,
@@ -230,7 +241,7 @@ export const asyncRouterMap = [
         name: 'exception',
         component: 'RouteViewLayout',
         meta: {
-            icon: 'IconWarningOutlined',
+            icon: WarningOutlined,
             title: '异常页',
             isMenu: true,
             keepAlive: true,
@@ -277,7 +288,7 @@ export const asyncRouterMap = [
         name: 'user',
         component: 'RouteViewLayout',
         meta: {
-            icon: 'IconUserOutlined',
+            icon: UserOutlined,
             title: '个人页',
             isMenu: true,
             keepAlive: true,
@@ -313,7 +324,7 @@ export const asyncRouterMap = [
         name: 'system',
         component: 'RouteViewLayout',
         meta: {
-            icon: 'IconSettingOutlined',
+            icon: SettingOutlined,
             title: '系统管理',
             isMenu: true,
             keepAlive: true,
@@ -382,7 +393,7 @@ export const asyncRouterMap = [
         name: 'link',
         component: 'RouteViewLayout',
         meta: {
-            icon: 'IconLinkOutlined',
+            icon: LinkOutlined,
             title: '外部链接',
             isMenu: true,
             keepAlive: false,
@@ -407,7 +418,7 @@ export const asyncRouterMap = [
         name: 'iframePage',
         component: 'RouteViewLayout',
         meta: {
-            icon: 'IconLayoutOutlined',
+            icon: LayoutOutlined,
             title: 'Iframe',
             isMenu: true,
             keepAlive: true,
@@ -447,7 +458,7 @@ export const asyncRouterMap = [
         name: 'other',
         component: 'RouteViewLayout',
         meta: {
-            icon: 'IconEllipsisOutlined',
+            icon: EllipsisOutlined,
             title: '其他',
             isMenu: true,
             keepAlive: true,

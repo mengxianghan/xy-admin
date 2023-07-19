@@ -69,8 +69,6 @@ const cpClassNames = computed(() => {
     }
 
     &--light {
-        background: #fff;
-
         h1 {
             color: @text-color;
         }

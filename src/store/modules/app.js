@@ -9,7 +9,7 @@ const useAppStore = defineStore('app', {
         config: {
             menuMode: 'side', // 菜单模式【side=侧边菜单，top=顶部菜单，mix=混合菜单】
             sideCollapsedWidth: 60,
-            sideWidth: 208,
+            sideWidth: 220,
             headerHeight: 60,
             sideTheme: 'dark',
             headerTheme: 'light',

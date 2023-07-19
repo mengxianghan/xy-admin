@@ -71,7 +71,7 @@ const cpShowFooterSlot = computed(() => !!slots.footer)
     left: 0;
     top: 0;
     height: 100vh;
-    z-index: 120;
+    z-index: 100;
     box-shadow: 1px 0 4px rgba(0, 21, 41, 0.08);
     transition: all @animation-duration-base, background 0s;
     overflow: hidden;
@@ -92,19 +92,6 @@ const cpShowFooterSlot = computed(() => !!slots.footer)
         overflow: auto;
 
         .scrollbar-black();
-
-        :deep(.basic-menu__title) {
-            width: 100%;
-            display: flex;
-            align-items: center;
-
-            .ant-badge {
-                margin: 0 0 0 auto;
-                .ant-badge-count {
-                    box-shadow: none;
-                }
-            }
-        }
     }
 
     &__footer {
