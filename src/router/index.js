@@ -1,13 +1,13 @@
 import { createRouter, createWebHashHistory, createWebHistory } from 'vue-router'
 
-import { constantRouterMap } from './config'
+import { constantRoutes } from './config'
 
 const { VITE_ROUTER_HISTORY, VITE_PUBLIC_PATH } = import.meta.env
 
 const router = createRouter({
     history:
         'history' === VITE_ROUTER_HISTORY ? createWebHistory(VITE_PUBLIC_PATH) : createWebHashHistory(VITE_PUBLIC_PATH),
-    routes: [...constantRouterMap],
+    routes: [...constantRoutes],
 })
 
 export function setupRouter(app) {

@@ -170,7 +170,7 @@ async function handleLogin() {
  * 获取首页路由
  * @return {*}
  */
-function getIndexRouter() {
+function getIndexRoute() {
     const indexRouter = routerStore.indexRouter
     if (!indexRouter) {
         Modal.warning({
@@ -191,7 +191,7 @@ function goIndex() {
     if (redirect.value) {
         location.href = redirect.value
     } else {
-        const indexRouter = getIndexRouter()
+        const indexRouter = getIndexRoute()
         if (!indexRouter) return
         router.push(indexRouter)
     }

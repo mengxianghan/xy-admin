@@ -2,8 +2,8 @@ import { defineStore } from 'pinia'
 
 import { asyncRouterMap } from '@/config/router'
 import router from '@/router'
-import { notFoundRouter } from '@/router/config'
-import { filterRoutes, formatRoutes, generateMenuList, generateRoutes, getIndexRouter } from '@/router/util'
+import { notFoundRoute } from '@/router/config'
+import { filterRoutes, formatRoutes, generateMenuList, generateRoutes, getIndexRoute } from '@/router/util'
 import { findTree } from '@/utils'
 
 import useUserStore from './user'
@@ -30,8 +30,8 @@ const useRouterStore = defineStore('router', {
                             ? filterRoutes(formatRoutes(list), userStore.permission)
                             : formatRoutes(list)
                     const menuList = generateMenuList(validRoutes)
-                    const routes = [...generateRoutes(validRoutes), notFoundRouter]
-                    const indexRouter = getIndexRouter(menuList)
+                    const routes = [...generateRoutes(validRoutes), notFoundRoute]
+                    const indexRouter = getIndexRoute(menuList)
                     routes.forEach((route) => {
                         router.addRoute(route)
                     })

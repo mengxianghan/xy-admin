@@ -10,7 +10,7 @@ export const whiteList = ['login', '404']
  * 未找到页面路由
  * @type {{redirect: string, path: string, hidden: boolean}}
  */
-export const notFoundRouter = {
+export const notFoundRoute = {
     path: '/:pathMatch(.*)*',
     redirect: '/exception/404.vue',
     meta: {
@@ -24,7 +24,7 @@ export const notFoundRouter = {
  * 关键字：index,login,exception,404,redirect
  * @type {*[]}
  */
-export const constantRouterMap = [
+export const constantRoutes = [
     {
         path: '/',
         name: 'index',

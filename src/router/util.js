@@ -151,11 +151,11 @@ export function generateMenuList(routes) {
  * @param {array} menuList
  * @return {null}
  */
-export function getIndexRouter(menuList) {
+export function getIndexRoute(menuList) {
     let index = null
     for (let item of menuList) {
         if (item.children && item.children.length) {
-            let temp = getIndexRouter(item.children)
+            let temp = getIndexRoute(item.children)
             if (temp && Object.keys(temp).length) {
                 index = temp
                 break
