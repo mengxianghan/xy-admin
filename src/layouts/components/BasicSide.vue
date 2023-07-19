@@ -91,7 +91,7 @@ const cpShowFooterSlot = computed(() => !!slots.footer)
         min-height: 0;
         overflow: auto;
 
-        .scrollbar-black();
+        .scrollbar();
     }
 
     &__footer {

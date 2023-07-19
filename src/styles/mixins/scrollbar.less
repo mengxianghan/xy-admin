@@ -1,0 +1,12 @@
+.scrollbar(@color: rgba(0, 0, 0, 0.15), @size: 8px, @border-radius: 10em) {
+    &::-webkit-scrollbar {
+        width: @size;
+        height: 8px;
+        background: transparent;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: @color;
+        border-radius: @border-radius;
+    }
+}

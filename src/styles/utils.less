@@ -1,0 +1,136 @@
+// Align
+each(left center right, {
+    .align-@{value} {
+        text-align: @value !important;
+    }
+})
+
+// Color
+each({
+    primary: @color-primary;
+    error: @color-error;
+    success: @color-success;
+    warning: @color-warning;
+    heading: @color-text-heading;
+    secondary: @color-text-secondary;
+    caption: @color-text-label;
+    disabled: @color-text-disabled;
+    placeholder: @color-text-placeholder;
+}, {
+    .color-@{key} {
+        color: @value !important;
+    }
+})
+
+// FontSize
+each(12 14 16 18 24, {
+    .fs-@{value} {
+        font-size: @value * 1px !important;
+    }
+})
+
+// FontWeight
+each(400 500 600, {
+    .fw-@{value} {
+        font-weight: @value !important;
+    }
+})
+
+// Spacing
+each({
+    mt: margin-top;
+    mb: margin-bottom;
+    ml: margin-left;
+    mr: margin-right;
+    mx: margin-left, margin-right;
+    my: margin-top, margin-bottom;
+    ma: margin;
+    pt: padding-top;
+    pb: padding-bottom;
+    pl: padding-left;
+    pr: padding-right;
+    px: padding-left, padding-right;
+    py: padding-top, padding-bottom;
+    pa: padding;
+}, .(@property, @class) {
+    
+    each(0 auto, .(@value){
+        .@{class}-@{value} {
+            each(@property, .(@prop) {
+                    @{prop}: @value !important;
+            })
+        }
+    })
+
+    each(4 5 8, .(@value) {
+        each(1 2 3 4 5, .(@multi) {
+            .@{class}-@{value}-@{multi} {
+                each(@property, .(@prop) {
+                        @{prop}: @value * @multi * 1px !important;
+                })
+            }
+        })
+    })
+})
+
+// Display
+each({
+    display: block;
+    display: flex;
+    display: inline-block;
+    display: inline-flex;
+    flex-direction: column;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    align-items: flex-end;
+    align-items: flex-start;
+    align-items: stretch;
+    justify-content: center;
+    justify-content: start;
+    justify-content: end;
+    justify-content: flex-start;
+    justify-content: flex-end;
+    justify-content: left;
+    justify-content: right;
+}, {
+    .@{key}-@{value} {
+            @{key}: @value
+    }
+});
+
+// Percentage
+each(1 2 3 4 5 6 7 8 9 10, {
+    @prop: @value * 10;
+    @v: @prop * 1%;
+    .wp-@{prop} {
+        width: @v;
+    }
+    .hp-@{prop} {
+        height: @v;
+    }
+});
+
+// Overflow
+each({
+    overflow: hidden;
+    overflow: auto;
+    overflow: scroll;
+    overflow-x: hidden;
+    overflow-x: auto;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    overflow-y: auto;
+    overflow-y: scroll;
+}, .(@value, @prop) {
+    .@{prop}-@{value} {
+            @{prop}: @value;
+    }
+});
+
+// Cursor
+each(pointer not-allowed, {
+    .cursor-@{value}{
+        cursor: @value;
+    }
+})

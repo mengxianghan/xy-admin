@@ -39,9 +39,8 @@ export default ({ mode }) => {
                     modifyVars: {
                         hack: `
                             true;
-                            @import '${path.resolve(__dirname, 'src/styles/color/colors.less')}';
                             @import '${path.resolve(__dirname, 'src/styles/variables.less')}';
-                            @import '${path.resolve(__dirname, 'src/styles/util.less')}';
+                            @import '${path.resolve(__dirname, 'src/styles/mixins/index.less')}';
                          `,
                     },
                     javascriptEnabled: true,
