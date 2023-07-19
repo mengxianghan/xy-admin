@@ -31,7 +31,7 @@ const cpKeepAlive = computed(() => multiTabStore.keepAlive)
 
 <style lang="less" scoped>
 .basic-content {
-    margin: @margin-md;
+    margin: 16px;
     position: relative;
 }
 </style>

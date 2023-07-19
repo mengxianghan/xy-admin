@@ -128,7 +128,7 @@ function handleSetting() {
     display: flex;
     align-items: center;
     transition: background 0s;
-    border-bottom: @border-color-split solid 1px;
+    border-bottom: @color-split solid 1px;
 
     &__left {
         flex-shrink: 0;
@@ -153,11 +153,11 @@ function handleSetting() {
     }
 
     &--light {
-        background: @layout-sider-background-light;
+        background: #fff;
     }
 
     &--dark {
-        background: @layout-sider-background;
+        background: #001529;
         color: #fff;
 
         :deep(.action-btn) {

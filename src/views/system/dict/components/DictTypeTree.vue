@@ -153,11 +153,11 @@ function trigger(value) {
 
     &__code {
         font-size: 12px;
-        color: @text-color-secondary;
+        color: @color-text-secondary;
     }
 
     &__actions {
-        margin: 0 0 0 @margin-sm;
+        margin: 0 0 0 12px;
         display: none;
     }
 }

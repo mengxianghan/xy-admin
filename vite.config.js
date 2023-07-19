@@ -40,7 +40,7 @@ export default ({ mode }) => {
                         hack: `
                             true;
                             @import '${path.resolve(__dirname, 'src/styles/color/colors.less')}';
-                            @import '${path.resolve(__dirname, 'src/styles/vars.less')}';
+                            @import '${path.resolve(__dirname, 'src/styles/variables.less')}';
                             @import '${path.resolve(__dirname, 'src/styles/util.less')}';
                          `,
                     },

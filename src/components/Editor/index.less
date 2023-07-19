@@ -3,28 +3,28 @@
 }
 
 .tinymce-skin {
-    color: @text-color;
+    color: @color-text;
     font-size: 14px;
 
     &.tox-tinymce {
         &:not(.tox-tinymce-inline) {
-            border: @border-color-base solid 1px;
-            border-radius: @border-radius-base;
+            border: @color-border solid 1px;
+            border-radius: @border-radius;
         }
     }
 
     &:not(.tox-tinymce-inline) {
         .tox-editor-header {
             box-shadow: none;
-            border-bottom: @border-color-split solid 1px;
+            border-bottom: @color-split solid 1px;
             padding: 0;
         }
     }
 
     &.tox-tinymce-inline {
         .tox-editor-header {
-            border: @border-color-base solid 1px;
-            border-radius: @border-radius-base;
+            border: @color-border solid 1px;
+            border-radius: @border-radius;
         }
     }
 
@@ -37,10 +37,10 @@
             font-size: 14px;
             display: flex;
             align-items: center;
-            color: @primary-color;
+            color: @color-primary;
             height: 28px;
             padding: 0 8px;
-            border-radius: @border-radius-base;
+            border-radius: @border-radius;
             line-height: 1;
         }
     }
@@ -54,22 +54,22 @@
         + .tox-toolbar-overlord {
             padding: 4px;
             margin: 0;
-            border-top: @border-color-split solid 1px;
+            border-top: @color-split solid 1px;
         }
     }
 
     .tox-mbtn {
-        border-radius: @border-radius-base;
-        transition: all @animation-duration-base;
+        border-radius: @border-radius;
+        transition: all 0.2s;
         margin: 0;
-        color: @text-color;
+        color: @color-text;
 
         &:hover:not(:disabled):not(.tox-mbtn--active) {
             background: #f5f5f5;
         }
 
         &--active {
-            background: color(~`colorPalette('@{primary-color}', 1) `);
+            background: color(~`colorPalette('@{color-primary}', 1) `);
         }
     }
 
@@ -93,9 +93,9 @@
     .tox-tbtn {
         margin: 0;
         padding: 0;
-        transition: all @animation-duration-base;
-        border-radius: @border-radius-base;
-        color: @text-color;
+        transition: all 0.2s;
+        border-radius: @border-radius;
+        color: @color-text;
 
         &--select {
             padding: 0 4px;
@@ -108,22 +108,22 @@
         &--enabled {
             &,
             &:hover {
-                background: color(~`colorPalette('@{primary-color}', 1) `);
+                background: color(~`colorPalette('@{color-primary}', 1) `);
             }
         }
     }
 
     .tox-split-button {
         margin: 0;
-        border-radius: @border-radius-base;
+        border-radius: @border-radius;
     }
 
     &.tox-tinymce-aux {
         .tox-toolbar__overflow {
             border: none;
             padding: 4px;
-            border-radius: @border-radius-base;
-            box-shadow: @box-shadow-base;
+            border-radius: @border-radius;
+            box-shadow: @box-shadow;
             background-image: none;
             gap: 4px;
         }
@@ -131,14 +131,14 @@
 
     .tox-menu {
         border: none;
-        border-radius: @border-radius-base;
-        box-shadow: @box-shadow-base;
+        border-radius: @border-radius;
+        box-shadow: @box-shadow;
         padding: 4px;
     }
 
     .tox-collection--list {
         .tox-collection__group {
-            border-color: @border-color-split;
+            border-color: @color-split;
 
             &:first-child {
                 padding-top: 0;
@@ -150,7 +150,7 @@
         }
 
         .tox-collection__item {
-            border-radius: @border-radius-base;
+            border-radius: @border-radius;
 
             &--active {
                 background: #f5f5f5;
@@ -160,8 +160,8 @@
 
     .tox-pop__dialog {
         border: none;
-        box-shadow: @box-shadow-base;
-        border-radius: @border-radius-base;
+        box-shadow: @box-shadow;
+        border-radius: @border-radius;
 
         .tox-toolbar {
             padding: 4px;
@@ -203,18 +203,18 @@
     }
 
     .tox-dialog {
-        border-radius: @border-radius-base;
+        border-radius: @border-radius;
         border: none;
-        box-shadow: @box-shadow-base;
+        box-shadow: @box-shadow;
     }
 
     .tox-dialog-wrap__backdrop {
-        background: @background-color-mask;
+        background: @color-bg-mask;
     }
 
     .tox-dialog__header {
         padding: 0;
-        border-bottom: @border-color-split solid 1px;
+        border-bottom: @color-split solid 1px;
 
         .tox-button {
             margin-right: 16px;
@@ -225,22 +225,22 @@
         font-size: 16px;
         font-weight: 500;
         padding: 16px;
-        color: @text-color;
+        color: @color-text;
     }
 
     .tox-dialog__footer {
         padding: 10px 16px;
-        border-top: @border-color-split solid 1px;
+        border-top: @color-split solid 1px;
     }
 
     .tox-dialog__body {
         font-size: 14px;
-        color: @text-color;
+        color: @color-text;
 
         &-nav {
             padding: 2px 0;
             height: 100%;
-            border-right: @border-color-split solid 1px;
+            border-right: @color-split solid 1px;
 
             &-item {
                 margin: 2px 0;
@@ -254,8 +254,8 @@
                 box-sizing: border-box;
 
                 &--active {
-                    background: color(~`colorPalette('@{primary-color}', 1) `);
-                    color: @primary-color;
+                    background: color(~`colorPalette('@{color-primary}', 1) `);
+                    color: @color-primary;
 
                     &::after {
                         content: '';
@@ -264,7 +264,7 @@
                         bottom: 0;
                         right: -1px;
                         width: 3px;
-                        background: @primary-color;
+                        background: @color-primary;
                     }
                 }
             }
@@ -272,25 +272,25 @@
     }
 
     .tox-button {
-        border-radius: @border-radius-base;
-        background: @primary-color;
-        border-color: @primary-color;
+        border-radius: @border-radius;
+        background: @color-primary;
+        border-color: @color-primary;
         font-weight: normal;
-        transition: all @animation-duration-base;
+        transition: all 0.2s;
 
         &:hover {
-            background: color(~`colorPalette('@{primary-color}', 5) `);
-            border-color: color(~`colorPalette('@{primary-color}', 5) `);
+            background: color(~`colorPalette('@{color-primary}', 5) `);
+            border-color: color(~`colorPalette('@{color-primary}', 5) `);
         }
 
         &--secondary {
             background: transparent;
-            border-color: @border-color-base;
-            color: @text-color;
+            border-color: @color-border;
+            color: @color-text;
 
             &:hover {
-                color: @primary-color;
-                border-color: @primary-color;
+                color: @color-primary;
+                border-color: @color-primary;
                 background: transparent;
             }
         }
@@ -305,7 +305,7 @@
     }
 
     .tox-label {
-        color: @text-color;
+        color: @color-text;
         line-height: 32px;
     }
 
@@ -313,16 +313,16 @@
     .tox-textarea-wrap,
     .tox-selectfield select,
     .tox-listboxfield .tox-listbox--select {
-        border-radius: @border-radius-base;
-        border-color: @border-color-base;
+        border-radius: @border-radius;
+        border-color: @color-border;
         padding: 3px 11px;
         min-height: 32px;
-        color: @text-color;
+        color: @color-text;
 
         &:focus-within,
         &:focus {
-            box-shadow: 0 0 0 2px color(~`colorPalette('@{primary-color}', 1) `);
-            border-color: @primary-color;
+            box-shadow: 0 0 0 2px color(~`colorPalette('@{color-primary}', 1) `);
+            border-color: @color-primary;
         }
     }
 
@@ -342,7 +342,7 @@
     }
 
     .tox-dialog__table tbody tr {
-        border-bottom-color: @border-color-split;
+        border-bottom-color: @color-split;
     }
 }
 

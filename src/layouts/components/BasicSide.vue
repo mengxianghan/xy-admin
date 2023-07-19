@@ -73,7 +73,7 @@ const cpShowFooterSlot = computed(() => !!slots.footer)
     height: 100vh;
     z-index: 100;
     box-shadow: 1px 0 4px rgba(0, 21, 41, 0.08);
-    transition: all @animation-duration-base, background 0s;
+    transition: all 0.2s, background 0s;
     overflow: hidden;
 
     :deep(.ant-layout-sider-children) {

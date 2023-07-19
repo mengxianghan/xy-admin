@@ -146,7 +146,7 @@ function onTagChange(value) {
 .x-filter {
     &-item {
         display: flex;
-        padding: @padding-xs 0;
+        padding: 8px 0;
         line-height: inherit;
 
         &:first-child {
@@ -158,7 +158,7 @@ function onTagChange(value) {
         }
 
         &:not(:last-child) {
-            border-bottom: @border-color-split dashed 1px;
+            border-bottom: @color-split dashed 1px;
         }
 
         &__label {
@@ -168,7 +168,7 @@ function onTagChange(value) {
 
         &__content {
             flex: 1;
-            margin-left: @margin-xs;
+            margin-left: 8px;
             display: flex;
             flex-wrap: wrap;
             align-items: center;
@@ -176,7 +176,7 @@ function onTagChange(value) {
         }
 
         &__collapse {
-            margin-left: @margin-sm;
+            margin-left: 12px;
         }
 
         &--collapsible {

@@ -205,10 +205,10 @@ function trigger(key, value) {
 
     &__footer {
         display: flex;
-        padding: @padding-xs 0;
+        padding: 8px 0;
 
         .ant-space {
-            margin-left: @margin-xs;
+            margin-left: 8px;
         }
     }
 

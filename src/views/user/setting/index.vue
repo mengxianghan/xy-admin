@@ -52,7 +52,7 @@ const cpSelectedMenu = computed(() => find(menuList.value, { key: head(selectedK
 <style lang="less" scoped>
 :deep(.setting-title) {
     font-size: 20px;
-    color: @heading-color;
-    margin-bottom: @margin-md;
+    color: @color-text-heading;
+    margin-bottom: 16px;
 }
 </style>

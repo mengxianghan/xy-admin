@@ -131,7 +131,7 @@ defineExpose({
 
     &__sub-title {
         margin: 4px 0 0;
-        color: @text-color-secondary;
+        color: @color-text-secondary;
         font-size: 12px;
     }
 

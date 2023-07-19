@@ -433,13 +433,13 @@ function trigger() {
 .x-upload {
     display: flex;
     flex-wrap: wrap;
-    gap: @margin-sm;
+    gap: 12px;
 
     // 圆角
     &--round {
         .x-upload-btn,
         .x-upload-item {
-            border-radius: @border-radius-round;
+            border-radius: 10em;
         }
     }
 
@@ -452,7 +452,7 @@ function trigger() {
     }
 
     &-btn {
-        border: @border-color-base dashed 1px;
+        border: @color-border dashed 1px;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -462,8 +462,8 @@ function trigger() {
 
         &--hover {
             &:hover {
-                border-color: @primary-color;
-                color: @primary-color;
+                border-color: @color-primary;
+                color: @color-primary;
             }
         }
 
@@ -472,7 +472,7 @@ function trigger() {
         }
 
         &__txt {
-            margin: @margin-xss 0 0;
+            margin: 8pxs 0 0;
         }
     }
 
@@ -482,8 +482,8 @@ function trigger() {
         justify-content: center;
         position: relative;
         overflow: hidden;
-        background: @background-color-base;
-        border-radius: @border-radius-base;
+        background: hsv(0, 0, 96%);
+        border-radius: @border-radius;
 
         img {
             width: 100%;
@@ -503,7 +503,7 @@ function trigger() {
                 content: '';
                 width: 100%;
                 height: 100%;
-                border: @error-color dashed 1px;
+                border: @color-error dashed 1px;
                 z-index: 2;
                 pointer-events: none;
             }
@@ -559,11 +559,11 @@ function trigger() {
         color: #fff;
 
         &--error {
-            color: @error-color;
+            color: @color-error;
         }
 
         &--done {
-            color: @success-color;
+            color: @color-success;
         }
     }
 }

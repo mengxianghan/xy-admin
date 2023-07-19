@@ -7,15 +7,15 @@ each(left center right, {
 
 // Color
 each({
-    secondary: @text-color-secondary;
-    caption: @text-color-caption;
-    heading: @heading-color;
-    disabled: @disabled-color;
-    placeholder: @disabled-color;
-    primary: @primary-color;
-    error: @error-color;
-    success: @success-color;
-    warning: @warning-color;
+    primary: @color-primary;
+    error: @color-error;
+    success: @color-success;
+    warning: @color-warning;
+    heading: @color-text-heading;
+    secondary: @color-text-secondary;
+    caption: @color-text-label;
+    disabled: @color-text-disabled;
+    placeholder: @color-text-placeholder;
 }, {
     .color-@{key} {
         color: @value !important;

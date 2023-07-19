@@ -164,7 +164,7 @@ function onMoveEnd(e) {
 
         &--active,
         &:hover {
-            background: @primary-color;
+            background: @color-primary;
         }
 
         &--left,

@@ -140,7 +140,7 @@ defineExpose({
         width: 400px;
         flex: 0 0 400px;
         height: 100%;
-        background: @background-color-base;
+        background: hsv(0, 0, 96%);
         margin: 0 16px 0 0;
 
         img {
@@ -161,21 +161,21 @@ defineExpose({
         &-img {
             width: 100%;
             height: 120px;
-            border: 1px solid @border-color-base;
+            border: 1px solid @color-border;
             overflow: hidden;
         }
     }
 
     :deep(.cropper-view-box) {
-        outline-color: @primary-color;
+        outline-color: @color-primary;
     }
 
     :deep(.cropper-line) {
-        background-color: @primary-color;
+        background-color: @color-primary;
     }
 
     :deep(.cropper-point) {
-        background-color: @primary-color;
+        background-color: @color-primary;
     }
 }
 </style>

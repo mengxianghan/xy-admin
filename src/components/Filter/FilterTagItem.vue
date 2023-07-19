@@ -56,20 +56,20 @@ function handleClick() {
 
 <style lang="less" scoped>
 .x-filter-tag-item {
-    padding: 0 @padding-xs;
+    padding: 0 8px;
     display: flex;
     align-items: center;
-    border-radius: @border-radius-base;
+    border-radius: @border-radius;
     cursor: pointer;
     transition: all 0.15s;
 
     &:hover {
-        color: @primary-color;
+        color: @color-primary;
     }
 
     &--active {
-        box-shadow: 0 0 0 1px inset @primary-color;
-        color: @primary-color;
+        box-shadow: 0 0 0 1px inset @color-primary;
+        color: @color-primary;
     }
 }
 </style>

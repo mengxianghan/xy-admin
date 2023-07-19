@@ -70,12 +70,12 @@ const cpClassNames = computed(() => {
 
     &--light {
         h1 {
-            color: @text-color;
+            color: @color-text;
         }
     }
 
     &--dark {
-        background: @layout-sider-background;
+        background: #001529;
 
         h1 {
             color: #fff;
