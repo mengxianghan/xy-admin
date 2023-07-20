@@ -110,7 +110,7 @@ import { useRoute, useRouter } from 'vue-router'
 
 import { LockOutlined, MobileOutlined, UserOutlined } from '@ant-design/icons-vue'
 
-import { CODE_SUCCESS } from '@/config/http'
+import { config } from '@/config'
 import useForm from '@/hooks/useForm'
 import { useAppStore, useRouterStore, useUserStore } from '@/store'
 import { timeFix } from '@/utils'
@@ -154,7 +154,7 @@ async function handleLogin() {
                 message.error('登录失败')
             })
         loading.value = false
-        if (CODE_SUCCESS === code) {
+        if (config('http.code.success') === code) {
             // 加载完成
             if (appStore.complete) {
                 goIndex()

@@ -1,1 +1,3 @@
-export const RE_EMAIL = new RegExp('^((https|http|ftp|rtsp|mms)?:\\/\\/)[^\\s]+', 'g')
+export default {
+    email: new RegExp('^((https|http|ftp|rtsp|mms)?:\\/\\/)[^\\s]+', 'g'),
+}

@@ -1,10 +1,10 @@
-import { RE_EMAIL } from '@/config/regexp'
+import { config } from '@/config'
 
 /**
  * url
  * @param {string} value
  */
-export const isUrl = (value) => RE_EMAIL.test(value)
+export const isUrl = (value) => config('regexp.email').test(value)
 
 /**
  * object

@@ -77,7 +77,7 @@ import { message, Modal } from 'ant-design-vue'
 import { onMounted, ref } from 'vue'
 
 import apis from '@/apis'
-import { CODE_SUCCESS } from '@/config/http'
+import { config } from '@/config'
 import usePagination from '@/hooks/usePagination'
 
 import EditDialog from './components/EditDialog.vue'
@@ -117,7 +117,7 @@ async function getUserRoleList() {
         roleLoading.value = false
     })
     roleLoading.value = false
-    if (CODE_SUCCESS === code) {
+    if (config('http.code.success') === code) {
         roleList.value = [
             {
                 name: '全部',
@@ -144,7 +144,7 @@ async function getUserPageList() {
             loading.value = false
         })
     loading.value = false
-    if (CODE_SUCCESS === code) {
+    if (config('http.code.success') === code) {
         const { rows, total } = data
         userList.value = rows
         pagination.total = total
@@ -175,7 +175,7 @@ function handleDelete({ id }) {
             const { code } = await apis.common.deleteData({ id }).catch(() => {
                 loading.value = false
             })
-            if (CODE_SUCCESS === code) {
+            if (config('http.code.success') === code) {
                 message.success('删除成功')
                 await getUserPageList()
             } else {

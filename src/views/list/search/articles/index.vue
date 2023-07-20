@@ -97,7 +97,7 @@ import { ref } from 'vue'
 import { LikeOutlined, MessageOutlined, StarOutlined } from '@ant-design/icons-vue'
 
 import apis from '@/apis'
-import { CODE_SUCCESS } from '@/config/http'
+import { config } from '@/config'
 import usePagination from '@/hooks/usePagination'
 
 import PageHeader from '../components/PageHeader.vue'
@@ -161,7 +161,7 @@ async function getPageList() {
             loading.value = false
         })
     loading.value = false
-    if (CODE_SUCCESS === code) {
+    if (config('http.code.success') === code) {
         list.value = data.rows
         pagination.total = data.total
     }

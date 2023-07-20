@@ -1,8 +1,7 @@
 import { defineStore } from 'pinia'
 
 import apis from '@/apis'
-import { CODE_SUCCESS } from '@/config/http'
-import { STORAGE_IS_LOGIN, STORAGE_PERMISSION, STORAGE_TOKEN, STORAGE_USER_INFO } from '@/config/storage'
+import { config } from '@/config'
 import { useStorage } from '@/utils/storage'
 
 import useAppStore from './app'
@@ -11,10 +10,10 @@ const { local } = useStorage()
 
 const useUserStore = defineStore('user', {
     state: () => ({
-        isLogin: local.getItem(STORAGE_IS_LOGIN, false),
-        userInfo: local.getItem(STORAGE_USER_INFO, null),
-        token: local.getItem(STORAGE_TOKEN, ''),
-        permission: local.getItem(STORAGE_PERMISSION, []),
+        isLogin: local.getItem(config('storage.isLogin'), false),
+        userInfo: local.getItem(config('storage.userInfo'), null),
+        token: local.getItem(config('storage.token'), ''),
+        permission: local.getItem(config('storage.permission'), []),
     }),
     getters: {},
     actions: {
@@ -30,7 +29,7 @@ const useUserStore = defineStore('user', {
                         reject()
                     })
                     const { code, data } = result
-                    if (CODE_SUCCESS === code) {
+                    if (config('http.code.success') === code) {
                         const { token, ...others } = data
                         const isLogin = true
                         this.$patch({
@@ -38,9 +37,9 @@ const useUserStore = defineStore('user', {
                             token,
                             isLogin,
                         })
-                        local.setItem(STORAGE_USER_INFO, others)
-                        local.setItem(STORAGE_TOKEN, token)
-                        local.setItem(STORAGE_IS_LOGIN, isLogin)
+                        local.setItem(config('storage.userInfo'), others)
+                        local.setItem(config('storage.token'), token)
+                        local.setItem(config('storage.isLogin'), isLogin)
                     }
                     resolve(result)
                 })()
@@ -57,9 +56,9 @@ const useUserStore = defineStore('user', {
                     token: '',
                     userInfo: null,
                 })
-                local.removeItem(STORAGE_IS_LOGIN)
-                local.removeItem(STORAGE_TOKEN)
-                local.removeItem(STORAGE_USER_INFO)
+                local.removeItem(config('storage.isLogin'))
+                local.removeItem(config('storage.token'))
+                local.removeItem(config('storage.userInfo'))
                 appStore.complete = false
                 resolve()
             })

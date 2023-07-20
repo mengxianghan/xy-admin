@@ -1,4 +1,4 @@
-import { isMatch, isObject } from 'lodash-es'
+import { isMatch, isObject, snakeCase, toUpper } from 'lodash-es'
 
 /**
  * 数据映射
@@ -135,4 +135,17 @@ export function zipObjectPlus(keys = [], values = [], funcs) {
         })
     }
     return result
+}
+
+/**
+ * 获取环境变量
+ * @param {string} key
+ * @returns
+ */
+export const env = (key) => {
+    const value = import.meta.env[`VITE_${toUpper(snakeCase(key))}`]
+    if (['true', 'false'].includes(value)) {
+        return Boolean(value)
+    }
+    return value
 }

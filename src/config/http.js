@@ -1,1 +1,5 @@
-export const CODE_SUCCESS = 200
+export default {
+    code: {
+        success: 200,
+    },
+}

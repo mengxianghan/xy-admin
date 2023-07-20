@@ -13,7 +13,7 @@ import { Form, message } from 'ant-design-vue'
 import { last, pick } from 'lodash-es'
 import { onMounted, ref, watch } from 'vue'
 
-import { CODE_SUCCESS } from '@/config/http'
+import { config } from '@/config'
 import { findTree, mapping } from '@/utils'
 
 defineOptions({
@@ -107,7 +107,7 @@ async function getData(value = 0, level = 1, defaultValue = []) {
         if (targetOption) {
             targetOption.loading = false
         }
-        if (CODE_SUCCESS === code) {
+        if (config('http.code.success') === code) {
             const list = data.map((item) => ({
                 ...item,
                 isLeaf: level === maxLevel.value,

@@ -381,7 +381,7 @@ async function doUpload() {
     // const { code } = await apis.common.upload({
     //     file: record?.file,
     // })
-    // if (CODE_SUCCESS === code) {
+    // if (config('http.code.success') === code) {
     //     // 上传进度
     //     record.percent = 100
     //     // 上传状态，根据实际情况更新

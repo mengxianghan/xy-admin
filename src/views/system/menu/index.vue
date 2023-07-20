@@ -65,7 +65,7 @@ import { Modal, message } from 'ant-design-vue'
 import { onMounted, ref } from 'vue'
 
 import apis from '@/apis'
-import { CODE_SUCCESS } from '@/config/http'
+import { config } from '@/config'
 import { menuTypeEnum } from '@/enums/system'
 import usePagination from '@/hooks/usePagination'
 
@@ -99,7 +99,7 @@ async function getMenuList() {
         loading.value = false
     })
     loading.value = false
-    if (CODE_SUCCESS === code) {
+    if (config('http.code.success') === code) {
         const { rows } = data
         list.value = rows
     }
@@ -118,7 +118,7 @@ function handleDelete({ id }) {
             const { code } = await apis.common.deleteData({ id }).catch(() => {
                 loading.value = false
             })
-            if (CODE_SUCCESS === code) {
+            if (config('http.code.success') === code) {
                 message.success('删除成功')
                 await getMenuList()
             } else {

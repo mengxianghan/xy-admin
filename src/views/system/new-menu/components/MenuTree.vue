@@ -49,7 +49,7 @@ import { message, Modal } from 'ant-design-vue'
 import { onMounted, ref } from 'vue'
 
 import apis from '@/apis'
-import { CODE_SUCCESS } from '@/config/http'
+import { config } from '@/config'
 import usePagination from '@/hooks/usePagination'
 
 defineOptions({
@@ -75,7 +75,7 @@ async function getMenuList() {
         loading.value = false
     })
     loading.value = false
-    if (CODE_SUCCESS === code) {
+    if (config('http.code.success') === code) {
         const { rows } = data
         list.value = rows
         emit('ready', rows)

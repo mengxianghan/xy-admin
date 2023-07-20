@@ -60,7 +60,7 @@ import { cloneDeep } from 'lodash-es'
 import { ref } from 'vue'
 
 import apis from '@/apis'
-import { CODE_SUCCESS } from '@/config/http'
+import { config } from '@/config'
 import useForm from '@/hooks/useForm'
 import useModal from '@/hooks/useModal'
 
@@ -85,7 +85,7 @@ formRules.value = {
  */
 async function getUserRoleList() {
     const { code, data } = await apis.system.getUserRoleList().catch(() => {})
-    if (CODE_SUCCESS === code) {
+    if (config('http.code.success') === code) {
         roleList.value = data.rows
     }
 }

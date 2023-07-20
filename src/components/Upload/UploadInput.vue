@@ -102,7 +102,7 @@ async function customRequest(info) {
     //     file,
     // })
     // loading.value = false
-    // if (CODE_SUCCESS === code) {
+    // if (config('http.code.success') === code) {
     //     currentValue.value = data?.src
     //     trigger(currentValue.value)
     // }

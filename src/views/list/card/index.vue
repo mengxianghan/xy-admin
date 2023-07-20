@@ -97,7 +97,7 @@ import { LinkOutlined } from '@ant-design/icons-vue'
 import { EditOutlined, EllipsisOutlined, SettingOutlined } from '@ant-design/icons-vue'
 
 import apis from '@/apis'
-import { CODE_SUCCESS } from '@/config/http'
+import { config } from '@/config'
 import usePagination from '@/hooks/usePagination'
 
 defineOptions({
@@ -119,7 +119,7 @@ async function getPageList() {
         loading.value = false
     })
     loading.value = false
-    if (CODE_SUCCESS === code) {
+    if (config('http.code.success') === code) {
         list.value = [{}, ...data.rows]
     }
 }

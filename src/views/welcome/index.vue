@@ -79,7 +79,7 @@
 import { computed, onMounted, ref } from 'vue'
 
 import apis from '@/apis'
-import { CODE_SUCCESS } from '@/config/http'
+import { config } from '@/config'
 import { useUserStore } from '@/store'
 import { timeFix } from '@/utils'
 import { getAssetsFile } from '@/utils/get'
@@ -101,7 +101,7 @@ onMounted(() => {
 
 async function getData() {
     const { code, data } = await apis.common.getWelcomeData()
-    if (CODE_SUCCESS === code) {
+    if (config('http.code.success') === code) {
         const { dynamicRows } = data
         dynamicList.value = dynamicRows
     }

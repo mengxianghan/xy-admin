@@ -109,7 +109,7 @@ import { onMounted, ref } from 'vue'
 import { DownOutlined } from '@ant-design/icons-vue'
 
 import apis from '@/apis'
-import { CODE_SUCCESS } from '@/config/http'
+import { config } from '@/config'
 import usePagination from '@/hooks/usePagination'
 
 import EditDialog from './components/EditDialog.vue'
@@ -150,7 +150,7 @@ async function getPageList() {
             loading.value = false
         })
     loading.value = false
-    if (CODE_SUCCESS === code) {
+    if (config('http.code.success') === code) {
         list.value = data.rows
         pagination.total = data.total
     }
@@ -176,7 +176,7 @@ function handleDelete({ id }) {
             const { code } = await apis.common.deleteData({ id }).catch(() => {
                 loading.value = false
             })
-            if (CODE_SUCCESS === code) {
+            if (config('http.code.success') === code) {
                 message.success('删除成功')
                 await getPageList()
             } else {

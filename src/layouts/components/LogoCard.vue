@@ -4,16 +4,15 @@
         :class="cpClassNames">
         <img
             alt=""
-            :src="ICON_LOGO" />
-        <h1>{{ TITLE }}</h1>
+            :src="config('app.logo')" />
+        <h1>{{ config('app.title') }}</h1>
     </div>
 </template>
 
 <script setup>
 import { storeToRefs } from 'pinia'
 import { computed } from 'vue'
-
-import { ICON_LOGO, TITLE } from '@/config'
+import { config } from '@/config'
 import { useAppStore } from '@/store'
 
 defineOptions({
@@ -37,7 +36,7 @@ const props = defineProps({
 
 const appStore = useAppStore()
 
-const { config } = storeToRefs(appStore)
+const { config: appConfig } = storeToRefs(appStore)
 
 const cpClassNames = computed(() => {
     return {
@@ -49,7 +48,7 @@ const cpClassNames = computed(() => {
 
 <style lang="less" scoped>
 .logo-card {
-    height: v-bind('config.headerHeight + "px"');
+    height: v-bind('appConfig.headerHeight + "px"');
     display: flex;
     align-items: center;
     justify-content: center;

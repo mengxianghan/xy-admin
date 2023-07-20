@@ -79,7 +79,7 @@ import { message, Modal } from 'ant-design-vue'
 import { ref } from 'vue'
 
 import apis from '@/apis'
-import { CODE_SUCCESS } from '@/config/http'
+import { config } from '@/config'
 import usePagination from '@/hooks/usePagination'
 
 import DictTypeTree from './components/DictTypeTree.vue'
@@ -117,7 +117,7 @@ async function getPageList() {
             loading.value = false
         })
     loading.value = false
-    if (CODE_SUCCESS === code) {
+    if (config('http.code.success') === code) {
         list.value = data.rows
         pagination.total = data.total
     }
@@ -147,7 +147,7 @@ async function handleDelete({ id }) {
                 .catch(() => {
                     loading.value = false
                 })
-            if (CODE_SUCCESS === code) {
+            if (config('http.code.success') === code) {
                 message.success('删除成功')
                 await getPageList()
             } else {
