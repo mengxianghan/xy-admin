@@ -7,13 +7,14 @@ import { setupMock } from '@/mock'
 import { setupRouter } from '@/router'
 import { setupStore } from '@/store'
 import { setupException } from './exception'
+import { config } from '@/config'
 
 import './permission'
 
 import 'ant-design-vue/dist/reset.css'
 import '@/styles/index.less'
 
-if ('true' === import.meta.env.VITE_MOCK) {
+if (config('app.mock')) {
     setupMock()
 }
 

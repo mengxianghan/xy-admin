@@ -31,12 +31,14 @@
 
 <script setup>
 import { getAssetsFile } from '@/utils/get'
+import { config } from '@/config'
 
 defineOptions({
     name: 'UserLayout',
 })
-const title = import.meta.env.VITE_TITLE
+
 const { version } = __APP_INFO__
+const title = config('app.title')
 </script>
 
 <style lang="less" scoped>

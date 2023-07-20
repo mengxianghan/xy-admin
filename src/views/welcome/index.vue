@@ -89,7 +89,7 @@ defineOptions({
 })
 
 const userStore = useUserStore()
-const title = import.meta.env.VITE_TITLE
+const title = config('app.title')
 const cpUserInfo = computed(() => userStore.userInfo)
 const cpUserName = computed(() => `${timeFix()}，${cpUserInfo.value?.username}`)
 const dynamicList = ref([])

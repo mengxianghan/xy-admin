@@ -1,6 +1,7 @@
 import { message } from 'ant-design-vue'
 import jschardet from 'jschardet'
 import XYHttp from 'xy-http'
+import { config } from '@/config'
 
 import { useUserStore } from '@/store'
 
@@ -78,6 +79,6 @@ export default {
     }),
     default: new XYHttp({
         ...options,
-        baseURL: `${import.meta.env.VITE_API_DEFAULT}`,
+        baseURL: config('http.apiDefault'),
     }),
 }

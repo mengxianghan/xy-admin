@@ -1,10 +1,11 @@
 import { defineStore } from 'pinia'
 
-import { asyncRouterMap } from '@/config/router'
+import asyncRoutes from '@/router/routes'
 import router from '@/router'
 import { notFoundRoute } from '@/router/config'
 import { filterRoutes, formatRoutes, generateMenuList, generateRoutes, getIndexRoute } from '@/router/util'
 import { findTree } from '@/utils'
+import { config } from '@/config'
 
 import useUserStore from './user'
 
@@ -24,11 +25,10 @@ const useRouterStore = defineStore('router', {
             const userStore = useUserStore()
             return new Promise((resolve) => {
                 ;(async () => {
-                    const list = asyncRouterMap
-                    const validRoutes =
-                        import.meta.env.VITE_PERMISSION === 'true'
-                            ? filterRoutes(formatRoutes(list), userStore.permission)
-                            : formatRoutes(list)
+                    const list = asyncRoutes
+                    const validRoutes = config('app.permission')
+                        ? filterRoutes(formatRoutes(list), userStore.permission)
+                        : formatRoutes(list)
                     const menuList = generateMenuList(validRoutes)
                     const routes = [...generateRoutes(validRoutes), notFoundRoute]
                     const indexRoute = getIndexRoute(menuList)
