@@ -96,7 +96,7 @@ import { onMounted } from 'vue'
 import { LinkOutlined } from '@ant-design/icons-vue'
 import { EditOutlined, EllipsisOutlined, SettingOutlined } from '@ant-design/icons-vue'
 
-import api from '@/api'
+import apis from '@/apis'
 import { CODE_SUCCESS } from '@/config/http'
 import usePagination from '@/hooks/usePagination'
 
@@ -115,7 +115,7 @@ onMounted(() => {
  */
 async function getPageList() {
     loading.value = true
-    const { code, data } = await api.common.getPageList().catch(() => {
+    const { code, data } = await apis.common.getPageList().catch(() => {
         loading.value = false
     })
     loading.value = false

@@ -24,7 +24,7 @@
 <script setup>
 import { cloneDeep } from 'lodash-es'
 
-import api from '@/api'
+import apis from '@/apis'
 import useForm from '@/hooks/useForm'
 import useModal from '@/hooks/useModal'
 
@@ -70,7 +70,7 @@ function handleOk() {
                 ...values,
             }
             let result = null
-            result = await api.common.saveData(params).catch(() => {
+            result = await apis.common.saveData(params).catch(() => {
                 hideLoading()
             })
             hideLoading()

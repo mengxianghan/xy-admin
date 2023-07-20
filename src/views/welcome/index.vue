@@ -78,7 +78,7 @@
 <script setup>
 import { computed, onMounted, ref } from 'vue'
 
-import api from '@/api'
+import apis from '@/apis'
 import { CODE_SUCCESS } from '@/config/http'
 import { useUserStore } from '@/store'
 import { timeFix } from '@/utils'
@@ -100,7 +100,7 @@ onMounted(() => {
 })
 
 async function getData() {
-    const { code, data } = await api.common.getWelcomeData()
+    const { code, data } = await apis.common.getWelcomeData()
     if (CODE_SUCCESS === code) {
         const { dynamicRows } = data
         dynamicList.value = dynamicRows

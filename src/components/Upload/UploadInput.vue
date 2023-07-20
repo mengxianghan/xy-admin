@@ -98,7 +98,7 @@ async function customRequest(info) {
 
     // 真实业务场景
     // loading.value = true
-    // const { code, data } = await api.common.upload({
+    // const { code, data } = await apis.common.upload({
     //     file,
     // })
     // loading.value = false

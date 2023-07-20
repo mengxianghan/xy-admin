@@ -48,7 +48,7 @@
 import { message, Modal } from 'ant-design-vue'
 import { onMounted, ref } from 'vue'
 
-import api from '@/api'
+import apis from '@/apis'
 import { CODE_SUCCESS } from '@/config/http'
 import usePagination from '@/hooks/usePagination'
 
@@ -71,7 +71,7 @@ onMounted(() => {
  */
 async function getMenuList() {
     loading.value = true
-    const { code, data } = await api.system.getNewMenuList().catch(() => {
+    const { code, data } = await apis.system.getNewMenuList().catch(() => {
         loading.value = false
     })
     loading.value = false

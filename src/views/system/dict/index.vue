@@ -78,7 +78,7 @@
 import { message, Modal } from 'ant-design-vue'
 import { ref } from 'vue'
 
-import api from '@/api'
+import apis from '@/apis'
 import { CODE_SUCCESS } from '@/config/http'
 import usePagination from '@/hooks/usePagination'
 
@@ -107,7 +107,7 @@ const columns = [
 async function getPageList() {
     const { pageSize, current } = pagination
     loading.value = true
-    const { code, data } = await api.common
+    const { code, data } = await apis.common
         .getPageList({
             pageSize,
             page: current,
@@ -140,7 +140,7 @@ async function handleDelete({ id }) {
         content: '确认删除？',
         onOk: async () => {
             loading.value = true
-            const { code } = await api.common
+            const { code } = await apis.common
                 .deleteData({
                     id,
                 })

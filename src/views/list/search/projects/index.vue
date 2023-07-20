@@ -78,7 +78,7 @@
 <script setup>
 import { ref } from 'vue'
 
-import api from '@/api'
+import apis from '@/apis'
 import { CODE_SUCCESS } from '@/config/http'
 import usePagination from '@/hooks/usePagination'
 
@@ -126,7 +126,7 @@ getPageList()
 async function getPageList() {
     const { pageSize, current } = pagination
     loading.value = true
-    const { code, data } = await api.common
+    const { code, data } = await apis.common
         .getPageList({
             pageSize,
             page: current,

@@ -164,7 +164,7 @@ import {
     UpOutlined,
 } from '@ant-design/icons-vue'
 
-import api from '@/api'
+import apis from '@/apis'
 import { CODE_SUCCESS } from '@/config/http'
 import usePagination from '@/hooks/usePagination'
 
@@ -195,7 +195,7 @@ onMounted(() => {
 async function getPageList() {
     const { pageSize, current } = pagination
     loading.value = true
-    const { code, data } = await api.common
+    const { code, data } = await apis.common
         .getPageList({
             pageSize,
             page: current,
@@ -227,7 +227,7 @@ function handleDelete({ id }) {
         content: '确认删除？',
         onOk: async () => {
             loading.value = true
-            const { code } = await api.common.deleteData({ id }).catch(() => {
+            const { code } = await apis.common.deleteData({ id }).catch(() => {
                 loading.value = false
             })
             if (CODE_SUCCESS === code) {

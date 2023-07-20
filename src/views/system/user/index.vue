@@ -76,7 +76,7 @@
 import { message, Modal } from 'ant-design-vue'
 import { onMounted, ref } from 'vue'
 
-import api from '@/api'
+import apis from '@/apis'
 import { CODE_SUCCESS } from '@/config/http'
 import usePagination from '@/hooks/usePagination'
 
@@ -113,7 +113,7 @@ onMounted(() => {
  */
 async function getUserRoleList() {
     roleLoading.value = true
-    const { code, data } = await api.system.getUserRoleList().catch(() => {
+    const { code, data } = await apis.system.getUserRoleList().catch(() => {
         roleLoading.value = false
     })
     roleLoading.value = false
@@ -135,7 +135,7 @@ async function getUserRoleList() {
 async function getUserPageList() {
     loading.value = true
     const { pageSize, current } = pagination
-    const { code, data } = await api.system
+    const { code, data } = await apis.system
         .getUserPageList({
             pageSize,
             page: current,
@@ -172,7 +172,7 @@ function handleDelete({ id }) {
         content: '确认删除？',
         onOk: async () => {
             loading.value = true
-            const { code } = await api.common.deleteData({ id }).catch(() => {
+            const { code } = await apis.common.deleteData({ id }).catch(() => {
                 loading.value = false
             })
             if (CODE_SUCCESS === code) {

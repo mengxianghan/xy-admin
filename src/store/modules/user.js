@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 
-import api from '@/api'
+import apis from '@/apis'
 import { CODE_SUCCESS } from '@/config/http'
 import { STORAGE_IS_LOGIN, STORAGE_PERMISSION, STORAGE_TOKEN, STORAGE_USER_INFO } from '@/config/storage'
 import { useStorage } from '@/utils/storage'
@@ -26,7 +26,7 @@ const useUserStore = defineStore('user', {
         login(params) {
             return new Promise((resolve, reject) => {
                 ;(async () => {
-                    const result = await api.user.login(params).catch(() => {
+                    const result = await apis.user.login(params).catch(() => {
                         reject()
                     })
                     const { code, data } = result

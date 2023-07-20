@@ -378,7 +378,7 @@ async function doUpload() {
     await doUpload()
 
     // 接口示例
-    // const { code } = await api.common.upload({
+    // const { code } = await apis.common.upload({
     //     file: record?.file,
     // })
     // if (CODE_SUCCESS === code) {
