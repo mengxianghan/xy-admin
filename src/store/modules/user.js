@@ -2,18 +2,16 @@ import { defineStore } from 'pinia'
 
 import apis from '@/apis'
 import { config } from '@/config'
-import { useStorage } from '@/utils/storage'
+import storage from '@/utils/storage'
 
 import useAppStore from './app'
 
-const { local } = useStorage()
-
 const useUserStore = defineStore('user', {
     state: () => ({
-        isLogin: local.getItem(config('storage.isLogin'), false),
-        userInfo: local.getItem(config('storage.userInfo'), null),
-        token: local.getItem(config('storage.token'), ''),
-        permission: local.getItem(config('storage.permission'), []),
+        isLogin: storage.local.getItem(config('storage.isLogin'), false),
+        userInfo: storage.local.getItem(config('storage.userInfo'), null),
+        token: storage.local.getItem(config('storage.token'), ''),
+        permission: storage.local.getItem(config('storage.permission'), []),
     }),
     getters: {},
     actions: {
@@ -37,9 +35,9 @@ const useUserStore = defineStore('user', {
                             token,
                             isLogin,
                         })
-                        local.setItem(config('storage.userInfo'), others)
-                        local.setItem(config('storage.token'), token)
-                        local.setItem(config('storage.isLogin'), isLogin)
+                        storage.local.setItem(config('storage.userInfo'), others)
+                        storage.local.setItem(config('storage.token'), token)
+                        storage.local.setItem(config('storage.isLogin'), isLogin)
                     }
                     resolve(result)
                 })()
@@ -56,9 +54,9 @@ const useUserStore = defineStore('user', {
                     token: '',
                     userInfo: null,
                 })
-                local.removeItem(config('storage.isLogin'))
-                local.removeItem(config('storage.token'))
-                local.removeItem(config('storage.userInfo'))
+                storage.local.removeItem(config('storage.isLogin'))
+                storage.local.removeItem(config('storage.token'))
+                storage.local.removeItem(config('storage.userInfo'))
                 appStore.complete = false
                 resolve()
             })

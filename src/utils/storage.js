@@ -1,7 +1,8 @@
 import Storage from 'xy-storage'
+import { config } from '@/config'
 
 const options = {
-    namespace: import.meta.env.VITE_STORAGE_NAMESPACE,
+    namespace: config('storage.namespace'),
 }
 
 export const useStorage = () => {
@@ -20,3 +21,5 @@ export const useStorage = () => {
         }),
     }
 }
+
+export default useStorage()
