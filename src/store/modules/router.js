@@ -12,7 +12,7 @@ const useRouterStore = defineStore('router', {
     state: () => ({
         routes: [],
         menuList: [],
-        indexRouter: null,
+        indexRoute: null,
     }),
     getters: {},
     actions: {
@@ -31,13 +31,13 @@ const useRouterStore = defineStore('router', {
                             : formatRoutes(list)
                     const menuList = generateMenuList(validRoutes)
                     const routes = [...generateRoutes(validRoutes), notFoundRoute]
-                    const indexRouter = getIndexRoute(menuList)
+                    const indexRoute = getIndexRoute(menuList)
                     routes.forEach((route) => {
                         router.addRoute(route)
                     })
                     this.routes = routes
                     this.menuList = menuList
-                    this.indexRouter = indexRouter
+                    this.indexRoute = indexRoute
                     resolve()
                 })()
             })

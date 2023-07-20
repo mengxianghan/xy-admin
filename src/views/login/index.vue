@@ -171,8 +171,8 @@ async function handleLogin() {
  * @return {*}
  */
 function getIndexRoute() {
-    const indexRouter = routerStore.indexRouter
-    if (!indexRouter) {
+    const indexRoute = routerStore.indexRoute
+    if (!indexRoute) {
         Modal.warning({
             title: '系统提示',
             content: '没有任何权限，请联系系统管理员',
@@ -181,7 +181,7 @@ function getIndexRoute() {
             },
         })
     }
-    return indexRouter
+    return indexRoute
 }
 
 /**
@@ -191,9 +191,9 @@ function goIndex() {
     if (redirect.value) {
         location.href = redirect.value
     } else {
-        const indexRouter = getIndexRoute()
-        if (!indexRouter) return
-        router.push(indexRouter)
+        const indexRoute = getIndexRoute()
+        if (!indexRoute) return
+        router.push(indexRoute)
     }
     notification.success({
         message: '欢迎',
