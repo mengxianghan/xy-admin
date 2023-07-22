@@ -18,7 +18,7 @@
 <script setup>
 import { computed, onMounted, ref, watch, h } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import { mapping } from '@/utils'
+import { mapping } from '@/utils/util'
 import { Badge } from 'ant-design-vue'
 
 defineOptions({

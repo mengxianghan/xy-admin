@@ -14,7 +14,7 @@ import { last, pick } from 'lodash-es'
 import { onMounted, ref, watch } from 'vue'
 
 import { config } from '@/config'
-import { findTree, mapping } from '@/utils'
+import { findTree, mapping } from '@/utils/util'
 
 defineOptions({
     name: 'XRegion',

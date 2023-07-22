@@ -4,7 +4,7 @@ import asyncRoutes from '@/router/routes'
 import router from '@/router'
 import { notFoundRoute } from '@/router/config'
 import { filterRoutes, formatRoutes, generateMenuList, generateRoutes, getIndexRoute } from '@/router/util'
-import { findTree } from '@/utils'
+import { findTree } from '@/utils/util'
 import { config } from '@/config'
 
 import useUserStore from './user'

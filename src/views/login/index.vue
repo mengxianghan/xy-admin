@@ -113,7 +113,7 @@ import { LockOutlined, MobileOutlined, UserOutlined } from '@ant-design/icons-vu
 import { config } from '@/config'
 import useForm from '@/hooks/useForm'
 import { useAppStore, useRouterStore, useUserStore } from '@/store'
-import { timeFix } from '@/utils'
+import { timeFix } from '@/utils/util'
 
 defineOptions({
     name: 'login',

@@ -23,7 +23,7 @@ import { onMounted, ref, watch } from 'vue'
 
 import TinyEditor from '@tinymce/tinymce-vue'
 
-import { deepMerge } from '@/utils'
+import { deepMerge } from '@/utils/util'
 
 defineOptions({
     name: 'XEditor',

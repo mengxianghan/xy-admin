@@ -1,4 +1,4 @@
-import { env } from '@/utils'
+import { env } from '@/utils/util'
 
 export default {
     title: env('title'),

@@ -81,8 +81,8 @@ import { computed, onMounted, ref } from 'vue'
 import apis from '@/apis'
 import { config } from '@/config'
 import { useUserStore } from '@/store'
-import { timeFix } from '@/utils'
-import { getAssetsFile } from '@/utils/get'
+import { timeFix } from '@/utils/util'
+import { getAssetsFile } from '@/utils/util'
 
 defineOptions({
     name: 'welcome',

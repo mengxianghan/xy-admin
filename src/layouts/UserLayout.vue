@@ -30,7 +30,7 @@
 </template>
 
 <script setup>
-import { getAssetsFile } from '@/utils/get'
+import { getAssetsFile } from '@/utils/util'
 import { config } from '@/config'
 
 defineOptions({

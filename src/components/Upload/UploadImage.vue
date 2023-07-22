@@ -111,7 +111,7 @@ import { computed, onMounted, ref, useSlots, watch } from 'vue'
 
 import { DeleteOutlined, EyeOutlined, PlusOutlined } from '@ant-design/icons-vue'
 
-import { deepMerge } from '@/utils'
+import { deepMerge } from '@/utils/util'
 
 import CropperDialog from '../Cropper/CropperDialog.vue'
 import Preview from '../Preview'

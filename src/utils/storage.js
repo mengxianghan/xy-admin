@@ -5,21 +5,17 @@ const options = {
     namespace: config('storage.namespace'),
 }
 
-export const useStorage = () => {
-    return {
-        local: new Storage({
-            ...options,
-            name: 'local',
-        }),
-        session: new Storage({
-            ...options,
-            name: 'session',
-        }),
-        cookie: new Storage({
-            ...options,
-            name: 'cookie',
-        }),
-    }
+export default {
+    local: new Storage({
+        ...options,
+        name: 'local',
+    }),
+    session: new Storage({
+        ...options,
+        name: 'session',
+    }),
+    cookie: new Storage({
+        ...options,
+        name: 'cookie',
+    }),
 }
-
-export default useStorage()
