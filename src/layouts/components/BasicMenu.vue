@@ -1,20 +1,25 @@
 <template>
-    <a-menu
+    <div
         class="basic-menu"
-        v-model:selected-keys="selectedKeys"
-        :inline-collapsed="collapsed"
-        :mode="mode"
-        :open-keys="cpOpenKeys"
-        :theme="theme"
-        :items="cpMenuData"
-        @openChange="onOpenChange"
-        @click="handleClick"></a-menu>
+        ref="basicMenuRef">
+        <a-menu
+            v-model:selected-keys="selectedKeys"
+            :get-pop-container="() => basicMenuRef"
+            :inline-collapsed="collapsed"
+            :mode="mode"
+            :open-keys="cpOpenKeys"
+            :theme="theme"
+            :items="items"
+            @openChange="onOpenChange"
+            @click="handleClick"></a-menu>
+    </div>
 </template>
 
 <script setup>
 import { computed, onMounted, ref, watch, h } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { mapping } from '@/utils'
+import { Badge } from 'ant-design-vue'
 
 defineOptions({
     name: 'BasicMenu',
@@ -48,6 +53,8 @@ const router = useRouter()
 const collapsed = ref(false)
 const openKeys = ref([])
 const selectedKeys = ref([])
+const items = ref([])
+const basicMenuRef = ref()
 
 const cpIsHorizontal = computed(() => props.mode === 'horizontal')
 const rootSubmenuKeys = computed(() => props.dataList?.map((item) => item.name))
@@ -57,27 +64,35 @@ const cpOpenKeys = computed(() => {
     }
     return openKeys.value
 })
-const cpMenuData = computed(() => {
-    return mapping({
-        data: props.dataList || [],
-        fieldNames: {
-            key: 'name',
-            label: (item) => item?.meta?.title,
-            icon: (item) => {
-                const icon = item?.meta?.icon
-                if (icon) {
-                    return h(icon)
-                }
-                return ''
-            },
-            children: 'children',
-        },
-        treeFieldName: 'children',
-        keepOtherFields: true,
-    })
-})
 
 watch(route, () => setSelectedMenu())
+watch(
+    () => props.dataList,
+    () => {
+        items.value = mapping({
+            data: props.dataList || [],
+            fieldNames: {
+                key: 'name',
+                label: (item) =>
+                    h('span', { class: 'basic-menu__title' }, [
+                        h('span', { class: 'basic-menu__name' }, item?.meta?.title),
+                        h(Badge, { count: item?.meta?.badge || 0, style: { zoom: 0.9, margin: '0 1px 0 2px' } }),
+                    ]),
+                icon: (item) => {
+                    const icon = item?.meta?.icon
+                    if (icon) {
+                        return h(icon)
+                    }
+                    return ''
+                },
+                children: 'children',
+            },
+            treeFieldName: 'children',
+            keepOtherFields: true,
+        })
+    },
+    { immediate: true, deep: true }
+)
 
 onMounted(() => {
     setSelectedMenu()
@@ -136,4 +151,29 @@ function onOpenChange(value) {
 }
 </script>
 
-<style lang="less" scoped></style>
+<style lang="less" scoped>
+.basic-menu {
+    .ant-menu:not(.ant-menu-horizontal) {
+        :deep(.ant-menu-submenu-title) {
+            display: flex;
+        }
+
+        :deep(.basic-menu) {
+            &__title {
+                flex: 1;
+                display: flex;
+                align-items: center;
+                min-width: 0;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+            &__name {
+                flex: 1;
+                min-width: 0;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+        }
+    }
+}
+</style>
