@@ -84,7 +84,7 @@ function init() {
     setTimeout(() => {
         chart.value.setOption(props.options, true)
         chart.value.resize()
-        emit('ready', chart.value)
+        emit('init', chart.value)
     }, 100)
 }
 </script>
