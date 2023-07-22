@@ -1,72 +1,24 @@
 <template>
-    <a-card
-        class="x-action-bar"
-        :class="classNames">
-        <div class="x-action-bar__content">
+    <a-row class="x-action-bar">
+        <a-col flex="1">
             <slot></slot>
-        </div>
-        <div class="x-action-bar__extra">
+        </a-col>
+        <a-col v-if="cpShowExtra">
             <slot name="extra"></slot>
-        </div>
-    </a-card>
+        </a-col>
+    </a-row>
 </template>
 
 <script setup>
-import { computed } from 'vue'
+import { computed, useSlots } from 'vue'
 
 defineOptions({
     name: 'XActionBar',
 })
 
-/**
- * 操作条
- * @property {string} type 类型，【default=默认，card=卡片】
- */
-const props = defineProps({
-    type: {
-        type: String,
-        default: 'default',
-    },
-})
+const slots = useSlots(['default', 'extra'])
 
-const classNames = computed(() => {
-    return {
-        [`x-action-bar--${props.type || 'default'}`]: true,
-    }
-})
+const cpShowExtra = computed(() => !!slots.extra)
 </script>
 
-<style lang="less" scoped>
-.x-action-bar {
-    &--default {
-        background: transparent;
-        border: none;
-
-        :deep(.ant-card-body) {
-            padding: 0;
-        }
-    }
-
-    :deep(.ant-card-body) {
-        display: flex;
-        align-items: center;
-    }
-
-    &__content,
-    &__extra {
-        > :deep(*) {
-            &:not(:first-child) {
-                margin-left: 12px;
-            }
-        }
-
-        :deep(.ant-form-inline .ant-form-item) {
-            margin-bottom: 0 !important;
-        }
-    }
-
-    &__extra {
-        margin: 0 0 0 auto;
-    }
-}
-</style>
+<style lang="less" scoped></style>
