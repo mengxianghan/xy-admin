@@ -72,9 +72,8 @@ const cpShowFooterSlot = computed(() => !!slots.footer)
     top: 0;
     height: 100vh;
     z-index: 100;
-    box-shadow: 1px 0 4px rgba(0, 21, 41, 0.08);
-    transition: all 0.2s, background 0s;
     overflow: hidden;
+    border-right: @color-split solid 1px;
 
     :deep(.ant-layout-sider-children) {
         height: 100%;
@@ -91,7 +90,9 @@ const cpShowFooterSlot = computed(() => !!slots.footer)
         min-height: 0;
         overflow: auto;
 
-        .scrollbar();
+        :deep(.ant-menu) {
+            border-right: 0;
+        }
     }
 
     &__footer {

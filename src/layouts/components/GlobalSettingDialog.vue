@@ -127,7 +127,7 @@ function handleHeaderTheme({ value }) {
 }
 
 function handleMenuMode({ value }) {
-    appStore.setMenuMode({ mode: value })
+    appStore.config.menuMode = value
     if (value === 'mix') {
         appStore.config.sideTheme = 'light'
     }

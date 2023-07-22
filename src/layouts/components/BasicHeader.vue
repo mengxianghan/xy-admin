@@ -128,7 +128,7 @@ function handleSetting() {
     display: flex;
     align-items: center;
     transition: background 0s;
-    border-bottom: @color-split solid 1px;
+    box-shadow: 0 0 0 1px @color-split;
 
     &__left {
         flex-shrink: 0;
@@ -137,7 +137,6 @@ function handleSetting() {
     &__center {
         flex: auto;
         min-width: 0;
-        overflow: hidden;
     }
 
     &__right {
