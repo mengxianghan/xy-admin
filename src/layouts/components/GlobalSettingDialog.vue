@@ -119,17 +119,17 @@ function handleOpen() {
 }
 
 function handleSideTheme({ value }) {
-    config.value.sideTheme = value
+    appStore.config.sideTheme = value
 }
 
 function handleHeaderTheme({ value }) {
-    config.value.headerTheme = value
+    appStore.config.headerTheme = value
 }
 
 function handleMenuMode({ value }) {
-    config.value.menuMode = value
+    appStore.setMenuMode({ mode: value })
     if (value === 'mix') {
-        config.value.sideTheme = 'light'
+        appStore.config.sideTheme = 'light'
     }
 }
 
