@@ -45,7 +45,7 @@ const props = defineProps({
     },
 })
 
-const emit = defineEmits(['ready'])
+const emit = defineEmits(['init'])
 
 const imgRef = ref()
 const previewRef = ref()
@@ -71,7 +71,7 @@ function init() {
         aspectRatio: props.aspectRatio,
         preview: previewRef.value,
         ready: () => {
-            emit('ready', cropper.value)
+            emit('init', cropper.value)
         },
     })
 }
