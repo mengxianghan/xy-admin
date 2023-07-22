@@ -1,23 +1,34 @@
 <template>
     <a-breadcrumb class="x-breadcrumb">
         <a-breadcrumb-item
-            v-for="(item, index) in list"
-            :key="index">
+            v-for="item in breadcrumbData"
+            :key="item.name">
             {{ item.meta.title }}
         </a-breadcrumb-item>
     </a-breadcrumb>
 </template>
 
 <script setup>
-import { computed } from 'vue'
-import { useRouter } from 'vue-router'
+import { ref } from 'vue'
+import { onBeforeRouteUpdate, useRoute } from 'vue-router'
 
 defineOptions({
     name: 'XBreadcrumb',
 })
 
-const router = useRouter()
-const list = computed(() => router.currentRoute.value?.meta?._breadcrumb)
+const route = useRoute()
+
+const breadcrumbData = ref([])
+
+update()
+
+onBeforeRouteUpdate((to) => {
+    update(to)
+})
+
+function update(_route = route) {
+    breadcrumbData.value = _route?.meta?._breadcrumb
+}
 </script>
 
 <style lang="less" scoped>
@@ -26,7 +37,6 @@ const list = computed(() => router.currentRoute.value?.meta?._breadcrumb)
     background: #fff;
     display: flex;
     align-items: center;
-    padding: 16px;
-    box-shadow: 0 1px 4px rgba(0, 21, 41, 0.08);
+    padding: 0 16px;
 }
 </style>
