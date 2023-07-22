@@ -23,7 +23,7 @@
         "@ant-design/icons-vue": "^6.1.0",
         "@icon-park/vue-next": "^1.4.2",
         "@tinymce/tinymce-vue": "^5.1.0",
-        "ant-design-vue": "^4.0.0-rc.6",
+        "ant-design-vue": "^4.0.0",
         "axios": "^1.4.0",
         "cropperjs": "^1.5.13",
         "dayjs": "^1.11.7",
