@@ -245,10 +245,11 @@ export const formatField = (data, def = '-') => data ?? def
  * @return {{}}
  */
 export const formatRangeTime = (keys, values) => zipObjectPlus(keys, values, [formatStartTimeOfDay, formatEndTimeOfDay])
+
 /**
- * 获取文件后缀
+ * 文件后缀
  */
-export const getSuffix = (filename) => filename.split('.').pop().toLowerCase()
+export const suffix = (filename) => filename.split('.').pop().toLowerCase()
 
 /**
  * 获取表单数据
