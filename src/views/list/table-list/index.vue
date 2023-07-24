@@ -71,7 +71,7 @@
                 type="primary"
                 @click="$refs.editDialogRef.handleCreate()">
                 <template #icon>
-                    <icon-plus-outlined />
+                    <plus-outlined></plus-outlined>
                 </template>
                 新建
             </a-button>
@@ -130,7 +130,7 @@
                         <a-dropdown :trigger="['click']">
                             <a>
                                 更多
-                                <icon-down-outlined />
+                                <down-outlined></down-outlined>
                             </a>
                             <template #overlay>
                                 <a-menu>
@@ -154,6 +154,7 @@
 <script setup>
 import { message, Modal } from 'ant-design-vue'
 import { onMounted, ref } from 'vue'
+import { PlusOutlined, DownOutlined } from '@ant-design/icons-vue'
 
 import {
     ColumnHeightOutlined,

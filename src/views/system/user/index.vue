@@ -21,7 +21,7 @@
                         type="primary"
                         @click="$refs.editDialogRef.handleCreate()">
                         <template #icon>
-                            <icon-plus-outlined />
+                            <plus-outlined></plus-outlined>
                         </template>
                         新建用户
                     </a-button>
@@ -75,7 +75,7 @@
 <script setup>
 import { message, Modal } from 'ant-design-vue'
 import { onMounted, ref } from 'vue'
-
+import { PlusOutlined } from '@ant-design/icons-vue'
 import apis from '@/apis'
 import { config } from '@/config'
 import usePagination from '@/hooks/usePagination'

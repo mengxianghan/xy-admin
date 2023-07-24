@@ -50,7 +50,7 @@
                         <a-button
                             type="dashed"
                             class="create-btn">
-                            <icon-plus-outlined />
+                            <plus-outlined></plus-outlined>
                             新增
                         </a-button>
                     </a-card>
@@ -94,7 +94,7 @@
 import { onMounted } from 'vue'
 
 import { LinkOutlined } from '@ant-design/icons-vue'
-import { EditOutlined, EllipsisOutlined, SettingOutlined } from '@ant-design/icons-vue'
+import { EditOutlined, EllipsisOutlined, SettingOutlined, PlusOutlined } from '@ant-design/icons-vue'
 
 import apis from '@/apis'
 import { config } from '@/config'

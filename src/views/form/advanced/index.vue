@@ -148,7 +148,7 @@
                 class="mt-8-2"
                 type="dashed">
                 <template #icon>
-                    <icon-plus-outlined></icon-plus-outlined>
+                    <plus-outlined></plus-outlined>
                 </template>
                 添加一行数据
             </a-button>
@@ -157,6 +157,8 @@
 </template>
 
 <script setup>
+import { PlusOutlined } from '@ant-design/icons-vue'
+
 defineOptions({
     name: 'formAdvanced',
 })

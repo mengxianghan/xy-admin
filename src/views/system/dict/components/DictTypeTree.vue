@@ -8,7 +8,7 @@
         </template>
         <template #actions>
             <span @click="$refs.dictTypeEditDialogRef.handleCreate()">
-                <icon-plus-outlined />
+                <plus-outlined></plus-outlined>
                 新建分类
             </span>
         </template>
@@ -34,9 +34,8 @@
                     <a-space
                         class="tree-row__actions"
                         @click.stop="() => {}">
-                        <icon-edit-outlined
-                            @click.stop="$refs.dictTypeEditDialogRef.handleEdit(record)"></icon-edit-outlined>
-                        <icon-delete-outlined @click="handleDelete(record)"></icon-delete-outlined>
+                        <edit-outlined @click.stop="$refs.dictTypeEditDialogRef.handleEdit(record)"></edit-outlined>
+                        <delete-outlined @click="handleDelete(record)"></delete-outlined>
                     </a-space>
                 </div>
             </template>
@@ -49,7 +48,7 @@
 <script setup>
 import { message, Modal } from 'ant-design-vue'
 import { onMounted, ref } from 'vue'
-
+import { PlusOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons-vue'
 import apis from '@/apis'
 import { config } from '@/config'
 import usePagination from '@/hooks/usePagination'

@@ -10,7 +10,7 @@
         </template>
         <template #actions>
             <div>
-                <icon-plus-outlined />
+                <plus-outlined></plus-outlined>
                 新建菜单
             </div>
         </template>
@@ -35,8 +35,8 @@
                     <a-space
                         class="tree-row__actions"
                         @click.stop="() => {}">
-                        <icon-plus-outlined></icon-plus-outlined>
-                        <icon-delete-outlined @click="handleDelete(record)"></icon-delete-outlined>
+                        <plus-outlined></plus-outlined>
+                        <delete-outlined @click="handleDelete(record)"></delete-outlined>
                     </a-space>
                 </div>
             </template>
@@ -47,7 +47,7 @@
 <script setup>
 import { message, Modal } from 'ant-design-vue'
 import { onMounted, ref } from 'vue'
-
+import { PlusOutlined, DeleteOutlined } from '@ant-design/icons-vue'
 import apis from '@/apis'
 import { config } from '@/config'
 import usePagination from '@/hooks/usePagination'

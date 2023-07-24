@@ -16,7 +16,7 @@
                             type="primary"
                             @click="$refs.editRef.handleCreate()">
                             <template #icon>
-                                <icon-plus-outlined />
+                                <plus-outlined></plus-outlined>
                             </template>
                             新建项
                         </a-button>
@@ -77,11 +77,10 @@
 <script setup>
 import { message, Modal } from 'ant-design-vue'
 import { ref } from 'vue'
-
+import { PlusOutlined } from '@ant-design/icons-vue'
 import apis from '@/apis'
 import { config } from '@/config'
 import usePagination from '@/hooks/usePagination'
-
 import DictTypeTree from './components/DictTypeTree.vue'
 import Edit from './components/Edit.vue'
 
