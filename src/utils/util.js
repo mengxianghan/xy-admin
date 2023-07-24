@@ -245,12 +245,6 @@ export const formatField = (data, def = '-') => data ?? def
  * @return {{}}
  */
 export const formatRangeTime = (keys, values) => zipObjectPlus(keys, values, [formatStartTimeOfDay, formatEndTimeOfDay])
-
-/**
- * 获取环境变量
- */
-export const getEnvConfig = (name) => (name ? import.meta.env[`VITE_${name}`] : import.meta.env)
-
 /**
  * 获取文件后缀
  */
