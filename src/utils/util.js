@@ -269,7 +269,7 @@ export const getFormState = (record = {}, formState = {}) => pick(cloneDeep(reco
  * @param {string} url
  * @returns
  */
-export const getAssetsFile = (url) => {
+export const assets = (url) => {
     return new URL(`../assets/${url}`, import.meta.url).href
 }
 

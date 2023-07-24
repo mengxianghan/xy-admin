@@ -66,7 +66,7 @@
                     :title="`${title} ${version}`">
                     <template #icon>
                         <img
-                            :src="getAssetsFile('upgrade.svg')"
+                            :src="assets('upgrade.svg')"
                             alt="" />
                     </template>
                 </a-result>
@@ -82,7 +82,7 @@ import apis from '@/apis'
 import { config } from '@/config'
 import { useUserStore } from '@/store'
 import { timeFix } from '@/utils/util'
-import { getAssetsFile } from '@/utils/util'
+import { assets } from '@/utils/util'
 
 defineOptions({
     name: 'welcome',

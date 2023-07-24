@@ -7,7 +7,7 @@
             <div class="aside-body">
                 <img
                     alt=""
-                    :src="getAssetsFile('login_welcome.svg')" />
+                    :src="assets('login_welcome.svg')" />
                 <h3>高性能 / 精致 / 优雅</h3>
                 <p>基于Vue3 + Ant Design Vue 的中后台前端解决方案。</p>
             </div>
@@ -30,7 +30,7 @@
 </template>
 
 <script setup>
-import { getAssetsFile } from '@/utils/util'
+import { assets } from '@/utils/util'
 import { config } from '@/config'
 
 defineOptions({
