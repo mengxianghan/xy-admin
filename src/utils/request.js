@@ -72,13 +72,14 @@ class ReadFile extends XYHttp {
     }
 }
 
+const basic = new XYHttp({
+    ...options,
+    baseURL: config('http.apiBasic'),
+})
+
+const readFile = new ReadFile()
+
 export default {
-    readFile: new ReadFile(),
-    api: new XYHttp({
-        ...options,
-    }),
-    default: new XYHttp({
-        ...options,
-        baseURL: config('http.apiDefault'),
-    }),
+    basic,
+    readFile,
 }
