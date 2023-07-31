@@ -62,7 +62,7 @@ const teamList = [
     },
     {
         id: 2,
-        name: '全组都是吴彦祖',
+        name: '都是吴彦祖',
         color: '#e51039',
     },
     {
@@ -77,12 +77,12 @@ const teamList = [
     },
     {
         id: 5,
-        name: '高逼格设计天团',
+        name: '高逼格设计',
         color: '#7e52b5',
     },
     {
         id: 6,
-        name: '骗你来学计算机',
+        name: '骗你来学前端',
         color: '#1ed7fd',
     },
 ]

@@ -38,7 +38,9 @@
         item-layout="vertical"
         row-key="id">
         <template #renderItem="{ item }">
-            <a-list-item key="item.title">
+            <a-list-item
+                key="item.title"
+                class="pa-0">
                 <a-card hoverable>
                     <template #cover>
                         <img
