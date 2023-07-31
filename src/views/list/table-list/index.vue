@@ -154,8 +154,6 @@
 <script setup>
 import { message, Modal } from 'ant-design-vue'
 import { onMounted, ref } from 'vue'
-import { PlusOutlined, DownOutlined } from '@ant-design/icons-vue'
-
 import {
     ColumnHeightOutlined,
     DownOutlined,
@@ -163,6 +161,7 @@ import {
     ReloadOutlined,
     SettingOutlined,
     UpOutlined,
+    PlusOutlined,
 } from '@ant-design/icons-vue'
 
 import apis from '@/apis'
