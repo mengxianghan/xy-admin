@@ -1,7 +1,7 @@
 <template>
     <a-page-header
         :ghost="false"
-        class="ant-page-header-wrap"
+        main
         title="单号：234231029431">
         <template #extra>
             <a-space>

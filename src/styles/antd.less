@@ -1,6 +1,14 @@
 // PageHeader
-.ant-page-header-wrap {
-    margin: -16px -16px 16px;
+.ant-page-header {
+    &[main] {
+        margin: -16px -16px 16px;
+    }
+    &[round] {
+        border-radius: @border-radius-lg;
+    }
+    &[bordered] {
+        border: @color-split solid 1px;
+    }
 }
 
 .anticon {

@@ -1,6 +1,6 @@
 <template>
     <a-page-header
-        class="ant-page-header-wrap"
+        main
         :title="cpPageTitle"
         :ghost="false">
         <div

@@ -1,6 +1,6 @@
 <template>
     <a-page-header
-        class="ant-page-header-wrap"
+        main
         title="卡片列表"
         :ghost="false">
         <a-row

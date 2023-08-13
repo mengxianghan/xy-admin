@@ -1,6 +1,6 @@
 <template>
     <a-page-header
-        class="ant-page-header-wrap"
+        main
         title="基础详情页"
         :ghost="false">
     </a-page-header>
