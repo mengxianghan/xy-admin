@@ -1,7 +1,8 @@
 <template>
     <div
-        class="logo-card"
-        :class="cpClassNames">
+        class="brand"
+        :class="cpClass"
+        :style="cpStyle">
         <img
             alt=""
             :src="config('app.logo')" />
@@ -16,7 +17,7 @@ import { config } from '@/config'
 import { useAppStore } from '@/store'
 
 defineOptions({
-    name: 'LogoCard',
+    name: 'Brand',
 })
 
 /**
@@ -26,7 +27,6 @@ defineOptions({
 const props = defineProps({
     theme: {
         type: String,
-        default: 'light',
     },
     collapsed: {
         type: Boolean,
@@ -38,17 +38,21 @@ const appStore = useAppStore()
 
 const { config: appConfig } = storeToRefs(appStore)
 
-const cpClassNames = computed(() => {
+const cpClass = computed(() => {
     return {
-        [`logo-card--${props.theme}`]: true,
-        'logo-card--collapsed': props.collapsed,
+        [`brand--${props.theme}`]: true,
+        'brand--collapsed': props.collapsed,
+    }
+})
+const cpStyle = computed(() => {
+    return {
+        height: `${appConfig.value.headerHeight}px`,
     }
 })
 </script>
 
 <style lang="less" scoped>
-.logo-card {
-    height: v-bind('appConfig.headerHeight + "px"');
+.brand {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -74,8 +78,6 @@ const cpClassNames = computed(() => {
     }
 
     &--dark {
-        background: #001529;
-
         h1 {
             color: #fff;
         }

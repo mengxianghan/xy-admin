@@ -1,17 +1,15 @@
-// eslint-disable-next-line no-unused-vars
 import { find, get, head, omit } from 'lodash-es'
 import { ref, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 
 import { useAppStore, useRouterStore } from '@/store'
 import { storeToRefs } from 'pinia'
+import { getIndexRoute } from '../../router/util'
 
 export default () => {
     const appStore = useAppStore()
     const routerStore = useRouterStore()
-    // eslint-disable-next-line no-unused-vars
     const route = useRoute()
-    // eslint-disable-next-line no-unused-vars
     const router = useRouter()
 
     const { menuList } = storeToRefs(routerStore)
@@ -39,6 +37,17 @@ export default () => {
                             children: item.children,
                             click: (res) => {
                                 sideMenuList.value = res?.props?.children || []
+                                // 获取侧边栏第一个有效路由
+                                const firstRoute = getIndexRoute(sideMenuList.value)
+                                if (firstRoute) {
+                                    // 如果第一个路由是外部链接，则不跳转
+                                    if (firstRoute?.meta?._isLink) return
+                                    // 跳转到符合条件的路由中
+                                    router.push({
+                                        path: firstRoute.path,
+                                        query: firstRoute?.meta?.query || {},
+                                    })
+                                }
                             },
                         },
                     }

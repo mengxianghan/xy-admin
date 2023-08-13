@@ -44,7 +44,7 @@ const title = config('app.title')
 <style lang="less" scoped>
 .user-layout {
     &-container {
-        min-height: 100%;
+        min-height: 100vh;
         background-repeat: no-repeat;
         background-position: center 110px;
         background-size: 100%;

@@ -17,7 +17,7 @@
         <!-- 右侧 -->
         <div class="basic-header__right">
             <a-space :size="16">
-                <action-button @click="handleSetting">
+                <action-button @click="handleConfig">
                     <setting-outlined></setting-outlined>
                 </action-button>
 
@@ -54,11 +54,8 @@ import { Modal } from 'ant-design-vue'
 import { storeToRefs } from 'pinia'
 import { computed, useSlots } from 'vue'
 import { useRouter } from 'vue-router'
-
 import { LoginOutlined, SettingOutlined, UserOutlined } from '@ant-design/icons-vue'
-
 import { useAppStore, useUserStore } from '@/store'
-
 import ActionButton from './ActionButton.vue'
 
 defineOptions({
@@ -71,11 +68,11 @@ defineOptions({
 const props = defineProps({
     theme: {
         type: String,
-        default: 'light',
     },
 })
-const emit = defineEmits(['setting'])
-const slots = useSlots()
+const emit = defineEmits(['config'])
+
+const slots = useSlots(['default', 'left', 'right'])
 
 const userStore = useUserStore()
 const appStore = useAppStore()
@@ -110,10 +107,10 @@ function handleLogout() {
 }
 
 /**
- * 系统设置
+ * 配置
  */
-function handleSetting() {
-    emit('setting')
+function handleConfig() {
+    emit('config')
 }
 </script>
 
@@ -123,12 +120,10 @@ function handleSetting() {
     line-height: 1;
     z-index: 110;
     position: sticky;
-    padding: 0;
     top: 0;
     display: flex;
     align-items: center;
-    transition: background 0s;
-    box-shadow: 0 0 0 1px @color-split;
+    padding-inline: 16px;
 
     &__left {
         flex-shrink: 0;
@@ -153,10 +148,10 @@ function handleSetting() {
 
     &--light {
         background: #fff;
+        box-shadow: 0 0 0 1px @color-split;
     }
 
     &--dark {
-        background: #001529;
         color: #fff;
 
         :deep(.action-btn) {

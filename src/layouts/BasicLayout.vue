@@ -1,154 +1,193 @@
 <template>
     <a-layout class="layout">
         <template #default>
-            <!-- 侧边菜单 -->
-            <template v-if="config.menuMode === 'side'">
-                <basic-side
-                    v-model:collapsed="collapsed"
-                    :theme="config.sideTheme">
-                    <basic-menu
-                        :data-list="sideMenuList"
-                        :theme="config.sideTheme"></basic-menu>
-                </basic-side>
-                <a-layout>
+            <!-- 上下布局 -->
+            <template v-if="config.layout === 'topBottom'">
+                <!-- 侧边菜单 -->
+                <template v-if="config.menuMode === 'side'">
                     <basic-header
-                        class="px-8-2"
                         :theme="config.headerTheme"
-                        @setting="handleSetting">
+                        @config="$refs.configDialogRef.handleOpen()">
                         <template #left>
-                            <a-space :size="16">
-                                <action-button @click="handleCollapsed">
-                                    <template #icon>
-                                        <component
-                                            :is="collapsed ? MenuUnfoldOutlined : MenuFoldOutlined"
-                                            :style="{ fontSize: '14px' }"></component>
-                                    </template>
-                                </action-button>
-                                <action-button @click="handleBack">
-                                    <template #icon>
-                                        <rollback-outlined :style="{ fontSize: '14px' }"></rollback-outlined>
-                                    </template>
-                                </action-button>
-                            </a-space>
+                            <brand :theme="config.headerTheme"></brand>
                         </template>
                     </basic-header>
-                    <multi-tab v-show="config.multiTab"></multi-tab>
-                    <basic-content></basic-content>
-                </a-layout>
-            </template>
+                    <a-layout>
+                        <basic-side
+                            :theme="config.sideTheme"
+                            :style="{
+                                height: `calc(100vh - ${config.headerHeight}px)`,
+                                top: `${config.headerHeight}px`,
+                            }">
+                            <basic-menu
+                                :theme="config.sideTheme"
+                                :data-list="sideMenuList"></basic-menu>
+                        </basic-side>
+                        <a-layout>
+                            <multi-tab v-if="config.multiTab"></multi-tab>
+                            <basic-content></basic-content>
+                        </a-layout>
+                    </a-layout>
+                </template>
 
-            <!-- 顶部菜单 -->
-            <template v-if="config.menuMode === 'top'">
-                <basic-header
-                    class="px-8-2"
-                    :theme="config.headerTheme"
-                    @setting="handleSetting">
-                    <template #left>
-                        <logo-card
-                            class="mr-8-2"
-                            :theme="config.headerTheme"></logo-card>
-                    </template>
-                    <basic-menu
-                        mode="horizontal"
-                        :data-list="topMenuList"
-                        :theme="config.headerTheme"></basic-menu>
-                </basic-header>
-                <multi-tab v-show="config.multiTab"></multi-tab>
-                <basic-content></basic-content>
-            </template>
-
-            <!-- 混合菜单 -->
-            <template v-if="config.menuMode === 'mix'">
-                <basic-header
-                    class="pr-8-2"
-                    :theme="config.headerTheme"
-                    @setting="handleSetting">
-                    <template #left>
-                        <logo-card
+                <!-- 混合菜单 -->
+                <template v-if="config.menuMode === 'mix'">
+                    <basic-header
+                        :theme="config.headerTheme"
+                        @config="$refs.configDialogRef.handleOpen()">
+                        <template #left>
+                            <brand :theme="config.headerTheme"></brand>
+                        </template>
+                        <basic-menu
+                            mode="horizontal"
                             :theme="config.headerTheme"
-                            :style="{ width: `${config.sideWidth}px` }"></logo-card>
-                    </template>
-                    <basic-menu
-                        mode="horizontal"
-                        :data-list="topMenuList"
-                        :theme="config.headerTheme"></basic-menu>
-                </basic-header>
-                <a-layout>
+                            :data-list="topMenuList"></basic-menu>
+                    </basic-header>
+                    <a-layout>
+                        <template v-if="sideMenuList.length">
+                            <basic-side
+                                :theme="config.sideTheme"
+                                :style="{
+                                    height: `calc(100vh - ${config.headerHeight}px)`,
+                                    top: `${config.headerHeight}px`,
+                                }">
+                                <basic-menu
+                                    :theme="config.sideTheme"
+                                    :data-list="sideMenuList"></basic-menu>
+                            </basic-side>
+                        </template>
+                        <a-layout>
+                            <multi-tab v-if="config.multiTab"></multi-tab>
+                            <basic-content></basic-content>
+                        </a-layout>
+                    </a-layout>
+                </template>
+            </template>
+
+            <!-- 左右布局 -->
+            <template v-if="config.layout === 'leftRight'">
+                <!-- 侧边菜单 -->
+                <template v-if="config.menuMode === 'side'">
                     <basic-side
-                        v-if="sideMenuList.length"
                         :theme="config.sideTheme"
-                        :show-header="false"
+                        :collapsed="collapsed"
                         :style="{
-                            top: `${config.headerHeight}px`,
-                            height: `calc(100vh - ${config.headerHeight}px)`,
+                            height: `100vh`,
+                            top: 0,
                         }">
+                        <template #header>
+                            <brand :theme="config.sideTheme"></brand>
+                        </template>
                         <basic-menu
                             :theme="config.sideTheme"
                             :data-list="sideMenuList"></basic-menu>
                     </basic-side>
                     <a-layout>
-                        <multi-tab v-show="config.multiTab"></multi-tab>
+                        <basic-header
+                            :theme="config.headerTheme"
+                            @config="$refs.configDialogRef.handleOpen()">
+                            <template #left>
+                                <action-button @click="handleCollapsed">
+                                    <component :is="collapsed ? MenuUnfoldOutlined : MenuFoldOutlined"></component>
+                                </action-button>
+                            </template>
+                        </basic-header>
+                        <multi-tab v-if="config.multiTab"></multi-tab>
                         <basic-content></basic-content>
                     </a-layout>
-                </a-layout>
+                </template>
+                <!-- 混合菜单 -->
+                <template v-if="config.menuMode === 'mix'">
+                    <basic-side
+                        :theme="config.sideTheme"
+                        :collapsed="collapsed"
+                        :style="{
+                            height: `100vh`,
+                            top: 0,
+                        }">
+                        <template #header>
+                            <brand :theme="config.sideTheme"></brand>
+                        </template>
+                        <basic-menu
+                            :theme="config.sideTheme"
+                            :data-list="sideMenuList"></basic-menu>
+                    </basic-side>
+                    <a-layout>
+                        <basic-header
+                            :theme="config.headerTheme"
+                            @config="$refs.configDialogRef.handleOpen()">
+                            <template #left>
+                                <action-button @click="handleCollapsed">
+                                    <component :is="collapsed ? MenuUnfoldOutlined : MenuFoldOutlined"></component>
+                                </action-button>
+                            </template>
+                            <basic-menu
+                                mode="horizontal"
+                                :theme="config.headerTheme"
+                                :data-list="topMenuList"></basic-menu>
+                        </basic-header>
+                        <multi-tab v-if="config.multiTab"></multi-tab>
+                        <basic-content></basic-content>
+                    </a-layout>
+                </template>
+            </template>
+
+            <!-- 顶部菜单，不区分布局方式 -->
+            <template v-if="config.menuMode === 'top'">
+                <basic-header
+                    :theme="config.headerTheme"
+                    @config="$refs.configDialogRef.handleOpen()">
+                    <template #left>
+                        <brand :theme="config.headerTheme"></brand>
+                    </template>
+                    <basic-menu
+                        mode="horizontal"
+                        :theme="config.headerTheme"
+                        :data-list="topMenuList"></basic-menu>
+                </basic-header>
+                <multi-tab v-if="config.multiTab"></multi-tab>
+                <basic-content></basic-content>
             </template>
         </template>
     </a-layout>
 
-    <global-setting-dialog ref="globalSettingDialogRef"></global-setting-dialog>
+    <config-dialog ref="configDialogRef"></config-dialog>
 </template>
 
 <script setup>
 import { storeToRefs } from 'pinia'
 import { ref } from 'vue'
-import { useRouter } from 'vue-router'
-
-import { RollbackOutlined, MenuUnfoldOutlined, MenuFoldOutlined } from '@ant-design/icons-vue'
-
+import { MenuUnfoldOutlined, MenuFoldOutlined } from '@ant-design/icons-vue'
 import { useAppStore } from '@/store'
-
+import useMultiTab from './hooks/useMultiTab'
+import useMenu from './hooks/useMenu'
 import ActionButton from './components/ActionButton.vue'
 import BasicContent from './components/BasicContent.vue'
 import BasicHeader from './components/BasicHeader.vue'
 import BasicMenu from './components/BasicMenu.vue'
 import BasicSide from './components/BasicSide.vue'
-import GlobalSettingDialog from './components/GlobalSettingDialog.vue'
-import LogoCard from './components/LogoCard.vue'
+import Brand from './components/Brand.vue'
 import MultiTab from './components/MultiTab.vue'
-import useMenu from './hooks/useMenu'
+import ConfigDialog from './components/ConfigDialog.vue'
 
 defineOptions({
     name: 'BasicLayout',
 })
 
+useMultiTab()
 const appStore = useAppStore()
-const router = useRouter()
 const { sideMenuList, topMenuList } = useMenu()
 
 const { config } = storeToRefs(appStore)
 
 const collapsed = ref(false)
-const globalSettingDialogRef = ref()
+const configDialogRef = ref()
 
 /**
  * 左侧菜单展开/收起
  */
 function handleCollapsed() {
     collapsed.value = !collapsed.value
-}
-
-/**
- * 返回
- */
-function handleBack() {
-    router.back()
-}
-
-/**
- * 设置
- */
-function handleSetting() {
-    globalSettingDialogRef.value.handleOpen()
 }
 </script>
 

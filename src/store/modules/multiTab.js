@@ -177,12 +177,7 @@ const useMultiTabStore = defineStore('multiTab', {
          * @constructor
          */
         _setList({ index, length, value }) {
-            // 判断是否禁用了标签页
             const appStore = useAppStore()
-            if (!appStore.config.multiTab) {
-                this.cacheList = []
-                return
-            }
             // 判断是否第一个标签页
             if (this.list.length) {
                 // 不是第一个标签页，判断是删除还是替换
@@ -196,6 +191,11 @@ const useMultiTabStore = defineStore('multiTab', {
             } else {
                 // 是第一个标签页
                 this.list.push(value)
+            }
+            // 判断是否禁用了标签页
+            if (!appStore.config.multiTab) {
+                this.cacheList = []
+                return
             }
             // 更新缓存列表
             this.cacheList = this.list.filter((item) => item?.meta?.keepAlive).map((item) => item.name)

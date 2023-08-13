@@ -1,17 +1,13 @@
 <template>
     <a-layout-sider
+        breakpoint="lg"
+        class="basic-side"
         :collapsed="collapsed"
         :collapsed-width="config.sideCollapsedWidth"
         :theme="theme"
-        :width="config.sideWidth"
-        breakpoint="lg"
-        class="basic-side">
-        <div
-            v-if="showHeader"
-            class="basic-side__header">
-            <logo-card
-                :collapsed="collapsed"
-                :theme="theme"></logo-card>
+        :width="config.sideWidth">
+        <div class="basic-side__header">
+            <slot name="header"></slot>
         </div>
         <div
             v-if="cpShowDefaultSlot"
@@ -31,8 +27,6 @@ import { storeToRefs } from 'pinia'
 import { computed, useSlots } from 'vue'
 
 import { useAppStore } from '@/store'
-
-import LogoCard from './LogoCard.vue'
 
 defineOptions({
     name: 'BasicSide',
@@ -68,17 +62,19 @@ const cpShowFooterSlot = computed(() => !!slots.footer)
 <style lang="less" scoped>
 .basic-side {
     position: sticky;
-    left: 0;
-    top: 0;
-    height: 100vh;
-    z-index: 100;
-    overflow: hidden;
-    border-right: @color-split solid 1px;
 
     :deep(.ant-layout-sider-children) {
         height: 100%;
         display: flex;
         flex-direction: column;
+    }
+
+    &.ant-layout-sider-light {
+        border-right: @color-split solid 1px;
+    }
+
+    &.ant-layout-sider-dark {
+        z-index: 120;
     }
 
     &__header {
@@ -97,6 +93,14 @@ const cpShowFooterSlot = computed(() => !!slots.footer)
 
     &__footer {
         flex-shrink: 0;
+    }
+
+    &.ant-layout-sider-collapsed {
+        :deep(.brand) {
+            h1 {
+                display: none;
+            }
+        }
     }
 }
 </style>

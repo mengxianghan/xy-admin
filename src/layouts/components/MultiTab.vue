@@ -69,13 +69,11 @@
 <script setup>
 import Sortable from 'sortablejs'
 import { computed, nextTick, onMounted, ref } from 'vue'
-import { onBeforeRouteUpdate, useRouter } from 'vue-router'
+import { useRouter } from 'vue-router'
 import { storeToRefs } from 'pinia'
-
 import { CloseOutlined, ReloadOutlined } from '@ant-design/icons-vue'
-
-import useMultiTab from '@/hooks/useMultiTab'
 import { useMultiTabStore, useAppStore } from '@/store'
+import useMultiTab from '@/hooks/useMultiTab'
 
 defineOptions({
     name: 'MultiTab',
@@ -85,8 +83,6 @@ const multiTabStore = useMultiTabStore()
 const appStore = useAppStore()
 const router = useRouter()
 const {
-    getSimpleRoute,
-    open,
     close: handleClose,
     closeLeft: handleCloseLeft,
     closeRight: handleCloseRight,
@@ -101,15 +97,7 @@ const multiTabRef = ref()
 const multiTabList = computed(() => multiTabStore.list)
 const current = computed(() => multiTabStore.current)
 
-/**
- * 路由发生变化
- */
-onBeforeRouteUpdate((to) => {
-    open(getSimpleRoute(to))
-})
-
 onMounted(async () => {
-    open(getSimpleRoute(router.currentRoute.value))
     await nextTick()
     initDragSort()
 })
@@ -166,8 +154,12 @@ function initDragSort() {
     :deep(.ant-tabs) {
         &.ant-tabs-top {
             .ant-tabs-nav {
-                padding: 0 16px;
-                margin: 0;
+                padding-inline: 16px;
+                margin-bottom: 8px;
+
+                .ant-tabs-tab {
+                    border-bottom: none;
+                }
             }
         }
     }

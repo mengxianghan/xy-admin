@@ -6,4 +6,5 @@ export default {
     token: 'token',
     userInfo: 'user_info',
     permission: 'permission',
+    config: 'config',
 }
