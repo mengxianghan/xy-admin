@@ -52,7 +52,7 @@
                     :columns="columns"
                     :data-source="userList"
                     :loading="loading"
-                    :pagination="pagination"
+                    :pagination="paginationState"
                     @change="onTableChange">
                     <template #bodyCell="{ column, record }">
                         <template v-if="'avatar' === column.key">
@@ -86,7 +86,7 @@ defineOptions({
     name: 'systemUser',
 })
 
-const { loading, pagination, resetPagination } = usePagination()
+const { loading, paginationState, resetPagination } = usePagination()
 const roleLoading = ref(false)
 const roleList = ref([])
 const selectedKeys = ref(['0'])
@@ -134,7 +134,7 @@ async function getUserRoleList() {
  */
 async function getUserPageList() {
     loading.value = true
-    const { pageSize, current } = pagination
+    const { pageSize, current } = paginationState
     const { code, data } = await apis.system
         .getUserPageList({
             pageSize,
@@ -147,7 +147,7 @@ async function getUserPageList() {
     if (config('http.code.success') === code) {
         const { rows, total } = data
         userList.value = rows
-        pagination.total = total
+        paginationState.total = total
     }
 }
 
@@ -189,8 +189,8 @@ function handleDelete({ id }) {
  * 分页
  */
 function onTableChange({ current, pageSize }) {
-    pagination.current = current
-    pagination.pageSize = pageSize
+    paginationState.current = current
+    paginationState.pageSize = pageSize
     getUserPageList()
 }
 </script>

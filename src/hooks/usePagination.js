@@ -4,7 +4,7 @@ export default (options = {}) => {
     const loading = ref(false)
     const list = ref([])
     const searchForm = ref({})
-    const pagination = reactive({
+    const paginationState = reactive({
         total: 0,
         current: 1,
         pageSize: 10,
@@ -19,8 +19,8 @@ export default (options = {}) => {
      * 重置分页
      */
     function resetPagination() {
-        pagination.total = 0
-        pagination.current = 1
+        paginationState.total = 0
+        paginationState.current = 1
     }
 
     /**
@@ -29,16 +29,16 @@ export default (options = {}) => {
      * @param {number} count 受影响数量
      */
     function refreshPagination(count = 1) {
-        const { total, current, pageSize } = pagination
+        const { total, current, pageSize } = paginationState
         const totalPage = Math.ceil((total - count) / pageSize)
-        pagination.current = current > totalPage ? totalPage : current
+        paginationState.current = current > totalPage ? totalPage : current
     }
 
     return {
         loading,
         list,
         searchForm,
-        pagination,
+        paginationState,
         resetPagination,
         refreshPagination,
     }

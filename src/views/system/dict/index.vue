@@ -48,7 +48,7 @@
                         :columns="columns"
                         :data-source="list"
                         :loading="loading"
-                        :pagination="pagination"
+                        :pagination="paginationState"
                         :row-selection="{ selectedRowKeys: selectedRowKeys, onChange: onSelectChange }"
                         row-key="id"
                         @change="onTableChange">
@@ -88,7 +88,7 @@ defineOptions({
     name: 'systemDict',
 })
 
-const { list, pagination, loading, resetPagination, searchForm } = usePagination()
+const { list, paginationState, loading, resetPagination, searchForm } = usePagination()
 const selectedRowKeys = ref([])
 const editRef = ref()
 const dictTypeInfo = ref(null)
@@ -104,7 +104,7 @@ const columns = [
  * 获取分页列表
  */
 async function getPageList() {
-    const { pageSize, current } = pagination
+    const { pageSize, current } = paginationState
     loading.value = true
     const { code, data } = await apis.common
         .getPageList({
@@ -118,7 +118,7 @@ async function getPageList() {
     loading.value = false
     if (config('http.code.success') === code) {
         list.value = data.rows
-        pagination.total = data.total
+        paginationState.total = data.total
     }
 }
 
@@ -162,8 +162,8 @@ async function handleDelete({ id }) {
  * @param pageSize
  */
 function onTableChange({ current, pageSize }) {
-    pagination.current = current
-    pagination.pageSize = pageSize
+    paginationState.current = current
+    paginationState.pageSize = pageSize
     getPageList()
 }
 

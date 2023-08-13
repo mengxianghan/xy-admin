@@ -118,7 +118,7 @@
             :columns="columns"
             :data-source="list"
             :loading="loading"
-            :pagination="pagination"
+            :pagination="paginationState"
             :size="size"
             row-key="id"
             @change="onTableChange">
@@ -180,7 +180,7 @@ const columns = [
     { title: '状态', dataIndex: 'status' },
     { title: '操作', key: 'action', width: 180 },
 ]
-const { list, pagination, loading, resetPagination, searchForm } = usePagination()
+const { list, paginationState, loading, resetPagination, searchForm } = usePagination()
 const editDialogRef = ref()
 const searchBarExpand = ref(false)
 const size = ref('default')
@@ -193,7 +193,7 @@ onMounted(() => {
  * 获取分页列表
  */
 async function getPageList() {
-    const { pageSize, current } = pagination
+    const { pageSize, current } = paginationState
     loading.value = true
     const { code, data } = await apis.common
         .getPageList({
@@ -206,7 +206,7 @@ async function getPageList() {
     loading.value = false
     if (config('http.code.success') === code) {
         list.value = data.rows
-        pagination.total = data.total
+        paginationState.total = data.total
     }
 }
 
@@ -254,8 +254,8 @@ function handleSize({ key }) {
  * @param pageSize
  */
 function onTableChange({ current, pageSize }) {
-    pagination.current = current
-    pagination.pageSize = pageSize
+    paginationState.current = current
+    paginationState.pageSize = pageSize
     getPageList()
 }
 

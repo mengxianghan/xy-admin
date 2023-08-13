@@ -4,7 +4,7 @@
         item-layout="vertical"
         :data-source="list"
         :loading="loading"
-        :pagination="pagination">
+        :pagination="paginationState">
         <template #renderItem="{ item }">
             <a-list-item key="item.title">
                 <template #actions>
@@ -51,11 +51,11 @@ defineOptions({
     name: 'ArticleList',
 })
 
-const { list, loading, pagination } = usePagination()
+const { list, loading, paginationState } = usePagination()
 
-pagination.onChange = (page, pageSize) => {
-    pagination.current = page
-    pagination.pageSize = pageSize
+paginationState.onChange = (page, pageSize) => {
+    paginationState.current = page
+    paginationState.pageSize = pageSize
     getPageList()
 }
 
@@ -65,7 +65,7 @@ getPageList()
  * 获取分页列表
  */
 async function getPageList() {
-    const { pageSize, current } = pagination
+    const { pageSize, current } = paginationState
     loading.value = true
     const { code, data } = await apis.common
         .getPageList({
@@ -78,7 +78,7 @@ async function getPageList() {
     loading.value = false
     if (config('http.code.success') === code) {
         list.value = data.rows
-        pagination.total = data.total
+        paginationState.total = data.total
     }
 }
 </script>

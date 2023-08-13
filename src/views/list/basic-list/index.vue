@@ -43,7 +43,7 @@
         <a-list
             item-layout="horizontal"
             :data-source="list"
-            :pagination="pagination"
+            :pagination="paginationState"
             :loading="loading">
             <template #renderItem="{ item }">
                 <a-list-item>
@@ -118,12 +118,12 @@ defineOptions({
     name: 'listBasicList',
 })
 
-const { list, pagination, loading, resetPagination, searchForm } = usePagination()
+const { list, paginationState, loading, resetPagination, searchForm } = usePagination()
 const editDialogRef = ref()
 
-pagination.onChange = (page, pageSize) => {
-    pagination.current = page
-    pagination.pageSize = pageSize
+paginationState.onChange = (page, pageSize) => {
+    paginationState.current = page
+    paginationState.pageSize = pageSize
     getPageList()
 }
 
@@ -139,7 +139,7 @@ onMounted(() => {
  * 获取分页列表
  */
 async function getPageList() {
-    const { pageSize, current } = pagination
+    const { pageSize, current } = paginationState
     loading.value = true
     const { code, data } = await apis.common
         .getPageList({
@@ -152,7 +152,7 @@ async function getPageList() {
     loading.value = false
     if (config('http.code.success') === code) {
         list.value = data.rows
-        pagination.total = data.total
+        paginationState.total = data.total
     }
 }
 
