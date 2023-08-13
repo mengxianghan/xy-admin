@@ -4,7 +4,7 @@ import { useRoute, useRouter } from 'vue-router'
 
 import { useAppStore, useRouterStore } from '@/store'
 import { storeToRefs } from 'pinia'
-import { getIndexRoute } from '../../router/util'
+import { getFirstValidRoute } from '../../router/util'
 
 export default () => {
     const appStore = useAppStore()
@@ -38,7 +38,7 @@ export default () => {
                             click: (res) => {
                                 sideMenuList.value = res?.props?.children || []
                                 // 获取侧边栏第一个有效路由
-                                const firstRoute = getIndexRoute(sideMenuList.value)
+                                const firstRoute = getFirstValidRoute(sideMenuList.value)
                                 if (firstRoute) {
                                     // 如果第一个路由是外部链接，则不跳转
                                     if (firstRoute?.meta?._isLink) return
