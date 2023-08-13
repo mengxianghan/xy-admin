@@ -1,7 +1,8 @@
 <template>
     <a-layout-header
         class="basic-header"
-        :class="cpClassNames">
+        :class="cpClassNames"
+        :style="cpStyles">
         <!-- 左侧 -->
         <div
             v-if="cpShowLeftSlot"
@@ -83,6 +84,17 @@ const { config } = storeToRefs(appStore)
 const cpClassNames = computed(() => ({
     [`basic-header--${props.theme}`]: true,
 }))
+const cpStyles = computed(() => {
+    const styles = {
+        zIndex: config.value.layout === 'topBottom' ? 120 : 110,
+    }
+
+    if (!config.value.multiTab) {
+        styles.boxShadow = ' 0 1px 4px rgba(0, 21, 41, 0.08)'
+    }
+
+    return styles
+})
 const cpShowLeftSlot = computed(() => !!slots.left)
 const cpShowDefaultSlot = computed(() => !!slots.default)
 const cpIsLogin = computed(() => userStore.isLogin)
@@ -118,7 +130,6 @@ function handleConfig() {
 .basic-header {
     height: v-bind('config.headerHeight + "px"');
     line-height: 1;
-    z-index: 110;
     position: sticky;
     top: 0;
     display: flex;
@@ -127,6 +138,8 @@ function handleConfig() {
 
     &__left {
         flex-shrink: 0;
+        display: flex;
+        align-items: center;
     }
 
     &__center {
@@ -148,7 +161,6 @@ function handleConfig() {
 
     &--light {
         background: #fff;
-        box-shadow: 0 0 0 1px @color-split;
     }
 
     &--dark {

@@ -70,7 +70,6 @@
                 <template v-if="config.menuMode === 'side'">
                     <basic-side
                         :theme="config.sideTheme"
-                        :collapsed="collapsed"
                         :style="{
                             height: `100vh`,
                             top: 0,
@@ -86,11 +85,6 @@
                         <basic-header
                             :theme="config.headerTheme"
                             @config="$refs.configDialogRef.handleOpen()">
-                            <template #left>
-                                <action-button @click="handleCollapsed">
-                                    <component :is="collapsed ? MenuUnfoldOutlined : MenuFoldOutlined"></component>
-                                </action-button>
-                            </template>
                         </basic-header>
                         <multi-tab v-if="config.multiTab"></multi-tab>
                         <basic-content></basic-content>
@@ -100,7 +94,6 @@
                 <template v-if="config.menuMode === 'mix'">
                     <basic-side
                         :theme="config.sideTheme"
-                        :collapsed="collapsed"
                         :style="{
                             height: `100vh`,
                             top: 0,
@@ -116,11 +109,6 @@
                         <basic-header
                             :theme="config.headerTheme"
                             @config="$refs.configDialogRef.handleOpen()">
-                            <template #left>
-                                <action-button @click="handleCollapsed">
-                                    <component :is="collapsed ? MenuUnfoldOutlined : MenuFoldOutlined"></component>
-                                </action-button>
-                            </template>
                             <basic-menu
                                 mode="horizontal"
                                 :theme="config.headerTheme"
@@ -157,11 +145,9 @@
 <script setup>
 import { storeToRefs } from 'pinia'
 import { ref } from 'vue'
-import { MenuUnfoldOutlined, MenuFoldOutlined } from '@ant-design/icons-vue'
 import { useAppStore } from '@/store'
 import useMultiTab from './hooks/useMultiTab'
 import useMenu from './hooks/useMenu'
-import ActionButton from './components/ActionButton.vue'
 import BasicContent from './components/BasicContent.vue'
 import BasicHeader from './components/BasicHeader.vue'
 import BasicMenu from './components/BasicMenu.vue'
@@ -180,15 +166,7 @@ const { sideMenuList, topMenuList } = useMenu()
 
 const { config } = storeToRefs(appStore)
 
-const collapsed = ref(false)
 const configDialogRef = ref()
-
-/**
- * 左侧菜单展开/收起
- */
-function handleCollapsed() {
-    collapsed.value = !collapsed.value
-}
 </script>
 
 <style lang="less" scoped>

@@ -2,10 +2,17 @@
     <a-layout-sider
         breakpoint="lg"
         class="basic-side"
-        :collapsed="collapsed"
+        v-model:collapsed="collapsed"
+        :style="cpStyles"
+        :collapsible="true"
         :collapsed-width="config.sideCollapsedWidth"
         :theme="theme"
         :width="config.sideWidth">
+        <template #trigger>
+            <div class="basic-side__trigger">
+                <component :is="collapsed ? MenuUnfoldOutlined : MenuFoldOutlined"></component>
+            </div>
+        </template>
         <div class="basic-side__header">
             <slot name="header"></slot>
         </div>
@@ -24,8 +31,8 @@
 
 <script setup>
 import { storeToRefs } from 'pinia'
-import { computed, useSlots } from 'vue'
-
+import { computed, useSlots, ref } from 'vue'
+import { MenuUnfoldOutlined, MenuFoldOutlined } from '@ant-design/icons-vue'
 import { useAppStore } from '@/store'
 
 defineOptions({
@@ -33,16 +40,11 @@ defineOptions({
 })
 
 /**
- * @property {boolean} collapsed 当前收起状态
  * @property {boolean} showHeader 显示头部
  */
 defineProps({
     theme: {
         type: String,
-    },
-    collapsed: {
-        type: Boolean,
-        default: false,
     },
     showHeader: {
         type: Boolean,
@@ -55,6 +57,15 @@ const appStore = useAppStore()
 
 const { config } = storeToRefs(appStore)
 
+const collapsed = ref(false)
+
+const cpStyles = computed(() => {
+    const styles = {
+        zIndex: config.value.layout === 'topBottom' ? 110 : 120,
+    }
+
+    return styles
+})
 const cpShowDefaultSlot = computed(() => !!slots.default)
 const cpShowFooterSlot = computed(() => !!slots.footer)
 </script>
@@ -62,19 +73,12 @@ const cpShowFooterSlot = computed(() => !!slots.footer)
 <style lang="less" scoped>
 .basic-side {
     position: sticky;
+    box-shadow: 2px 0 8px rgba(29, 35, 41, 0.05);
 
     :deep(.ant-layout-sider-children) {
         height: 100%;
         display: flex;
         flex-direction: column;
-    }
-
-    &.ant-layout-sider-light {
-        border-right: @color-split solid 1px;
-    }
-
-    &.ant-layout-sider-dark {
-        z-index: 120;
     }
 
     &__header {
@@ -100,6 +104,26 @@ const cpShowFooterSlot = computed(() => !!slots.footer)
             h1 {
                 display: none;
             }
+        }
+    }
+
+    :deep(.ant-layout-sider-trigger) {
+        background: transparent;
+        height: auto;
+        line-height: 1;
+        padding: 4px;
+    }
+
+    &__trigger {
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: @border-radius;
+        transition: all 0.2s;
+
+        &:hover {
+            background: @color-bg-text-hover;
         }
     }
 }

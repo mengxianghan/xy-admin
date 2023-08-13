@@ -139,7 +139,7 @@ function initDragSort() {
     background: #fff;
     position: sticky;
     top: v-bind('config.headerHeight + "px"');
-    z-index: 10;
+    z-index: 100;
     padding: 8px 0 0;
 
     &__icon {
