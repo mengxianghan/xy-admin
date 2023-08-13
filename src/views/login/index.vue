@@ -6,12 +6,12 @@
                 key="account"
                 tab="账号登录">
                 <a-form
-                    :model="formState"
+                    :model="formData"
                     :rules="formRules"
                     ref="formRef">
                     <a-form-item name="username">
                         <a-input
-                            v-model:value="formState.username"
+                            v-model:value="formData.username"
                             size="large"
                             placeholder="admin">
                             <template #prefix>
@@ -21,7 +21,7 @@
                     </a-form-item>
                     <a-form-item name="password">
                         <a-input
-                            v-model:value="formState.password"
+                            v-model:value="formData.password"
                             size="large"
                             type="password"
                             placeholder="123456"
@@ -48,12 +48,12 @@
                 key="phone"
                 tab="手机号登录">
                 <a-form
-                    :model="formState"
+                    :model="formData"
                     :rules="formRules"
                     ref="formRef">
                     <a-form-item name="username">
                         <a-input
-                            v-model:value="formState.username"
+                            v-model:value="formData.username"
                             size="large"
                             placeholder="手机号码">
                             <template #prefix>
@@ -63,7 +63,7 @@
                     </a-form-item>
                     <a-form-item name="msgCode">
                         <a-input
-                            v-model:value="formState.password"
+                            v-model:value="formData.password"
                             size="large"
                             placeholder="短信验证码"
                             @pressEnter="handleLogin">
@@ -119,7 +119,7 @@ defineOptions({
     name: 'login',
 })
 
-const { formState, formRef, formRules } = useForm()
+const { formData, formRef, formRules } = useForm()
 const appStore = useAppStore()
 const userStore = useUserStore()
 const routerStore = useRouterStore()

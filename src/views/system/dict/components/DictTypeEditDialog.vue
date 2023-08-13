@@ -9,24 +9,24 @@
         @cancel="handleCancel">
         <a-form
             ref="formRef"
-            :model="formState"
+            :model="formData"
             :rules="formRules"
             scroll-to-first-error
             :label-col="{ style: { width: '100px' } }">
             <a-form-item
                 label="所属上级"
                 name="parent">
-                <a-tree-select v-model:value="formState.parent"></a-tree-select>
+                <a-tree-select v-model:value="formData.parent"></a-tree-select>
             </a-form-item>
             <a-form-item
                 label="名称"
                 name="name">
-                <a-input v-model:value="formState.name"></a-input>
+                <a-input v-model:value="formData.name"></a-input>
             </a-form-item>
             <a-form-item
                 label="编码"
                 name="code">
-                <a-input v-model:value="formState.code"></a-input>
+                <a-input v-model:value="formData.code"></a-input>
             </a-form-item>
         </a-form>
     </a-modal>
@@ -45,14 +45,14 @@ defineOptions({
 const emit = defineEmits(['ok'])
 
 const { modal, showModal, hideModal, showLoading, hideLoading } = useModal()
-const { formRef, formRules, formRecord, formState, resetForm } = useForm()
+const { formRef, formRules, formRecord, formData, resetForm } = useForm()
 
 formRules.value = {
     name: { required: true, message: '请输入名称' },
     code: { required: true, message: '请输入编码' },
 }
 
-formState.value = {
+formData.value = {
     valid: true,
 }
 
@@ -72,7 +72,7 @@ function handleEdit(record) {
     showModal({
         title: '编辑分类',
     })
-    formState.value = cloneDeep(record)
+    formData.value = cloneDeep(record)
     formRecord.value = record
 }
 

@@ -15,35 +15,35 @@
         @cancel="handleCancel">
         <a-form
             ref="formRef"
-            :model="formState"
+            :model="formData"
             :rules="formRules"
             :label-col="{ style: { width: '90px' } }">
             <a-form-item
                 label="头像"
                 name="avatar">
                 <x-upload-image
-                    v-model="formState.avatar"
+                    v-model="formData.avatar"
                     :disabled="disabled"></x-upload-image>
             </a-form-item>
             <a-form-item
                 label="登录帐号"
                 name="userName">
                 <a-input
-                    v-model:value="formState.userName"
+                    v-model:value="formData.userName"
                     :disabled="disabled"></a-input>
             </a-form-item>
             <a-form-item
                 label="姓名"
                 name="name">
                 <a-input
-                    v-model:value="formState.name"
+                    v-model:value="formData.name"
                     :disabled="disabled"></a-input>
             </a-form-item>
             <a-form-item
                 label="所属角色"
                 name="role">
                 <a-cascader
-                    v-model:value="formState.role"
+                    v-model:value="formData.role"
                     placeholder=""
                     multiple
                     max-tag-count="responsive"
@@ -67,7 +67,7 @@ import useModal from '@/hooks/useModal'
 const emit = defineEmits(['ok'])
 
 const { modal, showModal, hideModal, showLoading, hideLoading } = useModal()
-const { formRecord, formState, formRef, formRules, resetForm } = useForm()
+const { formRecord, formData, formRef, formRules, resetForm } = useForm()
 const disabled = ref(false)
 const cancelText = ref('取消')
 const roleList = ref([])
@@ -109,7 +109,7 @@ function handleEdit(record) {
         type: 'edit',
         title: '编辑用户',
     })
-    formState.value = {
+    formData.value = {
         ...cloneDeep(record),
         role: [],
     }
@@ -125,7 +125,7 @@ function handlePreview(record) {
         type: 'preview',
         title: '查看用户',
     })
-    formState.value = cloneDeep(record)
+    formData.value = cloneDeep(record)
     disabled.value = true
     cancelText.value = '关闭'
     getUserRoleList()
@@ -140,7 +140,7 @@ function handleOk() {
         .then(async (values) => {
             showLoading()
             const params = {
-                id: formState.value?.id,
+                id: formData.value?.id,
                 ...values,
             }
             let result = null

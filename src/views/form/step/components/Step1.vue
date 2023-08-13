@@ -1,7 +1,7 @@
 <template>
     <div>
         <a-form
-            :model="formState"
+            :model="formData"
             :label-col="{ lg: { span: 5 }, sm: { span: 5 } }"
             :wrapper-col="{ lg: { span: 19 }, sm: { span: 19 } }"
             ref="formRef"
@@ -10,7 +10,7 @@
                 label="付款账户"
                 name="paymentUser">
                 <a-select
-                    v-model:value="formState.paymentUser"
+                    v-model:value="formData.paymentUser"
                     placeholder="******@***.com">
                     <a-select-option value="1">******@***.com</a-select-option>
                 </a-select>
@@ -30,20 +30,20 @@
                         </a-select>
                     </a-form-item-rest>
                     <a-input
-                        v-model:value="formState.payType"
+                        v-model:value="formData.payType"
                         :style="{ width: 'calc(100% - 100px)' }" />
                 </a-input-group>
             </a-form-item>
             <a-form-item
                 label="收款人姓名"
                 name="name">
-                <a-input v-model:value="formState.name" />
+                <a-input v-model:value="formData.name" />
             </a-form-item>
             <a-form-item
                 label="转账金额"
                 name="money">
                 <a-input
-                    v-model:value="formState.money"
+                    v-model:value="formData.money"
                     prefix="￥" />
             </a-form-item>
             <a-form-item :wrapper-col="{ span: 19, offset: 5 }">
@@ -78,7 +78,7 @@ defineOptions({
 
 const emit = defineEmits(['next'])
 
-const { formState, formRef, formRules } = useForm()
+const { formData, formRef, formRules } = useForm()
 
 formRules.value = {
     paymentUser: [{ required: true, message: '付款账户必须填写' }],

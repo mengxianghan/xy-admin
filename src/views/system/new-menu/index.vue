@@ -21,15 +21,15 @@
                     type="flex">
                     <a-form
                         :label-col="{ style: { width: '100px' } }"
-                        :model="formState">
+                        :model="formData">
                         <a-form-item
                             label="名称"
                             name="name">
-                            <a-input v-model:value="formState.name"></a-input>
+                            <a-input v-model:value="formData.name"></a-input>
                         </a-form-item>
                         <a-form-item label="所属上级">
                             <a-tree-select
-                                v-model:value="formState.parent_id"
+                                v-model:value="formData.parent_id"
                                 :field-names="{ children: 'children', label: 'name', key: 'key', value: 'key' }"
                                 :tree-data="menuList"
                                 tree-default-expand-all></a-tree-select>
@@ -38,7 +38,7 @@
                             label="类型"
                             name="type">
                             <a-radio-group
-                                v-model:value="formState.type"
+                                v-model:value="formData.type"
                                 :options="[
                                     { label: '菜单', value: 1 },
                                     { label: 'iframe', value: 2 },
@@ -49,39 +49,39 @@
                             extra="系统唯一且与内置组件名一致，否则导致缓存失效"
                             label="别名"
                             name="alias">
-                            <a-input v-model:value="formState.alias"></a-input>
+                            <a-input v-model:value="formData.alias"></a-input>
                         </a-form-item>
                         <a-form-item
                             label="图标"
                             name="icon">
-                            <a-input v-model:value="formState.icon"></a-input>
+                            <a-input v-model:value="formData.icon"></a-input>
                         </a-form-item>
                         <a-form-item
                             label="路由地址"
                             name="path">
-                            <a-input v-model:value="formState.path"></a-input>
+                            <a-input v-model:value="formData.path"></a-input>
                         </a-form-item>
                         <a-form-item
                             label="重定向"
                             name="redirect">
-                            <a-input v-model:value="formState.redirect"></a-input>
+                            <a-input v-model:value="formData.redirect"></a-input>
                         </a-form-item>
                         <a-form-item
                             label="视图地址"
                             name="view">
-                            <a-input v-model:value="formState.view"></a-input>
+                            <a-input v-model:value="formData.view"></a-input>
                         </a-form-item>
                         <a-form-item
                             extra="子节点或详情页需要高亮的上级菜单别名"
                             label="菜单高亮"
                             name="active">
-                            <a-input v-model:value="formState.active"></a-input>
+                            <a-input v-model:value="formData.active"></a-input>
                         </a-form-item>
                         <a-form-item
                             extra="不显示在导航中，但依然可以访问，例如详情页"
                             label="隐藏"
                             name="is_menu">
-                            <a-switch v-model:checked="formState.is_menu"></a-switch>
+                            <a-switch v-model:checked="formData.is_menu"></a-switch>
                         </a-form-item>
                         <a-form-item
                             :colon="false"
@@ -132,7 +132,7 @@ defineOptions({
     name: 'systemNewMenu',
 })
 
-const { formState } = useForm()
+const { formData } = useForm()
 const authList = ref([{ name: '新增', alias: 'insert' }])
 const menuList = ref([])
 const menuInfo = ref(null)

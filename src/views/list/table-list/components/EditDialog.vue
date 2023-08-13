@@ -10,12 +10,12 @@
             ref="formRef"
             scroll-to-first-error
             layout="vertical"
-            :model="formState"
+            :model="formData"
             :rules="formRules">
             <a-form-item
                 label="标题"
                 name="title">
-                <a-input v-model:value="formState.title"></a-input>
+                <a-input v-model:value="formData.title"></a-input>
             </a-form-item>
         </a-form>
     </a-modal>
@@ -31,7 +31,7 @@ import useModal from '@/hooks/useModal'
 const emit = defineEmits(['ok'])
 
 const { modal, showModal, hideModal, showLoading, hideLoading } = useModal()
-const { formRef, formRules, formRecord, formState, resetForm } = useForm()
+const { formRef, formRules, formRecord, formData, resetForm } = useForm()
 
 formRules.value = {
     title: { required: true, message: '请输入标题' },
@@ -54,7 +54,7 @@ function handleEdit(record) {
         title: '编辑',
     })
     formRecord.value = record
-    formState.value = cloneDeep(record)
+    formData.value = cloneDeep(record)
 }
 
 /**
@@ -66,7 +66,7 @@ function handleOk() {
         .then(async (values) => {
             showLoading()
             const params = {
-                id: formState.value?.id,
+                id: formData.value?.id,
                 ...values,
             }
             let result = null

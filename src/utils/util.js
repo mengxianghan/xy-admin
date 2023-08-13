@@ -255,9 +255,9 @@ export const suffix = (filename) => filename.split('.').pop().toLowerCase()
  * 获取表单数据
  * 根据表单字段从行数据中获取对应的数据，用于回填表单
  * @param {object} record
- * @param {object} formState
+ * @param {object} formData
  */
-export const getFormState = (record = {}, formState = {}) => pick(cloneDeep(record), keys(formState) || []) || {}
+export const getformData = (record = {}, formData = {}) => pick(cloneDeep(record), keys(formData) || []) || {}
 
 /**
  * 获取静态文件 url

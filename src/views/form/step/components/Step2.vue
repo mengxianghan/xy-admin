@@ -2,7 +2,7 @@
     <div>
         <a-form
             ref="formRef"
-            :model="formState"
+            :model="formData"
             :label-col="{ lg: { span: 5 }, sm: { span: 5 } }"
             :wrapper-col="{ lg: { span: 19 }, sm: { span: 19 } }"
             :rules="formRules">
@@ -19,7 +19,7 @@
                 label="支付密码"
                 name="paymentPassword">
                 <a-input
-                    v-model:value="formState.paymentPassword"
+                    v-model:value="formData.paymentPassword"
                     type="password"
                     :style="{ width: '80%' }" />
             </a-form-item>
@@ -49,7 +49,7 @@ defineOptions({
 
 const emit = defineEmits(['next', 'prev'])
 
-const { formState, formRules, formRef } = useForm()
+const { formData, formRules, formRef } = useForm()
 const loading = ref(false)
 
 formRules.value = {

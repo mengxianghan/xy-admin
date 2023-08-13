@@ -10,27 +10,27 @@
             ref="formRef"
             scroll-to-first-error
             layout="vertical"
-            :model="formState"
+            :model="formData"
             :rules="formRules">
             <a-form-item
                 label="任务名称"
                 name="key1">
-                <a-input v-model:value="formState.key1"></a-input>
+                <a-input v-model:value="formData.key1"></a-input>
             </a-form-item>
             <a-form-item
                 label="开始时间"
                 name="key2">
-                <a-date-picker v-model:value="formState.key2"></a-date-picker>
+                <a-date-picker v-model:value="formData.key2"></a-date-picker>
             </a-form-item>
             <a-form-item
                 label="任务负责人"
                 name="key3">
-                <a-select v-model:value="formState.key3"></a-select>
+                <a-select v-model:value="formData.key3"></a-select>
             </a-form-item>
             <a-form-item
                 label="产品描述"
                 name="key4">
-                <a-textarea v-model:value="formState.key4"></a-textarea>
+                <a-textarea v-model:value="formData.key4"></a-textarea>
             </a-form-item>
         </a-form>
     </a-modal>
@@ -46,7 +46,7 @@ import useModal from '@/hooks/useModal'
 const emit = defineEmits(['ok'])
 
 const { modal, showModal, hideModal, showLoading, hideLoading } = useModal()
-const { formRef, formRules, formRecord, formState, resetForm } = useForm()
+const { formRef, formRules, formRecord, formData, resetForm } = useForm()
 
 formRules.value = {
     key1: { required: true, message: '请输入任务名称' },
@@ -71,7 +71,7 @@ function handleEdit(record = {}) {
         title: '编辑',
     })
     formRecord.value = record
-    formState.value = cloneDeep(record)
+    formData.value = cloneDeep(record)
 }
 
 /**
@@ -83,7 +83,7 @@ function handleOk() {
         .then(async (values) => {
             showLoading()
             const params = {
-                id: formState.value?.id,
+                id: formData.value?.id,
                 ...values,
             }
             let result = null

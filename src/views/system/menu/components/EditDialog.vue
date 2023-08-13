@@ -15,21 +15,21 @@
         @cancel="handleCancel">
         <a-form
             ref="formRef"
-            :model="formState"
+            :model="formData"
             :rules="formRules"
             :label-col="{
                 style: { width: '80px' },
             }">
             <a-form-item label="所属上级">
                 <a-tree-select
-                    v-model:value="formState.parent_id"
+                    v-model:value="formData.parent_id"
                     tree-default-expand-all></a-tree-select>
             </a-form-item>
             <a-form-item
                 label="类型"
                 name="type">
                 <a-radio-group
-                    v-model:value="formState.type"
+                    v-model:value="formData.type"
                     :options="[
                         { label: '菜单', value: 'menu' },
                         { label: '按钮', value: 'button' },
@@ -38,20 +38,20 @@
             <a-form-item
                 label="名称"
                 name="name">
-                <a-input v-model:value="formState.name"></a-input>
+                <a-input v-model:value="formData.name"></a-input>
             </a-form-item>
             <a-form-item
                 label="别名"
                 name="alias"
                 extra="系统唯一且与内置组件名一致，否则导致缓存失效">
-                <a-input v-model:value="formState.alias"></a-input>
+                <a-input v-model:value="formData.alias"></a-input>
             </a-form-item>
-            <template v-if="'menu' === formState.type">
+            <template v-if="'menu' === formData.type">
                 <a-form-item
                     label="跳转方式"
                     name="type">
                     <a-radio-group
-                        v-model:value="formState.target"
+                        v-model:value="formData.target"
                         :options="[
                             { label: '默认', value: 1 },
                             { label: 'iframe', value: 2 },
@@ -61,34 +61,34 @@
                 <a-form-item
                     label="图标"
                     name="icon">
-                    <a-input v-model:value="formState.icon"></a-input>
+                    <a-input v-model:value="formData.icon"></a-input>
                 </a-form-item>
                 <a-form-item
                     label="路由地址"
                     name="path">
-                    <a-input v-model:value="formState.path"></a-input>
+                    <a-input v-model:value="formData.path"></a-input>
                 </a-form-item>
                 <a-form-item
                     label="模板"
                     name="tpl">
-                    <a-input v-model:value="formState.tpl"></a-input>
+                    <a-input v-model:value="formData.tpl"></a-input>
                 </a-form-item>
                 <a-form-item
                     label="视图地址"
                     name="view">
-                    <a-input v-model:value="formState.view"></a-input>
+                    <a-input v-model:value="formData.view"></a-input>
                 </a-form-item>
                 <a-form-item
                     label="菜单高亮"
                     name="active"
                     extra="子节点或详情页需要高亮的上级菜单别名">
-                    <a-input v-model:value="formState.active"></a-input>
+                    <a-input v-model:value="formData.active"></a-input>
                 </a-form-item>
                 <a-form-item
                     label="隐藏"
                     name="is_menu"
                     extra="不显示在导航中，但依然可以访问，例如详情页">
-                    <a-switch v-model:checked="formState.is_menu"></a-switch>
+                    <a-switch v-model:checked="formData.is_menu"></a-switch>
                 </a-form-item>
             </template>
         </a-form>
@@ -106,7 +106,7 @@ import useModal from '@/hooks/useModal'
 const emit = defineEmits(['ok'])
 
 const { modal, showModal, hideModal, showLoading, hideLoading } = useModal()
-const { formRecord, formState, formRef, formRules, resetForm } = useForm()
+const { formRecord, formData, formRef, formRules, resetForm } = useForm()
 const disabled = ref(false)
 const cancelText = ref('取消')
 
@@ -135,7 +135,7 @@ function handleEdit(record) {
         type: 'edit',
         title: '编辑菜单',
     })
-    formState.value = cloneDeep(record)
+    formData.value = cloneDeep(record)
     formRecord.value = record
 }
 
@@ -148,7 +148,7 @@ function handleOk() {
         .then(async (values) => {
             showLoading()
             const params = {
-                id: formState.value?.id,
+                id: formData.value?.id,
                 ...values,
             }
             let result = null

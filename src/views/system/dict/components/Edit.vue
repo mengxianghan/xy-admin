@@ -9,29 +9,29 @@
         @cancel="handleCancel">
         <a-form
             ref="formRef"
-            :model="formState"
+            :model="formData"
             :rules="formRules"
             scroll-to-first-error
             :label-col="{ style: { width: '100px' } }">
             <a-form-item
                 label="所属分类"
                 name="type">
-                <a-tree-select v-model:value="formState.type"></a-tree-select>
+                <a-tree-select v-model:value="formData.type"></a-tree-select>
             </a-form-item>
             <a-form-item
                 label="名称"
                 name="name">
-                <a-input v-model:value="formState.name"></a-input>
+                <a-input v-model:value="formData.name"></a-input>
             </a-form-item>
             <a-form-item
                 label="键值"
                 name="keyValue">
-                <a-input v-model:value="formState.keyValue"></a-input>
+                <a-input v-model:value="formData.keyValue"></a-input>
             </a-form-item>
             <a-form-item
                 label="是否有效"
                 name="valid">
-                <a-switch v-model:checked="formState.valid"></a-switch>
+                <a-switch v-model:checked="formData.valid"></a-switch>
             </a-form-item>
         </a-form>
     </a-modal>
@@ -51,7 +51,7 @@ defineOptions({
 const emit = defineEmits(['ok'])
 
 const { modal, showModal, hideModal, showLoading, hideLoading } = useModal()
-const { formRef, formRules, formRecord, formState, resetForm } = useForm()
+const { formRef, formRules, formRecord, formData, resetForm } = useForm()
 
 formRules.value = {
     type: { required: true, message: '请选择所属分类' },
@@ -59,7 +59,7 @@ formRules.value = {
     keyValue: { required: true, message: '请输入键值' },
 }
 
-formState.value = {
+formData.value = {
     valid: true,
 }
 
@@ -79,7 +79,7 @@ function handleEdit(record) {
     showModal({
         title: '编辑项',
     })
-    formState.value = cloneDeep(record)
+    formData.value = cloneDeep(record)
     formRecord.value = record
 }
 
@@ -92,7 +92,7 @@ function handleOk() {
         .then(async (values) => {
             showLoading()
             const params = {
-                id: formState.value?.id,
+                id: formData.value?.id,
                 ...values,
             }
             let result = null

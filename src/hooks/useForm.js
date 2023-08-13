@@ -4,7 +4,7 @@ export default () => {
     const formRef = ref({})
     const formRecord = ref({})
     const formRules = ref(null)
-    const formState = ref({})
+    const formData = ref({})
 
     const formLayout = {
         labelCol: {
@@ -27,7 +27,7 @@ export default () => {
      */
     function resetForm() {
         formRecord.value = null
-        formState.value = {}
+        formData.value = {}
         formRef.value.resetFields()
         formRef.value.clearValidate()
     }
@@ -46,7 +46,7 @@ export default () => {
         formRef,
         formRules,
         formRecord,
-        formState,
+        formData,
         formLayout,
         formButtonLayout,
         resetForm,
