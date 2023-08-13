@@ -2,7 +2,7 @@
     <page-header></page-header>
     <a-card class="mb-8-2">
         <x-filter
-            v-model="searchForm"
+            v-model="searchFormData"
             :data-source="filterData"
             :label-width="100"
             @change="handleSearch">
@@ -106,7 +106,7 @@ defineOptions({
     name: 'listSearchApplications',
 })
 
-const { list, paginationState, loading, resetPagination, searchForm } = usePagination()
+const { list, paginationState, loading, resetPagination, searchFormData } = usePagination()
 
 const filterData = ref([
     {

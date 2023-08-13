@@ -3,7 +3,7 @@
         <template #default="{ gutter, colSpan }">
             <a-form
                 :label-col="{ style: { width: '100px' } }"
-                :model="searchForm"
+                :model="searchFormData"
                 layout="inline">
                 <a-row :gutter="gutter">
                     <a-col v-bind="colSpan">
@@ -14,7 +14,7 @@
                                     <question-circle-outlined class="ml-4-1 color-placeholder" />
                                 </a-tooltip>
                             </template>
-                            <a-input v-model:value="searchForm.title"></a-input>
+                            <a-input v-model:value="searchFormData.title"></a-input>
                         </a-form-item>
                     </a-col>
                     <a-col v-bind="colSpan">
@@ -180,7 +180,7 @@ const columns = [
     { title: '状态', dataIndex: 'status' },
     { title: '操作', key: 'action', width: 180 },
 ]
-const { list, paginationState, loading, resetPagination, searchForm } = usePagination()
+const { list, paginationState, loading, resetPagination, searchFormData } = usePagination()
 const editDialogRef = ref()
 const searchBarExpand = ref(false)
 const size = ref('default')

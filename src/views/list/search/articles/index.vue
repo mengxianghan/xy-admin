@@ -2,7 +2,7 @@
     <page-header></page-header>
     <a-card class="mb-8-2">
         <x-filter
-            v-model="searchForm"
+            v-model="searchFormData"
             :data-source="filterData"
             :label-width="100"
             @change="handleSearch">
@@ -11,7 +11,7 @@
                     <x-filter-item :label="record.label">
                         <a-space :size="16">
                             <a-select
-                                v-model:value="searchForm.owner"
+                                v-model:value="searchFormData.owner"
                                 mode="multiple"
                                 :style="{ minWidth: '100px' }"
                                 :options="[
@@ -20,7 +20,7 @@
                                     { label: '李四', value: 2 },
                                     { label: '王五', value: 3 },
                                 ]"></a-select>
-                            <a @click="() => (searchForm.owner = [0])">只看自己的</a>
+                            <a @click="() => (searchFormData.owner = [0])">只看自己的</a>
                         </a-space>
                     </x-filter-item>
                 </template>
@@ -106,7 +106,7 @@ defineOptions({
     name: 'listSearchArticles',
 })
 
-const { list, paginationState, loading, resetPagination, searchForm } = usePagination()
+const { list, paginationState, loading, resetPagination, searchFormData } = usePagination()
 
 const filterData = ref([
     {
@@ -140,7 +140,7 @@ paginationState.onChange = (page, pageSize) => {
     getPageList()
 }
 
-searchForm.value = {
+searchFormData.value = {
     owner: [1, 2],
 }
 

@@ -88,7 +88,7 @@ defineOptions({
     name: 'systemDict',
 })
 
-const { list, paginationState, loading, resetPagination, searchForm } = usePagination()
+const { list, paginationState, loading, resetPagination, searchFormData } = usePagination()
 const selectedRowKeys = ref([])
 const editRef = ref()
 const dictTypeInfo = ref(null)
@@ -110,7 +110,7 @@ async function getPageList() {
         .getPageList({
             pageSize,
             page: current,
-            ...searchForm.value,
+            ...searchFormData.value,
         })
         .catch(() => {
             loading.value = false
@@ -180,7 +180,7 @@ function onSelectChange(keys) {
  */
 function onDictTypeSelect(info) {
     dictTypeInfo.value = info
-    searchForm.value.type = info.key
+    searchFormData.value.type = info.key
     getPageList()
 }
 

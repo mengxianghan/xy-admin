@@ -28,14 +28,14 @@
         <template #extra>
             <a-space>
                 <a-radio-group
-                    v-model:value="searchForm.status"
+                    v-model:value="searchFormData.status"
                     @change="handleSearch">
                     <a-radio-button :value="0">全部</a-radio-button>
                     <a-radio-button :value="1">进行中</a-radio-button>
                     <a-radio-button :value="2">等待中</a-radio-button>
                 </a-radio-group>
                 <a-input-search
-                    v-model:value="searchForm.keyword"
+                    v-model:value="searchFormData.keyword"
                     placeholder="请输入"
                     @search="handleSearch"></a-input-search>
             </a-space>
@@ -118,7 +118,7 @@ defineOptions({
     name: 'listBasicList',
 })
 
-const { list, paginationState, loading, resetPagination, searchForm } = usePagination()
+const { list, paginationState, loading, resetPagination, searchFormData } = usePagination()
 const editDialogRef = ref()
 
 paginationState.onChange = (page, pageSize) => {
@@ -127,7 +127,7 @@ paginationState.onChange = (page, pageSize) => {
     getPageList()
 }
 
-searchForm.value = {
+searchFormData.value = {
     status: 0,
 }
 
