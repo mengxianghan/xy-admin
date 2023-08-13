@@ -1,7 +1,7 @@
 import { ref } from 'vue'
 
 export default () => {
-    const formRef = ref({})
+    const formRef = ref()
     const formRecord = ref({})
     const formRules = ref(null)
     const formData = ref({})
