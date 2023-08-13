@@ -13,7 +13,7 @@
 
         <a-table
             :columns="columns"
-            :data-source="list"
+            :data-source="listData"
             :loading="loading"
             :pagination="false"
             :expand-icon-column-index="1">
@@ -82,7 +82,7 @@ const columns = ref([
     { title: '排序', dataIndex: 'sort', width: 80 },
     { title: '操作', key: 'action', width: 240 },
 ])
-const { list, loading } = usePagination()
+const { listData, loading } = usePagination()
 const editDialogRef = ref()
 
 onMounted(() => {
@@ -101,7 +101,7 @@ async function getMenuList() {
     loading.value = false
     if (config('http.code.success') === code) {
         const { rows } = data
-        list.value = rows
+        listData.value = rows
     }
 }
 

@@ -2,7 +2,7 @@
     <a-list
         item-layout="horizontal"
         row-key="id"
-        :data-source="list">
+        :data-source="listData">
         <template #renderItem="{ item }">
             <a-list-item>
                 <template #actions>
@@ -22,7 +22,7 @@ defineOptions({
     name: 'Safe',
 })
 
-const list = [
+const listData = [
     { id: '1', title: '账户密码', description: '当前密码强度：强' },
     { id: '2', title: '密保手机', description: '已绑定手机：188****2636' },
     { id: '3', title: '密保问题', description: '未设置密保问题，密保问题可有效保护账户安全' },

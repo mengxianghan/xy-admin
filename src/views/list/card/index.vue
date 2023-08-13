@@ -40,7 +40,7 @@
         </a-row>
     </a-page-header>
     <a-list
-        :data-source="list"
+        :data-source="listData"
         :grid="{ gutter: 16, sm: 1, md: 2, lg: 4, xl: 4, xxl: 6 }"
         :loading="loading">
         <template #renderItem="{ item }">
@@ -104,7 +104,7 @@ defineOptions({
     name: 'listCard',
 })
 
-const { loading, list } = usePagination()
+const { loading, listData } = usePagination()
 
 onMounted(() => {
     getPageList()
@@ -120,7 +120,7 @@ async function getPageList() {
     })
     loading.value = false
     if (config('http.code.success') === code) {
-        list.value = [{}, ...data.rows]
+        listData.value = [{}, ...data.rows]
     }
 }
 </script>

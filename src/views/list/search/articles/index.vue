@@ -52,7 +52,7 @@
         <a-list
             row-key="id"
             item-layout="vertical"
-            :data-source="list"
+            :data-source="listData"
             :pagination="paginationState"
             :loading="loading">
             <template #renderItem="{ item }">
@@ -106,7 +106,7 @@ defineOptions({
     name: 'listSearchArticles',
 })
 
-const { list, paginationState, loading, resetPagination, searchFormData } = usePagination()
+const { listData, paginationState, loading, resetPagination, searchFormData } = usePagination()
 
 const filterData = ref([
     {
@@ -162,7 +162,7 @@ async function getPageList() {
         })
     loading.value = false
     if (config('http.code.success') === code) {
-        list.value = data.rows
+        listData.value = data.rows
         paginationState.total = data.total
     }
 }

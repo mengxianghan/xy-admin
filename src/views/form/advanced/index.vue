@@ -133,7 +133,7 @@
         <a-card title="成员管理">
             <a-table
                 :columns="columns"
-                :data-source="list"
+                :data-source="listData"
                 :pagination="false"
                 row-key="id">
                 <template #bodyCell="{ column }">
@@ -169,7 +169,7 @@ const columns = [
     { title: '所属部门', dataIndex: 'department' },
     { title: '操作', dataIndex: 'action', key: 'action' },
 ]
-const list = [
+const listData = [
     { id: '1', name: 'John Brown', number: '00001', department: 'New York No. 1 Lake Park' },
     { id: '2', name: 'Jim Green', number: '00002', department: 'London No. 1 Lake Park' },
     { id: '3', name: 'Joe Black', number: '00003', department: 'Sidney No. 1 Lake Park' },

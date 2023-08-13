@@ -2,7 +2,7 @@ import { reactive, ref } from 'vue'
 
 export default (options = {}) => {
     const loading = ref(false)
-    const list = ref([])
+    const listData = ref([])
     const searchFormData = ref({})
     const paginationState = reactive({
         total: 0,
@@ -36,7 +36,7 @@ export default (options = {}) => {
 
     return {
         loading,
-        list,
+        listData,
         searchFormData,
         paginationState,
         resetPagination,

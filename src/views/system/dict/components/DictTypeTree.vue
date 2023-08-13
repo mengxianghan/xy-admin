@@ -16,7 +16,7 @@
             v-if="!loading"
             :field-names="{ title: 'name', children: 'children', key: 'key' }"
             :selected-keys="selectedKeys"
-            :tree-data="list"
+            :tree-data="listData"
             block-node
             default-expand-all
             @select="handleSelect">
@@ -60,7 +60,7 @@ defineOptions({
 })
 const emit = defineEmits(['select'])
 
-const { loading, list } = usePagination()
+const { loading, listData } = usePagination()
 const selectedKeys = ref([])
 const searchValue = ref('')
 const dictTypeEditDialogRef = ref()
@@ -81,7 +81,7 @@ async function getDictTypeList() {
     loading.value = false
     if (config('http.code.success') === code) {
         const { rows } = data
-        list.value = rows
+        listData.value = rows
     }
 }
 

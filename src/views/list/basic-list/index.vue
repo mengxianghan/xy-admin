@@ -42,7 +42,7 @@
         </template>
         <a-list
             item-layout="horizontal"
-            :data-source="list"
+            :data-source="listData"
             :pagination="paginationState"
             :loading="loading">
             <template #renderItem="{ item }">
@@ -118,7 +118,7 @@ defineOptions({
     name: 'listBasicList',
 })
 
-const { list, paginationState, loading, resetPagination, searchFormData } = usePagination()
+const { listData, paginationState, loading, resetPagination, searchFormData } = usePagination()
 const editDialogRef = ref()
 
 paginationState.onChange = (page, pageSize) => {
@@ -151,7 +151,7 @@ async function getPageList() {
         })
     loading.value = false
     if (config('http.code.success') === code) {
-        list.value = data.rows
+        listData.value = data.rows
         paginationState.total = data.total
     }
 }

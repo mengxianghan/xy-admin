@@ -3,7 +3,7 @@
         class="x-form-table"
         size="middle"
         v-bind="$attrs"
-        :data-source="list"
+        :data-source="listData"
         :pagination="false">
         <a-table-column
             key="action"
@@ -65,19 +65,19 @@ const props = defineProps({
 
 const emit = defineEmits(['update:modelValue', 'add', 'delete'])
 
-const list = ref([])
+const listData = ref([])
 
-watch(list, (val) => emit('update:modelValue', val), { deep: true })
+watch(listData, (val) => emit('update:modelValue', val), { deep: true })
 
 onMounted(() => {
-    list.value = props.modelValue
+    listData.value = props.modelValue
 })
 
 /**
  * 新增
  */
 function handleAdd() {
-    list.value.push(cloneDeep(props.rowTpl))
+    listData.value.push(cloneDeep(props.rowTpl))
     emit('add')
 }
 
@@ -86,7 +86,7 @@ function handleAdd() {
  */
 function handleDelete(index) {
     const delRecord = props.modelValue[index]
-    list.value.splice(index, 1)
+    listData.value.splice(index, 1)
     emit('delete', { record: delRecord })
 }
 </script>

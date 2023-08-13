@@ -108,17 +108,17 @@ async function getData(value = 0, level = 1, defaultValue = []) {
             targetOption.loading = false
         }
         if (config('http.code.success') === code) {
-            const list = data.map((item) => ({
+            const listData = data.map((item) => ({
                 ...item,
                 isLeaf: level === maxLevel.value,
             }))
             // 判断层级
             if (!targetOption) {
                 // 第一级直接赋值
-                options.value = list
+                options.value = listData
             } else {
                 // 从第二级开始填写子级
-                targetOption.children = list
+                targetOption.children = listData
                 options.value = [...options.value]
             }
             // 回填默认值
@@ -142,7 +142,7 @@ function getRegionList(params) {
     return new Promise((resolve) => {
         ;(async () => {
             // 演示示例
-            const list = {
+            const listData = {
                 0: [
                     { id: 1, name: '北京' },
                     { id: 2, name: '山东省' },
@@ -179,7 +179,7 @@ function getRegionList(params) {
             resolve({
                 code: 200,
                 data: mapping({
-                    data: list[params.parentId],
+                    data: listData[params.parentId],
                     fieldNames: {
                         label: 'name',
                         value: 'id',

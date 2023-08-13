@@ -2,7 +2,7 @@
     <a-list
         item-layout="horizontal"
         row-key="id"
-        :data-source="list">
+        :data-source="listData">
         <template #renderItem="{ item }">
             <a-list-item>
                 <template #actions>
@@ -36,7 +36,7 @@ defineOptions({
     name: 'Bind',
 })
 
-const list = [
+const listData = [
     { id: '1', title: '绑定淘宝', description: '当前未绑定淘宝账号', avatar: TaobaoOutlined, color: '#ff5800' },
     {
         id: '2',

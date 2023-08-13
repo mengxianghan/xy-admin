@@ -116,7 +116,7 @@
         </x-action-bar>
         <a-table
             :columns="columns"
-            :data-source="list"
+            :data-source="listData"
             :loading="loading"
             :pagination="paginationState"
             :size="size"
@@ -180,7 +180,7 @@ const columns = [
     { title: '状态', dataIndex: 'status' },
     { title: '操作', key: 'action', width: 180 },
 ]
-const { list, paginationState, loading, resetPagination, searchFormData } = usePagination()
+const { listData, paginationState, loading, resetPagination, searchFormData } = usePagination()
 const editDialogRef = ref()
 const searchBarExpand = ref(false)
 const size = ref('default')
@@ -205,7 +205,7 @@ async function getPageList() {
         })
     loading.value = false
     if (config('http.code.success') === code) {
-        list.value = data.rows
+        listData.value = data.rows
         paginationState.total = data.total
     }
 }

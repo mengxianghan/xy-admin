@@ -2,7 +2,7 @@
     <a-list
         item-layout="horizontal"
         row-key="id"
-        :data-source="list">
+        :data-source="listData">
         <template #renderItem="{ item }">
             <a-list-item>
                 <template #actions>
@@ -27,7 +27,7 @@ defineOptions({
     name: 'Message',
 })
 
-const list = ref([
+const listData = ref([
     { id: '1', title: '账户密码', description: '其他用户的消息将以站内信的形式通知', checked: true },
     { id: '2', title: '系统消息', description: '系统消息将以站内信的形式通知', checked: true },
     { id: '3', title: '待办任务', description: '待办任务将以站内信的形式通知', checked: true },

@@ -18,7 +18,7 @@
             v-if="!loading"
             :field-names="{ title: 'name', children: 'children', key: 'key' }"
             :selected-keys="selectedKeys"
-            :tree-data="list"
+            :tree-data="listData"
             block-node
             default-expand-all
             @select="handleSelect">
@@ -58,7 +58,7 @@ defineOptions({
 
 const emit = defineEmits(['select', 'ready'])
 
-const { list, loading } = usePagination()
+const { listData, loading } = usePagination()
 const selectedKeys = ref([])
 const keyword = ref('')
 
@@ -77,7 +77,7 @@ async function getMenuList() {
     loading.value = false
     if (config('http.code.success') === code) {
         const { rows } = data
-        list.value = rows
+        listData.value = rows
         emit('ready', rows)
     }
 }

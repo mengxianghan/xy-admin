@@ -32,7 +32,7 @@
     </a-card>
 
     <a-list
-        :data-source="list"
+        :data-source="listData"
         :grid="{ gutter: 16, md: 2, lg: 2, xl: 3, xxl: 4 }"
         :loading="loading"
         item-layout="vertical"
@@ -90,7 +90,7 @@ defineOptions({
     name: 'listSearchProjects',
 })
 
-const { list, paginationState, loading, resetPagination, searchFormData } = usePagination()
+const { listData, paginationState, loading, resetPagination, searchFormData } = usePagination()
 
 const filterData = ref([
     {
@@ -138,7 +138,7 @@ async function getPageList() {
         })
     loading.value = false
     if (config('http.code.success') === code) {
-        list.value = data.rows
+        listData.value = data.rows
         paginationState.total = data.total
     }
 }

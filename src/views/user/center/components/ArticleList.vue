@@ -2,7 +2,7 @@
     <a-list
         row-key="id"
         item-layout="vertical"
-        :data-source="list"
+        :data-source="listData"
         :loading="loading"
         :pagination="paginationState">
         <template #renderItem="{ item }">
@@ -51,7 +51,7 @@ defineOptions({
     name: 'ArticleList',
 })
 
-const { list, loading, paginationState } = usePagination()
+const { listData, loading, paginationState } = usePagination()
 
 paginationState.onChange = (page, pageSize) => {
     paginationState.current = page
@@ -77,7 +77,7 @@ async function getPageList() {
         })
     loading.value = false
     if (config('http.code.success') === code) {
-        list.value = data.rows
+        listData.value = data.rows
         paginationState.total = data.total
     }
 }

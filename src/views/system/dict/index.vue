@@ -46,7 +46,7 @@
                     </x-action-bar>
                     <a-table
                         :columns="columns"
-                        :data-source="list"
+                        :data-source="listData"
                         :loading="loading"
                         :pagination="paginationState"
                         :row-selection="{ selectedRowKeys: selectedRowKeys, onChange: onSelectChange }"
@@ -88,7 +88,7 @@ defineOptions({
     name: 'systemDict',
 })
 
-const { list, paginationState, loading, resetPagination, searchFormData } = usePagination()
+const { listData, paginationState, loading, resetPagination, searchFormData } = usePagination()
 const selectedRowKeys = ref([])
 const editRef = ref()
 const dictTypeInfo = ref(null)
@@ -117,7 +117,7 @@ async function getPageList() {
         })
     loading.value = false
     if (config('http.code.success') === code) {
-        list.value = data.rows
+        listData.value = data.rows
         paginationState.total = data.total
     }
 }
