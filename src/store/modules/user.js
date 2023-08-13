@@ -1,8 +1,7 @@
 import { defineStore } from 'pinia'
-
-import apis from '@/apis'
 import { config } from '@/config'
 import storage from '@/utils/storage'
+import apis from '@/apis'
 
 import useAppStore from './app'
 
