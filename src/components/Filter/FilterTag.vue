@@ -134,6 +134,6 @@ function trigger() {
 .x-filter-tag {
     display: flex;
     flex-wrap: wrap;
-    gap: 8pxs 8px;
+    gap: 8px;
 }
 </style>
