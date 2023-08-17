@@ -47,7 +47,7 @@ Mock.mock(new RegExp('/common/getPageList'), 'get', () => {
                     star: '@integer(20, 200)',
                     like: '@integer(20, 200)',
                     comment: '@integer(20, 200)',
-                    cover: '@image(532x320, #f5f5f5)',
+                    cover: '@image(532x320)',
                     activeUsers: '@integer(10, 99)',
                     newUsers: '@integer(1000, 5000)',
                     count: '@integer(1, 100)',

@@ -1,7 +1,7 @@
 import { env } from '@/utils/util'
 
 export default {
-    apiDefault: env('apiDefault'),
+    apiBasic: env('apiBasic'),
     code: {
         success: 200,
     },

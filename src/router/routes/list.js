@@ -59,9 +59,9 @@ export default [
                 ],
             },
             {
-                path: 'table-list',
-                name: 'listTableList',
-                component: 'list/table-list/index.vue',
+                path: 'table',
+                name: 'listTable',
+                component: 'list/table/index.vue',
                 meta: {
                     title: '查询表格',
                     isMenu: true,
@@ -70,9 +70,9 @@ export default [
                 },
             },
             {
-                path: 'basic-list',
-                name: 'listBasicList',
-                component: 'list/basic-list/index.vue',
+                path: 'basic',
+                name: 'listBasic',
+                component: 'list/basic/index.vue',
                 meta: {
                     title: '标准列表',
                     isMenu: true,

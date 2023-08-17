@@ -19,6 +19,7 @@ import ResizeBox from './ResizeBox/ResizeBox.vue'
 import SearchBar from './SearchBar/SearchBar.vue'
 import UploadImage from './Upload/UploadImage.vue'
 import UploadInput from './Upload/UploadInput.vue'
+import Scrollbar from './Scrollbar/Scrollbar.vue'
 
 const componentList = [
     ActionBar,
@@ -39,6 +40,7 @@ const componentList = [
     SearchBar,
     UploadImage,
     UploadInput,
+    Scrollbar,
 ]
 
 export const loading = Loading

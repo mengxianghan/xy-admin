@@ -7,12 +7,13 @@ import useAppStore from './app'
 
 const useUserStore = defineStore('user', {
     state: () => ({
-        isLogin: storage.local.getItem(config('storage.isLogin'), false),
         userInfo: storage.local.getItem(config('storage.userInfo'), null),
         token: storage.local.getItem(config('storage.token'), ''),
         permission: storage.local.getItem(config('storage.permission'), []),
     }),
-    getters: {},
+    getters: {
+        isLogin: (state) => !!state.token,
+    },
     actions: {
         /**
          * 登录
@@ -22,23 +23,21 @@ const useUserStore = defineStore('user', {
         login(params) {
             return new Promise((resolve, reject) => {
                 ;(async () => {
-                    const result = await apis.user.login(params).catch(() => {
-                        reject()
-                    })
-                    const { code, data } = result
-                    if (config('http.code.success') === code) {
-                        const { token, ...others } = data
-                        const isLogin = true
-                        this.$patch({
-                            userInfo: others,
-                            token,
-                            isLogin,
+                    try {
+                        const result = await apis.user.login(params).catch(() => {
+                            throw new Error()
                         })
-                        storage.local.setItem(config('storage.userInfo'), others)
-                        storage.local.setItem(config('storage.token'), token)
-                        storage.local.setItem(config('storage.isLogin'), isLogin)
+                        const { code, data } = result || {}
+                        if (config('http.code.success') === code) {
+                            const { token } = data
+                            this.token = data.token
+                            storage.local.setItem(config('storage.token'), token)
+                            await this.getUserInfo()
+                        }
+                        resolve(result)
+                    } catch (error) {
+                        reject()
                     }
-                    resolve(result)
                 })()
             })
         },
@@ -53,11 +52,34 @@ const useUserStore = defineStore('user', {
                     token: '',
                     userInfo: null,
                 })
-                storage.local.removeItem(config('storage.isLogin'))
                 storage.local.removeItem(config('storage.token'))
                 storage.local.removeItem(config('storage.userInfo'))
                 appStore.complete = false
                 resolve()
+            })
+        },
+        /**
+         * 获取用户详情
+         */
+        getUserInfo() {
+            return new Promise((resolve, reject) => {
+                ;(async () => {
+                    try {
+                        const result = await apis.user.getUserDetail().catch(() => {
+                            throw new Error()
+                        })
+                        const { code, data } = result || {}
+                        if (config('http.code.success') === code) {
+                            this.userInfo = data
+                            storage.local.setItem(config('storage.userInfo'), this.userInfo)
+                            resolve(result)
+                        } else {
+                            throw new Error()
+                        }
+                    } catch (error) {
+                        reject()
+                    }
+                })()
             })
         },
     },

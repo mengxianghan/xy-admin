@@ -32,6 +32,8 @@ const cpAttrs = computed(() => ({
 
 <style lang="less" scoped>
 .x-search-bar {
+    box-shadow: none;
+
     :deep(.ant-form) {
         display: block;
     }

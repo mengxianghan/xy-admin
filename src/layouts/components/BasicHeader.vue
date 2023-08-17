@@ -26,12 +26,10 @@
                     <action-button :style="{ height: '44px' }">
                         <a-avatar
                             class="mr-8-1 display-inline-flex justify-content-center"
-                            :size="24">
-                            <template #icon>
-                                <user-outlined />
-                            </template>
+                            :size="24"
+                            :src="userInfo?.avatar">
                         </a-avatar>
-                        <span v-if="cpIsLogin">{{ cpUserInfo.username }}</span>
+                        <span>{{ userInfo?.name }}</span>
                     </action-button>
                     <a-spin />
                     <template #overlay>
@@ -55,7 +53,7 @@ import { Modal } from 'ant-design-vue'
 import { storeToRefs } from 'pinia'
 import { computed, useSlots } from 'vue'
 import { useRouter } from 'vue-router'
-import { LoginOutlined, SettingOutlined, UserOutlined } from '@ant-design/icons-vue'
+import { LoginOutlined, SettingOutlined } from '@ant-design/icons-vue'
 import { useAppStore, useUserStore } from '@/store'
 import ActionButton from './ActionButton.vue'
 
@@ -80,6 +78,7 @@ const appStore = useAppStore()
 const router = useRouter()
 
 const { config } = storeToRefs(appStore)
+const { userInfo } = storeToRefs(userStore)
 
 const cpClassNames = computed(() => ({
     [`basic-header--${props.theme}`]: true,
@@ -97,8 +96,6 @@ const cpStyles = computed(() => {
 })
 const cpShowLeftSlot = computed(() => !!slots.left)
 const cpShowDefaultSlot = computed(() => !!slots.default)
-const cpIsLogin = computed(() => userStore.isLogin)
-const cpUserInfo = computed(() => userStore.userInfo)
 
 /**
  * 退出登录

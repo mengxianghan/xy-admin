@@ -96,7 +96,7 @@ async function getUserRoleList() {
 function handleCreate() {
     showModal({
         type: 'create',
-        title: '新建用户',
+        title: '添加用户',
     })
     getUserRoleList()
 }

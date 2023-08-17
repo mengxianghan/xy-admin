@@ -1,6 +1,6 @@
 <template>
     <a-card class="mb-8-2">
-        <h2>{{ cpUserName }} ，祝你开心每一天！</h2>
+        <h2>{{ userInfo?.name }} ，祝你开心每一天！</h2>
         <p class="mb-0">某某某公司－某某某部门－某某某岗位</p>
     </a-card>
 
@@ -37,11 +37,12 @@
                 class="mt-8-2"
                 title="动态">
                 <a-list
-                    :data-source="dynamicList"
-                    item-layout="horizontal">
+                    item-layout="horizontal"
+                    :loading="loading"
+                    :data-source="listData">
                     <template #renderItem="{ item }">
                         <a-list-item>
-                            <a-list-item-meta :description="item.time">
+                            <a-list-item-meta :description="item.datetime">
                                 <template #avatar>
                                     <a-avatar :src="item.avatar" />
                                 </template>
@@ -76,34 +77,38 @@
 </template>
 
 <script setup>
-import { computed, onMounted, ref } from 'vue'
-
-import apis from '@/apis'
 import { config } from '@/config'
 import { useUserStore } from '@/store'
-import { timeFix } from '@/utils/util'
 import { assets } from '@/utils/util'
+import apis from '@/apis'
+import usePagination from '../../hooks/usePagination'
+import { storeToRefs } from 'pinia'
 
 defineOptions({
     name: 'welcome',
 })
 
 const userStore = useUserStore()
+const { loading, listData, showLoading, hideLoading } = usePagination()
 const title = config('app.title')
-const cpUserInfo = computed(() => userStore.userInfo)
-const cpUserName = computed(() => `${timeFix()}，${cpUserInfo.value?.username}`)
-const dynamicList = ref([])
 const { version } = __APP_INFO__
 
-onMounted(() => {
-    getData()
-})
+const { userInfo } = storeToRefs(userStore)
 
-async function getData() {
-    const { code, data } = await apis.common.getWelcomeData()
-    if (config('http.code.success') === code) {
-        const { dynamicRows } = data
-        dynamicList.value = dynamicRows
+getDynamicList()
+
+async function getDynamicList() {
+    try {
+        showLoading()
+        const { code, data } = await apis.common.getDynamicList().catch(() => {
+            throw new Error()
+        })
+        hideLoading()
+        if (config('http.code.success') === code) {
+            listData.value = data
+        }
+    } catch (error) {
+        hideLoading()
     }
 }
 </script>

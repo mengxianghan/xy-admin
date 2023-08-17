@@ -45,7 +45,7 @@
         :loading="loading">
         <template #renderItem="{ item }">
             <template v-if="!item.id">
-                <a-list-item :style="{ padding: '0' }">
+                <a-list-item>
                     <a-card :body-style="{ padding: 0 }">
                         <a-button
                             type="dashed"
@@ -57,7 +57,7 @@
                 </a-list-item>
             </template>
             <template v-else>
-                <a-list-item :style="{ padding: '0' }">
+                <a-list-item>
                     <a-card>
                         <a-card-meta :title="item.title">
                             <template #avatar>
@@ -66,7 +66,7 @@
                             <template #description>
                                 <a-typography-paragraph
                                     :ellipsis="{ rows: 3 }"
-                                    :content="item.desc" />
+                                    :content="item.paragraph" />
                             </template>
                         </a-card-meta>
                         <template #actions>
@@ -91,11 +91,8 @@
 </template>
 
 <script setup>
-import { onMounted } from 'vue'
-
 import { LinkOutlined } from '@ant-design/icons-vue'
 import { EditOutlined, EllipsisOutlined, SettingOutlined, PlusOutlined } from '@ant-design/icons-vue'
-
 import apis from '@/apis'
 import { config } from '@/config'
 import usePagination from '@/hooks/usePagination'
@@ -104,23 +101,33 @@ defineOptions({
     name: 'listCard',
 })
 
-const { loading, listData } = usePagination()
+const { loading, listData, showLoading, hideLoading, paginationState } = usePagination()
 
-onMounted(() => {
-    getPageList()
-})
+getPageList()
 
 /**
  * 获取分页列表
  */
 async function getPageList() {
-    loading.value = true
-    const { code, data } = await apis.common.getPageList().catch(() => {
-        loading.value = false
-    })
-    loading.value = false
-    if (config('http.code.success') === code) {
-        listData.value = [{}, ...data.rows]
+    try {
+        showLoading()
+        const { pageSize, current } = paginationState
+        const { code, data } = await apis.common
+            .getPageList({
+                pageSize,
+                page: current,
+            })
+            .catch(() => {
+                throw new Error()
+            })
+        hideLoading()
+        if (config('http.code.success') === code) {
+            const { records, pagination } = data
+            listData.value = records
+            paginationState.total = pagination.total
+        }
+    } catch (error) {
+        hideLoading()
     }
 }
 </script>

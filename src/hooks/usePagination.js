@@ -34,6 +34,20 @@ export default (options = {}) => {
         paginationState.current = current > totalPage ? totalPage : current
     }
 
+    /**
+     * 显示 loading
+     */
+    function showLoading() {
+        loading.value = true
+    }
+
+    /**
+     * 隐藏 loading
+     */
+    function hideLoading() {
+        loading.value = false
+    }
+
     return {
         loading,
         listData,
@@ -41,5 +55,7 @@ export default (options = {}) => {
         paginationState,
         resetPagination,
         refreshPagination,
+        showLoading,
+        hideLoading,
     }
 }

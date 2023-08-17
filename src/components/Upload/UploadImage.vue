@@ -459,6 +459,7 @@ function trigger() {
         justify-content: center;
         cursor: pointer;
         transition: all 0.2s;
+        border-radius: @border-radius;
 
         &--hover {
             &:hover {

@@ -1,16 +1,19 @@
 import request from '@/utils/request'
 
-// 获取欢迎页信息
-export const getWelcomeData = (params) => request.basic.get('/welcome/getData', params)
+// 获取动态列表
+export const getDynamicList = () => request.basic.get('/dynamic')
+
 // 获取分页列表
-export const getPageList = (params) => request.basic.get('/common/getPageList', params)
-// 获取地区列表
-export const getRegionList = (params) => request.basic.get('/common/getRegionList', params, { canceled: false })
-
-// 保存
-export const saveData = (params) => request.basic.post('/common/save', params)
+export const getPageList = (params) => request.basic.get('/data', params, { enableAbortController: false })
 // 删除
-export const deleteData = (params) => request.basic.post('/common/delete', params)
+export const del = () => request.basic.delete(`/data`)
+// 创建
+export const create = (params) => request.basic.post('/data', params)
+// 更新
+export const update = (_, params) => request.basic.put(`/data`, params)
 
+// 获取地区列表
+export const getRegionList = (params) =>
+    request.basic.get('/common/getRegionList', params, { enableAbortController: false })
 // 文件上传
 export const upload = (params) => request.basic.post('/comment/upload', params)

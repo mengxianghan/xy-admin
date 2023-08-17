@@ -1,17 +1,14 @@
 <template>
-    <span class="x-action-button">
-        <component
-            class="x-action-button__component"
-            :is="tag">
-            <slot></slot>
-        </component>
-        <a-divider
-            v-if="divider"
-            type="vertical" />
-    </span>
+    <component
+        class="x-action-button"
+        :is="tag">
+        <slot></slot>
+    </component>
 </template>
 
 <script setup>
+import { theme } from 'ant-design-vue'
+
 defineOptions({
     name: 'XActionButton',
 })
@@ -24,21 +21,28 @@ defineOptions({
 defineProps({
     tag: {
         type: String,
-        default: 'a',
-    },
-    divider: {
-        type: Boolean,
-        default: true,
+        default: 'span',
     },
 })
+
+const { useToken } = theme
+const { token } = useToken()
 </script>
 
 <style lang="less" scoped>
 .x-action-button {
-    &:last-child {
-        :deep(.ant-divider) {
-            display: none;
-        }
+    border-radius: @border-radius;
+    transition: all 0.2s;
+    padding: 4px;
+    color: v-bind('token.colorPrimary');
+    cursor: pointer;
+
+    &:hover {
+        background: v-bind('token.colorPrimaryBgHover');
+    }
+
+    &:not(:first-child) {
+        margin-left: 8px;
     }
 }
 </style>

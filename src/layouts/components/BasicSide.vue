@@ -16,11 +16,11 @@
         <div class="basic-side__header">
             <slot name="header"></slot>
         </div>
-        <div
+        <x-scrollbar
             v-if="cpShowDefaultSlot"
             class="basic-side__body">
             <slot></slot>
-        </div>
+        </x-scrollbar>
         <div
             v-if="cpShowFooterSlot"
             class="basic-side__footer">
@@ -88,7 +88,7 @@ const cpShowFooterSlot = computed(() => !!slots.footer)
     &__body {
         flex: 1;
         min-height: 0;
-        overflow: auto;
+        // overflow: auto;
 
         :deep(.ant-menu) {
             border-right: 0;

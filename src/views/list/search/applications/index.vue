@@ -54,7 +54,7 @@
                             <a-row type="flex">
                                 <a-col flex="1">
                                     <a-statistic
-                                        :value="item.activeUsers"
+                                        :value="item.count1"
                                         title="活跃用户">
                                         <template #suffix>
                                             <span class="fs-14">万</span>
@@ -63,7 +63,7 @@
                                 </a-col>
                                 <a-col flex="1">
                                     <a-statistic
-                                        :value="item.newUsers"
+                                        :value="item.count2"
                                         title="新增用户">
                                     </a-statistic>
                                 </a-col>
@@ -106,7 +106,8 @@ defineOptions({
     name: 'listSearchApplications',
 })
 
-const { listData, paginationState, loading, resetPagination, searchFormData } = usePagination()
+const { listData, paginationState, loading, showLoading, hideLoading, resetPagination, searchFormData } =
+    usePagination()
 
 const filterData = ref([
     {
@@ -142,20 +143,25 @@ getPageList()
  * 获取分页列表
  */
 async function getPageList() {
-    const { pageSize, current } = paginationState
-    loading.value = true
-    const { code, data } = await apis.common
-        .getPageList({
-            pageSize,
-            page: current,
-        })
-        .catch(() => {
-            loading.value = false
-        })
-    loading.value = false
-    if (config('http.code.success') === code) {
-        listData.value = data.rows
-        paginationState.total = data.total
+    try {
+        showLoading()
+        const { pageSize, current } = paginationState
+        const { code, data } = await apis.common
+            .getPageList({
+                pageSize,
+                page: current,
+            })
+            .catch(() => {
+                throw new Error()
+            })
+        hideLoading()
+        if (config('http.code.success') === code) {
+            const { records, pagination } = data
+            listData.value = records
+            paginationState.total = pagination.total
+        }
+    } catch (error) {
+        hideLoading()
     }
 }
 

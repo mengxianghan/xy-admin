@@ -12,8 +12,7 @@
                     <a-form-item name="username">
                         <a-input
                             v-model:value="formData.username"
-                            size="large"
-                            placeholder="admin">
+                            size="large">
                             <template #prefix>
                                 <user-outlined></user-outlined>
                             </template>
@@ -24,7 +23,6 @@
                             v-model:value="formData.password"
                             size="large"
                             type="password"
-                            placeholder="123456"
                             @pressEnter="handleLogin">
                             <template #prefix>
                                 <lock-outlined></lock-outlined>

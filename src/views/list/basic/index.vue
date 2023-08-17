@@ -62,10 +62,9 @@
                             </template>
                         </a-dropdown>
                     </template>
-                    <a-list-item-meta
-                        description="Ant Design, a design language for background applications, is refined by Ant UED Team">
+                    <a-list-item-meta :description="item.sentence">
                         <template #title>
-                            <a href="https://www.antdv.com/">{{ item.title }}</a>
+                            {{ item.title }}
                         </template>
                         <template #avatar>
                             <a-avatar
@@ -80,16 +79,16 @@
                         :gutter="40">
                         <a-col>
                             <div>Owner</div>
-                            <div>付小小</div>
+                            <div>{{ item.name }}</div>
                         </a-col>
                         <a-col>
                             <div>开始时间</div>
-                            <div>2023-04-07 10:42</div>
+                            <div>{{ dayjs(item.datetime).format('MM-DD HH:mm') }}</div>
                         </a-col>
                         <a-col>
                             <a-progress
                                 :style="{ width: '180px' }"
-                                :percent="30" />
+                                :percent="item.percent" />
                         </a-col>
                     </a-row>
                 </a-list-item>
@@ -104,21 +103,20 @@
 
 <script setup>
 import { Modal, message } from 'ant-design-vue'
-import { onMounted, ref } from 'vue'
-
+import { ref } from 'vue'
 import { DownOutlined } from '@ant-design/icons-vue'
-
-import apis from '@/apis'
+import dayjs from 'dayjs'
 import { config } from '@/config'
+import apis from '@/apis'
 import usePagination from '@/hooks/usePagination'
-
 import EditDialog from './components/EditDialog.vue'
 
 defineOptions({
-    name: 'listBasicList',
+    name: 'listBasic',
 })
 
-const { listData, paginationState, loading, resetPagination, searchFormData } = usePagination()
+const { listData, paginationState, loading, showLoading, hideLoading, resetPagination, searchFormData } =
+    usePagination()
 const editDialogRef = ref()
 
 paginationState.onChange = (page, pageSize) => {
@@ -131,28 +129,31 @@ searchFormData.value = {
     status: 0,
 }
 
-onMounted(() => {
-    getPageList()
-})
+getPageList()
 
 /**
  * 获取分页列表
  */
 async function getPageList() {
-    const { pageSize, current } = paginationState
-    loading.value = true
-    const { code, data } = await apis.common
-        .getPageList({
-            pageSize,
-            page: current,
-        })
-        .catch(() => {
-            loading.value = false
-        })
-    loading.value = false
-    if (config('http.code.success') === code) {
-        listData.value = data.rows
-        paginationState.total = data.total
+    try {
+        showLoading()
+        const { pageSize, current } = paginationState
+        const { code, data } = await apis.common
+            .getPageList({
+                pageSize,
+                page: current,
+            })
+            .catch(() => {
+                throw new Error()
+            })
+        hideLoading()
+        if (config('http.code.success') === code) {
+            const { records, pagination } = data
+            listData.value = records
+            paginationState.total = pagination.total
+        }
+    } catch (error) {
+        hideLoading()
     }
 }
 
@@ -169,19 +170,25 @@ function handleSearch() {
  */
 function handleDelete({ id }) {
     Modal.confirm({
-        title: '删除任务',
-        content: '确定删除该任务吗？',
-        onOk: async () => {
-            loading.value = true
-            const { code } = await apis.common.deleteData({ id }).catch(() => {
-                loading.value = false
+        title: '删除提示',
+        content: '确认删除？',
+        onOk: () => {
+            return new Promise((resolve, reject) => {
+                ;(async () => {
+                    try {
+                        const { code } = await apis.common.del(id).catch(() => {
+                            throw new Error()
+                        })
+                        if (config('http.code.success') === code) {
+                            resolve()
+                            message.success('删除成功')
+                            await getPageList()
+                        }
+                    } catch (error) {
+                        reject()
+                    }
+                })()
             })
-            if (config('http.code.success') === code) {
-                message.success('删除成功')
-                await getPageList()
-            } else {
-                loading.value = false
-            }
         },
     })
 }
