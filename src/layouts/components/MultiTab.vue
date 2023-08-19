@@ -3,8 +3,8 @@
         ref="multiTabRef"
         class="multi-tab">
         <a-tabs
-            :active-key="cpCurrent"
             type="card"
+            :active-key="cpCurrent"
             @change="handleSwitch">
             <a-tab-pane
                 v-for="(item, index) in cpMultiTabList"
