@@ -76,7 +76,7 @@ watch(
                 label: (item) =>
                     h('span', { class: 'basic-menu__title' }, [
                         h('span', { class: 'basic-menu__name' }, item?.meta?.title),
-                        h(Badge, { count: item?.meta?.badge || 0, style: { zoom: 0.9, margin: '0 1px 0 2px' } }),
+                        h(Badge, { count: item?.meta?.badge || 0 }),
                     ]),
                 icon: (item) => {
                     const icon = item?.meta?.icon
@@ -180,6 +180,11 @@ function onOpenChange(value) {
                 text-overflow: ellipsis;
             }
         }
+    }
+
+    :deep(.ant-badge) {
+        zoom: 0.8;
+        margin: 0 1px 0 2px;
     }
 }
 </style>

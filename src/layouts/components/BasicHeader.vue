@@ -172,5 +172,13 @@ function handleConfig() {
             }
         }
     }
+
+    :deep(.basic-menu) {
+        .basic-menu__title {
+            .ant-badge {
+                margin-top: -2px;
+            }
+        }
+    }
 }
 </style>
