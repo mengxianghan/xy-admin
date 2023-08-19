@@ -126,17 +126,14 @@
                 <template v-if="'action' === column.key">
                     <x-action-button @click="$refs.editDialogRef.handleEdit(record)">编辑</x-action-button>
                     <x-action-button @click="handleDelete(record)">删除</x-action-button>
-                    <x-action-button tag="span">
+                    <x-action-button>
                         <a-dropdown :trigger="['click']">
-                            <a>
-                                更多
-                                <down-outlined></down-outlined>
-                            </a>
+                            <more-outlined></more-outlined>
                             <template #overlay>
                                 <a-menu>
-                                    <a-menu-item>菜单 1</a-menu-item>
-                                    <a-menu-item>菜单 2</a-menu-item>
-                                    <a-menu-item>菜单 3</a-menu-item>
+                                    <a-menu-item>菜单1</a-menu-item>
+                                    <a-menu-item>菜单2</a-menu-item>
+                                    <a-menu-item>菜单3</a-menu-item>
                                 </a-menu>
                             </template>
                         </a-dropdown>
@@ -162,6 +159,7 @@ import {
     SettingOutlined,
     UpOutlined,
     PlusOutlined,
+    MoreOutlined,
 } from '@ant-design/icons-vue'
 import apis from '@/apis'
 import { config } from '@/config'
@@ -176,7 +174,7 @@ const columns = [
     { title: '规则名称', dataIndex: 'title' },
     { title: '描述', dataIndex: 'sentence' },
     { title: '状态', dataIndex: 'status' },
-    { title: '操作', key: 'action', width: 180 },
+    { title: '操作', key: 'action', width: 160 },
 ]
 const { listData, paginationState, loading, showLoading, hideLoading, resetPagination, searchFormData } =
     usePagination()

@@ -48,19 +48,21 @@
             <template #renderItem="{ item }">
                 <a-list-item>
                     <template #actions>
-                        <a @click="$refs.editDialogRef.handleEdit()">编辑</a>
-                        <a-dropdown>
-                            <a>
-                                <span class="mr-4-1">更多</span>
-                                <down-outlined></down-outlined>
-                            </a>
-                            <template #overlay>
-                                <a-menu>
-                                    <a-menu-item @click="$refs.editDialogRef.handleEdit()">编辑</a-menu-item>
-                                    <a-menu-item @click="handleDelete">删除</a-menu-item>
-                                </a-menu>
-                            </template>
-                        </a-dropdown>
+                        <x-action-button
+                            :divider="false"
+                            @click="$refs.editDialogRef.handleEdit()">
+                            编辑
+                        </x-action-button>
+                        <x-action-button :divider="false">
+                            <a-dropdown>
+                                <more-outlined></more-outlined>
+                                <template #overlay>
+                                    <a-menu>
+                                        <a-menu-item @click="handleDelete">删除</a-menu-item>
+                                    </a-menu>
+                                </template>
+                            </a-dropdown>
+                        </x-action-button>
                     </template>
                     <a-list-item-meta :description="item.sentence">
                         <template #title>
@@ -104,7 +106,7 @@
 <script setup>
 import { Modal, message } from 'ant-design-vue'
 import { ref } from 'vue'
-import { DownOutlined } from '@ant-design/icons-vue'
+import { MoreOutlined } from '@ant-design/icons-vue'
 import dayjs from 'dayjs'
 import { config } from '@/config'
 import apis from '@/apis'
