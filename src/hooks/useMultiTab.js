@@ -15,7 +15,7 @@ export default () => {
      * @private
      */
     function getSimpleRoute(route) {
-        const { fullPath, hash, href, meta, name, params, path, query } = route
+        const { fullPath, hash, href, meta, name, params, path, query } = router.resolve(route)
         return cloneDeep({ fullPath, hash, href, meta, name, params, path, query })
     }
 
@@ -34,9 +34,12 @@ export default () => {
      * @param route
      */
     function close(route) {
-        route = route || router.currentRoute.value
-        multiTabStore.close({
-            route: getSimpleRoute(route),
+        return new Promise((resolve) => {
+            route = route || router.currentRoute.value
+            multiTabStore.close({
+                route: getSimpleRoute(route),
+            })
+            resolve(router)
         })
     }
 
