@@ -1,7 +1,7 @@
 <template>
-    <span class="x-action-button">
+    <span class="x-action-btn-wrap">
         <component
-            class="x-action-button__component"
+            class="x-action-btn"
             :is="tag">
             <slot></slot>
         </component>
@@ -39,22 +39,22 @@ const { token } = useToken()
 </script>
 
 <style lang="less" scoped>
-.x-action-button {
-    &__component {
-        border-radius: @border-radius;
-        transition: all 0.2s;
-        padding: 4px;
-        color: v-bind('token.colorPrimary');
-        cursor: pointer;
+.x-action-btn {
+    border-radius: @border-radius;
+    transition: all 0.2s;
+    padding: 4px;
+    color: v-bind('token.colorPrimary');
+    cursor: pointer;
 
-        &:hover {
-            background: v-bind('token.colorPrimaryBg');
-        }
+    &:hover {
+        background: v-bind('token.colorPrimaryBg');
     }
 
-    &:last-child {
-        :deep(.ant-divider) {
-            display: none;
+    &-wrap {
+        &:last-child {
+            :deep(.ant-divider) {
+                display: none;
+            }
         }
     }
 }
