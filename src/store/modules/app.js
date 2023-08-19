@@ -9,7 +9,7 @@ const defaultConfig = {
     sideCollapsedWidth: 60,
     sideWidth: 220,
     headerHeight: 60,
-    sideTheme: 'light', // 侧边菜单主题【dark=暗色，light=亮色】
+    sideTheme: 'dark', // 侧边菜单主题【dark=暗色，light=亮色】
     headerTheme: 'light', // 侧边菜单主题【dark=暗色，light=亮色】
     multiTab: true,
     multiTabHeight: 48,
