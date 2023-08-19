@@ -68,8 +68,20 @@
                 background: @color-bg-text-hover;
             }
 
+            .x-action-btn {
+                &:hover {
+                    background: @color-bg-text-hover;
+                }
+            }
+
             &.ant-tree-treenode-selected {
-                background: @color-primary-bg;
+                background: color(~`colorPalette('@{color-primary}', 1) `);
+
+                .x-action-btn {
+                    &:hover {
+                        background: color(~`colorPalette('@{color-primary}', 2) `);
+                    }
+                }
             }
         }
 
