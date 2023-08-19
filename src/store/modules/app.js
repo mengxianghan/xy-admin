@@ -4,7 +4,7 @@ import useRouterStore from './router'
 import { config } from '@/config'
 
 const defaultConfig = {
-    layout: 'topBottom', // 页面布局【topBottom=上下布局，leftRight=左右布局】
+    layout: 'leftRight', // 页面布局【topBottom=上下布局，leftRight=左右布局】
     menuMode: 'side', // 菜单模式【side=侧边菜单，top=顶部菜单，mix=混合菜单】
     sideCollapsedWidth: 60,
     sideWidth: 220,
@@ -12,15 +12,26 @@ const defaultConfig = {
     sideTheme: 'light', // 侧边菜单主题【dark=暗色，light=亮色】
     headerTheme: 'light', // 侧边菜单主题【dark=暗色，light=亮色】
     multiTab: true,
+    multiTabHeight: 48,
+    mainMargin: 16,
 }
 
 const useAppStore = defineStore('app', {
     name: 'useAppStore',
     state: () => ({
         complete: false,
-        config: storage.local.getItem(config('storage.config'), defaultConfig),
+        config: storage.session.getItem(config('storage.config'), defaultConfig),
     }),
-    getters: {},
+    getters: {
+        mainOffsetTop: (state) => {
+            const multiTabHeight = state.config?.multiTab ? `${state.config.multiTabHeight}px` : '0px'
+            return `calc(${state.config.headerHeight}px + ${multiTabHeight} + ${state.config.mainMargin}px)`
+        },
+        mainHeight: (state) => {
+            const multiTabHeight = state.config?.multiTab ? `${state.config.multiTabHeight}px` : '0px'
+            return `calc(100vh - ${state.config.headerHeight}px - ${multiTabHeight} - ${state.config.mainMargin * 2}px)`
+        },
+    },
     actions: {
         /**
          * 初始化
@@ -42,7 +53,7 @@ const useAppStore = defineStore('app', {
          * 更新 config
          */
         updateConfig() {
-            storage.local.setItem(config('storage.config'), this.config)
+            storage.session.setItem(config('storage.config'), this.config)
         },
     },
 })

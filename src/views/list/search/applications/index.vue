@@ -95,11 +95,9 @@
 import { ref } from 'vue'
 
 import { DownloadOutlined, EditOutlined, EllipsisOutlined, ShareAltOutlined } from '@ant-design/icons-vue'
-
 import apis from '@/apis'
 import { config } from '@/config'
-import usePagination from '@/hooks/usePagination.js'
-
+import { usePagination } from '@/hooks'
 import PageHeader from '../components/PageHeader.vue'
 
 defineOptions({

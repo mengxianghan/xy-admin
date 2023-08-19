@@ -42,10 +42,9 @@
 
 <script setup>
 import { LikeOutlined, MessageOutlined, StarOutlined } from '@ant-design/icons-vue'
-
 import apis from '@/apis'
 import { config } from '@/config'
-import usePagination from '@/hooks/usePagination.js'
+import { usePagination } from '@/hooks'
 
 defineOptions({
     name: 'ArticleList',

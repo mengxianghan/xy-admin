@@ -56,6 +56,7 @@ import { useRouter } from 'vue-router'
 import { LoginOutlined, SettingOutlined } from '@ant-design/icons-vue'
 import { useAppStore, useUserStore } from '@/store'
 import ActionButton from './ActionButton.vue'
+import { theme as antTheme } from 'ant-design-vue'
 
 defineOptions({
     name: 'BasicHeader',
@@ -79,6 +80,7 @@ const router = useRouter()
 
 const { config } = storeToRefs(appStore)
 const { userInfo } = storeToRefs(userStore)
+const { token } = antTheme.useToken()
 
 const cpClassNames = computed(() => ({
     [`basic-header--${props.theme}`]: true,
@@ -88,8 +90,8 @@ const cpStyles = computed(() => {
         zIndex: config.value.layout === 'topBottom' ? 120 : 110,
     }
 
-    if (!config.value.multiTab) {
-        styles.boxShadow = ' 0 1px 4px rgba(0, 21, 41, 0.08)'
+    if (config.value.headerTheme === 'light') {
+        styles.boxShadow = `0 0 0 1px ${token.value.colorSplit}`
     }
 
     return styles
@@ -132,6 +134,7 @@ function handleConfig() {
     display: flex;
     align-items: center;
     padding-inline: 16px;
+    // box-shadow: 0 1px 4px rgba(0, 21, 41, 0.08);
 
     &__left {
         flex-shrink: 0;

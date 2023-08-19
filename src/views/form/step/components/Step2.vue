@@ -40,8 +40,7 @@
 
 <script setup>
 import { ref } from 'vue'
-
-import useForm from '@/hooks/useForm'
+import { useForm } from '@/hooks'
 
 defineOptions({
     name: 'Step2',

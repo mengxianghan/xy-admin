@@ -27,7 +27,7 @@ onBeforeRouteUpdate((to) => {
 })
 
 function update(_route = route) {
-    breadcrumbData.value = _route?.meta?._breadcrumb
+    breadcrumbData.value = _route?.meta?.breadcrumb
 }
 </script>
 

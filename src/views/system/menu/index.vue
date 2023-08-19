@@ -17,37 +17,35 @@
             :loading="loading"
             :pagination="false"
             :expand-icon-column-index="1">
-            <template #bodyCell="{ column, record, index }">
-                <template v-if="'no' === column.key">
-                    {{ index + 1 }}
-                </template>
-                <template v-if="'type' === column.key">
+            <template #bodyCell="{ column, record }">
+                <template v-if="'menuType' === column.key">
                     <!--菜单-->
                     <a-tag
-                        v-if="menuTypeEnum.is('menu', record.type)"
-                        color="processing"
-                        >{{ menuTypeEnum.getDesc(record.type) }}
+                        v-if="menuTypeEnum.is('menu', record.menu_type)"
+                        color="processing">
+                        {{ menuTypeEnum.getDesc(record.menu_type) }}
                     </a-tag>
                     <!--按钮-->
                     <a-tag
-                        v-if="menuTypeEnum.is('button', record.type)"
-                        color="success"
-                        >{{ menuTypeEnum.getDesc(record.type) }}
+                        v-if="menuTypeEnum.is('button', record.menu_type)"
+                        color="success">
+                        {{ menuTypeEnum.getDesc(record.menu_type) }}
                     </a-tag>
                 </template>
                 <template v-if="'action' === column.key">
-                    <x-action-button @click="$refs.editDialogRef.handleEdit(record)">新建下级</x-action-button>
                     <x-action-button @click="$refs.editDialogRef.handleEdit(record)">编辑</x-action-button>
                     <x-action-button tag="span">
                         <a-dropdown :trigger="['click']">
-                            <a>
-                                更多
-                                <down-outlined></down-outlined>
-                            </a>
+                            <x-action-button>
+                                <ellipsis-outlined></ellipsis-outlined>
+                            </x-action-button>
                             <template #overlay>
                                 <a-menu>
-                                    <a-menu-item @click="handleDelete(record)">删除</a-menu-item>
+                                    <a-menu-item @click="$refs.editDialogRef.handleEdit(record)">
+                                        新建下级
+                                    </a-menu-item>
                                     <a-menu-item>克隆</a-menu-item>
+                                    <a-menu-item @click="handleDelete(record)">删除</a-menu-item>
                                 </a-menu>
                             </template>
                         </a-dropdown>
@@ -62,12 +60,12 @@
 
 <script setup>
 import { Modal, message } from 'ant-design-vue'
-import { onMounted, ref } from 'vue'
-import { PlusOutlined, DownOutlined } from '@ant-design/icons-vue'
+import { ref } from 'vue'
+import { PlusOutlined, EllipsisOutlined } from '@ant-design/icons-vue'
 import apis from '@/apis'
 import { config } from '@/config'
 import { menuTypeEnum } from '@/enums/system'
-import usePagination from '@/hooks/usePagination'
+import { usePagination } from '@/hooks'
 
 import EditDialog from './components/EditDialog.vue'
 
@@ -76,32 +74,33 @@ defineOptions({
 })
 
 const columns = ref([
-    { title: '#', key: 'no', width: 60, align: 'center' },
-    { title: '名称', dataIndex: 'name' },
-    { title: '类型', dataIndex: 'type', key: 'type', width: 120 },
+    { title: '名称', dataIndex: 'title' },
+    { title: '类型', dataIndex: 'menu_type', key: 'menuType', width: 120 },
     { title: '排序', dataIndex: 'sort', width: 80 },
-    { title: '操作', key: 'action', width: 240 },
+    { title: '操作', key: 'action', width: 120 },
 ])
-const { listData, loading } = usePagination()
+const { listData, loading, showLoading, hideLoading } = usePagination()
 const editDialogRef = ref()
 
-onMounted(() => {
-    getMenuList()
-})
+getList()
 
 /**
  * 获取菜单列表
  * @return {Promise<void>}
  */
-async function getMenuList() {
-    loading.value = true
-    const { code, data } = await apis.system.getMenuList().catch(() => {
-        loading.value = false
-    })
-    loading.value = false
-    if (config('http.code.success') === code) {
-        const { rows } = data
-        listData.value = rows
+async function getList() {
+    try {
+        showLoading()
+        const { code, data } = await apis.common.getPageList().catch(() => {
+            throw new Error()
+        })
+        hideLoading()
+        if (config('http.code.success') === code) {
+            const { records } = data
+            listData.value = records
+        }
+    } catch (error) {
+        hideLoading()
     }
 }
 
@@ -113,17 +112,24 @@ function handleDelete({ id }) {
     Modal.confirm({
         title: '删除提示',
         content: '确认删除？',
-        onOk: async () => {
-            loading.value = true
-            const { code } = await apis.common.deleteData({ id }).catch(() => {
-                loading.value = false
+        okText: '确认',
+        onOk: () => {
+            return new Promise((resolve, reject) => {
+                ;(async () => {
+                    try {
+                        const { code } = await apis.common.del(id).catch(() => {
+                            throw new Error()
+                        })
+                        if (config('http.code.success') === code) {
+                            resolve()
+                            message.success('删除成功')
+                            await getList()
+                        }
+                    } catch (error) {
+                        reject()
+                    }
+                })()
             })
-            if (config('http.code.success') === code) {
-                message.success('删除成功')
-                await getMenuList()
-            } else {
-                loading.value = false
-            }
         },
     })
 }

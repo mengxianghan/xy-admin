@@ -1,24 +1,18 @@
 <template>
     <a-row
-        :gutter="16"
-        type="flex">
-        <a-col flex="0 0 300px">
-            <menu-tree
-                @ready="onMenuReady"
-                @select="onMenuSelect"></menu-tree>
+        :gutter="8"
+        :wrap="false">
+        <a-col flex="0 0 280px">
+            <menus
+                v-model:value="searchFormData.menu"
+                @change="onMenuChange"></menus>
         </a-col>
-        <template v-if="!menuInfo">
-            <a-col flex="1">
-                <a-card type="flex">
-                    <a-empty description="请选择菜单"></a-empty>
-                </a-card>
-            </a-col>
-        </template>
-        <template v-else>
-            <a-col flex="1">
-                <a-card
-                    :title="menuInfo.name"
-                    type="flex">
+        <a-col flex="1.2">
+            <a-card
+                title="菜单信息"
+                :style="cpStyle"
+                :body-style="cpBodyStyle">
+                <x-scrollbar class="pa-8-2">
                     <a-form
                         :label-col="{ style: { width: '100px' } }"
                         :model="formData">
@@ -84,17 +78,20 @@
                             <a-switch v-model:checked="formData.is_menu"></a-switch>
                         </a-form-item>
                         <a-form-item
-                            :colon="false"
-                            label="&nbsp;">
-                            <a-button type="primary">保存</a-button>
+                            label="&nbsp;"
+                            :colon="false">
+                            <a-button type="primary"> 保存 </a-button>
                         </a-form-item>
                     </a-form>
-                </a-card>
-            </a-col>
-            <a-col flex="1">
-                <a-card
-                    title="权限按钮"
-                    type="flex">
+                </x-scrollbar>
+            </a-card>
+        </a-col>
+        <a-col flex="1">
+            <a-card
+                title="权限按钮"
+                :style="cpStyle"
+                :body-style="cpBodyStyle">
+                <x-scrollbar class="pa-8-2">
                     <x-form-table
                         v-model="authList"
                         :row-tpl="{ name: '', alias: '' }"
@@ -114,43 +111,46 @@
                             </template>
                         </a-table-column>
                     </x-form-table>
-                </a-card>
-            </a-col>
-        </template>
+                </x-scrollbar>
+            </a-card>
+        </a-col>
     </a-row>
 </template>
 
 <script setup>
-import { cloneDeep } from 'lodash-es'
-import { ref } from 'vue'
-
-import useForm from '@/hooks/useForm'
-
-import MenuTree from './components/MenuTree.vue'
+import { computed, ref } from 'vue'
+import { usePagination, useForm } from '@/hooks'
+import { default as Menus } from './components/Menu.vue'
+import { useAppStore } from '@/store'
 
 defineOptions({
     name: 'systemNewMenu',
 })
 
+const appStore = useAppStore()
+const { searchFormData } = usePagination()
 const { formData } = useForm()
-const authList = ref([{ name: '新增', alias: 'insert' }])
-const menuList = ref([])
-const menuInfo = ref(null)
+
+const selectedMenu = ref({})
+
+const cpStyle = computed(() => {
+    return {
+        height: appStore.mainHeight,
+    }
+})
+const cpBodyStyle = computed(() => {
+    return {
+        height: 'calc(100% - 56px)',
+        padding: 0,
+    }
+})
 
 /**
- * 选中菜单
- * @param info
+ * 菜单发生改变
+ * @param {object} payload
  */
-function onMenuSelect(info) {
-    menuInfo.value = cloneDeep(info)
-}
-
-/**
- * 菜单准备完成
- * @param info
- */
-function onMenuReady(info) {
-    menuList.value = [{ name: '顶级菜单', key: 0 }, ...info]
+function onMenuChange(payload) {
+    selectedMenu.value = payload
 }
 </script>
 

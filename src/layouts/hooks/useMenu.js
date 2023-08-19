@@ -41,7 +41,7 @@ export default () => {
                                 const firstRoute = getFirstValidRoute(sideMenuList.value)
                                 if (firstRoute) {
                                     // 如果第一个路由是外部链接，则不跳转
-                                    if (firstRoute?.meta?._isLink) return
+                                    if (firstRoute?.meta?.isLink) return
                                     // 跳转到符合条件的路由中
                                     router.push({
                                         path: firstRoute.path,
@@ -52,7 +52,7 @@ export default () => {
                         },
                     }
                 })
-                const parentName = get(head(route?.meta?._breadcrumb), 'name', '')
+                const parentName = get(head(route?.meta?.breadcrumb), 'name', '')
                 sideMenuList.value = get(find(menuList.value, { name: parentName }), 'children', [])
             }
         },

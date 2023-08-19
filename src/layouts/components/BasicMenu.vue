@@ -103,8 +103,8 @@ onMounted(() => {
  */
 function setSelectedMenu() {
     const { meta } = route || {}
-    openKeys.value = meta?._openKeys || []
-    selectedKeys.value = meta?._breadcrumb.map((item) => item?.meta?.active || item.name)
+    openKeys.value = meta?.openKeys || []
+    selectedKeys.value = meta?.breadcrumb.map((item) => item?.meta?.active || item.name)
 }
 
 /**
@@ -119,7 +119,7 @@ function handleClick({ item }) {
     }
 
     if (path) {
-        if (meta?._isLink) {
+        if (meta?.isLink) {
             if (meta?.target) {
                 window.open(path)
             } else {

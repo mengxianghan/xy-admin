@@ -3,59 +3,64 @@
         ref="multiTabRef"
         class="multi-tab">
         <a-tabs
-            :active-key="current"
+            :active-key="cpCurrent"
             type="card"
             @change="handleSwitch">
             <a-tab-pane
-                v-for="(item, index) in multiTabList"
+                v-for="(item, index) in cpMultiTabList"
                 :key="index">
                 <template #tab>
                     <a-dropdown :trigger="['contextmenu']">
                         <div>
                             {{ item.meta.title }}
                             <span
-                                v-if="current === index"
+                                v-if="cpCurrent === index"
                                 class="multi-tab__icon"
                                 @click.stop="handleReload(item)">
                                 <reload-outlined
                                     :spin="spin"
                                     class="ma-0" />
                             </span>
-                            <span
-                                class="multi-tab__icon"
-                                @click.stop="handleClose(item)">
-                                <close-outlined class="ma-0" />
-                            </span>
+                            <template v-if="cpShowCloseBtn">
+                                <span
+                                    class="multi-tab__icon"
+                                    @click.stop="handleClose(item)">
+                                    <close-outlined class="ma-0" />
+                                </span>
+                            </template>
                         </div>
                         <template #overlay>
                             <a-menu>
                                 <a-menu-item
                                     key="reload"
-                                    @click="handleReload(item)"
-                                    >重新加载
+                                    @click="handleReload(item)">
+                                    重新加载
                                 </a-menu-item>
-                                <a-menu-item
-                                    key="close"
-                                    @click="handleClose(item)"
-                                    >关闭
-                                </a-menu-item>
-                                <a-menu-item
-                                    v-if="multiTabList.length > 1"
-                                    key="closeOther"
-                                    @click="handleCloseOther(item)"
-                                    >关闭其他
-                                </a-menu-item>
+                                <template v-if="cpShowCloseBtn">
+                                    <a-menu-item
+                                        key="close"
+                                        @click="handleClose(item)">
+                                        关闭
+                                    </a-menu-item>
+                                </template>
+                                <template v-if="cpShowCloseOtherBtn">
+                                    <a-menu-item
+                                        key="closeOther"
+                                        @click="handleCloseOther(item)">
+                                        关闭其他
+                                    </a-menu-item>
+                                </template>
                                 <a-menu-item
                                     v-if="index > 0"
                                     key="closeLeft"
-                                    @click="handleCloseLeft(item)"
-                                    >关闭左侧
+                                    @click="handleCloseLeft(item)">
+                                    关闭左侧
                                 </a-menu-item>
                                 <a-menu-item
-                                    v-if="index < multiTabList.length - 1"
+                                    v-if="index < cpMultiTabList.length - 1"
                                     key="closeRight"
-                                    @click="handleCloseRight(item)"
-                                    >关闭右侧
+                                    @click="handleCloseRight(item)">
+                                    关闭右侧
                                 </a-menu-item>
                             </a-menu>
                         </template>
@@ -73,7 +78,7 @@ import { useRouter } from 'vue-router'
 import { storeToRefs } from 'pinia'
 import { CloseOutlined, ReloadOutlined } from '@ant-design/icons-vue'
 import { useMultiTabStore, useAppStore } from '@/store'
-import useMultiTab from '@/hooks/useMultiTab'
+import { useMultiTab } from '@/hooks'
 
 defineOptions({
     name: 'MultiTab',
@@ -94,8 +99,10 @@ const { config } = storeToRefs(appStore)
 const spin = ref(false)
 const multiTabRef = ref()
 
-const multiTabList = computed(() => multiTabStore.list)
-const current = computed(() => multiTabStore.current)
+const cpMultiTabList = computed(() => multiTabStore.list)
+const cpCurrent = computed(() => multiTabStore.current)
+const cpShowCloseBtn = computed(() => cpMultiTabList.value.length > 1)
+const cpShowCloseOtherBtn = computed(() => cpMultiTabList.value.length > 1)
 
 onMounted(async () => {
     await nextTick()
@@ -119,7 +126,7 @@ function handleReload(route) {
  * @param index
  */
 function handleSwitch(index) {
-    router.push(multiTabList.value[index])
+    router.push(cpMultiTabList.value[index])
 }
 
 /**
@@ -140,7 +147,7 @@ function initDragSort() {
     position: sticky;
     top: v-bind('config.headerHeight + "px"');
     z-index: 100;
-    padding: 8px 0 0;
+    padding-block: 8px 0;
 
     &__icon {
         margin-left: 8px;
@@ -155,10 +162,10 @@ function initDragSort() {
         &.ant-tabs-top {
             .ant-tabs-nav {
                 padding-inline: 16px;
-                margin-bottom: 8px;
+                margin-block: 0;
 
                 .ant-tabs-tab {
-                    border-bottom: none;
+                    border-bottom-color: transparent;
                 }
             }
         }

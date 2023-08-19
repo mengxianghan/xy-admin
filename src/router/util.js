@@ -29,14 +29,14 @@ export function formatRoutes(routes = [], parent = {}) {
                     target: meta?.target || '',
                     layout: meta?.layout || parent?.meta?.layout || 'BasicLayout',
                     actions: meta?.actions ?? ['*'],
-                    _openKeys: isLink ? [] : [...(parent?.meta?._openKeys ?? []), meta?.active ?? item?.name],
-                    _isLink: isLink,
-                    _isIframe: isIframe,
+                    openKeys: isLink ? [] : [...(parent?.meta?.openKeys ?? []), meta?.active ?? item?.name],
+                    isLink,
+                    isIframe,
                     ...meta,
                 },
             }
             // 面包屑导航
-            route.meta._breadcrumb = [...(parent?.meta?._breadcrumb ?? []), route]
+            route.meta.breadcrumb = [...(parent?.meta?.breadcrumb ?? []), route]
             // 重定向
             item.redirect && (route.redirect = item.redirect)
             // 是否有子菜单，并递归处理

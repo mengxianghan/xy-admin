@@ -108,7 +108,7 @@ import { DownOutlined } from '@ant-design/icons-vue'
 import dayjs from 'dayjs'
 import { config } from '@/config'
 import apis from '@/apis'
-import usePagination from '@/hooks/usePagination'
+import { usePagination } from '@/hooks'
 import EditDialog from './components/EditDialog.vue'
 
 defineOptions({

@@ -19,6 +19,13 @@ const theme = ref({
         List: {
             paddingContentHorizontalLG: 0,
         },
+        Table: {
+            paddingContentVerticalLG: 12,
+            padding: 12,
+        },
+        Card: {
+            paddingLG: 16,
+        },
     },
 })
 </script>

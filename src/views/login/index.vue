@@ -105,11 +105,9 @@
 import { Modal, message, notification } from 'ant-design-vue'
 import { computed, onMounted, ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-
 import { LockOutlined, MobileOutlined, UserOutlined } from '@ant-design/icons-vue'
-
 import { config } from '@/config'
-import useForm from '@/hooks/useForm'
+import { useForm } from '@/hooks'
 import { useAppStore, useRouterStore, useUserStore } from '@/store'
 import { timeFix } from '@/utils/util'
 

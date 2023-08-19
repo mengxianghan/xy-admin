@@ -30,22 +30,22 @@
                     @change="onChange"></a-select>
             </a-form-item>
             <a-form-item
-                label="侧边风格"
-                class="mb-8-2"
-                :label-col="{ flex: 'auto' }"
-                :wrapper-col="{ style: { flex: '0 0 auto' } }">
-                <a-select
-                    v-model:value="config.sideTheme"
-                    :options="themeList"
-                    @change="onChange"></a-select>
-            </a-form-item>
-            <a-form-item
                 label="顶部风格"
                 class="mb-8-2"
                 :label-col="{ flex: 'auto' }"
                 :wrapper-col="{ style: { flex: '0 0 auto' } }">
                 <a-select
                     v-model:value="config.headerTheme"
+                    :options="themeList"
+                    @change="onChange"></a-select>
+            </a-form-item>
+            <a-form-item
+                label="侧边风格"
+                class="mb-8-2"
+                :label-col="{ flex: 'auto' }"
+                :wrapper-col="{ style: { flex: '0 0 auto' } }">
+                <a-select
+                    v-model:value="config.sideTheme"
                     :options="themeList"
                     @change="onChange"></a-select>
             </a-form-item>

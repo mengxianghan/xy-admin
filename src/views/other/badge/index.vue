@@ -13,8 +13,7 @@
 
 <script setup>
 import { ref } from 'vue'
-
-import useMenu from '@/hooks/useMenu'
+import { useMenu } from '@/hooks'
 
 defineOptions({
     name: 'otherBadge',

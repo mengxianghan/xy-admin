@@ -23,10 +23,8 @@
 
 <script setup>
 import { cloneDeep } from 'lodash-es'
-
 import apis from '@/apis'
-import useForm from '@/hooks/useForm'
-import useModal from '@/hooks/useModal'
+import { useForm, useModal } from '@/hooks'
 
 const emit = defineEmits(['ok'])
 
@@ -50,7 +48,7 @@ function handleCreate() {
 /**
  * 编辑
  */
-function handleEdit(record) {
+function handleEdit(record = {}) {
     showModal({
         type: 'edit',
         title: '编辑',

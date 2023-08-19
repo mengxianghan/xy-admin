@@ -163,11 +163,9 @@ import {
     UpOutlined,
     PlusOutlined,
 } from '@ant-design/icons-vue'
-
 import apis from '@/apis'
 import { config } from '@/config'
-import usePagination from '@/hooks/usePagination'
-
+import { usePagination } from '@/hooks'
 import EditDialog from './components/EditDialog.vue'
 
 defineOptions({

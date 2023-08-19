@@ -24,7 +24,7 @@ defineOptions({
 const route = useRoute()
 const multiTabStore = useMultiTabStore()
 const iframeList = computed(() => multiTabStore.iframeList)
-const cpIsIframe = computed(() => route?.meta?._isIframe)
+const cpIsIframe = computed(() => route?.meta?.isIframe)
 </script>
 
 <style lang="less" scoped>

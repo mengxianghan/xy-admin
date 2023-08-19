@@ -26,12 +26,12 @@
                 @prev="handlePrev"
                 @finish="handleFinish" />
         </div>
+        <a-button @click="back">返回</a-button>
     </a-card>
 </template>
 
 <script setup>
 import { ref } from 'vue'
-
 import Step1 from './components/Step1.vue'
 import Step2 from './components/Step2.vue'
 import Step3 from './components/Step3.vue'

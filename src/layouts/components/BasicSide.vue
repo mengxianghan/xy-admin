@@ -34,6 +34,7 @@ import { storeToRefs } from 'pinia'
 import { computed, useSlots, ref } from 'vue'
 import { MenuUnfoldOutlined, MenuFoldOutlined } from '@ant-design/icons-vue'
 import { useAppStore } from '@/store'
+import { theme as antTheme } from 'ant-design-vue'
 
 defineOptions({
     name: 'BasicSide',
@@ -52,8 +53,8 @@ defineProps({
     },
 })
 const slots = useSlots()
-
 const appStore = useAppStore()
+const { token } = antTheme.useToken()
 
 const { config } = storeToRefs(appStore)
 
@@ -62,6 +63,10 @@ const collapsed = ref(false)
 const cpStyles = computed(() => {
     const styles = {
         zIndex: config.value.layout === 'topBottom' ? 110 : 120,
+    }
+
+    if (config.value.sideTheme === 'light') {
+        styles.boxShadow = `0 0 0 1px ${token.value.colorSplit}`
     }
 
     return styles
@@ -73,7 +78,7 @@ const cpShowFooterSlot = computed(() => !!slots.footer)
 <style lang="less" scoped>
 .basic-side {
     position: sticky;
-    box-shadow: 2px 0 8px rgba(29, 35, 41, 0.05);
+    // box-shadow: 2px 0 8px rgba(29, 35, 41, 0.05);
 
     :deep(.ant-layout-sider-children) {
         height: 100%;

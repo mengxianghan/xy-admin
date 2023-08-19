@@ -70,7 +70,7 @@
 </template>
 
 <script setup>
-import useForm from '@/hooks/useForm'
+import { useForm } from '@/hooks'
 
 defineOptions({
     name: 'Step1',

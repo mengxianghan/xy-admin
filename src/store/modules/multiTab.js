@@ -59,16 +59,21 @@ const useMultiTabStore = defineStore('multiTab', {
             // 如果未传入路由，则默认当前路由
             route = route || this.list[this.current]
             const index = findIndex(this.list, { path: route?.path })
+            // 判断标签页是否存在
+            if (index < 0) return
+
             // 判断是否最后一个标签页
             if (this.list.length === 1) {
                 // 是最后又给标签页，禁止删除
                 message.warning('至少保留一个标签页')
                 return
             }
+
             this._setList({
                 index,
                 length: 1,
             })
+
             // 关闭当前标签页
             if (this.current === index) {
                 // 关闭最右侧标签页
@@ -77,10 +82,12 @@ const useMultiTabStore = defineStore('multiTab', {
                 }
                 router.push(this.list[this.current])
             }
+
             // 关闭左侧标签页
             if (this.current > index) {
                 this._setCurrent(this.current - 1)
             }
+
             this._setIframeList()
         },
         /**
@@ -225,7 +232,7 @@ const useMultiTabStore = defineStore('multiTab', {
                 this.keepAlive = !this.keepAlive
             }
             // 如果刷新的是 iframe
-            if (route?.meta?._isIframe) {
+            if (route?.meta?.isIframe) {
                 const iframeIndex = findIndex(this.iframeList, { path: route?.path })
                 this.iframeList[iframeIndex].meta.url = ''
                 setTimeout(() => {
@@ -237,7 +244,7 @@ const useMultiTabStore = defineStore('multiTab', {
          * 设置 iframe 列表
          */
         _setIframeList() {
-            this.iframeList = cloneDeep(this.list).filter((item) => item?.meta?._isIframe)
+            this.iframeList = cloneDeep(this.list).filter((item) => item?.meta?.isIframe)
         },
     },
 })

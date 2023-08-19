@@ -5,11 +5,6 @@
         :width="480"
         :confirm-loading="modal.confirmLoading"
         :after-close="onAfterClose"
-        :ok-button-props="{
-            style: {
-                display: disabled ? 'none' : '',
-            },
-        }"
         :cancel-text="cancelText"
         @ok="handleOk"
         @cancel="handleCancel">
@@ -21,35 +16,27 @@
             <a-form-item
                 label="头像"
                 name="avatar">
-                <x-upload-image
-                    v-model="formData.avatar"
-                    :disabled="disabled"></x-upload-image>
-            </a-form-item>
-            <a-form-item
-                label="登录帐号"
-                name="userName">
-                <a-input
-                    v-model:value="formData.userName"
-                    :disabled="disabled"></a-input>
+                <x-upload-image v-model="formData.avatar"></x-upload-image>
             </a-form-item>
             <a-form-item
                 label="姓名"
                 name="name">
-                <a-input
-                    v-model:value="formData.name"
-                    :disabled="disabled"></a-input>
+                <a-input v-model:value="formData.name"></a-input>
             </a-form-item>
             <a-form-item
-                label="所属角色"
-                name="role">
-                <a-cascader
-                    v-model:value="formData.role"
-                    placeholder=""
-                    multiple
-                    max-tag-count="responsive"
-                    :options="roleList"
-                    :disabled="disabled"
-                    :field-names="{ label: 'name', value: 'key', children: 'children' }"></a-cascader>
+                label="手机号"
+                name="phone">
+                <a-input v-model:value="formData.phone"></a-input>
+            </a-form-item>
+            <a-form-item
+                label="状态"
+                name="status">
+                <a-radio-group
+                    v-model:value="formData.status"
+                    :options="[
+                        { label: '启用', value: 1 },
+                        { label: '禁用', value: 0 },
+                    ]"></a-radio-group>
             </a-form-item>
         </a-form>
     </a-modal>
@@ -58,37 +45,15 @@
 <script setup>
 import { cloneDeep } from 'lodash-es'
 import { ref } from 'vue'
-
-import apis from '@/apis'
 import { config } from '@/config'
-import useForm from '@/hooks/useForm'
-import useModal from '@/hooks/useModal'
+import apis from '@/apis'
+import { useForm, useModal } from '@/hooks'
 
 const emit = defineEmits(['ok'])
 
 const { modal, showModal, hideModal, showLoading, hideLoading } = useModal()
 const { formRecord, formData, formRef, formRules, resetForm } = useForm()
-const disabled = ref(false)
 const cancelText = ref('取消')
-const roleList = ref([])
-
-formRules.value = {
-    avatar: { required: true, message: '请上传头像' },
-    userName: { required: true, message: '请输入登录帐号' },
-    name: { required: true, message: '请输入姓名' },
-    role: { required: true, message: '请选择所属角色' },
-}
-
-/**
- * 获取角色列表
- * @returns {Promise<void>}
- */
-async function getUserRoleList() {
-    const { code, data } = await apis.system.getUserRoleList().catch(() => {})
-    if (config('http.code.success') === code) {
-        roleList.value = data.rows
-    }
-}
 
 /**
  * 新建
@@ -96,39 +61,20 @@ async function getUserRoleList() {
 function handleCreate() {
     showModal({
         type: 'create',
-        title: '添加用户',
+        title: '新建用户',
     })
-    getUserRoleList()
 }
 
 /**
  * 编辑
  */
-function handleEdit(record) {
+function handleEdit(record = {}) {
     showModal({
         type: 'edit',
         title: '编辑用户',
     })
-    formData.value = {
-        ...cloneDeep(record),
-        role: [],
-    }
     formRecord.value = record
-    getUserRoleList()
-}
-
-/**
- * 查看
- */
-function handlePreview(record) {
-    showModal({
-        type: 'preview',
-        title: '查看用户',
-    })
     formData.value = cloneDeep(record)
-    disabled.value = true
-    cancelText.value = '关闭'
-    getUserRoleList()
 }
 
 /**
@@ -138,19 +84,31 @@ function handleOk() {
     formRef.value
         .validateFields()
         .then(async (values) => {
-            showLoading()
-            const params = {
-                id: formData.value?.id,
-                ...values,
-            }
-            let result = null
-            result = await apis.common.saveData(params).catch(() => {
+            try {
+                showLoading()
+                const params = {
+                    ...values,
+                }
+                let result = null
+                switch (modal.value.type) {
+                    case 'create':
+                        result = await apis.common.create(params).catch(() => {
+                            throw new Error()
+                        })
+                        break
+                    case 'edit':
+                        result = await apis.common.update(params).catch(() => {
+                            throw new Error()
+                        })
+                        break
+                }
                 hideLoading()
-            })
-            hideLoading()
-            if (200 === result?.code) {
-                hideModal()
-                emit('ok')
+                if (config('http.code.success') === result?.code) {
+                    hideModal()
+                    emit('ok')
+                }
+            } catch (error) {
+                hideLoading()
             }
         })
         .catch(() => {
@@ -170,15 +128,12 @@ function handleCancel() {
  */
 function onAfterClose() {
     resetForm()
-    disabled.value = false
-    cancelText.value = '取消'
     hideLoading()
 }
 
 defineExpose({
     handleCreate,
     handleEdit,
-    handlePreview,
 })
 </script>
 

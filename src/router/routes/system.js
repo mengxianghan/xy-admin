@@ -18,7 +18,7 @@ export default [
                 name: 'systemUser',
                 component: 'system/user/index.vue',
                 meta: {
-                    title: '用户管理',
+                    title: '成员与部门',
                     isMenu: true,
                     keepAlive: true,
                     permission: '*',

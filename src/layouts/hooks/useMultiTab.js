@@ -1,4 +1,4 @@
-import useMultiTab from '@/hooks/useMultiTab'
+import { useMultiTab } from '@/hooks'
 import { onMounted } from 'vue'
 import { useRouter, onBeforeRouteUpdate } from 'vue-router'
 

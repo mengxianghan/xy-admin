@@ -38,7 +38,7 @@ const { token } = useToken()
     cursor: pointer;
 
     &:hover {
-        background: v-bind('token.colorPrimaryBgHover');
+        background: v-bind('token.colorPrimaryBg');
     }
 
     &:not(:first-child) {

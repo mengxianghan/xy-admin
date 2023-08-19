@@ -2,35 +2,36 @@
     <a-modal
         :open="modal.open"
         :title="modal.title"
+        :width="480"
         :confirm-loading="modal.confirmLoading"
         :after-close="onAfterClose"
+        :cancel-text="cancelText"
         @ok="handleOk"
         @cancel="handleCancel">
         <a-form
             ref="formRef"
-            scroll-to-first-error
-            layout="vertical"
             :model="formData"
-            :rules="formRules">
+            :rules="formRules"
+            :label-col="{ style: { width: '90px' } }">
             <a-form-item
-                label="任务名称"
-                name="key1">
-                <a-input v-model:value="formData.key1"></a-input>
+                label="名称"
+                name="name">
+                <a-input v-model:value="formData.name"></a-input>
             </a-form-item>
             <a-form-item
-                label="开始时间"
-                name="key2">
-                <a-date-picker v-model:value="formData.key2"></a-date-picker>
+                label="唯一值"
+                name="key">
+                <a-input v-model:value="formData.key"></a-input>
             </a-form-item>
             <a-form-item
-                label="任务负责人"
-                name="key3">
-                <a-select v-model:value="formData.key3"></a-select>
-            </a-form-item>
-            <a-form-item
-                label="产品描述"
-                name="key4">
-                <a-textarea v-model:value="formData.key4"></a-textarea>
+                label="状态"
+                name="status">
+                <a-radio-group
+                    v-model:value="formData.status"
+                    :options="[
+                        { label: '启用', value: 1 },
+                        { label: '禁用', value: 0 },
+                    ]"></a-radio-group>
             </a-form-item>
         </a-form>
     </a-modal>
@@ -38,20 +39,16 @@
 
 <script setup>
 import { cloneDeep } from 'lodash-es'
-
+import { ref } from 'vue'
+import { config } from '@/config'
 import apis from '@/apis'
 import { useForm, useModal } from '@/hooks'
 
 const emit = defineEmits(['ok'])
 
 const { modal, showModal, hideModal, showLoading, hideLoading } = useModal()
-const { formRef, formRules, formRecord, formData, resetForm } = useForm()
-
-formRules.value = {
-    key1: { required: true, message: '请输入任务名称' },
-    key2: { required: true, message: '请选择开始时间' },
-    key3: { required: true, message: '请选择任务负责人' },
-}
+const { formRecord, formData, formRef, formRules, resetForm } = useForm()
+const cancelText = ref('取消')
 
 /**
  * 新建
@@ -59,7 +56,7 @@ formRules.value = {
 function handleCreate() {
     showModal({
         type: 'create',
-        title: '新建',
+        title: '新建项',
     })
 }
 
@@ -69,7 +66,7 @@ function handleCreate() {
 function handleEdit(record = {}) {
     showModal({
         type: 'edit',
-        title: '编辑',
+        title: '编辑项',
     })
     formRecord.value = record
     formData.value = cloneDeep(record)
@@ -95,13 +92,13 @@ function handleOk() {
                         })
                         break
                     case 'edit':
-                        result = await apis.common.update(formRecord.value.id, params).catch(() => {
+                        result = await apis.common.update(params).catch(() => {
                             throw new Error()
                         })
                         break
                 }
                 hideLoading()
-                if (200 === result?.code) {
+                if (config('http.code.success') === result?.code) {
                     hideModal()
                     emit('ok')
                 }
@@ -126,6 +123,7 @@ function handleCancel() {
  */
 function onAfterClose() {
     resetForm()
+    hideLoading()
 }
 
 defineExpose({

@@ -2,14 +2,8 @@
     <a-modal
         :open="modal.open"
         :title="modal.title"
-        :width="640"
         :confirm-loading="modal.confirmLoading"
         :after-close="onAfterClose"
-        :ok-button-props="{
-            style: {
-                display: disabled ? 'none' : '',
-            },
-        }"
         :cancel-text="cancelText"
         @ok="handleOk"
         @cancel="handleCancel">
@@ -18,8 +12,22 @@
             :model="formData"
             :rules="formRules"
             :label-col="{
-                style: { width: '80px' },
+                style: { width: '100px' },
             }">
+            <a-form-item
+                label="名称"
+                name="title">
+                <a-input v-model:value="formData.title"></a-input>
+            </a-form-item>
+            <a-form-item name="key">
+                <template #label>
+                    <span class="mr-4-1">key</span>
+                    <a-tooltip title="系统唯一且与内置组件名一致，否则导致缓存失效">
+                        <question-circle-outlined class="color-secondary"></question-circle-outlined>
+                    </a-tooltip>
+                </template>
+                <a-input v-model:value="formData.key"></a-input>
+            </a-form-item>
             <a-form-item label="所属上级">
                 <a-tree-select
                     v-model:value="formData.parent_id"
@@ -27,26 +35,12 @@
             </a-form-item>
             <a-form-item
                 label="类型"
-                name="type">
+                name="menu_type">
                 <a-radio-group
-                    v-model:value="formData.type"
-                    :options="[
-                        { label: '菜单', value: 'menu' },
-                        { label: '按钮', value: 'button' },
-                    ]"></a-radio-group>
+                    v-model:value="formData.menu_type"
+                    :options="menuTypeEnum.getOptions()"></a-radio-group>
             </a-form-item>
-            <a-form-item
-                label="名称"
-                name="name">
-                <a-input v-model:value="formData.name"></a-input>
-            </a-form-item>
-            <a-form-item
-                label="别名"
-                name="alias"
-                extra="系统唯一且与内置组件名一致，否则导致缓存失效">
-                <a-input v-model:value="formData.alias"></a-input>
-            </a-form-item>
-            <template v-if="'menu' === formData.type">
+            <template v-if="menuTypeEnum.is('menu', formData.menu_type)">
                 <a-form-item
                     label="跳转方式"
                     name="type">
@@ -78,16 +72,22 @@
                     name="view">
                     <a-input v-model:value="formData.view"></a-input>
                 </a-form-item>
-                <a-form-item
-                    label="菜单高亮"
-                    name="active"
-                    extra="子节点或详情页需要高亮的上级菜单别名">
+                <a-form-item name="active">
+                    <template #label>
+                        <span class="mr-4-1">菜单高亮</span>
+                        <a-tooltip title="子节点或详情页需要高亮的上级菜单别名">
+                            <question-circle-outlined class="color-secondary"></question-circle-outlined>
+                        </a-tooltip>
+                    </template>
                     <a-input v-model:value="formData.active"></a-input>
                 </a-form-item>
-                <a-form-item
-                    label="隐藏"
-                    name="is_menu"
-                    extra="不显示在导航中，但依然可以访问，例如详情页">
+                <a-form-item name="is_menu">
+                    <template #label>
+                        <span class="mr-4-1">隐藏</span>
+                        <a-tooltip title="不显示在导航中，但依然可以访问，例如详情页">
+                            <question-circle-outlined class="color-secondary"></question-circle-outlined>
+                        </a-tooltip>
+                    </template>
                     <a-switch v-model:checked="formData.is_menu"></a-switch>
                 </a-form-item>
             </template>
@@ -97,25 +97,16 @@
 
 <script setup>
 import { cloneDeep } from 'lodash-es'
-import { ref } from 'vue'
-
+import { QuestionCircleOutlined } from '@ant-design/icons-vue'
 import apis from '@/apis'
-import useForm from '@/hooks/useForm'
-import useModal from '@/hooks/useModal'
+import { useModal, useForm } from '@/hooks'
+import { menuTypeEnum } from '@/enums/system'
+import { config } from '@/config'
 
 const emit = defineEmits(['ok'])
 
 const { modal, showModal, hideModal, showLoading, hideLoading } = useModal()
 const { formRecord, formData, formRef, formRules, resetForm } = useForm()
-const disabled = ref(false)
-const cancelText = ref('取消')
-
-formRules.value = {
-    role: { required: true, message: '请选择所属上级' },
-    name: { required: true, message: '请输入名称' },
-    alias: { required: true, message: '请输入别名' },
-    sort: { required: true, message: '请输入排序' },
-}
 
 /**
  * 新建
@@ -130,7 +121,7 @@ function handleCreate() {
 /**
  * 编辑
  */
-function handleEdit(record) {
+function handleEdit(record = {}) {
     showModal({
         type: 'edit',
         title: '编辑菜单',
@@ -146,19 +137,31 @@ function handleOk() {
     formRef.value
         .validateFields()
         .then(async (values) => {
-            showLoading()
-            const params = {
-                id: formData.value?.id,
-                ...values,
-            }
-            let result = null
-            result = await apis.common.saveData(params).catch(() => {
+            try {
+                showLoading()
+                const params = {
+                    ...values,
+                }
+                let result = null
+                switch (modal.value.type) {
+                    case 'create':
+                        result = await apis.common.create(params).catch(() => {
+                            throw new Error()
+                        })
+                        break
+                    case 'edit':
+                        result = await apis.common.update(params).catch(() => {
+                            throw new Error()
+                        })
+                        break
+                }
                 hideLoading()
-            })
-            hideLoading()
-            if (200 === result?.code) {
-                hideModal()
-                emit('ok')
+                if (config('http.code.success') === result?.code) {
+                    hideModal()
+                    emit('ok')
+                }
+            } catch (error) {
+                hideLoading()
             }
         })
         .catch(() => {
@@ -178,8 +181,6 @@ function handleCancel() {
  */
 function onAfterClose() {
     resetForm()
-    disabled.value = false
-    cancelText.value = '取消'
     hideLoading()
 }
 
