@@ -16,7 +16,7 @@ export default [
             {
                 path: 'custom-layout',
                 name: 'otherCustomLayout',
-                component: 'list/basic-list/index.vue',
+                component: 'list/basic/index.vue',
                 meta: {
                     layout: 'CustomLayout',
                     title: '自定义框架',
