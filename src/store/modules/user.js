@@ -4,6 +4,8 @@ import storage from '@/utils/storage'
 import apis from '@/apis'
 
 import useAppStore from './app'
+import useMultiTab from './multiTab'
+import useRouter from './router'
 
 const useUserStore = defineStore('user', {
     state: () => ({
@@ -47,14 +49,14 @@ const useUserStore = defineStore('user', {
         logout() {
             return new Promise((resolve) => {
                 const appStore = useAppStore()
-                this.$patch({
-                    isLogin: false,
-                    token: '',
-                    userInfo: null,
-                })
+                const multiTab = useMultiTab()
+                const router = useRouter()
                 storage.local.removeItem(config('storage.token'))
                 storage.local.removeItem(config('storage.userInfo'))
-                appStore.complete = false
+                this.$reset()
+                appStore.$reset()
+                multiTab.$reset()
+                router.$reset()
                 resolve()
             })
         },
