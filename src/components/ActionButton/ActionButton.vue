@@ -1,9 +1,14 @@
 <template>
-    <component
-        class="x-action-button"
-        :is="tag">
-        <slot></slot>
-    </component>
+    <span class="x-action-button">
+        <component
+            class="x-action-button__component"
+            :is="tag">
+            <slot></slot>
+        </component>
+        <a-divider
+            v-if="divider"
+            type="vertical" />
+    </span>
 </template>
 
 <script setup>
@@ -23,6 +28,10 @@ defineProps({
         type: String,
         default: 'span',
     },
+    divider: {
+        type: Boolean,
+        default: true,
+    },
 })
 
 const { useToken } = theme
@@ -31,18 +40,22 @@ const { token } = useToken()
 
 <style lang="less" scoped>
 .x-action-button {
-    border-radius: @border-radius;
-    transition: all 0.2s;
-    padding: 4px;
-    color: v-bind('token.colorPrimary');
-    cursor: pointer;
+    &__component {
+        border-radius: @border-radius;
+        transition: all 0.2s;
+        padding: 4px;
+        color: v-bind('token.colorPrimary');
+        cursor: pointer;
 
-    &:hover {
-        background: v-bind('token.colorPrimaryBg');
+        &:hover {
+            background: v-bind('token.colorPrimaryBg');
+        }
     }
 
-    &:not(:first-child) {
-        margin-left: 8px;
+    &:last-child {
+        :deep(.ant-divider) {
+            display: none;
+        }
     }
 }
 </style>
