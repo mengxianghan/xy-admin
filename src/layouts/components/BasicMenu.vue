@@ -112,24 +112,30 @@ function setSelectedMenu() {
  * @param item
  */
 function handleClick({ item }) {
-    const { path, meta, props } = item?.originItemValue || {}
+    const { path, meta, name, props } = item?.originItemValue || {}
 
     if (props) {
         props?.click?.call(null, item?.originItemValue)
     }
 
     if (path) {
+        const isBlank = meta?.target === '_blank'
+        const { href } = router.resolve({ name, query: meta?.query || {} })
         if (meta?.isLink) {
-            if (meta?.target) {
-                window.open(path)
+            if (isBlank) {
+                window.open(href)
             } else {
-                window.location.href = path
+                window.location.href = href
             }
         } else {
-            router.push({
-                path,
-                query: meta?.query ?? {},
-            })
+            if (isBlank) {
+                window.open(href)
+            } else {
+                router.push({
+                    path,
+                    query: meta?.query ?? {},
+                })
+            }
         }
     }
 
