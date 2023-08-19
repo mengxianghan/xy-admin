@@ -108,11 +108,8 @@ import { findIndex, includes, some } from 'lodash-es'
 import { nanoid } from 'nanoid'
 import Sortable from 'sortablejs'
 import { computed, onMounted, ref, useSlots, watch } from 'vue'
-
 import { DeleteOutlined, EyeOutlined, PlusOutlined } from '@ant-design/icons-vue'
-
 import { deepMerge } from '@/utils/util'
-
 import CropperDialog from '../Cropper/CropperDialog.vue'
 import Preview from '../Preview'
 import { STATUS_ENUM } from './config'
