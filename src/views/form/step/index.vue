@@ -26,7 +26,6 @@
                 @prev="handlePrev"
                 @finish="handleFinish" />
         </div>
-        <a-button @click="back">返回</a-button>
     </a-card>
 </template>
 
