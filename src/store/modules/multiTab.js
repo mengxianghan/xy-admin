@@ -62,12 +62,11 @@ const useMultiTabStore = defineStore('multiTab', {
             // 判断标签页是否存在
             if (index < 0) return
 
-            // 判断是否最后一个标签页
-            if (this.list.length === 1) {
-                // 是最后又给标签页，禁止删除
-                message.warning('至少保留一个标签页')
-                return
-            }
+            // 禁止关闭最后一个标签页
+            // if (this.list.length === 1) {
+            //     message.warning('至少保留一个标签页')
+            //     return
+            // }
 
             this._setList({
                 index,
@@ -80,7 +79,10 @@ const useMultiTabStore = defineStore('multiTab', {
                 if (this.current === this.list.length) {
                     this._setCurrent(this.current - 1)
                 }
-                router.push(this.list[this.current])
+                const next = this.list[this.current]
+                if (next) {
+                    router.push(next)
+                }
             }
 
             // 关闭左侧标签页
