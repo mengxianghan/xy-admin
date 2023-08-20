@@ -117,13 +117,13 @@ export default {
     display: flex;
     align-items: center;
     justify-content: center;
-    border: @border-color-base dashed 1px;
+    border: @color-border dashed 1px;
     cursor: pointer;
     transition: all 0.15s;
 
     &:hover {
-        border-color: @primary-color;
-        color: @primary-color;
+        border-color: @color-primary;
+        color: @color-primary;
     }
 }
 </style>
@@ -229,7 +229,7 @@ export default {
 ---
 <a-form
     :label-col="{ style: { width: '100px' } }"
-    :model="formState"
+    :model="formData"
     :rules="formRules"
     ref="formRef">
     <a-form-item
@@ -240,7 +240,7 @@ export default {
             <a-col>
                 <a-form-item name="field1">
                     <x-upload-image
-                        v-model="formState.field1"
+                        v-model="formData.field1"
                         text="人像面"
                         :width="191"></x-upload-image>
                 </a-form-item>
@@ -248,7 +248,7 @@ export default {
             <a-col>
                 <a-form-item name="field2">
                     <x-upload-image
-                        v-model="formState.field2"
+                        v-model="formData.field2"
                         text="国徽面"
                         :width="191"></x-upload-image>
                 </a-form-item>
@@ -258,12 +258,12 @@ export default {
     <a-form-item
         label="其他凭证"
         name="field3">
-        <x-upload-image v-model="formState.field3"></x-upload-image>
+        <x-upload-image v-model="formData.field3"></x-upload-image>
     </a-form-item>
     <a-form-item
         label="日期"
         name="field4">
-        <a-date-picker v-model:value="formState.field4"></a-date-picker>
+        <a-date-picker v-model:value="formData.field4"></a-date-picker>
     </a-form-item>
     <a-form-item :style="{ paddingLeft: '100px' }">
         <a-space>
@@ -284,7 +284,7 @@ export default {
 <template>
     <a-form
         :label-col="{ style: { width: '100px' } }"
-        :model="formState"
+        :model="formData"
         :rules="formRules"
         ref="formRef">
         <a-form-item
@@ -295,7 +295,7 @@ export default {
                 <a-col>
                     <a-form-item name="field1">
                         <x-upload-image
-                            v-model="formState.field1"
+                            v-model="formData.field1"
                             text="人像面"
                             :width="191"></x-upload-image>
                     </a-form-item>
@@ -303,7 +303,7 @@ export default {
                 <a-col>
                     <a-form-item name="field2">
                         <x-upload-image
-                            v-model="formState.field2"
+                            v-model="formData.field2"
                             text="国徽面"
                             :width="191"></x-upload-image>
                     </a-form-item>
@@ -313,12 +313,12 @@ export default {
         <a-form-item
             label="其他凭证"
             name="field3">
-            <x-upload-image v-model="formState.field3"></x-upload-image>
+            <x-upload-image v-model="formData.field3"></x-upload-image>
         </a-form-item>
         <a-form-item
             label="日期"
             name="field4">
-            <a-date-picker v-model:value="formState.field4"></a-date-picker>
+            <a-date-picker v-model:value="formData.field4"></a-date-picker>
         </a-form-item>
         <a-form-item :style="{ paddingLeft: '100px' }">
             <a-space>
@@ -338,7 +338,7 @@ import useForm from '@/hooks/useForm'
 
 export default {
     setup() {
-        const { formState, formRules, formRef, resetForm } = useForm();
+        const { formData, formRules, formRef, resetForm } = useForm();
 
         formRules.value = {
             field1: { required: true, message: '请上传人像面' },
@@ -361,7 +361,7 @@ export default {
         }
 
         return {
-            formState,
+            formData,
             formRules,
             formRef,
             handleSubmit,
@@ -407,7 +407,7 @@ import { ref } from 'vue';
 import useForm from '@/hooks/useForm';
 import { PictureOutlined } from '@ant-design/icons-vue';
 
-const { formState, formRules, formRef, resetForm } = useForm();
+const { formData, formRules, formRef, resetForm } = useForm();
 const basic = ref('');
 const customTitle = ref('');
 const customSlot = ref('');
@@ -442,13 +442,13 @@ function handleReset() {
     display: flex;
     align-items: center;
     justify-content: center;
-    border: @border-color-base dashed 1px;
+    border: @color-border dashed 1px;
     cursor: pointer;
     transition: all 0.15s;
 
     &:hover {
-        border-color: @primary-color;
-        color: @primary-color;
+        border-color: @color-primary;
+        color: @color-primary;
     }
 }
 </style>

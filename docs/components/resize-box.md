@@ -38,8 +38,8 @@ export default {
 
 <style lang="less">
 .box {
-    border: @border-color-base solid 1px;
-    padding: @padding-md;
+    border: @color-border solid 1px;
+    padding: 16px;
 }
 </style>
 ```
@@ -136,8 +136,8 @@ export default {
 
 <style lang="less">
 .box {
-    border: @border-color-base solid 1px;
-    padding: @padding-md;
+    border: @color-border solid 1px;
+    padding: 16px;
 }
 </style>
 ```
@@ -186,7 +186,7 @@ function onMovingEnd() {
 
 <style lang="less" scoped>
 .box{
-    border: @border-color-base solid 1px;
-    padding: @padding-md;
+    border: @color-border solid 1px;
+    padding: 16px;
 }
 </style>
