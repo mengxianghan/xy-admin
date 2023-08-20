@@ -3,7 +3,7 @@ import antd from 'ant-design-vue'
 import components from '@/components'
 import Layout from "./Layout.vue"
 
-import 'ant-design-vue/dist/antd.less'
+import 'ant-design-vue/dist/reset.css'
 import './index.css'
 
 export default {
