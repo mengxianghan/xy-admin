@@ -26,6 +26,7 @@ export const useFilterTagCtx = (props) => {
 
 export const useInjectFilterTagCtx = () => {
     return inject(FILTER_TAG_KEY, {
+        multiple: false,
         onTagClick: () => {},
     })
 }
@@ -35,5 +36,5 @@ export const useFilterTagSelectedValueCtx = (props) => {
 }
 
 export const useInjectFilterTagSelectedValueCtx = () => {
-    return inject(FILTER_TAG_SELECTED_VALUE_KEY)
+    return inject(FILTER_TAG_SELECTED_VALUE_KEY, [])
 }

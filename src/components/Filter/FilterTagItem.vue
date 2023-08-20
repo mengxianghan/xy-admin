@@ -32,7 +32,7 @@ const { multiple, onTagClick } = useInjectFilterTagCtx()
 const selectedKeys = useInjectFilterTagSelectedValueCtx()
 
 const cpIsSelect = computed(() => {
-    if (multiple.value) {
+    if (multiple?.value) {
         // 多选
         return Array.isArray(selectedKeys.value) ? selectedKeys.value?.includes(props.value) : false
     } else {
