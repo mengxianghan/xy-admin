@@ -288,6 +288,7 @@ function onMoveEnd() {
 }
 
 defineExpose({
+    open,
     handleOpen,
 })
 </script>
@@ -308,6 +309,7 @@ defineExpose({
         max-height: none;
         background: transparent;
         border-radius: 0;
+        padding: 0;
     }
 
     .ant-modal-body {
