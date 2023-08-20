@@ -15,6 +15,10 @@
     --vp-home-hero-image-filter: blur(60px);
 }
 
+body {
+    font-size: 14px;
+}
+
 .ant-spin-spinning {
     display: block;
     line-height: 1;
