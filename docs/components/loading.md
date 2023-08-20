@@ -109,7 +109,7 @@ import { loading } from '@/components';
 export default {
     setup() {
         function handleShow() {
-            const loading = loading({
+            const instance = loading({
                 title: '倒计时 3 秒'
             });
 
@@ -117,12 +117,12 @@ export default {
             const timer = setInterval(() => {
                 second--;
                 if (second) {
-                    loading.setOption({
+                    instance.setOption({
                         title: `倒计时 ${ second } 秒`
                     });
                 } else {
                     clearInterval(timer);
-                    loading.hide();
+                    instance.hide();
                 }
             }, 1000);
         }
@@ -182,7 +182,7 @@ function handleCustom(){
 }
 
 function handleUpdate(){
-    const loading = loading({
+    const instance = loading({
         title: '倒计时 3 秒'
     });
 
@@ -190,12 +190,12 @@ function handleUpdate(){
     const timer = setInterval(() => {
         second--;
         if (second) {
-            loading.setOption({
+            instance.setOption({
                 title: `倒计时 ${second} 秒`
             });
         } else {
             clearInterval(timer);
-            loading.hide();
+            instance.hide();
         }
     }, 1000);
 }
