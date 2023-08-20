@@ -45,7 +45,11 @@ function hide() {
 }
 
 const Loading = (props) => {
-    return show(props)
+    const vm = show(props)
+    return {
+        ...vm,
+        hide,
+    }
 }
 
 Loading.hide = hide
