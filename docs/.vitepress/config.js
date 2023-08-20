@@ -50,12 +50,9 @@ export default defineConfig({
                     modifyVars: {
                         hack: `
                             true;
-                            @import '${path.resolve(
-                                __dirname,
-                                '../../node_modules/ant-design-vue/lib/style/color/colors.less'
-                            )}';
-                            @import '${path.resolve(__dirname, '../../src/styles/vars.less')}';
-                            @import '${path.resolve(__dirname, '../../src/styles/util.less')}';
+                            @import '${path.resolve(__dirname, '../../src/styles/mixins/index.less')}';
+                            @import '${path.resolve(__dirname, '../../src/styles/variables.less')}';
+                            @import '${path.resolve(__dirname, '../../src/styles/utils.less')}';
                          `,
                     },
                     javascriptEnabled: true,
