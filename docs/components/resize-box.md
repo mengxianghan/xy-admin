@@ -3,20 +3,8 @@
 ## 示例
 
 ### 基础用法
----
-<x-resize-box class="box" :directions="['right', 'bottom']">
-    In the process of internal desktop applications development, many different design specs and implementations
-    would be involved, which might cause designers and developers difficulties and duplication and reduce the
-    efficiency of development. After massive project practice and summaries, Ant Design, a design language for
-    background applications, is refined by Ant UED Team, which aims to uniform the user interface specs for
-    internal background projects, lower the unnecessary cost of design differences and implementation and
-    liberate the resources of design and front-end development.
-</x-resize-box>
-
-::: details 代码示例
 
 ```vue
-
 <template>
     <x-resize-box class="box" :directions="['right', 'bottom']">
         In the process of internal desktop applications development, many different design specs and implementations
@@ -28,12 +16,7 @@
     </x-resize-box>
 </template>
 
-<script>
-export default {
-    setup() {
-        return {}
-    }
-}
+<script setup>
 </script>
 
 <style lang="less">
@@ -44,38 +27,9 @@ export default {
 </style>
 ```
 
-:::
-
 ### 受控的宽高
----
-<x-resize-box
-class="box"
-:directions="['right', 'bottom']"
-:style="{ minWidth: '100px', maxWidth: '100%' }"
-:min-width="100"
-v-model:width="width"
-v-model:height="height"
-@movingStart="onMovingStart"
-@moving="onMoving"
-@movingEnd="onMovingEnd">
-In the process of internal desktop applications development, many different design specs and implementations
-would be involved, which might cause designers and developers difficulties and duplication and reduce the
-efficiency of development. After massive project practice and summaries, Ant Design, a design language for
-background applications, is refined by Ant UED Team, which aims to uniform the user interface specs for
-internal background projects, lower the unnecessary cost of design differences and implementation and
-liberate the resources of design and front-end development.
-</x-resize-box>
-
-<div class="mt-8-2">
-    <div>状态：{{ status }}</div>
-    <div>width：{{ width }}</div>
-    <div>height：{{ height }}</div>
-</div>
-
-::: details 代码示例
 
 ```vue
-
 <template>
     <x-resize-box
         class="box"
@@ -101,36 +55,23 @@ liberate the resources of design and front-end development.
     </div>
 </template>
 
-<script>
-import { ref } from 'vue';
+<script setup>
+import { ref } from 'vue'
 
-export default {
-    setup() {
-        const status = ref('-');
-        const width = ref(500);
-        const height = ref(200);
+const status = ref('-')
+const width = ref(500)
+const height = ref(200)
 
-        function onMovingStart() {
-            status.value = '开始拖动'
-        }
+function onMovingStart() {
+    status.value = '开始拖动'
+}
 
-        function onMoving() {
-            status.value = '拖动中'
-        }
+function onMoving() {
+    status.value = '拖动中'
+}
 
-        function onMovingEnd() {
-            status.value = '拖动结束'
-        }
-
-        return {
-            status,
-            width,
-            height,
-            onMovingStart,
-            onMoving,
-            onMovingEnd
-        }
-    }
+function onMovingEnd() {
+    status.value = '拖动结束'
 }
 </script>
 
@@ -141,8 +82,6 @@ export default {
 }
 </style>
 ```
-
-:::
 
 ## API
 
@@ -163,30 +102,3 @@ export default {
 | movingStart | 拖拽开始 | `function(event)` |
 | moving      | 拖拽中  | `function(event)` |
 | movingEnd   | 拖拽结束 | `function(event)` |
-
-<script setup>
-import { ref } from 'vue';
-
-const status = ref('-');
-const width = ref(500);
-const height = ref(200);
-
-function onMovingStart() {
-    status.value = '开始拖动'
-}
-
-function onMoving() {
-    status.value = '拖动中'
-}
-
-function onMovingEnd() {
-    status.value = '拖动结束'
-}
-</script>
-
-<style lang="less" scoped>
-.box{
-    border: @color-border solid 1px;
-    padding: 16px;
-}
-</style>

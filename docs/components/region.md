@@ -4,72 +4,40 @@
 
 ### 基础用法
 
-::: details 代码示例
-
 ```vue
-
 <template>
     <x-region v-model="value"></x-region>
 </template>
 
-<script>
-import { ref } from 'vue';
+<script setup>
+import { ref } from 'vue'
 
-export default {
-    setup() {
-        const value = ref([])
-
-        return {
-            value
-        }
-    }
-}
+const value = ref([])
 </script>
 ```
-
-:::
 
 ### 内容回填
 
-::: details 代码示例
-
 ```vue
-
 <template>
     <x-region v-model="value"></x-region>
 </template>
 
-<script>
-import { ref } from 'vue';
+<script setup>
+import { ref } from 'vue'
 
-export default {
-    setup() {
-        const value = ref([1, 11, 111])
-
-        return {
-            value
-        }
-    }
-}
+const value = ref([1, 11, 111])
 </script>
 ```
 
-:::
-
 ## 接入接口
-
-::: details 代码示例
 
 <<< @/../src/components/Region/Region.vue{71-132,138-188 vue}
 
-:::
-
 ::: tip
-
 1. 高亮部分为数据请求逻辑，根据实际情况做调整
 2. `getData` 方法中可根据 `level` 实现不同层级请求不同的接口来填充数据
 3. `getRegionList` 请求数据的接口返回一个 `Promise`。节点数据结构：`{ label: '', value: '' }`
-
 :::
 
 ## API

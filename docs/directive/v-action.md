@@ -21,12 +21,7 @@
     </div>
 </template>
 
-<script>
-export default {
-    setup() {
-        return {}
-    },
-}
+<script setup>
 </script>
 ```
 
@@ -40,19 +35,11 @@ export default {
     </div>
 </template>
 
-<script>
+<script setup>
 import { ref } from 'vue'
 
-export default {
-    setup() {
-        const actionEdit = ref('edit')
-        const actionDelete = ref('delete')
-        return {
-            actionEdit,
-            actionDelete,
-        }
-    },
-}
+const actionEdit = ref('edit')
+const actionDelete = ref('delete')
 </script>
 ```
 
@@ -76,14 +63,7 @@ export default {
     </div>
 </template>
 
-<script>
+<script setup>
 import { DownOutlined } from '@ant-design/icons-vue'
-
-export default {
-    components: { DownOutlined },
-    setup() {
-        return {}
-    },
-}
 </script>
 ```

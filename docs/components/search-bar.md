@@ -3,33 +3,6 @@
 ## 示例
 
 ### 基础用法
----
-<x-search-bar bordered>
-    <a-form layout="inline">
-        <a-row :gutter="16">
-            <a-col flex="1">
-                <a-form-item label="名称">
-                    <a-input></a-input>
-                </a-form-item>
-            </a-col>
-            <a-col flex="1">
-                <a-form-item label="日期">
-                    <a-date-picker></a-date-picker>
-                </a-form-item>
-            </a-col>
-            <a-col flex="100px">
-                <a-button
-                    type="primary"
-                    ghost
-                    @click="handleSearch">
-                    搜索
-                </a-button>
-            </a-col>
-        </a-row>
-    </a-form>
-</x-search-bar>
-
-::: details 代码示例
 ```vue
 <template>
     <x-search-bar bordered>
@@ -58,24 +31,14 @@
     </x-search-bar>
 </template>
 
-<script>
-import { message } from 'ant-design-vue';
-
-export default {
-    setup(){
+<script setup>
+import { message } from 'ant-design-vue'
         
-        function handleSearch() {
-            message.success('点击了搜索');
-        }
-        
-        return {
-            handleSearch
-        }
-    }
+function handleSearch() {
+    message.success('点击了搜索')
 }
 </script>
 ```
-:::
 
 ## API
 
@@ -92,11 +55,3 @@ export default {
 | 名称      | 说明    | 参数  |
 |---------|-------|-----|
 | default | 自定义内容 | -   |
-
-<script setup>
-import { message } from 'ant-design-vue';
-
-function handleSearch() {
-    message.success('点击了搜索');
-}
-</script>

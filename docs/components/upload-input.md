@@ -3,64 +3,35 @@
 ## 示例
 
 ### 基础用法
----
-<x-upload-input v-model="content"></x-upload-input>
-
-::: details 代码示例
 
 ```vue
-
 <template>
     <x-upload-input v-model="content"></x-upload-input>
 </template>
 
-<script>
-import { ref } from 'vue';
+<script setup>
+import { ref } from 'vue'
 
-export default {
-    setup() {
-        const content = ref('');
-
-        return {
-            content
-        }
-    }
-}
+const content = ref('')
 </script>
 ```
 
-:::
 
 ### 自定义按钮内容
----
-<x-upload-input v-model="content1" btn-text="浏览" loading-btn-text="正在上传"></x-upload-input>
-
-::: details 代码示例
 
 ```vue
-
 <template>
     <x-upload-input v-model="content"
                     btn-text="浏览"
                     loading-btn-text="正在上传"></x-upload-input>
 </template>
 
-<script>
-import { ref } from 'vue';
+<script setup>
+import { ref } from 'vue'
 
-export default {
-    setup() {
-        const content = ref('');
-
-        return {
-            content
-        }
-    }
-}
+const content = ref('')
 </script>
 ```
-
-:::
 
 ## API
 
@@ -78,10 +49,3 @@ export default {
 | 名称     | 说明     | 返回值               |
 |--------|--------|-------------------|
 | change | 内容发生改变 | `function(value)` |
-
-<script setup>
-import { ref } from 'vue';
-
-const content = ref('');
-const content1 = ref('');
-</script>

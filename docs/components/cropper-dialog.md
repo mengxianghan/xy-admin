@@ -3,11 +3,7 @@
 ## 示例
 
 ### 基础用法
----
-<a-button type="primary" ghost @click="handleOpen">打开弹窗</a-button>
-<x-cropper-dialog ref="cropperDialogRef" @ok="onOk" @cancel="onCancel"></x-cropper-dialog>
 
-::: details 代码示例
 ```vue
 <template>
     <a-button type="primary" 
@@ -17,38 +13,26 @@
                       @cancel="onCancel"></x-cropper-dialog>
 </template>
 
-<script>
-import { ref } from 'vue';
-import { message } from 'ant-design-vue';
+<script setup>
+import { ref } from 'vue'
+import { message } from 'ant-design-vue'
 
-export default {
-    setup(){
-        const cropperDialogRef = ref();
+const cropperDialogRef = ref()
 
-        function handleOpen(){
-            cropperDialogRef.value.handleOpen('/images/login.png');
-        }
+function handleOpen(){
+    cropperDialogRef.value.handleOpen('/images/login.png')
+}
 
-        function onOk(file){
-            message.success('点击了确定按钮');
-            console.log(file);
-        }
+function onOk(file){
+    message.success('点击了确定按钮')
+    console.log(file)
+}
 
-        function onCancel(){
-            message.warning('点击了取消按钮');
-        }
-        
-        return {
-            cropperDialogRef,
-            handleOpen,
-            onOk,
-            onCancel
-        }
-    }
+function onCancel(){
+    message.warning('点击了取消按钮')
 }
 </script>
 ```
-:::
 
 ## API
 
@@ -71,26 +55,3 @@ export default {
 | 名称         | 说明   | 参数            |
 |------------|------|---------------|
 | handleOpen | 打开弹窗 | `src: string` |
-
-<script setup>
-import { ref } from 'vue';
-import { message } from 'ant-design-vue';
-import cropperImg from '@/assets/avatar.jpg';
-
-const cropperDialogRef = ref();
-
-function handleOpen(){
-    cropperDialogRef.value.handleOpen(cropperImg);
-}
-
-function onOk(file){
-    message.success('点击了确定按钮');
-    console.log(file)
-}
-
-function onCancel(){
-    message.warning('点击了取消按钮');
-}
-
-</script>
-

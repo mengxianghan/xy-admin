@@ -3,10 +3,6 @@
 ## 示例
 
 ### 基础用法
----
-<a-button type="primary" ghost @click="handleShow">显示</a-button>
-
-::: details 代码示例
 
 ```vue
 
@@ -16,126 +12,85 @@
     </div>
 </template>
 
-<script>
+<script setup>
 import { loading } from '@/components'
 
-export default {
-    setup() {
+function handleShow() {
+    loading()
 
-        function handleShow() {
-            loading()
-
-            setTimeout(() => {
-                loading.hide()
-            }, 3000)
-        }
-
-        return {
-            handleShow
-        }
-    }
+    setTimeout(() => {
+        loading.hide()
+    }, 3000)
 }
 </script>
 ```
 
-:::
-
 ### 自定义内容
----
-<a-button type="primary" ghost @click="handleCustom">显示</a-button>
-
-::: details 代码示例
 
 ```vue
-
 <template>
     <div>
         <a-button type="primary" ghost @click="handleShow">显示</a-button>
     </div>
 </template>
 
-<script>
+<script setup>
 import { h } from 'vue';
 import { loading } from '@/components';
 import { Button } from 'ant-design-vue';
 import { SmileOutlined } from '@ant-design/icons-vue';
 
-export default {
-    setup() {
-        function handleShow() {
-            loading({
-                icon: h(SmileOutlined),
-                title: '自定义标题',
-                subTitle: '正在努力加载',
-                extra: h(Button, {
-                    onClick: () => {
-                        location.reload();
-                    }
-                }, '刷新页面')
-            });
+function handleShow() {
+    loading({
+        icon: h(SmileOutlined),
+        title: '自定义标题',
+        subTitle: '正在努力加载',
+        extra: h(Button, {
+            onClick: () => {
+                location.reload();
+            }
+        }, '刷新页面')
+    });
 
-            setTimeout(() => {
-                loading.hide()
-            }, 3000)
-        }
-
-        return {
-            handleShow
-        }
-    }
+    setTimeout(() => {
+        loading.hide()
+    }, 3000)
 }
 </script>
 ```
 
-:::
-
 ### 手动更新
----
-<a-button type="primary" ghost @click="handleUpdate">显示</a-button>
-
-::: details 代码示例
 
 ```vue
-
 <template>
     <div>
         <a-button type="primary" ghost @click="handleShow">显示</a-button>
     </div>
 </template>
 
-<script>
+<script setup>
 import { loading } from '@/components';
 
-export default {
-    setup() {
-        function handleShow() {
-            const instance = loading({
-                title: '倒计时 3 秒'
+function handleShow() {
+    const instance = loading({
+        title: '倒计时 3 秒'
+    });
+
+    let second = 3;
+    const timer = setInterval(() => {
+        second--;
+        if (second) {
+            instance.setOption({
+                title: `倒计时 ${ second } 秒`
             });
-
-            let second = 3;
-            const timer = setInterval(() => {
-                second--;
-                if (second) {
-                    instance.setOption({
-                        title: `倒计时 ${ second } 秒`
-                    });
-                } else {
-                    clearInterval(timer);
-                    instance.hide();
-                }
-            }, 1000);
+        } else {
+            clearInterval(timer);
+            instance.hide();
         }
-
-        return {
-            handleShow
-        }
-    }
+    }, 1000);
 }
 </script>
 ```
-
-:::
 
 ## API
 
@@ -154,55 +109,3 @@ export default {
 |-----------|-------|------------------------------------|
 | setOption | 更新配置项 | `{ icon, title, subTitle, extra }` |
 
-<script setup>
-import { h } from 'vue';
-import { Button } from 'ant-design-vue';
-import { SmileOutlined } from '@ant-design/icons-vue';
-import loading from '@/components/Loading';
-
-function handleShow(){
-    loading();
-
-    hide();
-}
-
-function handleCustom(){
-    loading({
-        icon: h(SmileOutlined),
-        title: '自定义标题',
-        subTitle: '正在努力加载',
-        extra: h(Button, {
-            onClick: ()=>{
-                location.reload();
-            }
-        }, '刷新页面')
-    });
-
-    hide();
-}
-
-function handleUpdate(){
-    const instance = loading({
-        title: '倒计时 3 秒'
-    });
-
-    let second = 3;
-    const timer = setInterval(() => {
-        second--;
-        if (second) {
-            instance.setOption({
-                title: `倒计时 ${second} 秒`
-            });
-        } else {
-            clearInterval(timer);
-            instance.hide();
-        }
-    }, 1000);
-}
-
-function hide(){
-    setTimeout(()=>{
-        loading.hide()
-    }, 3000)
-}
-</script>

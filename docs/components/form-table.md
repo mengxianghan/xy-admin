@@ -1,45 +1,9 @@
 # FormTable 表单表格
 
 ## 示例
+
 ### 基本用法
----
-<x-form-table
-    v-model="list"
-    class="form-table"
-    bordered
-    :row-tpl="rowTpl">
-    <a-table-column title="姓名">
-        <template #default="{ record }">
-            <a-input v-model:value="record.name"></a-input>
-        </template>
-    </a-table-column>
-    <a-table-column title="年龄">
-        <template #default="{ record }">
-            <a-input v-model:value="record.age"></a-input>
-        </template>
-    </a-table-column>
-    <a-table-column
-        title="性别"
-        :width="100">
-        <template #default="{ record }">
-            <a-select
-                v-model:value="record.sex"
-                :options="[
-                    { label: '未知', value: 0 },
-                    { label: '男', value: 1 },
-                    { label: '女', value: 2 },
-                ]"
-                class="wp-100"></a-select>
-        </template>
-    </a-table-column>
-</x-form-table>
 
-输出示例：
-```js-vue
-{{list}}
-```
-
-::: details 代码示例
 ```vue
 <template>
     <x-form-table
@@ -76,25 +40,21 @@
     <pre>{{list}}</pre>
 </template>
 
-<script>
-import { ref } from 'vue';
-import { cloneDeep } from 'lodash-es';
-export default {
-    setup(){
-        const rowTpl = { name: '', age: '', sex: 0 };
-        const list = ref([]);
+<script setup>
+import { ref } from 'vue'
+import { cloneDeep } from 'lodash-es'
 
-        list.value.push(cloneDeep(rowTpl))
-        
-        return {
-            rowTpl,
-            list
-        }
-    }
+const rowTpl = { name: '', age: '', sex: 0 };
+const list = ref([]);
+
+list.value.push(cloneDeep(rowTpl))
+
+return {
+    rowTpl,
+    list
 }
 </script>
 ```
-:::
 
 ## API
 
@@ -111,24 +71,3 @@ export default {
 |--------|------|--------------------|
 | add    | 添加数据 | -                  |
 | delete | 删除数据 | `function(record)` |
-
-<script setup>
-import { ref } from 'vue';
-import { cloneDeep } from 'lodash-es';
-
-const rowTpl = { name: '', age: '', sex: 0 };
-const list = ref([]);
-
-list.value.push(cloneDeep(rowTpl))
-</script>
-
-<style lang="less" scoped>
-    .form-table{
-        --vp-c-divider: transparent;
-
-        :deep(table){
-            margin: 0;
-            display: table;
-        }
-    }
-</style>
