@@ -7,17 +7,17 @@
 <x-search-bar bordered>
     <a-form layout="inline">
         <a-row :gutter="16">
-            <a-col :span="8">
-                <a-form-item label="关键字">
+            <a-col flex="1">
+                <a-form-item label="名称">
                     <a-input></a-input>
                 </a-form-item>
             </a-col>
-            <a-col :span="8">
+            <a-col flex="1">
                 <a-form-item label="日期">
                     <a-date-picker></a-date-picker>
                 </a-form-item>
             </a-col>
-            <a-col :span="8">
+            <a-col flex="100px">
                 <a-button
                     type="primary"
                     ghost
