@@ -25,7 +25,7 @@ defineOptions({
  * @property {array} value
  * @property {function | array} loadData
  * @property {object} filedNames
- * @property {number} maxLevel  最深层级，默认：3；
+ * @property {number} maxLevel  最深层级，默认：1；
  *                              loadData 为 function 类型时可以用它来控制数据的最深层级
  *                              loadData 为 array 类型时，通过数组长度自动计算最多层级
  */
@@ -36,7 +36,7 @@ const props = defineProps({
     },
     loadData: {
         type: [Array, Function],
-        default: () => {},
+        default: () => async function () {},
     },
     fieldNames: {
         type: Object,
@@ -44,7 +44,7 @@ const props = defineProps({
     },
     maxLevel: {
         type: Number,
-        default: 3,
+        default: 1,
     },
 })
 
@@ -102,11 +102,11 @@ async function getData(value = 0, level = 1, defaultValue = []) {
             )
             targetOption.loading = true
         }
-        const loadData = typeof props.loadData === 'function' ? props.loadData : props.loadData[level - 1]
-        if (typeof loadData !== 'function') {
-            throw new Error()
+        const getData = typeof props.loadData === 'function' ? props.loadData : props.loadData[level - 1]
+        if (Object.prototype.toString.call(getData) !== '[object AsyncFunction]') {
+            throw new Error('请使用异步函数获取数据')
         }
-        const result = await loadData({ level, value, selected: curValue.value }).catch(() => {
+        const result = await getData({ level, value, selected: curValue.value })?.catch(() => {
             throw new Error('请求失败')
         })
         const { code, data } = result || {}
