@@ -11,9 +11,3 @@ export const del = () => request.basic.delete(`/data`)
 export const create = (params) => request.basic.post('/data', params)
 // 更新
 export const update = (_, params) => request.basic.put(`/data`, params)
-
-// 获取地区列表
-export const getRegionList = (params) =>
-    request.basic.get('/common/getRegionList', params, { enableAbortController: false })
-// 文件上传
-export const upload = (params) => request.basic.post('/comment/upload', params)
