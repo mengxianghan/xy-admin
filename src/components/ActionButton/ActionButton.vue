@@ -43,7 +43,7 @@ const { token } = useToken()
     border-radius: @border-radius;
     transition: all 0.2s;
     padding: 4px;
-    color: v-bind('token.colorPrimary');
+    color: @color-primary;
     cursor: pointer;
 
     &:hover {
