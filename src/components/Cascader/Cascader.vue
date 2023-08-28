@@ -30,7 +30,7 @@ defineOptions({
  *                              loadData 为 array 类型时，通过数组长度自动计算最多层级
  */
 const props = defineProps({
-    value: {
+    modelValue: {
         type: Array,
         default: () => [],
     },
@@ -60,7 +60,7 @@ const cpMaxLevel = computed(() => {
 })
 
 watch(
-    () => props.value,
+    () => props.modelValue,
     (val) => {
         if (val !== curValue.value) {
             getData(0, 1, val)
@@ -69,8 +69,8 @@ watch(
 )
 
 onMounted(() => {
-    curValue.value = props.value
-    getData(0, 1, props.value)
+    curValue.value = props.modelValue
+    getData(0, 1, props.modelValue)
 })
 
 /**

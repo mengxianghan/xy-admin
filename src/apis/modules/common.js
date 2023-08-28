@@ -11,3 +11,6 @@ export const del = () => request.basic.delete(`/data`)
 export const create = (params) => request.basic.post('/data', params)
 // 更新
 export const update = (_, params) => request.basic.put(`/data`, params)
+
+// 获取地区
+export const getRegion = (params) => request.basic.get('/region', params)

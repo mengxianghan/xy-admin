@@ -33,7 +33,7 @@ async function loadData(payload){
 
 | 参数           | 说明                                                                                                                      | 类型                | 默认值                                                     |
 | -------------- | ------------------------------------------------------------------------------------------------------------------------- | ------------------- | ---------------------------------------------------------- |
-| value(v-model) | 内容                                                                                                                      | `array`             | `[]`                                                       |
+| modelValue(v-model) | 内容                                                                                                                      | `array`             | `[]`                                                       |
 | loadData       | 加载数据                                                                                                                  | `function`、`array` | -                                                          |
 | maxLevel       | 最大层级，loadData 为 function 类型时可以用它来控制数据的最深层级；loadData 为 array 类型时，通过数组长度自动计算最多层级 | `number`            | `1`                                                        |
 | filedNames     | 自定义 `options` 中 `label` `value` `children` 的字段                                                                     | `object`            | `{ label: 'label', value: 'value', children: 'children' }` |
