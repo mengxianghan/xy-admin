@@ -19,11 +19,12 @@ defineOptions({
     name: 'otherBadge',
 })
 
+const { setBadge } = useMenu()
+
 const form = ref({
     name: 'welcome',
     count: 10,
 })
-const { setBadge } = useMenu()
 
 function handleSet() {
     setBadge(form.value?.name, form.value?.count)
