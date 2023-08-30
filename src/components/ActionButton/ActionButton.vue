@@ -12,8 +12,6 @@
 </template>
 
 <script setup>
-import { theme } from 'ant-design-vue'
-
 defineOptions({
     name: 'XActionButton',
 })
@@ -33,9 +31,6 @@ defineProps({
         default: true,
     },
 })
-
-const { useToken } = theme
-const { token } = useToken()
 </script>
 
 <style lang="less" scoped>
@@ -47,7 +42,7 @@ const { token } = useToken()
     cursor: pointer;
 
     &:hover {
-        background: v-bind('token.colorPrimaryBg');
+        background: color(~`colorPalette('@{color-primary}', 1) `);
     }
 
     &-wrap {
