@@ -1,9 +1,11 @@
 <template>
-    <div class="x-tag-select">
+    <div
+        class="x-tag-select"
+        ref="tagSelectRef"
+        :style="cpTagSelectStyle">
         <div
             class="x-tag-select__content"
-            ref="contentRef"
-            :style="cpContentStyle">
+            ref="contentRef">
             <slot>
                 <tag-select-option
                     v-for="item in options"
@@ -18,7 +20,7 @@
                 </tag-select-option>
             </slot>
         </div>
-        <template v-if="collapsible">
+        <template v-if="curCollapsible">
             <div
                 class="x-tag-select__collapse"
                 @click="handleCollapse">
@@ -34,10 +36,11 @@
 </template>
 
 <script setup>
-import { ref, reactive, onMounted, nextTick, computed, watch, toRefs } from 'vue'
+import { ref, reactive, onMounted, nextTick, computed, watch, toRefs, onBeforeUnmount } from 'vue'
 import { Form } from 'ant-design-vue'
 import TagSelectOption from './TagSelectOption.vue'
 import { useTagSelectProvide } from './context'
+import { head, debounce } from 'lodash-es'
 
 defineOptions({
     name: 'XTagSelect',
@@ -47,7 +50,7 @@ defineOptions({
  * @property {array} options
  * @property {array|number|string} modelValue v-model
  * @property {boolean} multiple 是否多选，默认：false
- * @property {boolean} collapsible 是否可收起，默认：false
+ * @property {boolean} collapsible 是否可收起，默认：true
  * @property {boolean} collapsed 收起状态，默认：true
  * @property {object} fieldNames 自定义节点字段，默认：{ label: 'label', value: 'value' }
  * @property {boolean} showUnlimited 显示不限
@@ -66,7 +69,7 @@ const props = defineProps({
     },
     collapsible: {
         type: Boolean,
-        default: false,
+        default: true,
     },
     collapsed: {
         type: Boolean,
@@ -85,16 +88,19 @@ const emit = defineEmits(['update:collapsed', 'update:modelValue', 'collapse', '
 
 const { onFieldChange } = Form.useInjectFormItemContext()
 
+const tagSelectRef = ref()
 const contentRef = ref()
 const curCollapsed = ref(props.collapsed)
 const curValue = ref()
+const curCollapsible = ref(props.collapsible)
 
 const state = reactive({
     defaultHeight: null,
     height: null,
+    observer: null,
 })
 
-const cpContentStyle = computed(() => {
+const cpTagSelectStyle = computed(() => {
     return {
         height: props.collapsible ? (curCollapsed.value ? `${state.defaultHeight}px` : '') : '',
     }
@@ -117,10 +123,34 @@ watch(
     }
 )
 
+watch(
+    () => props.collapsible,
+    (val) => {
+        curCollapsible.value = val
+    }
+)
+
 onMounted(async () => {
     await nextTick()
-    state.defaultHeight = parseInt(window.getComputedStyle(contentRef.value).getPropertyValue('line-height'))
-    state.height = contentRef.value.offsetHeight
+    state.defaultHeight = parseInt(window.getComputedStyle(tagSelectRef.value).getPropertyValue('line-height'))
+    state.height = tagSelectRef.value.offsetHeight
+
+    if (props.collapsible) {
+        state.observer = new ResizeObserver(
+            debounce((entries) => {
+                const entry = head(entries)
+                const { contentRect } = entry || {}
+                curCollapsible.value = contentRect.height > state.defaultHeight
+            }, 100)
+        )
+
+        state.observer.observe(contentRef.value)
+    }
+})
+
+onBeforeUnmount(() => {
+    state.observer?.unobserve?.(contentRef.value)
+    state.observer = null
 })
 
 /**
@@ -213,10 +243,11 @@ useTagSelectProvide({
 <style lang="less" scoped>
 .x-tag-select {
     display: flex;
+    overflow: hidden;
 
     &__content {
         flex: 1;
-        overflow: hidden;
+        height: max-content;
     }
 
     &__collapse {
