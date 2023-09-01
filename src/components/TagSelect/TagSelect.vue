@@ -7,8 +7,9 @@
             <slot>
                 <tag-select-option
                     v-for="item in options"
-                    :key="item[fieldNames.value]"
-                    :value="item[fieldNames.value]">
+                    :key="item[fieldNames.value] ?? item.label"
+                    :value="item[fieldNames.value]"
+                    :record="item">
                     <slot
                         name="option"
                         v-bind="item">
@@ -33,7 +34,7 @@
 </template>
 
 <script setup>
-import { ref, reactive, onMounted, nextTick, computed, watch } from 'vue'
+import { ref, reactive, onMounted, nextTick, computed, watch, toRefs } from 'vue'
 import { Form } from 'ant-design-vue'
 import TagSelectOption from './TagSelectOption.vue'
 import { useTagSelectProvide } from './context'
@@ -49,6 +50,7 @@ defineOptions({
  * @property {boolean} collapsible 是否可收起，默认：false
  * @property {boolean} collapsed 收起状态，默认：true
  * @property {object} fieldNames 自定义节点字段，默认：{ label: 'label', value: 'value' }
+ * @property {boolean} showUnlimited 显示不限
  */
 const props = defineProps({
     modelValue: {
@@ -134,19 +136,55 @@ function handleCollapse() {
  * 选择
  */
 function onSelect(value) {
-    const { multiple } = props
+    const { multiple, options, fieldNames } = toRefs(props)
+    const valueKey = fieldNames.value?.value
+    const record = options.value.find((item) => item[valueKey] === value)
+    const isUnlimited = record?.unlimited
 
-    if (multiple) {
+    // 多选
+    if (multiple.value) {
         curValue.value = Array.isArray(curValue.value) ? curValue.value : []
         const index = curValue.value?.indexOf(value)
+        const unlimitedOptions = options.value.filter((item) => item.unlimited)
+
+        if (isUnlimited) {
+            // 点击的是不限选项，清空已选
+            curValue.value = []
+
+            if (typeof record[valueKey] === 'undefined') {
+                trigger()
+                return
+            }
+        } else {
+            // 点击的是其他，从已选中将不限选项移除
+            unlimitedOptions.forEach((item) => {
+                const index = curValue.value?.indexOf(item[valueKey])
+                if (index > -1) {
+                    curValue.value.splice(index, 1)
+                }
+            })
+        }
+
         if (index === -1) {
             curValue.value?.push(value)
         } else {
             curValue.value?.splice(index, 1)
         }
-    } else {
-        curValue.value = value
+
+        // 如果选中项为空，默认选中不限选项
+        if (!curValue.value.length) {
+            unlimitedOptions.forEach((item) => {
+                if (typeof item[valueKey] !== 'undefined') {
+                    curValue.value.push(item[valueKey])
+                }
+            })
+        }
+
+        trigger()
+        return
     }
+
+    curValue.value = value
     trigger()
 }
 

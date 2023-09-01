@@ -10,16 +10,21 @@
 <script setup>
 import { theme } from 'ant-design-vue'
 import { useTagSelectInject } from './context'
-import { computed, getCurrentInstance } from 'vue'
+import { computed } from 'vue'
 
 defineOptions({
     name: 'XTagSelectOption',
 })
 
 /**
+ * @property {object} record
  * @property {string|number} value
  */
 const props = defineProps({
+    record: {
+        type: Object,
+        default: () => ({}),
+    },
     value: {
         type: [String, Number],
     },
@@ -28,14 +33,11 @@ const props = defineProps({
 const { token } = theme.useToken()
 const { onSelect, modelValue, multiple } = useTagSelectInject()
 
-const instance = getCurrentInstance()
-
-console.log(instance)
-
 const cpClass = computed(() => {
     return {
         'x-tag-select-option--active': multiple.value
-            ? modelValue.value?.includes(props.value)
+            ? modelValue.value?.includes(props.value) ||
+              (typeof props.value === 'undefined' && !modelValue.value?.length && props.record?.unlimited)
             : modelValue.value === props.value,
     }
 })
