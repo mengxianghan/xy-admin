@@ -1,34 +1,42 @@
 <template>
     <page-header></page-header>
     <a-card class="mb-8-2">
-        <x-filter
-            v-model="searchFormData"
-            :data-source="filterData"
-            :label-width="100"
-            @change="handleSearch">
-            <template #default="{ record }">
-                <template v-if="record.key === 'other'">
-                    <x-filter-item :label="record.label">
-                        <a-row :gutter="40">
-                            <a-col>
-                                <a-select
-                                    :style="{ minWidth: '100px' }"
-                                    placeholder="不限"></a-select>
-                            </a-col>
-                            <a-col>
-                                <a-form-item
-                                    class="mb-0"
-                                    label="好评度">
-                                    <a-select
-                                        :style="{ minWidth: '100px' }"
-                                        placeholder="不限"></a-select>
-                                </a-form-item>
-                            </a-col>
-                        </a-row>
-                    </x-filter-item>
-                </template>
-            </template>
-        </x-filter>
+        <x-filter-form :label-col="{ style: { width: '100px' } }">
+            <a-form-item label="所属类目">
+                <x-tag-select
+                    v-model="searchFormData.category"
+                    :options="[
+                        { label: '全部', unlimited: true },
+                        { label: '类目1', value: 1 },
+                        { label: '类目2', value: 2 },
+                        { label: '类目3', value: 3 },
+                        { label: '类目4', value: 4 },
+                        { label: '类目5', value: 5 },
+                        { label: '类目6', value: 6 },
+                        { label: '类目7', value: 7 },
+                        { label: '类目8', value: 8 },
+                    ]"
+                    @change="handleSearch"></x-tag-select>
+            </a-form-item>
+            <a-row>
+                <a-col>
+                    <a-form-item label="作者">
+                        <a-select
+                            :style="{ minWidth: '100px' }"
+                            placeholder="不限"
+                            @change="handleSearch"></a-select>
+                    </a-form-item>
+                </a-col>
+                <a-col>
+                    <a-form-item label="好评度">
+                        <a-select
+                            :style="{ minWidth: '100px' }"
+                            placeholder="不限"
+                            @change="handleSearch"></a-select>
+                    </a-form-item>
+                </a-col>
+            </a-row>
+        </x-filter-form>
     </a-card>
 
     <a-list
@@ -92,12 +100,10 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
-
 import { DownloadOutlined, EditOutlined, EllipsisOutlined, ShareAltOutlined } from '@ant-design/icons-vue'
-import apis from '@/apis'
 import { config } from '@/config'
 import { usePagination } from '@/hooks'
+import apis from '@/apis'
 import PageHeader from '../components/PageHeader.vue'
 
 defineOptions({
@@ -106,28 +112,6 @@ defineOptions({
 
 const { listData, paginationState, loading, showLoading, hideLoading, resetPagination, searchFormData } =
     usePagination()
-
-const filterData = ref([
-    {
-        key: 'category',
-        label: '所属类目',
-        options: [
-            { label: '全部', value: 0 },
-            { label: '类目1', value: 1 },
-            { label: '类目2', value: 2 },
-            { label: '类目3', value: 3 },
-            { label: '类目4', value: 4 },
-            { label: '类目5', value: 5 },
-            { label: '类目6', value: 6 },
-            { label: '类目7', value: 7 },
-            { label: '类目8', value: 8 },
-        ],
-    },
-    {
-        key: 'other',
-        label: '作者',
-    },
-])
 
 paginationState.onChange = (page, pageSize) => {
     paginationState.current = page
