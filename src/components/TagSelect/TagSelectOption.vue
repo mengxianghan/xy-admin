@@ -49,7 +49,7 @@ function handleClick() {
 
 <style lang="less" scoped>
 .x-tag-select-option {
-    padding-inline: 4px;
+    padding-inline: 8px;
     display: inline-flex;
     align-items: center;
     height: 24px;
