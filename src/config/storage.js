@@ -1,7 +1,7 @@
 import { env } from '@/utils/util'
 
 export default {
-    namespace: env('storageNamespace'),
+    namespace: env('storage_namespace'),
     isLogin: 'is_login',
     token: 'token',
     userInfo: 'user_info',
