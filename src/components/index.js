@@ -11,7 +11,6 @@ import FilterTag from './Filter/FilterTag.vue'
 import FilterTagItem from './Filter/FilterTagItem.vue'
 import FormTable from './FormTable/FormTable.vue'
 import Loading from './Loading'
-import { setupLoadingDirective } from './Loading/directive'
 import Preview from './Preview'
 import QrCode from './QrCode/QrCode.vue'
 import Region from './Region/Region.vue'
@@ -20,6 +19,9 @@ import SearchBar from './SearchBar/SearchBar.vue'
 import UploadImage from './Upload/UploadImage.vue'
 import UploadInput from './Upload/UploadInput.vue'
 import Scrollbar from './Scrollbar/Scrollbar.vue'
+import Transfer from './Transfer/Transfer.vue'
+
+import { setupLoadingDirective } from './Loading/directive'
 
 const componentList = [
     ActionBar,
@@ -41,6 +43,7 @@ const componentList = [
     UploadImage,
     UploadInput,
     Scrollbar,
+    Transfer,
 ]
 
 export const loading = Loading
