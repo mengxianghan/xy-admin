@@ -120,14 +120,14 @@ function handleClick({ item }) {
 
     if (path) {
         const isBlank = meta?.target === '_blank'
-        const { href } = router.resolve({ name, query: meta?.query || {} })
         if (meta?.isLink) {
             if (isBlank) {
-                window.open(href)
+                window.open(path)
             } else {
-                window.location.href = href
+                window.location.href = path
             }
         } else {
+            const { href } = router.resolve({ name, query: meta?.query || {} })
             if (isBlank) {
                 window.open(href)
             } else {
