@@ -25,7 +25,7 @@ export default {
                 { text: 'Loading 加载中', link: '/components/loading' },
                 { text: 'Preview 预览', link: '/components/preview' },
                 { text: 'QrCode 二维码', link: '/components/qr-code' },
-                { text: 'Region 地区联动', link: '/components/region' },
+                { text: 'Cascader 级联选择', link: '/components/cascader' },
                 { text: 'ResizeBox 伸缩框', link: '/components/resize-box' },
                 { text: 'SearchBar 搜索条', link: '/components/search-bar' },
                 { text: 'UploadImage 上传图片', link: '/components/upload-image' },

@@ -80,9 +80,9 @@
 import { config } from '@/config'
 import { useUserStore } from '@/store'
 import { assets } from '@/utils/util'
-import apis from '@/apis'
-import usePagination from '../../hooks/usePagination'
 import { storeToRefs } from 'pinia'
+import apis from '@/apis'
+import usePagination from '@/hooks/usePagination'
 
 defineOptions({
     name: 'welcome',

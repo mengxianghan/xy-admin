@@ -3,8 +3,9 @@
         class="x-resize-box"
         ref="resizeBoxRef"
         :style="cpStyle">
-        <slot></slot>
-
+        <div class="x-resize-box-body">
+            <slot></slot>
+        </div>
         <template v-if="!disabled">
             <div
                 v-for="direction in directions"
@@ -21,7 +22,6 @@
 
 <script setup>
 import { computed, reactive, ref, useSlots } from 'vue'
-
 import { directionEnum } from './config'
 
 defineOptions({
@@ -30,16 +30,22 @@ defineOptions({
 /**
  * @property {number} width 宽
  * @property {number} height 高
- * @property {number} minWidth 最小宽度
- * @property {number} minHeight 最小高度
+ * @property {number} minWidth 最小宽度，默认：100
+ * @property {number} minHeight 最小高度，默认：100
  * @property {array} directions 可以进行伸缩的边，默认：['right']；['left', 'right', 'top', 'bottom']
  * @property {boolean} disabled 禁用
  */
 const props = defineProps({
     width: Number,
     height: Number,
-    minWidth: Number,
-    minHeight: Number,
+    minWidth: {
+        type: Number,
+        default: 100,
+    },
+    minHeight: {
+        type: Number,
+        default: 100,
+    },
     directions: {
         type: Array,
         default: () => ['right'],
@@ -55,6 +61,7 @@ const emit = defineEmits(['movingStart', 'moving', 'movingEnd', 'update:width', 
 useSlots(['default'])
 
 const resizeBoxRef = ref()
+
 const state = reactive({
     moving: false,
     direction: '',
@@ -65,6 +72,7 @@ const state = reactive({
     currentWidth: props.width || props.minWidth,
     currentHeight: props.height || props.minHeight,
 })
+
 const cpStyle = computed(() => ({
     width: `${state.currentWidth}px`,
     height: `${state.currentHeight}px`,
@@ -150,53 +158,84 @@ function onMoveEnd(e) {
 </script>
 
 <style lang="less" scoped>
-@handle-size: 3px;
-
 .x-resize-box {
     position: relative;
-    overflow: hidden;
+
+    &-body {
+        overflow: hidden;
+        height: 100%;
+        overflow: auto;
+    }
 
     &-handle {
         position: absolute;
-        transition: all 0.3s;
+        transition: all 0.2s;
         z-index: 999;
         user-select: none;
 
+        &::after {
+            position: absolute;
+            content: '';
+            transition: all 0.2s;
+        }
+
         &--active,
         &:hover {
-            background: @color-primary;
+            &::after {
+                background: @color-primary;
+            }
         }
 
         &--left,
         &--right {
-            width: @handle-size;
+            width: 8px;
             top: 0;
             bottom: 0;
             cursor: col-resize;
+
+            &::after {
+                top: 0;
+                bottom: 0;
+                width: 4px;
+                left: 50%;
+                transform: translateX(-50%);
+            }
         }
 
         &--left {
             left: 0;
+            transform: translateX(-4px);
         }
 
         &--right {
             right: 0;
+            transform: translateX(4px);
         }
 
         &--top,
         &--bottom {
             left: 0;
             right: 0;
-            height: @handle-size;
+            height: 8px;
             cursor: row-resize;
+
+            &::after {
+                left: 0;
+                right: 0;
+                height: 4px;
+                top: 50%;
+                transform: translateY(-50%);
+            }
         }
 
         &--top {
             top: 0;
+            transform: translateY(-4px);
         }
 
         &--bottom {
             bottom: 0;
+            transform: translateY(4px);
         }
     }
 }
