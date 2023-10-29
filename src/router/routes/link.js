@@ -10,18 +10,16 @@ export default [
             title: '外部链接',
             isMenu: true,
             keepAlive: false,
-            permission: '*',
         },
         children: [
             {
                 path: 'https://github.com/mengxianghan/xy-admin',
-                name: 'linkBaidu',
+                name: 'github',
                 meta: {
                     type: 'link',
                     title: 'Github',
                     target: '_blank',
                     isMenu: true,
-                    permission: '*',
                 },
             },
         ],

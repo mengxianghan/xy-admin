@@ -10,7 +10,6 @@ export default [
             title: '其他',
             isMenu: true,
             keepAlive: true,
-            permission: '*',
         },
         children: [
             {
@@ -23,7 +22,6 @@ export default [
                     isMenu: true,
                     target: '_blank',
                     keepAlive: true,
-                    permission: '*',
                 },
             },
             {
@@ -34,7 +32,6 @@ export default [
                     title: '多标签操作',
                     isMenu: true,
                     keepAlive: true,
-                    permission: '*',
                 },
             },
             {
@@ -45,7 +42,6 @@ export default [
                     title: '菜单徽标',
                     isMenu: true,
                     keepAlive: true,
-                    permission: '*',
                 },
             },
         ],

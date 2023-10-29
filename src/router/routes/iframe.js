@@ -10,7 +10,6 @@ export default [
             title: 'Iframe',
             isMenu: true,
             keepAlive: true,
-            permission: '*',
         },
         children: [
             {
@@ -23,7 +22,6 @@ export default [
                     title: 'Vue',
                     isMenu: true,
                     keepAlive: true,
-                    permission: '*',
                 },
             },
             {
@@ -36,7 +34,6 @@ export default [
                     title: 'Ant Design Vue',
                     isMenu: true,
                     keepAlive: true,
-                    permission: '*',
                 },
             },
         ],

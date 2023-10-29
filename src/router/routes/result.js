@@ -10,7 +10,6 @@ export default [
             title: '结果页',
             isMenu: true,
             keepAlive: true,
-            permission: '*',
         },
         children: [
             {
@@ -21,7 +20,6 @@ export default [
                     title: '成功页',
                     isMenu: true,
                     keepAlive: true,
-                    permission: '*',
                 },
             },
             {
@@ -32,7 +30,6 @@ export default [
                     title: '失败页',
                     isMenu: true,
                     keepAlive: true,
-                    permission: '*',
                 },
             },
         ],

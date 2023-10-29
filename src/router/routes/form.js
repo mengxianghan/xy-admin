@@ -10,7 +10,6 @@ export default [
             title: '表单页',
             isMenu: true,
             keepAlive: true,
-            permission: '*',
         },
         children: [
             {
@@ -21,7 +20,6 @@ export default [
                     title: '基础表单',
                     isMenu: true,
                     keepAlive: true,
-                    permission: '*',
                 },
             },
             {
@@ -32,7 +30,6 @@ export default [
                     title: '分步表单',
                     isMenu: true,
                     keepAlive: true,
-                    permission: '*',
                 },
             },
             {
@@ -43,7 +40,6 @@ export default [
                     title: '高级表单',
                     isMenu: true,
                     keepAlive: true,
-                    permission: '*',
                 },
             },
         ],

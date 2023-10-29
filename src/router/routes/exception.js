@@ -10,7 +10,6 @@ export default [
             title: '异常页',
             isMenu: true,
             keepAlive: true,
-            permission: '*',
         },
         children: [
             {
@@ -21,7 +20,6 @@ export default [
                     title: '403',
                     isMenu: true,
                     keepAlive: true,
-                    permission: '*',
                 },
             },
             {
@@ -32,7 +30,6 @@ export default [
                     title: '404',
                     isMenu: true,
                     keepAlive: true,
-                    permission: '*',
                 },
             },
             {
@@ -43,7 +40,6 @@ export default [
                     title: '500',
                     isMenu: true,
                     keepAlive: true,
-                    permission: '*',
                 },
             },
         ],

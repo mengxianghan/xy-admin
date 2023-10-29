@@ -11,7 +11,6 @@ const useUserStore = defineStore('user', {
     state: () => ({
         userInfo: storage.local.getItem(config('storage.userInfo'), null),
         token: storage.local.getItem(config('storage.token'), ''),
-        permission: storage.local.getItem(config('storage.permission'), []),
     }),
     getters: {
         isLogin: (state) => !!state.token,

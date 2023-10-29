@@ -1,13 +1,9 @@
 import { defineStore } from 'pinia'
-
-import asyncRoutes from '@/router/routes'
-import router from '@/router'
 import { notFoundRoute } from '@/router/config'
-import { filterRoutes, formatRoutes, generateMenuList, generateRoutes, getFirstValidRoute } from '@/router/util'
+import { formatRoutes, generateMenuList, generateRoutes, getFirstValidRoute } from '@/router/util'
 import { findTree } from '@/utils/util'
-import { config } from '@/config'
-
-import useUserStore from './user'
+import router from '@/router'
+import asyncRoutes from '@/router/routes'
 
 const useRouterStore = defineStore('router', {
     state: () => ({
@@ -22,13 +18,10 @@ const useRouterStore = defineStore('router', {
          * @returns {Promise}
          */
         getRouterList() {
-            const userStore = useUserStore()
             return new Promise((resolve) => {
                 ;(async () => {
-                    const list = asyncRoutes
-                    const validRoutes = config('app.permission')
-                        ? filterRoutes(formatRoutes(list), userStore.permission)
-                        : formatRoutes(list)
+                    // TODO: 通过接口获取路由，这里使用本地路由演示
+                    const validRoutes = formatRoutes(asyncRoutes)
                     const menuList = generateMenuList(validRoutes)
                     const routes = [...generateRoutes(validRoutes), notFoundRoute]
                     const indexRoute = getFirstValidRoute(menuList)

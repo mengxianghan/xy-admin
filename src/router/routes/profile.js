@@ -10,7 +10,6 @@ export default [
             title: '详情页',
             isMenu: true,
             keepAlive: true,
-            permission: '*',
         },
         children: [
             {
@@ -21,7 +20,6 @@ export default [
                     title: '基础详情页',
                     isMenu: true,
                     keepAlive: true,
-                    permission: '*',
                 },
             },
             {
@@ -32,7 +30,6 @@ export default [
                     title: '高级详情页',
                     isMenu: true,
                     keepAlive: true,
-                    permission: '*',
                 },
             },
         ],

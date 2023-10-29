@@ -10,7 +10,6 @@ export default [
             title: '个人页',
             isMenu: true,
             keepAlive: true,
-            permission: '*',
         },
         children: [
             {
@@ -21,7 +20,6 @@ export default [
                     title: '个人中心',
                     isMenu: true,
                     keepAlive: true,
-                    permission: '*',
                 },
             },
             {
@@ -32,7 +30,6 @@ export default [
                     title: '个人设置',
                     isMenu: true,
                     keepAlive: true,
-                    permission: '*',
                 },
             },
         ],

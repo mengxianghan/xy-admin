@@ -10,7 +10,6 @@ export default [
             title: '系统管理',
             isMenu: true,
             keepAlive: true,
-            permission: '*',
         },
         children: [
             {
@@ -21,7 +20,6 @@ export default [
                     title: '成员与部门',
                     isMenu: true,
                     keepAlive: true,
-                    permission: '*',
                 },
             },
             {
@@ -32,7 +30,6 @@ export default [
                     title: '角色管理',
                     isMenu: true,
                     keepAlive: true,
-                    permission: '*',
                 },
             },
             {
@@ -43,7 +40,6 @@ export default [
                     title: '菜单管理',
                     isMenu: true,
                     keepAlive: true,
-                    permission: '*',
                 },
             },
             {
@@ -54,7 +50,6 @@ export default [
                     title: '新版菜单管理',
                     isMenu: true,
                     keepAlive: true,
-                    permission: '*',
                 },
             },
             {
@@ -65,7 +60,6 @@ export default [
                     title: '字典管理',
                     isMenu: true,
                     keepAlive: true,
-                    permission: '*',
                 },
             },
         ],

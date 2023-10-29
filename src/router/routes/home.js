@@ -10,7 +10,6 @@ export default [
             title: '欢迎页',
             isMenu: true,
             keepAlive: true,
-            permission: '*',
         },
     },
 ]

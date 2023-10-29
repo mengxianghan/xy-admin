@@ -10,7 +10,6 @@ export default [
             title: '列表页',
             isMenu: true,
             keepAlive: true,
-            permission: '*',
         },
         children: [
             {
@@ -20,7 +19,6 @@ export default [
                     title: '搜索列表',
                     isMenu: true,
                     keepAlive: true,
-                    permission: '*',
                 },
                 children: [
                     {
@@ -31,7 +29,6 @@ export default [
                             title: '搜索列表（文章）',
                             isMenu: true,
                             keepAlive: true,
-                            permission: '*',
                         },
                     },
                     {
@@ -42,7 +39,6 @@ export default [
                             title: '搜索列表（项目）',
                             isMenu: true,
                             keepAlive: true,
-                            permission: '*',
                         },
                     },
                     {
@@ -53,7 +49,6 @@ export default [
                             title: '搜索列表（应用）',
                             isMenu: true,
                             keepAlive: true,
-                            permission: '*',
                         },
                     },
                 ],
@@ -66,7 +61,6 @@ export default [
                     title: '查询表格',
                     isMenu: true,
                     keepAlive: true,
-                    permission: '*',
                 },
             },
             {
@@ -77,7 +71,6 @@ export default [
                     title: '标准列表',
                     isMenu: true,
                     keepAlive: true,
-                    permission: '*',
                 },
             },
             {
@@ -88,7 +81,6 @@ export default [
                     title: '卡片列表',
                     isMenu: true,
                     keepAlive: true,
-                    permission: '*',
                 },
             },
         ],
