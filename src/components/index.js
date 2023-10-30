@@ -12,12 +12,12 @@ import Loading from './Loading'
 import Preview from './Preview'
 import QrCode from './QrCode/QrCode.vue'
 import ResizeBox from './ResizeBox/ResizeBox.vue'
+import Scrollbar from './Scrollbar/Scrollbar.vue'
 import SearchBar from './SearchBar/SearchBar.vue'
 import TagSelect from './TagSelect/TagSelect.vue'
 import Transfer from './Transfer/Transfer.vue'
 import UploadImage from './Upload/UploadImage.vue'
 import UploadInput from './Upload/UploadInput.vue'
-import Scrollbar from './Scrollbar/Scrollbar.vue'
 
 import { setupLoadingDirective } from './Loading/directive'
 
@@ -34,12 +34,12 @@ const componentList = [
     FormTable,
     QrCode,
     ResizeBox,
+    Scrollbar,
     SearchBar,
     TagSelect,
     Transfer,
     UploadImage,
     UploadInput,
-    Scrollbar,
 ]
 
 export const loading = Loading
