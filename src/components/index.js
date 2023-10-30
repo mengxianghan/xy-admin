@@ -16,6 +16,7 @@ import Preview from './Preview'
 import QrCode from './QrCode/QrCode.vue'
 import ResizeBox from './ResizeBox/ResizeBox.vue'
 import SearchBar from './SearchBar/SearchBar.vue'
+import TagSelect from './TagSelect/TagSelect.vue'
 import Transfer from './Transfer/Transfer.vue'
 import UploadImage from './Upload/UploadImage.vue'
 import UploadInput from './Upload/UploadInput.vue'
@@ -40,6 +41,7 @@ const componentList = [
     QrCode,
     ResizeBox,
     SearchBar,
+    TagSelect,
     Transfer,
     UploadImage,
     UploadInput,
