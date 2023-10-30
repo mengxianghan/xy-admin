@@ -6,10 +6,7 @@ import Chart from './Chart/Chart.vue'
 import Cropper from './Cropper/Cropper.vue'
 import CropperDialog from './Cropper/CropperDialog.vue'
 import Editor from './Editor/Editor.vue'
-import Filter from './Filter/Filter.vue'
-import FilterItem from './Filter/FilterItem.vue'
-import FilterTag from './Filter/FilterTag.vue'
-import FilterTagItem from './Filter/FilterTagItem.vue'
+import FilterForm from './FilterForm/FilterForm.vue'
 import FormTable from './FormTable/FormTable.vue'
 import Loading from './Loading'
 import Preview from './Preview'
@@ -33,10 +30,7 @@ const componentList = [
     Cropper,
     CropperDialog,
     Editor,
-    Filter,
-    FilterItem,
-    FilterTag,
-    FilterTagItem,
+    FilterForm,
     FormTable,
     QrCode,
     ResizeBox,
