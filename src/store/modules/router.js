@@ -2,8 +2,9 @@ import { defineStore } from 'pinia'
 import { notFoundRoute } from '@/router/config'
 import { formatRoutes, generateMenuList, generateRoutes, getFirstValidRoute } from '@/router/util'
 import { findTree } from '@/utils/util'
+import { config } from '@/config'
 import router from '@/router'
-import asyncRoutes from '@/router/routes'
+import apis from '@/apis'
 
 const useRouterStore = defineStore('router', {
     state: () => ({
@@ -18,20 +19,29 @@ const useRouterStore = defineStore('router', {
          * @returns {Promise}
          */
         getRouterList() {
-            return new Promise((resolve) => {
+            return new Promise((resolve, reject) => {
                 ;(async () => {
-                    // TODO: 通过接口获取路由，这里使用本地路由演示
-                    const validRoutes = formatRoutes(asyncRoutes)
-                    const menuList = generateMenuList(validRoutes)
-                    const routes = [...generateRoutes(validRoutes), notFoundRoute]
-                    const indexRoute = getFirstValidRoute(menuList)
-                    routes.forEach((route) => {
-                        router.addRoute(route)
-                    })
-                    this.routes = routes
-                    this.menuList = menuList
-                    this.indexRoute = indexRoute
-                    resolve()
+                    try {
+                        const { code, data } = await apis.user.getAuthList().catch(() => {
+                            throw new Error()
+                        })
+                        if (config('http.code.success') === code) {
+                            const validRoutes = formatRoutes(data)
+                            const menuList = generateMenuList(validRoutes)
+                            const routes = [...generateRoutes(validRoutes), notFoundRoute]
+                            const indexRoute = getFirstValidRoute(menuList)
+                            routes.forEach((route) => {
+                                router.addRoute(route)
+                            })
+                            this.routes = routes
+                            this.menuList = menuList
+                            this.indexRoute = indexRoute
+                            resolve()
+                        }
+                    } catch (error) {
+                        console.log(error)
+                        reject()
+                    }
                 })()
             })
         },
