@@ -1,7 +1,7 @@
 import antd from 'ant-design-vue'
 import component from '@/components'
 
-import { setupActionDirective } from '@/directives/action'
+import { setupDirective } from '@/directives'
 import { setupRouter } from '@/router'
 import { setupStore } from '@/store'
 import { setupException } from './exception'
@@ -17,5 +17,5 @@ export const useCore = (app) => {
     setupException(app)
     setupStore(app)
     setupRouter(app)
-    setupActionDirective(app)
+    setupDirective(app)
 }

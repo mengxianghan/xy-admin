@@ -1,35 +1,48 @@
 /**
  * @name Action
  * @description 权限
- * @example v-action:action || v-action="'action'" || v-action="['action1', 'action2']"
+ * @example v-action="'action'" || v-action="['action1', 'action2']"
  * @type {{mounted: actionDirective.mounted}}
  */
-const actionDirective = {
-    mounted: (el, binding) => {
-        const route = binding.instance.$route
-        const actions = route?.meta?.actions ?? []
-        const actionName = binding.arg || binding.value
-        if (route?.meta?.action.includes('*')) return
-        if (!actionName) return
+import router from '@/router'
 
-        if (Array.isArray(actionName)) {
-            // 多个权限
-            if (!actions.some((value) => actionName.includes(value))) {
-                ;(el.parentNode && el.parentNode.removeChild(el)) || (el.style.display = 'none')
-            }
-        } else {
-            // 一个权限，完全匹配
-            if (!actions.includes(actionName)) {
-                ;(el.parentNode && el.parentNode.removeChild(el)) || (el.style.display = 'none')
-            }
+const action = {
+    mounted: (el, binding) => {
+        const { value: elActions } = binding
+        const route = router.currentRoute.value
+        const currentActions = route?.meta?.actions ?? []
+        const actions = typeof value === 'string' ? elActions.split() : elActions
+
+        if (currentActions.includes('*')) return
+
+        if (!currentActions.some((action) => actions.includes(action))) {
+            el.remove() || (el.style.display = 'none')
         }
     },
 }
 
-export function setupActionDirective(app) {
-    app.directive('action', actionDirective)
+/**
+ * 校验权限
+ * @param {string | array} actions
+ */
+const checkAction = (actions = '') => {
+    const route = router.currentRoute.value
+    const currentActions = route?.meta?.actions ?? []
+    actions = typeof actions === 'string' ? actions.split() : actions
 
-    return app
+    if (currentActions.includes('*')) {
+        return true
+    }
+
+    if (!currentActions.some((action) => actions.includes(action))) {
+        return false
+    }
+
+    return true
 }
 
-export default actionDirective
+export const setupActionDirective = (app) => {
+    app.directive('action', action)
+    app.config.globalProperties.$checkAction = checkAction
+    return app
+}
