@@ -18,6 +18,9 @@ export function formatRoutes(routes = [], parent = {}) {
             const component = localRoute?.component || 'exception/404'
             const isLink = localRoute?.meta?.type === 'link'
             const isIframe = localRoute?.meta?.type === 'iframe'
+
+            if (!localRoute) return
+
             const route = {
                 // 如果路由设置的 path 是 / 开头或是外链，则默认使用 path，否则动态拼接路由地址
                 path:
