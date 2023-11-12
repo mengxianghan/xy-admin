@@ -78,7 +78,7 @@ const cpShowFooterSlot = computed(() => !!slots.footer)
 <style lang="less" scoped>
 .basic-side {
     position: sticky;
-    // box-shadow: 2px 0 8px rgba(29, 35, 41, 0.05);
+    transition-property: background-color flex max-width min-width width;
 
     :deep(.ant-layout-sider-children) {
         height: 100%;
