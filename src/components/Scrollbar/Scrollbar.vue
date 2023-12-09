@@ -3,15 +3,18 @@
         ref="scrollbarRef"
         :style="cpStyle"
         :options="cpOptions"
-        @os-scroll="onScroll">
+        @os-scroll="onScroll"
+        @os-initialized="onInitialized"
+        @os-destroyed="onDestroyed"
+        @os-updated="onUpdated">
         <slot></slot>
     </overlay-scrollbars-component>
 </template>
 
 <script setup>
+import { computed, ref, useSlots } from 'vue'
 import { OverlayScrollbarsComponent } from 'overlayscrollbars-vue'
 import 'overlayscrollbars/overlayscrollbars.css'
-import { computed, ref, useSlots } from 'vue'
 
 defineOptions({
     name: 'XScrollbar',
@@ -31,7 +34,7 @@ const props = defineProps({
     },
 })
 
-const emit = defineEmits(['scroll'])
+const emits = defineEmits(['scroll', 'initialized', 'updated', 'destroyed'])
 
 useSlots(['default'])
 
@@ -51,7 +54,31 @@ const cpOptions = computed(() => ({
 }))
 
 function onScroll(instance, event) {
-    emit('scroll', instance, event)
+    emits('scroll', instance, event)
+}
+
+/**
+ * 已初始化
+ * @param {*} instance
+ */
+function onInitialized(instance) {
+    emits('initialized', instance)
+}
+
+/**
+ * 已更新
+ * @param {*} instance
+ */
+function onUpdated(instance) {
+    emits('updated', instance)
+}
+
+/**
+ * 已销毁
+ * @param {*} instance
+ */
+function onDestroyed(instance) {
+    emits('destroyed', instance)
 }
 
 function formatUnit(value) {
@@ -64,7 +91,6 @@ function scrollTo(payload) {
 
 defineExpose({
     scrollTo,
-    instance: scrollbarRef.value,
 })
 </script>
 
