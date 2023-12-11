@@ -51,18 +51,14 @@ const useRouterStore = defineStore('router', {
          * @param {number} count 数量
          */
         setBadge({ name, count } = {}) {
-            let menuInfo = null
             findTree(
                 this.menuList,
                 name,
                 (item) => {
-                    menuInfo = item
+                    item.meta.badge = count
                 },
                 { key: 'name', children: 'children' }
             )
-            if (menuInfo) {
-                menuInfo.meta.badge = count
-            }
         },
     },
 })
