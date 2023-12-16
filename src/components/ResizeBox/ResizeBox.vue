@@ -2,7 +2,7 @@
     <div
         class="x-resize-box"
         ref="resizeBoxRef"
-        :style="cpStyle">
+        :style="styleComputed">
         <div class="x-resize-box-body">
             <slot></slot>
         </div>
@@ -21,7 +21,7 @@
 </template>
 
 <script setup>
-import { computed, reactive, ref, useSlots } from 'vue'
+import { computed, reactive, ref } from 'vue'
 import { directionEnum } from './config'
 
 defineOptions({
@@ -46,6 +46,8 @@ const props = defineProps({
         type: Number,
         default: 100,
     },
+    maxWidth: Number,
+    maxHeight: Number,
     directions: {
         type: Array,
         default: () => ['right'],
@@ -57,8 +59,6 @@ const props = defineProps({
 })
 
 const emit = defineEmits(['movingStart', 'moving', 'movingEnd', 'update:width', 'update:height'])
-
-useSlots(['default'])
 
 const resizeBoxRef = ref()
 
@@ -73,7 +73,7 @@ const state = reactive({
     currentHeight: props.height || props.minHeight,
 })
 
-const cpStyle = computed(() => ({
+const styleComputed = computed(() => ({
     width: `${state.currentWidth}px`,
     height: `${state.currentHeight}px`,
     maxWidth: '100%',
@@ -115,29 +115,28 @@ function onMoving(e) {
     let height
 
     switch (direction) {
-        // 上
-        case directionEnum.getValue('top'):
-            height = startHeight - offsetY
-            state.currentHeight = height < props.minHeight ? props.minHeight : height
-            emit('update:height', state.currentHeight)
-            break
-        // 下
-        case directionEnum.getValue('bottom'):
+        case directionEnum.getValue('top'): // 上
+        case directionEnum.getValue('bottom'): // 下
             height = startHeight + offsetY
-            state.currentHeight = height < props.minHeight ? props.minHeight : height
+            state.currentHeight = height
+            if (height < props.minHeight) {
+                state.currentHeight = props.minHeight
+            }
+            if (height > props.maxHeight && props.maxHeight > props.minHeight) {
+                state.currentHeight = props.maxHeight
+            }
             emit('update:height', state.currentHeight)
             break
-        // 左
-        case directionEnum.getValue('left'):
-            width = startWidth - offsetX
-            state.currentWidth = width < props.minWidth ? props.minWidth : width
-            emit('update:width', state.currentWidth)
-            break
-        // 右
-        case directionEnum.getValue('right'):
+        case directionEnum.getValue('left'): // 左
+        case directionEnum.getValue('right'): // 右
             width = startWidth + offsetX
-            state.currentWidth = width < props.minWidth ? props.minWidth : width
-            console.log('state.currentWidth', width < props.minWidth ? props.minWidth : width)
+            state.currentWidth = width
+            if (width < props.minWidth) {
+                state.currentWidth = props.minWidth
+            }
+            if (width > props.maxWidth && props.maxWidth > props.minWidth) {
+                state.currentWidth = props.maxWidth
+            }
             emit('update:width', state.currentWidth)
             break
     }
@@ -196,7 +195,7 @@ function onMoveEnd(e) {
             &::after {
                 top: 0;
                 bottom: 0;
-                width: 4px;
+                width: 2px;
                 left: 50%;
                 transform: translateX(-50%);
             }
@@ -204,12 +203,12 @@ function onMoveEnd(e) {
 
         &--left {
             left: 0;
-            transform: translateX(-4px);
+            transform: translateX(-2px);
         }
 
         &--right {
             right: 0;
-            transform: translateX(4px);
+            transform: translateX(2px);
         }
 
         &--top,
@@ -222,7 +221,7 @@ function onMoveEnd(e) {
             &::after {
                 left: 0;
                 right: 0;
-                height: 4px;
+                height: 2px;
                 top: 50%;
                 transform: translateY(-50%);
             }
@@ -230,12 +229,12 @@ function onMoveEnd(e) {
 
         &--top {
             top: 0;
-            transform: translateY(-4px);
+            transform: translateY(-2px);
         }
 
         &--bottom {
             bottom: 0;
-            transform: translateY(4px);
+            transform: translateY(2px);
         }
     }
 }
