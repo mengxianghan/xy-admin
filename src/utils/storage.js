@@ -3,6 +3,9 @@ import { config } from '@/config'
 
 const options = {
     namespace: config('storage.namespace'),
+    attrs: {
+        domain: config('storage.domain'),
+    },
 }
 
 export const local = new Storage({
