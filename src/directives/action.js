@@ -25,7 +25,7 @@ const action = {
  * 校验权限
  * @param {string | array} actions
  */
-const checkAction = (actions = '') => {
+export const checkAction = (actions = '') => {
     const route = router.currentRoute.value
     const currentActions = route?.meta?.actions ?? []
     actions = typeof actions === 'string' ? actions.split() : actions
