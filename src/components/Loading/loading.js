@@ -1,6 +1,6 @@
 import LoadingConstructor from './Loading.vue'
 import { createVNode, render } from 'vue'
-import { getScrollWidth, onPopState, onUnPopState, setStyle } from '@/components/utils'
+import { getScrollWidth, onPopState, onUnPopState, setStyle } from '../utils'
 
 let container
 

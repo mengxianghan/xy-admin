@@ -53,8 +53,9 @@ function close() {
     window.removeEventListener('popstate', popstateListener)
 }
 
-const Preview = open
+const Preview = {
+    open,
+    close,
+}
 
-Preview.close = close
-
-export default Preview
+export { Preview }

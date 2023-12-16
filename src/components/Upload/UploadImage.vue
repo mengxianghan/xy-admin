@@ -111,7 +111,7 @@ import { computed, onMounted, ref, useSlots, watch } from 'vue'
 import { DeleteOutlined, EyeOutlined, PlusOutlined } from '@ant-design/icons-vue'
 import { deepMerge } from '@/utils'
 import CropperDialog from '../Cropper/CropperDialog.vue'
-import Preview from '../Preview'
+import { Preview } from '../Preview'
 import { STATUS_ENUM } from './config'
 
 defineOptions({
@@ -278,13 +278,13 @@ function initDragSort() {
 function handlePreview(record, index) {
     if (props.multiple) {
         // 多选
-        Preview({
+        Preview.open({
             urls: props.modelValue,
             current: index,
         })
     } else {
         // 单选
-        Preview(record.src)
+        Preview.open(record.src)
     }
 }
 
