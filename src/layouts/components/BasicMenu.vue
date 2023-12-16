@@ -5,7 +5,7 @@
         <a-menu
             v-model:selected-keys="selectedKeys"
             :get-pop-container="() => basicMenuRef"
-            :inline-collapsed="collapsed"
+            :inline-collapsed="config.collapsed"
             :mode="mode"
             :open-keys="cpOpenKeys"
             :theme="theme"
@@ -18,8 +18,10 @@
 <script setup>
 import { computed, onMounted, ref, watch, h } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import { mapping } from '@/utils/util'
+import { mapping } from '@/utils'
 import { Badge } from 'ant-design-vue'
+import { useAppStore } from '@/store'
+import { storeToRefs } from 'pinia'
 
 defineOptions({
     name: 'BasicMenu',
@@ -49,8 +51,9 @@ const emit = defineEmits(['click'])
 
 const route = useRoute()
 const router = useRouter()
+const appStore = useAppStore()
 
-const collapsed = ref(false)
+const { config } = storeToRefs(appStore)
 const openKeys = ref([])
 const selectedKeys = ref([])
 const items = ref([])

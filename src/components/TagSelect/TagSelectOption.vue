@@ -16,10 +16,6 @@ defineOptions({
     name: 'XTagSelectOption',
 })
 
-/**
- * @property {object} record
- * @property {string|number} value
- */
 const props = defineProps({
     record: {
         type: Object,
@@ -49,10 +45,10 @@ function handleClick() {
 
 <style lang="less" scoped>
 .x-tag-select-option {
-    padding-inline: 8px;
+    padding: 0 8px;
     display: inline-flex;
     align-items: center;
-    height: 24px;
+    line-height: v-bind('token.controlHeightSM + "px"');
     border-radius: @border-radius-sm;
     cursor: pointer;
     transition: all 0.2s;

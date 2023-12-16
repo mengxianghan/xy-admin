@@ -2,7 +2,7 @@
     <a-layout-sider
         breakpoint="lg"
         class="basic-side"
-        v-model:collapsed="collapsed"
+        v-model:collapsed="config.collapsed"
         :style="cpStyles"
         :collapsible="true"
         :collapsed-width="config.sideCollapsedWidth"
@@ -10,7 +10,7 @@
         :width="config.sideWidth">
         <template #trigger>
             <div class="basic-side__trigger">
-                <component :is="collapsed ? MenuUnfoldOutlined : MenuFoldOutlined"></component>
+                <component :is="config.collapsed ? MenuUnfoldOutlined : MenuFoldOutlined"></component>
             </div>
         </template>
         <div class="basic-side__header">
@@ -31,7 +31,7 @@
 
 <script setup>
 import { storeToRefs } from 'pinia'
-import { computed, useSlots, ref } from 'vue'
+import { computed, useSlots } from 'vue'
 import { MenuUnfoldOutlined, MenuFoldOutlined } from '@ant-design/icons-vue'
 import { useAppStore } from '@/store'
 import { theme as antTheme } from 'ant-design-vue'
@@ -57,8 +57,6 @@ const appStore = useAppStore()
 const { token } = antTheme.useToken()
 
 const { config } = storeToRefs(appStore)
-
-const collapsed = ref(false)
 
 const cpStyles = computed(() => {
     const styles = {

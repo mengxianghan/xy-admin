@@ -79,7 +79,7 @@
 <script setup>
 import { config } from '@/config'
 import { useUserStore } from '@/store'
-import { assets } from '@/utils/util'
+import { assets } from '@/utils'
 import { storeToRefs } from 'pinia'
 import apis from '@/apis'
 import usePagination from '@/hooks/usePagination'

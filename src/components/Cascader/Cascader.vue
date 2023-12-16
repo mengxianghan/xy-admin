@@ -13,7 +13,7 @@ import { Form, message } from 'ant-design-vue'
 import { last, pick } from 'lodash-es'
 import { computed, onMounted, ref, watch } from 'vue'
 import { config } from '@/config'
-import { findTree } from '@/utils/util'
+import { findTree } from '@/utils'
 
 defineOptions({
     name: 'XCascader',

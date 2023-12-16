@@ -1,5 +1,5 @@
-import { isMatch, snakeCase, toUpper, cloneDeep, keys, pick } from 'lodash-es'
-import dayjs from 'dayjs'
+import { isMatch } from 'lodash-es'
+import { isObject } from './is'
 
 /**
  * 数据映射
@@ -126,7 +126,7 @@ export const timeFix = () => {
  * @param {function | array} funcs
  * @return {{}}
  */
-export const zipObjectPlus = (keys = [], values = [], funcs) => {
+export const zipObject = (keys = [], values = [], funcs) => {
     const result = {}
     if (Array.isArray(keys) && Array.isArray(values)) {
         keys.forEach((key, index) => {
@@ -139,127 +139,6 @@ export const zipObjectPlus = (keys = [], values = [], funcs) => {
 }
 
 /**
- * 获取环境变量
- * @param {string} key
- * @returns
- */
-export const env = (key, def = null) => {
-    const value = import.meta.env[`VITE_${toUpper(snakeCase(key))}`] || def
-    if (['true', 'false'].includes(value)) {
-        return Boolean(value)
-    }
-    return value
-}
-
-/**
- * 树形结构转线形结构
- * @param {array} data
- * @param {object} fieldNames
- * @return {*[]}
- */
-export const toList = (data = [], fieldNames = { children: 'children' }) => {
-    let result = []
-    if (!Array.isArray(data)) return result
-    data.forEach((item) => {
-        let temp = []
-        result.push(item)
-        if (item[fieldNames.children] && item[fieldNames.children].length) {
-            let children = toList(item[fieldNames.children], fieldNames)
-            if (children.length) {
-                temp = children
-            }
-        }
-        result.push(...temp)
-    })
-    return result
-}
-
-/**
- * 线形数据转树形数据
- * @param {array} data
- * @param {string | number} parentValue
- * @param {object} fieldNames
- * @return {*[]}
- */
-export const toTree = (
-    data = [],
-    parentValue = '0',
-    fieldNames = {
-        key: 'id',
-        children: 'children',
-        parentKey: 'parentId',
-    }
-) => {
-    const result = []
-    data.forEach((item) => {
-        if (item[fieldNames.parentKey] === parentValue) {
-            let temp = item
-            let children = toTree(data, item[fieldNames.key])
-            if (children.length) {
-                temp[fieldNames.children] = children
-            }
-            result.push(temp)
-        }
-    })
-    return result
-}
-
-/**
- * 格式化日期
- * @param dateTime {Date} 日期
- * @param def {*} 默认值
- * @return {string}
- */
-export const formatDateTime = (dateTime, def = null) => (dateTime ? dayjs(dateTime).format('YYYY-MM-DD HH:mm:ss') : def)
-
-/**
- * 格式化一天的开始时间
- * @param dateTime
- * @param def
- * @return {string}
- */
-export const formatStartTimeOfDay = (dateTime, def = null) =>
-    dateTime ? dayjs(dateTime).startOf('day').format('YYYY-MM-DD HH:mm:ss') : def
-
-/**
- * 格式化一天的结束时间
- * @param dateTime
- * @param def
- * @return {string}
- */
-export const formatEndTimeOfDay = (dateTime, def = null) =>
-    dateTime ? dayjs(dateTime).endOf('day').format('YYYY-MM-DD HH:mm:ss') : def
-
-/**
- * 格式化字段，无数据是返回自定义空值
- * @param data
- * @param def
- * @returns {string}
- */
-export const formatField = (data, def = '-') => data ?? def
-
-/**
- * 格式化时间区间
- * @param {array} keys
- * @param {array} values
- * @return {{}}
- */
-export const formatRangeTime = (keys, values) => zipObjectPlus(keys, values, [formatStartTimeOfDay, formatEndTimeOfDay])
-
-/**
- * 文件后缀
- */
-export const suffix = (filename) => filename.split('.').pop().toLowerCase()
-
-/**
- * 获取表单数据
- * 根据表单字段从行数据中获取对应的数据，用于回填表单
- * @param {object} record
- * @param {object} formData
- */
-export const getformData = (record = {}, formData = {}) => pick(cloneDeep(record), keys(formData) || []) || {}
-
-/**
  * 获取静态文件 url
  * @param {string} url
  * @returns
@@ -267,14 +146,3 @@ export const getformData = (record = {}, formData = {}) => pick(cloneDeep(record
 export const assets = (url) => {
     return new URL(`../assets/${url}`, import.meta.url).href
 }
-
-/**
- * 是否 url
- * @param {string} value
- */
-export const isUrl = (value) => new RegExp('^((https|http|ftp|rtsp|mms)?:\\/\\/)[^\\s]+', 'g').test(value)
-
-/**
- * 是否 object
- */
-export const isObject = (value) => '[object Object]' === Object.prototype.toString.call(value)

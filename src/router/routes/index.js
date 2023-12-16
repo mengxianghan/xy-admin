@@ -1,25 +1,11 @@
-import home from './home'
-import form from './form'
-import list from './list'
-import profile from './profile'
-import result from './result'
-import exception from './exception'
-import user from './user'
-import system from './system'
-import link from './link'
-import iframe from './iframe'
-import other from './other'
+const modules = import.meta.glob('./*.js', { eager: true })
+const routes = []
 
-export default [
-    ...home,
-    ...form,
-    ...list,
-    ...profile,
-    ...result,
-    ...exception,
-    ...user,
-    ...system,
-    ...link,
-    ...iframe,
-    ...other,
-]
+Object.keys(modules).forEach((key) => {
+    const name = key.slice(key.lastIndexOf('/') + 1, key.lastIndexOf('.'))
+    if (name !== 'index') {
+        routes.push(...modules[key].default)
+    }
+})
+
+export default routes

@@ -1,14 +1,15 @@
 import { defineStore } from 'pinia'
 import { notFoundRoute } from '@/router/config'
 import { formatRoutes, generateMenuList, generateRoutes, getFirstValidRoute } from '@/router/util'
-import { findTree } from '@/utils/util'
+import { findTree } from '@/utils'
 import { config } from '@/config'
 import router from '@/router'
 import apis from '@/apis'
+import routes from '@/router/routes'
 
 const useRouterStore = defineStore('router', {
     state: () => ({
-        routes: [],
+        routeList: [],
         menuList: [],
         indexRoute: null,
     }),
@@ -26,20 +27,19 @@ const useRouterStore = defineStore('router', {
                             throw new Error()
                         })
                         if (config('http.code.success') === code) {
-                            const validRoutes = formatRoutes(data)
+                            const validRoutes = formatRoutes(routes, data)
                             const menuList = generateMenuList(validRoutes)
-                            const routes = [...generateRoutes(validRoutes), notFoundRoute]
+                            const routeList = [...generateRoutes(validRoutes), notFoundRoute]
                             const indexRoute = getFirstValidRoute(menuList)
-                            routes.forEach((route) => {
+                            routeList.forEach((route) => {
                                 router.addRoute(route)
                             })
-                            this.routes = routes
+                            this.routeList = routeList
                             this.menuList = menuList
                             this.indexRoute = indexRoute
                             resolve()
                         }
                     } catch (error) {
-                        console.log(error)
                         reject()
                     }
                 })()
