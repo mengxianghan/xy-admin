@@ -1,5 +1,5 @@
 import antd from 'ant-design-vue'
-import component from '@/components'
+import components from '@/components'
 
 import { setupDirective } from '@/directives'
 import { setupRouter } from '@/router'
@@ -13,7 +13,7 @@ import '@/styles/index.less'
 
 export const useCore = (app) => {
     app.use(antd)
-    app.use(component)
+    app.use(components)
     setupException(app)
     setupStore(app)
     setupRouter(app)
