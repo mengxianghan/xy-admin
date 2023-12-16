@@ -1,48 +1,37 @@
 import { createVNode, render } from 'vue'
-
 import LoadingConstructor from './Loading.vue'
+import { setStyle } from '@/components/utils'
 
-function show(el) {
-    hide(el)
+function show(el, binding) {
+    if (!binding.value) return
+    const vm = createVNode(LoadingConstructor, { type: 'directive' })
     const container = document.createElement('div')
-    const props = {
-        type: 'directive',
+    if (!el.style.position) {
+        setStyle(el, {
+            position: 'relative',
+        })
     }
-    const title = el.getAttribute('x-loading-title')
-    if (title) {
-        props.title = title
+    render(vm, container)
+    el.hide = () => {
+        container.remove()
     }
-    const vnode = createVNode(LoadingConstructor, props)
-    render(vnode, container)
-    container.classList.add('x-loading-container')
-    el.classList.add('x-loading-wrap')
-    el.style.position = 'relative'
-    el.style.overflow = 'hidden'
     el.appendChild(container)
 }
 
 function hide(el) {
-    el.classList.remove('x-loading-wrap')
-    el.querySelector('.x-loading-container')?.remove()
-    el.style.position = ''
-    el.style.overflow = ''
+    el?.hide?.()
 }
 
-const loadingDirective = {
+export default {
+    name: 'loading',
     mounted: (el, binding) => {
-        if (!binding?.value) return
-        show(el)
+        show(el, binding)
     },
     updated: (el, binding) => {
-        if (binding?.value === binding?.oldValue) return
-        binding?.value ? show(el) : hide(el)
+        if (binding.value === binding.oldValue) return
+        binding.value ? show(el, binding) : hide(el, binding)
     },
-    beforeUnmount: (el) => {
-        hide(el)
+    unmounted: (el, binding) => {
+        hide(el, binding)
     },
-}
-
-export const setupLoadingDirective = (app) => {
-    app.directive('loading', loadingDirective)
-    return app
 }

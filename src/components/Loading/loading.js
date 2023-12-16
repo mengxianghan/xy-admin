@@ -1,57 +1,31 @@
-import { createApp } from 'vue'
-
 import LoadingConstructor from './Loading.vue'
+import { createVNode, render } from 'vue'
+import { getScrollWidth, onPopState, onUnPopState, setStyle } from '@/components/utils'
 
-let container = null
-let app = null
+let container
 
-/**
- * 返回
- */
-function popstateListener() {
+function show() {
     hide()
-}
-
-/**
- * 打开
- * @param {object} props
- */
-function show(props) {
-    hide()
+    const vm = createVNode(LoadingConstructor, { type: 'fullscreen' })
     container = document.createElement('div')
-    app = createApp(LoadingConstructor, props)
-    const vm = app.mount(container)
+    render(vm, container)
+    setStyle(document.body, {
+        paddingRight: `${getScrollWidth()}px`,
+        overflow: 'hidden',
+    })
     document.body.appendChild(container)
-
-    window.addEventListener('popstate', popstateListener)
-
-    return vm
+    onPopState(hide)
 }
 
-/**
- * 隐藏
- */
 function hide() {
-    if (app) {
-        app.unmount(container)
-    }
-    if (container) {
-        container.remove()
-    }
+    if (!container) return
+    container.remove()
     container = null
-    app = null
-
-    window.removeEventListener('popstate', popstateListener)
+    setStyle(document.body, {
+        paddingRight: '',
+        overflow: '',
+    })
+    onUnPopState(hide)
 }
 
-const Loading = (props) => {
-    const vm = show(props)
-    return {
-        ...vm,
-        hide,
-    }
-}
-
-Loading.hide = hide
-
-export default Loading
+export default { show, hide }
