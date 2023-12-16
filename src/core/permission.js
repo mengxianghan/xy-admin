@@ -1,9 +1,9 @@
-import { createProgress } from '@/plugins/progress'
+import { useProgress } from '@/hooks'
 import router from '@/router'
 import { whiteList } from '@/router/config'
 import { useAppStore, useUserStore } from '@/store'
 
-const progress = createProgress()
+const progress = useProgress()
 
 router.beforeEach((to, from, next) => {
     const { meta } = to
