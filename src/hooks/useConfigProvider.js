@@ -4,6 +4,9 @@ export default () => {
     const configProviderAttrs = {
         locale: zhCN,
         theme: {
+            token: {
+                borderRadius: 4,
+            },
             components: {
                 List: {
                     paddingContentHorizontalLG: 0,
