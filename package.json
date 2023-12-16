@@ -3,11 +3,11 @@
     "private": true,
     "version": "2.6.1",
     "scripts": {
-        "dev": "vite --mode dev",
+        "dev": "vite",
         "build:test": "vite build --mode test",
         "build:pre": "vite build --mode pre",
         "build:prod": "vite build --mode prod",
-        "preview": "npm run build:prod && vite preview --mode prod",
+        "preview": "npm run build:prod && vite preview",
         "report": "vite build --mode prod",
         "lint": "eslint --ext .js,.vue --ignore-path .eslintignore --fix src",
         "prepare": "husky install",
