@@ -1,5 +1,5 @@
 <div align="center">
-<img src="https://mengxianghan.github.io/xy-admin/demo/images/logo.svg" alt="logo" height="80">
+<img src="http://xy-admin.xuanyunet.com/images/logo.svg" alt="logo" height="80">
 
 # XYAdmin
 </div>
