@@ -15,12 +15,22 @@ module.exports = {
         ecmaVersion: 'latest',
         sourceType: 'module',
     },
-    plugins: ['vue'],
+    plugins: ['vue', 'prettier', 'import'],
     globals: {
         __APP_INFO__: true,
         tinymce: true,
     },
+    settings: {
+        'import/resolver': {
+            alias: {
+                map: [['@', './src']],
+                extensions: ['.js', '.jsx', '.json', '.vue'],
+            },
+        },
+    },
     rules: {
         'vue/multi-word-component-names': 'off',
+        'prettier/prettier': 'error',
+        'import/no-unresolved': ['error', { caseSensitive: true }],
     },
 }

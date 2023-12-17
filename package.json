@@ -2,6 +2,7 @@
     "name": "xy-admin",
     "private": true,
     "version": "2.6.1",
+    "type": "module",
     "scripts": {
         "dev": "vite",
         "build:test": "vite build --mode test",
@@ -9,7 +10,7 @@
         "build:prod": "vite build --mode prod",
         "preview": "npm run build:prod && vite preview",
         "report": "vite build --mode prod",
-        "lint": "eslint --config .eslintrc.js --ext .js,.vue --no-cache --fix src",
+        "lint": "eslint --config .eslintrc.cjs --ext .js,.vue --no-cache --fix src",
         "prettier": "prettier --config .prettierrc --write src/*.{js,vue} src/**/*.{js,vue}",
         "prepare": "husky install",
         "docs:dev": "vitepress dev docs",
@@ -17,7 +18,7 @@
         "docs:preview": "vitepress build docs && vitepress preview docs"
     },
     "lint-staged": {
-        "src/**/*.{js,vue}": [
+        "*.{js,vue}": [
             "npm run prettier",
             "npm run lint"
         ]
@@ -52,9 +53,14 @@
         "xy-storage": "^3.1.0"
     },
     "devDependencies": {
+        "@commitlint/cli": "^18.4.3",
+        "@commitlint/config-conventional": "^18.4.3",
         "@vitejs/plugin-vue": "^4.5.2",
+        "commitlint": "^18.4.3",
         "eslint": "^8.56.0",
         "eslint-config-prettier": "^9.1.0",
+        "eslint-import-resolver-alias": "^1.1.2",
+        "eslint-plugin-import": "^2.29.1",
         "eslint-plugin-prettier": "^5.0.1",
         "eslint-plugin-vue": "^9.19.2",
         "husky": "^8.0.3",
