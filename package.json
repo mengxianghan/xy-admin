@@ -11,7 +11,7 @@
         "preview": "npm run build:prod && vite preview",
         "report": "vite build --mode prod",
         "lint": "eslint --config .eslintrc.cjs --ext .js,.vue --no-cache --fix src",
-        "prettier": "prettier --config .prettierrc --write src/*.{js,vue} src/**/*.{js,vue}",
+        "prettier": "prettier --config .prettierrc.cjs --write src/*.{js,vue} src/**/*.{js,vue}",
         "prepare": "husky install",
         "docs:dev": "vitepress dev docs",
         "docs:build": "vitepress build docs",
