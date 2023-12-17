@@ -107,7 +107,7 @@ onMounted(() => {
 function setSelectedMenu() {
     const { meta } = route || {}
     openKeys.value = meta?.openKeys || []
-    selectedKeys.value = meta?.breadcrumb.map((item) => item?.meta?.active || item.name)
+    selectedKeys.value = meta?.breadcrumb?.map((item) => item?.meta?.active || item.name)
 }
 
 /**

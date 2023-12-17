@@ -28,6 +28,7 @@ const useRouterStore = defineStore('router', {
                         })
                         if (config('http.code.success') === code) {
                             const validRoutes = formatRoutes(routes, data)
+                            console.log(validRoutes)
                             const menuList = generateMenuList(validRoutes)
                             const routeList = [...generateRoutes(validRoutes), notFoundRoute]
                             const indexRoute = getFirstValidRoute(menuList)

@@ -27,13 +27,6 @@ export function formatRoutes(routes, asyncRoutes = [], parent = {}) {
 
             return indexA - indexB
         })
-        .filter((item) => {
-            let flag = !!find(asyncRoutes, { name: item.name })
-
-            if (!flag) flag = item.meta?.permission === '*'
-
-            return flag
-        })
         .map((item) => {
             const asyncRoute = find(asyncRoutes, { name: item.name })
             const component = item?.component || 'exception/404'
@@ -59,7 +52,7 @@ export function formatRoutes(routes, asyncRoutes = [], parent = {}) {
                     openKeys: isLink ? [] : [...(parent?.meta?.openKeys ?? []), item?.meta?.active ?? item?.name],
                     isLink,
                     isIframe,
-                    actions: asyncRoute?.meta?.action ?? ['*'],
+                    actions: asyncRoute?.meta?.actions ?? ['*'],
                     title: asyncRoute?.meta?.title || item?.meta?.title || '未命名',
                 },
             }
@@ -67,13 +60,14 @@ export function formatRoutes(routes, asyncRoutes = [], parent = {}) {
             route.meta.breadcrumb = [...(parent?.meta?.breadcrumb ?? []), route]
             // 重定向
             item.redirect && (route.redirect = item.redirect)
+
             // 是否有子菜单，并递归处理
             if (item.children && item.children.length > 0) {
                 route.children = formatRoutes(item.children, asyncRoute?.children, route)
             }
             return route
         })
-        .filter((item) => item.component || item?.children?.length)
+    // .filter((item) => item.component || item.children?.length)
 }
 
 /**
