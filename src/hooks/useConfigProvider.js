@@ -6,6 +6,7 @@ export default () => {
         theme: {
             token: {
                 borderRadius: 4,
+                borderRadiusSM: 2,
             },
             components: {
                 List: {
