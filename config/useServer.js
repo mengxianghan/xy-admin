@@ -1,5 +1,6 @@
 export default () => ({
-    host: true,
+    host: '0.0.0.0',
+    strictPort: false,
     proxy: {
         '/api': {
             target: 'https://mock.apifox.cn/m1/3156808-0-default',
