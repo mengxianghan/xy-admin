@@ -30,7 +30,7 @@ each(12 14 16 18 24, {
 })
 
 // FontWeight
-each(400 500 600, {
+each(400 500 600 normal bold lighter, {
     .fw-@{value} {
         font-weight: @value !important;
     }
@@ -52,11 +52,11 @@ each({
     px: padding-left, padding-right;
     py: padding-top, padding-bottom;
     pa: padding;
-}, .(@property, @class) {
-    
+}, .(@props, @class) {
+
     each(0 auto, .(@value){
         .@{class}-@{value} {
-            each(@property, .(@prop) {
+            each(@props, .(@prop) {
                     @{prop}: @value !important;
             })
         }
@@ -65,7 +65,7 @@ each({
     each(4 5 8, .(@value) {
         each(1 2 3 4 5, .(@multi) {
             .@{class}-@{value}-@{multi} {
-                each(@property, .(@prop) {
+                each(@props, .(@prop) {
                         @{prop}: @value * @multi * 1px !important;
                 })
             }
@@ -133,4 +133,4 @@ each(pointer not-allowed, {
     .cursor-@{value}{
         cursor: @value;
     }
-})
+});
