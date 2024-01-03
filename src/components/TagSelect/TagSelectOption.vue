@@ -8,7 +8,6 @@
 </template>
 
 <script setup>
-import { theme } from 'ant-design-vue'
 import { useTagSelectInject } from './context'
 import { computed } from 'vue'
 
@@ -26,7 +25,6 @@ const props = defineProps({
     },
 })
 
-const { token } = theme.useToken()
 const { onSelect, modelValue, multiple } = useTagSelectInject()
 
 const cpClass = computed(() => {
@@ -48,18 +46,18 @@ function handleClick() {
     padding: 0 8px;
     display: inline-flex;
     align-items: center;
-    line-height: v-bind('token.controlHeightSM + "px"');
+    line-height: @control-height-sm;
     border-radius: @border-radius-sm;
     cursor: pointer;
     transition: all 0.2s;
     margin-right: 8px;
 
     &:hover:not(.x-tag-select-option--active) {
-        background: v-bind('token.controlItemBgHover');
+        background: @control-item-bg-hover;
     }
 
     &--active {
-        background: v-bind('token.controlItemBgActive');
+        background: @control-item-bg-active;
         color: @color-primary;
     }
 }

@@ -7,7 +7,7 @@
 </template>
 
 <script setup>
-import { Spin, theme } from 'ant-design-vue'
+import { Spin } from 'ant-design-vue'
 import { computed } from 'vue'
 
 defineOptions({
@@ -24,8 +24,6 @@ const props = defineProps({
     },
 })
 
-const { token } = theme.useToken()
-
 const classComputed = computed(() => {
     return {
         [`x-loading--${props.type}`]: true,
@@ -40,7 +38,7 @@ const classComputed = computed(() => {
         inset: 0;
         width: 100vw;
         height: 100vh;
-        background: v-bind('token.colorBgMask');
+        background: @color-bg-mask;
         z-index: 1000;
         display: flex;
         align-items: center;
