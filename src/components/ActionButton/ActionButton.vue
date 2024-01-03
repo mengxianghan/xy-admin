@@ -1,7 +1,7 @@
 <template>
-    <span class="x-action-btn-wrap">
+    <span class="x-action-btn">
         <component
-            class="x-action-btn"
+            class="x-action-btn__btn"
             :is="tag">
             <slot></slot>
         </component>
@@ -18,7 +18,6 @@ defineOptions({
 
 /**
  * 操作按钮
- * @property {string} tag html标签，默认：a
  * @property {boolean} divider 是否显示分割线
  */
 defineProps({
@@ -35,21 +34,23 @@ defineProps({
 
 <style lang="less" scoped>
 .x-action-btn {
-    border-radius: @border-radius;
-    transition: all 0.2s;
-    padding: 4px;
-    color: @color-primary;
-    cursor: pointer;
+    &__btn {
+        color: @color-primary;
+        cursor: pointer;
+        transition: @motion-duration-mid;
 
-    &:hover {
-        background: color(~`colorPalette('@{color-primary}', 1) `);
+        &:hover {
+            color: @color-primary-hover;
+        }
     }
 
-    &-wrap {
-        &:last-child {
-            :deep(.ant-divider) {
-                display: none;
-            }
+    .ant-divider {
+        margin-inline: 12px;
+    }
+
+    &:last-child {
+        :deep(.ant-divider) {
+            display: none;
         }
     }
 }
