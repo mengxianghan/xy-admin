@@ -105,14 +105,14 @@ import { config } from '@/config'
 
 const emit = defineEmits(['ok'])
 
-const { modal, showModal, hideModal, showLoading, hideLoading } = useModal()
+const { modal, openModal, closeModal, showLoading, hideLoading } = useModal()
 const { formRecord, formData, formRef, formRules, resetForm } = useForm()
 
 /**
  * 新建
  */
 function handleCreate() {
-    showModal({
+    openModal({
         type: 'create',
         title: '新建菜单',
     })
@@ -122,7 +122,7 @@ function handleCreate() {
  * 编辑
  */
 function handleEdit(record = {}) {
-    showModal({
+    openModal({
         type: 'edit',
         title: '编辑菜单',
     })
@@ -157,7 +157,7 @@ function handleOk() {
                 }
                 hideLoading()
                 if (config('http.code.success') === result?.code) {
-                    hideModal()
+                    closeModal()
                     emit('ok')
                 }
             } catch (error) {
@@ -173,7 +173,7 @@ function handleOk() {
  * 取消
  */
 function handleCancel() {
-    hideModal()
+    closeModal()
 }
 
 /**

@@ -31,7 +31,7 @@ import { useForm, useModal } from '@/hooks'
 
 const emit = defineEmits(['ok'])
 
-const { modal, showModal, hideModal, showLoading, hideLoading } = useModal()
+const { modal, openModal, closeModal, showLoading, hideLoading } = useModal()
 const { formRecord, formData, formRef, formRules, resetForm } = useForm()
 const cancelText = ref('取消')
 
@@ -39,7 +39,7 @@ const cancelText = ref('取消')
  * 新建
  */
 function handleCreate() {
-    showModal({
+    openModal({
         type: 'create',
         title: '新建角色',
     })
@@ -49,7 +49,7 @@ function handleCreate() {
  * 编辑
  */
 function handleEdit(record = {}) {
-    showModal({
+    openModal({
         type: 'edit',
         title: '编辑角色',
     })
@@ -84,7 +84,7 @@ function handleOk() {
                 }
                 hideLoading()
                 if (config('http.code.success') === result?.code) {
-                    hideModal()
+                    closeModal()
                     emit('ok')
                 }
             } catch (error) {
@@ -100,7 +100,7 @@ function handleOk() {
  * 取消
  */
 function handleCancel() {
-    hideModal()
+    closeModal()
 }
 
 /**
