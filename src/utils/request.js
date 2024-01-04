@@ -1,4 +1,4 @@
-import { message } from 'ant-design-vue'
+import { notification, message } from 'ant-design-vue'
 import { config } from '@/config'
 import { useUserStore } from '@/store'
 import jschardet from 'jschardet'
@@ -8,6 +8,7 @@ const MSG_ERROR_KEY = Symbol('GLOBAL_ERROR')
 
 const options = {
     enableAbortController: true,
+    // 请求拦截
     interceptorRequest: (request) => {
         const userStore = useUserStore()
         const isLogin = userStore.isLogin
@@ -17,18 +18,34 @@ const options = {
             request.headers['AUTH-TOKEN'] = token
         }
     },
+    // 请求异常拦截
     interceptorRequestCatch: () => {},
+    // 响应拦截
     interceptorResponse: (response) => {
         // 错误处理
-        const { code, msg = 'Network Error' } = response.data || {}
-        if (![200].includes(code)) {
-            message.error({
-                content: msg,
+        const { code, msg = '请稍后重试' } = response.data || {}
+        if (![config('http.code.success'), ...config('http.code.ignore')].includes(code)) {
+            notification.error({
                 key: MSG_ERROR_KEY,
+                message: '请求异常',
+                description: msg,
             })
         }
     },
-    interceptorResponseCatch: () => {},
+    // 响应异常拦截
+    interceptorResponseCatch: (err) => {
+        // 网络异常
+        if ('ERR_NETWORK' === err.code) {
+            message.error({
+                key: MSG_ERROR_KEY,
+                content: `网络异常：${err.message}`,
+            })
+            return
+        }
+        // 请求被取消
+        if ('ERR_CANCELED' === err.code) return
+        return Promise.reject(err)
+    },
 }
 
 /**
