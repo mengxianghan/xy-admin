@@ -1,14 +1,18 @@
 <template>
     <a-row :gutter="16">
         <a-col
-            :lg="7"
             :md="24"
+            :lg="10"
+            :xl="8"
+            :xxl="6"
             class="mb-8-2">
             <user-info-card></user-info-card>
         </a-col>
         <a-col
-            :lg="17"
-            :md="24">
+            :md="24"
+            :lg="14"
+            :xl="16"
+            :xxl="18">
             <a-card
                 :active-tab-key="activeTabKey"
                 :tab-list="tabList"
