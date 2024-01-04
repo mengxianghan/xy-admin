@@ -16,7 +16,7 @@ defineOptions({
     name: 'XActionBar',
 })
 
-const slots = useSlots(['default', 'extra'])
+const slots = useSlots()
 
 const cpShowExtra = computed(() => !!slots.extra)
 </script>

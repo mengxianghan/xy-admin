@@ -135,7 +135,7 @@ const props = defineProps({
 })
 const emit = defineEmits(['change', 'update:modelValue', 'next', 'check', 'search'])
 
-const slots = useSlots(['footer'])
+const slots = useSlots()
 const { token } = theme.useToken()
 
 const curValue = ref(props.modelValue)

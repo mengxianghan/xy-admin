@@ -12,7 +12,7 @@
 </template>
 
 <script setup>
-import { computed, ref, useSlots } from 'vue'
+import { computed, ref } from 'vue'
 import { OverlayScrollbarsComponent } from 'overlayscrollbars-vue'
 import 'overlayscrollbars/overlayscrollbars.css'
 
@@ -35,8 +35,6 @@ const props = defineProps({
 })
 
 const emits = defineEmits(['scroll', 'initialized', 'updated', 'destroyed'])
-
-useSlots(['default'])
 
 const scrollbarRef = ref()
 

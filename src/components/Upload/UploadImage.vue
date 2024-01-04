@@ -107,7 +107,7 @@ import filesizeParser from 'filesize-parser'
 import { findIndex, includes, some } from 'lodash-es'
 import { nanoid } from 'nanoid'
 import Sortable from 'sortablejs'
-import { computed, onMounted, ref, useSlots, watch } from 'vue'
+import { computed, onMounted, ref, watch } from 'vue'
 import { DeleteOutlined, EyeOutlined, PlusOutlined } from '@ant-design/icons-vue'
 import { deepMerge } from '@/utils'
 import CropperDialog from '../Cropper/CropperDialog.vue'
@@ -189,8 +189,6 @@ const props = defineProps({
 })
 
 const emit = defineEmits(['update:modelValue'])
-
-useSlots(['icon', 'text'])
 
 const { onFieldChange } = Form.useInjectFormItemContext()
 

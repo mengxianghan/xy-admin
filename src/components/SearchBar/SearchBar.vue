@@ -9,16 +9,11 @@
 </template>
 
 <script setup>
-import { computed, ref, useAttrs, useSlots } from 'vue'
+import { computed, ref, useAttrs } from 'vue'
 
 defineOptions({
     name: 'XSearchBar',
 })
-
-/**
- * 搜索条
- */
-useSlots(['default'])
 
 const gutter = ref([16, 12])
 const colSpan = ref({ sm: 24, md: 24, xl: 8 })
