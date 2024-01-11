@@ -12,6 +12,7 @@ each({
     success: @color-success;
     warning: @color-warning;
     heading: @color-text-heading;
+    text: @color-text;
     secondary: @color-text-secondary;
     caption: @color-text-label;
     disabled: @color-text-disabled;
@@ -23,7 +24,7 @@ each({
 })
 
 // FontSize
-each(12 14 16 18 24, {
+each(10 12 14 16 18 24, {
     .fs-@{value} {
         font-size: @value * 1px !important;
     }
