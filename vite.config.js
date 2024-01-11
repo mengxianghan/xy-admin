@@ -7,6 +7,7 @@ import useVuePlugin from './config/useVuePlugin'
 import useVisualizerPlugin from './config/useVisualizerPlugin'
 import useServer from './config/useServer'
 import useEslintPlugin from './config/useEslintPlugin'
+import useDemoPlugin from './config/useDemoPlugin'
 
 export default ({ mode }) => {
     const env = loadEnv(mode, process.cwd(), '')
@@ -48,11 +49,19 @@ export default ({ mode }) => {
             devSourcemap: true,
         },
         define: {
+            __VUE_PROD_HYDRATION_MISMATCH_DETAILS__: true,
             __APP_INFO__: JSON.stringify({
                 version: pkg.version,
             }),
         },
-        plugins: [useVuePlugin(), useProgressPlugin(), useCompressPlugin(), useVisualizerPlugin(), useEslintPlugin()],
+        plugins: [
+            useVuePlugin(),
+            useProgressPlugin(),
+            useCompressPlugin(),
+            useVisualizerPlugin(),
+            useEslintPlugin(),
+            useDemoPlugin(),
+        ],
         server: useServer(),
         resolve: {
             alias: {
