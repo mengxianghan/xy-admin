@@ -2,17 +2,18 @@
     <a-modal
         destroy-on-close
         title="裁剪图片"
-        :open="open"
+        :open="modal.open"
         :after-close="onAfterClose"
-        :width="568"
+        :width="584"
         :confirm-loading="loading"
         @ok="handleOk"
         @cancel="handleCancel">
         <cropper
             ref="cropperRef"
-            :src="imgSrc"
+            :src="src"
             :aspect-ratio="aspectRatio"
-            :quality="quality" />
+            :quality="quality"
+            :type="type" />
     </a-modal>
 </template>
 
@@ -20,41 +21,33 @@
 import { ref } from 'vue'
 
 import Cropper from './Cropper.vue'
+import { useModal } from '@/hooks'
 
 defineOptions({
     name: 'XCropperDialog',
 })
 
-/**
- * 裁剪图片弹窗
- * @property {number} aspectRatio 比例，默认：自由裁剪
- * @property {number} quality 图片质量，取值范围：0-1，默认：1
- */
-defineProps({
-    aspectRatio: {
-        type: Number,
-        default: 0,
-    },
-    quality: {
-        type: Number,
-        default: 1,
-    },
-})
-
 const emit = defineEmits(['ok', 'cancel'])
 
-const open = ref(false)
+const { modal, openModal, closeModal } = useModal()
+
 const cropperRef = ref()
-const imgSrc = ref('')
+const src = ref('')
+const aspectRatio = ref()
+const quality = ref()
+const type = ref()
 const loading = ref(false)
 
 /**
  * 打开
  * @param src
  */
-function handleOpen(src) {
-    imgSrc.value = src
-    open.value = true
+function open({ src: _src, aspectRatio: _aspectRatio = 0, quality: _quality = 1, type: _type = 'jpg' }) {
+    src.value = _src
+    aspectRatio.value = _aspectRatio
+    quality.value = _quality
+    type.value = _type
+    openModal()
 }
 
 /**
@@ -62,17 +55,19 @@ function handleOpen(src) {
  */
 async function handleOk() {
     loading.value = true
+    const base64 = await cropperRef.value?.getBase64()
+    const blob = await cropperRef.value?.getBlob()
     const file = await cropperRef.value?.getFile()
     loading.value = false
-    open.value = false
-    emit('ok', file)
+    closeModal()
+    emit('ok', base64, { base64, blob, file })
 }
 
 /**
  * 关闭
  */
 function handleCancel() {
-    open.value = false
+    closeModal()
     emit('cancel')
 }
 
@@ -80,11 +75,11 @@ function handleCancel() {
  * 关闭后
  */
 function onAfterClose() {
-    imgSrc.value = ''
+    src.value = ''
 }
 
 defineExpose({
-    handleOpen,
+    open,
 })
 </script>
 
