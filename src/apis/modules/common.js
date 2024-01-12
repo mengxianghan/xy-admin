@@ -14,3 +14,6 @@ export const update = (_, params) => request.basic.put(`/data`, params)
 
 // 获取地区
 export const getRegion = (params) => request.basic.get('/region', params)
+
+// 获取选项列表
+export const getOptions = (params) => request.basic.get('/common/options', params, { enableAbortController: false })
