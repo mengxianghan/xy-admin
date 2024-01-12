@@ -31,21 +31,27 @@
             </template>
         </div>
 
+        <div
+            class="x-preview__btn x-preview__btn--close"
+            @click="handleClose">
+            <close-outlined></close-outlined>
+        </div>
+
         <template v-if="cpShowPrevNextBtn">
             <!-- 上一个 -->
             <div
-                class="x-preview__action-btn x-preview__prev-btn"
+                class="x-preview__btn x-preview__btn--prev"
                 :class="{
-                    'x-preview__action-btn--disabled': cpPrevBtnDisabled,
+                    'x-preview__btn--disabled': cpPrevBtnDisabled,
                 }"
                 @click="handlePrev">
                 <left-outlined></left-outlined>
             </div>
             <!-- 下一个 -->
             <div
-                class="x-preview__action-btn x-preview__next-btn"
+                class="x-preview__btn x-preview__btn--next"
                 :class="{
-                    'x-preview__action-btn--disabled': cpNextBtnDisabled,
+                    'x-preview__btn--disabled': cpNextBtnDisabled,
                 }"
                 @click="handleNext">
                 <right-outlined></right-outlined>
@@ -53,44 +59,38 @@
         </template>
 
         <!-- 操作按钮 -->
-        <div class="x-preview__top">
-            <div class="x-preview__pages">{{ cur + 1 }}/{{ urls.length }}</div>
-            <div class="x-preview__action">
+        <div class="x-preview__footer">
+            <div class="x-preview__process">{{ cur + 1 }}/{{ urls.length }}</div>
+            <div class="x-preview__actions">
                 <template v-if="cpFileType === 'image'">
                     <!-- 缩小 -->
                     <div
-                        class="x-preview__action-btn"
+                        class="x-preview__action"
                         :class="{
-                            'x-preview__action-btn--disabled': cpZoomOutBtnDisabled,
+                            'x-preview__action--disabled': cpZoomOutBtnDisabled,
                         }"
                         @click="handleZoomOut">
                         <zoom-out-outlined />
                     </div>
                     <!-- 放大 -->
                     <div
-                        class="x-preview__action-btn"
+                        class="x-preview__action"
                         @click="handleZoomIn">
                         <zoom-in-outlined />
                     </div>
                     <!-- 左旋转 -->
                     <div
-                        class="x-preview__action-btn"
+                        class="x-preview__action"
                         @click="handleRotateLeft">
                         <rotate-left-outlined />
                     </div>
                     <!-- 右旋转 -->
                     <div
-                        class="x-preview__action-btn"
+                        class="x-preview__action"
                         @click="handleRotateRight">
                         <rotate-right-outlined />
                     </div>
                 </template>
-                <!-- 关闭 -->
-                <div
-                    class="x-preview__action-btn"
-                    @click="handleClose">
-                    <close-outlined></close-outlined>
-                </div>
             </div>
         </div>
     </a-modal>
@@ -113,20 +113,25 @@ import {
 defineOptions({
     name: 'XPreview',
 })
-/**
- * @property {array} urls 文件
- * @property {number} current 当前显示
- * @property {function} afterClose 关闭后的回调函数
- */
+
 const props = defineProps({
+    /**
+     * 文件 url
+     */
     urls: {
         type: Array,
         default: () => [],
     },
+    /**
+     * 当前显示
+     */
     current: {
         type: Number,
         default: 0,
     },
+    /**
+     * 关闭后执行的回调函数
+     */
     afterClose: {
         type: Function,
         default: () => {},
@@ -340,6 +345,49 @@ defineExpose({
         justify-content: center;
     }
 
+    &__btn {
+        width: 40px;
+        height: 40px;
+        background: rgba(0, 0, 0, 0.1);
+        transition: all @motion-duration-mid;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #fff;
+        cursor: pointer;
+        border-radius: 50%;
+        position: fixed;
+
+        &:not(.x-preview__btn--disabled):hover {
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        &--disabled {
+            background: transparent;
+            cursor: not-allowed;
+            color: @color-text-disabled;
+        }
+
+        &--prev,
+        &--next {
+            top: 50%;
+            transform: translate(0, -50%);
+        }
+
+        &--prev {
+            left: 16px;
+        }
+
+        &--next {
+            right: 16px;
+        }
+
+        &--close {
+            right: 32px;
+            top: 32px;
+        }
+    }
+
     &__image {
         transition: transform 0.3s cubic-bezier(0.215, 0.61, 0.355, 1) 0s;
         cursor: grab;
@@ -347,58 +395,44 @@ defineExpose({
         max-height: 100%;
     }
 
-    &__top {
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
+    &__footer {
+        position: fixed;
+        inset-inline: 0;
+        bottom: 32px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    &__actions {
         display: flex;
         align-items: center;
         background: rgba(0, 0, 0, 0.1);
+        border-radius: 10em;
+        padding-inline: 24px;
+        gap: 12px;
     }
 
-    &__pages {
+    &__process {
         color: rgba(255, 255, 255, 0.8);
-        margin: 16px;
+        margin-bottom: 16px;
     }
 
     &__action {
-        margin: 0 0 0 auto;
-        display: flex;
-        align-items: center;
+        padding: 12px;
+        font-size: 18px;
+        color: rgba(255, 255, 255, 0.65);
+        transition: all @motion-duration-mid;
+        cursor: pointer;
 
-        &-btn {
-            min-width: 44px;
-            height: 44px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 16px;
-            cursor: pointer;
-            color: rgba(255, 255, 255, 0.8);
-
-            &--disabled {
-                cursor: not-allowed;
-                color: rgba(255, 255, 255, 0.25);
-            }
+        &:not(.x-preview__action--disabled):hover {
+            color: #fff;
         }
-    }
 
-    &__prev-btn,
-    &__next-btn {
-        position: absolute;
-        border-radius: 50%;
-        background: rgba(255, 255, 255, 0.1);
-        top: 50%;
-        transform: translate(0, -50%);
-    }
-
-    &__prev-btn {
-        left: 16px;
-    }
-
-    &__next-btn {
-        right: 16px;
+        &--disabled {
+            color: rgba(255, 255, 255, 0.25);
+            cursor: not-allowed;
+        }
     }
 }
 </style>
