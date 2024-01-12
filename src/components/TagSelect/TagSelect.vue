@@ -92,7 +92,7 @@ const tagSelectRef = ref()
 const contentRef = ref()
 const curCollapsed = ref(props.collapsed)
 const curValue = ref()
-const curCollapsible = ref(props.collapsible)
+const curCollapsible = ref(false)
 
 const state = reactive({
     defaultHeight: null,
