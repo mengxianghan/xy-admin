@@ -4,9 +4,12 @@ import { getScrollWidth, onPopState, onUnPopState, setStyle } from '../utils'
 
 let container
 
-function show() {
+function show(option = {}) {
     hide()
-    const vm = createVNode(LoadingConstructor, { type: 'fullscreen' })
+    const vm = createVNode(LoadingConstructor, {
+        ...option,
+        type: 'fullscreen',
+    })
     container = document.createElement('div')
     render(vm, container)
     setStyle(document.body, {

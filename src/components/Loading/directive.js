@@ -4,7 +4,11 @@ import { setStyle } from '@/components/utils'
 
 function show(el, binding) {
     if (!binding.value) return
-    const vm = createVNode(LoadingConstructor, { type: 'directive' })
+    const dataset = el.dataset
+    const vm = createVNode(LoadingConstructor, {
+        description: dataset?.loadingText || '',
+        type: 'directive',
+    })
     const container = document.createElement('div')
     if (!el.style.position) {
         setStyle(el, {
