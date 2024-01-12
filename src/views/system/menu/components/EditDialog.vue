@@ -4,7 +4,6 @@
         :title="modal.title"
         :confirm-loading="modal.confirmLoading"
         :after-close="onAfterClose"
-        :cancel-text="cancelText"
         @ok="handleOk"
         @cancel="handleCancel">
         <a-form
