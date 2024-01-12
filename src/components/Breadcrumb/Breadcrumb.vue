@@ -33,10 +33,8 @@ function update(_route = route) {
 
 <style lang="less" scoped>
 .x-breadcrumb {
-    height: 40px;
     background: #fff;
     display: flex;
     align-items: center;
-    padding: 0 16px;
 }
 </style>
