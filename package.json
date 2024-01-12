@@ -18,7 +18,7 @@
         "docs:preview": "vitepress build docs && vitepress preview docs"
     },
     "lint-staged": {
-        "*.{js,vue}": [
+        "src/(**/)?*.{js,vue}": [
             "npm run prettier",
             "npm run lint"
         ]
