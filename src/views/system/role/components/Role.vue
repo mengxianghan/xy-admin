@@ -18,22 +18,32 @@
                     :field-names="{ key: 'id', children: 'children' }"
                     @select="onSelect">
                     <template #title="{ role_name }">
-                        <span class="ant-tree-title__name">{{ role_name }}</span>
-                        <span class="ant-tree-title__actions">
-                            <a-dropdown
-                                :trigger="['click']"
-                                @click.stop>
-                                <x-action-button>
-                                    <more-outlined></more-outlined>
-                                </x-action-button>
-                                <template #overlay>
-                                    <a-menu>
-                                        <a-menu-item @click="$refs.editRoleDialogRef.handleEdit()"> 编辑 </a-menu-item>
-                                        <a-menu-item @click="handleDelete">删除</a-menu-item>
-                                    </a-menu>
-                                </template>
-                            </a-dropdown>
-                        </span>
+                        <a-row
+                            align="middle"
+                            :gutter="8">
+                            <a-col flex="1">{{ role_name }}</a-col>
+                            <a-col class="lh-1">
+                                <a-dropdown
+                                    :trigger="['click']"
+                                    @click.stop>
+                                    <a-button
+                                        type="text"
+                                        size="small">
+                                        <template #icon>
+                                            <more-outlined></more-outlined>
+                                        </template>
+                                    </a-button>
+                                    <template #overlay>
+                                        <a-menu>
+                                            <a-menu-item @click="$refs.editRoleDialogRef.handleEdit()">
+                                                编辑
+                                            </a-menu-item>
+                                            <a-menu-item @click="handleDelete">删除</a-menu-item>
+                                        </a-menu>
+                                    </template>
+                                </a-dropdown>
+                            </a-col>
+                        </a-row>
                     </template>
                 </a-tree>
                 <empty
