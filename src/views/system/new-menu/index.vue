@@ -25,7 +25,6 @@
                             <a-tree-select
                                 v-model:value="formData.parent_id"
                                 :field-names="{ children: 'children', label: 'name', key: 'key', value: 'key' }"
-                                :tree-data="menuList"
                                 tree-default-expand-all></a-tree-select>
                         </a-form-item>
                         <a-form-item
@@ -93,7 +92,7 @@
                 :body-style="cpBodyStyle">
                 <x-scrollbar class="pa-8-2">
                     <x-form-table
-                        v-model="authList"
+                        v-model="actionList"
                         :row-tpl="{ name: '', alias: '' }"
                         bordered>
                         <a-table-column
@@ -132,6 +131,7 @@ const { searchFormData } = usePagination()
 const { formData } = useForm()
 
 const selectedMenu = ref({})
+const actionList = ref([])
 
 const cpStyle = computed(() => {
     return {
