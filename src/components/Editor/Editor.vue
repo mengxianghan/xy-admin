@@ -5,9 +5,9 @@
             :spinning="spinning">
             <div class="x-editor__content">
                 <tiny-editor
+                    tinymce-script-src="/libs/tinymce/tinymce.min.js"
                     v-model="content"
                     v-bind="$attrs"
-                    api-key=""
                     :init="opts"
                     :disabled="disabled"
                     :placeholder="placeholder"
@@ -18,10 +18,11 @@
 </template>
 
 <script setup>
-import { Form } from 'ant-design-vue'
+import { Form, theme } from 'ant-design-vue'
 import { onMounted, ref, watch } from 'vue'
 import TinyEditor from '@tinymce/tinymce-vue'
-import { deepMerge } from '@/utils'
+import { getContentStyle } from './utils'
+import { omit } from 'lodash-es'
 
 defineOptions({
     name: 'XEditor',
@@ -38,7 +39,7 @@ const props = defineProps({
         type: String,
         default: '',
     },
-    options: {
+    option: {
         type: Object,
         default: () => ({}),
     },
@@ -58,23 +59,19 @@ const props = defineProps({
 
 const emit = defineEmits(['update:modelValue', 'ready'])
 
+const { token } = theme.useToken()
+
 const spinning = ref(true)
 const content = ref('')
-const opts = deepMerge(
-    {
-        language: 'zh-Hans',
-        height: 480,
-        branding: false,
-        resize: false,
-        promotion: false,
-        content_style: `
-                * {margin: 0; padding: 0; hyphens: auto;text-rendering: optimizeLegibility;-webkit-font-smoothing: antialiased;}
-                body {font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Helvetica, Segoe UI, Arial, Roboto, 'PingFang SC', 'miui', 'Hiragino Sans GB', 'Microsoft Yahei', sans-serif}
-                .mce-content-body {margin: 12px; font-size: 14px;}
-            `,
-    },
-    props.options
-)
+const opts = {
+    language: 'zh-Hans',
+    height: 480,
+    branding: false,
+    resize: false,
+    promotion: false,
+    content_style: getContentStyle(token.value, props.option.content_style),
+    ...omit(props.option, ['content_style']),
+}
 const { onFieldChange } = Form.useInjectFormItemContext()
 
 watch(
@@ -115,6 +112,14 @@ function onInit(e) {
 .x-editor {
     &__content {
         min-height: 32px;
+
+        .mce-content-body {
+            margin: 0;
+            border-radius: @border-radius;
+            border: @color-border solid 1px;
+            outline: none;
+            padding: 4px 11px;
+        }
     }
 
     textarea {
