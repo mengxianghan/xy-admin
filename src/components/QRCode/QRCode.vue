@@ -22,6 +22,12 @@
                         点击刷新
                     </a-button>
                 </template>
+                <template v-if="'scanned' === status">
+                    <a-typography-text type="success">
+                        <check-outlined></check-outlined>
+                        已扫描
+                    </a-typography-text>
+                </template>
             </div>
         </template>
         <canvas ref="qrcodeRef"></canvas>
@@ -31,7 +37,7 @@
 <script setup>
 import QRCode from 'qrcode'
 import { computed, onMounted, ref, toRefs, watch } from 'vue'
-import { ReloadOutlined } from '@ant-design/icons-vue'
+import { ReloadOutlined, CheckOutlined } from '@ant-design/icons-vue'
 
 defineOptions({
     name: 'XQrcode',
@@ -107,7 +113,7 @@ const props = defineProps({
         default: 'M',
     },
     /**
-     * 状态，【active=有效，loading=加载中，expired=已过期】
+     * 状态，【active=有效，loading=加载中，expired=已过期，scanned=已扫描】
      */
     status: {
         type: String,
