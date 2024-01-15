@@ -1,7 +1,8 @@
 <template>
-    <div
+    <component
         class="x-resize-box"
         ref="resizeBoxRef"
+        :is="component"
         :style="styleComputed">
         <div class="x-resize-box-body">
             <slot></slot>
@@ -17,41 +18,69 @@
                 }"
                 @mousedown="(e) => onMoveStart(direction, e)"></div>
         </template>
-    </div>
+    </component>
 </template>
 
 <script setup>
 import { computed, reactive, ref } from 'vue'
 import { directionEnum } from './config'
+import { formatUnits } from '@/components/utils'
 
 defineOptions({
     name: 'XResizeBox',
 })
-/**
- * @property {number} width 宽
- * @property {number} height 高
- * @property {number} minWidth 最小宽度，默认：100
- * @property {number} minHeight 最小高度，默认：100
- * @property {array} directions 可以进行伸缩的边，默认：['right']；['left', 'right', 'top', 'bottom']
- * @property {boolean} disabled 禁用
- */
+
 const props = defineProps({
+    /**
+     * 容器
+     */
+    component: {
+        type: String,
+        default: 'div',
+    },
+    /**
+     * 宽
+     */
     width: Number,
+    /**
+     * 高
+     */
     height: Number,
+    /**
+     * 最小宽度，默认：100
+     */
     minWidth: {
-        type: Number,
+        type: [String, Number],
         default: 100,
     },
+    /**
+     * 最小高度，默认：100
+     */
     minHeight: {
-        type: Number,
+        type: [String, Number],
         default: 100,
     },
-    maxWidth: Number,
-    maxHeight: Number,
+    /**
+     * 最大宽度
+     */
+    maxWidth: {
+        type: [String, Number],
+        default: '100%',
+    },
+    /**
+     * 最大高度
+     */
+    maxHeight: [String, Number],
+    /**
+     * 可以进行伸缩的边，默认：['right']；['left', 'right', 'top', 'bottom']
+     */
     directions: {
         type: Array,
         default: () => ['right'],
     },
+    /**
+     * 禁用
+     */
     disabled: {
         type: Boolean,
         default: false,
@@ -69,14 +98,17 @@ const state = reactive({
     startPageY: 0,
     startWidth: 0,
     startHeight: 0,
-    currentWidth: props.width || props.minWidth,
-    currentHeight: props.height || props.minHeight,
+    currentWidth: props.width,
+    currentHeight: props.height,
 })
 
 const styleComputed = computed(() => ({
     width: `${state.currentWidth}px`,
     height: `${state.currentHeight}px`,
-    maxWidth: '100%',
+    minWidth: formatUnits(props.minWidth),
+    maxWidth: formatUnits(props.maxWidth),
+    minHeight: formatUnits(props.minHeight),
+    maxHeight: formatUnits(props.maxHeight),
 }))
 
 /**
@@ -105,6 +137,8 @@ function onMoveStart(direction, e) {
  */
 function onMoving(e) {
     const { direction, startPageX, startPageY, startWidth, startHeight } = state
+
+    console.log(state, e.pageX)
 
     // 往右移动的距离
     const offsetX = e.pageX - startPageX
@@ -160,6 +194,9 @@ function onMoveEnd(e) {
 .x-resize-box {
     position: relative;
 
+    @handle-size: 4px;
+    @size: 2px;
+
     &-body {
         overflow: hidden;
         height: 100%;
@@ -187,7 +224,7 @@ function onMoveEnd(e) {
 
         &--left,
         &--right {
-            width: 8px;
+            width: calc(@handle-size + @size * 2);
             top: 0;
             bottom: 0;
             cursor: col-resize;
@@ -195,46 +232,46 @@ function onMoveEnd(e) {
             &::after {
                 top: 0;
                 bottom: 0;
-                width: 2px;
+                width: @handle-size;
                 left: 50%;
                 transform: translateX(-50%);
             }
         }
 
         &--left {
-            left: 0;
-            transform: translateX(-2px);
+            left: -@size;
+            transform: translateX(calc(@handle-size / -1));
         }
 
         &--right {
-            right: 0;
-            transform: translateX(2px);
+            right: -@size;
+            transform: translateX(@handle-size);
         }
 
         &--top,
         &--bottom {
             left: 0;
             right: 0;
-            height: 8px;
+            height: calc(@handle-size + @size * 2);
             cursor: row-resize;
 
             &::after {
                 left: 0;
                 right: 0;
-                height: 2px;
+                height: @handle-size;
                 top: 50%;
                 transform: translateY(-50%);
             }
         }
 
         &--top {
-            top: 0;
-            transform: translateY(-2px);
+            top: -@size;
+            transform: translateY(calc(@handle-size / -1));
         }
 
         &--bottom {
-            bottom: 0;
-            transform: translateY(2px);
+            bottom: -@size;
+            transform: translateY(@handle-size);
         }
     }
 }

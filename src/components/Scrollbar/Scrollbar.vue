@@ -83,12 +83,35 @@ function formatUnit(value) {
     return undefined !== value && '' !== value && /.*\d$/.test(value) ? `${value}px` : value
 }
 
+/**
+ * 滚动到
+ * @param {number} payload.left
+ * @param {number} payload.top
+ */
 function scrollTo(payload) {
     scrollbarRef.value?.osInstance()?.elements()?.viewport?.scrollTo(payload)
 }
 
+/**
+ * Y 轴滚动条位置
+ * @param {number} value
+ */
+function setScrollTop(value) {
+    scrollTo({ top: value })
+}
+
+/**
+ * X 轴滚动条位置
+ * @param {number} value
+ */
+function setScrollLeft(value) {
+    scrollTo({ left: value })
+}
+
 defineExpose({
     scrollTo,
+    setScrollTop,
+    setScrollLeft,
 })
 </script>
 

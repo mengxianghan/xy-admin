@@ -76,7 +76,7 @@ function handleCopy() {
 .x-demo-box {
     margin-bottom: 16px;
 
-    :deep(.ant-card-body) {
+    :deep(> .ant-card-body) {
         padding: 0;
         line-height: 2;
     }
