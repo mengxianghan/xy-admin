@@ -27,6 +27,9 @@ export function formatRoutes(routes, asyncRoutes = [], parent = {}) {
 
             return indexA - indexB
         })
+        .filter((item) => {
+            return find(asyncRoutes, { name: item.name })
+        })
         .map((item) => {
             const asyncRoute = find(asyncRoutes, { name: item.name })
             const component = item?.component || 'exception/404'
@@ -67,7 +70,6 @@ export function formatRoutes(routes, asyncRoutes = [], parent = {}) {
             }
             return route
         })
-    // .filter((item) => item.component || item.children?.length)
 }
 
 /**
@@ -152,7 +154,7 @@ export function generateMenuList(routes) {
                 name: item.name,
                 meta: {
                     icon: item?.meta?.icon ?? '',
-                    title: item?.meta?.title ?? '未命名菜单',
+                    title: item?.meta?.title ?? '未命名',
                     target: item?.meta?.target ?? '_self',
                     ...(item?.meta ?? {}),
                 },
@@ -169,7 +171,7 @@ export function generateMenuList(routes) {
 /**
  * 获取首页路由
  * @param {array} list
- * @param {object | function | array}
+ * @param predicate
  * @return {null}
  */
 export function getFirstValidRoute(list, predicate) {
