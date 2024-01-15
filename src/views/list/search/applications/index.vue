@@ -1,8 +1,8 @@
 <template>
     <page-header></page-header>
     <a-card class="mb-8-2">
-        <x-filter-form :label-col="{ style: { width: '100px' } }">
-            <a-form-item label="所属类目">
+        <x-filter :label-col="{ style: { width: '100px' } }">
+            <x-filter-item label="所属类目">
                 <x-tag-select
                     v-model="searchFormData.category"
                     :options="[
@@ -17,26 +17,26 @@
                         { label: '类目8', value: 8 },
                     ]"
                     @change="handleSearch"></x-tag-select>
-            </a-form-item>
+            </x-filter-item>
             <a-row>
                 <a-col>
-                    <a-form-item label="作者">
+                    <x-filter-item label="作者">
                         <a-select
                             :style="{ minWidth: '100px' }"
                             placeholder="不限"
                             @change="handleSearch"></a-select>
-                    </a-form-item>
+                    </x-filter-item>
                 </a-col>
                 <a-col>
-                    <a-form-item label="好评度">
+                    <x-filter-item label="好评度">
                         <a-select
                             :style="{ minWidth: '100px' }"
                             placeholder="不限"
                             @change="handleSearch"></a-select>
-                    </a-form-item>
+                    </x-filter-item>
                 </a-col>
             </a-row>
-        </x-filter-form>
+        </x-filter>
     </a-card>
 
     <a-list
