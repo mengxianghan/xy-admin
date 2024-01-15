@@ -1,10 +1,10 @@
 <template>
     <div
         class="x-qrcode"
-        :style="{
-            width: `${size}px`,
-            height: `${size}px`,
-        }">
+        :class="{
+            'x-qrcode--bordered': bordered,
+        }"
+        :style="styleComputed">
         <template v-if="'active' !== status">
             <div class="x-qrcode__mask">
                 <template v-if="'loading' === status">
@@ -24,79 +24,115 @@
                 </template>
             </div>
         </template>
-        <canvas ref="qrCodeRef"></canvas>
+        <canvas ref="qrcodeRef"></canvas>
     </div>
 </template>
 
 <script setup>
 import QRCode from 'qrcode'
-import { onMounted, ref, toRefs, watch } from 'vue'
-
+import { computed, onMounted, ref, toRefs, watch } from 'vue'
 import { ReloadOutlined } from '@ant-design/icons-vue'
 
 defineOptions({
-    name: 'XQrCode',
+    name: 'XQrcode',
 })
-/**
- * 二维码
- * @property {string} value 内容
- * @property {number} size 大小。默认：120
- * @property {string} color 颜色。默认：#000
- * @property {string} backgroundColor 背景色。默认：#fff
- * @property {string} icon icon 的地址（目前只支持图片地址）
- * @property {number} iconSize icon 的大小。默认：30
- * @property {number} iconPadding icon 间距。默认：0
- * @property {string} iconBackgroundColor icon 背景色
- * @property {string} errorLevel 纠错等级。默认：M，【L=low, M=medium, Q=quartile, H=high】
- * @property {string} status 状态，【active=有效，loading=加载中，expired=已过期】
- */
+
 const props = defineProps({
     value: {
         type: String,
         required: true,
         default: '',
     },
+    /**
+     * 边框
+     */
+    bordered: {
+        type: Boolean,
+        default: true,
+    },
+    /**
+     * 大小。默认：120
+     */
     size: {
         type: Number,
-        default: 120,
+        default: 160,
     },
+    /**
+     * 颜色。默认：#000
+     */
     color: {
         type: String,
         default: '#000',
     },
+    /**
+     * 背景色。默认：#fff
+     */
     backgroundColor: {
         type: String,
         default: '#fff',
     },
+    /**
+     * icon 的地址（目前只支持图片地址）
+     */
     icon: {
         type: String,
         default: '',
     },
+    /**
+     * icon 的大小。默认：30
+     */
     iconSize: {
         type: Number,
-        default: 30,
+        default: 40,
     },
+    /**
+     * icon 间距。默认：0
+     */
     iconPadding: {
         type: Number,
         default: 0,
     },
+    /**
+     * icon 背景色
+     */
     iconBackgroundColor: {
         type: String,
         default: '',
     },
+    /**
+     * 纠错等级。默认：M，【L=low, M=medium, Q=quartile, H=high】
+     */
     errorLevel: {
         type: String,
         default: 'M',
     },
+    /**
+     * 状态，【active=有效，loading=加载中，expired=已过期】
+     */
     status: {
         type: String,
         default: 'active',
     },
+    /**
+     * 安全区宽度（四周留白）
+     */
+    margin: {
+        type: Number,
+        default: 12,
+    },
 })
 
-const emit = defineEmits(['refresh'])
+const emits = defineEmits(['initialized', 'refresh'])
 
-const qrCodeRef = ref()
+const qrcodeRef = ref()
+
+const styleComputed = computed(() => {
+    return {
+        width: `${props.size}px`,
+        height: `${props.size}px`,
+    }
+})
+const qrcodeSizeComputed = computed(() => props.size - props.margin * 2)
 
 watch(
     () => toRefs(props),
@@ -121,7 +157,7 @@ async function init() {
     if (props.icon) {
         await renderIcon()
     }
-    emit('ready', qrCodeRef.value)
+    emits('initialized', qrcodeRef.value)
 }
 
 /**
@@ -131,8 +167,8 @@ async function init() {
 async function renderQRCode() {
     return new Promise((resolve) => {
         ;(async () => {
-            await QRCode.toCanvas(qrCodeRef.value, props.value, {
-                width: props.size,
+            await QRCode.toCanvas(qrcodeRef.value, props.value, {
+                width: qrcodeSizeComputed.value,
                 color: {
                     dark: props.color,
                     light: props.backgroundColor,
@@ -153,16 +189,17 @@ async function renderIcon() {
     return new Promise((resolve) => {
         let img = new Image()
         img.src = props.icon
-        const logoPos = (props.size - props.iconSize) / 2
-        const rectSize = props.iconSize + props.iconPadding
-        const rectPos = (props.size - rectSize) / 2
-        let ctx = qrCodeRef.value.getContext('2d')
+        const logoPos = (qrcodeSizeComputed.value - props.iconSize + props.iconPadding) / 2
+        const logoSize = props.iconSize - props.iconPadding
+        const rectSize = props.iconSize
+        const rectPos = (qrcodeSizeComputed.value - rectSize) / 2
+        let ctx = qrcodeRef.value.getContext('2d')
         img.onload = () => {
             if (props.iconBackgroundColor) {
                 ctx.fillStyle = props.iconBackgroundColor
                 ctx.fillRect(rectPos, rectPos, rectSize, rectSize)
             }
-            ctx.drawImage(img, logoPos, logoPos, props.iconSize, props.iconSize)
+            ctx.drawImage(img, logoPos, logoPos, logoSize, logoSize)
             resolve()
         }
     })
@@ -172,7 +209,7 @@ async function renderIcon() {
  * 刷新
  */
 function handleRefresh() {
-    emit('refresh')
+    emits('refresh')
 }
 
 /**
@@ -180,7 +217,7 @@ function handleRefresh() {
  * @returns {Promise<*>}
  */
 async function toDataURL() {
-    return qrCodeRef.value.toDataURL('image/png')
+    return qrcodeRef.value.toDataURL('image/png')
 }
 
 defineExpose({
@@ -191,12 +228,16 @@ defineExpose({
 <style lang="less" scoped>
 .x-qrcode {
     position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: @border-radius;
 
     &__mask {
         background: rgba(255, 255, 255, 0.96);
         position: absolute;
-        width: 100%;
-        height: 100%;
+        inset: 0;
         z-index: 10;
         display: flex;
         align-items: center;
@@ -206,6 +247,10 @@ defineExpose({
         .ant-spin {
             line-height: 1;
         }
+    }
+
+    &--bordered {
+        border: @color-border solid 1px;
     }
 }
 </style>
