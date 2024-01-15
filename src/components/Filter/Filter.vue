@@ -1,5 +1,5 @@
 <template>
-    <a-form class="x-filter-form">
+    <a-form class="x-filter">
         <slot></slot>
     </a-form>
 </template>
@@ -8,12 +8,12 @@
 import { Form as AForm } from 'ant-design-vue'
 
 defineOptions({
-    name: 'XFilterForm',
+    name: 'XFilter',
 })
 </script>
 
 <style lang="less" scoped>
-.x-filter-form {
+.x-filter {
     :deep(.ant-form-item) {
         margin-bottom: 12px;
 
