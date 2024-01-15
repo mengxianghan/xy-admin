@@ -41,3 +41,17 @@ export const isEmpty = (value) => value !== '' && value !== null && value !== un
  * @returns {boolean}
  */
 export const isString = (value) => getType(value) === 'string' || value === undefined
+
+/**
+ * 检查是否数字
+ * @param value
+ * @returns {boolean}
+ */
+export const isNumber = (value) => getType(value) === 'number'
+
+/**
+ * 检查是否数组
+ * @param value
+ * @returns {boolean}
+ */
+export const isArray = (value) => getType(value) === 'array'
