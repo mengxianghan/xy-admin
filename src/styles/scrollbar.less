@@ -1,0 +1,24 @@
+@handle-bg: rgba(0, 0, 0, 0.35);
+@handle-bg-hover: rgba(0, 0, 0, 0.45);
+@handle-size: 6px;
+@border-radius: 10em;
+
+.scrollbar(@handle-bg, @handle-bg-hover, @handle-size, @border-radius);
+
+.os-scrollbar {
+    --os-handle-bg: @handle-bg;
+    --os-handle-min-size: @handle-size;
+    --os-padding-axis: 0;
+    --os-padding-perpendicular: 0;
+    --os-size: @handle-size;
+    --os-track-border-radius: @border-radius;
+    --os-handle-bg-hover: @handle-bg-hover;
+}
+
+.rc-virtual-list-scrollbar {
+    width: @handle-size !important;
+}
+
+.rc-virtual-list-scrollbar-thumb {
+    background: @handle-bg !important;
+}
