@@ -166,7 +166,6 @@ function onTableChange({ current, pageSize }) {
  */
 function onDictChange(payload) {
     selectedDict.value = payload
-    console.log(payload)
     resetPagination()
     getPageList()
 }
