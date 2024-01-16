@@ -46,35 +46,41 @@ defineOptions({
     name: 'XTagSelect',
 })
 
-/**
- * @property {array} options
- * @property {array|number|string} modelValue v-model
- * @property {boolean} multiple 是否多选，默认：false
- * @property {boolean} collapsible 是否可收起，默认：true
- * @property {boolean} collapsed 收起状态，默认：true
- * @property {object} fieldNames 自定义节点字段，默认：{ label: 'label', value: 'value' }
- * @property {boolean} showUnlimited 显示不限
- */
 const props = defineProps({
     modelValue: {
         type: [Array, Number, String],
     },
+    /**
+     * 是否多选，默认：false
+     */
     multiple: {
         type: Boolean,
         default: false,
     },
+    /**
+     * 选项
+     */
     options: {
         type: Array,
         default: () => [],
     },
+    /**
+     * 是否可收起，默认：true
+     */
     collapsible: {
         type: Boolean,
         default: true,
     },
+    /**
+     * 收起状态，默认：true
+     */
     collapsed: {
         type: Boolean,
         default: true,
     },
+    /**
+     * 自定义节点字段，默认：{ label: 'label', value: 'value' }
+     */
     fieldNames: {
         type: Object,
         default: () => ({
@@ -243,6 +249,7 @@ useTagSelectProvide({
 <style lang="less" scoped>
 .x-tag-select {
     display: flex;
+    align-items: flex-start;
     overflow: hidden;
 
     &__content {

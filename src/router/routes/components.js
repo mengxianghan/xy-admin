@@ -185,6 +185,16 @@ export default [
                     badge: 'new',
                 },
             },
+            {
+                path: 'tag-select',
+                name: 'tagSelect',
+                component: 'components/tag-select/index.vue',
+                meta: {
+                    title: '标签选择',
+                    isMenu: true,
+                    keepAlive: true,
+                },
+            },
         ],
     },
 ]
