@@ -3,7 +3,10 @@
         class="x-grid-item"
         ref="gridItemRef"
         v-show="show"
-        :style="styleComputed">
+        :style="styleComputed"
+        :class="{
+            'x-grid-item--suffix': suffix,
+        }">
         <slot :overflow="overflowComputed"></slot>
     </div>
 </template>
