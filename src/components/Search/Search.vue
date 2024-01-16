@@ -5,26 +5,38 @@
             'x-search--bordered': bordered,
         }">
         <a-form
-            class="x-search__form"
             layout="inline"
-            v-bind="attrs"
-            :style="formStyleComputed">
-            <slot></slot>
-            <x-search-item :style="suffixStyleComputed">
-                <slot name="suffix"> </slot>
-            </x-search-item>
+            v-bind="attrs">
+            <grid
+                :columns="columns"
+                :gutter="gutter"
+                :collapsed="collapsed"
+                :collapsed-rows="collapsedRows">
+                <slot></slot>
+            </grid>
         </a-form>
     </a-card>
 </template>
 
 <script setup>
-import { computed, useAttrs } from 'vue'
+import { useAttrs } from 'vue'
+import { Grid } from '../Grid'
 
 defineOptions({
     name: 'XSearch',
 })
 
 defineProps({
+    columns: {
+        type: [Number, Object],
+        default: 4,
+    },
+    collapsed: Boolean,
+    collapsedRows: Number,
+    gutter: {
+        type: [Number, Array],
+        default: () => [12, 12],
+    },
     bordered: {
         type: Boolean,
         default: true,
@@ -32,18 +44,6 @@ defineProps({
 })
 
 const attrs = useAttrs()
-
-const formStyleComputed = computed(() => {
-    return {
-        gridTemplateColumns: `repeat(4, minmax(0px, 1fr))`,
-        gap: `12px`,
-    }
-})
-const suffixStyleComputed = computed(() => {
-    return {
-        gridColumn: `3 / span 2`,
-    }
-})
 </script>
 
 <style lang="less" scoped>
@@ -56,8 +56,8 @@ const suffixStyleComputed = computed(() => {
         }
     }
 
-    &__form {
-        display: grid;
+    :deep(.ant-form-inline) {
+        display: block;
     }
 
     :deep(.ant-form-inline .ant-form-item) {
