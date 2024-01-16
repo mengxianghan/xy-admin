@@ -95,9 +95,7 @@
     <cropper-dialog
         v-if="cropper && !multiple"
         ref="cropperDialogRef"
-        :aspect-ratio="aspectRatio"
-        :quality="quality"
-        @ok="(file) => customRequest(file)" />
+        @ok="(_, { file }) => customRequest(file)" />
 </template>
 
 <script setup>
@@ -317,7 +315,11 @@ function onBeforeUpload(file) {
         const fileReader = new FileReader()
         fileReader.readAsDataURL(file)
         fileReader.onload = (e) => {
-            cropperDialogRef.value?.handleOpen(e.target.result)
+            cropperDialogRef.value?.open({
+                src: e.target.result,
+                quality: props.quality,
+                aspectRatio: props.aspectRatio,
+            })
         }
     }
     return checkFileSize && checkCropper
@@ -468,7 +470,7 @@ function trigger() {
         }
 
         &__txt {
-            margin: 8pxs 0 0;
+            margin: 8px 0 0;
         }
     }
 
