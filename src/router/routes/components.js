@@ -110,6 +110,7 @@ export default [
                     title: '网格',
                     isMenu: true,
                     keepAlive: true,
+                    badge: 'new',
                 },
             },
             {
@@ -170,6 +171,7 @@ export default [
                     title: '搜索',
                     isMenu: true,
                     keepAlive: true,
+                    badge: 'new',
                 },
             },
         ],
