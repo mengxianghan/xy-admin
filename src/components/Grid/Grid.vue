@@ -7,7 +7,7 @@
 </template>
 
 <script setup>
-import { computed, onBeforeUnmount, ref, watch } from 'vue'
+import { computed, onBeforeUnmount, ref, watchEffect } from 'vue'
 import { formatUnits } from '@/components/utils'
 import { useGridProvide } from './context'
 import { some } from 'lodash-es'
@@ -55,7 +55,7 @@ const styleComputed = computed(() => {
     }
 })
 
-watch([() => children.value, () => props.collapsed, () => props.collapsedRows], () => {
+watchEffect(() => {
     const items = Object.values(children.value)
     const hasSuffix = some(items, (o) => o.props.suffix)
     let count = curColumns.value * props.collapsedRows
