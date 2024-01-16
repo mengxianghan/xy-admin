@@ -174,6 +174,17 @@ export default [
                     badge: 'new',
                 },
             },
+            {
+                path: 'tag',
+                name: 'tag',
+                component: 'components/tag/index.vue',
+                meta: {
+                    title: '标签',
+                    isMenu: true,
+                    keepAlive: true,
+                    badge: 'new',
+                },
+            },
         ],
     },
 ]
