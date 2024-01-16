@@ -5,7 +5,7 @@
         <a-menu
             v-model:selected-keys="selectedKeys"
             :get-pop-container="() => basicMenuRef"
-            :inline-collapsed="config.collapsed"
+            :collapsed="config.collapsed"
             :mode="mode"
             :open-keys="cpOpenKeys"
             :theme="theme"
