@@ -195,6 +195,16 @@ export default [
                     keepAlive: true,
                 },
             },
+            {
+                path: 'upload',
+                name: 'upload',
+                component: 'components/upload/index.vue',
+                meta: {
+                    title: '上传',
+                    isMenu: true,
+                    keepAlive: true,
+                },
+            },
         ],
     },
 ]
