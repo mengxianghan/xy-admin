@@ -7,17 +7,19 @@
 </template>
 
 <script setup>
-import { computed, ref, watch } from 'vue'
+import { computed, onBeforeUnmount, ref, watch } from 'vue'
 import { formatUnits } from '@/components/utils'
 import { useGridProvide } from './context'
 import { some } from 'lodash-es'
+import { theme } from 'ant-design-vue'
+import { isObject } from '@/utils/is'
 
 defineOptions({
     name: 'XGrid',
 })
 const props = defineProps({
     columns: {
-        type: Number,
+        type: [Number, Object],
         default: 24,
     },
     gutter: {
@@ -34,7 +36,10 @@ const props = defineProps({
     },
 })
 
+const { token } = theme.useToken()
+
 const children = ref({})
+const curColumns = ref()
 
 const gutterComputed = computed(() => (Array.isArray(props.gutter) ? props.gutter : String(props.gutter).split()))
 const columnGapComputed = computed(() => {
@@ -45,7 +50,7 @@ const rowGapComputed = computed(() => {
 })
 const styleComputed = computed(() => {
     return {
-        gridTemplateColumns: `repeat(${props.columns}, minmax(0px, 1fr))`,
+        gridTemplateColumns: `repeat(${curColumns.value}, minmax(0, 1fr))`,
         gap: `${formatUnits(rowGapComputed.value)} ${formatUnits(columnGapComputed.value)}`,
     }
 })
@@ -53,7 +58,7 @@ const styleComputed = computed(() => {
 watch([() => children.value, () => props.collapsed, () => props.collapsedRows], () => {
     const items = Object.values(children.value)
     const hasSuffix = some(items, (o) => o.props.suffix)
-    let count = props.columns * props.collapsedRows
+    let count = curColumns.value * props.collapsedRows
     if (hasSuffix) {
         count -= 1
     }
@@ -68,6 +73,45 @@ watch([() => children.value, () => props.collapsed, () => props.collapsedRows], 
         })
 })
 
+onResize()
+window.addEventListener('resize', onResize)
+
+onBeforeUnmount(() => {
+    window.removeEventListener('resize', onResize)
+})
+
+function onResize() {
+    if (isObject(props.columns)) {
+        const clientWidth = document.body.clientWidth
+        const { xs, sm, md, lg, xl, xxl } = props.columns
+        if (clientWidth >= token.value.screenXXL && xxl) {
+            curColumns.value = xxl
+            return
+        }
+        if (clientWidth >= token.value.screenXL && xl) {
+            curColumns.value = xl
+            return
+        }
+        if (clientWidth >= token.value.screenLG && lg) {
+            curColumns.value = lg
+            return
+        }
+        if (clientWidth >= token.value.screenMD && md) {
+            curColumns.value = md
+            return
+        }
+        if (clientWidth >= token.value.screenSM && sm) {
+            curColumns.value = sm
+            return
+        }
+        if (clientWidth < token.value.screenSM && xs) {
+            curColumns.value = xs
+            return
+        }
+    }
+    curColumns.value = props.columns
+}
+
 function addChild(child) {
     children.value[child.uid] = child
 }
@@ -78,7 +122,7 @@ function removeChild(child) {
 
 useGridProvide({
     columnGap: computed(() => columnGapComputed.value),
-    columns: computed(() => props.columns),
+    columns: computed(() => curColumns.value),
     collapsed: computed(() => props.collapsed),
     collapsedRows: computed(() => props.collapsedRows),
     children: computed(() => children.value),
