@@ -74,6 +74,7 @@ import { useTransferInject, useTransferListInject } from './context'
 import { DIRECTION_ENUM } from './config'
 import { computed } from 'vue'
 import { theme } from 'ant-design-vue'
+import { isFunction } from 'lodash-es'
 
 defineOptions({
     name: 'XTransferItem',
@@ -91,7 +92,7 @@ const props = defineProps({
 })
 
 const { direction } = useTransferListInject()
-const { fieldNames, onItemCheck, onNext } = useTransferInject()
+const { fieldNames, loadData, onItemCheck, onNext } = useTransferInject()
 const { token } = theme.useToken()
 
 const isLeftComputed = computed(() => DIRECTION_ENUM.is('left', direction.value))
@@ -100,7 +101,14 @@ const checkableComputed = computed(() => {
     const checkable = props.record.checkable
     return ([undefined, null].includes(checkable) || checkable) && isLeftComputed.value
 })
-const hasChildrenComputed = computed(() => props.record[fieldNames.value.children]?.length)
+const hasChildrenComputed = computed(() => {
+    const checkChildren = props.record[fieldNames.value.children]?.length
+    if (isFunction(loadData)) {
+        const isLeaf = props.record.isLeaf || false
+        return !isLeaf || checkChildren
+    }
+    return checkChildren
+})
 const disabledComputed = computed(() => props.record.disabled)
 
 function handleDelete() {

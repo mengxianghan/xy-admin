@@ -32,12 +32,11 @@
 import TransferList from './TransferList.vue'
 import { DIRECTION_ENUM } from './config'
 import { useTransferProvide } from './context'
-import { computed, defineModel, ref, useSlots, watch } from 'vue'
-import { filter } from 'lodash-es'
+import { computed, defineModel, ref, useSlots, watch, watchEffect } from 'vue'
+import { filter, last, isFunction } from 'lodash-es'
 import { Form } from 'ant-design-vue'
 import { getSlotProps } from '../utils'
 import { findTree } from '@/utils'
-import { isFunction } from '@/utils/is'
 
 defineOptions({
     name: 'XTransfer',
@@ -82,6 +81,9 @@ const props = defineProps({
             emptyText: '暂无数据',
         }),
     },
+    loadData: {
+        type: Function,
+    },
 })
 const modelValue = defineModel('modelValue', { type: Array, default: () => [] })
 const emits = defineEmits(['change'])
@@ -99,7 +101,10 @@ const dataListComputed = computed(() =>
         if (isFunction(props.filterOption)) {
             return props.filterOption(keyword.value, item)
         }
-        return item[props.fieldNames.label].indexOf(keyword.value) > -1
+        if (keyword.value && keyword.value !== '') {
+            return item[props.fieldNames.label].indexOf(keyword.value) > -1
+        }
+        return true
     })
 )
 
@@ -124,6 +129,22 @@ watch(
         deep: true,
     }
 )
+
+watchEffect(() => {
+    const record = last(breadcrumb.value)
+    if (record) {
+        findTree(
+            props.dataSource,
+            record[props.fieldNames.value],
+            (item) => {
+                dataList.value = item?.[props.fieldNames.children] || []
+            },
+            { key: props.fieldNames.value, children: props.fieldNames.children }
+        )
+    } else {
+        dataList.value = props.dataSource || []
+    }
+})
 
 /**
  * 清除
@@ -182,18 +203,25 @@ function onChangeTrigger() {
  * @param record
  */
 function onNext(record) {
-    dataList.value = record.children || []
+    keyword.value = undefined
     breadcrumb.value.push(record)
+    onLoadData()
 }
 
 function onBreadcrumb(record, index) {
+    keyword.value = undefined
     if (record) {
-        dataList.value = record.children
         breadcrumb.value.splice(index + 1)
     } else {
-        dataList.value = props.dataSource
         breadcrumb.value = []
     }
+    onLoadData()
+}
+
+function onLoadData() {
+    if (!isFunction(props.loadData)) return
+    const record = last(breadcrumb.value) || {}
+    props.loadData(record)
 }
 
 useTransferProvide({
@@ -205,6 +233,7 @@ useTransferProvide({
     showSearch: computed(() => props.showSearch),
     showCheckAll: computed(() => props.showCheckAll),
     locale: computed(() => props.locale),
+    loadData: props.loadData,
     onItemCheck,
     onItemCheckAll,
     onClear,
