@@ -7,4 +7,4 @@ export const DIRECTION_ENUM = new XYEnum([
 
 export const TRANSFER_KEY = Symbol('transfer')
 
-export const TRANSFER_LIST_BODY_KEY = Symbol('body')
+export const TRANSFER_LIST_KEY = Symbol('transfer_list')

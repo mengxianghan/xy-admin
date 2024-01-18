@@ -1,95 +1,131 @@
 <template>
-    <div
+    <li
         class="x-transfer-list-item"
+        :class="{
+            'x-transfer-list-item--disabled': disabledComputed,
+        }"
         @click="handleClick">
-        <template v-if="cpShowCheckbox">
-            <a-checkbox
-                class="x-transfer-list-item__checkbox"
-                :disabled="cpDisabled"
-                :checked="curChecked"></a-checkbox>
+        <!--复选框-->
+        <template v-if="checkableComputed">
+            <div class="x-transfer-list-item__checkbox">
+                <a-checkbox
+                    :checked="checked"
+                    :disabled="disabledComputed"></a-checkbox>
+            </div>
         </template>
+        <!--内容-->
         <div class="x-transfer-list-item__content">
-            <slot>
+            <slot
+                name="item"
+                :record="record"
+                :direction="direction"
+                :checked="checked"
+                :disabled="disabledComputed">
                 {{ record[fieldNames.label] }}
             </slot>
         </div>
         <div class="x-transfer-list-item__extra">
-            <template v-if="cpShowRemove">
-                <a-button
-                    type="text"
-                    size="small"
-                    @click.stop="handleRemove">
-                    <template #icon>
-                        <close-outlined></close-outlined>
+            <!--左侧-->
+            <template v-if="isLeftComputed">
+                <template v-if="hasChildrenComputed">
+                    <template v-if="checkableComputed">
+                        <a-config-provider
+                            :theme="{
+                                components: {
+                                    Button: {
+                                        colorText: token.colorPrimary,
+                                        colorBgTextHover: token.colorPrimaryBgHover,
+                                        colorBgTextActive: token.colorPrimaryBgHover,
+                                    },
+                                },
+                            }">
+                            <a-button
+                                type="text"
+                                size="small"
+                                @click.stop="handleNext">
+                                下级
+                            </a-button>
+                        </a-config-provider>
                     </template>
-                </a-button>
+                    <template v-else>
+                        <right-outlined class="color-secondary"></right-outlined>
+                    </template>
+                </template>
             </template>
-
-            <template v-if="cpShowNext">
+            <!--右侧-->
+            <template v-if="isRightComputed">
+                <!--删除-->
                 <a-button
                     type="text"
                     size="small"
-                    @click.stop="handleNext">
+                    @click="handleDelete">
                     <template #icon>
-                        <right-outlined></right-outlined>
+                        <close-outlined class="color-secondary"></close-outlined>
                     </template>
                 </a-button>
             </template>
         </div>
-    </div>
+    </li>
 </template>
 
 <script setup>
-import { ref, watch, computed } from 'vue'
-import { useTransferInject } from './context'
 import { CloseOutlined, RightOutlined } from '@ant-design/icons-vue'
+import { useTransferInject, useTransferListInject } from './context'
+import { DIRECTION_ENUM } from './config'
+import { computed } from 'vue'
+import { theme } from 'ant-design-vue'
+
+defineOptions({
+    name: 'XTransferItem',
+})
 
 const props = defineProps({
     record: {
         type: Object,
         default: () => ({}),
     },
-    direction: {
-        type: String,
+    checked: {
+        type: Boolean,
+        default: false,
     },
 })
 
-const { modelValue, fieldNames, onCheck, onNext } = useTransferInject()
+const { direction } = useTransferListInject()
+const { fieldNames, onItemCheck, onNext } = useTransferInject()
+const { token } = theme.useToken()
 
-const curChecked = ref(false)
+const isLeftComputed = computed(() => DIRECTION_ENUM.is('left', direction.value))
+const isRightComputed = computed(() => DIRECTION_ENUM.is('right', direction.value))
+const checkableComputed = computed(() => {
+    const checkable = props.record.checkable
+    return ([undefined, null].includes(checkable) || checkable) && isLeftComputed.value
+})
+const hasChildrenComputed = computed(() => props.record[fieldNames.value.children]?.length)
+const disabledComputed = computed(() => props.record.disabled)
 
-const cpIsLeft = computed(() => props.direction === 'left')
-const cpShowCheckbox = computed(() => cpIsLeft.value)
-const cpShowRemove = computed(() => !cpIsLeft.value)
-const cpShowNext = computed(() => cpIsLeft.value && props.record.children?.length)
-const cpDisabled = computed(() => props.record.disabled)
+function handleDelete() {
+    if (disabledComputed.value) return
 
-watch(
-    () => modelValue.value,
-    (val) => {
-        const checked = val.includes(props.record?.[fieldNames.value?.value])
-        if (curChecked.value === checked) return
-        curChecked.value = checked
-    },
-    { immediate: true, deep: true }
-)
-
-/**
- * 点击
- */
-function handleClick() {
-    if (!cpIsLeft.value) return
-
-    if (cpDisabled.value) return
-
-    onToggle()
+    onItemCheck({
+        selectedKey: props.record[fieldNames.value.value],
+        checked: false,
+        direction: direction.value,
+    })
 }
 
-/**
- * 移除
- */
-function handleRemove() {
-    onToggle()
+function handleClick() {
+    if (isRightComputed.value) return
+    if (disabledComputed.value) return
+    if (!checkableComputed.value) {
+        handleNext()
+        return
+    }
+
+    onItemCheck({
+        selectedKey: props.record[fieldNames.value.value],
+        checked: !props.checked,
+        direction: direction.value,
+    })
 }
 
 /**
@@ -98,42 +134,28 @@ function handleRemove() {
 function handleNext() {
     onNext(props.record)
 }
-
-/**
- * 切换选中
- */
-function onToggle() {
-    curChecked.value = !curChecked.value
-    onCheck(props.record?.[fieldNames.value?.value], { checked: curChecked.value })
-}
 </script>
 
 <style lang="less" scoped>
 .x-transfer-list-item {
     display: flex;
     align-items: center;
-    padding: 8px;
+    min-height: @control-height;
+    padding: 4px 8px;
     border-radius: @border-radius;
-    transition: all 0.2s;
+    transition: all @motion-duration-mid;
     cursor: pointer;
 
     &:hover {
         background: @control-item-bg-hover;
     }
 
+    &--disabled {
+        color: @color-text-disabled;
+        cursor: not-allowed;
+    }
+
     &__checkbox {
-        flex-shrink: 0;
-        margin-right: 8px;
-    }
-
-    &__icon {
-        flex-shrink: 0;
-        margin-right: 8px;
-        display: flex;
-        align-items: center;
-    }
-
-    &__avatar {
         flex-shrink: 0;
         margin-right: 8px;
     }
@@ -154,9 +176,11 @@ function onToggle() {
         align-items: center;
         justify-content: center;
         font-size: 12px;
-        gap: 4px;
 
         :deep(.ant-btn) {
+            &.ant-btn-sm {
+                padding-inline: 2px;
+            }
             &.ant-btn-text {
                 .anticon {
                     font-size: 10px;
@@ -164,33 +188,5 @@ function onToggle() {
             }
         }
     }
-
-    // &__btn {
-    //     transition: all 0.2s;
-    //     height: 24px;
-    //     display: flex;
-    //     align-items: center;
-    //     justify-content: center;
-    //     border-radius: @border-radius;
-    //     color: @color-text-label;
-
-    //     &--icon {
-    //         width: 24px;
-
-    //         &:hover {
-    //             background: @control-item-bg-hover;
-    //         }
-    //     }
-
-    //     &--link {
-    //         color: @color-primary;
-    //         padding-inline: 4px;
-    //         font-size: 14px;
-
-    //         &:hover {
-    //             background: v-bind('token.colorPrimaryBgHover');
-    //         }
-    //     }
-    // }
 }
 </style>

@@ -1,128 +1,56 @@
 <template>
     <div class="x-transfer">
-        <div class="x-transfer-list">
-            <div class="x-transfer-list-header">
-                <a-checkbox
-                    :checked="cpCheckAll"
-                    :indeterminate="cpIndeterminate"
-                    @change="onCheckAllChange">
-                    全选
-                </a-checkbox>
-            </div>
-            <template v-if="showSearch">
-                <div class="x-transfer-list-search">
-                    <a-input
-                        allow-clear
-                        v-model:value="keyword"
-                        @change="onSearchChange">
-                        <template #prefix>
-                            <search-outlined
-                                :style="{
-                                    color: token.colorTextPlaceholder,
-                                }"></search-outlined>
-                        </template>
-                    </a-input>
-                </div>
+        <transfer-list
+            v-model:keyword="keyword"
+            :direction="DIRECTION_ENUM.getValue('left')"
+            :data-source="dataListComputed">
+            <template
+                v-for="(_, key) in slots"
+                v-slot:[key]="slotProps"
+                :key="key">
+                <slot
+                    v-bind="getSlotProps(slotProps)"
+                    :name="key"></slot>
             </template>
-            <template v-if="breadcrumb.length">
-                <div class="x-transfer-list-breadcrumb">
-                    <a-breadcrumb>
-                        <a-breadcrumb-item @click="handleBreadcrumb()">
-                            <a>
-                                <home-outlined></home-outlined>
-                            </a>
-                        </a-breadcrumb-item>
-                        <a-breadcrumb-item
-                            v-for="(item, index) in breadcrumb"
-                            :key="item[props.fieldNames.value]"
-                            @click="handleBreadcrumb(item, index)">
-                            <template v-if="index < breadcrumb.length - 1">
-                                <a>{{ item[props.fieldNames.label] }}</a>
-                            </template>
-                            <template v-else>{{ item[props.fieldNames.label] }}</template>
-                        </a-breadcrumb-item>
-                    </a-breadcrumb>
-                </div>
+        </transfer-list>
+        <transfer-list
+            :direction="DIRECTION_ENUM.getValue('right')"
+            :data-source="targetList">
+            <template
+                v-for="(_, key) in slots"
+                v-slot:[key]="slotProps"
+                :key="key">
+                <slot
+                    v-bind="getSlotProps(slotProps)"
+                    :name="key"></slot>
             </template>
-            <transfer-list-body
-                direction="left"
-                :data-source="list">
-                <template #default="attrs">
-                    <slot
-                        name="item"
-                        v-bind="attrs"></slot>
-                </template>
-            </transfer-list-body>
-            <template v-if="cpShowFooter">
-                <div class="x-transfer-list-footer">
-                    <slot
-                        name="footer"
-                        direction="left"></slot>
-                </div>
-            </template>
-        </div>
-        <div class="x-transfer-list">
-            <div class="x-transfer-list-header">
-                <div class="x-transfer-list-header__label">已选：{{ cpCount }}</div>
-                <div class="x-transfer-list-header__extra">
-                    <a-button
-                        size="small"
-                        @click="handleClear">
-                        清空
-                    </a-button>
-                </div>
-            </div>
-            <transfer-list-body
-                direction="right"
-                :data-source="curTargetDataSource">
-                <template #default="attrs">
-                    <slot
-                        name="item"
-                        v-bind="attrs"></slot>
-                </template>
-            </transfer-list-body>
-            <template v-if="cpShowFooter">
-                <div class="x-transfer-list-footer">
-                    <slot
-                        name="footer"
-                        direction="right"></slot>
-                </div>
-            </template>
-        </div>
+        </transfer-list>
     </div>
 </template>
 
 <script setup>
-import { computed, ref, useSlots, watch } from 'vue'
+import TransferList from './TransferList.vue'
+import { DIRECTION_ENUM } from './config'
 import { useTransferProvide } from './context'
-import { SearchOutlined, HomeOutlined } from '@ant-design/icons-vue'
-import { theme } from 'ant-design-vue'
-import TransferListBody from './TransferListBody.vue'
+import { computed, defineModel, ref, useSlots, watch } from 'vue'
+import { filter } from 'lodash-es'
+import { Form } from 'ant-design-vue'
+import { getSlotProps } from '../utils'
+import { findTree } from '@/utils'
+import { isFunction } from '@/utils/is'
 
 defineOptions({
     name: 'XTransfer',
 })
 
 const props = defineProps({
-    modelValue: {
-        type: Array,
-        default: () => [],
-    },
     dataSource: {
         type: Array,
         default: () => [],
     },
-    defaultTargetDataSource: {
+    targetSource: {
         type: Array,
         default: () => [],
-    },
-    showClear: {
-        type: Boolean,
-        default: false,
-    },
-    showSearch: {
-        type: Boolean,
-        default: false,
     },
     fieldNames: {
         type: Object,
@@ -132,149 +60,156 @@ const props = defineProps({
             children: 'children',
         }),
     },
+    clearText: {
+        type: String,
+        default: '清除',
+    },
+    placeholder: String,
+    showSearch: {
+        type: Boolean,
+        default: true,
+    },
+    showCheckAll: {
+        type: Boolean,
+        default: false,
+    },
+    filterOption: {
+        type: Function,
+    },
+    locale: {
+        type: Object,
+        default: () => ({
+            emptyText: '暂无数据',
+        }),
+    },
 })
-const emit = defineEmits(['change', 'update:modelValue', 'next', 'check', 'search'])
+const modelValue = defineModel('modelValue', { type: Array, default: () => [] })
+const emits = defineEmits(['change'])
 
 const slots = useSlots()
-const { token } = theme.useToken()
+const { onFieldChange } = Form.useInjectFormItemContext()
 
-const curValue = ref(props.modelValue)
-const curTargetDataSource = ref(props.defaultTargetDataSource)
-const keyword = ref()
-const list = ref(props.dataSource)
+const dataList = ref(props.dataSource)
+const targetList = ref([])
+const keyword = ref('')
 const breadcrumb = ref([])
 
-const cpValidList = computed(() => list.value.filter((item) => !item.disabled))
-const cpCount = computed(() => props.modelValue.length)
-const cpShowFooter = computed(() => slots.footer)
-const cpCheckAll = computed(
-    () =>
-        !!curValue.value.length &&
-        cpValidList.value.every((item) => curValue.value.includes(item[props.fieldNames.value]))
-)
-const cpIndeterminate = computed(
-    () => !cpCheckAll.value && cpValidList.value.some((item) => curValue.value.includes(item[props.fieldNames.value]))
+const dataListComputed = computed(() =>
+    filter(dataList.value, (item) => {
+        if (isFunction(props.filterOption)) {
+            return props.filterOption(keyword.value, item)
+        }
+        return item[props.fieldNames.label].indexOf(keyword.value) > -1
+    })
 )
 
 watch(
-    () => props.modelValue,
-    (val) => {
-        if (val === curValue.value) return
-        curValue.value = val
-        curTargetDataSource.value = props.dataSource.filter((item) =>
-            curValue.value.includes(item[props.fieldNames.value])
-        )
+    () => modelValue.value,
+    () => {
+        const result = []
+        modelValue.value.forEach((item) => {
+            findTree(
+                props.dataSource,
+                item,
+                (item) => {
+                    result.push(item)
+                },
+                { key: props.fieldNames.value, children: props.fieldNames.children }
+            )
+        })
+        targetList.value = result
     },
-    { deep: true }
+    {
+        immediate: true,
+        deep: true,
+    }
 )
 
 /**
- * 清空
+ * 清除
  */
-function handleClear() {
-    curValue.value = []
-    curTargetDataSource.value = []
-    onTrigger()
+function onClear() {
+    modelValue.value = filter(targetList.value, (item) => item.disabled).map((item) => item[props.fieldNames.value])
+    onChangeTrigger()
 }
 
 /**
- * 面包屑导航
- * @param {object} record
- * @param {number} index
+ * 选择
+ * @param selectedKey
+ * @param checked
  */
-function handleBreadcrumb(record, index) {
-    // 根目录
-    if (!record) {
-        breadcrumb.value = []
-        list.value = props.dataSource
-        return
+function onItemCheck({ selectedKey, checked }) {
+    const index = modelValue.value.indexOf(selectedKey)
+    if (index > -1) {
+        modelValue.value.splice(index, 1)
     }
-    breadcrumb.value.splice(index + 1)
-    list.value = record?.[props.fieldNames?.children]
+    if (checked) {
+        modelValue.value.push(selectedKey)
+    }
+    onChangeTrigger()
 }
 
 /**
- * 切换选中状态
- * @param {object} value
+ * 全选
+ * @param checked
  */
-function onCheck(value) {
-    const index = curValue.value.indexOf(value)
-    const valueKey = props.fieldNames.value
-    const targetIndex = curTargetDataSource.value.findIndex((item) => item[valueKey] === value)
-    const record = list.value?.find((item) => item[valueKey] === value)
-
-    if (index === -1) {
-        curValue.value.push(value)
-        curTargetDataSource.value.push(record)
+function onItemCheckAll({ checked }) {
+    if (checked) {
+        // 全选，将可操作项添加到已选列表
+        filter(dataListComputed.value, (item) => !item.disabled)?.forEach((item) => {
+            const value = item[props.fieldNames.value]
+            if (modelValue.value.indexOf(value) < 0) {
+                modelValue.value.push(value)
+            }
+        })
     } else {
-        curValue.value.splice(index, 1)
-        curTargetDataSource.value.splice(targetIndex, 1)
+        // 取消全选，将可操作项从已选列表中移除
+        filter(dataListComputed.value, (item) => !item.disabled).forEach((item) => {
+            const index = modelValue.value.indexOf(item[props.fieldNames.value])
+            modelValue.value.splice(index, 1)
+        })
     }
+    onChangeTrigger()
+}
 
-    onTrigger()
+function onChangeTrigger() {
+    emits('change', modelValue.value)
+    onFieldChange()
 }
 
 /**
  * 下级
- * @param {object} record
+ * @param record
  */
 function onNext(record) {
+    dataList.value = record.children || []
     breadcrumb.value.push(record)
-    list.value = record?.[props.fieldNames?.children]
-    emit('next', record)
 }
 
-/**
- * 全选发生改变
- */
-function onCheckAllChange(e) {
-    const { checked } = e.target
-    if (checked) {
-        // 全选
-        cpValidList.value.forEach((item) => {
-            const value = item[props.fieldNames.value]
-            const index = curValue.value.indexOf(value)
-            if (index === -1) {
-                curValue.value.push(value)
-                curTargetDataSource.value.push(item)
-            }
-        })
-        // curValue.value = cpValidList.value.map((item) => item[props.fieldNames.value])
-        // curTargetDataSource.value = list.value?.filter((item) => curValue.value.includes(item[props.fieldNames.value]))
+function onBreadcrumb(record, index) {
+    if (record) {
+        dataList.value = record.children
+        breadcrumb.value.splice(index + 1)
     } else {
-        // 取消全选
-        curValue.value = curValue.value.filter(
-            (item) => !cpValidList.value.map((item) => item[props.fieldNames.value]).includes(item)
-        )
-        curTargetDataSource.value = curTargetDataSource.value.filter(
-            (item) =>
-                !cpValidList.value.map((item) => item[props.fieldNames.value]).includes(item[props.fieldNames.value])
-        )
+        dataList.value = props.dataSource
+        breadcrumb.value = []
     }
-    onTrigger()
-}
-
-/**
- * 搜索发生改变
- */
-function onSearchChange() {
-    list.value = props.dataSource.filter((item) => item[props.fieldNames.label].indexOf(keyword.value) > -1)
-    emit('search', keyword.value)
-}
-
-/**
- * 触发
- */
-function onTrigger() {
-    emit('update:modelValue', curValue.value)
-    emit('change', curValue.value, { option: curTargetDataSource.value })
 }
 
 useTransferProvide({
-    modelValue: computed(() => props.modelValue),
     fieldNames: computed(() => props.fieldNames),
-    onCheck,
+    modelValue: computed(() => modelValue.value),
+    breadcrumb: computed(() => breadcrumb.value),
+    clearText: computed(() => props.clearText),
+    placeholder: computed(() => props.placeholder),
+    showSearch: computed(() => props.showSearch),
+    showCheckAll: computed(() => props.showCheckAll),
+    locale: computed(() => props.locale),
+    onItemCheck,
+    onItemCheckAll,
+    onClear,
     onNext,
+    onBreadcrumb,
 })
 </script>
 
@@ -283,50 +218,6 @@ useTransferProvide({
     display: flex;
     border: @color-border solid 1px;
     border-radius: @border-radius;
-    background: #fff;
-    height: 400px;
-
-    &-list {
-        flex: 1;
-        display: flex;
-        flex-direction: column;
-
-        &:first-child {
-            border-right: @color-border solid 1px;
-        }
-
-        &-header {
-            display: flex;
-            align-items: center;
-            flex: 0 0 44px;
-            padding-inline: 12px;
-            box-sizing: content-box;
-            border-bottom: @color-split solid 1px;
-
-            &__extra {
-                margin: 0 0 0 auto;
-            }
-        }
-
-        &-search {
-            padding-inline: 12px;
-            margin-top: 12px;
-            flex-shrink: 0;
-        }
-
-        &-breadcrumb {
-            padding-inline: 12px;
-            margin-top: 12px;
-            flex-shrink: 0;
-        }
-
-        &-footer {
-            flex: 0 0 44px;
-            padding-inline: 12px;
-            border-top: @color-split solid 1px;
-            display: flex;
-            align-items: center;
-        }
-    }
+    height: 480px;
 }
 </style>
