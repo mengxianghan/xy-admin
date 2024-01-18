@@ -148,11 +148,13 @@ const isRightComputed = computed(() => DIRECTION_ENUM.is('right', props.directio
 const showCheckAllComputed = computed(() => isLeftComputed.value && showCheckAll.value)
 
 watchEffect(() => {
-    if (DIRECTION_ENUM.is('left', props.disabled)) {
-        checkedAll.value = every(
-            props.dataSource.filter((item) => !item?.disabled),
-            (item) => modelValue.value.includes(item?.[fieldNames.value?.value])
-        )
+    if (DIRECTION_ENUM.is('left', props.direction)) {
+        checkedAll.value = modelValue.value.length
+            ? every(
+                  props.dataSource.filter((item) => !item?.disabled),
+                  (item) => modelValue.value.includes(item?.[fieldNames.value?.value])
+              )
+            : false
     }
 })
 
