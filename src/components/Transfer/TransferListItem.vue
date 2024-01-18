@@ -125,7 +125,9 @@ function handleClick() {
     if (isRightComputed.value) return
     if (disabledComputed.value) return
     if (!checkableComputed.value) {
-        handleNext()
+        if (hasChildrenComputed.value) {
+            handleNext()
+        }
         return
     }
 
