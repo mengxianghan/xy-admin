@@ -40,6 +40,7 @@
                                 },
                             }">
                             <a-button
+                                :disabled="nextDisabledComputed"
                                 size="small"
                                 type="text"
                                 @click.stop="handleNext">
@@ -110,6 +111,7 @@ const hasChildrenComputed = computed(() => {
     return checkChildren
 })
 const disabledComputed = computed(() => props.record.disabled)
+const nextDisabledComputed = computed(() => props.checked || disabledComputed.value)
 
 function handleDelete() {
     if (disabledComputed.value) return
