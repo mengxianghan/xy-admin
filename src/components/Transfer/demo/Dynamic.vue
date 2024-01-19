@@ -7,9 +7,9 @@
     <x-transfer
         v-model="checkedKeys"
         :data-source="listData"
+        :load-data="onLoadData"
         :style="{ width: '680px' }"
         :target-source="targetData"
-        :load-data="onLoadData"
         show-check-all>
     </x-transfer>
 </template>

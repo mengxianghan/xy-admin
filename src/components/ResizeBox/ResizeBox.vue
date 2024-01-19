@@ -1,21 +1,21 @@
 <template>
     <component
-        class="x-resize-box"
-        ref="resizeBoxRef"
         :is="component"
-        :style="styleComputed">
+        ref="resizeBoxRef"
+        :style="styleComputed"
+        class="x-resize-box">
         <div class="x-resize-box-body">
             <slot></slot>
         </div>
         <template v-if="!disabled">
             <div
                 v-for="direction in directions"
-                class="x-resize-box-handle"
                 :key="direction"
                 :class="{
                     [`x-resize-box-handle--${direction}`]: true,
                     'x-resize-box-handle--active': state.moving && directionEnum.is(direction, state.direction),
                 }"
+                class="x-resize-box-handle"
                 @mousedown="(e) => onMoveStart(direction, e)"></div>
         </template>
     </component>

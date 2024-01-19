@@ -5,8 +5,8 @@
 
 <template>
     <a-space
-        direction="vertical"
-        :size="24">
+        :size="24"
+        direction="vertical">
         <x-tag-select
             v-model="selectedKeys"
             :options="options"></x-tag-select>

@@ -6,8 +6,8 @@
 <template>
     <x-tag-select
         v-model="selectedKeys"
-        multiple
-        :options="options"></x-tag-select>
+        :options="options"
+        multiple></x-tag-select>
 </template>
 
 <script setup>

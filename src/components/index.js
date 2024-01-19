@@ -2,6 +2,7 @@ import * as components from './components'
 import * as directives from './directives'
 import { Loading } from './Loading'
 import { Preview } from './Preview'
+
 export * from './components'
 
 const install = (app) => {

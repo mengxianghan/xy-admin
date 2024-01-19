@@ -1,6 +1,6 @@
 import { useMultiTab } from '@/hooks'
 import { onMounted } from 'vue'
-import { useRouter, onBeforeRouteUpdate } from 'vue-router'
+import { onBeforeRouteUpdate, useRouter } from 'vue-router'
 
 export default () => {
     const { getSimpleRoute, open } = useMultiTab()

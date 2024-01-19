@@ -1,4 +1,4 @@
-import { provide, inject, computed } from 'vue'
+import { computed, inject, provide } from 'vue'
 
 const tagSelectKey = Symbol('tagSelect')
 

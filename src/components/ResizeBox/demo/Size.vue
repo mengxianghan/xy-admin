@@ -5,9 +5,9 @@
 
 <template>
     <x-resize-box
-        :directions="['right', 'bottom']"
-        v-model:width="width"
         v-model:height="height"
+        v-model:width="width"
+        :directions="['right', 'bottom']"
         :style="{ textAlign: 'center' }">
         <a-typography-paragraph>We are building the future of content discovery and creation.</a-typography-paragraph>
         <a-divider />

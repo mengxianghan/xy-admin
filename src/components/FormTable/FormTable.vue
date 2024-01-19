@@ -1,20 +1,20 @@
 <template>
     <a-table
+        :data-source="listData"
+        :pagination="false"
         class="x-form-table"
         size="middle"
-        v-bind="$attrs"
-        :data-source="listData"
-        :pagination="false">
+        v-bind="$attrs">
         <a-table-column
             key="action"
-            align="center"
-            :width="44">
+            :width="44"
+            align="center">
             <template #title>
                 <a-button
+                    class="fs-12"
+                    shape="circle"
                     size="small"
                     type="primary"
-                    shape="circle"
-                    class="fs-12"
                     @click="handleAdd">
                     <plus-outlined />
                 </a-button>
@@ -23,10 +23,10 @@
                 <div class="action">
                     <span class="action__txt">{{ index + 1 }}</span>
                     <a-button
-                        size="small"
+                        class="fs-12 action__btn"
                         danger
                         shape="circle"
-                        class="fs-12 action__btn"
+                        size="small"
                         @click="handleDelete(index)">
                         <delete-outlined />
                     </a-button>

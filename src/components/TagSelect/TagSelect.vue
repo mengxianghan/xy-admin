@@ -1,17 +1,17 @@
 <template>
     <div
-        class="x-tag-select"
         ref="tagSelectRef"
-        :style="cpTagSelectStyle">
+        :style="cpTagSelectStyle"
+        class="x-tag-select">
         <div
-            class="x-tag-select__content"
-            ref="contentRef">
+            ref="contentRef"
+            class="x-tag-select__content">
             <slot>
                 <tag-select-option
                     v-for="item in options"
                     :key="item[fieldNames.value] ?? item.label"
-                    :value="item[fieldNames.value]"
-                    :record="item">
+                    :record="item"
+                    :value="item[fieldNames.value]">
                     <slot
                         name="option"
                         v-bind="item">
@@ -25,8 +25,8 @@
                 class="x-tag-select__collapse"
                 @click="handleCollapse">
                 <slot
-                    name="collapse"
-                    :collapsed="curCollapsed">
+                    :collapsed="curCollapsed"
+                    name="collapse">
                     <template v-if="curCollapsed">展开</template>
                     <template v-else>收起</template>
                 </slot>
@@ -36,11 +36,11 @@
 </template>
 
 <script setup>
-import { ref, reactive, onMounted, nextTick, computed, watch, toRefs, onBeforeUnmount } from 'vue'
+import { computed, nextTick, onBeforeUnmount, onMounted, reactive, ref, toRefs, watch } from 'vue'
 import { Form } from 'ant-design-vue'
 import TagSelectOption from './TagSelectOption.vue'
 import { useTagSelectProvide } from './context'
-import { head, debounce } from 'lodash-es'
+import { debounce, head } from 'lodash-es'
 
 defineOptions({
     name: 'XTagSelect',

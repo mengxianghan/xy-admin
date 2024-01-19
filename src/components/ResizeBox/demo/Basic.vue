@@ -6,9 +6,9 @@
 <template>
     <x-resize-box
         :directions="['right', 'bottom']"
-        :width="500"
         :height="200"
-        :style="{ textAlign: 'center' }">
+        :style="{ textAlign: 'center' }"
+        :width="500">
         <a-typography-paragraph>We are building the future of content discovery and creation.</a-typography-paragraph>
         <a-divider />
         <a-typography-paragraph>

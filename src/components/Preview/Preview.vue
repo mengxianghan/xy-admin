@@ -1,33 +1,33 @@
 <template>
     <a-modal
-        width="100%"
-        wrap-class-name="x-preview-wrap"
-        destroy-on-close
-        :open="open"
+        :after-close="onAfterClose"
         :closable="false"
         :footer="false"
-        :after-close="onAfterClose">
+        :open="open"
+        destroy-on-close
+        width="100%"
+        wrap-class-name="x-preview-wrap">
         <div
-            class="x-preview__content"
-            :style="cpContentStyle">
+            :style="cpContentStyle"
+            class="x-preview__content">
             <template v-if="cpFileType === 'image'">
                 <img
                     ref="imgRef"
-                    alt=""
-                    class="x-preview__image"
                     :src="cpUrl"
                     :style="cpImageStyle"
+                    alt=""
+                    class="x-preview__image"
                     @mousedown="onMoveStart" />
             </template>
             <template v-if="cpFileType === 'video'">
                 <video
-                    controls
-                    :src="cpUrl"></video>
+                    :src="cpUrl"
+                    controls></video>
             </template>
             <template v-if="cpFileType === 'audio'">
                 <audio
-                    controls
-                    :src="cpUrl"></audio>
+                    :src="cpUrl"
+                    controls></audio>
             </template>
         </div>
 
@@ -40,19 +40,19 @@
         <template v-if="cpShowPrevNextBtn">
             <!-- 上一个 -->
             <div
-                class="x-preview__btn x-preview__btn--prev"
                 :class="{
                     'x-preview__btn--disabled': cpPrevBtnDisabled,
                 }"
+                class="x-preview__btn x-preview__btn--prev"
                 @click="handlePrev">
                 <left-outlined></left-outlined>
             </div>
             <!-- 下一个 -->
             <div
-                class="x-preview__btn x-preview__btn--next"
                 :class="{
                     'x-preview__btn--disabled': cpNextBtnDisabled,
                 }"
+                class="x-preview__btn x-preview__btn--next"
                 @click="handleNext">
                 <right-outlined></right-outlined>
             </div>
@@ -65,10 +65,10 @@
                 <template v-if="cpFileType === 'image'">
                     <!-- 缩小 -->
                     <div
-                        class="x-preview__action"
                         :class="{
                             'x-preview__action--disabled': cpZoomOutBtnDisabled,
                         }"
+                        class="x-preview__action"
                         @click="handleZoomOut">
                         <zoom-out-outlined />
                     </div>

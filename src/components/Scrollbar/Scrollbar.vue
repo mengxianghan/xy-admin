@@ -1,8 +1,8 @@
 <template>
     <overlay-scrollbars-component
         ref="scrollbarRef"
-        :style="cpStyle"
         :options="cpOptions"
+        :style="cpStyle"
         @os-scroll="onScroll"
         @os-initialized="onInitialized"
         @os-destroyed="onDestroyed"
@@ -115,4 +115,4 @@ defineExpose({
 })
 </script>
 
-<style scoped lang="less"></style>
+<style lang="less" scoped></style>

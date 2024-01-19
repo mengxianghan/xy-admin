@@ -37,12 +37,15 @@
                 <x-action-button>Edit</x-action-button>
                 <x-action-button>Delete</x-action-button>
                 <a-dropdown>
-                    <x-action-button> More <down-outlined class="fs-10"></down-outlined> </x-action-button>
+                    <x-action-button>
+                        More
+                        <down-outlined class="fs-10"></down-outlined>
+                    </x-action-button>
                     <template #overlay>
                         <a-menu>
-                            <a-menu-item> 1st menu item </a-menu-item>
-                            <a-menu-item> 2nd menu item </a-menu-item>
-                            <a-menu-item> 3rd menu item </a-menu-item>
+                            <a-menu-item> 1st menu item</a-menu-item>
+                            <a-menu-item> 2nd menu item</a-menu-item>
+                            <a-menu-item> 3rd menu item</a-menu-item>
                         </a-menu>
                     </template>
                 </a-dropdown>

@@ -6,8 +6,8 @@
 <template>
     <x-cascader
         v-model="selectedKeys"
-        :load-data="[getOptions, getOptions, getOptions]"
-        :level="3">
+        :level="3"
+        :load-data="[getOptions, getOptions, getOptions]">
     </x-cascader>
 </template>
 

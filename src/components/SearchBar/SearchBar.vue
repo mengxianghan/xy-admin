@@ -3,8 +3,8 @@
         class="x-search-bar"
         v-bind="cpAttrs">
         <slot
-            :gutter="gutter"
-            :col-span="colSpan"></slot>
+            :col-span="colSpan"
+            :gutter="gutter"></slot>
     </a-card>
 </template>
 

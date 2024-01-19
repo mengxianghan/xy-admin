@@ -1,7 +1,7 @@
 <template>
     <div
-        class="x-tag-select-option"
         :class="cpClass"
+        class="x-tag-select-option"
         @click="handleClick">
         <slot></slot>
     </div>

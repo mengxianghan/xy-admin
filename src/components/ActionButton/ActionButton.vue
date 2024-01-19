@@ -1,8 +1,8 @@
 <template>
     <span class="x-action-btn">
         <component
-            class="x-action-btn__btn"
-            :is="tag">
+            :is="tag"
+            class="x-action-btn__btn">
             <slot></slot>
         </component>
         <a-divider

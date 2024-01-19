@@ -11,8 +11,8 @@
             </a-form-item>
             <a-form-item>
                 <a-button
-                    type="primary"
-                    ghost>
+                    ghost
+                    type="primary">
                     搜索
                 </a-button>
             </a-form-item>

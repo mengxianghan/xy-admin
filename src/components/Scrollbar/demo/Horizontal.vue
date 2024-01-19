@@ -22,6 +22,7 @@
 .scrollbar-flex-content {
     display: flex;
 }
+
 .scrollbar-demo-item {
     flex-shrink: 0;
     display: flex;

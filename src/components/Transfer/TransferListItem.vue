@@ -1,9 +1,9 @@
 <template>
     <li
-        class="x-transfer-list-item"
         :class="{
             'x-transfer-list-item--disabled': disabledComputed,
         }"
+        class="x-transfer-list-item"
         @click="handleClick">
         <!--复选框-->
         <template v-if="checkableComputed">
@@ -16,11 +16,11 @@
         <!--内容-->
         <div class="x-transfer-list-item__content">
             <slot
-                name="item"
-                :record="record"
-                :direction="direction"
                 :checked="checked"
-                :disabled="disabledComputed">
+                :direction="direction"
+                :disabled="disabledComputed"
+                :record="record"
+                name="item">
                 {{ record[fieldNames.label] }}
             </slot>
         </div>
@@ -40,8 +40,8 @@
                                 },
                             }">
                             <a-button
-                                type="text"
                                 size="small"
+                                type="text"
                                 @click.stop="handleNext">
                                 下级
                             </a-button>
@@ -56,8 +56,8 @@
             <template v-if="isRightComputed">
                 <!--删除-->
                 <a-button
-                    type="text"
                     size="small"
+                    type="text"
                     @click="handleDelete">
                     <template #icon>
                         <close-outlined class="color-secondary"></close-outlined>
@@ -191,6 +191,7 @@ function handleNext() {
             &.ant-btn-sm {
                 padding-inline: 2px;
             }
+
             &.ant-btn-text {
                 .anticon {
                     font-size: 10px;

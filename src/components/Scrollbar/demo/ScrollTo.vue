@@ -6,10 +6,10 @@
 <template>
     <x-scrollbar
         ref="scrollbarRef"
-        height="400px"
         always
-        @scroll="onScroll"
-        @initialized="onInitialized">
+        height="400px"
+        @initialized="onInitialized"
+        @scroll="onScroll">
         <p
             v-for="item in 20"
             :key="item"
@@ -19,10 +19,10 @@
     </x-scrollbar>
 
     <a-slider
-        class="mt-8-4"
         v-model:value="value"
         :max="max"
         :tip-formatter="formatTip"
+        class="mt-8-4"
         @change="onChange" />
 </template>
 
@@ -40,9 +40,11 @@ function onInitialized(instance) {
 function onChange(value) {
     scrollbarRef.value.setScrollTop(value)
 }
+
 function onScroll(instance) {
     value.value = instance.elements().scrollEventElement.scrollTop
 }
+
 function formatTip(value) {
     return `${value} px`
 }
