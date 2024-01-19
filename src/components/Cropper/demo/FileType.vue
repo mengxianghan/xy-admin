@@ -38,11 +38,13 @@ async function handleBase64() {
     console.log(result)
     message.success('已通过 console 打印')
 }
+
 async function handleBlob() {
     const result = await cropperRef.value.getBlob()
     console.log(result)
     message.success('已通过 console 打印')
 }
+
 async function handleFile() {
     const result = await cropperRef.value.getFile()
     console.log(result)

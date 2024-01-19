@@ -13,7 +13,7 @@
             </a-list-item-meta>
         </a-list-item>
         <a-list-item>
-            <template #actions> </template>
+            <template #actions></template>
             <a-list-item-meta>
                 <template #title>主题色</template>
                 <template #description>页面风格配色</template>

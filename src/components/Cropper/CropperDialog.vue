@@ -1,18 +1,18 @@
 <template>
     <a-modal
+        :after-close="onAfterClose"
+        :confirm-loading="loading"
+        :open="modal.open"
+        :width="584"
         destroy-on-close
         title="裁剪图片"
-        :open="modal.open"
-        :after-close="onAfterClose"
-        :width="584"
-        :confirm-loading="loading"
-        @ok="handleOk"
-        @cancel="handleCancel">
+        @cancel="handleCancel"
+        @ok="handleOk">
         <cropper
             ref="cropperRef"
-            :src="src"
             :aspect-ratio="aspectRatio"
             :quality="quality"
+            :src="src"
             :type="type" />
     </a-modal>
 </template>

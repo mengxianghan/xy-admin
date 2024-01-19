@@ -1,17 +1,17 @@
 <template>
     <a-modal
+        :after-close="onAfterClose"
+        :confirm-loading="modal.confirmLoading"
         :open="modal.open"
         :title="modal.title"
-        :confirm-loading="modal.confirmLoading"
-        :after-close="onAfterClose"
-        @ok="handleOk"
-        @cancel="handleCancel">
+        @cancel="handleCancel"
+        @ok="handleOk">
         <a-form
             ref="formRef"
-            scroll-to-first-error
+            :label-col="{ style: { width: '80px' } }"
             :model="formData"
             :rules="formRules"
-            :label-col="{ style: { width: '80px' } }">
+            scroll-to-first-error>
             <a-form-item
                 label="标题"
                 name="title">

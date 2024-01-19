@@ -39,9 +39,9 @@ each(400 500 600 normal bold lighter, {
 
 // LineHeight
 each({
-        lh-1: 1;
-        lh-1-5: 1.5;
-    }, {
+    lh-1: 1;
+    lh-1-5: 1.5;
+}, {
     .@{key} {
         line-height: @value !important;
     }
@@ -65,7 +65,7 @@ each({
     pa: padding;
 }, .(@props, @class) {
 
-    each(0 auto, .(@value){
+    each(0 auto, .(@value) {
         .@{class}-@{value} {
             each(@props, .(@prop) {
                     @{prop}: @value !important;
@@ -141,7 +141,7 @@ each({
 
 // Cursor
 each(pointer not-allowed, {
-    .cursor-@{value}{
+    .cursor-@{value} {
         cursor: @value;
     }
 });

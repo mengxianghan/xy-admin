@@ -1,17 +1,17 @@
 <template>
     <a-card
-        class="x-search"
         :class="{
             'x-search--bordered': bordered,
-        }">
+        }"
+        class="x-search">
         <a-form
             layout="inline"
             v-bind="attrs">
             <grid
-                :columns="columns"
-                :gutter="gutter"
                 :collapsed="collapsed"
-                :collapsed-rows="collapsedRows">
+                :collapsed-rows="collapsedRows"
+                :columns="columns"
+                :gutter="gutter">
                 <slot></slot>
             </grid>
         </a-form>

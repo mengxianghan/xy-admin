@@ -5,8 +5,8 @@
 
 <template>
     <x-search
-        :label-col="{ style: { width: '100px' } }"
-        :columns="3">
+        :columns="3"
+        :label-col="{ style: { width: '100px' } }">
         <x-search-item>
             <template #label>
                 规则名称
@@ -23,8 +23,8 @@
             <a-space>
                 <a-button>重置</a-button>
                 <a-button
-                    type="primary"
-                    ghost>
+                    ghost
+                    type="primary">
                     查询
                 </a-button>
             </a-space>

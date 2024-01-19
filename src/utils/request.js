@@ -1,4 +1,4 @@
-import { notification, message } from 'ant-design-vue'
+import { message, notification } from 'ant-design-vue'
 import { config } from '@/config'
 import { useUserStore } from '@/store'
 import jschardet from 'jschardet'

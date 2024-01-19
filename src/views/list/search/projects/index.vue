@@ -21,16 +21,16 @@
                 <a-col>
                     <x-filter-item label="作者">
                         <a-select
-                            placeholder="不限"
                             :style="{ minWidth: '120px' }"
+                            placeholder="不限"
                             @change="handleSearch"></a-select>
                     </x-filter-item>
                 </a-col>
                 <a-col>
                     <x-filter-item label="好评度">
                         <a-select
-                            placeholder="不限"
                             :style="{ minWidth: '120px' }"
+                            placeholder="不限"
                             @change="handleSearch"></a-select>
                     </x-filter-item>
                 </a-col>

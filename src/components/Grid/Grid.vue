@@ -1,7 +1,7 @@
 <template>
     <div
-        class="x-grid"
-        :style="styleComputed">
+        :style="styleComputed"
+        class="x-grid">
         <slot></slot>
     </div>
 </template>

@@ -1,17 +1,17 @@
 <template>
     <a-page-header
-        title="基础表单"
+        :ghost="false"
         main
-        :ghost="false">
+        title="基础表单">
         表单页用于向用户收集或验证信息，基础表单常见于数据项较少的表单场景。
     </a-page-header>
     <a-card class="mt-8-2">
         <a-form
-            :label-col="{ sm: 7, lg: 7 }"
-            :wrapper-col="{ sm: 17, lg: 10 }"
             ref="formRef"
+            :label-col="{ sm: 7, lg: 7 }"
+            :model="formData"
             :rules="formRules"
-            :model="formData">
+            :wrapper-col="{ sm: 17, lg: 10 }">
             <a-form-item
                 label="标题"
                 name="field1">
@@ -29,16 +29,16 @@
                 name="field3">
                 <a-textarea
                     v-model:value="formData.field3"
-                    placeholder="请输入你的阶段性工作目标"
-                    :rows="4"></a-textarea>
+                    :rows="4"
+                    placeholder="请输入你的阶段性工作目标"></a-textarea>
             </a-form-item>
             <a-form-item
                 label="衡量标准"
                 name="field4">
                 <a-textarea
                     v-model:value="formData.field4"
-                    placeholder="请输入衡量标准"
-                    :rows="4"></a-textarea>
+                    :rows="4"
+                    placeholder="请输入衡量标准"></a-textarea>
             </a-form-item>
             <a-form-item name="field5">
                 <template #label>

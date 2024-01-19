@@ -6,23 +6,23 @@
 <template>
     <a-space>
         <x-tag
-            type="success"
-            secondary>
+            secondary
+            type="success">
             不该
         </x-tag>
         <x-tag
-            type="warning"
-            secondary>
+            secondary
+            type="warning">
             超人不会飞
         </x-tag>
         <x-tag
-            type="error"
-            secondary>
+            secondary
+            type="error">
             手写的从前
         </x-tag>
         <x-tag
-            type="info"
-            secondary>
+            secondary
+            type="info">
             哪里都是你
         </x-tag>
     </a-space>

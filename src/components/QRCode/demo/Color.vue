@@ -6,11 +6,11 @@
 <template>
     <a-space :size="24">
         <x-qrcode
-            color="#72c240"
-            :value="text"></x-qrcode>
+            :value="text"
+            color="#72c240"></x-qrcode>
         <x-qrcode
-            color="#3875f7"
-            :value="text"></x-qrcode>
+            :value="text"
+            color="#3875f7"></x-qrcode>
     </a-space>
 </template>
 

@@ -6,9 +6,9 @@
 <template>
     <x-upload-image
         v-model="images"
-        text="开启裁剪"
+        :aspect-ratio="1"
         cropper
-        :aspect-ratio="1"></x-upload-image>
+        text="开启裁剪"></x-upload-image>
 </template>
 
 <script setup>

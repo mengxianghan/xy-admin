@@ -1,4 +1,4 @@
-import { Fragment, isVNode, Text, Comment } from 'vue'
+import { Comment, Fragment, isVNode, Text } from 'vue'
 
 /**
  * 获取插槽参数
@@ -100,6 +100,7 @@ export function isValid(value) {
  * @returns
  */
 const skipFlattenKey = Symbol('skipFlatten')
+
 export function flattenChildren(children) {
     const temp = Array.isArray(children) ? children : [children]
     const res = []

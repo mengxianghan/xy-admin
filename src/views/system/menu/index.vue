@@ -14,9 +14,9 @@
         <a-table
             :columns="columns"
             :data-source="listData"
+            :expand-icon-column-index="1"
             :loading="loading"
-            :pagination="false"
-            :expand-icon-column-index="1">
+            :pagination="false">
             <template #bodyCell="{ column, record }">
                 <template v-if="'menuType' === column.key">
                     <!--菜单-->
@@ -59,9 +59,9 @@
 </template>
 
 <script setup>
-import { Modal, message } from 'ant-design-vue'
+import { message, Modal } from 'ant-design-vue'
 import { ref } from 'vue'
-import { PlusOutlined, EllipsisOutlined } from '@ant-design/icons-vue'
+import { EllipsisOutlined, PlusOutlined } from '@ant-design/icons-vue'
 import apis from '@/apis'
 import { config } from '@/config'
 import { menuTypeEnum } from '@/enums/system'

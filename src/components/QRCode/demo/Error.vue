@@ -5,11 +5,11 @@
 
 <template>
     <a-space
-        direction="vertical"
-        :size="24">
+        :size="24"
+        direction="vertical">
         <x-qrcode
-            :value="text"
-            :error-level="level"></x-qrcode>
+            :error-level="level"
+            :value="text"></x-qrcode>
         <a-segmented
             v-model:value="level"
             :options="segmentedData" />

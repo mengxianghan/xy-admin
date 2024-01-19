@@ -1,10 +1,10 @@
 <template>
     <a-list
-        row-key="id"
-        item-layout="vertical"
         :data-source="listData"
         :loading="loading"
-        :pagination="paginationState">
+        :pagination="paginationState"
+        item-layout="vertical"
+        row-key="id">
         <template #renderItem="{ item }">
             <a-list-item key="item.title">
                 <template #actions>
@@ -27,9 +27,9 @@
                 <div>{{ item.sentence }}</div>
                 <div class="mt-8-2 display-flex align-items-center">
                     <a-avatar
-                        class="mr-8-1"
+                        :size="20"
                         :src="item.avatar"
-                        :size="20"></a-avatar>
+                        class="mr-8-1"></a-avatar>
                     <a class="mr-8-1">{{ item.name }}</a>
                     <span class="color-secondary mr-4-1">发布在</span>
                     <a>{{ item.link }}</a>

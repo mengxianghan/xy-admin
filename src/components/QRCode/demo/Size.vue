@@ -5,24 +5,28 @@
 
 <template>
     <a-space
-        direction="vertical"
-        :size="24">
+        :size="24"
+        direction="vertical">
         <a-button-group>
             <a-button @click="handleDecline">
-                <template #icon><MinusOutlined /></template>
+                <template #icon>
+                    <MinusOutlined />
+                </template>
                 small
             </a-button>
             <a-button @click="handleIncrease">
-                <template #icon><PlusOutlined /></template>
+                <template #icon>
+                    <PlusOutlined />
+                </template>
                 large
             </a-button>
         </a-button-group>
 
         <x-qrcode
-            icon-background-color="#fff"
-            :value="text"
             :icon="assets('logo.svg')"
-            :size="size"></x-qrcode>
+            :size="size"
+            :value="text"
+            icon-background-color="#fff"></x-qrcode>
     </a-space>
 </template>
 
@@ -40,6 +44,7 @@ function handleDecline() {
         size.value = 48
     }
 }
+
 function handleIncrease() {
     size.value = size.value + 10
     if (size.value > 300) {

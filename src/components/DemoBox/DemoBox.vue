@@ -8,8 +8,8 @@
                 <slot name="title">{{ component.title }}</slot>
             </div>
             <div
-                class="x-demo-box__description"
                 v-if="component.description"
+                class="x-demo-box__description"
                 v-html="component.description"></div>
             <div class="x-demo-box__actions">
                 <a-tooltip :title="copied ? '复制成功' : '复制代码'">
@@ -17,8 +17,8 @@
                         class="x-demo-box__action"
                         @click="handleCopy()">
                         <check-outlined
-                            class="color-success"
-                            v-if="copied"></check-outlined>
+                            v-if="copied"
+                            class="color-success"></check-outlined>
                         <copy-outlined v-else></copy-outlined>
                     </span>
                 </a-tooltip>
@@ -39,7 +39,8 @@
             <div
                 class="x-demo-box__toggle"
                 @click="open = !open">
-                <caret-up-outlined></caret-up-outlined>隐藏源代码
+                <caret-up-outlined></caret-up-outlined>
+                隐藏源代码
             </div>
         </div>
     </a-card>
@@ -47,7 +48,7 @@
 
 <script setup>
 import { ref } from 'vue'
-import { CopyOutlined, CodeOutlined, CheckOutlined, CaretUpOutlined } from '@ant-design/icons-vue'
+import { CaretUpOutlined, CheckOutlined, CodeOutlined, CopyOutlined } from '@ant-design/icons-vue'
 import hljs from 'highlight.js'
 import { useClipboard } from '@vueuse/core'
 import 'highlight.js/styles/github.min.css'
@@ -137,6 +138,7 @@ function handleCopy() {
         display: flex;
         align-items: center;
     }
+
     &__code {
         padding: 16px 32px;
         border-top: @color-split dashed 1px;

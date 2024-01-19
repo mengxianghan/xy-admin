@@ -1,18 +1,18 @@
 <template>
     <a-modal
+        :after-close="onAfterClose"
+        :confirm-loading="modal.confirmLoading"
         :open="modal.open"
         :title="modal.title"
-        :confirm-loading="modal.confirmLoading"
-        :after-close="onAfterClose"
-        @ok="handleOk"
-        @cancel="handleCancel">
+        @cancel="handleCancel"
+        @ok="handleOk">
         <a-form
             ref="formRef"
-            :model="formData"
-            :rules="formRules"
             :label-col="{
                 style: { width: '100px' },
-            }">
+            }"
+            :model="formData"
+            :rules="formRules">
             <a-form-item
                 label="名称"
                 name="title">
@@ -98,7 +98,7 @@
 import { cloneDeep } from 'lodash-es'
 import { QuestionCircleOutlined } from '@ant-design/icons-vue'
 import apis from '@/apis'
-import { useModal, useForm } from '@/hooks'
+import { useForm, useModal } from '@/hooks'
 import { menuTypeEnum } from '@/enums/system'
 import { config } from '@/config'
 

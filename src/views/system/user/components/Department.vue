@@ -12,10 +12,10 @@
         <x-scrollbar class="pa-8-2">
             <a-spin :spinning="loading">
                 <a-tree
-                    block-node
+                    :field-names="{ key: 'id', children: 'children' }"
                     :selected-keys="selectedKeys"
                     :tree-data="listData"
-                    :field-names="{ key: 'id', children: 'children' }"
+                    block-node
                     @select="onSelect">
                     <template #title="{ title }">
                         <a-row align="middle">
@@ -72,9 +72,9 @@ import { useAppStore } from '@/store'
 import { ref, watch } from 'vue'
 import { usePagination } from '@/hooks'
 import apis from '@/apis'
-import { Empty, Modal, message } from 'ant-design-vue'
+import { Empty, message, Modal } from 'ant-design-vue'
 import { config } from '@/config'
-import { head, get, find } from 'lodash-es'
+import { find, get, head } from 'lodash-es'
 import { MoreOutlined, PlusOutlined } from '@ant-design/icons-vue'
 import EditDepartmentDialog from './EditDepartmentDialog.vue'
 

@@ -5,9 +5,9 @@
 
 <template>
     <x-search
-        :columns="3"
         :collapsed="collapsed"
         :collapsed-rows="1"
+        :columns="3"
         :label-col="{ style: { width: '100px' } }">
         <x-search-item label="规则名称">
             <a-input></a-input>
@@ -28,13 +28,19 @@
             <a-space>
                 <a-button>重置</a-button>
                 <a-button
-                    type="primary"
-                    ghost>
+                    ghost
+                    type="primary">
                     查询
                 </a-button>
                 <a-typography-link @click="() => (collapsed = !collapsed)">
-                    <template v-if="collapsed">展开<down-outlined class="ml-4-1 fs-10"></down-outlined></template>
-                    <template v-else>收起<up-outlined class="ml-4-1 fs-10"></up-outlined></template>
+                    <template v-if="collapsed"
+                        >展开
+                        <down-outlined class="ml-4-1 fs-10"></down-outlined>
+                    </template>
+                    <template v-else
+                        >收起
+                        <up-outlined class="ml-4-1 fs-10"></up-outlined>
+                    </template>
                 </a-typography-link>
             </a-space>
         </x-search-item>

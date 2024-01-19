@@ -2,22 +2,31 @@
     <a-card>
         <div class="align-center mb-8-3">
             <a-avatar
+                :size="104"
                 class="mb-4-5"
-                src="http://cdn.xuanyunet.com/images/avatar.jpg"
-                :size="104"></a-avatar>
+                src="http://cdn.xuanyunet.com/images/avatar.jpg"></a-avatar>
             <div class="fs-18 fw-600 mb-4-1">Serati Ma</div>
             <div>海纳百川，有容乃大</div>
         </div>
         <div class="mx-8-3">
-            <p><idcard-outlined></idcard-outlined> 交互专家</p>
-            <p><cluster-outlined></cluster-outlined> 蚂蚁金服－某某某事业群－某某平台部－某某技术部－UED</p>
-            <p><home-outlined></home-outlined> 浙江省杭州市</p>
+            <p>
+                <idcard-outlined></idcard-outlined>
+                交互专家
+            </p>
+            <p>
+                <cluster-outlined></cluster-outlined>
+                蚂蚁金服－某某某事业群－某某平台部－某某技术部－UED
+            </p>
+            <p>
+                <home-outlined></home-outlined>
+                浙江省杭州市
+            </p>
         </div>
         <a-divider></a-divider>
         <div class="mb-4-3">标签</div>
         <div
-            class="display-flex flex-wrap-wrap"
-            :style="{ gap: '8px' }">
+            :style="{ gap: '8px' }"
+            class="display-flex flex-wrap-wrap">
             <a-tag
                 v-for="item in tagList"
                 :key="item">
@@ -29,14 +38,14 @@
         <a-row :gutter="[8, 24]">
             <a-col
                 v-for="item in teamList"
-                class="display-flex align-items-center"
+                :key="item.id"
                 :lg="24"
                 :xl="12"
-                :key="item.id">
+                class="display-flex align-items-center">
                 <a-avatar
-                    class="mr-4-3"
+                    :size="24"
                     :style="{ backgroundColor: item.color, fontSize: '12px' }"
-                    :size="24">
+                    class="mr-4-3">
                     {{ item.name.slice(0, 1) }}
                 </a-avatar>
                 {{ item.name }}

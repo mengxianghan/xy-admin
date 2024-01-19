@@ -8,11 +8,11 @@
         <x-grid-item
             v-for="(item, index) in 6"
             :key="item"
-            :xs="24"
-            :sm="12"
-            :md="8"
             :lg="6"
+            :md="8"
+            :sm="12"
             :xl="4"
+            :xs="24"
             :xxl="2">
             <div
                 :class="{
@@ -32,6 +32,7 @@ import { GridItem as XGridItem } from '@/components'
     height: 108px;
     background-color: rgba(0, 128, 0, 0.12);
 }
+
 .green {
     height: 108px;
     background-color: rgba(0, 128, 0, 0.24);

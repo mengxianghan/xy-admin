@@ -12,8 +12,8 @@
             <a-space>
                 <a-button>重置</a-button>
                 <a-button
-                    type="primary"
-                    ghost>
+                    ghost
+                    type="primary">
                     查询
                 </a-button>
             </a-space>

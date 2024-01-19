@@ -1,8 +1,8 @@
 <template>
     <a-page-header
+        :ghost="false"
         main
-        title="基础详情页"
-        :ghost="false">
+        title="基础详情页">
     </a-page-header>
     <a-card>
         <a-descriptions title="退款申请">
@@ -22,26 +22,26 @@
         <a-divider></a-divider>
         <h3>退货商品</h3>
         <a-table
-            row-key="id"
             :columns="goodsColumns"
             :data-source="goodsList"
-            :pagination="false">
+            :pagination="false"
+            row-key="id">
             <template #summary>
                 <a-table-summary>
                     <a-table-summary-row class="fw-600">
                         <a-table-summary-cell
-                            :index="0"
-                            :col-span="4">
+                            :col-span="4"
+                            :index="0">
                             总计
                         </a-table-summary-cell>
                         <a-table-summary-cell
-                            class="align-right"
-                            :index="1">
+                            :index="1"
+                            class="align-right">
                             10
                         </a-table-summary-cell>
                         <a-table-summary-cell
-                            class="align-right"
-                            :index="2">
+                            :index="2"
+                            class="align-right">
                             61.5
                         </a-table-summary-cell>
                     </a-table-summary-row>
@@ -50,10 +50,10 @@
         </a-table>
         <h3 class="mt-8-3">退货进度</h3>
         <a-table
-            row-key="id"
             :columns="progressColumns"
             :data-source="progressList"
-            :pagination="false">
+            :pagination="false"
+            row-key="id">
             <template #bodyCell="{ text, column }">
                 <template v-if="column.key === 'key3'">
                     <a-badge

@@ -1,16 +1,16 @@
 <template>
     <a-drawer
         v-model:open="open"
-        title="系统设置"
-        :closable="false"
-        :width="300"
         :body-style="{
             paddingBlock: '16px',
-        }">
+        }"
+        :closable="false"
+        :width="300"
+        title="系统设置">
         <a-form
-            label-align="left"
             :colon="false"
-            :label-col="{ span: 24 }">
+            :label-col="{ span: 24 }"
+            label-align="left">
             <a-form-item class="mb-8-2">
                 <template #label>
                     <div class="fw-bold">布局类型</div>
@@ -20,11 +20,11 @@
                     @change="onChange">
                     <a-tooltip
                         v-for="item in layoutList"
-                        :title="item.label"
-                        :key="item.value">
+                        :key="item.value"
+                        :title="item.label">
                         <layout-radio
-                            :header-theme="item.headerTheme"
                             :aside-theme="item.asideTheme"
+                            :header-theme="item.headerTheme"
                             :value="item.value"></layout-radio>
                     </a-tooltip>
                 </a-radio-group>
@@ -38,12 +38,12 @@
                     @change="onChange">
                     <a-tooltip
                         v-for="item in menuModeList"
-                        :title="item.label"
-                        :key="item.value">
+                        :key="item.value"
+                        :title="item.label">
                         <layout-radio
+                            :aside-theme="item.asideTheme"
                             :header-theme="item.headerTheme"
                             :header-z-index="item.headerZIndex"
-                            :aside-theme="item.asideTheme"
                             :value="item.value"></layout-radio>
                     </a-tooltip>
                 </a-radio-group>
@@ -57,8 +57,8 @@
                     @change="onChange">
                     <a-tooltip
                         v-for="item in themeList"
-                        :title="item.label"
-                        :key="item.value">
+                        :key="item.value"
+                        :title="item.label">
                         <layout-radio
                             :header-theme="item.theme"
                             :value="item.value"></layout-radio>
@@ -74,8 +74,8 @@
                     @change="onChange">
                     <a-tooltip
                         v-for="item in themeList"
-                        :title="item.label"
-                        :key="item.value">
+                        :key="item.value"
+                        :title="item.label">
                         <layout-radio
                             :aside-theme="item.theme"
                             :value="item.value"></layout-radio>
@@ -85,9 +85,9 @@
             <a-divider></a-divider>
             <div class="mb-8-2 fw-bold">内容区域</div>
             <a-form-item
-                label="标签页"
                 :label-col="{ flex: 'auto' }"
-                :wrapper-col="{ style: { flex: '0 0 auto' } }">
+                :wrapper-col="{ style: { flex: '0 0 auto' } }"
+                label="标签页">
                 <a-switch
                     v-model:checked="config.multiTab"
                     size="small"

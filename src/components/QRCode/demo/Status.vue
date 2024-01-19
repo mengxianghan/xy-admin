@@ -6,15 +6,15 @@
 <template>
     <a-space :size="24">
         <x-qrcode
-            status="loading"
-            :value="text"></x-qrcode>
-        <x-qrcode
-            status="expired"
             :value="text"
+            status="loading"></x-qrcode>
+        <x-qrcode
+            :value="text"
+            status="expired"
             @refresh="handleRefresh"></x-qrcode>
         <x-qrcode
-            status="scanned"
-            :value="text"></x-qrcode>
+            :value="text"
+            status="scanned"></x-qrcode>
     </a-space>
 </template>
 

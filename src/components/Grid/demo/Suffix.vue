@@ -32,9 +32,9 @@
     </x-grid>
 
     <x-grid
-        :columns="5"
         :collapsed="gridCollapsed"
-        :collapsed-rows="gridCollapsedRows">
+        :collapsed-rows="gridCollapsedRows"
+        :columns="5">
         <x-grid-item
             v-for="i in gridItemCount"
             :key="i"
@@ -43,9 +43,9 @@
         </x-grid-item>
         <x-grid-item
             v-if="showSuffix"
-            suffix
+            #="{ overflow }"
             class="suffix"
-            #="{ overflow }">
+            suffix>
             {{ overflow ? '存在溢出' : '不存在溢出' }}
         </x-grid-item>
     </x-grid>
@@ -69,6 +69,7 @@ const showSuffix = ref(true)
     align-items: center;
     justify-content: center;
 }
+
 .light-green {
     height: 108px;
     background-color: rgba(0, 128, 0, 0.12);
@@ -77,6 +78,7 @@ const showSuffix = ref(true)
     align-items: center;
     justify-content: center;
 }
+
 .green {
     height: 108px;
     background-color: rgba(0, 128, 0, 0.24);

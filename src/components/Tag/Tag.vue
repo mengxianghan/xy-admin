@@ -1,11 +1,11 @@
 <template>
     <a-tag
-        class="x-tag"
-        v-bind="attrs"
-        :style="cpStyle"
         :class="{
             'x-tag--round': round,
-        }">
+        }"
+        :style="cpStyle"
+        class="x-tag"
+        v-bind="attrs">
         <template #icon>
             <slot name="icon">
                 <component :is="icon"></component>

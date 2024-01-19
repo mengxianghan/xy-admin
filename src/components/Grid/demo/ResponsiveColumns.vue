@@ -5,8 +5,8 @@
 
 <template>
     <x-grid
-        :gutter="[12, 12]"
-        :columns="{ xs: 1, sm: 2, md: 3, lg: 4, xl: 5, xxl: 6 }">
+        :columns="{ xs: 1, sm: 2, md: 3, lg: 4, xl: 5, xxl: 6 }"
+        :gutter="[12, 12]">
         <x-grid-item
             v-for="(item, index) in 6"
             :key="item">
@@ -28,6 +28,7 @@ import { GridItem as XGridItem } from '@/components'
     height: 108px;
     background-color: rgba(0, 128, 0, 0.12);
 }
+
 .green {
     height: 108px;
     background-color: rgba(0, 128, 0, 0.24);

@@ -1,16 +1,16 @@
 <template>
     <div class="x-editor">
         <a-spin
-            size="small"
-            :spinning="spinning">
+            :spinning="spinning"
+            size="small">
             <div class="x-editor__content">
                 <tiny-editor
-                    tinymce-script-src="/libs/tinymce/tinymce.min.js"
                     v-model="content"
-                    v-bind="$attrs"
-                    :init="opts"
                     :disabled="disabled"
+                    :init="opts"
                     :placeholder="placeholder"
+                    tinymce-script-src="/libs/tinymce/tinymce.min.js"
+                    v-bind="$attrs"
                     @init="onInit"></tiny-editor>
             </div>
         </a-spin>

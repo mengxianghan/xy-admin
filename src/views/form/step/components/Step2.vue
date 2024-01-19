@@ -2,36 +2,36 @@
     <div>
         <a-form
             ref="formRef"
-            :model="formData"
             :label-col="{ lg: { span: 5 }, sm: { span: 5 } }"
-            :wrapper-col="{ lg: { span: 19 }, sm: { span: 19 } }"
-            :rules="formRules">
+            :model="formData"
+            :rules="formRules"
+            :wrapper-col="{ lg: { span: 19 }, sm: { span: 19 } }">
             <a-alert
-                message="确认转账后，资金将直接打入对方账户，无法退回。"
+                :closable="true"
                 :style="{ marginBottom: '24px' }"
-                :closable="true" />
-            <a-form-item label="付款账户"> ****@***.com </a-form-item>
-            <a-form-item label="收款账户"> test@example.com </a-form-item>
-            <a-form-item label="收款人姓名"> Alex </a-form-item>
-            <a-form-item label="转账金额"> ￥ 5,000.00 </a-form-item>
+                message="确认转账后，资金将直接打入对方账户，无法退回。" />
+            <a-form-item label="付款账户"> ****@***.com</a-form-item>
+            <a-form-item label="收款账户"> test@example.com</a-form-item>
+            <a-form-item label="收款人姓名"> Alex</a-form-item>
+            <a-form-item label="转账金额"> ￥ 5,000.00</a-form-item>
             <a-divider />
             <a-form-item
                 label="支付密码"
                 name="paymentPassword">
                 <a-input
                     v-model:value="formData.paymentPassword"
-                    type="password"
-                    :style="{ width: '80%' }" />
+                    :style="{ width: '80%' }"
+                    type="password" />
             </a-form-item>
             <a-form-item :wrapper-col="{ span: 19, offset: 5 }">
                 <a-space>
                     <a-button
-                        type="primary"
                         :loading="loading"
+                        type="primary"
                         @click="handleNext">
                         提交
                     </a-button>
-                    <a-button @click="handlePrev">上一步 </a-button>
+                    <a-button @click="handlePrev">上一步</a-button>
                 </a-space>
             </a-form-item>
         </a-form>

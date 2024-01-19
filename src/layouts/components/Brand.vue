@@ -1,11 +1,11 @@
 <template>
     <div
-        class="brand"
         :class="cpClass"
-        :style="cpStyle">
+        :style="cpStyle"
+        class="brand">
         <img
-            alt=""
-            :src="config('app.logo')" />
+            :src="config('app.logo')"
+            alt="" />
         <h1>{{ config('app.title') }}</h1>
     </div>
 </template>

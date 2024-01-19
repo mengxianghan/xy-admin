@@ -1,7 +1,7 @@
 <template>
     <a-row
-        type="flex"
-        :gutter="48">
+        :gutter="48"
+        type="flex">
         <a-col flex="0 0 480px">
             <a-form layout="vertical">
                 <a-form-item label="邮箱">
@@ -36,8 +36,8 @@
         <a-col class="align-center">
             <div>
                 <a-avatar
-                    src="http://cdn.xuanyunet.com/images/avatar.jpg"
-                    :size="144"></a-avatar>
+                    :size="144"
+                    src="http://cdn.xuanyunet.com/images/avatar.jpg"></a-avatar>
             </div>
             <div class="mt-8-2">
                 <a-upload :show-upload-list="false">

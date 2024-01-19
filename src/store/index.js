@@ -1,4 +1,5 @@
 import { createPinia } from 'pinia'
+
 export { default as useAppStore } from './modules/app'
 export { default as useMultiTabStore } from './modules/multiTab'
 export { default as useRouterStore } from './modules/router'

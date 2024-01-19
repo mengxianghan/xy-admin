@@ -2,22 +2,22 @@
     <a-card class="mb-8-2">
         <a-row class="align-center">
             <a-col
-                :xs="24"
-                :sm="8">
+                :sm="8"
+                :xs="24">
                 <a-statistic
                     title="我的待办"
                     value="8个任务" />
             </a-col>
             <a-col
-                :xs="24"
-                :sm="8">
+                :sm="8"
+                :xs="24">
                 <a-statistic
                     title="本周任务平均处理时间"
                     value="32分钟" />
             </a-col>
             <a-col
-                :xs="24"
-                :sm="8">
+                :sm="8"
+                :xs="24">
                 <a-statistic
                     title="本周完成任务数"
                     value="24个任务" />
@@ -41,10 +41,10 @@
             </a-space>
         </template>
         <a-list
-            item-layout="horizontal"
             :data-source="listData"
+            :loading="loading"
             :pagination="paginationState"
-            :loading="loading">
+            item-layout="horizontal">
             <template #renderItem="{ item }">
                 <a-list-item>
                     <template #actions>
@@ -70,15 +70,15 @@
                         </template>
                         <template #avatar>
                             <a-avatar
-                                shape="square"
+                                :size="48"
                                 :src="item.avatar"
-                                :size="48" />
+                                shape="square" />
                         </template>
                     </a-list-item-meta>
                     <a-row
-                        class="color-secondary align-right"
+                        :gutter="40"
                         align="middle"
-                        :gutter="40">
+                        class="color-secondary align-right">
                         <a-col>
                             <div>Owner</div>
                             <div>{{ item.name }}</div>
@@ -89,8 +89,8 @@
                         </a-col>
                         <a-col>
                             <a-progress
-                                :style="{ width: '180px' }"
-                                :percent="item.percent" />
+                                :percent="item.percent"
+                                :style="{ width: '180px' }" />
                         </a-col>
                     </a-row>
                 </a-list-item>
@@ -104,7 +104,7 @@
 </template>
 
 <script setup>
-import { Modal, message } from 'ant-design-vue'
+import { message, Modal } from 'ant-design-vue'
 import { ref } from 'vue'
 import { MoreOutlined } from '@ant-design/icons-vue'
 import dayjs from 'dayjs'

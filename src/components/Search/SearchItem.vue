@@ -1,23 +1,23 @@
 <template>
     <grid-item
-        class="x-search-item"
-        :span="span"
-        :xs="xs"
-        :sm="sm"
-        :md="md"
         :lg="lg"
-        :xl="xl"
-        :xxl="xxl"
+        :md="md"
         :offset="offset"
-        :suffix="suffix">
+        :sm="sm"
+        :span="span"
+        :suffix="suffix"
+        :xl="xl"
+        :xs="xs"
+        :xxl="xxl"
+        class="x-search-item">
         <a-form-item v-bind="attrs">
             <template
                 v-for="(_, key) in slots"
-                v-slot:[key]="slotProps"
-                :key="key">
+                :key="key"
+                v-slot:[key]="slotProps">
                 <slot
-                    v-bind="getSlotProps(slotProps)"
-                    :name="key"></slot>
+                    :name="key"
+                    v-bind="getSlotProps(slotProps)"></slot>
             </template>
         </a-form-item>
     </grid-item>
@@ -26,7 +26,7 @@
 <script setup>
 import { FormItem as AFormItem } from 'ant-design-vue'
 import { getSlotProps } from '@/components/utils'
-import { useSlots, useAttrs } from 'vue'
+import { useAttrs, useSlots } from 'vue'
 import { GridItem } from '../Grid'
 
 defineOptions({

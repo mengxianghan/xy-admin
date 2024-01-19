@@ -12,23 +12,23 @@
         <x-scrollbar class="pa-8-2">
             <a-spin :spinning="loading">
                 <a-tree
-                    block-node
+                    :field-names="{ key: 'id', children: 'children' }"
                     :selected-keys="selectedKeys"
                     :tree-data="listData"
-                    :field-names="{ key: 'id', children: 'children' }"
+                    block-node
                     @select="onSelect">
                     <template #title="{ role_name }">
                         <a-row
-                            align="middle"
-                            :gutter="8">
+                            :gutter="8"
+                            align="middle">
                             <a-col flex="1">{{ role_name }}</a-col>
                             <a-col class="lh-1">
                                 <a-dropdown
                                     :trigger="['click']"
                                     @click.stop>
                                     <a-button
-                                        type="text"
-                                        size="small">
+                                        size="small"
+                                        type="text">
                                         <template #icon>
                                             <more-outlined></more-outlined>
                                         </template>
@@ -69,9 +69,9 @@ import { useAppStore } from '@/store'
 import { ref, watch } from 'vue'
 import { usePagination } from '@/hooks'
 import apis from '@/apis'
-import { Empty, Modal, message } from 'ant-design-vue'
+import { Empty, message, Modal } from 'ant-design-vue'
 import { config } from '@/config'
-import { head, get, find } from 'lodash-es'
+import { find, get, head } from 'lodash-es'
 import { MoreOutlined, PlusOutlined } from '@ant-design/icons-vue'
 import EditRoleDialog from './EditRoleDialog.vue'
 

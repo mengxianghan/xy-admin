@@ -1,11 +1,11 @@
 <template>
     <div>
         <a-form
-            :model="formData"
-            :label-col="{ lg: { span: 5 }, sm: { span: 5 } }"
-            :wrapper-col="{ lg: { span: 19 }, sm: { span: 19 } }"
             ref="formRef"
-            :rules="formRules">
+            :label-col="{ lg: { span: 5 }, sm: { span: 5 } }"
+            :model="formData"
+            :rules="formRules"
+            :wrapper-col="{ lg: { span: 19 }, sm: { span: 19 } }">
             <a-form-item
                 label="付款账户"
                 name="paymentUser">
@@ -19,8 +19,8 @@
                 label="收款账户"
                 name="payType">
                 <a-input-group
-                    style="display: inline-block; vertical-align: middle"
-                    :compact="true">
+                    :compact="true"
+                    style="display: inline-block; vertical-align: middle">
                     <a-form-item-rest>
                         <a-select
                             default-value="alipay"

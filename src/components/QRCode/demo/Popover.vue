@@ -7,13 +7,13 @@
     <a-popover :overlay-inner-style="{ padding: 0 }">
         <template #content>
             <x-qrcode
-                :value="text"
-                :bordered="false" />
+                :bordered="false"
+                :value="text" />
         </template>
         <img
-            width="100"
+            :src="assets('logo.svg')"
             height="100"
-            :src="assets('logo.svg')" />
+            width="100" />
     </a-popover>
 </template>
 

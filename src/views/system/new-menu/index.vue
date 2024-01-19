@@ -9,9 +9,9 @@
         </a-col>
         <a-col flex="1.2">
             <a-card
-                title="菜单信息"
+                :body-style="cpBodyStyle"
                 :style="cpStyle"
-                :body-style="cpBodyStyle">
+                title="菜单信息">
                 <x-scrollbar class="pa-8-2">
                     <a-form
                         :label-col="{ style: { width: '100px' } }"
@@ -77,9 +77,9 @@
                             <a-switch v-model:checked="formData.is_menu"></a-switch>
                         </a-form-item>
                         <a-form-item
-                            label="&nbsp;"
-                            :colon="false">
-                            <a-button type="primary"> 保存 </a-button>
+                            :colon="false"
+                            label="&nbsp;">
+                            <a-button type="primary"> 保存</a-button>
                         </a-form-item>
                     </a-form>
                 </x-scrollbar>
@@ -87,9 +87,9 @@
         </a-col>
         <a-col flex="1">
             <a-card
-                title="权限按钮"
+                :body-style="cpBodyStyle"
                 :style="cpStyle"
-                :body-style="cpBodyStyle">
+                title="权限按钮">
                 <x-scrollbar class="pa-8-2">
                     <x-form-table
                         v-model="actionList"
@@ -118,7 +118,7 @@
 
 <script setup>
 import { computed, ref } from 'vue'
-import { usePagination, useForm } from '@/hooks'
+import { useForm, usePagination } from '@/hooks'
 import { default as Menus } from './components/Menu.vue'
 import { useAppStore } from '@/store'
 

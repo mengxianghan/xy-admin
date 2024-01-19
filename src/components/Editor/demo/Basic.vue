@@ -4,7 +4,7 @@
 </demo>
 
 <template>
-    <x-editor> </x-editor>
+    <x-editor></x-editor>
 </template>
 
 <script setup></script>

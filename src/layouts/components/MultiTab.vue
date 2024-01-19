@@ -3,8 +3,8 @@
         ref="multiTabRef"
         class="multi-tab">
         <a-tabs
-            type="card"
             :active-key="cpCurrent"
+            type="card"
             @change="handleSwitch">
             <a-tab-pane
                 v-for="(item, index) in cpMultiTabList"
@@ -77,7 +77,7 @@ import { computed, nextTick, onMounted, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { storeToRefs } from 'pinia'
 import { CloseOutlined, ReloadOutlined } from '@ant-design/icons-vue'
-import { useMultiTabStore, useAppStore } from '@/store'
+import { useAppStore, useMultiTabStore } from '@/store'
 import { useMultiTab } from '@/hooks'
 
 defineOptions({

@@ -3,8 +3,8 @@
         <div class="x-cropper__img">
             <img
                 ref="imgRef"
-                alt=""
-                :src="src" />
+                :src="src"
+                alt="" />
         </div>
         <div class="x-cropper__preview">
             <h4>图像预览</h4>

@@ -2,27 +2,27 @@
     <div class="x-transfer">
         <transfer-list
             v-model:keyword="keyword"
-            :direction="DIRECTION_ENUM.getValue('left')"
-            :data-source="dataListComputed">
+            :data-source="dataListComputed"
+            :direction="DIRECTION_ENUM.getValue('left')">
             <template
                 v-for="(_, key) in slots"
-                v-slot:[key]="slotProps"
-                :key="key">
+                :key="key"
+                v-slot:[key]="slotProps">
                 <slot
-                    v-bind="getSlotProps(slotProps)"
-                    :name="key"></slot>
+                    :name="key"
+                    v-bind="getSlotProps(slotProps)"></slot>
             </template>
         </transfer-list>
         <transfer-list
-            :direction="DIRECTION_ENUM.getValue('right')"
-            :data-source="targetList">
+            :data-source="targetList"
+            :direction="DIRECTION_ENUM.getValue('right')">
             <template
                 v-for="(_, key) in slots"
-                v-slot:[key]="slotProps"
-                :key="key">
+                :key="key"
+                v-slot:[key]="slotProps">
                 <slot
-                    v-bind="getSlotProps(slotProps)"
-                    :name="key"></slot>
+                    :name="key"
+                    v-bind="getSlotProps(slotProps)"></slot>
             </template>
         </transfer-list>
     </div>
@@ -33,7 +33,7 @@ import TransferList from './TransferList.vue'
 import { DIRECTION_ENUM } from './config'
 import { useTransferProvide } from './context'
 import { computed, defineModel, ref, useSlots, watch, watchEffect } from 'vue'
-import { filter, last, isFunction } from 'lodash-es'
+import { filter, isFunction, last } from 'lodash-es'
 import { Form } from 'ant-design-vue'
 import { getSlotProps } from '../utils'
 import { findTree } from '@/utils'

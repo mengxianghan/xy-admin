@@ -1,16 +1,16 @@
 <template>
     <a-row :gutter="16">
         <a-col
-            :md="24"
             :lg="10"
+            :md="24"
             :xl="8"
             :xxl="6"
             class="mb-8-2">
             <user-info-card></user-info-card>
         </a-col>
         <a-col
-            :md="24"
             :lg="14"
+            :md="24"
             :xl="16"
             :xxl="18">
             <a-card

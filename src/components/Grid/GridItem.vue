@@ -1,12 +1,12 @@
 <template>
     <div
-        class="x-grid-item"
-        ref="gridItemRef"
         v-show="show"
-        :style="styleComputed"
+        ref="gridItemRef"
         :class="{
             'x-grid-item--suffix': suffix,
-        }">
+        }"
+        :style="styleComputed"
+        class="x-grid-item">
         <slot :overflow="overflowComputed"></slot>
     </div>
 </template>

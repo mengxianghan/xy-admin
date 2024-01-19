@@ -5,9 +5,9 @@
 
 <template>
     <x-upload-image
-        multiple
+        v-model="images"
         drag-sort
-        v-model="images"></x-upload-image>
+        multiple></x-upload-image>
 </template>
 
 <script setup>

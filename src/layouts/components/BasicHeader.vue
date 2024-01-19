@@ -1,8 +1,8 @@
 <template>
     <a-layout-header
-        class="basic-header"
         :class="cpClassNames"
-        :style="cpStyles">
+        :style="cpStyles"
+        class="basic-header">
         <!-- 左侧 -->
         <div
             v-if="cpShowLeftSlot"
@@ -25,9 +25,9 @@
                 <a-dropdown :trigger="['click']">
                     <action-button :style="{ height: '44px' }">
                         <a-avatar
-                            class="mr-8-1 display-inline-flex justify-content-center"
                             :size="24"
-                            :src="userInfo?.avatar">
+                            :src="userInfo?.avatar"
+                            class="mr-8-1 display-inline-flex justify-content-center">
                         </a-avatar>
                         <span>{{ userInfo?.name }}</span>
                     </action-button>
@@ -49,14 +49,13 @@
 </template>
 
 <script setup>
-import { Modal } from 'ant-design-vue'
+import { Modal, theme as antTheme } from 'ant-design-vue'
 import { storeToRefs } from 'pinia'
 import { computed, useSlots } from 'vue'
 import { useRouter } from 'vue-router'
 import { LoginOutlined, SettingOutlined } from '@ant-design/icons-vue'
 import { useAppStore, useUserStore } from '@/store'
 import ActionButton from './ActionButton.vue'
-import { theme as antTheme } from 'ant-design-vue'
 
 defineOptions({
     name: 'BasicHeader',

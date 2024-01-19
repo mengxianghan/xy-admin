@@ -2,9 +2,9 @@
     <div>
         <a-form>
             <a-result
-                title="操作成功"
                 :is-success="true"
-                sub-title="预计两小时内到账">
+                sub-title="预计两小时内到账"
+                title="操作成功">
                 <div class="information">
                     <a-row>
                         <a-col

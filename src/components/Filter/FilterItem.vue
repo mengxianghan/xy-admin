@@ -2,11 +2,11 @@
     <a-form-item class="x-filter-item">
         <template
             v-for="(_, key) in slots"
-            v-slot:[key]="slotProps"
-            :key="key">
+            :key="key"
+            v-slot:[key]="slotProps">
             <slot
-                v-bind="getSlotProps(slotProps)"
-                :name="key"></slot>
+                :name="key"
+                v-bind="getSlotProps(slotProps)"></slot>
         </template>
     </a-form-item>
 </template>

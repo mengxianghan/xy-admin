@@ -6,25 +6,25 @@
 <template>
     <a-space>
         <x-tag
-            type="success"
-            size="small"
-            round
             closable
+            round
+            size="small"
+            type="success"
             @close="handleClose">
             不该
         </x-tag>
         <x-tag
-            type="error"
             closable
             round
+            type="error"
             @close="handleClose">
             手写的从前
         </x-tag>
         <x-tag
-            type="error"
             closable
-            size="large"
             round
+            size="large"
+            type="error"
             @close="handleClose">
             手写的从前
         </x-tag>

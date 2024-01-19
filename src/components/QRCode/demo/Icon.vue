@@ -5,9 +5,9 @@
 
 <template>
     <x-qrcode
-        icon-background-color="#fff"
+        :icon="assets('logo.svg')"
         :value="text"
-        :icon="assets('logo.svg')"></x-qrcode>
+        icon-background-color="#fff"></x-qrcode>
 </template>
 
 <script setup>

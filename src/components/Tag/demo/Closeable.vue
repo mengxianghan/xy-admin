@@ -11,26 +11,26 @@
             爱在西元前
         </x-tag>
         <x-tag
-            type="success"
             closable
+            type="success"
             @close="handleClose">
             不该
         </x-tag>
         <x-tag
-            type="warning"
             closable
+            type="warning"
             @close="handleClose">
             超人不会飞
         </x-tag>
         <x-tag
-            type="error"
             closable
+            type="error"
             @close="handleClose">
             手写的从前
         </x-tag>
         <x-tag
-            type="info"
             closable
+            type="info"
             @click="handleClick"
             @close="handleClose">
             哪里都是你

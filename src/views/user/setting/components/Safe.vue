@@ -1,8 +1,8 @@
 <template>
     <a-list
+        :data-source="listData"
         item-layout="horizontal"
-        row-key="id"
-        :data-source="listData">
+        row-key="id">
         <template #renderItem="{ item }">
             <a-list-item>
                 <template #actions>

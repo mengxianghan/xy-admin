@@ -27,6 +27,7 @@ function handleOpen() {
         aspectRatio: 1 / 1,
     })
 }
+
 function onOk(base64, info) {
     console.log(base64, info)
     message.success('已通过 console 打印')

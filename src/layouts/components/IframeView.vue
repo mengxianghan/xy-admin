@@ -5,9 +5,9 @@
         <iframe
             v-for="item in iframeList"
             v-show="$route.meta.url === item.meta.url"
-            class="iframe"
+            :key="item.meta.url"
             :src="item.meta.url"
-            :key="item.meta.url"></iframe>
+            class="iframe"></iframe>
     </div>
 </template>
 

@@ -1,16 +1,16 @@
 <template>
     <a-page-header
-        main
+        :ghost="false"
         :title="cpPageTitle"
-        :ghost="false">
+        main>
         <div
             :style="{
                 width: '520px',
                 margin: '0 auto',
             }">
             <a-input-search
-                placeholder="请输入"
                 enter-button="搜索"
+                placeholder="请输入"
                 size="large" />
         </div>
         <template #footer>

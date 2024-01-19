@@ -22,9 +22,9 @@
         </x-filter-item>
         <x-filter-item label="CPU型号">
             <x-tag-select
-                multiple
                 v-model="formData.cpu"
-                :options="cpuOptions"></x-tag-select>
+                :options="cpuOptions"
+                multiple></x-tag-select>
         </x-filter-item>
     </x-filter>
 </template>

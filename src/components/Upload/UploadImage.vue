@@ -1,29 +1,29 @@
 <template>
     <div
         ref="uploadImageRef"
-        class="x-upload x-upload-image"
         :class="{
             'x-upload--round': round,
             'x-upload--disabled': disabled,
-        }">
+        }"
+        class="x-upload x-upload-image">
         <a-upload
             v-if="showUploadBtn"
-            :show-upload-list="false"
-            :multiple="multiple"
+            :accept="accept"
             :before-upload="onBeforeUpload"
             :custom-request="({ file }) => customRequest(file)"
-            :accept="accept"
-            :disabled="disabled">
+            :disabled="disabled"
+            :multiple="multiple"
+            :show-upload-list="false">
             <slot>
                 <div
-                    class="x-upload-btn"
                     :class="{
                         'x-upload-btn--hover': !disabled,
                     }"
                     :style="{
                         width: `${width}px`,
                         height: `${height}px`,
-                    }">
+                    }"
+                    class="x-upload-btn">
                     <div class="x-upload-btn__icon">
                         <slot name="icon">
                             <plus-outlined></plus-outlined>
@@ -41,7 +41,6 @@
         </a-upload>
         <div
             v-for="(item, index) in fileList"
-            class="x-upload-item j-upload-item"
             :key="item.key"
             :class="{
                 'x-upload-item--error': STATUS_ENUM.is('error', item.status),
@@ -49,7 +48,8 @@
             :style="{
                 width: `${width}px`,
                 height: `${height}px`,
-            }">
+            }"
+            class="x-upload-item j-upload-item">
             <img
                 :src="item.src"
                 alt="" />
@@ -74,9 +74,9 @@
                     <template v-if="STATUS_ENUM.is('uploading', item.status)">
                         <div>{{ item.percent }}%</div>
                         <a-progress
+                            :percent="item.percent"
                             :show-info="false"
-                            :stroke-width="4"
-                            :percent="item.percent" />
+                            :stroke-width="4" />
                     </template>
                     <template v-if="STATUS_ENUM.is('wait', item.status)">
                         <div>{{ STATUS_ENUM.getDesc(item.status) }}</div>

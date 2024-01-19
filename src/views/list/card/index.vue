@@ -1,21 +1,21 @@
 <template>
     <a-page-header
+        :ghost="false"
         main
-        title="卡片列表"
-        :ghost="false">
+        title="卡片列表">
         <a-row
-            type="flex"
-            align="middle">
+            align="middle"
+            type="flex">
             <a-col
-                flex="1"
-                :gutter="88">
+                :gutter="88"
+                flex="1">
                 <div>
                     段落示意：蚂蚁金服务设计平台 ant.design，用最小的工作量，无缝接入蚂蚁金服生态，
                     提供跨越设计与开发的体验解决方案。
                 </div>
                 <a-space
-                    class="mt-8-1"
-                    :size="24">
+                    :size="24"
+                    class="mt-8-1">
                     <a>
                         <link-outlined></link-outlined>
                         Quick Start
@@ -32,10 +32,10 @@
             </a-col>
             <a-col flex="0 0 242px">
                 <img
+                    :style="{ margin: '-20px 0 0' }"
                     alt=""
                     src="http://cdn.xuanyunet.com/images/img_1.png"
-                    width="155"
-                    :style="{ margin: '-20px 0 0' }" />
+                    width="155" />
             </a-col>
         </a-row>
     </a-page-header>
@@ -48,8 +48,8 @@
                 <a-list-item>
                     <a-card :body-style="{ padding: 0 }">
                         <a-button
-                            type="dashed"
-                            class="create-btn">
+                            class="create-btn"
+                            type="dashed">
                             <plus-outlined></plus-outlined>
                             新增
                         </a-button>
@@ -65,8 +65,8 @@
                             </template>
                             <template #description>
                                 <a-typography-paragraph
-                                    :ellipsis="{ rows: 3 }"
-                                    :content="item.paragraph" />
+                                    :content="item.paragraph"
+                                    :ellipsis="{ rows: 3 }" />
                             </template>
                         </a-card-meta>
                         <template #actions>
@@ -91,8 +91,7 @@
 </template>
 
 <script setup>
-import { LinkOutlined } from '@ant-design/icons-vue'
-import { EditOutlined, EllipsisOutlined, SettingOutlined, PlusOutlined } from '@ant-design/icons-vue'
+import { EditOutlined, EllipsisOutlined, LinkOutlined, PlusOutlined, SettingOutlined } from '@ant-design/icons-vue'
 import apis from '@/apis'
 import { config } from '@/config'
 import { usePagination } from '@/hooks'

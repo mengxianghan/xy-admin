@@ -1,8 +1,8 @@
 <template>
     <a-input
         v-model:value="currentValue"
-        class="x-upload x-upload-input"
         :allow-clear="allowClear"
+        class="x-upload x-upload-input"
         @input="onInput">
         <template #addonAfter>
             <a-button
@@ -12,8 +12,8 @@
             </a-button>
             <a-upload
                 v-else
-                :show-upload-list="false"
-                :custom-request="customRequest">
+                :custom-request="customRequest"
+                :show-upload-list="false">
                 <a-button>{{ btnText }}</a-button>
             </a-upload>
         </template>

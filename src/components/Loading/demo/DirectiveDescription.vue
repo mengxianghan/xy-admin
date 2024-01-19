@@ -7,9 +7,12 @@
     <a-alert
         v-loading="loading"
         data-loading-text="加载中"
-        message="Alert message title"
-        description="Further details about the context of this alert."></a-alert>
-    <div class="mt-8-2">Loading state：<a-switch v-model:checked="loading"></a-switch></div>
+        description="Further details about the context of this alert."
+        message="Alert message title"></a-alert>
+    <div class="mt-8-2">
+        Loading state：
+        <a-switch v-model:checked="loading"></a-switch>
+    </div>
 </template>
 
 <script setup>

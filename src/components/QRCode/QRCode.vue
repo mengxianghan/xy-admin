@@ -1,10 +1,10 @@
 <template>
     <div
-        class="x-qrcode"
         :class="{
             'x-qrcode--bordered': bordered,
         }"
-        :style="styleComputed">
+        :style="styleComputed"
+        class="x-qrcode">
         <template v-if="'active' !== status">
             <div class="x-qrcode__mask">
                 <template v-if="'loading' === status">
@@ -13,8 +13,8 @@
                 <template v-if="'expired' === status">
                     <div>二维码已过期</div>
                     <a-button
-                        type="link"
                         class="x-qrcode__reload-btn"
+                        type="link"
                         @click="handleRefresh">
                         <template #icon>
                             <reload-outlined></reload-outlined>
@@ -37,7 +37,7 @@
 <script setup>
 import QRCode from 'qrcode'
 import { computed, onMounted, ref, toRefs, watch } from 'vue'
-import { ReloadOutlined, CheckOutlined } from '@ant-design/icons-vue'
+import { CheckOutlined, ReloadOutlined } from '@ant-design/icons-vue'
 
 defineOptions({
     name: 'XQrcode',

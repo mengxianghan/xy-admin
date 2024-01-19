@@ -5,8 +5,8 @@
 
 <template>
     <a-space
-        direction="vertical"
-        :size="24">
+        :size="24"
+        direction="vertical">
         <x-qrcode
             ref="qrcodeCanvasRef"
             :value="text"></x-qrcode>
@@ -24,6 +24,7 @@ import { ref } from 'vue'
 const text = ref('http://xy-admin.xuanyunet.com')
 
 const qrcodeCanvasRef = ref()
+
 async function handleDownload() {
     const url = await qrcodeCanvasRef.value.toDataURL()
     const a = document.createElement('a')

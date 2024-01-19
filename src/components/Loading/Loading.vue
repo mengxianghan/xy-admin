@@ -1,15 +1,15 @@
 <template>
     <div
-        class="x-loading"
-        :class="classComputed">
+        :class="classComputed"
+        class="x-loading">
         <div
             v-if="mask"
-            class="x-loading__mask"
-            :style="maskStyle"></div>
+            :style="maskStyle"
+            class="x-loading__mask"></div>
         <div class="x-loading__content">
             <spin
-                :spinning="true"
-                :size="size">
+                :size="size"
+                :spinning="true">
                 <template
                     v-if="icon"
                     #indicator>
@@ -18,8 +18,8 @@
                 <template #tip>
                     <template v-if="isString(description)">{{ description }}</template>
                     <component
-                        v-else
-                        :is="description"></component>
+                        :is="description"
+                        v-else></component>
                 </template>
             </spin>
         </div>

@@ -1,14 +1,14 @@
 <template>
     <a-page-header
+        :ghost="false"
         main
-        title="分步表单"
-        :ghost="false">
+        title="分步表单">
         将一个冗长或用户不熟悉的表单任务分成多个步骤，指导用户完成。
     </a-page-header>
     <a-card>
         <a-steps
-            class="steps"
-            :current="currentTab">
+            :current="currentTab"
+            class="steps">
             <a-step title="填写转账信息" />
             <a-step title="确认转账信息" />
             <a-step title="完成" />
@@ -23,8 +23,8 @@
                 @prev="handlePrev" />
             <step3
                 v-if="currentTab === 2"
-                @prev="handlePrev"
-                @finish="handleFinish" />
+                @finish="handleFinish"
+                @prev="handlePrev" />
         </div>
     </a-card>
 </template>

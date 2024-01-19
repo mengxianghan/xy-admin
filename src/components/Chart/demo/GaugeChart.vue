@@ -5,8 +5,8 @@
 
 <template>
     <x-chart
-        :option="option"
-        :height="300"></x-chart>
+        :height="300"
+        :option="option"></x-chart>
 </template>
 
 <script setup>

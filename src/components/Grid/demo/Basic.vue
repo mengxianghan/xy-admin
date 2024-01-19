@@ -5,8 +5,8 @@
 
 <template>
     <x-grid
-        :gutter="12"
-        :columns="4">
+        :columns="4"
+        :gutter="12">
         <x-grid-item>
             <div class="light-green" />
         </x-grid-item>
@@ -29,6 +29,7 @@
     height: 108px;
     background-color: rgba(0, 128, 0, 0.12);
 }
+
 .green {
     height: 108px;
     background-color: rgba(0, 128, 0, 0.24);

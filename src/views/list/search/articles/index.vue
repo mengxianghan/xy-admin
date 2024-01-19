@@ -16,14 +16,14 @@
                 <a-space :size="16">
                     <a-select
                         v-model:value="searchFormData.owner"
-                        mode="multiple"
-                        :style="{ minWidth: '100px' }"
                         :options="[
                             { label: '我自己', value: 0 },
                             { label: '张三', value: 1 },
                             { label: '李四', value: 2 },
                             { label: '王五', value: 3 },
-                        ]"></a-select>
+                        ]"
+                        :style="{ minWidth: '100px' }"
+                        mode="multiple"></a-select>
                     <a @click="() => (searchFormData.owner = [0])">只看自己的</a>
                 </a-space>
             </x-filter-item>
@@ -31,15 +31,15 @@
                 <a-col>
                     <x-filter-item label="活跃用户">
                         <a-select
-                            placeholder="不限"
-                            :style="{ minWidth: '120px' }"></a-select>
+                            :style="{ minWidth: '120px' }"
+                            placeholder="不限"></a-select>
                     </x-filter-item>
                 </a-col>
                 <a-col>
                     <x-filter-item label="好评度">
                         <a-select
-                            placeholder="不限"
-                            :style="{ minWidth: '120px' }"></a-select>
+                            :style="{ minWidth: '120px' }"
+                            placeholder="不限"></a-select>
                     </x-filter-item>
                 </a-col>
             </a-row>
@@ -48,11 +48,11 @@
 
     <a-card>
         <a-list
-            row-key="id"
-            item-layout="vertical"
             :data-source="listData"
+            :loading="loading"
             :pagination="paginationState"
-            :loading="loading">
+            item-layout="vertical"
+            row-key="id">
             <template #renderItem="{ item }">
                 <a-list-item key="item.title">
                     <template #actions>
@@ -75,9 +75,9 @@
                     <div>{{ item.paragraph }}</div>
                     <div class="mt-8-2 display-flex align-items-center">
                         <a-avatar
-                            class="mr-8-1"
+                            :size="20"
                             :src="item.avatar"
-                            :size="20"></a-avatar>
+                            class="mr-8-1"></a-avatar>
                         <a class="mr-8-1">{{ item.name }}</a>
                         <span class="color-secondary mr-4-1">发布在</span>
                         <a>{{ item.link }}</a>

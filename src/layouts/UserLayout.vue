@@ -6,8 +6,8 @@
             </div>
             <div class="aside-body">
                 <img
-                    alt=""
-                    :src="assets('login_welcome.svg')" />
+                    :src="assets('login_welcome.svg')"
+                    alt="" />
                 <h3>高性能 / 精致 / 优雅</h3>
                 <p>基于Vue3 + Ant Design Vue 的中后台前端解决方案。</p>
             </div>

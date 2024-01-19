@@ -6,8 +6,8 @@
 <template>
     <x-cropper
         ref="cropperRef"
-        :src="assets('avatar.jpg')"
         :aspect-ratio="1 / 1"
+        :src="assets('avatar.jpg')"
         @change="onChange"></x-cropper>
 </template>
 

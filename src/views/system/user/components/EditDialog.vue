@@ -1,18 +1,18 @@
 <template>
     <a-modal
+        :after-close="onAfterClose"
+        :cancel-text="cancelText"
+        :confirm-loading="modal.confirmLoading"
         :open="modal.open"
         :title="modal.title"
         :width="480"
-        :confirm-loading="modal.confirmLoading"
-        :after-close="onAfterClose"
-        :cancel-text="cancelText"
-        @ok="handleOk"
-        @cancel="handleCancel">
+        @cancel="handleCancel"
+        @ok="handleOk">
         <a-form
             ref="formRef"
+            :label-col="{ style: { width: '90px' } }"
             :model="formData"
-            :rules="formRules"
-            :label-col="{ style: { width: '90px' } }">
+            :rules="formRules">
             <a-form-item
                 label="头像"
                 name="avatar">

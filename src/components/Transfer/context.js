@@ -1,4 +1,4 @@
-import { provide, inject, computed } from 'vue'
+import { computed, inject, provide } from 'vue'
 import { TRANSFER_KEY, TRANSFER_LIST_KEY } from './config'
 
 export const useTransferProvide = (props) => {

@@ -12,11 +12,11 @@
         <x-scrollbar class="pa-8-2">
             <a-spin :spinning="loading">
                 <a-tree
-                    block-node
-                    default-expand-all
                     :field-names="{ children: 'children', key: 'id' }"
                     :selected-keys="selectedKeys"
                     :tree-data="listData"
+                    block-node
+                    default-expand-all
                     @select="onSelect">
                     <template #title="record">
                         <a-row align="middle">
@@ -26,8 +26,8 @@
                                     :trigger="['click']"
                                     @click.stop>
                                     <a-button
-                                        type="text"
-                                        size="small">
+                                        size="small"
+                                        type="text">
                                         <template #icon>
                                             <more-outlined></more-outlined>
                                         </template>
@@ -60,9 +60,9 @@
 </template>
 
 <script setup>
-import { message, Modal, Empty } from 'ant-design-vue'
+import { Empty, message, Modal } from 'ant-design-vue'
 import { ref, watch } from 'vue'
-import { PlusOutlined, MoreOutlined } from '@ant-design/icons-vue'
+import { MoreOutlined, PlusOutlined } from '@ant-design/icons-vue'
 import apis from '@/apis'
 import { config } from '@/config'
 import { usePagination } from '@/hooks'

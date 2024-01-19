@@ -1,22 +1,22 @@
 <template>
     <div
-        class="basic-menu"
-        ref="basicMenuRef">
+        ref="basicMenuRef"
+        class="basic-menu">
         <a-menu
             v-model:selected-keys="selectedKeys"
-            :get-pop-container="() => basicMenuRef"
             :collapsed="config.collapsed"
+            :get-pop-container="() => basicMenuRef"
+            :items="items"
             :mode="mode"
             :open-keys="cpOpenKeys"
             :theme="theme"
-            :items="items"
-            @openChange="onOpenChange"
-            @click="handleClick"></a-menu>
+            @click="handleClick"
+            @openChange="onOpenChange"></a-menu>
     </div>
 </template>
 
 <script setup>
-import { computed, onMounted, ref, watch, h } from 'vue'
+import { computed, h, onMounted, ref, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { mapping } from '@/utils'
 import { Badge } from 'ant-design-vue'
@@ -176,6 +176,7 @@ function onOpenChange(value) {
                 overflow: hidden;
                 text-overflow: ellipsis;
             }
+
             &__name {
                 flex: 1;
                 min-width: 0;

@@ -6,9 +6,9 @@
                 key="account"
                 tab="账号登录">
                 <a-form
+                    ref="formRef"
                     :model="formData"
-                    :rules="formRules"
-                    ref="formRef">
+                    :rules="formRules">
                     <a-form-item name="username">
                         <a-input
                             v-model:value="formData.username"
@@ -31,10 +31,10 @@
                     </a-form-item>
                     <a-form-item>
                         <a-button
-                            type="primary"
-                            size="large"
-                            block
                             :loading="loading"
+                            block
+                            size="large"
+                            type="primary"
                             @click="handleLogin"
                             >登录
                         </a-button>
@@ -46,14 +46,14 @@
                 key="phone"
                 tab="手机号登录">
                 <a-form
+                    ref="formRef"
                     :model="formData"
-                    :rules="formRules"
-                    ref="formRef">
+                    :rules="formRules">
                     <a-form-item name="username">
                         <a-input
                             v-model:value="formData.username"
-                            size="large"
-                            placeholder="手机号码">
+                            placeholder="手机号码"
+                            size="large">
                             <template #prefix>
                                 <mobile-outlined></mobile-outlined>
                             </template>
@@ -62,8 +62,8 @@
                     <a-form-item name="msgCode">
                         <a-input
                             v-model:value="formData.password"
-                            size="large"
                             placeholder="短信验证码"
+                            size="large"
                             @pressEnter="handleLogin">
                             <template #prefix>
                                 <lock-outlined></lock-outlined>
@@ -75,10 +75,10 @@
                     </a-form-item>
                     <a-form-item>
                         <a-button
-                            type="primary"
-                            size="large"
-                            block
                             :loading="loading"
+                            block
+                            size="large"
+                            type="primary"
                             @click="handleLogin"
                             >登录
                         </a-button>
@@ -90,9 +90,9 @@
                 key="qrcode"
                 tab="二维码登录">
                 <x-qr-code
+                    :size="200"
                     class="mx-auto"
-                    value="https://mengxianghan.github.io/xy-admin/demo/"
-                    :size="200"></x-qr-code>
+                    value="https://mengxianghan.github.io/xy-admin/demo/"></x-qr-code>
                 <a-divider plain>
                     <div class="color-secondary">扫码后点击"确认"，即可完成登录</div>
                 </a-divider>
@@ -102,7 +102,7 @@
 </template>
 
 <script setup>
-import { Modal, message, notification } from 'ant-design-vue'
+import { message, Modal, notification } from 'ant-design-vue'
 import { computed, onMounted, ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { LockOutlined, MobileOutlined, UserOutlined } from '@ant-design/icons-vue'

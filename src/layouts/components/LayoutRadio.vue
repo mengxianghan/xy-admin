@@ -51,6 +51,7 @@ defineProps({
                 }
             }
         }
+
         &--header {
             &-dark {
                 &::after {

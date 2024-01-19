@@ -1,8 +1,8 @@
 <template>
     <a-list
+        :data-source="listData"
         item-layout="horizontal"
-        row-key="id"
-        :data-source="listData">
+        row-key="id">
         <template #renderItem="{ item }">
             <a-list-item>
                 <template #actions>
@@ -11,11 +11,11 @@
                 <a-list-item-meta>
                     <template #avatar>
                         <a-avatar
-                            shape="square"
                             :size="48"
                             :style="{
                                 backgroundColor: item.color,
-                            }">
+                            }"
+                            shape="square">
                             <template #icon>
                                 <component :is="item.avatar"></component>
                             </template>

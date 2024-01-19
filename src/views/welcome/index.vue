@@ -37,9 +37,9 @@
                 class="mt-8-2"
                 title="动态">
                 <a-list
-                    item-layout="horizontal"
+                    :data-source="listData"
                     :loading="loading"
-                    :data-source="listData">
+                    item-layout="horizontal">
                     <template #renderItem="{ item }">
                         <a-list-item>
                             <a-list-item-meta :description="item.datetime">

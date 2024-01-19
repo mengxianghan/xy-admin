@@ -5,13 +5,13 @@
 
 <template>
     <a-space
-        direction="vertical"
-        :size="24">
+        :size="24"
+        direction="vertical">
         <x-qrcode :value="text"></x-qrcode>
         <a-input
             v-model:value="text"
-            placeholder="-"
-            :maxlength="60" />
+            :maxlength="60"
+            placeholder="-" />
     </a-space>
 </template>
 

@@ -1,17 +1,17 @@
 <template>
     <a-modal
+        :after-close="onAfterClose"
+        :confirm-loading="modal.confirmLoading"
         :open="modal.open"
         :title="modal.title"
-        :confirm-loading="modal.confirmLoading"
-        :after-close="onAfterClose"
-        @ok="handleOk"
-        @cancel="handleCancel">
+        @cancel="handleCancel"
+        @ok="handleOk">
         <a-form
             ref="formRef"
-            scroll-to-first-error
-            layout="vertical"
             :model="formData"
-            :rules="formRules">
+            :rules="formRules"
+            layout="vertical"
+            scroll-to-first-error>
             <a-form-item
                 label="任务名称"
                 name="key1">
