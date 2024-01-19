@@ -114,6 +114,17 @@ export default [
                 },
             },
             {
+                path: 'infinite-scroll',
+                name: 'infiniteScroll',
+                component: 'components/infinite-scroll/index.vue',
+                meta: {
+                    title: '无限滚动',
+                    isMenu: true,
+                    keepAlive: true,
+                    badge: 'new',
+                },
+            },
+            {
                 path: 'loading',
                 name: 'loading',
                 component: 'components/loading/index.vue',
