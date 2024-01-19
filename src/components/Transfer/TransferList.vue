@@ -41,7 +41,9 @@
                 class="x-transfer-list__breadcrumb">
                 <a-breadcrumb>
                     <a-breadcrumb-item @click="onBreadcrumb()">
-                        <a><home-outlined></home-outlined></a>
+                        <a>
+                            <home-outlined></home-outlined>
+                        </a>
                     </a-breadcrumb-item>
                     <a-breadcrumb-item
                         v-for="(item, index) in breadcrumb"
@@ -107,7 +109,7 @@ import { HomeOutlined, SearchOutlined } from '@ant-design/icons-vue'
 import { DIRECTION_ENUM } from './config'
 import TransferListItem from './TransferListItem.vue'
 import { useTransferInject, useTransferListProvide } from './context'
-import { computed, ref, watchEffect, defineModel, useSlots, isVNode } from 'vue'
+import { computed, defineModel, isVNode, ref, useSlots, watchEffect } from 'vue'
 import { every, pick } from 'lodash-es'
 import { getSlotProps } from '@/components/utils'
 import { Empty } from 'ant-design-vue'
@@ -229,11 +231,26 @@ useTransferListProvide({
         flex: auto;
         overflow: auto;
         padding-inline: 4px;
+        margin: 0;
     }
 
     &__empty {
         margin: auto;
         flex: none;
+    }
+
+    &__loading-text,
+    &__finished-text,
+    &__error-text {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding-block: 8px;
+        color: @color-text-placeholder;
+    }
+
+    &__error-text {
+        cursor: pointer;
     }
 
     &__footer {
