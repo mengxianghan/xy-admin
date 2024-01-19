@@ -196,6 +196,17 @@ export default [
                 },
             },
             {
+                path: 'transfer',
+                name: 'transfer',
+                component: 'components/transfer/index.vue',
+                meta: {
+                    title: '穿梭框',
+                    isMenu: true,
+                    keepAlive: true,
+                    badge: 'new',
+                },
+            },
+            {
                 path: 'upload',
                 name: 'upload',
                 component: 'components/upload/index.vue',
