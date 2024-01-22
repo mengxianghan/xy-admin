@@ -23,7 +23,7 @@
             </div>
             <div
                 v-if="error"
-                class="x-infinite-scroll__text"
+                class="x-infinite-scroll__text x-infinite-scroll__text--error"
                 @click="handleError">
                 <slot name="error">
                     {{ errorText }}
@@ -61,7 +61,7 @@ const props = defineProps({
         type: Boolean,
         default: true,
     },
-    offset: {
+    distance: {
         type: Number,
         default: 30,
     },
@@ -93,11 +93,11 @@ function check() {
         if (loading.value || props.finished || error.value) return
 
         let isReach = false
-        const { height } = infiniteScrollRef.value.getBoundingClientRect()
+        const clientHeight = infiniteScrollRef.value.clientHeight
         const scrollTop = infiniteScrollRef.value.scrollTop
         const scrollHeight = infiniteScrollRef.value.scrollHeight
 
-        if (scrollHeight - height - scrollTop <= props.offset) {
+        if (scrollHeight - clientHeight - scrollTop <= props.distance) {
             isReach = true
         }
 
@@ -118,6 +118,10 @@ function check() {
         padding-block: 8px;
         text-align: center;
         color: @color-text-placeholder;
+
+        &--error {
+            cursor: pointer;
+        }
     }
 }
 </style>
