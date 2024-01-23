@@ -1,5 +1,5 @@
 <template>
-    <a-row class="x-action-bar">
+    <a-row class="x-toolbar">
         <a-col flex="1">
             <slot></slot>
         </a-col>
@@ -13,7 +13,7 @@
 import { computed, useSlots } from 'vue'
 
 defineOptions({
-    name: 'XActionBar',
+    name: 'XToolbar',
 })
 
 const slots = useSlots()

@@ -5,7 +5,7 @@
 
 <template>
     <div>
-        <x-action-bar>
+        <x-toolbar>
             <a-button type="primary">新建数据</a-button>
 
             <template #extra>
@@ -18,7 +18,7 @@
                     </a-button>
                 </a-space>
             </template>
-        </x-action-bar>
+        </x-toolbar>
     </div>
 </template>
 

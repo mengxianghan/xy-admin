@@ -13,11 +13,11 @@ export default [
         },
         children: [
             {
-                path: 'action-bar',
-                name: 'actionBar',
-                component: 'components/action-bar/index.vue',
+                path: 'toolbar',
+                name: 'toolbar',
+                component: 'components/toolbar/index.vue',
                 meta: {
-                    title: '操作条',
+                    title: '工具条',
                     isMenu: true,
                     keepAlive: true,
                 },
@@ -225,6 +225,17 @@ export default [
                     title: '上传',
                     isMenu: true,
                     keepAlive: true,
+                },
+            },
+            {
+                path: 'modal',
+                name: 'modal',
+                component: 'components/modal/index.vue',
+                meta: {
+                    title: '弹窗',
+                    isMenu: true,
+                    keepAlive: true,
+                    badge: 'new',
                 },
             },
         ],

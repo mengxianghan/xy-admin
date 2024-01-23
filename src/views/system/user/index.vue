@@ -13,7 +13,7 @@
                     <span>{{ selectedDepartment?.title }}</span>
                     <span class="fs-14 fw-400 ml-8-2">{{ selectedDepartment?.key }}</span>
                 </template>
-                <x-action-bar class="mb-8-2">
+                <x-toolbar class="mb-8-2">
                     <a-button
                         type="primary"
                         @click="$refs.editDialogRef.handleCreate()">
@@ -46,7 +46,7 @@
                             </a-form>
                         </x-search-bar>
                     </template>
-                </x-action-bar>
+                </x-toolbar>
                 <a-table
                     :columns="columns"
                     :data-source="listData"

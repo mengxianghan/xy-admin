@@ -1,4 +1,4 @@
-export { default as ActionBar } from './ActionBar/ActionBar.vue'
+export { default as Toolbar } from './Toolbar/Toolbar.vue'
 export { default as ActionButton } from './ActionButton/ActionButton.vue'
 export { default as Breadcrumb } from './Breadcrumb/Breadcrumb.vue'
 export { default as Cascader } from './Cascader/Cascader.vue'

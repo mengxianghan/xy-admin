@@ -66,7 +66,7 @@
         </template>
     </x-search-bar>
     <a-card>
-        <x-action-bar class="mb-8-2">
+        <x-toolbar class="mb-8-2">
             <a-button
                 type="primary"
                 @click="$refs.editDialogRef.handleCreate()">
@@ -113,7 +113,7 @@
                     </a-tooltip>
                 </a-space>
             </template>
-        </x-action-bar>
+        </x-toolbar>
         <a-table
             :columns="columns"
             :data-source="listData"

@@ -1,6 +1,6 @@
 <template>
     <a-card>
-        <x-action-bar class="mb-8-2">
+        <x-toolbar class="mb-8-2">
             <a-button
                 type="primary"
                 @click="$refs.editDialogRef.handleCreate()">
@@ -9,7 +9,7 @@
                 </template>
                 新建菜单
             </a-button>
-        </x-action-bar>
+        </x-toolbar>
 
         <a-table
             :columns="columns"

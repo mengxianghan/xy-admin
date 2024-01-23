@@ -3,10 +3,10 @@
 </template>
 
 <script setup>
-import Demo from '@/components/ActionBar/demo/index.vue'
+import Demo from '@/components/Toolbar/demo/index.vue'
 
 defineOptions({
-    name: 'actionBar',
+    name: 'toolbar',
 })
 </script>
 
