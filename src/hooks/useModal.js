@@ -1,17 +1,18 @@
-import { ref, watch, watchEffect } from 'vue'
+import { nextTick, ref, watch, watchEffect } from 'vue'
 import { useDraggable } from '@vueuse/core'
-import { debounce } from 'lodash-es'
+import { debounce, isFunction } from 'lodash-es'
 
-export default (options = {}) => {
+export default (option = {}) => {
     const opts = {
-        opened: () => {},
-        closed: () => {},
         draggable: false,
         selector: null,
         handleSelector: '.ant-modal-header',
-        ...options,
+        beforeOpen: null,
+        afterOpen: null,
+        beforeClose: null,
+        afterClose: null,
+        ...option,
     }
-    const DELAY = 150
 
     const modal = ref({
         type: '',
@@ -39,51 +40,67 @@ export default (options = {}) => {
 
     const onWindowResize = debounce(() => {
         resetDrag()
-    }, 300)
+    }, 500)
 
     /**
      * 设置弹窗
-     * @param options
+     * @param option
      */
-    function setModal(options = {}) {
+    function setModal(option = {}) {
         modal.value = {
             ...modal.value,
-            ...options,
+            ...option,
         }
+    }
+
+    function _openModal(option) {
+        setModal({
+            open: true,
+            ...option,
+        })
+        nextTick(() => {
+            initDrag()
+            if (isFunction(opts.afterOpen)) {
+                opts.afterOpen()
+            }
+        })
+    }
+
+    function _closeModal() {
+        setModal({
+            type: '',
+            open: false,
+            confirmLoading: false,
+        })
+        nextTick(() => {
+            destroyDrag()
+            if (isFunction(opts.afterClose)) {
+                opts.afterClose()
+            }
+        })
     }
 
     /**
      * 显示弹窗
-     * @param options
+     * @param option
      */
-    function openModal(options = {}) {
-        setModal({
-            open: true,
-            ...options,
-        })
-        setTimeout(() => {
-            initDrag()
-            opts?.opened?.()
-        }, 300)
+    function openModal(option = {}) {
+        if (isFunction(opts.beforeOpen)) {
+            opts.beforeOpen(() => _openModal(option))
+        } else {
+            _openModal(option)
+        }
     }
 
     /**
      * 隐藏弹窗
      */
     function closeModal() {
-        setModal({
-            type: '',
-            open: false,
-            confirmLoading: false,
-        })
-
-        setTimeout(() => {
-            if (opts.draggable) {
-                window.removeEventListener('resize', onWindowResize)
-                destroyDrag()
-            }
-            opts?.closed?.()
-        }, 300)
+        if (isFunction(opts.beforeClose)) {
+            opts.beforeClose(() => _closeModal())
+        } else {
+            _closeModal()
+        }
     }
 
     /**
@@ -105,7 +122,7 @@ export default (options = {}) => {
     }
 
     /**
-     * 初始化拖转
+     * 初始化拖拽
      * @returns {void}
      */
     function initDrag() {
@@ -177,6 +194,7 @@ export default (options = {}) => {
     function resetDrag() {
         if (!opts.draggable) return
 
+        const delay = 150
         startedDrag.value = false
         startX.value = 0
         startY.value = 0
@@ -186,23 +204,21 @@ export default (options = {}) => {
         preTransformY.value = 0
         dragRect.value = { left: 0, right: 0, top: 0, bottom: 0 }
 
-        contentRef.value.style.transition = `transform ${DELAY}ms`
+        contentRef.value.style.transition = `transform ${delay}ms`
         contentRef.value.style.transform = ''
 
         setTimeout(() => {
             contentRef.value.style.transition = ''
-        }, DELAY)
+        }, delay)
     }
 
     /**
      * 销毁拖拽
-     * @returns {void}
      */
     function destroyDrag() {
         if (!opts.draggable) return
-
+        window.removeEventListener('resize', onWindowResize)
         resetDrag()
-
         stopWatchEffect.value?.()
     }
 

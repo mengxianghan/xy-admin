@@ -28,6 +28,7 @@
         "@ant-design/icons-vue": "^7.0.1",
         "@icon-park/vue-next": "^1.4.2",
         "@tinymce/tinymce-vue": "^5.1.1",
+        "@vueuse/core": "^10.7.2",
         "ant-design-vue": "^4.1.0",
         "axios": "^1.6.3",
         "cropperjs": "^1.6.1",
