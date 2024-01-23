@@ -63,7 +63,7 @@ const showSuffix = ref(true)
 <style lang="less" scoped>
 .suffix {
     height: 108px;
-    border: 1px solid rgba(0, 128, 0, 0.36);
+    border: 1px solid #bae0ff;
     box-sizing: border-box;
     display: flex;
     align-items: center;
@@ -72,7 +72,7 @@ const showSuffix = ref(true)
 
 .light-green {
     height: 108px;
-    background-color: rgba(0, 128, 0, 0.12);
+    background-color: #e6f4ff;
     box-sizing: border-box;
     display: flex;
     align-items: center;
@@ -81,7 +81,7 @@ const showSuffix = ref(true)
 
 .green {
     height: 108px;
-    background-color: rgba(0, 128, 0, 0.24);
+    background-color: #bae0ff;
     box-sizing: border-box;
     display: flex;
     align-items: center;
