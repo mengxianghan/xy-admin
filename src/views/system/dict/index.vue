@@ -23,28 +23,14 @@
                         新建项
                     </a-button>
                     <template #extra>
-                        <x-search-bar
-                            :body-style="{ padding: 0 }"
-                            :bordered="false">
-                            <a-form layout="inline">
-                                <a-row
-                                    :gutter="12"
-                                    type="flex">
-                                    <a-col>
-                                        <a-form-item>
-                                            <a-input></a-input>
-                                        </a-form-item>
-                                    </a-col>
-                                    <a-col>
-                                        <a-button
-                                            ghost
-                                            type="primary"
-                                            >搜索
-                                        </a-button>
-                                    </a-col>
-                                </a-row>
-                            </a-form>
-                        </x-search-bar>
+                        <a-space>
+                            <a-input></a-input>
+                            <a-button
+                                ghost
+                                type="primary">
+                                搜索
+                            </a-button>
+                        </a-space>
                     </template>
                 </x-toolbar>
                 <a-table

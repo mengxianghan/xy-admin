@@ -1,26 +1,34 @@
 <template>
-    <a-card
-        :class="{
-            'x-search--bordered': bordered,
-        }"
-        class="x-search">
-        <a-form
-            layout="inline"
-            v-bind="attrs">
-            <grid
-                :collapsed="collapsed"
-                :collapsed-rows="collapsedRows"
-                :columns="columns"
-                :gutter="gutter">
-                <slot></slot>
-            </grid>
-        </a-form>
-    </a-card>
+    <div class="x-search">
+        <define-template>
+            <a-form
+                layout="inline"
+                v-bind="attrs">
+                <grid
+                    :collapsed="collapsed"
+                    :collapsed-rows="collapsedRows"
+                    :columns="columns"
+                    :gutter="gutter">
+                    <slot></slot>
+                </grid>
+            </a-form>
+        </define-template>
+
+        <template v-if="bordered">
+            <a-card>
+                <reuse-template></reuse-template>
+            </a-card>
+        </template>
+        <template v-else>
+            <reuse-template></reuse-template>
+        </template>
+    </div>
 </template>
 
 <script setup>
 import { useAttrs } from 'vue'
 import { Grid } from '../Grid'
+import { createReusableTemplate } from '@vueuse/core'
 
 defineOptions({
     name: 'XSearch',
@@ -44,18 +52,11 @@ defineProps({
 })
 
 const attrs = useAttrs()
+const [DefineTemplate, ReuseTemplate] = createReusableTemplate()
 </script>
 
 <style lang="less" scoped>
 .x-search {
-    &:not(.x-search-bordered) {
-        border: none;
-
-        :deep(> .ant-card-body) {
-            padding: 0;
-        }
-    }
-
     :deep(.ant-form-inline) {
         display: block;
     }
@@ -67,7 +68,9 @@ const attrs = useAttrs()
 
     :deep(.ant-form-item-control-input-content) {
         > * {
-            width: 100%;
+            &:not(.ant-space) {
+                width: 100%;
+            }
         }
     }
 
