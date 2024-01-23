@@ -73,9 +73,5 @@ const [DefineTemplate, ReuseTemplate] = createReusableTemplate()
             }
         }
     }
-
-    :deep(.ant-form-row) {
-        flex-flow: row nowrap;
-    }
 }
 </style>
