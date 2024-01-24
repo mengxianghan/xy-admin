@@ -1,7 +1,7 @@
 <template>
     <x-search
         :collapsed="collapsed"
-        :columns="4"
+        :columns="{ sm: 1, md: 2, lg: 3, xl: 3, xxl: 4 }"
         :label-col="{ style: { width: '100px' } }"
         :model="searchFormData">
         <x-search-item name="title">
