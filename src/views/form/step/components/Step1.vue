@@ -18,21 +18,17 @@
             <a-form-item
                 label="收款账户"
                 name="payType">
-                <a-input-group
-                    :compact="true"
-                    style="display: inline-block; vertical-align: middle">
+                <a-space-compact block>
                     <a-form-item-rest>
                         <a-select
                             default-value="alipay"
-                            style="width: 100px">
+                            :style="{ width: '100px' }">
                             <a-select-option value="alipay">支付宝</a-select-option>
                             <a-select-option value="wexinpay">微信</a-select-option>
                         </a-select>
                     </a-form-item-rest>
-                    <a-input
-                        v-model:value="formData.payType"
-                        :style="{ width: 'calc(100% - 100px)' }" />
-                </a-input-group>
+                    <a-input v-model:value="formData.payType" />
+                </a-space-compact>
             </a-form-item>
             <a-form-item
                 label="收款人姓名"
