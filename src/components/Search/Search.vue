@@ -67,10 +67,10 @@ const [DefineTemplate, ReuseTemplate] = createReusableTemplate()
     }
 
     :deep(.ant-form-item-control-input-content) {
-        > * {
-            &:not(.ant-space) {
-                width: 100%;
-            }
+        > .ant-input,
+        > .ant-select,
+        > .ant-picker {
+            width: 100%;
         }
     }
 }
