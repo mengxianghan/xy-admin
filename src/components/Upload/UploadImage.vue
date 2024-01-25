@@ -180,13 +180,13 @@ const props = defineProps({
         type: Number,
         default: 1,
     },
-    dragSort: {
+    draggable: {
         type: Boolean,
         default: false,
     },
 })
 
-const emit = defineEmits(['update:modelValue'])
+const emits = defineEmits(['update:modelValue', 'change'])
 
 const { onFieldChange } = Form.useInjectFormItemContext()
 
@@ -197,7 +197,7 @@ const sortable = ref(null)
 
 const loading = computed(() => fileList.value.some((o) => STATUS_ENUM.is('uploading', o.status)))
 const showUploadBtn = computed(() => props.multiple || !fileList.value.length)
-const dragSortDisabled = computed(() => !(props.dragSort && !props.disabled))
+const dragSortDisabled = computed(() => !(props.draggable && !props.disabled))
 
 watch(
     () => props.modelValue,
@@ -421,7 +421,8 @@ function trigger() {
         // 单选
         value = (fileList.value.length ? fileList.value[0]?.src : fileList.value[0]) ?? ''
     }
-    emit('update:modelValue', value)
+    emits('update:modelValue', value)
+    emits('change', value)
     onFieldChange()
 }
 </script>
