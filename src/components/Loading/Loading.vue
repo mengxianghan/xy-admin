@@ -15,11 +15,17 @@
                     #indicator>
                     <component :is="icon"></component>
                 </template>
-                <template #tip>
-                    <template v-if="isString(description)">{{ description }}</template>
-                    <component
-                        :is="description"
-                        v-else></component>
+                <template
+                    v-if="description"
+                    #tip>
+                    <div
+                        :style="descriptionStyle"
+                        class="x-loading__description">
+                        <template v-if="isString(description)">{{ description }}</template>
+                        <component
+                            :is="description"
+                            v-else></component>
+                    </div>
                 </template>
             </spin>
         </div>
@@ -37,7 +43,7 @@ defineOptions({
 
 const props = defineProps({
     /**
-     * 类型，默认：fullscreen【全屏：fullscreen，指令：directive】
+     * 类型，默认：fullscreen，可选：【全屏：fullscreen，指令：directive】
      */
     type: {
         type: String,
@@ -62,6 +68,12 @@ const props = defineProps({
     description: {
         type: [String, Object],
         default: '',
+    },
+    /**
+     * 描述文字样式
+     */
+    descriptionStyle: {
+        type: [String, Object],
     },
     /**
      * 是否显示遮罩

@@ -4,9 +4,11 @@ import { setStyle } from '@/components/utils'
 
 function show(el, binding) {
     if (!binding.value) return
-    const dataset = el.dataset
+    const description = el.getAttribute('loading-description') || ''
+    const descriptionStyle = el.getAttribute('loading-description-style') || ''
     const vm = createVNode(LoadingConstructor, {
-        description: dataset?.loadingText || '',
+        description,
+        descriptionStyle,
         type: 'directive',
     })
     const container = document.createElement('div')
