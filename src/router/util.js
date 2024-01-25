@@ -6,12 +6,13 @@ import * as layouts from '@/layouts'
  * 格式化路由
  * 格式化成符合 vue-router 标准的路由结构
  * @param {array} routes 路由
- * @param {array} asyncRoutes 异步路由
+ * @param {array | boolean} asyncRoutes 异步路由
  * @param {object} parent 父级路由
  * @return {*}
  */
 export function formatRoutes(routes, asyncRoutes = [], parent = {}) {
     const modules = import.meta.glob('../views/**/*.vue')
+    asyncRoutes = asyncRoutes === false ? routes : asyncRoutes
     return routes
         .toSorted((a, b) => {
             const indexA = findIndex(asyncRoutes, { name: a.name })
