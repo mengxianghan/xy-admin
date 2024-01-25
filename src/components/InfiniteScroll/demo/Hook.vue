@@ -3,6 +3,7 @@
 使用 hooks
 </demo>
 
+<!-- #region snippet -->
 <template>
     <div
         ref="infiniteRef"
@@ -67,3 +68,4 @@ function loadData() {
     background: @control-item-bg-hover;
 }
 </style>
+<!-- #endregion snippet -->

@@ -27,37 +27,43 @@ import { omit } from 'lodash-es'
 defineOptions({
     name: 'XEditor',
 })
-/**
- * @property {string} modelValue v-model
- * @property {object} options 配置
- * @property {number} height 高，默认：300
- * @property {string} placeholder 占位文案
- * @property {boolean} disabled 禁用，默认：false
- */
+
 const props = defineProps({
     modelValue: {
         type: String,
         default: '',
     },
+    /**
+     * 配置
+     */
     option: {
         type: Object,
         default: () => ({}),
     },
+    /**
+     * 高，默认：300
+     */
     height: {
         type: Number,
         default: 300,
     },
+    /**
+     * 占位文本
+     */
     placeholder: {
         type: String,
         default: '',
     },
+    /**
+     * 禁用，默认：false
+     */
     disabled: {
         type: Boolean,
         default: false,
     },
 })
 
-const emit = defineEmits(['update:modelValue', 'ready'])
+const emits = defineEmits(['update:modelValue', 'initialized'])
 
 const { token } = theme.useToken()
 
@@ -84,7 +90,7 @@ watch(
 watch(
     () => content.value,
     (val) => {
-        emit('update:modelValue', val)
+        emits('update:modelValue', val)
         onFieldChange()
     }
 )
@@ -100,7 +106,7 @@ onMounted(() => {
  */
 function onInit(e) {
     spinning.value = false
-    emit('ready', e.target)
+    emits('initialized', e.target)
 }
 </script>
 

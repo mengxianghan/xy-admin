@@ -55,3 +55,19 @@ export const isNumber = (value) => getType(value) === 'number'
  * @returns {boolean}
  */
 export const isArray = (value) => getType(value) === 'array'
+
+/**
+ * 是否 json 字符串
+ * @param value
+ */
+export const isJsonString = (value) => {
+    if (typeof value === 'string') {
+        try {
+            JSON.parse(value)
+            return true
+        } catch (err) {
+            return false
+        }
+    }
+    return false
+}

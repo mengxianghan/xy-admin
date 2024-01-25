@@ -3,6 +3,7 @@
 无边框
 </demo>
 
+<!-- #region snippet -->
 <template>
     <a-space>
         <x-tag :bordered="false"> 爱在西元前</x-tag>
@@ -32,3 +33,4 @@
 <script setup></script>
 
 <style lang="less" scoped></style>
+<!-- #endregion snippet -->

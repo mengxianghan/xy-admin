@@ -32,7 +32,7 @@ defineOptions({
 
 const props = defineProps({
     /**
-     * 容器
+     * 标签
      */
     component: {
         type: String,
@@ -47,14 +47,14 @@ const props = defineProps({
      */
     height: Number,
     /**
-     * 最小宽度，默认：100
+     * 最小宽度
      */
     minWidth: {
         type: [String, Number],
         default: 100,
     },
     /**
-     * 最小高度，默认：100
+     * 最小高度
      */
     minHeight: {
         type: [String, Number],
@@ -72,7 +72,7 @@ const props = defineProps({
      */
     maxHeight: [String, Number],
     /**
-     * 可以进行伸缩的边，默认：['right']；['left', 'right', 'top', 'bottom']
+     * 可以进行伸缩的边，可选：['left', 'right', 'top', 'bottom']
      */
     directions: {
         type: Array,
@@ -87,7 +87,7 @@ const props = defineProps({
     },
 })
 
-const emit = defineEmits(['movingStart', 'moving', 'movingEnd', 'update:width', 'update:height'])
+const emits = defineEmits(['movingStart', 'moving', 'movingEnd', 'update:width', 'update:height'])
 
 const resizeBoxRef = ref()
 
@@ -129,7 +129,7 @@ function onMoveStart(direction, e) {
     window.addEventListener('mouseup', onMoveEnd)
     window.addEventListener('contextmenu', onMoveEnd)
 
-    emit('movingStart', e)
+    emits('movingStart', e)
 }
 
 /**
@@ -159,7 +159,7 @@ function onMoving(e) {
             if (height > props.maxHeight && props.maxHeight > props.minHeight) {
                 state.currentHeight = props.maxHeight
             }
-            emit('update:height', state.currentHeight)
+            emits('update:height', state.currentHeight)
             break
         case directionEnum.getValue('left'): // 左
         case directionEnum.getValue('right'): // 右
@@ -171,10 +171,10 @@ function onMoving(e) {
             if (width > props.maxWidth && props.maxWidth > props.minWidth) {
                 state.currentWidth = props.maxWidth
             }
-            emit('update:width', state.currentWidth)
+            emits('update:width', state.currentWidth)
             break
     }
-    emit('moving', { width: state.currentWidth, height: state.currentHeight })
+    emits('moving', { width: state.currentWidth, height: state.currentHeight })
 }
 
 /**
@@ -186,7 +186,7 @@ function onMoveEnd(e) {
     window.removeEventListener('mousemove', onMoving)
     window.removeEventListener('mouseup', onMoveEnd)
     window.removeEventListener('contextmenu', onMoveEnd)
-    emit('movingEnd', e)
+    emits('movingEnd', e)
 }
 </script>
 

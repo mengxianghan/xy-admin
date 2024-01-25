@@ -1,42 +1,20 @@
 # ActionButton 操作按钮
 
 
-## 示例
+## 代码演示
 
 ### 基础用法
----
 
-```vue
-<template>
-    <div>
-        <x-action-button>编辑</x-action-button>
-        <x-action-button>删除</x-action-button>
-    </div>
-</template>
+<<< @/../src/components/ActionButton/demo/Basic.vue#snippet
 
-<script setup>
-</script>
-```
+### 在 table 中使用
 
-### 自定义 `html` 标签
+<<< @/../src/components/ActionButton/demo/Table.vue#snippet
 
-使用 a 标签渲染
-
-```vue
-<template>
-    <div>
-        <x-action-button tag="a">编辑</x-action-button>
-        <x-action-button tag="a">删除</x-action-button>
-    </div>
-</template>
-
-<script setup>
-</script>
-```
 
 ## API
 
-### 参数
+### Props
 
 | 参数      | 说明      | 类型        | 默认值     |
 |---------|---------|-----------|---------|

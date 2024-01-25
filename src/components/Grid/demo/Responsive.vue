@@ -3,6 +3,7 @@
 响应式栅格项
 </demo>
 
+<!-- #region snippet -->
 <template>
     <x-grid :gutter="[12, 12]">
         <x-grid-item
@@ -38,3 +39,4 @@ import { GridItem as XGridItem } from '@/components'
     background-color: #bae0ff;
 }
 </style>
+<!-- #endregion snippet -->

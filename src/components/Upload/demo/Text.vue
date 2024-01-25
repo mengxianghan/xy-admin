@@ -3,6 +3,7 @@
 自定义文案
 </demo>
 
+<!-- #region snippet -->
 <template>
     <x-upload-image
         v-model="images"
@@ -16,3 +17,4 @@ const images = ref('')
 </script>
 
 <style lang="less" scoped></style>
+<!-- #endregion snippet -->

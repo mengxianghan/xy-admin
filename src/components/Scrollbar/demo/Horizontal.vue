@@ -3,6 +3,7 @@
 当元素宽度大于滚动条宽度时，会显示横向滚动条。
 </demo>
 
+<!-- #region snippet -->
 <template>
     <x-scrollbar>
         <div class="scrollbar-flex-content">
@@ -36,3 +37,4 @@
     background: @control-item-bg-hover;
 }
 </style>
+<!-- #endregion snippet -->

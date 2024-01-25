@@ -1,8 +1,9 @@
 <demo>
-## 基本用法
-基本用法
+## 基础用法
+基础用法
 </demo>
 
+<!-- #region snippet -->
 <template>
     <x-grid
         :columns="4"
@@ -35,3 +36,4 @@
     background-color: #bae0ff;
 }
 </style>
+<!-- #endregion snippet -->

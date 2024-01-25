@@ -3,6 +3,7 @@
 可关闭
 </demo>
 
+<!-- #region snippet -->
 <template>
     <a-space>
         <x-tag
@@ -51,3 +52,4 @@ function handleClose() {
 </script>
 
 <style lang="less" scoped></style>
+<!-- #endregion snippet -->

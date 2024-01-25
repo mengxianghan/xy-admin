@@ -3,6 +3,7 @@
 包含了单选、多选、全部选项等基础用法
 </demo>
 
+<!-- #region snippet -->
 <template>
     <x-filter :model="formData">
         <x-filter-item label="品牌">
@@ -81,3 +82,4 @@ formData.value = {
 </script>
 
 <style lang="less" scoped></style>
+<!-- #endregion snippet -->

@@ -1,12 +1,6 @@
 # Breadcrumb 面包屑
 
-## 示例
+## 代码演示
 
-```vue
-<template>
-    <x-breadcrumb></x-breadcrumb>
-</template>
-
-<script setup>
-</script>
-```
+### 基础用法
+<<< @/../src/components/Breadcrumb/demo/Basic.vue#snippet

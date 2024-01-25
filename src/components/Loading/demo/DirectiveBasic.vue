@@ -3,6 +3,7 @@
 当在卡片中使用时，它会实现你的需求
 </demo>
 
+<!-- #region snippet -->
 <template>
     <a-alert
         v-loading="loading"
@@ -25,3 +26,4 @@ const loading = ref(false)
 </script>
 
 <style lang="less" scoped></style>
+<!-- #endregion snippet -->

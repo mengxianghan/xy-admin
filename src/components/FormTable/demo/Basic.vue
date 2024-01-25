@@ -3,6 +3,7 @@
 基础用法
 </demo>
 
+<!-- #region snippet -->
 <template>
     <x-form-table v-model="formData.data">
         <a-table-column title="名称">
@@ -29,3 +30,4 @@ formData.value = {
 </script>
 
 <style lang="less" scoped></style>
+<!-- #endregion snippet -->

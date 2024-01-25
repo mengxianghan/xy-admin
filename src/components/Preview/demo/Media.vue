@@ -3,6 +3,7 @@
 支持图片、音频、视频三种类型文件
 </demo>
 
+<!-- #region snippet -->
 <template>
     <a-button
         type="primary"
@@ -26,3 +27,4 @@ function handlePreview() {
 </script>
 
 <style lang="less" scoped></style>
+<!-- #endregion snippet -->

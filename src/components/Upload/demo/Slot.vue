@@ -3,6 +3,7 @@
 插槽
 </demo>
 
+<!-- #region snippet -->
 <template>
     <x-upload-image
         v-model="images"
@@ -34,3 +35,4 @@ const images = ref('')
     }
 }
 </style>
+<!-- #endregion snippet -->

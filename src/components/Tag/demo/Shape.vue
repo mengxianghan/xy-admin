@@ -3,6 +3,7 @@
 圆的 Tag 长得像个胶囊。
 </demo>
 
+<!-- #region snippet -->
 <template>
     <a-space>
         <x-tag
@@ -40,3 +41,4 @@ function handleClose() {
 </script>
 
 <style lang="less" scoped></style>
+<!-- #endregion snippet -->

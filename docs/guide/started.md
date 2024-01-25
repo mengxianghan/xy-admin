@@ -41,7 +41,7 @@ project_name
 │  ├ images              不需要打包的图片（可存放到 oss）
 │  ├ libs                非 npm 安装第三方插件（可存放到 oss）
 ├ src
-│  ├ api                 接口
+│  ├ apis                接口
 │  │  ├ modules          按功能模块区分的接口文件
 │  │  │  ├ home.js
 │  │  ├ index.js         统一导出 api

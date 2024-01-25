@@ -3,6 +3,7 @@
 这个东西看起来没啥用，实际上确实没啥用。
 </demo>
 
+<!-- #region snippet -->
 <template>
     <a-button
         type="primary"
@@ -75,3 +76,4 @@ function onAfterClose() {
 </script>
 
 <style lang="less" scoped></style>
+<!-- #endregion snippet -->

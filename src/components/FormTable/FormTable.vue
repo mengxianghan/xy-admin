@@ -47,27 +47,25 @@ defineOptions({
     name: 'XFormTable',
 })
 
-/**
- * 表单表格
- * @property {array} modelValue v-model
- * @property {object} rowTpl 行模板
- */
 const props = defineProps({
     modelValue: {
         type: Array,
         default: () => [],
     },
+    /**
+     * 行模板
+     */
     rowTpl: {
         type: Object,
         default: () => ({}),
     },
 })
 
-const emit = defineEmits(['update:modelValue', 'add', 'delete'])
+const emits = defineEmits(['update:modelValue', 'add', 'delete'])
 
 const listData = ref([])
 
-watch(listData, (val) => emit('update:modelValue', val), { deep: true })
+watch(listData, (val) => emits('update:modelValue', val), { deep: true })
 
 onMounted(() => {
     listData.value = props.modelValue
@@ -78,7 +76,7 @@ onMounted(() => {
  */
 function handleAdd() {
     listData.value.push(cloneDeep(props.rowTpl))
-    emit('add')
+    emits('add')
 }
 
 /**
@@ -87,7 +85,7 @@ function handleAdd() {
 function handleDelete(index) {
     const delRecord = props.modelValue[index]
     listData.value.splice(index, 1)
-    emit('delete', { record: delRecord })
+    emits('delete', { record: delRecord })
 }
 </script>
 

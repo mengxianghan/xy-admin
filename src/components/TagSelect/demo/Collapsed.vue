@@ -3,6 +3,7 @@
 超过一行自动折叠
 </demo>
 
+<!-- #region snippet -->
 <template>
     <a-space
         :size="24"
@@ -50,3 +51,4 @@ const selectedKeys = ref([])
 </script>
 
 <style lang="less" scoped></style>
+<!-- #endregion snippet -->

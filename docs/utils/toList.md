@@ -1,7 +1,7 @@
-# tree2list
+# toList
 
 ```js :no-line-numbers
-tree2list(data, fieldNames)
+toList(data, fieldNames)
 ```
 
 树型数据结构转换成线型数据结构
@@ -17,7 +17,7 @@ tree2list(data, fieldNames)
 
 ::: code-group
 
-```js [例子]
+```js [示例]
 const data = [
     {
         id: '1', title: '选项1', children: [
@@ -33,7 +33,7 @@ const data = [
     },
 ]
 
-const list = tree2list(data)
+const list = toList(data)
 
 console.log(list)
 ```

@@ -3,6 +3,7 @@
 设置 `draggable` 属性为 `true` 以做到拖拽，试着拖动一下 `header` 部分吧
 </demo>
 
+<!-- #region snippet -->
 <template>
     <a-button
         type="primary"
@@ -37,3 +38,4 @@ function handleOpen() {
 </script>
 
 <style lang="less" scoped></style>
+<!-- #endregion snippet -->

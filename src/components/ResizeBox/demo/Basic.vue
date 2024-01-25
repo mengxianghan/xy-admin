@@ -1,8 +1,9 @@
 <demo>
-## 基本用法
+## 基础用法
 通过设置 directions，可以指定四条边中的哪几条边可以进行伸缩
 </demo>
 
+<!-- #region snippet -->
 <template>
     <x-resize-box
         :directions="['right', 'bottom']"
@@ -23,3 +24,4 @@
 <script setup></script>
 
 <style lang="less" scoped></style>
+<!-- #endregion snippet -->

@@ -3,6 +3,7 @@
 使用方法获取不同的裁剪结果
 </demo>
 
+<!-- #region snippet -->
 <template>
     <x-cropper
         ref="cropperRef"
@@ -53,3 +54,4 @@ async function handleFile() {
 </script>
 
 <style lang="less" scoped></style>
+<!-- #endregion snippet -->

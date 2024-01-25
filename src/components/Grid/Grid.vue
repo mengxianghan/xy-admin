@@ -18,18 +18,30 @@ defineOptions({
     name: 'XGrid',
 })
 const props = defineProps({
+    /**
+     * 显示的栅格数量
+     */
     columns: {
         type: [Number, Object],
         default: 24,
     },
+    /**
+     * 栅格间隔，可以写成像素值设置水平间隔 。或者使用数组形式同时设置 [水平间距, 垂直间距]
+     */
     gutter: {
         type: [Number, Array],
         default: 0,
     },
+    /**
+     * 是否默认折叠
+     */
     collapsed: {
         type: Boolean,
         default: false,
     },
+    /**
+     * 默认展示的行数
+     */
     collapsedRows: {
         type: Number,
         default: 1,

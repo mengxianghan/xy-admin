@@ -3,6 +3,7 @@
 弹窗中使用
 </demo>
 
+<!-- #region snippet -->
 <template>
     <a-button
         type="primary"
@@ -35,3 +36,4 @@ function onOk(base64, info) {
 </script>
 
 <style lang="less" scoped></style>
+<!-- #endregion snippet -->

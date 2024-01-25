@@ -3,6 +3,7 @@
 实现高级搜索交互
 </demo>
 
+<!-- #region snippet -->
 <template>
     <x-search
         :collapsed="collapsed"
@@ -55,3 +56,4 @@ const collapsed = ref(true)
 </script>
 
 <style lang="less" scoped></style>
+<!-- #endregion snippet -->

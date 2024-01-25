@@ -3,6 +3,7 @@
 不同的尺寸供你选择
 </demo>
 
+<!-- #region snippet -->
 <template>
     <a-space>
         <a-button
@@ -40,3 +41,4 @@ function handleShow(option = {}) {
 </script>
 
 <style lang="less" scoped></style>
+<!-- #endregion snippet -->

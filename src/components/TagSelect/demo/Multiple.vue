@@ -3,6 +3,7 @@
 多选
 </demo>
 
+<!-- #region snippet -->
 <template>
     <x-tag-select
         v-model="selectedKeys"
@@ -25,3 +26,4 @@ const selectedKeys = ref([])
 </script>
 
 <style lang="less" scoped></style>
+<!-- #endregion snippet -->

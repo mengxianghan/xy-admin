@@ -3,6 +3,7 @@
 将裁剪比例设置为 `1/1`
 </demo>
 
+<!-- #region snippet -->
 <template>
     <x-cropper
         ref="cropperRef"
@@ -23,3 +24,4 @@ function onChange(info) {
 </script>
 
 <style lang="less" scoped></style>
+<!-- #endregion snippet -->

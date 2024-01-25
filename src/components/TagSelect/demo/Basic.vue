@@ -1,8 +1,9 @@
 <demo>
-## 基本用法
+## 基础用法
 一般配合 `Filter` 组件使用
 </demo>
 
+<!-- #region snippet -->
 <template>
     <a-space
         :size="24"
@@ -58,3 +59,4 @@ const selectedKeys = ref([])
 </script>
 
 <style lang="less" scoped></style>
+<!-- #endregion snippet -->

@@ -1,71 +1,24 @@
 # Preview 预览
 
-## 示例
+## 代码演示
 
 ### 基础用法
 
-```vue
-<template>
-    <div>
-        <a-button type="primary" ghost @click="handlePreview">预览图片</a-button>
-    </div>
-</template>
+<<< @/../src/components/Preview/demo/Basic.vue#snippet
 
-<script setup>
-import { preview } from '@/components'
+### 多媒体
 
-function handlePreview() {
-    preview('http://cdn.xuanyunet.com/test/1.jpeg')
-}
-</script>
-```
+<<< @/../src/components/Preview/demo/Multiple.vue#snippet
 
-### 指定初始位置
+### 多张图片预览
 
-```vue
-<template>
-    <div>
-        <a-button type="primary" ghost @click="handlePreview">预览图片</a-button>
-    </div>
-</template>
-
-<script setup>
-import { preview } from '@/components'
-
-function handlePreview() {
-    preview({
-        urls: ['http://cdn.xuanyunet.com/test/1.jpeg', 'http://cdn.xuanyunet.com/test/2.jpeg', 'http://cdn.xuanyunet.com/test/3.jpeg'],
-        current: 1
-    })
-}
-</script>
-```
-
-### 多种格式文件预览
-
-```vue
-<template>
-    <div>
-        <a-button type="primary" ghost @click="handlePreview">预览文件</a-button>
-    </div>
-</template>
-
-<script setup>
-import { preview } from '@/components'
-
-function handlePreview() {
-    preview({
-        urls: ['http://cdn.xuanyunet.com/test/1.jpeg', 'http://cdn.xuanyunet.com/test/1.mp3', 'http://cdn.xuanyunet.com/test/1.mp4'],
-    })
-}
-</script>
-```
+<<< @/../src/components/Preview/demo/Media.vue#snippet
 
 ## API
 
-### 参数
+### Props
 
-| 名称      | 说明                                | 类型       | 默认值 |
-|---------|-----------------------------------|----------|-----|
-| urls    | url 数组，支持 `image/*` `.mp3` `.mp4` | `array`  | `-` |
-| current | 预览起始位置索引                          | `number` | `0` |
+| 名称    | 说明                                   | 类型     | 默认值 |
+| ------- | -------------------------------------- | -------- | ------ |
+| urls    | url 数组，支持 `image/*` `.mp3` `.mp4` | `array`  | `-`    |
+| current | 预览起始位置索引                       | `number` | `0`    |

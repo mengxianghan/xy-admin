@@ -3,6 +3,7 @@
 通过设置 `color` 自定义二维码颜色
 </demo>
 
+<!-- #region snippet -->
 <template>
     <a-space :size="24">
         <x-qrcode
@@ -21,3 +22,4 @@ const text = ref('http://xy-admin.xuanyunet.com')
 </script>
 
 <style lang="less" scoped></style>
+<!-- #endregion snippet -->

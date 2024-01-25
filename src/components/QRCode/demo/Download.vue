@@ -3,6 +3,7 @@
 下载二维码的简单实现。
 </demo>
 
+<!-- #region snippet -->
 <template>
     <a-space
         :size="24"
@@ -37,3 +38,4 @@ async function handleDownload() {
 </script>
 
 <style lang="less" scoped></style>
+<!-- #endregion snippet -->

@@ -3,6 +3,7 @@
 当元素高度超过最大高度，才会显示滚动条。
 </demo>
 
+<!-- #region snippet -->
 <template>
     <a-space :size="24">
         <a-button @click="handleAdd">Add Item</a-button>
@@ -46,3 +47,4 @@ function handleDelete() {
     background: @control-item-bg-hover;
 }
 </style>
+<!-- #endregion snippet -->

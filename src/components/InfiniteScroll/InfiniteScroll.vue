@@ -41,26 +41,44 @@ defineOptions({
 })
 
 const props = defineProps({
+    /**
+     * 加载过程中的提示文案
+     */
     loadingText: {
         type: String,
         default: '正在努力加载',
     },
+    /**
+     * 是否已加载完成，加载完成后不再触发 load 事件
+     */
     finished: {
         type: Boolean,
         default: false,
     },
+    /**
+     * 加载完成后的提示文案
+     */
     finishedText: {
         type: String,
         default: '没有更多了',
     },
+    /**
+     * 加载失败后的提示文案
+     */
     errorText: {
         type: String,
         default: '加载失败，点击重新加载',
     },
+    /**
+     * 是否在初始化时立即执行滚动位置检查
+     */
     immediateCheck: {
         type: Boolean,
         default: true,
     },
+    /**
+     * 滚动条与底部距离小于 distance 时触发 load 事件
+     */
     distance: {
         type: Number,
         default: 30,

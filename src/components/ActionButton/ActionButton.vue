@@ -16,10 +16,6 @@ defineOptions({
     name: 'XActionButton',
 })
 
-/**
- * 操作按钮
- * @property {boolean} divider 是否显示分割线
- */
 defineProps({
     tag: {
         type: String,

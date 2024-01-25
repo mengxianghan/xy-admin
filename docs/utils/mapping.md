@@ -16,13 +16,13 @@ mapping({ data, fieldNames, expand, treeFieldName, keepOtherFields })
 | treeFieldName   | 子节点字段名   | `string`  | `-`     |
 | keepOtherFields | 是否保留其他字段 | `boolean` | `false` |
 
-## 示例
+## 代码演示
 
 ### 基础用法
 
 ::: code-group
 
-```js [例子]
+```js [示例]
 const data = [
     { id: '1', title: '选项1', number: 1 },
     { id: '2', title: '选项2', number: 2 },
@@ -62,7 +62,7 @@ console.log(list)
 [使用函数](#使用函数)也可实现相同的功能
 ::: code-group
 
-```js [例子]
+```js [示例]
 const data = [
     { id: '1', title: '选项1', number: 1 },
     { id: '2', title: '选项2', number: 2 },
@@ -106,7 +106,7 @@ console.log(list)
 
 ::: code-group
 
-```js [例子]
+```js [示例]
 const data = [
     {
         id: '1',
@@ -144,7 +144,7 @@ const list = mapping({
 console.log(list)
 ```
 
-```js [例子]
+```js [示例]
 ;[
     {
         key: '1',
@@ -175,7 +175,7 @@ console.log(list)
 
 ::: code-group
 
-```js [例子]
+```js [示例]
 const data = [
     { id: '1', title: '选项1', number: 1 },
     { id: '2', title: '选项2', number: 2 },
@@ -221,7 +221,7 @@ console.log(list)
 
 ::: code-group
 
-```js [例子]
+```js [示例]
 const data = [
     { id: '1', title: '选项1', number: 1 },
     { id: '2', title: '选项2', number: 2 },

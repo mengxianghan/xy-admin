@@ -3,6 +3,7 @@
 自定义尺寸
 </demo>
 
+<!-- #region snippet -->
 <template>
     <a-space
         :size="24"
@@ -54,3 +55,4 @@ function handleIncrease() {
 </script>
 
 <style lang="less" scoped></style>
+<!-- #endregion snippet -->

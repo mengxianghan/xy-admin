@@ -3,6 +3,7 @@
 基于 `Form`、`FormItem` 组件封装，支持其所有属性和插槽
 </demo>
 
+<!-- #region snippet -->
 <template>
     <x-search
         :columns="3"
@@ -37,3 +38,4 @@ import { QuestionCircleOutlined } from '@ant-design/icons-vue'
 </script>
 
 <style lang="less" scoped></style>
+<!-- #endregion snippet -->

@@ -3,6 +3,7 @@
 点击左右切换按钮可以预览多张图片。`current` 可以设置默认打开时展示第几张图片
 </demo>
 
+<!-- #region snippet -->
 <template>
     <a-button
         type="primary"
@@ -28,3 +29,4 @@ function handlePreview() {
 </script>
 
 <style lang="less" scoped></style>
+<!-- #endregion snippet -->

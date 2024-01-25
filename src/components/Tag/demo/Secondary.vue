@@ -3,6 +3,7 @@
 次要标签
 </demo>
 
+<!-- #region snippet -->
 <template>
     <a-space>
         <x-tag
@@ -31,3 +32,4 @@
 <script setup></script>
 
 <style lang="less" scoped></style>
+<!-- #endregion snippet -->

@@ -1,8 +1,9 @@
 <demo>
-## 基本用法
-基本用法
+## 偏移
+使用 `offset` 可以将列向右侧偏。例如：`offset={1}` 将元素向右侧偏移了 1 个列（column）的宽度。
 </demo>
 
+<!-- #region snippet -->
 <template>
     <x-grid
         :columns="4"
@@ -29,3 +30,4 @@
     background-color: #bae0ff;
 }
 </style>
+<!-- #endregion snippet -->

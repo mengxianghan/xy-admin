@@ -13,7 +13,11 @@ export default () => {
             const filePath = path.split('?')[0]
             const file = fs.readFileSync(filePath).toString()
             const parsed = baseParse(file).children.find((n) => n.tag === 'demo')
-            const sourceCode = file.split(parsed.loc.source).join('').trim()
+            const sourceCode = file
+                .split(parsed.loc.source)
+                .join('')
+                .trim()
+                .replace(/<!--\s?#(end)?region\s?snippet\s-->\n?/gm, '')
             const [, title, description] = marked
                 .parse(parsed.children[0].loc.source)
                 .match(/^(?:<h[0-9]>([^<]*)<\/h[0-9]>)([\s\S]*)/)

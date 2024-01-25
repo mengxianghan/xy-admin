@@ -15,13 +15,13 @@ findTree(data, value, callback, fieldNames)
 | callback   | 回调函数  | `function`                 | `-`                                   |
 | fieldNames | 字段名   | `object`                   | `{ key: 'id', children: 'children' }` |
 
-## 示例
+## 代码演示
 
 ### 基础用法
 
 ::: code-group
 
-```js [例子]
+```js [示例]
 const data = [
     {
         "id": "1",
@@ -128,7 +128,7 @@ findTree(data, '2-1', (item, index, array, path) => {
 
 ::: code-group
 
-```js [例子]
+```js [示例]
 const data = [
     {
         "id": "1",

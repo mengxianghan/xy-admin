@@ -3,6 +3,7 @@
 `width` 和 `height` 都支持 `v-model`
 </demo>
 
+<!-- #region snippet -->
 <template>
     <x-resize-box
         v-model:height="height"
@@ -35,3 +36,4 @@ const height = ref(200)
 </script>
 
 <style lang="less" scoped></style>
+<!-- #endregion snippet -->

@@ -3,6 +3,7 @@
 点击确定后异步关闭对话框，例如提交表单。
 </demo>
 
+<!-- #region snippet -->
 <template>
     <a-button
         type="primary"
@@ -42,3 +43,4 @@ function handleOk() {
 </script>
 
 <style lang="less" scoped></style>
+<!-- #endregion snippet -->

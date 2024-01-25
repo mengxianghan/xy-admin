@@ -3,6 +3,7 @@
 使用 `unlimited` 启用不限选项
 </demo>
 
+<!-- #region snippet -->
 <template>
     <x-tag-select
         v-model="selectedKeys"
@@ -26,3 +27,4 @@ const selectedKeys = ref([0])
 </script>
 
 <style lang="less" scoped></style>
+<!-- #endregion snippet -->

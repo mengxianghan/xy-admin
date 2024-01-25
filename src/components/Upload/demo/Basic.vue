@@ -1,8 +1,9 @@
 <demo>
-## 基本用法
-基本用法
+## 基础用法
+基础用法
 </demo>
 
+<!-- #region snippet -->
 <template>
     <a-space :size="24">
         <x-upload-image v-model="images"></x-upload-image>
@@ -20,3 +21,4 @@ const images = ref('')
 </script>
 
 <style lang="less" scoped></style>
+<!-- #endregion snippet -->

@@ -13,12 +13,12 @@ deep(data, fieldNames)
 | data       | 数据列表 | `array`  | `-`                        |
 | fieldNames | 字段名  | `object` | `{ children: 'children' }` |
 
-## 示例
+## 代码演示
 
 ### 基础用法
 
 ::: code-group
-```js [例子]
+```js [示例]
 const data = [
     {
         "id": "1",

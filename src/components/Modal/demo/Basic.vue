@@ -3,6 +3,7 @@
 使用 `openModal` 打开弹窗，使用 `closeModal` 关闭弹窗
 </demo>
 
+<!-- #region snippet -->
 <template>
     <a-button
         type="primary"
@@ -33,3 +34,4 @@ function handleOpen() {
 </script>
 
 <style lang="less" scoped></style>
+<!-- #endregion snippet -->

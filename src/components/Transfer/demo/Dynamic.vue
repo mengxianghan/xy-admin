@@ -3,6 +3,7 @@
 动态加载数据。
 </demo>
 
+<!-- #region snippet -->
 <template>
     <x-transfer
         v-model="checkedKeys"
@@ -56,3 +57,4 @@ function getList(length = 20) {
 </script>
 
 <style lang="less" scoped></style>
+<!-- #endregion snippet -->

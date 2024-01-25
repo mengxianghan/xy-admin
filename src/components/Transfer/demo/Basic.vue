@@ -1,8 +1,9 @@
 <demo>
-## 基本用法
-基本用法
+## 基础用法
+基础用法
 </demo>
 
+<!-- #region snippet -->
 <template>
     <x-transfer
         v-model="checkedKeys"
@@ -55,3 +56,4 @@ const checkedKeys = ref([])
 </script>
 
 <style lang="less" scoped></style>
+<!-- #endregion snippet -->

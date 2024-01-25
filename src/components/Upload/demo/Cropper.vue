@@ -3,6 +3,7 @@
 上传完成后进行裁剪
 </demo>
 
+<!-- #region snippet -->
 <template>
     <x-upload-image
         v-model="images"
@@ -18,3 +19,4 @@ const images = ref('')
 </script>
 
 <style lang="less" scoped></style>
+<!-- #endregion snippet -->

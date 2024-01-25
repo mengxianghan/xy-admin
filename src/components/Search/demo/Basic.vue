@@ -1,8 +1,9 @@
 <demo>
-## 基本用法
-基本用法
+## 基础用法
+基础用法
 </demo>
 
+<!-- #region snippet -->
 <template>
     <x-search>
         <x-search-item>
@@ -24,3 +25,4 @@
 <script setup></script>
 
 <style lang="less" scoped></style>
+<!-- #endregion snippet -->

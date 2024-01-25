@@ -3,6 +3,7 @@
 通过使用 `setScrollTop` 与 `setScrollLeft` 方法，可以手动控制滚动条滚动。
 </demo>
 
+<!-- #region snippet -->
 <template>
     <x-scrollbar
         ref="scrollbarRef"
@@ -62,3 +63,4 @@ function formatTip(value) {
     background: @control-item-bg-hover;
 }
 </style>
+<!-- #endregion snippet -->

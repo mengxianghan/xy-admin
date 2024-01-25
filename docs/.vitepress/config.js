@@ -23,8 +23,8 @@ export default defineConfig({
     },
     vite: {
         server: {
-            host: true,
-            port: 8000,
+            host: '0.0.0.0',
+            strictPort: false,
         },
     },
 })

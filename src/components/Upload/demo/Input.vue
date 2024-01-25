@@ -1,8 +1,9 @@
 <demo>
-## 上传文件
-单一文件上传
+## 上传框
+单一文件上传，不需要预览的图片或者位置格式的文件
 </demo>
 
+<!-- #region snippet -->
 <template>
     <x-upload-input v-model="file"></x-upload-input>
 </template>
@@ -30,3 +31,4 @@ const file = ref('')
     }
 }
 </style>
+<!-- #endregion snippet -->

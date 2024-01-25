@@ -3,6 +3,7 @@
 可以通过 status 的值控制二维码的状态
 </demo>
 
+<!-- #region snippet -->
 <template>
     <a-space :size="24">
         <x-qrcode
@@ -30,3 +31,4 @@ function handleRefresh() {
 </script>
 
 <style lang="less" scoped></style>
+<!-- #endregion snippet -->

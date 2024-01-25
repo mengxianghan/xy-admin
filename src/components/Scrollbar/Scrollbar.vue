@@ -21,13 +21,22 @@ defineOptions({
 })
 
 const props = defineProps({
+    /**
+     * 容器高度
+     */
     height: {
         type: [Number, String],
         default: '100%',
     },
+    /**
+     * 最大高度
+     */
     maxHeight: {
         type: [Number, String],
     },
+    /**
+     * 是否一直显示滚动条，为 false 时，仅滑过容器时显示
+     */
     always: {
         type: Boolean,
         default: false,

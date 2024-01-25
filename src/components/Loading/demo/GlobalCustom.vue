@@ -3,6 +3,7 @@
 加入你的想法
 </demo>
 
+<!-- #region snippet -->
 <template>
     <a-space>
         <a-button
@@ -76,3 +77,4 @@ function reload() {
 </script>
 
 <style lang="less" scoped></style>
+<!-- #endregion snippet -->

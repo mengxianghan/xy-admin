@@ -3,6 +3,7 @@
 最简单的使用方式，适应各种场景。
 </demo>
 
+<!-- #region snippet -->
 <template>
     <a-button
         type="primary"
@@ -28,3 +29,4 @@ function handleShow() {
 </script>
 
 <style lang="less" scoped></style>
+<!-- #endregion snippet -->

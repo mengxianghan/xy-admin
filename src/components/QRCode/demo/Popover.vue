@@ -3,6 +3,7 @@
 带气泡卡片的例子。
 </demo>
 
+<!-- #region snippet -->
 <template>
     <a-popover :overlay-inner-style="{ padding: 0 }">
         <template #content>
@@ -25,3 +26,4 @@ const text = ref('http://xy-admin.xuanyunet.com')
 </script>
 
 <style lang="less" scoped></style>
+<!-- #endregion snippet -->

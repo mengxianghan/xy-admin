@@ -3,6 +3,7 @@
 快看我！快看我！
 </demo>
 
+<!-- #region snippet -->
 <template>
     <a-table
         :columns="columns"
@@ -109,3 +110,4 @@ const data = [
 </script>
 
 <style lang="less" scoped></style>
+<!-- #endregion snippet -->

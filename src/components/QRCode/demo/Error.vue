@@ -3,6 +3,7 @@
 通过设置 errorLevel 调整不同的容错等级
 </demo>
 
+<!-- #region snippet -->
 <template>
     <a-space
         :size="24"
@@ -25,3 +26,4 @@ const level = ref(segmentedData[0])
 </script>
 
 <style lang="less" scoped></style>
+<!-- #endregion snippet -->

@@ -3,6 +3,7 @@
 K线图
 </demo>
 
+<!-- #region snippet -->
 <template>
     <x-chart
         :height="300"
@@ -59,3 +60,4 @@ const option = ref({
 </script>
 
 <style lang="less" scoped></style>
+<!-- #endregion snippet -->

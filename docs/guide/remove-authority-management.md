@@ -2,15 +2,75 @@
 
 当你要开发一个小系统，或一个完全不需要权限控制的，开放后台任意访问的管理面板。
 
-## 去除路由守卫
+在 `src/store/modules/router.js` 文件中找到 `getRouterList` 方法，并做如下调整。
 
-移除代码 `/src/core/index.js` 第 `11` 行
+```js
+import { defineStore } from 'pinia'
+import { notFoundRoute } from '@/router/config'
+import { formatRoutes, generateMenuList, generateRoutes, getFirstValidRoute } from '@/router/util'
+import { findTree } from '@/utils'
+import { config } from '@/config'
+import router from '@/router'
+import apis from '@/apis' // [!code --] // [!code focus]
+import routes from '@/router/routes'
 
-<<< @/../src/core/index.js {11}
+const useRouterStore = defineStore('router', {
+    state: () => ({
+        routeList: [],
+        menuList: [],
+        indexRoute: null,
+    }),
+    getters: {},
+    actions: {
+        /**
+         * 获取路由列表
+         * @returns {Promise}
+         */
+        getRouterList() { // [!code focus:26]
+            return new Promise((resolve, reject) => {
+                ;(async () => {
+                    try {
+                        const { code, data } = await apis.user.getAuthList().catch(() => { // [!code --:5]
+                            throw new Error()
+                        })
+                        if (config('http.code.success') === code) {
+                            const validRoutes = formatRoutes(routes, data)
+                            const validRoutes = formatRoutes(routes, false) // [!code ++]
+                            const menuList = generateMenuList(validRoutes)
+                            const routeList = [...generateRoutes(validRoutes), notFoundRoute]
+                            const indexRoute = getFirstValidRoute(menuList)
+                            routeList.forEach((route) => {
+                                router.addRoute(route)
+                            })
+                            this.routeList = routeList
+                            this.menuList = menuList
+                            this.indexRoute = indexRoute
+                            resolve()
+                        } // [!code --]
+                    } catch (error) {
+                        reject()
+                    }
+                })()
+            })
+        },
+        /**
+         * 设置徽标
+         * @param {string} name 名称
+         * @param {number} count 数量
+         */
+        setBadge({ name, count } = {}) {
+            findTree(
+                this.menuList,
+                name,
+                (item) => {
+                    item.meta.badge = count
+                },
+                { key: 'name', children: 'children' }
+            )
+        },
+    },
+})
 
+export default useRouterStore
 
-## 让菜单生成不经过动态路由
-
-<<< @/../src/router/config.js {22-51}
-
-将路由添加到 `/src/router/config.js` 的 `constantRouterMap` 中
+```

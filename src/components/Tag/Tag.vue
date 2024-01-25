@@ -32,18 +32,39 @@ const props = defineProps({
         type: String,
         default: 'default',
     },
+    /**
+     * 颜色
+     */
     color: String,
+    /**
+     * 文本颜色
+     */
     textColor: String,
+    /**
+     * 边框颜色
+     */
     borderColor: String,
+    /**
+     * 图标
+     */
     icon: Object,
+    /**
+     * 次要标签
+     */
     secondary: {
         type: Boolean,
         default: false,
     },
+    /**
+     * 是否显示边框
+     */
     bordered: {
         type: Boolean,
         default: true,
     },
+    /**
+     * 是否圆形标签
+     */
     round: {
         type: Boolean,
         default: false,

@@ -13,16 +13,6 @@ export default [
         },
         children: [
             {
-                path: 'toolbar',
-                name: 'toolbar',
-                component: 'components/toolbar/index.vue',
-                meta: {
-                    title: '工具条',
-                    isMenu: true,
-                    keepAlive: true,
-                },
-            },
-            {
                 path: 'action-button',
                 name: 'actionButton',
                 component: 'components/action-button/index.vue',
@@ -129,9 +119,20 @@ export default [
                 name: 'loading',
                 component: 'components/loading/index.vue',
                 meta: {
-                    title: '加载中',
+                    title: '加载',
                     isMenu: true,
                     keepAlive: true,
+                },
+            },
+            {
+                path: 'modal',
+                name: 'modal',
+                component: 'components/modal/index.vue',
+                meta: {
+                    title: '弹窗',
+                    isMenu: true,
+                    keepAlive: true,
+                    badge: 'new',
                 },
             },
             {
@@ -207,6 +208,16 @@ export default [
                 },
             },
             {
+                path: 'toolbar',
+                name: 'toolbar',
+                component: 'components/toolbar/index.vue',
+                meta: {
+                    title: '工具条',
+                    isMenu: true,
+                    keepAlive: true,
+                },
+            },
+            {
                 path: 'transfer',
                 name: 'transfer',
                 component: 'components/transfer/index.vue',
@@ -225,17 +236,6 @@ export default [
                     title: '上传',
                     isMenu: true,
                     keepAlive: true,
-                },
-            },
-            {
-                path: 'modal',
-                name: 'modal',
-                component: 'components/modal/index.vue',
-                meta: {
-                    title: '弹窗',
-                    isMenu: true,
-                    keepAlive: true,
-                    badge: 'new',
                 },
             },
         ],

@@ -3,6 +3,7 @@
 使用一个颜色对象定制标签的颜色。
 </demo>
 
+<!-- #region snippet -->
 <template>
     <x-tag
         border-color="#555"
@@ -15,3 +16,4 @@
 <script setup></script>
 
 <style lang="less" scoped></style>
+<!-- #endregion snippet -->

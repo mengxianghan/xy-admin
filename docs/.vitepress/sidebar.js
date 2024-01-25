@@ -13,29 +13,64 @@ export default {
         {
             text: '组件',
             items: [
-                { text: 'ActionBar 操作条', link: '/components/action-bar' },
                 { text: 'ActionButton 操作按钮', link: '/components/action-button' },
                 { text: 'Breadcrumb 面包屑', link: '/components/breadcrumb' },
+                { text: 'Cascader 级联选择', link: '/components/cascader' },
                 { text: 'Chart 图表', link: '/components/chart' },
-                { text: 'Cropper 图片裁剪', link: '/components/cropper' },
-                { text: 'CropperDialog 图片裁剪弹窗', link: '/components/cropper-dialog' },
-                { text: 'Editor 富文本编辑器', link: '/components/editor' },
+                { text: 'Cropper 裁剪', link: '/components/cropper' },
+                { text: 'Editor 编辑器', link: '/components/editor' },
                 { text: 'Filter 筛选', link: '/components/filter' },
                 { text: 'FormTable 表单表格', link: '/components/form-table' },
-                { text: 'Loading 加载中', link: '/components/loading' },
+                { text: 'Grid 网格', link: '/components/grid' },
+                { text: 'InfiniteScroll 无限滚动', link: '/components/infinite-scroll' },
+                { text: 'Loading 加载', link: '/components/loading' },
                 { text: 'Preview 预览', link: '/components/preview' },
-                { text: 'QrCode 二维码', link: '/components/qr-code' },
-                { text: 'Cascader 级联选择', link: '/components/cascader' },
+                { text: 'QRCode 二维码', link: '/components/qr-code' },
                 { text: 'ResizeBox 伸缩框', link: '/components/resize-box' },
-                { text: 'SearchBar 搜索条', link: '/components/search-bar' },
+                { text: 'Scrollbar 滚动条', link: '/components/scrollbar' },
+                { text: 'Search 搜索', link: '/components/search' },
+                { text: 'Tag 标签', link: '/components/tag' },
+                { text: 'TagSelect 标签选择', link: '/components/tag-select' },
+                { text: 'Toolbar 工具条', link: '/components/toolbar' },
+                { text: 'Transfer 穿梭框', link: '/components/transfer' },
                 { text: 'UploadImage 上传图片', link: '/components/upload-image' },
-                { text: 'UploadInput 上传文件', link: '/components/upload-input' },
+                { text: 'UploadInput 上传框', link: '/components/upload-input' },
             ],
+        },
+    ],
+    '/hooks/': [
+        {
+            text: 'useColors',
+            link: '/hooks/use-colors',
+        },
+        {
+            text: 'useConfigProvider',
+            link: '/hooks/use-config-provider',
+        },
+        {
+            text: 'useForm',
+            link: '/hooks/use-form',
+        },
+        {
+            text: 'useMenu',
+            link: '/hooks/use-menu',
+        },
+        {
+            text: 'useModal',
+            link: '/hooks/use-modal',
+        },
+        {
+            text: 'useMultiTab',
+            link: '/hooks/use-multi-tab',
+        },
+        {
+            text: 'usePagination',
+            link: '/hooks/use-pagination',
         },
     ],
     '/utils/': [
         {
-            text: 'src/utils/index.js',
+            text: '通用',
             items: [
                 {
                     text: 'mapping',
@@ -49,35 +84,51 @@ export default {
                     text: 'deep',
                     link: '/utils/deep',
                 },
+                {
+                    text: 'deepMerge',
+                    link: '/utils/deepMerge',
+                },
+                {
+                    text: 'assets',
+                    link: '/utils/assets',
+                },
             ],
         },
         {
-            text: 'src/utils/to.js',
+            text: '转换',
             items: [
                 {
-                    text: 'tree2list',
-                    link: '/utils/tree2list',
+                    text: 'toList',
+                    link: '/utils/toList',
                 },
                 {
-                    text: 'list2tree',
-                    link: '/utils/list2tree',
+                    text: 'toTree',
+                    link: '/utils/toTree',
                 },
             ],
         },
+        {
+            text: '获取',
+            items: [],
+        },
+        {
+            text: '格式化',
+            items: [],
+        },
     ],
-    '/directive/': [
+    '/directives/': [
         {
             text: '指令',
             items: [
-                { text: 'v-loading', link: '/directive/v-loading' },
-                { text: 'v-action', link: '/directive/v-action' },
+                { text: 'v-loading', link: '/directives/v-loading' },
+                { text: 'v-action', link: '/directives/v-action' },
             ],
         },
     ],
-    '/npm/': [
-        { text: 'xy-ali-oss', link: '/npm/xy-ali-oss' },
-        { text: 'xy-http', link: '/npm/xy-http' },
-        { text: 'xy-enum', link: '/npm/xy-enum' },
-        { text: 'xy-storage', link: '/npm/xy-storage' },
+    '/plugins/': [
+        { text: 'xy-ali-oss', link: '/plugins/xy-ali-oss' },
+        { text: 'xy-enum', link: '/plugins/xy-enum' },
+        { text: 'xy-http', link: '/plugins/xy-http' },
+        { text: 'xy-storage', link: '/plugins/xy-storage' },
     ],
 }

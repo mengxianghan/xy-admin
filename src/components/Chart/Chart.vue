@@ -36,7 +36,7 @@ const props = defineProps({
     },
 })
 
-const emit = defineEmits(['initialized'])
+const emits = defineEmits(['initialized'])
 
 const chart = ref(null)
 const chartRef = ref()
@@ -91,7 +91,7 @@ function init() {
     setTimeout(() => {
         chart.value.setOption(props.option, true)
         resize()
-        emit('initialized', chart.value)
+        emits('initialized', chart.value)
     }, 100)
 }
 

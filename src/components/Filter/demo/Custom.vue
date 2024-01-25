@@ -3,6 +3,7 @@
 配合其他表单项，实现复杂的条件筛选。其中包含了设置 `label` 宽度、`input`、`range-picker`，支持 `ant-design-vue` 中所有表单项
 </demo>
 
+<!-- #region snippet -->
 <template>
     <x-filter :label-col="{ style: { width: '80px' } }">
         <x-filter-item label="品牌">
@@ -46,3 +47,4 @@ formData.value = {
 </script>
 
 <style lang="less" scoped></style>
+<!-- #endregion snippet -->

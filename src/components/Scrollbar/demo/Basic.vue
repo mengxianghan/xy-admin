@@ -1,8 +1,9 @@
 <demo>
-## 基本用法
+## 基础用法
 通过 `height` 属性设置滚动条高度，若不设置则根据父容器高度自适应。
 </demo>
 
+<!-- #region snippet -->
 <template>
     <x-scrollbar height="400px">
         <p
@@ -28,3 +29,4 @@
     background: @control-item-bg-hover;
 }
 </style>
+<!-- #endregion snippet -->

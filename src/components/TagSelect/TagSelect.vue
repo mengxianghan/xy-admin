@@ -51,7 +51,7 @@ const props = defineProps({
         type: [Array, Number, String],
     },
     /**
-     * 是否多选，默认：false
+     * 是否多选
      */
     multiple: {
         type: Boolean,
@@ -65,21 +65,21 @@ const props = defineProps({
         default: () => [],
     },
     /**
-     * 是否可收起，默认：true
+     * 是否可收起
      */
     collapsible: {
         type: Boolean,
         default: true,
     },
     /**
-     * 收起状态，默认：true
+     * 收起状态
      */
     collapsed: {
         type: Boolean,
         default: true,
     },
     /**
-     * 自定义节点字段，默认：{ label: 'label', value: 'value' }
+     * 自定义节点字段
      */
     fieldNames: {
         type: Object,
@@ -90,7 +90,7 @@ const props = defineProps({
     },
 })
 
-const emit = defineEmits(['update:collapsed', 'update:modelValue', 'collapse', 'change'])
+const emits = defineEmits(['update:collapsed', 'update:modelValue', 'collapse', 'change'])
 
 const { onFieldChange } = Form.useInjectFormItemContext()
 
@@ -164,8 +164,8 @@ onBeforeUnmount(() => {
  */
 function handleCollapse() {
     curCollapsed.value = !curCollapsed.value
-    emit('update:collapsed', curCollapsed.value)
-    emit('collapse', curCollapsed.value)
+    emits('update:collapsed', curCollapsed.value)
+    emits('collapse', curCollapsed.value)
 }
 
 /**
@@ -234,8 +234,8 @@ function trigger() {
     } else {
         selectedOptions = options.find((item) => item[valueKey] === curValue.value)
     }
-    emit('update:modelValue', curValue.value)
-    emit('change', curValue.value, selectedOptions)
+    emits('update:modelValue', curValue.value)
+    emits('change', curValue.value, selectedOptions)
     onFieldChange()
 }
 

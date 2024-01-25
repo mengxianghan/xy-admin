@@ -3,6 +3,7 @@
 带 Icon 的二维码，支持定义背景色、间距、尺寸
 </demo>
 
+<!-- #region snippet -->
 <template>
     <x-qrcode
         :icon="assets('logo.svg')"
@@ -18,3 +19,4 @@ const text = ref('http://xy-admin.xuanyunet.com')
 </script>
 
 <style lang="less" scoped></style>
+<!-- #endregion snippet -->

@@ -1,47 +1,33 @@
 # Editor 富文本编辑器
 
-## 示例
+## 代码演示
 
 ### 基础用法
+<<< @/../src/components/Editor/demo/Basic.vue#snippet
 
-```vue
-<template>
-    <x-editor v-model="content"
-              :options="options"></x-editor>
-</template>
-
-<script setup>
-import { ref } from 'vue'
-
-const content = ref('')
-
-const options = {
-    height: 400
-}
-</script>
-```
+### 内联编辑器
+<<< @/../src/components/Editor/demo/Inline.vue#snippet
 
 ### 更多用法
 
-::: tip
-基于 TinyMCE
-实现，更多使用方式请参考官方文档。[https://www.tiny.cloud/docs/tinymce/6/basic-setup/](https://www.tiny.cloud/docs/tinymce/6/basic-setup/)
+:::tip 提示
+基于 `TinyMCE` 实现，更多使用方式请参考官方文档。[https://www.tiny.cloud/docs/tinymce/6/basic-setup/](https://www.tiny.cloud/docs/tinymce/6/basic-setup/)
 :::
 
 ## API
 
-### 方法
+### Props
 
 | 名称                  | 说明   | 类型        | 默认值     |
 |---------------------|------|-----------|---------|
 | modelValue(v-model) | 内容   | `string`  | -       |
-| options             | 配置   | `object`  | `{}`    |
+| option              | 配置   | `object`  | `{}`    |
 | height              | 高    | `number`  | `300`   |
 | placeholder         | 占位文本 | `string`  | -       |
 | disabled            | 禁用   | `boolean` | `false` |
 
-### 事件
+### Events
 
-| 名称    | 说明    | 返回值                |
-|-------|-------|--------------------|
-| ready | 初始化完成 | `function(editor)` |
+| 事件名         | 说明    | 返回值      |
+|-------------|-------|----------|
+| initialized | 初始化完成 | `editor` |

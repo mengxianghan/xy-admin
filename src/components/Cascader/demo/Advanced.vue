@@ -3,6 +3,7 @@
 不同层级使用不同的数据接口。用于特殊场景的级联选择
 </demo>
 
+<!-- #region snippet -->
 <template>
     <x-cascader
         v-model="selectedKeys"
@@ -23,3 +24,4 @@ async function getOptions() {
 </script>
 
 <style lang="less" scoped></style>
+<!-- #endregion snippet -->

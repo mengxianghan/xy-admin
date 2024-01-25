@@ -1,8 +1,9 @@
 <demo>
-## 基本用法
+## 基础用法
 它有不同的类型。
 </demo>
 
+<!-- #region snippet -->
 <template>
     <a-space>
         <x-tag> 爱在西元前</x-tag>
@@ -16,3 +17,4 @@
 <script setup></script>
 
 <style lang="less" scoped></style>
+<!-- #endregion snippet -->

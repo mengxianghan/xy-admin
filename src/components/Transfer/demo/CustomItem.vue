@@ -3,6 +3,7 @@
 自定义渲染每一个 Transfer Item，可用于渲染复杂数据。
 </demo>
 
+<!-- #region snippet -->
 <template>
     <x-transfer
         v-model="checkedKeys"
@@ -55,3 +56,4 @@ function getList(length = 10) {
 </script>
 
 <style lang="less" scoped></style>
+<!-- #endregion snippet -->

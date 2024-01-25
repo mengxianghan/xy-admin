@@ -44,6 +44,9 @@ defineOptions({
 })
 
 const props = defineProps({
+    /**
+     * 二维码内容
+     */
     value: {
         type: String,
         required: true,
@@ -57,21 +60,21 @@ const props = defineProps({
         default: true,
     },
     /**
-     * 大小。默认：120
+     * 大小
      */
     size: {
         type: Number,
         default: 160,
     },
     /**
-     * 颜色。默认：#000
+     * 颜色
      */
     color: {
         type: String,
         default: '#000',
     },
     /**
-     * 背景色。默认：#fff
+     * 背景色
      */
     backgroundColor: {
         type: String,
@@ -106,14 +109,14 @@ const props = defineProps({
         default: '',
     },
     /**
-     * 纠错等级。默认：M，【L=low, M=medium, Q=quartile, H=high】
+     * 纠错等级，可选：【L=low, M=medium, Q=quartile, H=high】
      */
     errorLevel: {
         type: String,
         default: 'M',
     },
     /**
-     * 状态，【active=有效，loading=加载中，expired=已过期，scanned=已扫描】
+     * 状态，可选：【active=有效，loading=加载中，expired=已过期，scanned=已扫描】
      */
     status: {
         type: String,

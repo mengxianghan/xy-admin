@@ -3,6 +3,7 @@
 展示TinyMCE的内联编辑功能。
 </demo>
 
+<!-- #region snippet -->
 <template>
     <x-editor :option="option"></x-editor>
 </template>
@@ -16,3 +17,4 @@ const option = ref({
 </script>
 
 <style lang="less" scoped></style>
+<!-- #endregion snippet -->
