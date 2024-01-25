@@ -13,4 +13,4 @@
 
 ## 指令权限
 
-`XYAdmin` 封装了一个非常方便实现按钮级别权限的自定义指令。具体详见：[v-action](/directive/v-action)
+`XYAdmin` 封装了一个非常方便实现按钮级别权限的自定义指令。具体详见：[v-action](/directives/v-action)

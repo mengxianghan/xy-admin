@@ -114,7 +114,7 @@ npm install
 $ npm run dev
 ```
 
-启动完成后会自动打开浏览器访问 `http://localhost:9211`，你看到下面的页面就代表成功了。
+启动完成后会自动打开浏览器访问 `http://localhost:5173`，你看到下面的页面就代表成功了。
 
 ![login](/images/login.png)
 
