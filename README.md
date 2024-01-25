@@ -1,5 +1,5 @@
-<div style="text-align:center;">
-<img src="http://cdn.xuanyunet.com/images/logo.svg" alt="logo" height="80" style="margin-bottom: -32px;">
+<div align="center">
+<img src="http://cdn.xuanyunet.com/images/logo.svg" alt="logo" height="80">
 
 # XYAdmin
 </div>
