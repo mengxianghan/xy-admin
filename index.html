@@ -1,87 +1,88 @@
 <!doctype html>
 <html lang="zh-cn">
-<head>
-    <meta charset="UTF-8" />
-    <link
-        href="/favicon.ico"
-        rel="icon" />
-    <meta
-        content="width=device-width, initial-scale=1.0"
-        name="viewport" />
-    <title></title>
-</head>
+    <head>
+        <meta charset="UTF-8" />
+        <link
+            href="/favicon.ico"
+            rel="icon" />
+        <meta
+            content="width=device-width, initial-scale=1.0"
+            name="viewport" />
+        <title></title>
+    </head>
 
-<body>
-<div id="app">
-    <div class="app-loading">
-        <div class="app-loading__loader"></div>
-        <div class="app-loading__title">正在加载资源</div>
-        <div class="app-loading__desc">初次加载需要较长时间 请耐心等待</div>
-    </div>
-    <style>
-        .app-loading {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            background: #ffffff;
-        }
+    <body>
+        <div id="app">
+            <div class="app-loading">
+                <div class="app-loading__loader"></div>
+                <div class="app-loading__title">正在加载资源</div>
+                <div class="app-loading__desc">初次加载需要较长时间 请耐心等待</div>
+            </div>
+            <style>
+                .app-loading {
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    right: 0;
+                    bottom: 0;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    flex-direction: column;
+                    background: #ffffff;
+                }
 
-        .app-loading__loader {
-            box-sizing: border-box;
-            width: 32px;
-            height: 32px;
-            border: 3px solid transparent;
-            border-top-color: rgba(0, 0, 0, 0.65);
-            border-radius: 50%;
-            animation: 1.2s loader linear infinite;
-            position: relative;
-        }
+                .app-loading__loader {
+                    box-sizing: border-box;
+                    width: 32px;
+                    height: 32px;
+                    border: 3px solid transparent;
+                    border-top-color: rgba(0, 0, 0, 0.65);
+                    border-radius: 50%;
+                    animation: 1.2s loader linear infinite;
+                    position: relative;
+                }
 
-        .app-loading__loader:before {
-            box-sizing: border-box;
-            content: '';
-            display: block;
-            width: inherit;
-            height: inherit;
-            position: absolute;
-            top: -3px;
-            left: -3px;
-            border: 3px solid rgba(0, 0, 0, 0.25);
-            border-radius: 50%;
-            opacity: 0.5;
-        }
+                .app-loading__loader:before {
+                    box-sizing: border-box;
+                    content: '';
+                    display: block;
+                    width: inherit;
+                    height: inherit;
+                    position: absolute;
+                    top: -3px;
+                    left: -3px;
+                    border: 3px solid rgba(0, 0, 0, 0.25);
+                    border-radius: 50%;
+                    opacity: 0.5;
+                }
 
-        .app-loading__title {
-            font-size: 18px;
-            color: rgba(0, 0, 0, 0.85);
-            margin-top: 30px;
-        }
+                .app-loading__title {
+                    font-size: 18px;
+                    color: rgba(0, 0, 0, 0.85);
+                    margin-top: 30px;
+                }
 
-        .app-loading__desc {
-            font-size: 14px;
-            color: rgba(0, 0, 0, 0.65);
-            margin-top: 8px;
-        }
+                .app-loading__desc {
+                    font-size: 14px;
+                    color: rgba(0, 0, 0, 0.65);
+                    margin-top: 8px;
+                }
 
-        @keyframes loader {
-            0% {
-                transform: rotate(0deg);
-            }
+                @keyframes loader {
+                    0% {
+                        transform: rotate(0deg);
+                    }
 
-            100% {
-                transform: rotate(360deg);
-            }
-        }
-    </style>
-</div>
-<script
-    src="/src/main.js"
-    type="module"></script>
-</body>
+                    100% {
+                        transform: rotate(360deg);
+                    }
+                }
+            </style>
+        </div>
+        <script src="/libs/tinymce/tinymce.min.js"></script>
+        <script
+            src="/src/main.js"
+            type="module"></script>
+    </body>
 </html>

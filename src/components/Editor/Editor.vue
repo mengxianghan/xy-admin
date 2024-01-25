@@ -9,7 +9,6 @@
                     :disabled="disabled"
                     :init="opts"
                     :placeholder="placeholder"
-                    tinymce-script-src="/libs/tinymce/tinymce.min.js"
                     v-bind="$attrs"
                     @init="onInit"></tiny-editor>
             </div>
