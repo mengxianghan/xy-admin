@@ -18,7 +18,7 @@
 
 <script setup>
 import { Form, message } from 'ant-design-vue'
-import { isEqual, last, pick } from 'lodash-es'
+import { isEqual, isFunction, last, pick } from 'lodash-es'
 import { computed, onMounted, ref, useSlots, watch } from 'vue'
 import { config } from '@/config'
 import { findTree } from '@/utils'
@@ -27,37 +27,36 @@ import { getSlotProps } from '../utils'
 defineOptions({
     name: 'XCascader',
 })
-/**
- * 地区联动
- * 使用场景：通过接口获取下级数据
- * 温馨提示：如果不需要通过接口获取下级数据时建议使用 AntDesign 中的 Cascader 组件
- * @property {array} value
- * @property {function | array} loadData
- * @property {object} filedNames
- * @property {number} level  层级，默认：1；
- *                              loadData 为 function 类型时可以用它来控制数据的最深层级
- *                              loadData 为 array 类型时，通过数组长度自动计算最多层级
- */
+
 const props = defineProps({
     modelValue: {
         type: Array,
         default: () => [],
     },
+    /**
+     * 加载数据
+     */
     loadData: {
         type: [Array, Function],
         default: () => async function () {},
     },
+    /**
+     * 自定义节点
+     */
     fieldNames: {
         type: Object,
         default: () => ({ label: 'label', value: 'value', children: 'children' }),
     },
+    /**
+     * 层级
+     */
     level: {
         type: Number,
         default: 1,
     },
 })
 
-const emit = defineEmits(['change', 'update:modelValue'])
+const emits = defineEmits(['change', 'update:modelValue'])
 
 const slots = useSlots()
 const { onFieldChange } = Form.useInjectFormItemContext()
@@ -66,7 +65,7 @@ const options = ref([])
 const curValue = ref([])
 
 const cpLevel = computed(() => {
-    return typeof props.loadData === 'function' ? props.level : props.loadData.length || 0
+    return isFunction(props.loadData) ? props.level : props.loadData.length || 0
 })
 
 watch(
@@ -112,10 +111,7 @@ async function getData(value = 0, level = 1, defaultValue = []) {
             )
             targetOption.loading = true
         }
-        const getData = typeof props.loadData === 'function' ? props.loadData : props.loadData[level - 1]
-        if (Object.prototype.toString.call(getData) !== '[object AsyncFunction]') {
-            throw new Error('请使用异步函数获取数据')
-        }
+        const getData = isFunction(props.loadData) ? props.loadData : props.loadData[level - 1]
         const result = await getData({ level, value, selected: curValue.value })?.catch(() => {
             throw new Error('请求失败')
         })
@@ -157,8 +153,8 @@ function onChange(value, selectedOptions) {
     value = value || []
     selectedOptions = selectedOptions || []
     curValue.value = value
-    emit('update:modelValue', value)
-    emit(
+    emits('update:modelValue', value)
+    emits(
         'change',
         value,
         selectedOptions.map((item) => pick(item, [props.fieldNames.label, props.fieldNames.value]))
