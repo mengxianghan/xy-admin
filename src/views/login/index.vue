@@ -35,8 +35,8 @@
                             block
                             size="large"
                             type="primary"
-                            @click="handleLogin"
-                            >登录
+                            @click="handleLogin">
+                            登录
                         </a-button>
                     </a-form-item>
                 </a-form>
@@ -51,7 +51,7 @@
                     :rules="formRules">
                     <a-form-item name="username">
                         <a-input
-                            v-model:value="formData.username"
+                            v-model:value="formData.phone"
                             placeholder="手机号码"
                             size="large">
                             <template #prefix>
@@ -61,7 +61,7 @@
                     </a-form-item>
                     <a-form-item name="msgCode">
                         <a-input
-                            v-model:value="formData.password"
+                            v-model:value="formData.code"
                             placeholder="短信验证码"
                             size="large"
                             @pressEnter="handleLogin">
@@ -79,8 +79,8 @@
                             block
                             size="large"
                             type="primary"
-                            @click="handleLogin"
-                            >登录
+                            @click="handleLogin">
+                            登录
                         </a-button>
                     </a-form-item>
                 </a-form>
@@ -89,10 +89,10 @@
             <a-tab-pane
                 key="qrcode"
                 tab="二维码登录">
-                <x-qr-code
+                <x-qrcode
                     :size="200"
                     class="mx-auto"
-                    value="https://mengxianghan.github.io/xy-admin/demo/"></x-qr-code>
+                    value="https://mengxianghan.github.io/xy-admin/"></x-qrcode>
                 <a-divider plain>
                     <div class="color-secondary">扫码后点击"确认"，即可完成登录</div>
                 </a-divider>
@@ -130,6 +130,12 @@ formRules.value = {
 }
 
 onMounted(() => {
+    formData.value = {
+        username: 'admin',
+        password: '123456',
+        phone: 18800000000,
+        code: 1234,
+    }
     // 清理登录信息
     userStore.logout()
 })
