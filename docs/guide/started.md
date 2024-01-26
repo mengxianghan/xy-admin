@@ -1,6 +1,5 @@
 # 开始使用
 
-
 ## 介绍
 
 XYAdmin 是一个企业级中后台前端解决方案，秉承 Ant Design 的设计价值观，致力于在设计规范和基础组件的基础上，继续向上构建，提炼出典型模板/业务组件/配套设计资源，进一步提升企业级中后台产品设计研发过程中的『用户』和『设计者』的体验。随着『设计者』的不断反馈，将持续迭代，逐步沉淀和总结出更多设计模式和相应的代码实现，阐述中后台产品模板/组件/业务场景的最佳实践。
@@ -9,20 +8,19 @@ XYAdmin 是一个企业级中后台前端解决方案，秉承 Ant Design 的设
 
 基于上述目标和提供了以下的典型模板，并据此构建了一套基于 `Ant Design Vue` 的中后台管理控制台的脚手架，它可以帮助你快速搭建企业级中后台产品原型。
 
-
 ## 前期准备
 
 你的本地环境需要安装 [node](http://nodejs.org/) 和 [git](https://git-scm.com/)。我们的技术栈基于 ES2015+、Vue.Js、Pinia、Vue-Router、Ant Design Vue，提前了解和学习这些知识会非常有帮助。
-- node 版本 >= 16.8
 
+-   node 版本 >= 16.18
 
-## 安装
+## 获取代码
 
 从 GitHub 仓库中直接安装最新的脚手架代码。
 
 ```shell
+# 克隆仓库
 git clone --depth=1 https://github.com/mengxianghan/xy-admin.git my-project
-cd my-project
 ```
 
 ## 目录结构
@@ -52,9 +50,9 @@ project_name
 │  ├ enums               枚举
 │  ├ components          公共组件
 │  │  ├ common           组件的公共资源
-│  │  │  ├ images 
-│  │  │  ├ js 
-│  │  │  ├ style 
+│  │  │  ├ images
+│  │  │  ├ js
+│  │  │  ├ style
 │  │  ├ index.js          自动化引入所有组件，并统一导出
 │  │  ├ icon.js           自定义图标统一导出
 │  │  ├ Empty.vue         示例
@@ -82,11 +80,11 @@ project_name
 │  │  ├ product           示例，路由对应目录/文件
 │  │  │  ├ components     示例，私有组件
 │  │  │  ├ index.vue      示例
-│  ├ App.vue 
+│  ├ App.vue
 │  ├ main.js              入口文件
 ├ .env.dev                本地开发环境配置文件
-├ .env.test               测试环境变量文件 
-├ .env.pre                预生产环境变量文件 
+├ .env.test               测试环境变量文件
+├ .env.pre                预生产环境变量文件
 ├ .env.prod               生产环境配置文件
 ├ .prettierignore         prettier 代码格式化忽略文件
 ├ .prettierrc             prettier 代码格式化规则配置文件
@@ -95,27 +93,59 @@ project_name
 ├ lintstagedrc.js         lint-staged 配置文件
 ├ package.json
 ├ package-lock.json
-├ README.md               描述文件，说明项目简要信息（项目说明、使用方式等） 
+├ README.md               描述文件，说明项目简要信息（项目说明、使用方式等）
 ├ vite.config.js          vue 配置文件（vite 构建方式配置文件）
 ```
 
-
 ## 本地开发
 
-安装依赖。
+::: tip
+如果网络状况不佳，可以使用 `cnpm` 进行加速，并使用 `cnpm` 代替 `npm` 或设置源，如：`npm config set registry https://registry.npmmirror.com`
+:::
 
 ```shell
+# 安装依赖
 npm install
+
+# 本地运行
+npm run dev
+
+# 构建，本框架中包含各种环境的构建命令，详细请查看 package.json 中 script
+npm run build:prod
 ```
 
-> 如果网络状况不佳，可以使用 cnpm 进行加速，并使用 cnpm 代替 npm ，如 npm config set registry https://registry.npm.taobao.org
-
-```shell
-$ npm run dev
-```
-
-启动完成后会自动打开浏览器访问 `http://localhost:5173`，你看到下面的页面就代表成功了。
+启动成功后能看到下面的页面就代表成功了。
 
 ![login](/images/login.png)
 
 接下来你可以修改代码进行业务开发了，框架中内建了典型业务模板、常用业务组件、全局路由等等各种实用的功能辅助开发，你可以继续阅读文档。
+
+## 精简框架
+
+:::tip 提示
+目前框架中含有演示代码和使用文档，在正式使用时可按照以下方式进行精简。
+:::
+
+### 移除 DemoBox
+
+1. 删除 `src/components/components.js` 第 `19` 行
+   ::: code-group
+   <<< @/../src/components/components.js{19}
+   :::
+
+2. 删除 `src/components/DemoBox` 目录
+3. 删除 `vite.config.js` 第 `10`、`63` 行
+   ::: code-group
+   <<< @/../vite.config.js{10,63}
+   :::
+
+4. 卸载 `@vue/compiler-sfc` 依赖
+
+### 移除 docs
+
+1. 删除 `/docs` 目录
+2. 卸载 `vitepress` 依赖
+3. 删除 `package.json` 第 `16-18` 行
+   ::: code-group
+   <<< @/../package.json{16-18}
+   :::
