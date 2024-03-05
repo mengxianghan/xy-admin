@@ -59,11 +59,27 @@ const [DefineTemplate, ReuseTemplate] = createReusableTemplate()
 .x-search {
     :deep(.ant-form-inline) {
         display: block;
-    }
 
-    :deep(.ant-form-inline .ant-form-item) {
-        margin-right: 0;
-        margin-bottom: 0;
+        .ant-form-item {
+            margin-right: 0;
+            margin-bottom: 0;
+
+            .ant-row {
+                flex-wrap: nowrap;
+            }
+
+            .ant-form-item-label {
+                flex-shrink: 0;
+            }
+        }
+
+        @media (max-width: 575px) {
+            .ant-form-item {
+                .ant-row {
+                    flex-wrap: wrap;
+                }
+            }
+        }
     }
 
     :deep(.ant-form-item-control-input-content) {
