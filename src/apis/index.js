@@ -1,10 +1,9 @@
-const modules = import.meta.glob('./modules/*.js', { eager: true })
+import * as common from './modules/common'
+import * as system from './modules/system'
+import * as user from './modules/user'
 
-const api = {}
-
-Object.keys(modules).forEach((key) => {
-    const name = key.slice(key.lastIndexOf('/') + 1, key.lastIndexOf('.'))
-    api[name] = { ...modules[key] }
-})
-
-export default api
+export default {
+    common,
+    system,
+    user,
+}
