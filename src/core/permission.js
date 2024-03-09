@@ -5,6 +5,10 @@ import { useAppStore, useUserStore } from '@/store'
 
 const progress = useProgress()
 
+function checkPath(path) {
+    return ['/'].includes(path)
+}
+
 router.beforeEach((to, from, next) => {
     const { meta } = to
     const { title } = meta
@@ -27,7 +31,14 @@ router.beforeEach((to, from, next) => {
             // 已登录
             if (complete) {
                 // 初始化完成
-                next()
+                if (checkPath(to.path)) {
+                    userStore.goIndex().catch(() => {
+                        userStore.logout()
+                        next({ name: 'login', replace: true })
+                    })
+                } else {
+                    next()
+                }
             } else {
                 // 初始化未加载完成
                 appStore.init().then(() => {
@@ -36,10 +47,14 @@ router.beforeEach((to, from, next) => {
             }
         } else {
             // 未登录
+            const query = {}
+            if (!checkPath(to.path)) {
+                query.redirect = encodeURIComponent(location.href)
+            }
             next({
                 name: 'login',
                 replace: true,
-                query: { redirect: encodeURIComponent(location.href) },
+                query,
             })
         }
     }

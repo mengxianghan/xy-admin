@@ -2,10 +2,13 @@ import { defineStore } from 'pinia'
 import { config } from '@/config'
 import storage from '@/utils/storage'
 import apis from '@/apis'
-
 import useAppStore from './app'
 import useMultiTab from './multiTab'
 import useRouter from './router'
+import { Modal, notification } from 'ant-design-vue'
+import router from '@/router/index.js'
+import { timeFix } from '@/utils'
+import { useRouterStore } from '@/store'
 
 const useUserStore = defineStore('user', {
     state: () => ({
@@ -80,6 +83,45 @@ const useUserStore = defineStore('user', {
                     } catch (error) {
                         reject()
                     }
+                })()
+            })
+        },
+        /**
+         * 去首页
+         * @param {{redirect: string}} params
+         */
+        async goIndex(params) {
+            return new Promise((resolve, reject) => {
+                ;(async () => {
+                    const appStore = useAppStore()
+                    const routerStore = useRouterStore()
+                    const { redirect } = params || {}
+                    // 加载完成
+                    if (!appStore.complete) {
+                        await appStore.init()
+                    }
+                    // 没有任何权限
+                    if (!routerStore.indexRoute) {
+                        Modal.warning({
+                            title: '系统提示',
+                            content: '没有任何权限，请联系系统管理员',
+                            onOk: () => {
+                                this.logout()
+                                window.location.reload()
+                            },
+                        })
+                        reject()
+                        return
+                    }
+                    if (redirect) {
+                        location.href = redirect
+                    } else {
+                        router.push(routerStore.indexRoute)
+                    }
+                    notification.success({
+                        message: '欢迎',
+                        description: `${timeFix()}，欢迎回来`,
+                    })
                 })()
             })
         },

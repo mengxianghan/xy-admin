@@ -26,11 +26,6 @@ export const notFoundRoute = {
  */
 export const constantRoutes = [
     {
-        path: '/',
-        name: 'index',
-        redirect: '/login',
-    },
-    {
         path: '/base',
         component: layouts.UserLayout,
         children: [
