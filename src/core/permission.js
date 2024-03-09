@@ -32,7 +32,7 @@ router.beforeEach((to, from, next) => {
             if (complete) {
                 // 初始化完成
                 if (checkPath(to.path)) {
-                    userStore.goIndex().catch(() => {
+                    userStore.goIndex({ welcomeMsg: false }).catch(() => {
                         userStore.logout()
                         next({ name: 'login', replace: true })
                     })

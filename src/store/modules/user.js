@@ -88,14 +88,14 @@ const useUserStore = defineStore('user', {
         },
         /**
          * 去首页
-         * @param {{redirect: string}} params
+         * @param {{redirect?: string, welcomeMsg?: boolean}} [params]
          */
         async goIndex(params) {
             return new Promise((resolve, reject) => {
                 ;(async () => {
                     const appStore = useAppStore()
                     const routerStore = useRouterStore()
-                    const { redirect } = params || {}
+                    const { redirect, welcomeMsg = true } = params || {}
                     // 加载完成
                     if (!appStore.complete) {
                         await appStore.init()
@@ -118,10 +118,12 @@ const useUserStore = defineStore('user', {
                     } else {
                         router.push(routerStore.indexRoute)
                     }
-                    notification.success({
-                        message: '欢迎',
-                        description: `${timeFix()}，欢迎回来`,
-                    })
+                    if (welcomeMsg) {
+                        notification.success({
+                            message: '欢迎',
+                            description: `${timeFix()}，欢迎回来`,
+                        })
+                    }
                 })()
             })
         },
