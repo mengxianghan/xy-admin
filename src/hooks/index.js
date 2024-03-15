@@ -1,3 +1,4 @@
+export { default as useCheckUpdate } from './useCheckUpdate'
 export { default as useColors } from './useColors'
 export { default as useForm } from './useForm'
 export { default as useMenu } from './useMenu'

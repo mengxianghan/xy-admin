@@ -49,6 +49,7 @@
         "qrcode": "^1.5.3",
         "sortablejs": "^1.15.1",
         "tinymce": "^6.8.2",
+        "version-polling": "^1.2.6",
         "vue": "^3.4.5",
         "vue-router": "^4.2.5",
         "xy-enum": "^1.4.4",
