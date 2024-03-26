@@ -100,7 +100,6 @@ export default [
                     title: '网格',
                     isMenu: true,
                     keepAlive: true,
-                    badge: 'new',
                 },
             },
             {
@@ -111,7 +110,6 @@ export default [
                     title: '无限滚动',
                     isMenu: true,
                     keepAlive: true,
-                    badge: 'new',
                 },
             },
             {
@@ -132,7 +130,6 @@ export default [
                     title: '弹窗',
                     isMenu: true,
                     keepAlive: true,
-                    badge: 'new',
                 },
             },
             {
@@ -183,6 +180,16 @@ export default [
                     title: '搜索',
                     isMenu: true,
                     keepAlive: true,
+                },
+            },
+            {
+                path: 'send-code',
+                name: 'sendCode',
+                component: 'components/send-code/index.vue',
+                meta: {
+                    title: '发送验证码',
+                    isMenu: true,
+                    keepAlive: true,
                     badge: 'new',
                 },
             },
@@ -194,7 +201,6 @@ export default [
                     title: '标签',
                     isMenu: true,
                     keepAlive: true,
-                    badge: 'new',
                 },
             },
             {
@@ -225,7 +231,6 @@ export default [
                     title: '穿梭框',
                     isMenu: true,
                     keepAlive: true,
-                    badge: 'new',
                 },
             },
             {
