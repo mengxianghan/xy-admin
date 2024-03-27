@@ -80,6 +80,6 @@
         "vite-plugin-compression": "^0.5.1",
         "vite-plugin-eslint": "^1.8.1",
         "vite-plugin-progress": "^0.0.7",
-        "vitepress": "^1.0.0-rc.35"
+        "vitepress": "^1.0.1"
     }
 }
