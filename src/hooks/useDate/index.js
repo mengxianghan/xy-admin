@@ -1,7 +1,10 @@
 import { reactive } from 'vue'
 import dayjs from 'dayjs'
+import quarterOfYear from 'dayjs/plugin/quarterOfYear'
 
 export default () => {
+    dayjs.extend(quarterOfYear)
+
     const rangeDate = reactive({})
 
     /**
