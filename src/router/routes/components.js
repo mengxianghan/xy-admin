@@ -194,6 +194,17 @@ export default [
                 },
             },
             {
+                path: 'table-column-setting',
+                name: 'tableColumnSetting',
+                component: 'components/table-column-setting/index.vue',
+                meta: {
+                    title: '表格列设置',
+                    isMenu: true,
+                    keepAlive: true,
+                    badge: 'new',
+                },
+            },
+            {
                 path: 'tag',
                 name: 'tag',
                 component: 'components/tag/index.vue',
