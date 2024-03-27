@@ -89,13 +89,17 @@
                             </a-menu>
                         </template>
                     </a-dropdown>
-                    <a-tooltip title="设置">
-                        <a-button type="text">
-                            <template #icon>
-                                <setting-outlined></setting-outlined>
-                            </template>
-                        </a-button>
-                    </a-tooltip>
+                    <x-table-column-setting
+                        ref="tableColumnSettingRef"
+                        v-model:columns="columns">
+                        <a-tooltip title="列设置">
+                            <a-button type="text">
+                                <template #icon>
+                                    <setting-outlined></setting-outlined>
+                                </template>
+                            </a-button>
+                        </a-tooltip>
+                    </x-table-column-setting>
                 </a-space>
             </template>
         </x-toolbar>
@@ -151,20 +155,24 @@ import apis from '@/apis'
 import { config } from '@/config'
 import { usePagination } from '@/hooks'
 import EditDialog from './components/EditDialog.vue'
+import { TableColumnSetting as XTableColumnSetting } from '@/components'
 
 defineOptions({
     name: 'listTable',
 })
 
-const columns = [
-    { title: '规则名称', dataIndex: 'title' },
-    { title: '描述', dataIndex: 'sentence' },
-    { title: '状态', dataIndex: 'status' },
-    { title: '操作', key: 'action', width: 160 },
-]
 const { listData, paginationState, loading, showLoading, hideLoading, resetPagination, searchFormData } =
     usePagination()
+
+const columns = ref([
+    { title: '序号', key: 'no', dataIndex: 'no', ignoreSetting: true, customRender: ({ index }) => index + 1 },
+    { title: '规则名称', key: 'title', dataIndex: 'title' },
+    { title: '描述', key: 'description', dataIndex: 'sentence' },
+    { title: '状态', key: 'status', dataIndex: 'status' },
+    { title: '操作', key: 'action', width: 160 },
+])
 const editDialogRef = ref()
+const tableColumnSettingRef = ref()
 const collapsed = ref(true)
 const size = ref('default')
 
