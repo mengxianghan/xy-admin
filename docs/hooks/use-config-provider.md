@@ -1,12 +1,13 @@
 # useConfigProvider
 
-说它是个钩子，不如说它是个简易函数，没有入参，所有数据都是固定的，在使用 `createApp` 创建的组件时用它会更简单。
+一个项目中多处使用 `createApp` 创建组件可保持风格统一。
 
 ## 代码演示
 
 ### 基础用法
 
 ```vue
+
 <template>
     <a-config-provider v-bind="configProviderAttrs">
         <div></div>
@@ -14,10 +15,20 @@
 </template>
 
 <script setup>
-import { useConfigProvider } from '@/hooks'
+    import { useConfigProvider } from '@/hooks'
 
-const { configProviderAttrs } = useConfigProvider()
+    const { configProviderAttrs } = useConfigProvider()
 </script>
 
 <style lang="less" scoped></style>
 ```
+
+## API
+
+### 返回值
+
+| 参数                  | 说明                                                                                     | 类型                    |
+|---------------------|----------------------------------------------------------------------------------------|-----------------------|
+| configProviderAttrs | 配置信息，详见：[ConfigProvider 全局配置](https://www.antdv.com/components/config-provider-cn#api) | `ConfigProviderAttrs` |
+
+

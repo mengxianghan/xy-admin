@@ -17,6 +17,9 @@ export default defineConfig({
         footer: {
             message: '本文档内容版权为 XYAdmin 作者所有，保留所有权利。',
         },
+        lastUpdated: {
+            text: '最后更新时间',
+        },
     },
     markdown: {
         lineNumbers: true,
@@ -27,4 +30,5 @@ export default defineConfig({
             strictPort: false,
         },
     },
+    lastUpdated: true,
 })
