@@ -9,4 +9,10 @@ Object.keys(files).forEach((key) => {
     configs[name] = { ...(files[key]?.default || {}) }
 })
 
+/**
+ * 配置
+ * @param {string} key
+ * @param {*} [def] 默认值
+ * @returns {*}
+ */
 export const config = (key, def) => get(configs, key, def)

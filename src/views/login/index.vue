@@ -48,7 +48,7 @@
                 ref="formRef"
                 :model="formData"
                 :rules="formRules">
-                <a-form-item name="username">
+                <a-form-item name="phone">
                     <a-input
                         v-model:value="formData.phone"
                         placeholder="手机号码"
@@ -68,7 +68,16 @@
                             <lock-outlined></lock-outlined>
                         </template>
                         <template #suffix>
-                            <span class="cursor-pointer">获取验证码</span>
+                            <x-send-code
+                                ref="sendCodeRef"
+                                v-model:seconds="seconds">
+                                <template #default="{ seconds, running }">
+                                    <template v-if="running"> {{ seconds }}s 后重新获取 </template>
+                                    <template v-else>
+                                        <a @click="handleGetCode">获取验证码</a>
+                                    </template>
+                                </template>
+                            </x-send-code>
                         </template>
                     </a-input>
                 </a-form-item>
@@ -116,10 +125,13 @@ const { formData, formRef, formRules } = useForm()
 const userStore = useUserStore()
 const route = useRoute()
 const loading = ref(false)
+const seconds = ref()
+const sendCodeRef = ref()
 const redirect = computed(() => decodeURIComponent(route.query?.redirect ?? ''))
 
 formRules.value = {
     username: { required: true, message: '请输入用户名' },
+    phone: { required: true, message: '请输入手机号' },
     password: { required: true, message: '请输入密码' },
 }
 
@@ -153,6 +165,15 @@ async function handleLogin() {
         if (config('http.code.success') === code) {
             userStore.goIndex({ redirect: redirect.value })
         }
+    })
+}
+
+/**
+ * 发送验证码
+ */
+function handleGetCode() {
+    formRef.value.validate(['phone']).then(async () => {
+        sendCodeRef.value.start()
     })
 }
 </script>

@@ -29,6 +29,8 @@ export default {
                 { text: 'ResizeBox 伸缩框', link: '/components/resize-box' },
                 { text: 'Scrollbar 滚动条', link: '/components/scrollbar' },
                 { text: 'Search 搜索', link: '/components/search' },
+                { text: 'SendCode 发送验证码', link: '/components/send-code' },
+                { text: 'TableColumnSetting 列设置', link: '/components/table-column-setting' },
                 { text: 'Tag 标签', link: '/components/tag' },
                 { text: 'TagSelect 标签选择', link: '/components/tag-select' },
                 { text: 'Toolbar 工具条', link: '/components/toolbar' },
@@ -39,72 +41,33 @@ export default {
         },
     ],
     '/hooks/': [
-        {
-            text: 'useColors',
-            link: '/hooks/use-colors',
-        },
-        {
-            text: 'useConfigProvider',
-            link: '/hooks/use-config-provider',
-        },
-        {
-            text: 'useForm',
-            link: '/hooks/use-form',
-        },
-        {
-            text: 'useMenu',
-            link: '/hooks/use-menu',
-        },
-        {
-            text: 'useModal',
-            link: '/hooks/use-modal',
-        },
-        {
-            text: 'useMultiTab',
-            link: '/hooks/use-multi-tab',
-        },
-        {
-            text: 'usePagination',
-            link: '/hooks/use-pagination',
-        },
+        { text: 'useCheckUpdate', link: '/hooks/use-check-update' },
+        { text: 'useColors', link: '/hooks/use-colors' },
+        { text: 'useConfigProvider', link: '/hooks/use-config-provider' },
+        { text: 'useDate', link: '/hooks/use-date' },
+        { text: 'useForm', link: '/hooks/use-form' },
+        { text: 'useMenu', link: '/hooks/use-menu' },
+        { text: 'useModal', link: '/hooks/use-modal' },
+        { text: 'useMultiTab', link: '/hooks/use-multi-tab' },
+        { text: 'usePagination', link: '/hooks/use-pagination' },
+        { text: 'useProgress', link: '/hooks/use-progress' },
     ],
     '/utils/': [
         {
             text: '通用',
             items: [
-                {
-                    text: 'mapping',
-                    link: '/utils/mapping',
-                },
-                {
-                    text: 'findTree',
-                    link: '/utils/findTree',
-                },
-                {
-                    text: 'deep',
-                    link: '/utils/deep',
-                },
-                {
-                    text: 'deepMerge',
-                    link: '/utils/deepMerge',
-                },
-                {
-                    text: 'assets',
-                    link: '/utils/assets',
-                },
+                { text: 'mapping', link: '/utils/mapping' },
+                { text: 'findTree', link: '/utils/findTree' },
+                { text: 'deep', link: '/utils/deep' },
+                { text: 'deepMerge', link: '/utils/deepMerge' },
+                { text: 'assets', link: '/utils/assets' },
             ],
         },
         {
             text: '转换',
             items: [
-                {
-                    text: 'toList',
-                    link: '/utils/toList',
-                },
-                {
-                    text: 'toTree',
-                    link: '/utils/toTree',
-                },
+                { text: 'toList', link: '/utils/toList' },
+                { text: 'toTree', link: '/utils/toTree' },
             ],
         },
         {
