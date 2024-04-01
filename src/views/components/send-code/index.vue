@@ -1,13 +1,11 @@
 <template>
-    <demo></demo>
+    <x-demo-box-group :components="[Basic, Reset, Custom]"></x-demo-box-group>
 </template>
 
 <script setup>
-import Demo from '@/components/SendCode/demo/index.vue'
-
-defineOptions({
-    name: 'sendCode',
-})
+import Basic from './components/Basic.vue'
+import Reset from './components/Reset.vue'
+import Custom from './components/Custom.vue'
 </script>
 
 <style lang="less" scoped></style>

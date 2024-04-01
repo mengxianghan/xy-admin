@@ -4,19 +4,19 @@
 
 ### 基础用法
 
-<<< @/../src/components/TagSelect/demo/Basic.vue#snippet
+<<< @/../src/views/components/tag-select/components/Basic.vue#snippet
 
 ### 多选
 
-<<< @/../src/components/TagSelect/demo/Multiple.vue#snippet
+<<< @/../src/views/components/tag-select/components/Multiple.vue#snippet
 
 ### 不限
 
-<<< @/../src/components/TagSelect/demo/Unlimited.vue#snippet
+<<< @/../src/views/components/tag-select/components/Unlimited.vue#snippet
 
 ### 折叠
 
-<<< @/../src/components/TagSelect/demo/Collapsed.vue#snippet
+<<< @/../src/views/components/tag-select/components/Collapsed.vue#snippet
 
 ## API
 

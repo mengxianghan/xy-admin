@@ -4,35 +4,35 @@
 
 ### 基础用法
 
-<<< @/../src/components/QRCode/demo/Basic.vue#snippet
+<<< @/../src/views/components/qrcode/components/Basic.vue#snippet
 
 ### 带 Icon
 
-<<< @/../src/components/QRCode/demo/Icon.vue#snippet
+<<< @/../src/views/components/qrcode/components/Icon.vue#snippet
 
 ### 不同的状态
 
-<<< @/../src/components/QRCode/demo/Status.vue#snippet
+<<< @/../src/views/components/qrcode/components/Status.vue#snippet
 
 ### 自定义尺寸
 
-<<< @/../src/components/QRCode/demo/Size.vue#snippet
+<<< @/../src/views/components/qrcode/components/Size.vue#snippet
 
 ### 自定义颜色
 
-<<< @/../src/components/QRCode/demo/Color.vue#snippet
+<<< @/../src/views/components/qrcode/components/Color.vue#snippet
 
 ### 下载二维码
 
-<<< @/../src/components/QRCode/demo/Download.vue#snippet
+<<< @/../src/views/components/qrcode/components/Download.vue#snippet
 
 ### 纠错比例
 
-<<< @/../src/components/QRCode/demo/Error.vue#snippet
+<<< @/../src/views/components/qrcode/components/Error.vue#snippet
 
 ### 高级用法
 
-<<< @/../src/components/QRCode/demo/Popover.vue#snippet
+<<< @/../src/views/components/qrcode/components/Popover.vue#snippet
 
 ## API
 

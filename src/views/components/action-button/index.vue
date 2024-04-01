@@ -1,13 +1,10 @@
 <template>
-    <demo></demo>
+    <x-demo-box-group :components="[Basic, Table]"></x-demo-box-group>
 </template>
 
 <script setup>
-import Demo from '@/components/ActionButton/demo/index.vue'
-
-defineOptions({
-    name: 'actionButton',
-})
+import Basic from './components/Basic.vue'
+import Table from './components/Table.vue'
 </script>
 
 <style lang="less" scoped></style>

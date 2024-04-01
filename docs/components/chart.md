@@ -3,22 +3,22 @@
 ## 代码演示
 
 ### 折线图
-<<< @/../src/components/Chart/demo/LineChart.vue#snippet
+<<< @/../src/views/components/chart/components/LineChart.vue#snippet
 
 ### 柱状图
-<<< @/../src/components/Chart/demo/BarChart.vue#snippet
+<<< @/../src/views/components/chart/components/BarChart.vue#snippet
 
 ### 饼图
-<<< @/../src/components/Chart/demo/PieChart.vue#snippet
+<<< @/../src/views/components/chart/components/PieChart.vue#snippet
 
 ### 雷达(属性)图
-<<< @/../src/components/Chart/demo/RadarChart.vue#snippet
+<<< @/../src/views/components/chart/components/RadarChart.vue#snippet
 
 ### K线图
-<<< @/../src/components/Chart/demo/KlineChart.vue#snippet
+<<< @/../src/views/components/chart/components/KlineChart.vue#snippet
 
 ### 仪表盘
-<<< @/../src/components/Chart/demo/GaugeChart.vue#snippet
+<<< @/../src/views/components/chart/components/GaugeChart.vue#snippet
  
 ### 更多用法
 :::tip 提示

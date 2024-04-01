@@ -4,27 +4,27 @@
 
 ### 基础用法
 
-<<< @/../src/components/Tag/demo/Basic.vue#snippet
+<<< @/../src/views/components/tag/components/Basic.vue#snippet
 
 ### 无边框
 
-<<< @/../src/components/Tag/demo/Bordered.vue#snippet
+<<< @/../src/views/components/tag/components/Bordered.vue#snippet
 
 ### 可关闭
 
-<<< @/../src/components/Tag/demo/Closeable.vue#snippet
+<<< @/../src/views/components/tag/components/Closeable.vue#snippet
 
 ### 形状
 
-<<< @/../src/components/Tag/demo/Shape.vue#snippet
+<<< @/../src/views/components/tag/components/Shape.vue#snippet
 
 ### 颜色
 
-<<< @/../src/components/Tag/demo/Color.vue#snippet
+<<< @/../src/views/components/tag/components/Color.vue#snippet
 
 ### 次要标签
 
-<<< @/../src/components/Tag/demo/Secondary.vue#snippet
+<<< @/../src/views/components/tag/components/Secondary.vue#snippet
 
 ## API
 

@@ -1,13 +1,9 @@
 <template>
-    <demo></demo>
+    <x-demo-box-group :components="[Basic]"></x-demo-box-group>
 </template>
 
 <script setup>
-import Demo from '@/components/Breadcrumb/demo/index.vue'
-
-defineOptions({
-    name: 'breadcrumb',
-})
+import Basic from './components/Basic.vue'
 </script>
 
 <style lang="less" scoped></style>

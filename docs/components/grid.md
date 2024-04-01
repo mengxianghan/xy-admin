@@ -4,27 +4,27 @@
 
 ### 基础用法
 
-<<< @/../src/components/Grid/demo/Basic.vue#snippet
+<<< @/../src/views/components/grid/components/Basic.vue#snippet
 
 ### 间隔
 
-<<< @/../src/components/Grid/demo/Gutter.vue#snippet
+<<< @/../src/views/components/grid/components/Gutter.vue#snippet
 
 ### 偏移
 
-<<< @/../src/components/Grid/demo/Offset.vue#snippet
+<<< @/../src/views/components/grid/components/Offset.vue#snippet
 
 ### 响应式列数
 
-<<< @/../src/components/Grid/demo/ResponsiveColumns.vue#snippet
+<<< @/../src/views/components/grid/components/ResponsiveColumns.vue#snippet
 
 ### 响应式栅格项
 
-<<< @/../src/components/Grid/demo/Responsive.vue#snippet
+<<< @/../src/views/components/grid/components/Responsive.vue#snippet
 
 ### 折叠
 
-<<< @/../src/components/Grid/demo/Suffix.vue#snippet
+<<< @/../src/views/components/grid/components/Suffix.vue#snippet
 
 ## API
 

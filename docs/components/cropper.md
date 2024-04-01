@@ -3,16 +3,16 @@
 ## 代码演示
 
 ### 基础用法
-<<< @/../src/components/Cropper/demo/Basic.vue#snippet
+<<< @/../src/views/components/cropper/components/Basic.vue#snippet
 
 ### 比例
-<<< @/../src/components/Cropper/demo/Ratio.vue#snippet
+<<< @/../src/views/components/cropper/components/Ratio.vue#snippet
 
 ### 文件类型
-<<< @/../src/components/Cropper/demo/FileType.vue#snippet
+<<< @/../src/views/components/cropper/components/FileType.vue#snippet
 
 ### 弹窗中使用
-<<< @/../src/components/Cropper/demo/Dialog.vue#snippet
+<<< @/../src/views/components/cropper/components/Dialog.vue#snippet
 
 ## API
 

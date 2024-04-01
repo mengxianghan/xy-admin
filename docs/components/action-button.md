@@ -5,11 +5,11 @@
 
 ### 基础用法
 
-<<< @/../src/components/ActionButton/demo/Basic.vue#snippet
+<<< @/../src/views/components/action-button/components/Basic.vue#snippet
 
 ### 在 table 中使用
 
-<<< @/../src/components/ActionButton/demo/Table.vue#snippet
+<<< @/../src/views/components/action-button/components/Table.vue#snippet
 
 
 ## API

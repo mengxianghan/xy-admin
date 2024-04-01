@@ -4,15 +4,15 @@
 
 ### 基础用法
 
-<<< @/../src/components/Loading/demo/GlobalBasic.vue#snippet
+<<< @/../src/views/components/loading/components/GlobalBasic.vue#snippet
 
 ### 各种大小
 
-<<< @/../src/components/Loading/demo/GlobalSize.vue#snippet
+<<< @/../src/views/components/loading/components/GlobalSize.vue#snippet
 
 ### 自定义
 
-<<< @/../src/components/Loading/demo/GlobalCustom.vue#snippet
+<<< @/../src/views/components/loading/components/GlobalCustom.vue#snippet
 
 ## API
 

@@ -1,13 +1,10 @@
 <template>
-    <demo></demo>
+    <x-demo-box-group :components="[Basic, Inline]"></x-demo-box-group>
 </template>
 
 <script setup>
-import Demo from '@/components/Editor/demo/index.vue'
-
-defineOptions({
-    name: 'editor',
-})
+import Basic from './components/Basic.vue'
+import Inline from './components/Inline.vue'
 </script>
 
 <style lang="less" scoped></style>

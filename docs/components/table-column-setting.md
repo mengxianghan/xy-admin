@@ -4,15 +4,15 @@
 
 ### 基础用法
 
-<<< @/../src/components/Table/demo/Basic.vue#snippet
+<<< @/../src/views/components/table-column-setting/components/Basic.vue#snippet
 
 ### 自定义
 
-<<< @/../src/components/Table/demo/Custom.vue#snippet
+<<< @/../src/views/components/table-column-setting/components/Custom.vue#snippet
 
 ### 动态列
 
-<<< @/../src/components/Table/demo/DynamicColumns.vue#snippet
+<<< @/../src/views/components/table-column-setting/components/DynamicColumns.vue#snippet
 
 ## API
 

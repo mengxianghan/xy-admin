@@ -4,15 +4,15 @@
 
 ### 基础用法
 
-<<< @/../src/components/Preview/demo/Basic.vue#snippet
+<<< @/../src/views/components/preview/components/Basic.vue#snippet
 
 ### 多媒体
 
-<<< @/../src/components/Preview/demo/Multiple.vue#snippet
+<<< @/../src/views/components/preview/components/Multiple.vue#snippet
 
 ### 多张图片预览
 
-<<< @/../src/components/Preview/demo/Media.vue#snippet
+<<< @/../src/views/components/preview/components/Media.vue#snippet
 
 ## API
 

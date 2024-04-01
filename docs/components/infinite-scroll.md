@@ -4,15 +4,15 @@
 
 ### 基础用法
 
-<<< @/../src/components/InfiniteScroll/demo/Basic.vue#snippet
+<<< @/../src/views/components/infinite-scroll/components/Basic.vue#snippet
 
 ### 错误提示
 
-<<< @/../src/components/InfiniteScroll/demo/Error.vue#snippet
+<<< @/../src/views/components/infinite-scroll/components/Error.vue#snippet
 
 ### 使用 hooks
 
-<<< @/../src/components/InfiniteScroll/demo/Hook.vue#snippet
+<<< @/../src/views/components/infinite-scroll/components/Hook.vue#snippet
 
 ## API
 

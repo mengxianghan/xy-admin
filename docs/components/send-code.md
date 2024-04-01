@@ -4,15 +4,15 @@
 
 ### 基础用法
 
-<<< @/../src/components/SendCode/demo/Basic.vue#snippet
+<<< @/../src/views/components/send-code/components/Basic.vue#snippet
 
 ### 重置
 
-<<< @/../src/components/SendCode/demo/Reset.vue#snippet
+<<< @/../src/views/components/send-code/components/Reset.vue#snippet
 
 ### 自定义
 
-<<< @/../src/components/SendCode/demo/Custom.vue#snippet
+<<< @/../src/views/components/send-code/components/Custom.vue#snippet
 
 ## API
 

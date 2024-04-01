@@ -4,11 +4,11 @@
 
 ### 基础用法
 
-<<< @/../src/components/Toolbar/demo/Basic.vue#snippet
+<<< @/../src/views/components/toolbar/components/Basic.vue#snippet
 
 ### 带边框
 
-<<< @/../src/components/Toolbar/demo/Bordered.vue#snippet
+<<< @/../src/views/components/toolbar/components/Bordered.vue#snippet
 
 ## API
 

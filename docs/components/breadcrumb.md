@@ -3,4 +3,4 @@
 ## 代码演示
 
 ### 基础用法
-<<< @/../src/components/Breadcrumb/demo/Basic.vue#snippet
+<<< @/../src/views/components/breadcrumb/components/Basic.vue#snippet

@@ -8,11 +8,11 @@
 
 ### 基础用法
 
-<<< @/../src/components/Cascader/demo/Basic.vue#snippet
+<<< @/../src/views/components/cascader/components/Basic.vue#snippet
 
 ### 高级用法
 
-<<< @/../src/components/Cascader/demo/Advanced.vue#snippet
+<<< @/../src/views/components/cascader/components/Advanced.vue#snippet
 
 ## API
 

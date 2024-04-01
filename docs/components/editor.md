@@ -3,10 +3,10 @@
 ## 代码演示
 
 ### 基础用法
-<<< @/../src/components/Editor/demo/Basic.vue#snippet
+<<< @/../src/views/components/editor/components/Basic.vue#snippet
 
 ### 内联编辑器
-<<< @/../src/components/Editor/demo/Inline.vue#snippet
+<<< @/../src/views/components/editor/components/Inline.vue#snippet
 
 ### 更多用法
 

@@ -4,15 +4,15 @@
 
 ### 基础用法
 
-<<< @/../src/components/Search/demo/Basic.vue#snippet
+<<< @/../src/views/components/search/components/Basic.vue#snippet
 
 ### 折叠
 
-<<< @/../src/components/Search/demo/Collapsed.vue#snippet
+<<< @/../src/views/components/search/components/Collapsed.vue#snippet
 
 ### 自定义配置
 
-<<< @/../src/components/Search/demo/Custom.vue#snippet
+<<< @/../src/views/components/search/components/Custom.vue#snippet
 
 ## API
 

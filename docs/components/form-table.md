@@ -4,7 +4,7 @@
 
 ### 基础用法
 
-<<< @/../src/components/FormTable/demo/Basic.vue#snippet
+<<< @/../src/views/components/form-table/components/Basic.vue#snippet
 
 ## API
 

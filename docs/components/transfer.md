@@ -4,15 +4,15 @@
 
 ### 基础用法
 
-<<< @/../src/components/Transfer/demo/Basic.vue#snippet
+<<< @/../src/views/components/transfer/components/Basic.vue#snippet
 
 ### 自定义渲染行
 
-<<< @/../src/components/Transfer/demo/CustomItem.vue#snippet
+<<< @/../src/views/components/transfer/components/CustomItem.vue#snippet
 
 ### 异步数据加载
 
-<<< @/../src/components/Transfer/demo/Dynamic.vue#snippet
+<<< @/../src/views/components/transfer/components/Dynamic.vue#snippet
 
 ## API
 

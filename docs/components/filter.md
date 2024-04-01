@@ -4,11 +4,11 @@
 
 ### 基础用法
 
-<<< @/../src/components/Filter/demo/Basic.vue#snippet
+<<< @/../src/views/components/filter/components/Basic.vue#snippet
 
 ### 自定义
 
-<<< @/../src/components/Filter/demo/Custom.vue#snippet
+<<< @/../src/views/components/filter/components/Custom.vue#snippet
 
 ## API
 

@@ -4,7 +4,7 @@
 
 ### 基础用法
 
-<<< @/../src/components/Upload/demo/Input.vue#snippet
+<<< @/../src/views/components/upload/components/Input.vue#snippet
 
 ## API
 

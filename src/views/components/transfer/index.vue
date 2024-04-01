@@ -1,13 +1,11 @@
 <template>
-    <demo></demo>
+    <x-demo-box-group :components="[Basic, CustomItem, Dynamic]"></x-demo-box-group>
 </template>
 
 <script setup>
-import Demo from '@/components/Transfer/demo/index.vue'
-
-defineOptions({
-    name: 'transfer',
-})
+import Basic from './components/Basic.vue'
+import CustomItem from './components/CustomItem.vue'
+import Dynamic from './components/Dynamic.vue'
 </script>
 
 <style lang="less" scoped></style>

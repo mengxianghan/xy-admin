@@ -1,13 +1,10 @@
 <template>
-    <demo></demo>
+    <x-demo-box-group :components="[Basic, Custom]"></x-demo-box-group>
 </template>
 
 <script setup>
-import Demo from '@/components/Filter/demo/index.vue'
-
-defineOptions({
-    name: 'filters',
-})
+import Basic from './components/Basic.vue'
+import Custom from './components/Custom.vue'
 </script>
 
 <style lang="less" scoped></style>

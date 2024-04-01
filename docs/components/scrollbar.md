@@ -4,19 +4,19 @@
 
 ### 基础用法
 
-<<< @/../src/components/Scrollbar/demo/Basic.vue#snippet
+<<< @/../src/views/components/scrollbar/components/Basic.vue#snippet
 
 ### 横向滚动
 
-<<< @/../src/components/Scrollbar/demo/Horizontal.vue#snippet
+<<< @/../src/views/components/scrollbar/components/Horizontal.vue#snippet
 
 ### 最大高度
 
-<<< @/../src/components/Scrollbar/demo/MaxHeight.vue#snippet
+<<< @/../src/views/components/scrollbar/components/MaxHeight.vue#snippet
 
 ### 手动滚动
 
-<<< @/../src/components/Scrollbar/demo/ScrollTo.vue#snippet
+<<< @/../src/views/components/scrollbar/components/ScrollTo.vue#snippet
 
 ## API
 

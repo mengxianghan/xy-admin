@@ -4,11 +4,11 @@
 
 ### 基础用法
 
-<<< @/../src/components/ResizeBox/demo/Basic.vue#snippet
+<<< @/../src/views/components/resize-box/components/Basic.vue#snippet
 
 ### 受控的高宽
 
-<<< @/../src/components/ResizeBox/demo/Size.vue#snippet
+<<< @/../src/views/components/resize-box/components/Size.vue#snippet
 
 ## API
 

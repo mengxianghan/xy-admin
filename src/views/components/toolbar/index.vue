@@ -1,13 +1,10 @@
 <template>
-    <demo></demo>
+    <x-demo-box-group :components="[Basic, Bordered]"></x-demo-box-group>
 </template>
 
 <script setup>
-import Demo from '@/components/Toolbar/demo/index.vue'
-
-defineOptions({
-    name: 'toolbar',
-})
+import Basic from './components/Basic.vue'
+import Bordered from './components/Bordered.vue'
 </script>
 
 <style lang="less" scoped></style>

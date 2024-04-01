@@ -1,13 +1,12 @@
 <template>
-    <demo></demo>
+    <x-demo-box-group :components="[Basic, Horizontal, MaxHeight, ScrollTo]"></x-demo-box-group>
 </template>
 
 <script setup>
-import Demo from '@/components/Scrollbar/demo/index.vue'
-
-defineOptions({
-    name: 'scrollbar',
-})
+import Basic from './components/Basic.vue'
+import Horizontal from './components/Horizontal.vue'
+import MaxHeight from './components/MaxHeight.vue'
+import ScrollTo from './components/ScrollTo.vue'
 </script>
 
 <style lang="less" scoped></style>

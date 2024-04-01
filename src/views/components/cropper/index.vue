@@ -1,13 +1,12 @@
 <template>
-    <demo></demo>
+    <x-demo-box-group :components="[Basic, Ratio, FileType, Dialog]"></x-demo-box-group>
 </template>
 
 <script setup>
-import Demo from '@/components/Cropper/demo/index.vue'
-
-defineOptions({
-    name: 'cropper',
-})
+import Basic from './components/Basic.vue'
+import Ratio from './components/Ratio.vue'
+import FileType from './components/FileType.vue'
+import Dialog from './components/Dialog.vue'
 </script>
 
 <style lang="less" scoped></style>

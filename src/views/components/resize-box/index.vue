@@ -1,13 +1,10 @@
 <template>
-    <demo></demo>
+    <x-demo-box-group :components="[Basic, Size]"></x-demo-box-group>
 </template>
 
 <script setup>
-import Demo from '@/components/ResizeBox/demo/index.vue'
-
-defineOptions({
-    name: 'resizeBox',
-})
+import Basic from './components/Basic.vue'
+import Size from './components/Size.vue'
 </script>
 
 <style lang="less" scoped></style>

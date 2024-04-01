@@ -4,27 +4,27 @@
 
 ### 基础用法
 
-<<< @/../src/components/Upload/demo/Basic.vue#snippet
+<<< @/../src/views/components/upload/components/Basic.vue#snippet
 
 ### 自定义文案
 
-<<< @/../src/components/Upload/demo/Text.vue#snippet
+<<< @/../src/views/components/upload/components/Text.vue#snippet
 
 ### 插槽
 
-<<< @/../src/components/Upload/demo/Slot.vue#snippet
+<<< @/../src/views/components/upload/components/Slot.vue#snippet
 
 ### 裁剪
 
-<<< @/../src/components/Upload/demo/Cropper.vue#snippet
+<<< @/../src/views/components/upload/components/Cropper.vue#snippet
 
 ### 圆角
 
-<<< @/../src/components/Upload/demo/Round.vue#snippet
+<<< @/../src/views/components/upload/components/Round.vue#snippet
 
 ### 批量上传
 
-<<< @/../src/components/Upload/demo/Multiple.vue#snippet
+<<< @/../src/views/components/upload/components/Multiple.vue#snippet
 
 ## API
 
