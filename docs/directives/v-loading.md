@@ -4,11 +4,11 @@
 
 ### 基础用法
 
-<<< @/../src/components/Loading/demo/DirectiveBasic.vue#snippet
+<<< @/../src/views/components/loading/components/DirectiveBasic.vue#snippet
 
 ### 自定义描述文案
 
-<<< @/../src/components/Loading/demo/DirectiveDescription.vue#snippet
+<<< @/../src/views/components/loading/components/DirectiveDescription.vue#snippet
 
 ## API
 

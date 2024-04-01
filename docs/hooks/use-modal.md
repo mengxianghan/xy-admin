@@ -4,19 +4,19 @@
 
 ### 基础用法
 
-<<< @/../src/components/Modal/demo/Basic.vue#snippet
+<<< @/../src/views/components/modal/components/Basic.vue#snippet
 
 ### 可拖拽对话框
 
-<<< @/../src/components/Modal/demo/Drag.vue#snippet
+<<< @/../src/views/components/modal/components/Drag.vue#snippet
 
 ### 异步关闭
 
-<<< @/../src/components/Modal/demo/Async.vue#snippet
+<<< @/../src/views/components/modal/components/Async.vue#snippet
 
 ### 回调
 
-<<< @/../src/components/Modal/demo/Callback.vue#snippet
+<<< @/../src/views/components/modal/components/Callback.vue#snippet
 
 ## API
 
