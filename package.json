@@ -43,7 +43,6 @@
         "lodash-es": "^4.17.21",
         "mime": "^4.0.1",
         "nanoid": "^5.0.4",
-        "npm": "^10.5.0",
         "nprogress": "^0.2.0",
         "overlayscrollbars": "^2.4.5",
         "overlayscrollbars-vue": "^0.5.6",
