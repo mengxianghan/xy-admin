@@ -29,11 +29,11 @@ export const isFunction = (value) => getType(value) === 'function'
 export const isAsyncFunction = (value) => getType(value) === 'asyncfunction'
 
 /**
- * 检查是否是空内容
+ * 检查是否为空
  * @param {*} value
  * @returns
  */
-export const isEmpty = (value) => value !== '' && value !== null && value !== undefined
+export const isEmpty = (value) => value === '' || value === null || value === undefined
 
 /**
  * 检查是否是字符串
@@ -57,7 +57,7 @@ export const isNumber = (value) => getType(value) === 'number'
 export const isArray = (value) => getType(value) === 'array'
 
 /**
- * 是否 json 字符串
+ * 检查是否 json 字符串
  * @param value
  */
 export const isJsonString = (value) => {
