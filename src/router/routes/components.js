@@ -73,6 +73,17 @@ export default [
                 },
             },
             {
+                path: 'ellipsis',
+                name: 'ellipsis',
+                component: 'components/ellipsis/index.vue',
+                meta: {
+                    title: '文本省略',
+                    isMenu: true,
+                    keepAlive: true,
+                    badge: 'new',
+                },
+            },
+            {
                 path: 'filter',
                 name: 'filters',
                 component: 'components/filter/index.vue',
@@ -190,7 +201,6 @@ export default [
                     title: '发送验证码',
                     isMenu: true,
                     keepAlive: true,
-                    badge: 'new',
                 },
             },
             {
@@ -201,7 +211,6 @@ export default [
                     title: '表格列设置',
                     isMenu: true,
                     keepAlive: true,
-                    badge: 'new',
                 },
             },
             {
