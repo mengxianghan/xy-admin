@@ -1,5 +1,5 @@
 <template>
-    <li
+    <div
         :class="{
             'x-transfer-list-item--disabled': disabledComputed,
         }"
@@ -66,7 +66,7 @@
                 </a-button>
             </template>
         </div>
-    </li>
+    </div>
 </template>
 
 <script setup>

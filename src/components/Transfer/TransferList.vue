@@ -60,7 +60,7 @@
         <!--body-->
         <div class="x-transfer-list__body">
             <template v-if="dataSource.length">
-                <ul class="x-transfer-list__content">
+                <div class="x-transfer-list__content">
                     <transfer-list-item
                         v-for="item in dataSource"
                         :key="item[fieldNames.value]"
@@ -76,7 +76,7 @@
                                 v-bind="getSlotProps(slotProps)"></slot>
                         </template>
                     </transfer-list-item>
-                </ul>
+                </div>
             </template>
             <template v-else>
                 <div class="x-transfer-list__empty">
