@@ -2,10 +2,12 @@
     <a-layout-content class="basic-content">
         <router-view v-slot="{ Component, route }">
             <keep-alive :include="cpCacheList">
-                <component
-                    :is="Component"
-                    v-if="cpKeepAlive"
-                    :key="route.name"></component>
+                <layout-transition>
+                    <component
+                        :is="Component"
+                        v-if="cpKeepAlive"
+                        :key="route.name"></component>
+                </layout-transition>
             </keep-alive>
         </router-view>
         <iframe-view></iframe-view>
@@ -18,6 +20,7 @@ import { useMultiTabStore } from '@/store'
 import IframeView from './IframeView.vue'
 import useAppStore from '../../store/modules/app'
 import { storeToRefs } from 'pinia'
+import LayoutTransition from './LayoutTransition.vue'
 
 defineOptions({
     name: 'BasicContent',
