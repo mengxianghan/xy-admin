@@ -160,6 +160,24 @@ function onOpenChange(value) {
 }
 </script>
 
+<style lang="less">
+.basic-menu {
+    &__title {
+        flex: 1;
+        display: inline-flex;
+        align-items: center;
+        min-width: 0;
+        overflow: hidden;
+        text-overflow: ellipsis;
+
+        .ant-badge {
+            zoom: 0.8;
+            margin: 0 1px 0 2px;
+        }
+    }
+}
+</style>
+
 <style lang="less" scoped>
 .basic-menu {
     .ant-menu:not(.ant-menu-horizontal) {
@@ -169,12 +187,7 @@ function onOpenChange(value) {
 
         :deep(.basic-menu) {
             &__title {
-                flex: 1;
                 display: flex;
-                align-items: center;
-                min-width: 0;
-                overflow: hidden;
-                text-overflow: ellipsis;
             }
 
             &__name {
@@ -184,11 +197,6 @@ function onOpenChange(value) {
                 text-overflow: ellipsis;
             }
         }
-    }
-
-    :deep(.ant-badge) {
-        zoom: 0.8;
-        margin: 0 1px 0 2px;
     }
 }
 </style>
