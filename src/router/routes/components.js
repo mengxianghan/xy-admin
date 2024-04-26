@@ -251,6 +251,7 @@ export default [
                     title: '穿梭框',
                     isMenu: true,
                     keepAlive: true,
+                    badge: 'update',
                 },
             },
             {
