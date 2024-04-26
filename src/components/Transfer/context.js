@@ -8,17 +8,22 @@ export const useTransferProvide = (props) => {
 export const useTransferInject = () => {
     return inject(TRANSFER_KEY, {
         fieldNames: computed(() => ({})),
-        modelValue: computed(() => []),
+        selectedKeys: computed(() => []),
         breadcrumb: computed(() => []),
         clearText: computed(() => ''),
         placeholder: computed(() => undefined),
         showSearch: computed(() => false),
         showCheckAll: computed(() => false),
+        isDynamicLoadData: computed(() => false),
+        keyword: computed(() => ''),
         onItemCheck: () => {},
         onCheckAll: () => {},
         onClear: () => {},
         onNext: () => {},
         onBreadcrumb: () => {},
+        initInfiniteScroll: () => {},
+        onLoadData: () => {},
+        onSearch: () => {},
     })
 }
 

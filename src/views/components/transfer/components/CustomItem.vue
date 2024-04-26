@@ -6,10 +6,9 @@
 <!-- #region snippet -->
 <template>
     <x-transfer
-        v-model="checkedKeys"
+        v-model:selected-keys="selectedKeys"
         :data-source="listData"
-        :style="{ width: '680px' }"
-        :target-source="targetData">
+        :style="{ width: '680px' }">
         <template #item="{ record, direction }">
             <a-row
                 :gutter="8"
@@ -41,8 +40,7 @@ import { ref } from 'vue'
 import { nanoid } from 'nanoid'
 
 const listData = ref(getList())
-const targetData = ref([])
-const checkedKeys = ref([])
+const selectedKeys = ref([])
 
 function getList(length = 10) {
     return [...Array(length)].map(() => {

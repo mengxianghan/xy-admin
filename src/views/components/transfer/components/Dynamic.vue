@@ -6,52 +6,55 @@
 <!-- #region snippet -->
 <template>
     <x-transfer
-        v-model="checkedKeys"
+        v-model:selected-keys="selectedKeys"
+        v-model:selected-rows="selectedRows"
         :data-source="listData"
         :load-data="onLoadData"
         :style="{ width: '680px' }"
-        :target-source="targetData"
         show-check-all>
     </x-transfer>
 </template>
 
 <script setup>
 import { ref } from 'vue'
-import { nanoid } from 'nanoid'
-import { findTree } from '@/utils'
+import apis from '@/apis'
+import { config } from '@/config'
+import { Transfer as XTransfer } from '@/components'
 
 const listData = ref([])
-const targetData = ref()
-const checkedKeys = ref([])
+const selectedRows = ref([])
+const selectedKeys = ref([])
 
-listData.value = getList()
-
-function onLoadData({ value }) {
-    if (!value) return
-    const result = listData.value
-    findTree(
-        result,
-        { value },
-        (item) => {
-            if (item.children) return
-            item.children = getList().map((item, index) => ({
-                ...item,
-                isLeaf: index === 3,
-                checkable: index < 5,
-            }))
-        },
-        { key: 'value', children: 'children' }
-    )
-    listData.value = result
+function onLoadData(selectedRow, { pagination, success, fail }) {
+    if (pagination.current === 1) {
+        listData.value = []
+    }
+    getList()
+        .then((data) => {
+            const { records } = data
+            listData.value.push(
+                ...records.map((item) => ({
+                    value: item.id,
+                    label: item.title,
+                }))
+            )
+            success({ finished: listData.value.length >= 50 })
+        })
+        .catch(() => {
+            fail()
+        })
 }
 
-function getList(length = 20) {
-    return [...Array(length)].map(() => {
-        const value = nanoid(5)
-        return {
-            label: value,
-            value,
-        }
+function getList() {
+    return new Promise((resolve, reject) => {
+        ;(async () => {
+            const { code, data } = await apis.common.getPageList().catch(() => {
+                reject()
+            })
+            if (config('http.code.success') === code) {
+                resolve(data)
+            }
+        })()
     })
 }
 </script>

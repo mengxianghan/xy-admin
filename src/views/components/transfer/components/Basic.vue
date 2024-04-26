@@ -6,7 +6,7 @@
 <!-- #region snippet -->
 <template>
     <x-transfer
-        v-model="checkedKeys"
+        v-model:selected-keys="selectedKeys"
         :data-source="listData"
         :style="{ width: '680px' }"
         show-check-all>
@@ -52,7 +52,7 @@ const listData = ref([
         ],
     },
 ])
-const checkedKeys = ref([])
+const selectedKeys = ref([])
 </script>
 
 <style lang="less" scoped></style>

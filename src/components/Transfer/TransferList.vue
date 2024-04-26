@@ -28,7 +28,8 @@
                     <a-input
                         v-model:value="keyword"
                         :placeholder="placeholder"
-                        allow-clear>
+                        allow-clear
+                        @change="onSearch">
                         <template #prefix>
                             <search-outlined class="color-placeholder"></search-outlined>
                         </template>
@@ -59,39 +60,41 @@
         </template>
         <!--body-->
         <div class="x-transfer-list__body">
-            <template v-if="dataSource.length">
-                <div class="x-transfer-list__content">
-                    <transfer-list-item
-                        v-for="item in dataSource"
-                        :key="item[fieldNames.value]"
-                        :checked="modelValue.includes(item[fieldNames.value])"
-                        :direcrion="direction"
-                        :record="item">
-                        <template
-                            v-for="(_, key) in pick(slots, ['item'])"
-                            :key="key"
-                            v-slot:[key]="slotProps">
-                            <slot
-                                :name="key"
-                                v-bind="getSlotProps(slotProps)"></slot>
+            <!--列表-->
+            <div
+                ref="infiniteRef"
+                class="x-transfer-list__content">
+                <transfer-list-item
+                    v-for="item in dataSource"
+                    :key="item[fieldNames.value]"
+                    :checked="selectedKeys.includes(item[fieldNames.value])"
+                    :direcrion="direction"
+                    :record="item">
+                    <template
+                        v-for="(_, key) in pick(slots, ['item'])"
+                        :key="key"
+                        v-slot:[key]="slotProps">
+                        <slot
+                            :name="key"
+                            v-bind="getSlotProps(slotProps)"></slot>
+                    </template>
+                </transfer-list-item>
+                <!--空状态-->
+                <template v-if="!dataSource.length">
+                    <div class="x-transfer-list__empty">
+                        <template v-if="isVNode(locale.emptyText)">
+                            <component :is="locale.emptyText"></component>
                         </template>
-                    </transfer-list-item>
-                </div>
-            </template>
-            <template v-else>
-                <div class="x-transfer-list__empty">
-                    <template v-if="isVNode(locale.emptyText)">
-                        <component :is="locale.emptyText"></component>
-                    </template>
-                    <template v-else>
-                        <empty :image="Empty.PRESENTED_IMAGE_SIMPLE">
-                            <template #description>
-                                {{ locale.emptyText }}
-                            </template>
-                        </empty>
-                    </template>
-                </div>
-            </template>
+                        <template v-else>
+                            <empty :image="Empty.PRESENTED_IMAGE_SIMPLE">
+                                <template #description>
+                                    {{ locale.emptyText }}
+                                </template>
+                            </empty>
+                        </template>
+                    </div>
+                </template>
+            </div>
         </div>
         <!--footer-->
         <template v-if="slots.footer">
@@ -109,7 +112,7 @@ import { HomeOutlined, SearchOutlined } from '@ant-design/icons-vue'
 import { DIRECTION_ENUM } from './config'
 import TransferListItem from './TransferListItem.vue'
 import { useTransferInject, useTransferListProvide } from './context'
-import { computed, defineModel, isVNode, ref, useSlots, watchEffect } from 'vue'
+import { computed, isVNode, nextTick, onMounted, ref, useSlots, watchEffect } from 'vue'
 import { every, pick } from 'lodash-es'
 import { getSlotProps } from '@/components/utils'
 import { Empty } from 'ant-design-vue'
@@ -120,30 +123,31 @@ defineOptions({
 
 const props = defineProps({
     direction: String,
-    dataSource: {
-        type: Array,
-        default: () => [],
-    },
+    dataSource: { type: Array, default: () => [] },
 })
-
-const keyword = defineModel('keyword', { type: String })
 
 const slots = useSlots()
 const {
     fieldNames,
-    modelValue,
+    selectedKeys,
     clearText,
     placeholder,
     showSearch,
     showCheckAll,
     locale,
     breadcrumb,
+    isDynamicLoadData,
+    keyword,
     onItemCheckAll,
     onClear,
     onBreadcrumb,
+    initInfiniteScroll,
+    onLoadData,
+    onSearch,
 } = useTransferInject()
 
 const checkedAll = ref(false)
+const infiniteRef = ref()
 
 const isLeftComputed = computed(() => DIRECTION_ENUM.is('left', props.direction))
 const isRightComputed = computed(() => DIRECTION_ENUM.is('right', props.direction))
@@ -151,12 +155,24 @@ const showCheckAllComputed = computed(() => isLeftComputed.value && showCheckAll
 
 watchEffect(() => {
     if (DIRECTION_ENUM.is('left', props.direction)) {
-        checkedAll.value = modelValue.value.length
-            ? every(
-                  props.dataSource.filter((item) => !item?.disabled),
-                  (item) => modelValue.value.includes(item?.[fieldNames.value?.value])
-              )
-            : false
+        checkedAll.value =
+            selectedKeys.value.length && props.dataSource.length
+                ? every(
+                      props.dataSource.filter((item) => !item?.disabled),
+                      (item) => selectedKeys.value.includes(item?.[fieldNames.value?.value])
+                  )
+                : false
+    }
+})
+
+onMounted(async () => {
+    await nextTick()
+    if (isDynamicLoadData.value && isLeftComputed.value) {
+        initInfiniteScroll(infiniteRef.value, {
+            onLoad: () => {
+                onLoadData()
+            },
+        })
     }
 })
 

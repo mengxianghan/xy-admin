@@ -34,8 +34,8 @@
                                 components: {
                                     Button: {
                                         colorText: token.colorPrimary,
-                                        colorBgTextHover: token.colorPrimaryBgHover,
-                                        colorBgTextActive: token.colorPrimaryBgHover,
+                                        colorBgTextHover: token.colorPrimaryBg,
+                                        colorBgTextActive: token.colorPrimaryBg,
                                     },
                                 },
                             }">
@@ -118,6 +118,7 @@ function handleDelete() {
 
     onItemCheck({
         selectedKey: props.record[fieldNames.value.value],
+        selectedRow: props.record,
         checked: false,
         direction: direction.value,
     })
@@ -135,6 +136,7 @@ function handleClick() {
 
     onItemCheck({
         selectedKey: props.record[fieldNames.value.value],
+        selectedRow: props.record,
         checked: !props.checked,
         direction: direction.value,
     })
