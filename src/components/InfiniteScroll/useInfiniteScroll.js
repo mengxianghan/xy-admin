@@ -83,24 +83,22 @@ export default () => {
         check()
     }
 
-    function check() {
-        nextTick(() => {
-            if (loading.value || finished.value || error.value) return
+    async function check() {
+        await nextTick()
 
-            const target =
-                Object.prototype.toString.call(el.value) === '[object HTMLDocument]'
-                    ? document.documentElement
-                    : el.value
-            const scrollHeight = target.scrollHeight
-            const clientHeight = target.clientHeight
-            const scrollTop = target.scrollTop
-            const diff = scrollHeight - clientHeight - scrollTop
-            const isReach = diff <= distance.value
+        if (loading.value || finished.value || error.value) return
 
-            if (isReach) {
-                onLoad.value.call()
-            }
-        })
+        const target =
+            Object.prototype.toString.call(el.value) === '[object HTMLDocument]' ? document.documentElement : el.value
+        const scrollHeight = target.scrollHeight
+        const clientHeight = target.clientHeight
+        const scrollTop = target.scrollTop
+        const diff = scrollHeight - clientHeight - scrollTop
+        const isReach = diff <= distance.value
+
+        if (isReach) {
+            onLoad.value.call()
+        }
     }
 
     /**
