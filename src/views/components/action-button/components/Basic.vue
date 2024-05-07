@@ -6,12 +6,27 @@
 <!-- #region snippet -->
 <template>
     <div>
-        <x-action-button>编辑</x-action-button>
-        <x-action-button>删除</x-action-button>
+        <x-action-button @click="handleClick('点击了编辑')">编辑</x-action-button>
+        <x-action-button @click="handleClick('点击了删除')">删除</x-action-button>
+        <x-action-button
+            disabled
+            @click="handleClick('点击了禁用')">
+            禁用
+        </x-action-button>
     </div>
 </template>
 
-<script setup></script>
+<script setup>
+import { message } from 'ant-design-vue'
+
+/**
+ * 点击
+ * @param {string} msg
+ */
+function handleClick(msg) {
+    message.info(msg)
+}
+</script>
 
 <style lang="less" scoped></style>
 <!-- #endregion snippet -->
