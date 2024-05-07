@@ -55,15 +55,14 @@ function handleMousedown() {
     transition: @motion-duration-mid;
     display: inline-block;
     position: relative;
-    margin-right: 12px;
 
     &--disabled {
         color: @color-text-disabled;
         cursor: not-allowed;
     }
 
-    &:not(:first-child) {
-        margin-left: 12px;
+    &:not(:last-child) {
+        margin-right: 24px;
     }
 
     &:not(.x-action-button--disabled):hover {
