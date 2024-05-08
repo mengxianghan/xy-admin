@@ -39,8 +39,4 @@ export const constantRoutes = [
             },
         ],
     },
-    {
-        path: '/exception/404',
-        component: () => import('@/views/exception/404.vue'),
-    },
 ]
