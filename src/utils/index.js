@@ -1,4 +1,4 @@
-import { isMatch } from 'lodash-es'
+import { get, isMatch } from 'lodash-es'
 import { isObject } from './is'
 
 /**
@@ -8,13 +8,18 @@ import { isObject } from './is'
  * @param {object} expand 拓展数据
  * @param {string} treeFieldName 子节点，如果是树型结构，传入树型结构的子节点对应的字典名
  * @param {boolean} keepOtherFields 保留其他字段
+ * @param {function} filter 筛选函数
+ * @param {array} path
  * @returns {array}
  */
-export const mapping = ({ data, fieldNames = {}, expand = {}, treeFieldName, keepOtherFields = false }) => {
+export const mapping = (
+    { data = [], fieldNames = {}, expand = {}, treeFieldName = '', keepOtherFields = false, filter = () => true },
+    path = []
+) => {
     let result = []
     if (!Array.isArray(data)) return []
     if (!fieldNames) return data
-    data.forEach((item, index, array) => {
+    data.filter((item, index, array) => filter(item, index, array, path)).forEach((item, index, array) => {
         let temp = keepOtherFields ? { ...item } : {},
             record,
             filedValue
@@ -24,18 +29,22 @@ export const mapping = ({ data, fieldNames = {}, expand = {}, treeFieldName, kee
         }
         for (let filedKey in fieldNames) {
             filedValue = fieldNames[filedKey]
-            record = item[filedValue]
+            record = get(item, filedValue) // item[filedValue]
 
             if (filedValue === treeFieldName) {
                 // 树结构
                 if (record && record.length) {
-                    const child = mapping({
-                        data: item[treeFieldName],
-                        fieldNames,
-                        expand,
-                        treeFieldName,
-                        keepOtherFields,
-                    })
+                    const child = mapping(
+                        {
+                            data: item[treeFieldName],
+                            fieldNames,
+                            expand,
+                            treeFieldName,
+                            keepOtherFields,
+                            filter,
+                        },
+                        [...path, item]
+                    )
 
                     if (child && child.length) {
                         temp[filedKey] = child
@@ -43,7 +52,7 @@ export const mapping = ({ data, fieldNames = {}, expand = {}, treeFieldName, kee
                 }
             } else if (filedValue instanceof Function) {
                 // 函数
-                temp[filedKey] = filedValue(item, index, array)
+                temp[filedKey] = filedValue(item, index, array, [...path, item])
             } else {
                 temp[filedKey] = typeof record !== 'undefined' && record !== '' ? record : ''
             }
@@ -145,4 +154,40 @@ export const zipObject = (keys = [], values = [], funcs) => {
  */
 export const assets = (url) => {
     return new URL(`../assets/${url}`, import.meta.url).href
+}
+
+function filterNode(node, condition) {
+    // 如果当前节点符合条件，则将其加入结果中
+    if (condition(node)) {
+        // 创建一个副本，以防修改原始数据
+        const result = { ...node }
+        // 递归处理子节点
+        if (result.children) {
+            result.children = filterTree(result.children, condition)
+        }
+        return result
+    } else {
+        // 如果当前节点不符合条件，则检查其子节点
+        if (node.children) {
+            // 递归处理子节点
+            const filteredChildren = filterTree(node.children, condition)
+            // 如果子节点中有符合条件的节点，则创建一个副本并返回
+            if (filteredChildren.length > 0) {
+                return {
+                    ...node,
+                    children: filteredChildren,
+                }
+            } else {
+                // 如果子节点中没有符合条件的节点，则返回空
+                return null
+            }
+        } else {
+            // 如果当前节点没有子节点且不符合条件，则返回空
+            return null
+        }
+    }
+}
+
+export const filterTree = (treeData, condition) => {
+    return treeData.map((node) => filterNode(node, condition)).filter(Boolean)
 }
