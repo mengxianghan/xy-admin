@@ -17,10 +17,49 @@
         </div>
         <!-- 右侧 -->
         <div class="basic-header__right">
-            <a-space :size="16">
-                <action-button @click="handleConfig">
-                    <setting-outlined></setting-outlined>
-                </action-button>
+            <a-space :size="8">
+                <a-tooltip title="使用文档">
+                    <a
+                        class="color-text"
+                        href="http://xy-admin-docs.xuanyunet.com"
+                        target="_blank">
+                        <action-button>
+                            <book-outlined></book-outlined>
+                        </action-button>
+                    </a>
+                </a-tooltip>
+
+                <a-dropdown>
+                    <action-button>
+                        <github-outlined></github-outlined>
+                    </action-button>
+                    <template #overlay>
+                        <a-menu>
+                            <a-menu-item>
+                                <a
+                                    class="color-text"
+                                    href="https://github.com/mengxianghan/xy-admin"
+                                    target="_blank">
+                                    GitHub
+                                </a>
+                            </a-menu-item>
+                            <a-menu-item>
+                                <a
+                                    class="color-text"
+                                    href="https://gitee.com/1056811341/xy-admin"
+                                    target="_blank">
+                                    Gitee
+                                </a>
+                            </a-menu-item>
+                        </a-menu>
+                    </template>
+                </a-dropdown>
+
+                <a-tooltip title="设置">
+                    <action-button @click="handleConfig">
+                        <setting-outlined></setting-outlined>
+                    </action-button>
+                </a-tooltip>
 
                 <a-dropdown :trigger="['click']">
                     <action-button :style="{ height: '44px' }">
@@ -53,7 +92,7 @@ import { Modal, theme as antTheme } from 'ant-design-vue'
 import { storeToRefs } from 'pinia'
 import { computed, useSlots } from 'vue'
 import { useRouter } from 'vue-router'
-import { LoginOutlined, SettingOutlined } from '@ant-design/icons-vue'
+import { LoginOutlined, SettingOutlined, BookOutlined, GithubOutlined } from '@ant-design/icons-vue'
 import { useAppStore, useUserStore } from '@/store'
 import ActionButton from './ActionButton.vue'
 
