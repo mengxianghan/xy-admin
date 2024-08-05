@@ -1,6 +1,6 @@
 <template>
     <a-card class="mb-8-2">
-        <h2>{{ userInfo?.name }} ，祝你开心每一天！</h2>
+        <h2 class="text-xl font-medium">{{ userInfo?.name }} ，祝你开心每一天！</h2>
         <p class="mb-0">某某某公司－某某某部门－某某某岗位</p>
     </a-card>
 
