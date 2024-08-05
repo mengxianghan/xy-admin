@@ -3,7 +3,7 @@ export default () => ({
     strictPort: false,
     proxy: {
         '/api': {
-            target: 'https://mock.apifox.com/m1/3156808-0-default',
+            target: 'https://apifoxmock.com/m1/3156808-0-default',
             changeOrigin: true,
             rewrite: (path) => path.replace('/api', ''),
         },
