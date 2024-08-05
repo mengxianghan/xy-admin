@@ -19,7 +19,7 @@ export const isObject = (value) => getType(value) === 'object'
  * @param {*} value
  * @returns
  */
-export const isFunction = (value) => getType(value) === 'function'
+export const isFunction = (value) => ['function', 'asyncfunction'].includes(getType(value))
 
 /**
  * 检查是否 AsyncFunction
