@@ -20,10 +20,10 @@ defineOptions({
 })
 
 function handleShow() {
-    Loading.show()
+    Loading()
 
     setTimeout(() => {
-        Loading.hide()
+        Loading.destroy()
     }, 2000)
 }
 </script>

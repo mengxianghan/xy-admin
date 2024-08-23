@@ -274,13 +274,13 @@ function initDragSort() {
 function handlePreview(record, index) {
     if (props.multiple) {
         // 多选
-        Preview.open({
+        Preview({
             urls: props.modelValue,
             current: index,
         })
     } else {
         // 单选
-        Preview.open(record.src)
+        Preview(record.src)
     }
 }
 

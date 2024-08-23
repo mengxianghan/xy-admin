@@ -31,4 +31,13 @@ function hide() {
     onUnPopState(hide)
 }
 
-export default { show, hide }
+const Loading = show
+
+Loading.destroy = hide
+
+Loading.install = (app) => {
+    app.config.globalProperties.$loading = Loading
+    return app
+}
+
+export { Loading }

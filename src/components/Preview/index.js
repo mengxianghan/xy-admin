@@ -10,11 +10,11 @@ let vm = null
  * 返回
  */
 function popstateListener() {
-    close()
+    hide()
 }
 
-function open(payload, index) {
-    close()
+function show(payload, index) {
+    hide()
     let props = {
         index: typeof index === 'number' ? index : 0,
     }
@@ -30,7 +30,7 @@ function open(payload, index) {
     }
     app = createApp(PreviewConstructor, {
         ...props,
-        afterClose: close,
+        afterClose: hide,
     })
     vm = app.mount(container)
     document.body.appendChild(container)
@@ -38,7 +38,7 @@ function open(payload, index) {
     window.addEventListener('popstate', popstateListener)
 }
 
-function close() {
+function hide() {
     if (app) {
         app.unmount()
         vm.open = false
@@ -53,9 +53,13 @@ function close() {
     window.removeEventListener('popstate', popstateListener)
 }
 
-const Preview = {
-    open,
-    close,
+const Preview = show
+
+Preview.destroy = hide
+
+Preview.install = (app) => {
+    app.config.globalProperties.$preview = Preview
+    return app
 }
 
 export { Preview }

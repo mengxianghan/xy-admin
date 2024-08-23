@@ -16,7 +16,7 @@
 import { Preview } from '@/components'
 
 function handlePreview() {
-    Preview.open({
+    Preview({
         urls: ['http://cdn.xuanyunet.com/test/1.jpeg'],
     })
 }
