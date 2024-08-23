@@ -2,6 +2,7 @@ import * as components from './components'
 import * as directives from './directives'
 import { Loading } from './Loading'
 import { Preview } from './Preview'
+import { Popover } from './Popover'
 
 export * from './components'
 
@@ -16,12 +17,14 @@ const install = (app) => {
         app.directive(directive.name, directive)
     }
 
+    app.use(Popover)
+
     app.config.globalProperties.$loading = Loading
     app.config.globalProperties.$preview = Preview
 
     return app
 }
 
-export { Loading, Preview }
+export { Loading, Preview, Popover }
 
 export default { install }
