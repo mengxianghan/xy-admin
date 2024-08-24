@@ -1,5 +1,7 @@
 <template>
     <div
+        ref="popoverRef"
+        :style="popoverStyles"
         class="x-popover"
         @mouseenter="onMouseenter"
         @mouseleave="onMouseleave">
@@ -11,7 +13,14 @@
 </template>
 
 <script setup>
-import { isObject } from '@/utils/is'
+import { isObject } from 'lodash-es'
+import {
+    autoPlacement as floatingAutoPlacement,
+    computePosition as floatingComputePosition,
+    hide as floatingHide,
+    offset as floatingOffset,
+} from '@floating-ui/dom'
+import { ref } from 'vue'
 
 const props = defineProps({
     reference: { type: Object, required: true },
@@ -21,6 +30,40 @@ const props = defineProps({
     clearHideTimer: { type: Function, default: () => {}, required: true },
 })
 
+const popoverRef = ref(null)
+const popoverStyles = ref({})
+
+function handleShow() {
+    const middleware = []
+    const { offset, hide, autoPlacement, placement } = props.options
+
+    if (offset) {
+        middleware.push(floatingOffset(offset))
+    }
+
+    if (hide) {
+        middleware.push(floatingHide(hide))
+    }
+
+    if (autoPlacement) {
+        middleware.push(floatingAutoPlacement(autoPlacement))
+    }
+
+    floatingComputePosition(props.reference, popoverRef.value, {
+        placement,
+        middleware,
+    }).then((instance) => {
+        const { x, y, strategy } = instance
+        popoverStyles.value = {
+            position: strategy,
+            left: `${x}px`,
+            top: `${y}px`,
+        }
+    })
+}
+
+function handleHide() {}
+
 function onMouseenter() {
     props.clearHideTimer(props.options.key)
 }
@@ -28,6 +71,11 @@ function onMouseenter() {
 function onMouseleave() {
     props.delayHide(props.options)
 }
+
+defineExpose({
+    handleShow,
+    handleHide,
+})
 </script>
 
 <style lang="less" scoped>

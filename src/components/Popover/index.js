@@ -1,12 +1,11 @@
 import { createVNode, render } from 'vue'
-import { computePosition, offset, autoPlacement, hide as floatingHide } from '@floating-ui/dom'
-import { nanoid } from 'nanoid'
 import PopoverConstructor from './Popover.vue'
 
 /**
  * @type {{key: string, placement: string, showDelay: number, hideDelay: number, contextHolder: null}}
  */
 let defaultOptions = {
+    key: 'popover',
     showDelay: 0,
     hideDelay: 150,
     appContext: null,
@@ -26,13 +25,23 @@ let queue = new Map()
  * @returns {function(): void}
  */
 function delayShow(reference, options = {}) {
-    options = { key: nanoid(6), ...defaultOptions, ...options }
-    const { showDelay, key } = options
-    clearHideTimer(key)
-    if (showDelay) {
+    options = { ...defaultOptions, ...options }
+    const queueItem = getQueue(options.key)
+
+    // 如果队列中已存（同一个目标元素），不再重复渲染
+    if (reference === queueItem?.reference && hasQueue(options.key)) {
+        // 清理延迟关闭定时器
+        clearHideTimer(options.key)
+        return () => delayHide(queueItem?.options)
+    }
+
+    // 如果不再同一个目标元素，清理指定气泡
+    hide(options.key)
+
+    if (options.showDelay) {
         const timer = setTimeout(() => {
             show(reference, options)
-        }, showDelay)
+        }, options.showDelay)
         addQueue(options.key, { showTimer: timer })
     } else {
         show(reference, options)
@@ -58,37 +67,12 @@ function show(reference, options) {
     vm.appContext = options.appContext
     render(vm, container)
     document.body.appendChild(container)
-
-    const middleware = []
-
-    if (options.offset) {
-        middleware.push(offset(options.offset))
-    }
-
-    if (options.hide) {
-        middleware.push(floatingHide(options.hide))
-    }
-
-    if (options.autoPlacement) {
-        middleware.push(autoPlacement(options.autoPlacement))
-    }
-
-    computePosition(reference, vm.el, {
-        placement: options.placement,
-        middleware,
-    }).then((instance) => {
-        const { x, y, strategy } = instance
-        Object.assign(vm.el.style, {
-            position: strategy,
-            left: `${x}px`,
-            top: `${y}px`,
-        })
-    })
+    vm.component.exposed.handleShow()
 
     addQueue(options.key, {
         vm,
-        elements: { reference: reference, floating: vm.el },
-        destroy: () => delayHide(options),
+        reference,
+        floating: vm.el,
         options,
     })
 }
@@ -112,22 +96,15 @@ function delayHide(options) {
 
 /**
  * 隐藏
- * @param key
+ * @param {string} [key]
  */
 function hide(key) {
     if (key) {
-        if (queue.has(key)) {
-            const { vm, destroy } = queue.get(key)
-            destroy()
-            vm.el.parentNode.remove()
-            queue.delete(key)
-        }
+        deleteQueue(key)
     } else {
-        queue.forEach((item) => {
-            item?.destroy()
-            item.vm.el.parentNode.remove()
+        queue.forEach((item, key) => {
+            deleteQueue(key)
         })
-        queue.clear()
     }
 }
 
@@ -136,7 +113,7 @@ function hide(key) {
  * @param key
  */
 function clearHideTimer(key) {
-    const { hideTimer } = getQueue(key, {})
+    const { hideTimer } = getQueue(key, null, {})
     if (!hideTimer) return
     clearTimeout(hideTimer)
 }
@@ -147,17 +124,46 @@ function clearHideTimer(key) {
  * @param value
  */
 function addQueue(key, value) {
-    queue.set(key, { ...getQueue(key, {}), ...value })
+    queue.set(key, { ...getQueue(key, null, {}), ...value })
 }
 
 /**
  * 从队列中获取
  * @param key
- * @param def
+ * @param {any} fieldName
+ * @param {any} def
  * @returns {any|null}
  */
-function getQueue(key, def = null) {
-    return queue.has(key) ? queue.get(key) : def
+function getQueue(key, fieldName = null, def = null) {
+    if (!hasQueue(key)) return def
+
+    if (fieldName) {
+        return queue.get(key)?.[fieldName]
+    }
+
+    return queue.get(key)
+}
+
+/**
+ * 从队列中移除
+ * @param key
+ */
+function deleteQueue(key) {
+    if (!hasQueue(key)) return
+    const { vm } = queue.get(key)
+    vm.component.exposed.handleHide()
+    vm.el.parentNode.remove()
+    clearHideTimer(key)
+    queue.delete(key)
+}
+
+/**
+ * 是否在队列中
+ * @param key
+ * @returns {boolean}
+ */
+function hasQueue(key) {
+    return queue.has(key)
 }
 
 const Popover = delayShow
