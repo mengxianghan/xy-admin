@@ -1,9 +1,11 @@
 import zhCN from 'ant-design-vue/es/locale/zh_CN'
+import { theme } from 'ant-design-vue'
 
 export default () => {
     const configProviderAttrs = {
         locale: zhCN,
         theme: {
+            algorithm: theme.defaultAlgorithm,
             token: {
                 borderRadius: 4,
                 borderRadiusSM: 2,
