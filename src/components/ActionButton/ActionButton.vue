@@ -3,6 +3,8 @@
         :is="tag"
         :class="{
             'x-action-button--disabled': disabled,
+            'x-action-button--divider': divider,
+            'x-action-button--hovered': hovered,
         }"
         class="x-action-button"
         @click="handleClick"
@@ -20,15 +22,10 @@ defineOptions({
 })
 
 const props = defineProps({
-    tag: {
-        type: String,
-        default: 'span',
-    },
-    divider: {
-        type: Boolean,
-        default: true,
-    },
+    tag: { type: String, default: 'span' },
+    divider: { type: Boolean, default: true },
     disabled: { type: Boolean, default: false },
+    hovered: { type: Boolean, default: false },
 })
 
 const emits = defineEmits(['click', 'mousedown'])
@@ -52,17 +49,30 @@ function handleMousedown() {
 .x-action-button {
     color: @color-primary;
     cursor: pointer;
-    transition: @motion-duration-mid;
+    transition: all @motion-duration-mid;
     display: inline-block;
     position: relative;
+    text-align: center;
+    min-width: 22px;
+    border-radius: @border-radius;
+
+    &:not(:last-child) {
+        margin-right: 12px;
+
+        &.x-action-button--divider {
+            margin-right: 24px;
+        }
+    }
 
     &--disabled {
         color: @color-text-disabled;
         cursor: not-allowed;
     }
 
-    &:not(:last-child) {
-        margin-right: 24px;
+    &--hovered {
+        &:hover {
+            background: @control-item-bg-hover;
+        }
     }
 
     &:not(.x-action-button--disabled):hover {
