@@ -199,7 +199,7 @@ function onItemCheckAll({ checked }) {
  * @param record
  */
 function onNext(record) {
-    keyword.value = undefined
+    keyword.value = ''
     breadcrumb.value.push(record)
     reloadData()
 }
@@ -231,6 +231,7 @@ function onLoadData(payload) {
     props.loadData({
         record,
         reload,
+        keyword: keyword.value,
     })
 }
 
@@ -239,8 +240,9 @@ function onLoadData(payload) {
  */
 async function onTrigger() {
     await nextTick()
-    modelValue.value = selectedRows.value.map((item) => item[props.fieldNames.value])
-    emits('change', modelValue.value, { selectedRows: selectedRows.value })
+    const selectedKeys = selectedRows.value.map((item) => item[props.fieldNames.value])
+    modelValue.value = selectedKeys
+    emits('change', selectedKeys, { selectedRows: selectedRows.value })
     onFieldChange()
 }
 
