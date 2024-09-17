@@ -6,7 +6,7 @@
 <!-- #region snippet -->
 <template>
     <x-transfer
-        v-model:selected-keys="selectedKeys"
+        v-model="selectedKeys"
         :data-source="listData"
         :style="{ width: '680px' }">
         <template #item="{ record, direction }">

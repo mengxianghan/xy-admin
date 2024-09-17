@@ -1,16 +1,16 @@
 <template>
     <div
         :class="{
-            'x-transfer-list-item--disabled': disabledComputed,
+            'x-transfer-list-item--disabled': cpDisabled,
         }"
         class="x-transfer-list-item"
         @click="handleClick">
         <!--复选框-->
-        <template v-if="checkableComputed">
+        <template v-if="cpCheckable">
             <div class="x-transfer-list-item__checkbox">
                 <a-checkbox
                     :checked="checked"
-                    :disabled="disabledComputed"></a-checkbox>
+                    :disabled="cpDisabled"></a-checkbox>
             </div>
         </template>
         <!--内容-->
@@ -18,7 +18,7 @@
             <slot
                 :checked="checked"
                 :direction="direction"
-                :disabled="disabledComputed"
+                :disabled="cpDisabled"
                 :record="record"
                 name="item">
                 {{ record[fieldNames.label] }}
@@ -26,9 +26,9 @@
         </div>
         <div class="x-transfer-list-item__extra">
             <!--左侧-->
-            <template v-if="isLeftComputed">
-                <template v-if="hasChildrenComputed">
-                    <template v-if="checkableComputed">
+            <template v-if="cpIsLeft">
+                <template v-if="cpHasChildren">
+                    <template v-if="cpCheckable">
                         <a-config-provider
                             :theme="{
                                 components: {
@@ -40,7 +40,7 @@
                                 },
                             }">
                             <a-button
-                                :disabled="nextDisabledComputed"
+                                :disabled="cpNextDisabled"
                                 size="small"
                                 type="text"
                                 @click.stop="handleNext">
@@ -54,7 +54,7 @@
                 </template>
             </template>
             <!--右侧-->
-            <template v-if="isRightComputed">
+            <template v-if="cpIsRight">
                 <!--删除-->
                 <a-button
                     size="small"
@@ -75,7 +75,6 @@ import { useTransferInject, useTransferListInject } from './context'
 import { DIRECTION_ENUM } from './config'
 import { computed } from 'vue'
 import { theme } from 'ant-design-vue'
-import { isFunction } from 'lodash-es'
 
 defineOptions({
     name: 'XTransferItem',
@@ -93,28 +92,28 @@ const props = defineProps({
 })
 
 const { direction } = useTransferListInject()
-const { fieldNames, loadData, onItemCheck, onNext } = useTransferInject()
+const { fieldNames, isDynamicLoadData, onItemCheck, onNext } = useTransferInject()
 const { token } = theme.useToken()
 
-const isLeftComputed = computed(() => DIRECTION_ENUM.is('left', direction.value))
-const isRightComputed = computed(() => DIRECTION_ENUM.is('right', direction.value))
-const checkableComputed = computed(() => {
+const cpIsLeft = computed(() => DIRECTION_ENUM.is('left', direction.value))
+const cpIsRight = computed(() => DIRECTION_ENUM.is('right', direction.value))
+const cpCheckable = computed(() => {
     const checkable = props.record.checkable
-    return ([undefined, null].includes(checkable) || checkable) && isLeftComputed.value
+    return ([undefined, null].includes(checkable) || checkable) && cpIsLeft.value
 })
-const hasChildrenComputed = computed(() => {
+const cpHasChildren = computed(() => {
     const checkChildren = props.record[fieldNames.value.children]?.length
-    if (isFunction(loadData)) {
+    if (isDynamicLoadData.value) {
         const isLeaf = props.record.isLeaf || false
         return !isLeaf || checkChildren
     }
     return checkChildren
 })
-const disabledComputed = computed(() => props.record.disabled)
-const nextDisabledComputed = computed(() => props.checked || disabledComputed.value)
+const cpDisabled = computed(() => props.record.disabled)
+const cpNextDisabled = computed(() => props.checked || cpDisabled.value)
 
 function handleDelete() {
-    if (disabledComputed.value) return
+    if (cpDisabled.value) return
 
     onItemCheck({
         selectedKey: props.record[fieldNames.value.value],
@@ -125,10 +124,10 @@ function handleDelete() {
 }
 
 function handleClick() {
-    if (isRightComputed.value) return
-    if (disabledComputed.value) return
-    if (!checkableComputed.value) {
-        if (hasChildrenComputed.value) {
+    if (cpIsRight.value) return
+    if (cpDisabled.value) return
+    if (!cpCheckable.value) {
+        if (cpHasChildren.value) {
             handleNext()
         }
         return

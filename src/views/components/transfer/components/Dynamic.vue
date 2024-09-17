@@ -6,7 +6,8 @@
 <!-- #region snippet -->
 <template>
     <x-transfer
-        v-model:selected-keys="selectedKeys"
+        ref="transferRef"
+        v-model="selectedKeys"
         v-model:selected-rows="selectedRows"
         :data-source="listData"
         :load-data="onLoadData"
@@ -20,17 +21,22 @@ import { ref } from 'vue'
 import apis from '@/apis'
 import { config } from '@/config'
 import { Transfer as XTransfer } from '@/components'
+import { usePagination } from '@/hooks'
 
-const listData = ref([])
 const selectedRows = ref([])
 const selectedKeys = ref([])
+const transferRef = ref()
+const { paginationState, listData } = usePagination()
 
-function onLoadData(selectedRow, { pagination, success, fail }) {
-    if (pagination.current === 1) {
+function onLoadData(payload) {
+    const { reload } = payload || {}
+    if (reload) {
         listData.value = []
     }
+    transferRef.value.showLoading()
     getList()
         .then((data) => {
+            transferRef.value.hideLoading()
             const { records } = data
             listData.value.push(
                 ...records.map((item) => ({
@@ -38,19 +44,26 @@ function onLoadData(selectedRow, { pagination, success, fail }) {
                     label: item.title,
                 }))
             )
-            success({ finished: listData.value.length >= 50 })
+            if (listData.value.length >= 50) {
+                transferRef.value.showFinished()
+            }
         })
         .catch(() => {
-            fail()
+            transferRef.value.showError()
         })
 }
 
 function getList() {
     return new Promise((resolve, reject) => {
         ;(async () => {
-            const { code, data } = await apis.common.getPageList().catch(() => {
-                reject()
-            })
+            const { code, data } = await apis.common
+                .getPageList({
+                    page: paginationState.current,
+                    pageSize: paginationState.pageSize,
+                })
+                .catch(() => {
+                    reject()
+                })
             if (config('http.code.success') === code) {
                 resolve(data)
             }

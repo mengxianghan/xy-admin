@@ -2,14 +2,14 @@
     <div class="x-transfer-list">
         <!--header-->
         <a-space class="x-transfer-list__header">
-            <template v-if="showCheckAllComputed">
+            <template v-if="cpShowCheckAll">
                 <a-checkbox
                     :checked="checkedAll"
                     @change="onItemCheckAllChange">
                     全选
                 </a-checkbox>
             </template>
-            <template v-if="isRightComputed">
+            <template v-if="cpIsRight">
                 <div class="x-transfer__count">
                     <slot
                         :count="dataSource.length"
@@ -21,7 +21,7 @@
                 <a-typography-link @click="handleClear">{{ clearText }}</a-typography-link>
             </template>
         </a-space>
-        <template v-if="isLeftComputed">
+        <template v-if="cpIsLeft">
             <!--搜索-->
             <template v-if="showSearch">
                 <div class="x-transfer-list__search">
@@ -67,7 +67,7 @@
                 <transfer-list-item
                     v-for="item in dataSource"
                     :key="item[fieldNames.value]"
-                    :checked="selectedKeys.includes(item[fieldNames.value])"
+                    :checked="modelValue.includes(item[fieldNames.value])"
                     :direcrion="direction"
                     :record="item">
                     <template
@@ -79,8 +79,24 @@
                             v-bind="getSlotProps(slotProps)"></slot>
                     </template>
                 </transfer-list-item>
+                <!--动态加载数据-->
+                <template v-if="isDynamicLoadData && cpIsLeft">
+                    <template v-if="loading">
+                        <div class="x-transfer-list__loading-text">{{ loadingText }}</div>
+                    </template>
+                    <template v-if="finished">
+                        <div class="x-transfer-list__finished-text">{{ finishedText }}</div>
+                    </template>
+                    <template v-if="error">
+                        <div
+                            class="x-transfer-list__error-text"
+                            @click="handleRefresh">
+                            {{ errorText }}
+                        </div>
+                    </template>
+                </template>
                 <!--空状态-->
-                <template v-if="!dataSource.length">
+                <template v-if="cpShowEmpty">
                     <div class="x-transfer-list__empty">
                         <template v-if="isVNode(locale.emptyText)">
                             <component :is="locale.emptyText"></component>
@@ -129,12 +145,19 @@ const props = defineProps({
 const slots = useSlots()
 const {
     fieldNames,
-    selectedKeys,
+    modelValue,
     clearText,
     placeholder,
     showSearch,
     showCheckAll,
     locale,
+    immediateCheck,
+    loading,
+    loadingText,
+    finished,
+    finishedText,
+    error,
+    errorText,
     breadcrumb,
     isDynamicLoadData,
     keyword,
@@ -149,17 +172,23 @@ const {
 const checkedAll = ref(false)
 const infiniteRef = ref()
 
-const isLeftComputed = computed(() => DIRECTION_ENUM.is('left', props.direction))
-const isRightComputed = computed(() => DIRECTION_ENUM.is('right', props.direction))
-const showCheckAllComputed = computed(() => isLeftComputed.value && showCheckAll.value)
+const cpIsLeft = computed(() => DIRECTION_ENUM.is('left', props.direction))
+const cpIsRight = computed(() => DIRECTION_ENUM.is('right', props.direction))
+const cpShowCheckAll = computed(() => cpIsLeft.value && showCheckAll.value)
+const cpShowEmpty = computed(() => {
+    if (cpIsLeft.value) {
+        return !props.dataSource.length && !loading.value && !finished.value && !error.value
+    }
+    return !props.dataSource.length
+})
 
 watchEffect(() => {
     if (DIRECTION_ENUM.is('left', props.direction)) {
         checkedAll.value =
-            selectedKeys.value.length && props.dataSource.length
+            modelValue.value.length && props.dataSource.length
                 ? every(
                       props.dataSource.filter((item) => !item?.disabled),
-                      (item) => selectedKeys.value.includes(item?.[fieldNames.value?.value])
+                      (item) => modelValue.value.includes(item?.[fieldNames.value?.value])
                   )
                 : false
     }
@@ -167,14 +196,22 @@ watchEffect(() => {
 
 onMounted(async () => {
     await nextTick()
-    if (isDynamicLoadData.value && isLeftComputed.value) {
+    if (isDynamicLoadData.value && cpIsLeft.value) {
         initInfiniteScroll(infiniteRef.value, {
+            immediateCheck: immediateCheck.value,
             onLoad: () => {
-                onLoadData()
+                onLoadData({ reload: false })
             },
         })
     }
 })
+
+/**
+ * 刷新
+ */
+function handleRefresh() {
+    onLoadData({ reload: false })
+}
 
 /**
  * 清除

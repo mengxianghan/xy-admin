@@ -1,7 +1,10 @@
 <template>
-    <div class="x-transfer">
+    <div
+        v-loading="loading"
+        :style="cpStyle"
+        class="x-transfer">
         <transfer-list
-            :data-source="dataListComputed"
+            :data-source="cpDataList"
             :direction="DIRECTION_ENUM.getValue('left')">
             <template
                 v-for="(_, key) in slots"
@@ -34,10 +37,9 @@ import { useTransferProvide } from './context'
 import { computed, defineModel, nextTick, ref, useSlots, watch, watchEffect } from 'vue'
 import { debounce, filter, findIndex, isFunction, last } from 'lodash-es'
 import { Form } from 'ant-design-vue'
-import { getSlotProps } from '../utils'
+import { formatUnits, getSlotProps } from '../utils'
 import { findTree } from '@/utils'
 import { useInfiniteScroll } from '../InfiniteScroll'
-import { reactive } from 'vue'
 import { isEmpty } from '@/utils/is'
 
 defineOptions({
@@ -45,6 +47,7 @@ defineOptions({
 })
 
 const props = defineProps({
+    loading: { type: Boolean, default: false },
     dataSource: { type: Array, default: () => [] },
     fieldNames: { type: Object, default: () => ({ label: 'label', value: 'value', children: 'children' }) },
     clearText: { type: String, default: '清除' },
@@ -54,14 +57,28 @@ const props = defineProps({
     filterOption: { type: Function },
     locale: { type: Object, default: () => ({ emptyText: '暂无数据' }) },
     loadData: { type: Function },
+    height: { type: [Number, String], default: 400 },
+    immediateCheck: { type: Boolean, default: true },
 })
-const selectedKeys = defineModel('selectedKeys', { type: Array, default: () => [] })
+const modelValue = defineModel('modelValue', { type: Array, default: () => [] })
 const selectedRows = defineModel('selectedRows', { type: Array, default: () => [] })
 const emits = defineEmits(['change'])
 
 const slots = useSlots()
-const { initInfiniteScroll, showLoading, hideLoading, showError, showFinished, resetInfiniteScroll } =
-    useInfiniteScroll({ immediateCheck: false })
+const {
+    initInfiniteScroll,
+    showLoading,
+    hideLoading,
+    showError,
+    showFinished,
+    resetInfiniteScroll,
+    loading: infiniteLoading,
+    loadingText,
+    finished,
+    finishedText,
+    error,
+    errorText,
+} = useInfiniteScroll({ immediateCheck: false })
 const { onFieldChange } = Form.useInjectFormItemContext()
 
 const onSearch = debounce(() => {
@@ -71,14 +88,11 @@ const onSearch = debounce(() => {
 const dataList = ref(props.dataSource)
 const keyword = ref('')
 const breadcrumb = ref([])
-const paginationState = reactive({
-    current: 1,
-    total: 0,
-})
 
-const dataListComputed = computed(() =>
+const cpIsDynamicLoadData = computed(() => isFunction(props.loadData))
+const cpDataList = computed(() =>
     filter(dataList.value, (item) => {
-        if (isDynamicLoadDataComputed.value) {
+        if (cpIsDynamicLoadData.value) {
             return true
         }
         if (isFunction(props.filterOption)) {
@@ -90,16 +104,20 @@ const dataListComputed = computed(() =>
         return true
     })
 )
-const isDynamicLoadDataComputed = computed(() => isFunction(props.loadData))
+const cpStyle = computed(() => {
+    return {
+        height: formatUnits(props.height),
+    }
+})
 
 watch(
-    () => selectedKeys.value,
+    () => modelValue.value,
     () => {
-        if (isDynamicLoadDataComputed.value) {
+        if (cpIsDynamicLoadData.value) {
             return
         }
         const result = []
-        selectedKeys.value.forEach((item) => {
+        modelValue.value.forEach((item) => {
             findTree(
                 props.dataSource,
                 item,
@@ -119,7 +137,7 @@ watch(
 
 watchEffect(() => {
     const record = last(breadcrumb.value)
-    if (record && !isDynamicLoadDataComputed.value) {
+    if (record && !cpIsDynamicLoadData.value) {
         findTree(
             props.dataSource,
             record[props.fieldNames.value],
@@ -162,14 +180,14 @@ function onItemCheck({ selectedRow, checked }) {
 function onItemCheckAll({ checked }) {
     if (checked) {
         // 全选，将可操作项添加到已选列表
-        filter(dataListComputed.value, (item) => !item.disabled)?.forEach((item) => {
+        filter(cpDataList.value, (item) => !item.disabled)?.forEach((item) => {
             if (getSelectedRowIndex(item) < 0) {
                 selectedRows.value.push(item)
             }
         })
     } else {
         // 取消全选，将可操作项从已选列表中移除
-        filter(dataListComputed.value, (item) => !item.disabled).forEach((item) => {
+        filter(cpDataList.value, (item) => !item.disabled).forEach((item) => {
             selectedRows.value.splice(getSelectedRowIndex(item), 1)
         })
     }
@@ -203,26 +221,16 @@ function onBreadcrumb(record, index) {
 
 /**
  * 加载数据
+ * @param {object} payload
+ * @param {boolean} payload.reload
  */
-function onLoadData() {
+function onLoadData(payload) {
     if (!isFunction(props.loadData)) return
     const record = last(breadcrumb.value) || null
-    showLoading()
-    props.loadData(record, {
-        keyword: keyword.value,
-        pagination: paginationState,
-        success: ({ finished } = {}) => {
-            hideLoading()
-            if (finished) {
-                showFinished()
-                return
-            }
-            paginationState.current += 1
-        },
-        fail: () => {
-            paginationState.current -= 1
-            showError()
-        },
+    const { reload } = payload
+    props.loadData({
+        record,
+        reload,
     })
 }
 
@@ -231,8 +239,8 @@ function onLoadData() {
  */
 async function onTrigger() {
     await nextTick()
-    selectedKeys.value = selectedRows.value.map((item) => item[props.fieldNames.value])
-    emits('change', selectedKeys.value, { selectedRows: selectedRows.value })
+    modelValue.value = selectedRows.value.map((item) => item[props.fieldNames.value])
+    emits('change', modelValue.value, { selectedRows: selectedRows.value })
     onFieldChange()
 }
 
@@ -240,13 +248,11 @@ async function onTrigger() {
  * 重新加载
  */
 function reloadData() {
-    if (!isDynamicLoadDataComputed.value) {
+    if (!cpIsDynamicLoadData.value) {
         return
     }
-    paginationState.current = 1
-    paginationState.total = 0
     resetInfiniteScroll()
-    onLoadData()
+    onLoadData({ reload: true })
 }
 
 /**
@@ -260,15 +266,21 @@ function getSelectedRowIndex(record) {
 
 useTransferProvide({
     fieldNames: computed(() => props.fieldNames),
-    selectedKeys: computed(() => selectedKeys.value),
+    modelValue: computed(() => modelValue.value),
     breadcrumb: computed(() => breadcrumb.value),
     clearText: computed(() => props.clearText),
     placeholder: computed(() => props.placeholder),
     showSearch: computed(() => props.showSearch),
     showCheckAll: computed(() => props.showCheckAll),
     locale: computed(() => props.locale),
-    loadData: props.loadData,
-    isDynamicLoadData: isDynamicLoadDataComputed,
+    immediateCheck: computed(() => props.immediateCheck),
+    loading: computed(() => infiniteLoading.value),
+    loadingText: computed(() => loadingText.value),
+    finished: computed(() => finished.value),
+    finishedText: computed(() => finishedText.value),
+    error: computed(() => error.value),
+    errorText: computed(() => errorText.value),
+    isDynamicLoadData: computed(() => cpIsDynamicLoadData.value),
     keyword,
     onItemCheck,
     onItemCheckAll,
@@ -279,6 +291,13 @@ useTransferProvide({
     onLoadData,
     onSearch,
 })
+
+defineExpose({
+    showLoading,
+    hideLoading,
+    showFinished,
+    showError,
+})
 </script>
 
 <style lang="less" scoped>
@@ -286,6 +305,5 @@ useTransferProvide({
     display: flex;
     border: @color-border solid 1px;
     border-radius: @border-radius;
-    height: 480px;
 }
 </style>
