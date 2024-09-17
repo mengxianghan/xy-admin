@@ -20,7 +20,7 @@
 
 | 参数<img width="180"/>   | 说明                                                                        | 类型         | 默认值                                                        |
 |------------------------|---------------------------------------------------------------------------|------------|------------------------------------------------------------|
-| selected-keys(v-model) | 显示在右侧框数据的 `key` 集合                                                        | `array`    | `[]`                                                       |
+| modelValue(v-model)    | 显示在右侧框数据的 `key` 集合                                                        | `array`    | `[]`                                                       |
 | data-source            | 数据源，非异步加载数据时，其中的部分数据将会被渲染到左边一栏中                                           | `array`    | `[]`                                                       |
 | selected-rows(v-model) | 选中行，配合 `loadData` 使用。异步加载数据时需要手动回填数据                                      | `array`    | `[]`                                                       |
 | field-names            | 自定义节点 label、value、children 的字段                                            | `object`   | `{ label: 'label', value: 'value', children: 'children' }` |
