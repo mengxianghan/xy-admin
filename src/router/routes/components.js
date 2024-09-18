@@ -265,6 +265,17 @@ export default [
                 },
             },
             {
+                path: 'tree',
+                name: 'tree',
+                component: 'components/tree/index.vue',
+                meta: {
+                    title: '树形控件',
+                    isMenu: true,
+                    keepAlive: true,
+                    badge: 'new',
+                },
+            },
+            {
                 path: 'upload',
                 name: 'upload',
                 component: 'components/upload/index.vue',
