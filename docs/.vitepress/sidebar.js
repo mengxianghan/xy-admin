@@ -15,6 +15,7 @@ export default {
             items: [
                 { text: 'ActionButton 操作按钮', link: '/components/action-button' },
                 { text: 'Breadcrumb 面包屑', link: '/components/breadcrumb' },
+                { text: 'Button 按钮', link: '/components/button' },
                 { text: 'Cascader 级联选择', link: '/components/cascader' },
                 { text: 'Chart 图表', link: '/components/chart' },
                 { text: 'Cropper 裁剪', link: '/components/cropper' },

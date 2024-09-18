@@ -33,6 +33,17 @@ export default [
                 },
             },
             {
+                path: 'button',
+                name: 'button',
+                component: 'components/button/index.vue',
+                meta: {
+                    title: '按钮',
+                    isMenu: true,
+                    keepAlive: true,
+                    badge: 'new',
+                },
+            },
+            {
                 path: 'cascader',
                 name: 'cascader',
                 component: 'components/cascader/index.vue',
@@ -80,7 +91,6 @@ export default [
                     title: '文本省略',
                     isMenu: true,
                     keepAlive: true,
-                    badge: 'new',
                 },
             },
             {
