@@ -18,13 +18,13 @@
 
 ### Props
 
-| 名称                  | 说明   | 类型        | 默认值     |
-|---------------------|------|-----------|---------|
-| modelValue(v-model) | 内容   | `string`  | -       |
-| option              | 配置   | `object`  | `{}`    |
-| height              | 高    | `number`  | `300`   |
-| placeholder         | 占位文本 | `string`  | -       |
-| disabled            | 禁用   | `boolean` | `false` |
+| 名称                   | 说明   | 类型        | 默认值     |
+|----------------------|------|-----------|---------|
+| model-value(v-model) | 内容   | `string`  | -       |
+| option               | 配置   | `object`  | `{}`    |
+| height               | 高    | `number`  | `300`   |
+| placeholder          | 占位文本 | `string`  | -       |
+| disabled             | 禁用   | `boolean` | `false` |
 
 ### Events
 

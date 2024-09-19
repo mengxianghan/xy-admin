@@ -30,7 +30,7 @@
 | show-check-all         | 显示全选                                                                      | `boolean`                                      | `false`                                                    |
 | filter-option          | 接收 `inputValue` `option` 两个参数，当 `option` 符合筛选条件时，应返回 `true`，反之则返回 `false` | `function`                                     | -                                                          |
 | locale                 | 各种语言                                                                      | `object`                                       | `{ emptyText: '暂无数据' }`                                    |
-| loadData               | 动态加载数据函数                                                                  | `function({keyword: string, reload: boolean})` | -                                                          |
+| load-data              | 动态加载数据函数                                                                  | `function({keyword: string, reload: boolean})` | -                                                          |
 
 ### DataSourceType
 
