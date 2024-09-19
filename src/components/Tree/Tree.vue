@@ -9,7 +9,7 @@
         <template v-if="loaded">
             <a-tree
                 :default-expand-all="defaultExpandAll"
-                :tree-data="treeData"
+                :tree-data="cpTreeData"
                 v-bind="attrs">
                 <template
                     v-for="(_, key) in slots"
@@ -26,7 +26,8 @@
 
 <script setup>
 import { useAttrs, useSlots, watch, ref, computed } from 'vue'
-import { getSlotProps } from '@/components/utils/index.js'
+import { getSlotProps } from '@/components/utils'
+import { filterTree } from '@/utils'
 
 defineOptions({
     name: 'XTree',
@@ -37,8 +38,9 @@ const props = defineProps({
     defaultExpandAll: { type: Boolean, default: false },
     fieldNames: { type: Object, default: () => ({ children: 'children', title: 'title', key: 'key' }) },
     switcher: { type: Boolean, default: true },
+    filterMethod: { type: Function, default: () => true },
+    keepChildNodes: { type: Boolean, default: true }, // 筛选时是否保留子节点
 })
-
 const slots = useSlots()
 const attrs = useAttrs()
 
@@ -54,6 +56,9 @@ const cpStyles = computed(() => {
     }
 
     return style
+})
+const cpTreeData = computed(() => {
+    return filterTree(props.treeData, props.filterMethod, props.keepChildNodes)
 })
 
 watch(
@@ -71,6 +76,7 @@ watch(
 </script>
 
 <style lang="less" scoped>
+// 为了使 a-tree 组件与当前组件样式保持一致，部分样式详见：@/styles/antd/tree.less
 .x-tree {
     &.x-tree--switcher {
         :deep(.ant-tree .ant-tree-switcher) {
@@ -83,7 +89,5 @@ watch(
             display: none;
         }
     }
-
-    // 为了使 a-tree 组件与当前组件样式保持一致，非组件独有样式详见：@/styles/antd/tree.less
 }
 </style>

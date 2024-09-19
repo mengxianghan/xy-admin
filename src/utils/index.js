@@ -156,21 +156,28 @@ export const assets = (url) => {
     return new URL(`../assets/${url}`, import.meta.url).href
 }
 
-function filterNode(node, condition) {
+/**
+ * 筛选节点
+ * @param {object} node - 树节点
+ * @param {function} condition - 筛选函数
+ * @param {boolean} keepChildNodes - 保留子节点
+ * @returns {(*&{children: *})|*|null}
+ */
+function filterTreeNode(node, condition, keepChildNodes) {
     // 如果当前节点符合条件，则将其加入结果中
     if (condition(node)) {
         // 创建一个副本，以防修改原始数据
         const result = { ...node }
         // 递归处理子节点
-        if (result.children) {
-            result.children = filterTree(result.children, condition)
+        if (result.children && !keepChildNodes) {
+            result.children = filterTree(result.children, condition, keepChildNodes)
         }
         return result
     } else {
         // 如果当前节点不符合条件，则检查其子节点
         if (node.children) {
             // 递归处理子节点
-            const filteredChildren = filterTree(node.children, condition)
+            const filteredChildren = filterTree(node.children, condition, keepChildNodes)
             // 如果子节点中有符合条件的节点，则创建一个副本并返回
             if (filteredChildren.length > 0) {
                 return {
@@ -188,6 +195,13 @@ function filterNode(node, condition) {
     }
 }
 
-export const filterTree = (treeData, condition) => {
-    return treeData.map((node) => filterNode(node, condition)).filter(Boolean)
+/**
+ * 筛选树
+ * @param {array} treeData - 数据源
+ * @param {function} condition - 筛选函数
+ * @param {boolean} keepChildNodes - 保留子节点
+ * @returns {*}
+ */
+export const filterTree = (treeData, condition, keepChildNodes = true) => {
+    return treeData.map((node) => filterTreeNode(node, condition, keepChildNodes)).filter(Boolean)
 }

@@ -6,10 +6,7 @@
 <!-- #region snippet -->
 <template>
     <div>
-        <a-flex
-            :gap="12"
-            class="mb-4"
-            wrap="wrap">
+        <div class="mb-4 flex items-center gap-3 flex-wrap">
             <div>
                 默认展开：
                 <a-switch v-model:checked="defaultExpandAll"></a-switch>
@@ -26,7 +23,7 @@
                 显示 switcher：
                 <a-switch v-model:checked="switcher"></a-switch>
             </div>
-        </a-flex>
+        </div>
         <x-tree
             :block-node="blockNode"
             :checkable="checkable"
