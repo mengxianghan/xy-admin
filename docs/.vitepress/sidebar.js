@@ -36,6 +36,7 @@ export default {
                 { text: 'TagSelect 标签选择', link: '/components/tag-select' },
                 { text: 'Toolbar 工具条', link: '/components/toolbar' },
                 { text: 'Transfer 穿梭框', link: '/components/transfer' },
+                { text: 'Tree 树形控件', link: '/components/tree' },
                 { text: 'UploadImage 上传图片', link: '/components/upload-image' },
                 { text: 'UploadInput 上传框', link: '/components/upload-input' },
             ],
