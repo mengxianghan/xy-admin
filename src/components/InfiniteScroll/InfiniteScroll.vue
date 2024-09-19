@@ -34,7 +34,7 @@
 </template>
 
 <script setup>
-import { defineModel, nextTick, onMounted, ref, watch } from 'vue'
+import { nextTick, onMounted, ref, watch } from 'vue'
 
 defineOptions({
     name: 'XInfiniteScroll',

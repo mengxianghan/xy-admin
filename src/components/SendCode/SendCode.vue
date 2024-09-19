@@ -6,7 +6,7 @@
 </template>
 
 <script setup>
-import { defineModel, ref } from 'vue'
+import { ref } from 'vue'
 
 defineOptions({
     name: 'XSendCode',

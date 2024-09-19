@@ -34,7 +34,7 @@
 import TransferList from './TransferList.vue'
 import { DIRECTION_ENUM } from './config'
 import { useTransferProvide } from './context'
-import { computed, defineModel, nextTick, ref, useSlots, watch, watchEffect } from 'vue'
+import { computed, nextTick, ref, useSlots, watch, watchEffect } from 'vue'
 import { debounce, filter, findIndex, isFunction, last } from 'lodash-es'
 import { Form } from 'ant-design-vue'
 import { formatUnits, getSlotProps } from '../utils'

@@ -19,6 +19,7 @@ module.exports = {
     globals: {
         __APP_INFO__: true,
         tinymce: true,
+        defineModel: 'readonly'
     },
     settings: {
         'import/resolver': {

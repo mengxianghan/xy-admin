@@ -41,7 +41,7 @@
 
 <script setup>
 import { HolderOutlined } from '@ant-design/icons-vue'
-import { defineModel, onMounted, ref, watch } from 'vue'
+import { onMounted, ref, watch } from 'vue'
 import { cloneDeep, findIndex } from 'lodash-es'
 import { VueDraggable } from 'vue-draggable-plus'
 
