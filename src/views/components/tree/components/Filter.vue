@@ -10,7 +10,8 @@
             <a-input
                 v-model:value="keyword"
                 :style="{ width: '240px' }"
-                placeholder="请输入关键字"></a-input>
+                placeholder="请输入关键字"
+                @change="onChange"></a-input>
             <span>
                 筛选结果保留子节点：
                 <a-switch v-model:checked="keepChildNodes"></a-switch>
@@ -19,6 +20,7 @@
         <x-tree
             :tree-data="treeData"
             :keep-child-nodes="keepChildNodes"
+            :expanded-keys="expandedKeys"
             :filter-method="onFilterMethod"></x-tree>
     </div>
 </template>
@@ -26,9 +28,11 @@
 <script setup>
 import { ref } from 'vue'
 import { Tree as XTree } from '@/components/index.js'
+import { toList } from '@/utils/to'
 
 const keyword = ref('')
 const keepChildNodes = ref(false)
+const expandedKeys = ref([])
 const treeData = ref([
     {
         title: 'parent 1',
@@ -54,6 +58,14 @@ const treeData = ref([
 
 function onFilterMethod(record) {
     return keyword.value ? record.title.indexOf(keyword.value) !== -1 : true
+}
+
+function onChange() {
+    if (keyword.value) {
+        expandedKeys.value = toList(treeData.value).map((item) => item.key)
+    } else {
+        expandedKeys.value = []
+    }
 }
 </script>
 
