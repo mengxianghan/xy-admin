@@ -1,7 +1,7 @@
 import { useProgress } from '@/hooks'
-import router from '@/router'
 import { whiteList } from '@/router/config'
 import { useAppStore, useUserStore } from '@/store'
+import router from '@/router'
 
 const progress = useProgress()
 
