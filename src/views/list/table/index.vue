@@ -161,8 +161,16 @@ defineOptions({
     name: 'listTable',
 })
 
-const { listData, paginationState, loading, showLoading, hideLoading, resetPagination, searchFormData } =
-    usePagination()
+const {
+    listData,
+    paginationState,
+    loading,
+    showLoading,
+    hideLoading,
+    resetPagination,
+    searchFormData,
+    refreshPagination,
+} = usePagination()
 
 const columns = ref([
     { title: '序号', key: 'no', dataIndex: 'no', ignoreSetting: true, customRender: ({ index }) => index + 1 },
@@ -229,6 +237,7 @@ function handleDelete({ id }) {
                         if (config('http.code.success') === code) {
                             resolve()
                             message.success('删除成功')
+                            refreshPagination()
                             await getPageList()
                         }
                     } catch (error) {
