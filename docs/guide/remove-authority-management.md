@@ -11,7 +11,7 @@ import { formatRoutes, generateMenuList, generateRoutes, getFirstValidRoute } fr
 import { findTree } from '@/utils'
 import { config } from '@/config'
 import router from '@/router'
-import apis from '@/apis' // [!code --] // [!code focus]
+import apis from '@/apis' // [!code --]
 import routes from '@/router/routes'
 
 const useRouterStore = defineStore('router', {
@@ -26,7 +26,7 @@ const useRouterStore = defineStore('router', {
          * 获取路由列表
          * @returns {Promise}
          */
-        getRouterList() { // [!code focus:26]
+        getRouterList() {
             return new Promise((resolve, reject) => {
                 ;(async () => {
                     try {

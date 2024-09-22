@@ -128,9 +128,9 @@ npm run build:prod
 
 ### 移除 DemoBox
 
-1. 删除 `src/components/components.js` 第 `19` 行
+1. 删除 `src/components/components.js` 第 `7` 行
    ::: code-group
-   <<< @/../src/components/components.js{19}
+   <<< @/../src/components/components.js{7}
    :::
 
 2. 删除 `src/components/DemoBox` 目录
