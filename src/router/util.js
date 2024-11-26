@@ -14,7 +14,7 @@ export function formatRoutes(routes, asyncRoutes = [], parent = {}) {
     const modules = import.meta.glob('../views/**/*.vue')
     asyncRoutes = asyncRoutes === false ? routes : asyncRoutes
     return routes
-        .toSorted((a, b) => {
+        .sort((a, b) => {
             const indexA = findIndex(asyncRoutes, { name: a.name })
             const indexB = findIndex(asyncRoutes, { name: b.name })
 
@@ -29,7 +29,7 @@ export function formatRoutes(routes, asyncRoutes = [], parent = {}) {
             return indexA - indexB
         })
         .filter((item) => {
-            return find(asyncRoutes, { name: item.name })
+            return item.meta.permission === '*' || find(asyncRoutes, { name: item.name })
         })
         .map((item) => {
             const asyncRoute = find(asyncRoutes, { name: item.name })
