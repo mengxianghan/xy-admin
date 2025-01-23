@@ -1,5 +1,5 @@
 <div align="center">
-<img src="http://cdn.xuanyunet.com/images/logo.svg" alt="logo" height="80">
+<img src="https://xy-admin.pages.dev/images/logo.svg" alt="logo" height="80">
 
 # XYAdmin
 </div>
@@ -9,7 +9,7 @@
 `XYAdmin` 是一个中后台前端解决方案，基于 `vue3.x` 和 `and-design-vue` 实现。 使用最新的前端技术栈，提供丰富的组件，并持续性提供丰富的业务模板快速搭建企业级中后台前端项目。
 
 #### ⛱️ 线上预览
-- 线上预览 <a href="http://xy-admin.xuanyunet.com" target="_blank">http://xy-admin.xuanyunet.com</a>
+- 线上预览 <a href="http://xy-admin.pages.dev" target="_blank">http://xy-admin.pages.dev</a>
 
 #### ✨ 特点
 

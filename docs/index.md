@@ -7,7 +7,7 @@ hero:
   text: 开箱即用的中台前端解决方案
   tagline: 基于 Vue3 + Pinia + Vite + And Design Vue 打造
   image: 
-    src: http://cdn.xuanyunet.com/images/logo.svg
+    src: https://xy-admin.pages.dev/images/logo.svg
     alt: XYAdmin
   actions:
     - theme: brand
@@ -15,7 +15,7 @@ hero:
       link: /guide/started
     - theme: alt
       text: 预览
-      link: http://xy-admin.xuanyunet.com
+      link: http://xy-admin.pages.dev
     - theme: alt
       text: 在 GitHub 上查看
       link: https://github.com/mengxianghan/xy-admin
