@@ -1,4 +1,4 @@
-import request from '@/utils/request'
+import { request } from '@/utils'
 
 // 获取角色列表
 export const getUserRoleList = (params) => request.basic.get('/system/getUserRoleList', params)

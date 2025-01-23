@@ -28,7 +28,7 @@
 <script setup>
 import { ref } from 'vue'
 import { Tree as XTree } from '@/components/index.js'
-import { toList } from '@/utils/to'
+import { tree2list } from '@/utils'
 
 const keyword = ref('')
 const keepChildNodes = ref(false)
@@ -62,7 +62,7 @@ function onFilterMethod(record) {
 
 function onChange() {
     if (keyword.value) {
-        expandedKeys.value = toList(treeData.value).map((item) => item.key)
+        expandedKeys.value = tree2list(treeData.value).map((item) => item.key)
     } else {
         expandedKeys.value = []
     }

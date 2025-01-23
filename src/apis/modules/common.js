@@ -1,4 +1,4 @@
-import request from '@/utils/request'
+import { request } from '@/utils'
 
 // 获取动态列表
 export const getDynamicList = () => request.basic.get('/dynamic')

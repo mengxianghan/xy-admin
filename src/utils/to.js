@@ -4,14 +4,14 @@
  * @param {object} fieldNames
  * @return {*[]}
  */
-export const toList = (data = [], fieldNames = { children: 'children' }) => {
+export const tree2list = (data = [], fieldNames = { children: 'children' }) => {
     let result = []
     if (!Array.isArray(data)) return result
     data.forEach((item) => {
         let temp = []
         result.push(item)
         if (item[fieldNames.children] && item[fieldNames.children].length) {
-            let children = toList(item[fieldNames.children], fieldNames)
+            let children = tree2list(item[fieldNames.children], fieldNames)
             if (children.length) {
                 temp = children
             }
@@ -28,7 +28,7 @@ export const toList = (data = [], fieldNames = { children: 'children' }) => {
  * @param {object} fieldNames
  * @return {*[]}
  */
-export const toTree = (
+export const list2tree = (
     data = [],
     parentValue = '0',
     fieldNames = {
@@ -41,7 +41,7 @@ export const toTree = (
     data.forEach((item) => {
         if (item[fieldNames.parentKey] === parentValue) {
             let temp = item
-            let children = toTree(data, item[fieldNames.key])
+            let children = list2tree(data, item[fieldNames.key])
             if (children.length) {
                 temp[fieldNames.children] = children
             }
@@ -54,7 +54,7 @@ export const toTree = (
 /**
  * 转布尔
  */
-export const toBoolean = (value) => {
+export const string2boolean = (value) => {
     if (value === 'true' || value === true) return true
     if (value === 'false' || value === false) return false
 }

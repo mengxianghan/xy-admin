@@ -12,7 +12,7 @@ import { formatUnits } from '@/components/utils'
 import { useGridProvide } from './context'
 import { some } from 'lodash-es'
 import { theme } from 'ant-design-vue'
-import { isObject } from '@/utils/is'
+import { isObject } from '@/utils'
 
 defineOptions({
     name: 'XGrid',

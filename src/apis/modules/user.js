@@ -1,4 +1,4 @@
-import request from '@/utils/request'
+import { request } from '@/utils'
 
 // 登录
 export const login = (params) => request.basic.post('/user/login', params)

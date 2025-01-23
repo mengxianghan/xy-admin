@@ -1,13 +1,12 @@
 import { defineStore } from 'pinia'
 import { config } from '@/config'
-import storage from '@/utils/storage'
+import { storage, timeFix } from '@/utils'
 import apis from '@/apis'
 import useAppStore from './app'
 import useMultiTab from './multiTab'
 import useRouter from './router'
 import { Modal, notification } from 'ant-design-vue'
 import router from '@/router/index.js'
-import { timeFix } from '@/utils'
 import { useRouterStore } from '@/store'
 
 const useUserStore = defineStore('user', {

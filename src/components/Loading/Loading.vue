@@ -35,7 +35,7 @@
 <script setup>
 import { Spin } from 'ant-design-vue'
 import { computed } from 'vue'
-import { isString } from '@/utils/is'
+import { isString } from '@/utils'
 
 defineOptions({
     name: 'XLoading',

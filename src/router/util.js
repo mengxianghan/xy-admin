@@ -1,5 +1,5 @@
 import { filter, find, findIndex, omit } from 'lodash-es'
-import { isFunction } from '@/utils/is'
+import { isFunction } from '@/utils'
 import * as layouts from '@/layouts'
 
 /**

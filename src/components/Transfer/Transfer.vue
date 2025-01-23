@@ -38,9 +38,8 @@ import { computed, nextTick, ref, useSlots, watch, watchEffect } from 'vue'
 import { debounce, filter, findIndex, isFunction, last } from 'lodash-es'
 import { Form } from 'ant-design-vue'
 import { formatUnits, getSlotProps } from '../utils'
-import { findTree } from '@/utils'
+import { findTree, isEmpty } from '@/utils'
 import { useInfiniteScroll } from '../InfiniteScroll'
-import { isEmpty } from '@/utils/is'
 
 defineOptions({
     name: 'XTransfer',
