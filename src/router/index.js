@@ -1,14 +1,14 @@
-import { createRouter, createWebHashHistory, createWebHistory } from 'vue-router'
-
-import { constantRoutes } from './config'
 import { config } from '@/config'
 
+import { createRouter, createWebHashHistory, createWebHistory } from 'vue-router'
+import { constantRoutes } from './config'
+
 const router = createRouter({
-    history:
-        'history' === config('router.history')
-            ? createWebHistory(config('router.base'))
-            : createWebHashHistory(config('router.base')),
-    routes: [...constantRoutes],
+  history:
+        config('router.history') === 'history'
+          ? createWebHistory(config('router.base'))
+          : createWebHashHistory(config('router.base')),
+  routes: [...constantRoutes],
 })
 
 /**
@@ -16,9 +16,10 @@ const router = createRouter({
  * @param to
  */
 router.open = function (to) {
-    const { href } = router.resolve(to)
-    if (!href) return
-    window.open(href)
+  const { href } = router.resolve(to)
+  if (!href)
+    return
+  window.open(href)
 }
 
 /**
@@ -26,14 +27,15 @@ router.open = function (to) {
  * @param to
  */
 router.reLaunch = function (to) {
-    const { href } = router.resolve(to)
-    if (!href) return
-    window.location.href = href
+  const { href } = router.resolve(to)
+  if (!href)
+    return
+  window.location.href = href
 }
 
-export const setupRouter = (app) => {
-    app.use(router)
-    return app
+export function setupRouter(app) {
+  app.use(router)
+  return app
 }
 
 export default router

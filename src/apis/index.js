@@ -3,7 +3,7 @@ import * as system from './modules/system'
 import * as user from './modules/user'
 
 export default {
-    common,
-    system,
-    user,
+  common,
+  system,
+  user,
 }

@@ -12,7 +12,7 @@ XYAdmin 是一个企业级中后台前端解决方案，秉承 Ant Design 的设
 
 你的本地环境需要安装 [node](http://nodejs.org/) 和 [git](https://git-scm.com/)。我们的技术栈基于 ES2015+、Vue.Js、Pinia、Vue-Router、Ant Design Vue，提前了解和学习这些知识会非常有帮助。
 
--   node 版本 >= 16.18
+- node 版本 >= 16.18
 
 ## 获取代码
 

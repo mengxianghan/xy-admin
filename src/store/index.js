@@ -7,10 +7,10 @@ export { default as useUserStore } from './modules/user'
 
 const store = createPinia()
 
-export const setupStore = (app) => {
-    app.use(store)
+export function setupStore(app) {
+  app.use(store)
 
-    return app
+  return app
 }
 
 export default store

@@ -1,60 +1,60 @@
 .ant-tree {
+  .ant-tree-switcher {
+    line-height: 1;
+    aspect-ratio: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-self: flex-start;
+    transition: @motion-duration-mid all;
+  }
+
+  .ant-tree-checkbox {
+    align-self: flex-start;
+    margin-inline-end: 4px;
+    transition: @motion-duration-mid all;
+  }
+
+  &.ant-tree-block-node {
+    .ant-tree-treenode {
+      padding-block: 0;
+      margin-block: 0 4px;
+      border-radius: @border-radius;
+      transition: all 0.2s;
+
+      &:hover {
+        background: @color-bg-text-hover;
+      }
+
+      &.ant-tree-treenode-selected {
+        background: color(~`colorPalette('@{color-primary}', 1) `);
+
+        .x-action-btn {
+          &:hover {
+            background: color(~`colorPalette('@{color-primary}', 2) `);
+          }
+        }
+      }
+    }
+
     .ant-tree-switcher {
-        line-height: 1;
-        aspect-ratio: 1;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        align-self: flex-start;
-        transition: @motion-duration-mid all;
+      margin-block-start: 4px;
     }
 
     .ant-tree-checkbox {
-        align-self: flex-start;
-        margin-inline-end: 4px;
-        transition: @motion-duration-mid all;
+      margin-block-start: 8px;
     }
 
-    &.ant-tree-block-node {
-        .ant-tree-treenode {
-            padding-block: 0;
-            margin-block: 0 4px;
-            border-radius: @border-radius;
-            transition: all 0.2s;
+    .ant-tree-node-content-wrapper {
+      padding-block: 4px;
 
-            &:hover {
-                background: @color-bg-text-hover;
-            }
+      &:hover {
+        background: transparent;
+      }
 
-            &.ant-tree-treenode-selected {
-                background: color(~`colorPalette('@{color-primary}', 1) `);
-
-                .x-action-btn {
-                    &:hover {
-                        background: color(~`colorPalette('@{color-primary}', 2) `);
-                    }
-                }
-            }
-        }
-
-        .ant-tree-switcher {
-            margin-block-start: 4px;
-        }
-
-        .ant-tree-checkbox {
-            margin-block-start: 8px;
-        }
-
-        .ant-tree-node-content-wrapper {
-            padding-block: 4px;
-
-            &:hover {
-                background: transparent;
-            }
-
-            &.ant-tree-node-selected {
-                background: transparent;
-            }
-        }
+      &.ant-tree-node-selected {
+        background: transparent;
+      }
     }
+  }
 }

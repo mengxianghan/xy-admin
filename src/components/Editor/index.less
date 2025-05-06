@@ -1,336 +1,336 @@
 .mini-tox() {
-    .tox-tinymce {
-        border-radius: @border-radius;
-        border: @color-border solid 1px;
-        color: @color-text;
-    }
+  .tox-tinymce {
+    border-radius: @border-radius;
+    border: @color-border solid 1px;
+    color: @color-text;
+  }
 
-    .tox:not(.tox-tinymce-inline) .tox-editor-header {
-        box-shadow: none;
-        border-bottom: @color-split solid 1px;
-    }
+  .tox:not(.tox-tinymce-inline) .tox-editor-header {
+    box-shadow: none;
+    border-bottom: @color-split solid 1px;
+  }
 
-    .tox.tox-tinymce-inline .tox-editor-header {
-        z-index: 1000;
-    }
+  .tox.tox-tinymce-inline .tox-editor-header {
+    z-index: 1000;
+  }
 
-    .tox .tox-menubar + .tox-toolbar,
-    .tox .tox-menubar + .tox-toolbar-overlord {
-        border: 0;
-        margin: 0;
-        padding: 4px 12px;
-        display: flex;
-        align-items: center;
-        flex-wrap: wrap;
-        gap: 4px;
-    }
+  .tox .tox-menubar + .tox-toolbar,
+  .tox .tox-menubar + .tox-toolbar-overlord {
+    border: 0;
+    margin: 0;
+    padding: 4px 12px;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 4px;
+  }
 
-    .tox .tox-toolbar,
-    .tox .tox-toolbar__overflow,
-    .tox .tox-toolbar__primary {
-        background: #fff;
-        width: 100%;
-        display: flex;
-        align-items: center;
-        flex-wrap: wrap;
-        gap: 4px;
-    }
+  .tox .tox-toolbar,
+  .tox .tox-toolbar__overflow,
+  .tox .tox-toolbar__primary {
+    background: #fff;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 4px;
+  }
 
-    .tox:not([dir='rtl']) .tox-toolbar__group:not(:last-of-type) {
-        border: 0;
-    }
+  .tox:not([dir='rtl']) .tox-toolbar__group:not(:last-of-type) {
+    border: 0;
+  }
 
-    .tox:not(.tox-tinymce-inline) .tox-editor-header {
-        padding: 0;
-    }
+  .tox:not(.tox-tinymce-inline) .tox-editor-header {
+    padding: 0;
+  }
 
-    .tox .tox-menubar {
-        padding: 4px 12px;
-        gap: 4px;
-    }
+  .tox .tox-menubar {
+    padding: 4px 12px;
+    gap: 4px;
+  }
 
-    .tox .tox-statusbar {
-        border-top: @color-split solid 1px;
-    }
+  .tox .tox-statusbar {
+    border-top: @color-split solid 1px;
+  }
 
-    .tox .tox-toolbar__group {
-        padding: 0;
-        display: flex;
-        align-items: center;
-        flex-wrap: wrap;
-        gap: 4px;
-    }
+  .tox .tox-toolbar__group {
+    padding: 0;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 4px;
+  }
 
-    .tox .tox-mbtn {
-        border-radius: @border-radius-sm;
-        transition: all @motion-duration-mid;
-        margin: 0;
-    }
+  .tox .tox-mbtn {
+    border-radius: @border-radius-sm;
+    transition: all @motion-duration-mid;
+    margin: 0;
+  }
 
-    .tox .tox-mbtn:hover:not(:disabled):not(.tox-mbtn--active),
-    .tox .tox-mbtn:focus:not(:disabled) {
-        background: @control-item-bg-hover;
-    }
+  .tox .tox-mbtn:hover:not(:disabled):not(.tox-mbtn--active),
+  .tox .tox-mbtn:focus:not(:disabled) {
+    background: @control-item-bg-hover;
+  }
 
-    .tox .tox-mbtn--active {
-        background: color(~`colorPalette('@{color-primary}', 1) `);
-    }
+  .tox .tox-mbtn--active {
+    background: color(~`colorPalette('@{color-primary}', 1) `);
+  }
 
-    .tox .tox-tbtn {
-        border-radius: @border-radius-sm;
-        transition: all @motion-duration-mid;
-        margin: 0;
-    }
+  .tox .tox-tbtn {
+    border-radius: @border-radius-sm;
+    transition: all @motion-duration-mid;
+    margin: 0;
+  }
 
-    .tox .tox-tbtn:hover {
-        background: @control-item-bg-hover;
-    }
+  .tox .tox-tbtn:hover {
+    background: @control-item-bg-hover;
+  }
 
-    .tox .tox-tbtn--enabled,
-    .tox .tox-tbtn--enabled:hover {
-        background: color(~`colorPalette('@{color-primary}', 1) `);
-    }
+  .tox .tox-tbtn--enabled,
+  .tox .tox-tbtn--enabled:hover {
+    background: color(~`colorPalette('@{color-primary}', 1) `);
+  }
 
-    .tox .tox-tbtn--disabled,
-    .tox .tox-tbtn--disabled:hover,
-    .tox .tox-tbtn:disabled,
-    .tox .tox-tbtn:disabled:hover {
-        margin: 0;
-    }
+  .tox .tox-tbtn--disabled,
+  .tox .tox-tbtn--disabled:hover,
+  .tox .tox-tbtn:disabled,
+  .tox .tox-tbtn:disabled:hover {
+    margin: 0;
+  }
 
-    .tox .tox-tbtn--select {
-        margin: 0;
-    }
+  .tox .tox-tbtn--select {
+    margin: 0;
+  }
 
-    .tox .tox-split-button {
-        margin: 0;
-    }
+  .tox .tox-split-button {
+    margin: 0;
+  }
 
-    .tox .tox-menu {
-        border: none;
-        border-radius: @border-radius;
-        box-shadow: @box-shadow-secondary;
-    }
+  .tox .tox-menu {
+    border: none;
+    border-radius: @border-radius;
+    box-shadow: @box-shadow-secondary;
+  }
 
-    .tox .tox-collection__item {
-        color: @color-text;
-        transition: all @motion-duration-mid;
-    }
+  .tox .tox-collection__item {
+    color: @color-text;
+    transition: all @motion-duration-mid;
+  }
 
-    .tox .tox-collection--list .tox-collection__item--active {
-        background: color(~`colorPalette('@{color-primary}', 1) `);
-    }
+  .tox .tox-collection--list .tox-collection__item--active {
+    background: color(~`colorPalette('@{color-primary}', 1) `);
+  }
 
-    .tox .tox-collection--list .tox-collection__item--active.tox-fancymenuitem {
-        background: transparent;
-    }
+  .tox .tox-collection--list .tox-collection__item--active.tox-fancymenuitem {
+    background: transparent;
+  }
 
-    .tox .tox-insert-table-picker .tox-insert-table-picker__selected {
-        border-color: color(~`colorPalette('@{color-primary}', 4) `);
-        background: color(~`colorPalette('@{color-primary}', 3) `);
-    }
+  .tox .tox-insert-table-picker .tox-insert-table-picker__selected {
+    border-color: color(~`colorPalette('@{color-primary}', 4) `);
+    background: color(~`colorPalette('@{color-primary}', 3) `);
+  }
 
-    // Dialog
-    .tox .tox-dialog {
-        border-radius: @border-radius;
-        box-shadow: @box-shadow-secondary;
-    }
-    .tox .tox-dialog-wrap__backdrop {
-        background: @color-bg-mask;
-    }
-    .tox .tox-dialog__header {
-        padding: 16px 24px;
-        position: relative;
-        color: @color-text;
+  // Dialog
+  .tox .tox-dialog {
+    border-radius: @border-radius;
+    box-shadow: @box-shadow-secondary;
+  }
+  .tox .tox-dialog-wrap__backdrop {
+    background: @color-bg-mask;
+  }
+  .tox .tox-dialog__header {
+    padding: 16px 24px;
+    position: relative;
+    color: @color-text;
 
-        .tox .tox-dialog__header .tox-button {
-            position: absolute;
-            right: 24px;
-            top: 18px;
-        }
+    .tox .tox-dialog__header .tox-button {
+      position: absolute;
+      right: 24px;
+      top: 18px;
     }
-    .tox .tox-dialog__title {
-        font-size: 16px;
-        font-weight: 600;
+  }
+  .tox .tox-dialog__title {
+    font-size: 16px;
+    font-weight: 600;
+  }
+  .tox .tox-button--icon,
+  .tox .tox-button.tox-button--icon,
+  .tox .tox-button.tox-button--secondary.tox-button--icon {
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: none;
+
+    &:hover {
+      background: @control-item-bg-hover;
     }
-    .tox .tox-button--icon,
-    .tox .tox-button.tox-button--icon,
-    .tox .tox-button.tox-button--secondary.tox-button--icon {
-        padding: 0;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background: transparent;
-        border: none;
+  }
+  .tox .tox-dialog__footer {
+    padding: 16px 24px;
+  }
+  .tox .tox-button {
+    border-radius: @border-radius;
+    background: @color-primary;
+    border-color: @color-primary;
+    font-weight: normal;
+    transition: @motion-duration-mid;
 
-        &:hover {
-            background: @control-item-bg-hover;
-        }
+    &:hover {
+      background: color(~`colorPalette('@{color-primary}', 5) `);
+      border-color: color(~`colorPalette('@{color-primary}', 5) `);
     }
-    .tox .tox-dialog__footer {
-        padding: 16px 24px;
+  }
+
+  .tox .tox-button--secondary {
+    background: transparent;
+    border-color: @color-border;
+    color: @color-text;
+
+    &:hover {
+      border-color: @color-primary;
+      color: @color-primary;
+      background: transparent;
     }
-    .tox .tox-button {
-        border-radius: @border-radius;
-        background: @color-primary;
-        border-color: @color-primary;
-        font-weight: normal;
-        transition: @motion-duration-mid;
+  }
 
-        &:hover {
-            background: color(~`colorPalette('@{color-primary}', 5) `);
-            border-color: color(~`colorPalette('@{color-primary}', 5) `);
-        }
+  .tox .tox-checkbox {
+    border-radius: @border-radius-sm;
+  }
+
+  .tox .tox-checkbox__icons {
+    margin: 0;
+    padding: 0;
+    box-shadow: none;
+    border-radius: @border-radius-sm;
+    width: 16px;
+    height: 16px;
+  }
+
+  .tox:not([dir='rtl']) .tox-checkbox__label {
+    margin-left: 8px;
+  }
+
+  .tox .tox-checkbox__icons .tox-checkbox-icon__checked svg {
+    fill: @color-primary;
+  }
+
+  .tox .tox-dialog__body {
+    font-size: 14px;
+    color: @color-text;
+  }
+
+  .tox .tox-dialog__body-content {
+    padding: 0 24px;
+  }
+
+  .tox .tox-listboxfield .tox-listbox--select,
+  .tox .tox-textarea,
+  .tox .tox-textarea-wrap .tox-textarea:focus,
+  .tox .tox-textfield,
+  .tox .tox-toolbar-textfield {
+    border-radius: @border-radius;
+    border: @color-border solid 1px;
+    box-shadow: none;
+    padding: 4px 11px;
+    min-height: auto;
+    font-size: 14px;
+    color: @color-text;
+    line-height: @line-height;
+  }
+
+  .tox .tox-textarea-wrap {
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+  }
+
+  .tox .tox-label,
+  .tox .tox-toolbar-label {
+    color: @color-text;
+    line-height: @line-height;
+    padding-bottom: 4px;
+  }
+
+  .tox .tox-form__group {
+    margin-bottom: 12px;
+  }
+
+  .tox .tox-dialog__body-nav {
+    padding: 0 4px 0 16px;
+
+    + .tox-dialog__body-content {
+      padding-left: 12px;
     }
+  }
 
-    .tox .tox-button--secondary {
-        background: transparent;
-        border-color: @color-border;
-        color: @color-text;
+  .tox .tox-dialog__body-nav-item {
+    border-radius: @border-radius;
+    color: @color-text;
+    height: 34px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    padding-inline: 8px;
+    box-sizing: border-box;
+    margin-bottom: 2px;
+    border: none;
+    transition: all @motion-duration-mid;
 
-        &:hover {
-            border-color: @color-primary;
-            color: @color-primary;
-            background: transparent;
-        }
+    &:not(.tox-dialog__body-nav-item--active):hover {
+      background: @control-item-bg-hover;
     }
+  }
 
-    .tox .tox-checkbox {
-        border-radius: @border-radius-sm;
+  .tox .tox-dialog__body-nav-item--active {
+    background: color(~`colorPalette('@{color-primary}', 1) `);
+  }
+
+  .tox .tox-color-input span {
+    border-color: @color-border;
+    border-radius: @border-radius;
+    width: 22px;
+    height: 22px;
+    top: 5px;
+
+    &::before {
+      width: 100%;
+      height: 100%;
+      border-radius: inherit;
+      border: none;
+      left: 0;
+      top: 0;
     }
+  }
 
-    .tox .tox-checkbox__icons {
-        margin: 0;
-        padding: 0;
-        box-shadow: none;
-        border-radius: @border-radius-sm;
-        width: 16px;
-        height: 16px;
-    }
+  .tox .tox-pop__dialog {
+    border-radius: @border-radius;
+    box-shadow: @box-shadow-secondary;
+    border: none;
+  }
 
-    .tox:not([dir='rtl']) .tox-checkbox__label {
-        margin-left: 8px;
-    }
+  .tox .tox-pop::before {
+    display: none;
+  }
 
-    .tox .tox-checkbox__icons .tox-checkbox-icon__checked svg {
-        fill: @color-primary;
-    }
+  .tox-pop .tox-pop__dialog .tox-toolbar {
+    padding: 4px;
+  }
 
-    .tox .tox-dialog__body {
-        font-size: 14px;
-        color: @color-text;
-    }
+  .tox .tox-dialog__table tbody tr {
+    border-bottom-color: @color-split;
+  }
 
-    .tox .tox-dialog__body-content {
-        padding: 0 24px;
-    }
+  // Inline
+  .tox.tox-tinymce-inline {
+    border: none;
+  }
 
-    .tox .tox-listboxfield .tox-listbox--select,
-    .tox .tox-textarea,
-    .tox .tox-textarea-wrap .tox-textarea:focus,
-    .tox .tox-textfield,
-    .tox .tox-toolbar-textfield {
-        border-radius: @border-radius;
-        border: @color-border solid 1px;
-        box-shadow: none;
-        padding: 4px 11px;
-        min-height: auto;
-        font-size: 14px;
-        color: @color-text;
-        line-height: @line-height;
-    }
-
-    .tox .tox-textarea-wrap {
-        border: none;
-        border-radius: 0;
-        box-shadow: none;
-    }
-
-    .tox .tox-label,
-    .tox .tox-toolbar-label {
-        color: @color-text;
-        line-height: @line-height;
-        padding-bottom: 4px;
-    }
-
-    .tox .tox-form__group {
-        margin-bottom: 12px;
-    }
-
-    .tox .tox-dialog__body-nav {
-        padding: 0 4px 0 16px;
-
-        + .tox-dialog__body-content {
-            padding-left: 12px;
-        }
-    }
-
-    .tox .tox-dialog__body-nav-item {
-        border-radius: @border-radius;
-        color: @color-text;
-        height: 34px;
-        width: 100%;
-        display: flex;
-        align-items: center;
-        padding-inline: 8px;
-        box-sizing: border-box;
-        margin-bottom: 2px;
-        border: none;
-        transition: all @motion-duration-mid;
-
-        &:not(.tox-dialog__body-nav-item--active):hover {
-            background: @control-item-bg-hover;
-        }
-    }
-
-    .tox .tox-dialog__body-nav-item--active {
-        background: color(~`colorPalette('@{color-primary}', 1) `);
-    }
-
-    .tox .tox-color-input span {
-        border-color: @color-border;
-        border-radius: @border-radius;
-        width: 22px;
-        height: 22px;
-        top: 5px;
-
-        &::before {
-            width: 100%;
-            height: 100%;
-            border-radius: inherit;
-            border: none;
-            left: 0;
-            top: 0;
-        }
-    }
-
-    .tox .tox-pop__dialog {
-        border-radius: @border-radius;
-        box-shadow: @box-shadow-secondary;
-        border: none;
-    }
-
-    .tox .tox-pop::before {
-        display: none;
-    }
-
-    .tox-pop .tox-pop__dialog .tox-toolbar {
-        padding: 4px;
-    }
-
-    .tox .tox-dialog__table tbody tr {
-        border-bottom-color: @color-split;
-    }
-
-    // Inline
-    .tox.tox-tinymce-inline {
-        border: none;
-    }
-
-    .tox.tox-tinymce-inline .tox-editor-header {
-        border: @color-border solid 1px;
-        border-radius: @border-radius;
-    }
+  .tox.tox-tinymce-inline .tox-editor-header {
+    border: @color-border solid 1px;
+    border-radius: @border-radius;
+  }
 }
 
 .mini-tox() !important;

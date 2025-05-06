@@ -4,27 +4,9 @@
 </demo>
 
 <!-- #region snippet -->
-<template>
-    <div
-        ref="infiniteRef"
-        class="infinite">
-        <div
-            v-for="item in count"
-            :key="item"
-            class="infinite-item">
-            {{ item }}
-        </div>
-        <div
-            class="align-center color-placeholder"
-            @click="loadData">
-            {{ statusText }}
-        </div>
-    </div>
-</template>
-
 <script setup>
-import { onMounted, ref } from 'vue'
 import { useInfiniteScroll } from '@/components/InfiniteScroll'
+import { onMounted, ref } from 'vue'
 
 const infiniteRef = ref()
 const count = ref(0)
@@ -32,40 +14,61 @@ const count = ref(0)
 const { initInfiniteScroll, showLoading, hideLoading, showFinished, statusText } = useInfiniteScroll()
 
 onMounted(() => {
-    initInfiniteScroll(infiniteRef.value, {
-        onLoad: () => {
-            loadData()
-        },
-    })
+  initInfiniteScroll(infiniteRef.value, {
+    onLoad: () => {
+      loadData()
+    },
+  })
 })
 
 function loadData() {
-    showLoading()
-    setTimeout(() => {
-        count.value += 10
-        hideLoading()
+  showLoading()
+  setTimeout(() => {
+    count.value += 10
+    hideLoading()
 
-        if (count.value >= 40) {
-            showFinished()
-        }
-    }, 1000)
+    if (count.value >= 40) {
+      showFinished()
+    }
+  }, 1000)
 }
 </script>
 
+<template>
+  <div
+    ref="infiniteRef"
+    class="infinite"
+  >
+    <div
+      v-for="item in count"
+      :key="item"
+      class="infinite-item"
+    >
+      {{ item }}
+    </div>
+    <div
+      class="align-center color-placeholder"
+      @click="loadData"
+    >
+      {{ statusText }}
+    </div>
+  </div>
+</template>
+
 <style lang="less" scoped>
 .infinite {
-    height: 400px;
-    overflow: auto;
+  height: 400px;
+  overflow: auto;
 }
 .infinite-item {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 50px;
-    margin: 10px;
-    text-align: center;
-    border-radius: 4px;
-    background: @control-item-bg-hover;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 50px;
+  margin: 10px;
+  text-align: center;
+  border-radius: 4px;
+  background: @control-item-bg-hover;
 }
 </style>
 <!-- #endregion snippet -->

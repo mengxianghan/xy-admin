@@ -4,22 +4,24 @@
 </demo>
 
 <!-- #region snippet -->
-<template>
-    <a-space :size="24">
-        <x-qrcode
-            :value="text"
-            color="#72c240"></x-qrcode>
-        <x-qrcode
-            :value="text"
-            color="#3875f7"></x-qrcode>
-    </a-space>
-</template>
-
 <script setup>
 import { ref } from 'vue'
 
 const text = ref('http://xy-admin.xuanyunet.com')
 </script>
+
+<template>
+  <a-space :size="24">
+    <x-qrcode
+      :value="text"
+      color="#72c240"
+    />
+    <x-qrcode
+      :value="text"
+      color="#3875f7"
+    />
+  </a-space>
+</template>
 
 <style lang="less" scoped></style>
 <!-- #endregion snippet -->

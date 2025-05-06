@@ -4,36 +4,42 @@
 </demo>
 
 <!-- #region snippet -->
-<template>
-    <x-resize-box
-        v-model:height="height"
-        v-model:width="width"
-        :directions="['right', 'bottom']"
-        :style="{ textAlign: 'center' }">
-        <a-typography-paragraph>We are building the future of content discovery and creation.</a-typography-paragraph>
-        <a-divider />
-        <a-typography-paragraph>
-            ByteDance's content platforms enable people to enjoy content powered by AI technology. We inform, entertain,
-            and inspire people across language, culture and geography.
-        </a-typography-paragraph>
-        <a-divider>ByteDance</a-divider>
-        <a-typography-paragraph>Yiming Zhang is the founder and CEO of ByteDance.</a-typography-paragraph>
-    </x-resize-box>
-
-    <a-descriptions
-        :column="1"
-        class="mt-8-2">
-        <a-descriptions-item label="width">{{ width }}</a-descriptions-item>
-        <a-descriptions-item label="height">{{ height }}</a-descriptions-item>
-    </a-descriptions>
-</template>
-
 <script setup>
 import { ref } from 'vue'
 
 const width = ref(500)
 const height = ref(200)
 </script>
+
+<template>
+  <x-resize-box
+    v-model:height="height"
+    v-model:width="width"
+    :directions="['right', 'bottom']"
+    :style="{ textAlign: 'center' }"
+  >
+    <a-typography-paragraph>We are building the future of content discovery and creation.</a-typography-paragraph>
+    <a-divider />
+    <a-typography-paragraph>
+      ByteDance's content platforms enable people to enjoy content powered by AI technology. We inform, entertain,
+      and inspire people across language, culture and geography.
+    </a-typography-paragraph>
+    <a-divider>ByteDance</a-divider>
+    <a-typography-paragraph>Yiming Zhang is the founder and CEO of ByteDance.</a-typography-paragraph>
+  </x-resize-box>
+
+  <a-descriptions
+    :column="1"
+    class="mt-8-2"
+  >
+    <a-descriptions-item label="width">
+      {{ width }}
+    </a-descriptions-item>
+    <a-descriptions-item label="height">
+      {{ height }}
+    </a-descriptions-item>
+  </a-descriptions>
+</template>
 
 <style lang="less" scoped></style>
 <!-- #endregion snippet -->

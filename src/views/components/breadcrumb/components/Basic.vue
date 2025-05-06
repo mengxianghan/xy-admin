@@ -4,11 +4,11 @@
 </demo>
 
 <!-- #region snippet -->
-<template>
-    <x-breadcrumb></x-breadcrumb>
-</template>
-
 <script setup></script>
+
+<template>
+  <x-breadcrumb />
+</template>
 
 <style lang="less" scoped></style>
 <!-- #endregion snippet -->

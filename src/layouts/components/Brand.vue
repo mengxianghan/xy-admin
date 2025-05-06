@@ -1,23 +1,11 @@
-<template>
-    <div
-        :class="cpClass"
-        :style="cpStyle"
-        class="brand">
-        <img
-            :src="config('app.logo')"
-            alt="" />
-        <h1>{{ config('app.title') }}</h1>
-    </div>
-</template>
-
 <script setup>
-import { storeToRefs } from 'pinia'
-import { computed } from 'vue'
 import { config } from '@/config'
 import { useAppStore } from '@/store'
+import { storeToRefs } from 'pinia'
+import { computed } from 'vue'
 
 defineOptions({
-    name: 'Brand',
+  name: 'Brand',
 })
 
 /**
@@ -25,13 +13,13 @@ defineOptions({
  * @property {boolean} collapsed 当前收起状态
  */
 const props = defineProps({
-    theme: {
-        type: String,
-    },
-    collapsed: {
-        type: Boolean,
-        default: false,
-    },
+  theme: {
+    type: String,
+  },
+  collapsed: {
+    type: Boolean,
+    default: false,
+  },
 })
 
 const appStore = useAppStore()
@@ -39,54 +27,68 @@ const appStore = useAppStore()
 const { config: appConfig } = storeToRefs(appStore)
 
 const cpClass = computed(() => {
-    return {
-        [`brand--${props.theme}`]: true,
-        'brand--collapsed': props.collapsed,
-    }
+  return {
+    [`brand--${props.theme}`]: true,
+    'brand--collapsed': props.collapsed,
+  }
 })
 const cpStyle = computed(() => {
-    return {
-        height: `${appConfig.value.headerHeight}px`,
-    }
+  return {
+    height: `${appConfig.value.headerHeight}px`,
+  }
 })
 </script>
 
+<template>
+  <div
+    :class="cpClass"
+    :style="cpStyle"
+    class="brand"
+  >
+    <img
+      :src="config('app.logo')"
+      alt=""
+    >
+    <h1>{{ config('app.title') }}</h1>
+  </div>
+</template>
+
 <style lang="less" scoped>
 .brand {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    white-space: nowrap;
-    position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+  position: relative;
 
-    img {
-        height: 28px;
-    }
+  img {
+    height: 28px;
+  }
 
+  h1 {
+    font-size: 18px;
+    margin: 0;
+    padding: 0 12px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+
+  &--light {
     h1 {
-        font-size: 18px;
-        margin: 0;
-        padding: 0 12px;
-        text-overflow: ellipsis;
-        overflow: hidden;
+      color: @color-text;
     }
+  }
 
-    &--light {
-        h1 {
-            color: @color-text;
-        }
+  &--dark {
+    h1 {
+      color: #fff;
     }
+  }
 
-    &--dark {
-        h1 {
-            color: #fff;
-        }
+  &--collapsed {
+    h1 {
+      display: none;
     }
-
-    &--collapsed {
-        h1 {
-            display: none;
-        }
-    }
+  }
 }
 </style>

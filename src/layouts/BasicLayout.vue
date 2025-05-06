@@ -1,163 +1,19 @@
-<template>
-    <a-layout class="layout">
-        <template #default>
-            <!-- 上下布局 -->
-            <template v-if="config.layout === 'topBottom'">
-                <!-- 侧边菜单 -->
-                <template v-if="config.menuMode === 'side'">
-                    <basic-header
-                        :theme="config.headerTheme"
-                        @config="$refs.configDialogRef.handleOpen()">
-                        <template #left>
-                            <brand :theme="config.headerTheme"></brand>
-                        </template>
-                    </basic-header>
-                    <a-layout>
-                        <basic-side
-                            :style="{
-                                height: `calc(100vh - ${config.headerHeight}px)`,
-                                top: `${config.headerHeight}px`,
-                            }"
-                            :theme="config.sideTheme">
-                            <basic-menu
-                                :data-list="sideMenuList"
-                                :theme="config.sideTheme"></basic-menu>
-                        </basic-side>
-                        <a-layout>
-                            <multi-tab v-if="config.multiTab"></multi-tab>
-                            <basic-content></basic-content>
-                        </a-layout>
-                    </a-layout>
-                </template>
-
-                <!-- 混合菜单 -->
-                <template v-if="config.menuMode === 'mix'">
-                    <basic-header
-                        :theme="config.headerTheme"
-                        @config="$refs.configDialogRef.handleOpen()">
-                        <template #left>
-                            <brand :theme="config.headerTheme"></brand>
-                        </template>
-                        <basic-menu
-                            :data-list="topMenuList"
-                            :theme="config.headerTheme"
-                            mode="horizontal"></basic-menu>
-                    </basic-header>
-                    <a-layout>
-                        <template v-if="sideMenuList.length">
-                            <basic-side
-                                :style="{
-                                    height: `calc(100vh - ${config.headerHeight}px)`,
-                                    top: `${config.headerHeight}px`,
-                                }"
-                                :theme="config.sideTheme">
-                                <basic-menu
-                                    :data-list="sideMenuList"
-                                    :theme="config.sideTheme"></basic-menu>
-                            </basic-side>
-                        </template>
-                        <a-layout>
-                            <multi-tab v-if="config.multiTab"></multi-tab>
-                            <basic-content></basic-content>
-                        </a-layout>
-                    </a-layout>
-                </template>
-            </template>
-
-            <!-- 左右布局 -->
-            <template v-if="config.layout === 'leftRight'">
-                <!-- 侧边菜单 -->
-                <template v-if="config.menuMode === 'side'">
-                    <basic-side
-                        :style="{
-                            height: `100vh`,
-                            top: 0,
-                        }"
-                        :theme="config.sideTheme">
-                        <template #header>
-                            <brand :theme="config.sideTheme"></brand>
-                        </template>
-                        <basic-menu
-                            :data-list="sideMenuList"
-                            :theme="config.sideTheme"></basic-menu>
-                    </basic-side>
-                    <a-layout>
-                        <basic-header
-                            :theme="config.headerTheme"
-                            @config="$refs.configDialogRef.handleOpen()">
-                        </basic-header>
-                        <multi-tab v-if="config.multiTab"></multi-tab>
-                        <basic-content></basic-content>
-                    </a-layout>
-                </template>
-                <!-- 混合菜单 -->
-                <template v-if="config.menuMode === 'mix'">
-                    <basic-side
-                        :style="{
-                            height: `100vh`,
-                            top: 0,
-                        }"
-                        :theme="config.sideTheme">
-                        <template #header>
-                            <brand :theme="config.sideTheme"></brand>
-                        </template>
-                        <basic-menu
-                            :data-list="sideMenuList"
-                            :theme="config.sideTheme"></basic-menu>
-                    </basic-side>
-                    <a-layout>
-                        <basic-header
-                            :theme="config.headerTheme"
-                            @config="$refs.configDialogRef.handleOpen()">
-                            <basic-menu
-                                :data-list="topMenuList"
-                                :theme="config.headerTheme"
-                                mode="horizontal"></basic-menu>
-                        </basic-header>
-                        <multi-tab v-if="config.multiTab"></multi-tab>
-                        <basic-content></basic-content>
-                    </a-layout>
-                </template>
-            </template>
-
-            <!-- 顶部菜单，不区分布局方式 -->
-            <template v-if="config.menuMode === 'top'">
-                <basic-header
-                    :theme="config.headerTheme"
-                    @config="$refs.configDialogRef.handleOpen()">
-                    <template #left>
-                        <brand :theme="config.headerTheme"></brand>
-                    </template>
-                    <basic-menu
-                        :data-list="topMenuList"
-                        :theme="config.headerTheme"
-                        mode="horizontal"></basic-menu>
-                </basic-header>
-                <multi-tab v-if="config.multiTab"></multi-tab>
-                <basic-content></basic-content>
-            </template>
-        </template>
-    </a-layout>
-
-    <config-dialog ref="configDialogRef"></config-dialog>
-</template>
-
 <script setup>
+import { useAppStore } from '@/store'
 import { storeToRefs } from 'pinia'
 import { ref } from 'vue'
-import { useAppStore } from '@/store'
-import useMultiTab from './hooks/useMultiTab'
-import useMenu from './hooks/useMenu'
 import BasicContent from './components/BasicContent.vue'
 import BasicHeader from './components/BasicHeader.vue'
 import BasicMenu from './components/BasicMenu.vue'
 import BasicSide from './components/BasicSide.vue'
 import Brand from './components/Brand.vue'
-import MultiTab from './components/MultiTab.vue'
 import ConfigDialog from './components/ConfigDialog.vue'
+import MultiTab from './components/MultiTab.vue'
+import useMenu from './hooks/useMenu'
+import useMultiTab from './hooks/useMultiTab'
 
 defineOptions({
-    name: 'BasicLayout',
+  name: 'BasicLayout',
 })
 
 useMultiTab()
@@ -169,8 +25,167 @@ const { config } = storeToRefs(appStore)
 const configDialogRef = ref()
 </script>
 
+<template>
+  <a-layout class="layout">
+    <template #default>
+      <!-- 上下布局 -->
+      <template v-if="config.layout === 'topBottom'">
+        <!-- 侧边菜单 -->
+        <template v-if="config.menuMode === 'side'">
+          <basic-header
+            :theme="config.headerTheme"
+            @config="$refs.configDialogRef.handleOpen()"
+          >
+            <template #left>
+              <brand :theme="config.headerTheme" />
+            </template>
+          </basic-header>
+          <a-layout>
+            <basic-side
+              :style="{
+                height: `calc(100vh - ${config.headerHeight}px)`,
+                top: `${config.headerHeight}px`,
+              }"
+              :theme="config.sideTheme"
+            >
+              <basic-menu
+                :data-list="sideMenuList"
+                :theme="config.sideTheme"
+              />
+            </basic-side>
+            <a-layout>
+              <multi-tab v-if="config.multiTab" />
+              <basic-content />
+            </a-layout>
+          </a-layout>
+        </template>
+
+        <!-- 混合菜单 -->
+        <template v-if="config.menuMode === 'mix'">
+          <basic-header
+            :theme="config.headerTheme"
+            @config="$refs.configDialogRef.handleOpen()"
+          >
+            <template #left>
+              <brand :theme="config.headerTheme" />
+            </template>
+            <basic-menu
+              :data-list="topMenuList"
+              :theme="config.headerTheme"
+              mode="horizontal"
+            />
+          </basic-header>
+          <a-layout>
+            <template v-if="sideMenuList.length">
+              <basic-side
+                :style="{
+                  height: `calc(100vh - ${config.headerHeight}px)`,
+                  top: `${config.headerHeight}px`,
+                }"
+                :theme="config.sideTheme"
+              >
+                <basic-menu
+                  :data-list="sideMenuList"
+                  :theme="config.sideTheme"
+                />
+              </basic-side>
+            </template>
+            <a-layout>
+              <multi-tab v-if="config.multiTab" />
+              <basic-content />
+            </a-layout>
+          </a-layout>
+        </template>
+      </template>
+
+      <!-- 左右布局 -->
+      <template v-if="config.layout === 'leftRight'">
+        <!-- 侧边菜单 -->
+        <template v-if="config.menuMode === 'side'">
+          <basic-side
+            :style="{
+              height: `100vh`,
+              top: 0,
+            }"
+            :theme="config.sideTheme"
+          >
+            <template #header>
+              <brand :theme="config.sideTheme" />
+            </template>
+            <basic-menu
+              :data-list="sideMenuList"
+              :theme="config.sideTheme"
+            />
+          </basic-side>
+          <a-layout>
+            <basic-header
+              :theme="config.headerTheme"
+              @config="$refs.configDialogRef.handleOpen()"
+            />
+            <multi-tab v-if="config.multiTab" />
+            <basic-content />
+          </a-layout>
+        </template>
+        <!-- 混合菜单 -->
+        <template v-if="config.menuMode === 'mix'">
+          <basic-side
+            :style="{
+              height: `100vh`,
+              top: 0,
+            }"
+            :theme="config.sideTheme"
+          >
+            <template #header>
+              <brand :theme="config.sideTheme" />
+            </template>
+            <basic-menu
+              :data-list="sideMenuList"
+              :theme="config.sideTheme"
+            />
+          </basic-side>
+          <a-layout>
+            <basic-header
+              :theme="config.headerTheme"
+              @config="$refs.configDialogRef.handleOpen()"
+            >
+              <basic-menu
+                :data-list="topMenuList"
+                :theme="config.headerTheme"
+                mode="horizontal"
+              />
+            </basic-header>
+            <multi-tab v-if="config.multiTab" />
+            <basic-content />
+          </a-layout>
+        </template>
+      </template>
+
+      <!-- 顶部菜单，不区分布局方式 -->
+      <template v-if="config.menuMode === 'top'">
+        <basic-header
+          :theme="config.headerTheme"
+          @config="$refs.configDialogRef.handleOpen()"
+        >
+          <template #left>
+            <brand :theme="config.headerTheme" />
+          </template>
+          <basic-menu
+            :data-list="topMenuList"
+            :theme="config.headerTheme"
+            mode="horizontal"
+          />
+        </basic-header>
+        <multi-tab v-if="config.multiTab" />
+        <basic-content />
+      </template>
+    </template>
+  </a-layout>
+
+  <config-dialog ref="configDialogRef" />
+</template>
+
 <style lang="less" scoped>
 .layout {
-    min-height: 100vh;
+  min-height: 100vh;
 }
 </style>

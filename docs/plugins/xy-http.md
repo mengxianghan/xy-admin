@@ -13,7 +13,6 @@ npm install axios xy-http -S
 使用 jsDelivr CDN：
 
 ```html
-
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/xy-http/dist/index.min.js"></script>
 ```
@@ -23,21 +22,21 @@ npm install axios xy-http -S
 ### 基础用法
 
 ```js
-import XYHttp from "docs/npm/xy-http";
+import XYHttp from 'docs/npm/xy-http'
 
 const options = {
-  baseURL: "https://api.example.com",
+  baseURL: 'https://api.example.com',
   timeout: 1000
-};
+}
 
-const request = new XYHttp(options);
+const request = new XYHttp(options)
 
-request.get("/getPageList", { current: 1, pageSize: 1 })
+request.get('/getPageList', { current: 1, pageSize: 1 })
   .then((res) => {
-    console.log(res);
+    console.log(res)
   })
   .catch((err) => {
-  });
+  })
 ```
 
 ### 拦截器
@@ -51,7 +50,7 @@ const options = {
   // 请求拦截
   interceptorRequest: (request) => {
     // 添加 token
-    request.headers['token'] = 'Bearer xxxxxxxxx'
+    request.headers.token = 'Bearer xxxxxxxxx'
   },
   // 请求拦截异常
   interceptorRequestCatch: (err) => {
@@ -112,10 +111,7 @@ function getList() {
 }
 
 function getList2() {
-  request.get('/getPageList',
-    { current: 1, pageSize: 1 },
-    { enableAbortController: false }
-  )
+  request.get('/getPageList', { current: 1, pageSize: 1 }, { enableAbortController: false })
     .then((res) => {
       console.log(res)
     })
@@ -187,9 +183,9 @@ class ReadFile extends XYHttp {
         async (data) => {
           const encoding = await this._encoding(data)
           return new Promise((resolve) => {
-            let reader = new FileReader()
+            const reader = new FileReader()
             reader.readAsText(data, encoding)
-            reader.onload = function() {
+            reader.onload = function () {
               resolve(reader.result)
             }
           })
@@ -207,9 +203,9 @@ class ReadFile extends XYHttp {
    */
   _encoding(data) {
     return new Promise((resolve) => {
-      let reader = new FileReader()
+      const reader = new FileReader()
       reader.readAsBinaryString(data)
-      reader.onload = function() {
+      reader.onload = function () {
         resolve(jschardet.detect(reader?.result).encoding)
       }
     })
@@ -232,13 +228,13 @@ readFile.get('https://cdn.example.com/1.txt')
 
 这是创建请求时可以用的配置项。仅列举出了`XYHttp`新增的配置。 [更多参数](https://www.axios-http.cn/docs/req_config)
 
-| 名称                       | 说明                        | 类型         | 默认值                                |
-|--------------------------|---------------------------|------------|------------------------------------|
+| 名称                     | 说明                                               | 类型       | 默认值                             |
+| ------------------------ | -------------------------------------------------- | ---------- | ---------------------------------- |
 | enableAbortController    | 启用终止控制器。启用后会将同时发送的相同地请求取消 | `boolean`  | `false`                            |
-| interceptorRequest       | 请求拦截回调                    | `function` | `function(request){}`              |
-| interceptorRequestCatch  | 请求异常回调                    | `function` | `function(err){}`                  |
-| interceptorResponse      | 响应拦截回调                    | `function` | `function(response, controller){}` |
-| interceptorResponseCatch | 响应拦截异常回调                  | `function` | `function(err){}`                  |
+| interceptorRequest       | 请求拦截回调                                       | `function` | `function(request){}`              |
+| interceptorRequestCatch  | 请求异常回调                                       | `function` | `function(err){}`                  |
+| interceptorResponse      | 响应拦截回调                                       | `function` | `function(response, controller){}` |
+| interceptorResponseCatch | 响应拦截异常回调                                   | `function` | `function(err){}`                  |
 
 ### 方法
 

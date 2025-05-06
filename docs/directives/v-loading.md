@@ -14,7 +14,7 @@
 
 ### Props
 
-| 名称                        | 说明     | 类型       | 默认值 |
-|---------------------------|--------|----------|-----|
-| loading-description       | 描述文字   | `string` | -   |
-| loading-description-style | 描述文字样式 | `string` | -   |
+| 名称                      | 说明         | 类型     | 默认值 |
+| ------------------------- | ------------ | -------- | ------ |
+| loading-description       | 描述文字     | `string` | -      |
+| loading-description-style | 描述文字样式 | `string` | -      |

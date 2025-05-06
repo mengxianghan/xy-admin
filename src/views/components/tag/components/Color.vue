@@ -4,16 +4,17 @@
 </demo>
 
 <!-- #region snippet -->
-<template>
-    <x-tag
-        border-color="#555"
-        color="#BBB"
-        text-color="#555">
-        告别夜晚 等待天亮
-    </x-tag>
-</template>
-
 <script setup></script>
+
+<template>
+  <x-tag
+    border-color="#555"
+    color="#BBB"
+    text-color="#555"
+  >
+    告别夜晚 等待天亮
+  </x-tag>
+</template>
 
 <style lang="less" scoped></style>
 <!-- #endregion snippet -->

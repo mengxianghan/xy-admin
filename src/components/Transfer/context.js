@@ -1,46 +1,46 @@
 import { computed, inject, provide } from 'vue'
 import { TRANSFER_KEY, TRANSFER_LIST_KEY } from './config'
 
-export const useTransferProvide = (props) => {
-    provide(TRANSFER_KEY, props)
+export function useTransferProvide(props) {
+  provide(TRANSFER_KEY, props)
 }
 
-export const useTransferInject = () => {
-    return inject(TRANSFER_KEY, {
-        fieldNames: computed(() => ({})),
-        modelValue: computed(() => []),
-        breadcrumb: computed(() => []),
-        clearText: computed(() => ''),
-        placeholder: computed(() => undefined),
-        showSearch: computed(() => false),
-        showCheckAll: computed(() => false),
-        locale: computed(() => null),
-        immediateCheck: computed(() => true),
-        loading: computed(() => false),
-        loadingText: computed(() => ''),
-        finished: computed(() => false),
-        finishedText: computed(() => ''),
-        error: computed(() => false),
-        errorText: computed(() => ''),
-        isDynamicLoadData: computed(() => false),
-        keyword: computed(() => ''),
-        onItemCheck: () => {},
-        onCheckAll: () => {},
-        onClear: () => {},
-        onNext: () => {},
-        onBreadcrumb: () => {},
-        initInfiniteScroll: () => {},
-        onLoadData: () => {},
-        onSearch: () => {},
-    })
+export function useTransferInject() {
+  return inject(TRANSFER_KEY, {
+    fieldNames: computed(() => ({})),
+    modelValue: computed(() => []),
+    breadcrumb: computed(() => []),
+    clearText: computed(() => ''),
+    placeholder: computed(() => undefined),
+    showSearch: computed(() => false),
+    showCheckAll: computed(() => false),
+    locale: computed(() => null),
+    immediateCheck: computed(() => true),
+    loading: computed(() => false),
+    loadingText: computed(() => ''),
+    finished: computed(() => false),
+    finishedText: computed(() => ''),
+    error: computed(() => false),
+    errorText: computed(() => ''),
+    isDynamicLoadData: computed(() => false),
+    keyword: computed(() => ''),
+    onItemCheck: () => {},
+    onCheckAll: () => {},
+    onClear: () => {},
+    onNext: () => {},
+    onBreadcrumb: () => {},
+    initInfiniteScroll: () => {},
+    onLoadData: () => {},
+    onSearch: () => {},
+  })
 }
 
-export const useTransferListProvide = (props) => {
-    provide(TRANSFER_LIST_KEY, props)
+export function useTransferListProvide(props) {
+  provide(TRANSFER_LIST_KEY, props)
 }
 
-export const useTransferListInject = () => {
-    return inject(TRANSFER_LIST_KEY, {
-        direction: computed(() => ''),
-    })
+export function useTransferListInject() {
+  return inject(TRANSFER_LIST_KEY, {
+    direction: computed(() => ''),
+  })
 }

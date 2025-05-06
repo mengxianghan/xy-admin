@@ -4,18 +4,19 @@
 </demo>
 
 <!-- #region snippet -->
-<template>
-    <x-upload-image
-        v-model="images"
-        draggable
-        multiple></x-upload-image>
-</template>
-
 <script setup>
 import { ref } from 'vue'
 
 const images = ref([])
 </script>
+
+<template>
+  <x-upload-image
+    v-model="images"
+    draggable
+    multiple
+  />
+</template>
 
 <style lang="less" scoped></style>
 <!-- #endregion snippet -->

@@ -20,12 +20,12 @@ toTree(data, parentValue, fieldNames)
 
 ```js [示例]
 const data = [
-    { id: '1', title: '选项1', parentId: '0' },
-    { id: '1-1', title: '选项1-1', parentId: '1' },
-    { id: '1-2', title: '选项1-2', parentId: '1' },
-    { id: '2', title: '选项2', parentId: '0' },
-    { id: '2-1', title: '选项2-1', parentId: '2' },
-    { id: '2-2', title: '选项2-2', parentId: '2' },
+  { id: '1', title: '选项1', parentId: '0' },
+  { id: '1-1', title: '选项1-1', parentId: '1' },
+  { id: '1-2', title: '选项1-2', parentId: '1' },
+  { id: '2', title: '选项2', parentId: '0' },
+  { id: '2-1', title: '选项2-1', parentId: '2' },
+  { id: '2-2', title: '选项2-2', parentId: '2' },
 ]
 
 const list = toTree(data)
@@ -35,39 +35,39 @@ console.log(list)
 
 ```json [输出]
 [
-    {
-        "id": "1",
-        "title": "选项1",
-        "parentId": "0",
-        "children": [
-            {
-                "id": "1-1",
-                "title": "选项1-1",
-                "parentId": "1"
-            },
-            {
-                "id": "1-2",
-                "title": "选项1-2",
-                "parentId": "1"
-            }
-        ]
-    },
-    {
-        "id": "2",
-        "title": "选项2",
-        "parentId": "0",
-        "children": [
-            {
-                "id": "2-1",
-                "title": "选项2-1",
-                "parentId": "2"
-            },
-            {
-                "id": "2-2",
-                "title": "选项2-2",
-                "parentId": "2"
-            }
-        ]
-    }
+  {
+    "id": "1",
+    "title": "选项1",
+    "parentId": "0",
+    "children": [
+      {
+        "id": "1-1",
+        "title": "选项1-1",
+        "parentId": "1"
+      },
+      {
+        "id": "1-2",
+        "title": "选项1-2",
+        "parentId": "1"
+      }
+    ]
+  },
+  {
+    "id": "2",
+    "title": "选项2",
+    "parentId": "0",
+    "children": [
+      {
+        "id": "2-1",
+        "title": "选项2-1",
+        "parentId": "2"
+      },
+      {
+        "id": "2-2",
+        "title": "选项2-2",
+        "parentId": "2"
+      }
+    ]
+  }
 ]
 ```

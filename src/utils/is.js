@@ -5,69 +5,70 @@ import { getType } from './get'
  * @param {*} value
  * @returns
  */
-export const isUrl = (value) => new RegExp('^((https|http|ftp|rtsp|mms)?:\\/\\/)[^\\s]+', 'g').test(value)
+export const isUrl = value => /^((https|http|ftp|rtsp|mms)?:\/\/)\S+/.test(value)
 
 /**
  * 检查是否 Object
  * @param {*} value
  * @returns
  */
-export const isObject = (value) => getType(value) === 'object'
+export const isObject = value => getType(value) === 'object'
 
 /**
  * 检查是否 Function
  * @param {*} value
  * @returns
  */
-export const isFunction = (value) => ['function', 'asyncfunction'].includes(getType(value))
+export const isFunction = value => ['function', 'asyncfunction'].includes(getType(value))
 
 /**
  * 检查是否 AsyncFunction
  * @param {*} value
  * @returns
  */
-export const isAsyncFunction = (value) => getType(value) === 'asyncfunction'
+export const isAsyncFunction = value => getType(value) === 'asyncfunction'
 
 /**
  * 检查是否为空
  * @param {*} value
  * @returns
  */
-export const isEmpty = (value) => value === '' || value === null || value === undefined
+export const isEmpty = value => value === '' || value === null || value === undefined
 
 /**
  * 检查是否是字符串
  * @param value
  * @returns {boolean}
  */
-export const isString = (value) => getType(value) === 'string' || value === undefined
+export const isString = value => getType(value) === 'string' || value === undefined
 
 /**
  * 检查是否数字
  * @param value
  * @returns {boolean}
  */
-export const isNumber = (value) => getType(value) === 'number'
+export const isNumber = value => getType(value) === 'number'
 
 /**
  * 检查是否数组
  * @param value
  * @returns {boolean}
  */
-export const isArray = (value) => getType(value) === 'array'
+export const isArray = value => getType(value) === 'array'
 
 /**
  * 检查是否 json 字符串
  * @param value
  */
-export const isJsonString = (value) => {
-    if (typeof value === 'string') {
-        try {
-            JSON.parse(value)
-            return true
-        } catch (err) {
-            return false
-        }
+export function isJsonString(value) {
+  if (typeof value === 'string') {
+    try {
+      JSON.parse(value)
+      return true
     }
-    return false
+    catch {
+      return false
+    }
+  }
+  return false
 }

@@ -1,11 +1,11 @@
-<template>
-    <router-view />
-</template>
-
 <script setup>
 defineOptions({
-    name: 'RouteViewLayout',
+  name: 'RouteViewLayout',
 })
 </script>
+
+<template>
+  <router-view />
+</template>
 
 <style lang="less" scoped></style>

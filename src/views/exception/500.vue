@@ -1,18 +1,21 @@
-<template>
-    <a-result
-        status="500"
-        sub-title="对不起，服务器错误。"
-        title="500">
-        <template #extra>
-            <a-button type="primary">返回</a-button>
-        </template>
-    </a-result>
-</template>
-
 <script setup>
 defineOptions({
-    name: '500',
+  name: '500',
 })
 </script>
+
+<template>
+  <a-result
+    status="500"
+    sub-title="对不起，服务器错误。"
+    title="500"
+  >
+    <template #extra>
+      <a-button type="primary">
+        返回
+      </a-button>
+    </template>
+  </a-result>
+</template>
 
 <style lang="less" scoped></style>

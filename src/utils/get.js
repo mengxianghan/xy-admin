@@ -13,11 +13,11 @@ export const getFormData = (record = {}, formData = {}) => pick(cloneDeep(record
  * @param {*} value
  * @returns
  */
-export const getType = (value) => Object.prototype.toString.call(value).slice(8, -1).toLowerCase()
+export const getType = value => Object.prototype.toString.call(value).slice(8, -1).toLowerCase()
 
 /**
  * 获取文件后缀
  * @param {*} filename
  * @returns
  */
-export const getSuffix = (filename) => filename.split('.').pop().toLowerCase()
+export const getSuffix = filename => filename.split('.').pop().toLowerCase()

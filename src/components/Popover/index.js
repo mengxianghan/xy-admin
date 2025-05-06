@@ -1,8 +1,8 @@
-import usePopover from './usePopover'
 import PopoverConstructor from './Popover.vue'
+import usePopover from './usePopover'
 
 const Popover = usePopover({
-    view: PopoverConstructor,
+  view: PopoverConstructor,
 })
 
 export { Popover, usePopover }

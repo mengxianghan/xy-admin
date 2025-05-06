@@ -1,18 +1,18 @@
 .scrollbar(@handle-bg: rgba(0, 0, 0, 0.1), @handle-bg-hover: rgba(0,0,0,0.2), @handle-size: 4px, @border-radius: 10em) {
-    &::-webkit-scrollbar {
-        width: @handle-size;
-        height: @handle-size;
-        background: transparent;
-        border-radius: @border-radius;
-    }
+  &::-webkit-scrollbar {
+    width: @handle-size;
+    height: @handle-size;
+    background: transparent;
+    border-radius: @border-radius;
+  }
 
-    &::-webkit-scrollbar-thumb {
-        background: @handle-bg;
-        border-radius: @border-radius;
+  &::-webkit-scrollbar-thumb {
+    background: @handle-bg;
+    border-radius: @border-radius;
 
-        &:hover {
-            background: @handle-bg-hover;
-            transition: all 0.2s;
-        }
+    &:hover {
+      background: @handle-bg-hover;
+      transition: all 0.2s;
     }
+  }
 }

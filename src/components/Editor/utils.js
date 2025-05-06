@@ -4,8 +4,8 @@
  * @param {*} styles
  * @returns
  */
-export const getContentStyle = (token, styles = '') => {
-    return `
+export function getContentStyle(token, styles = '') {
+  return `
         .mce-content-body  {
             font-size: 14px;
             font-weight: 400;

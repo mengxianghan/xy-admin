@@ -30,19 +30,19 @@
 
 ### Props
 
-| 参数<img width="100" /> | 说明                                                 | 类型        | 默认值       |
-|-----------------------|----------------------------------------------------|-----------|-----------|
-| type                  | 按钮类型，可选：default、primary、info、success、warning、error | `string`  | `default` |
-| color                 | 颜色                                                 | `string`  | -         |
-| text-color            | 文本颜色                                               | `string`  | -         |
-| border-color          | 边框颜色                                               | `string`  | -         |
-| icon                  | 图标                                                 | `VNode`   | -         |
-| secondary             | 次要标签                                               | `boolean` | `false`   |
-| bordered              | 是否显示边框                                             | `boolean` | `true`    |
-| round                 | 是否圆形标签                                             | `boolean` | `false`   |
+| 参数<img width="100" /> | 说明                                                            | 类型      | 默认值    |
+| ----------------------- | --------------------------------------------------------------- | --------- | --------- |
+| type                    | 按钮类型，可选：default、primary、info、success、warning、error | `string`  | `default` |
+| color                   | 颜色                                                            | `string`  | -         |
+| text-color              | 文本颜色                                                        | `string`  | -         |
+| border-color            | 边框颜色                                                        | `string`  | -         |
+| icon                    | 图标                                                            | `VNode`   | -         |
+| secondary               | 次要标签                                                        | `boolean` | `false`   |
+| bordered                | 是否显示边框                                                    | `boolean` | `true`    |
+| round                   | 是否圆形标签                                                    | `boolean` | `false`   |
 
 ### Slots
 
-| 名称   | 说明 |
-|------|----|
+| 名称 | 说明 |
+| ---- | ---- |
 | icon | 图标 |

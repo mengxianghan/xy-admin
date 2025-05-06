@@ -4,29 +4,30 @@
 </demo>
 
 <!-- #region snippet -->
-<template>
-    <a-button
-        type="primary"
-        @click="handleShow">
-        显示
-    </a-button>
-</template>
-
 <script setup>
 import { Loading } from '@/components'
 
 defineOptions({
-    name: 'GlobalBasic',
+  name: 'GlobalBasic',
 })
 
 function handleShow() {
-    Loading()
+  Loading()
 
-    setTimeout(() => {
-        Loading.destroy()
-    }, 2000)
+  setTimeout(() => {
+    Loading.destroy()
+  }, 2000)
 }
 </script>
+
+<template>
+  <a-button
+    type="primary"
+    @click="handleShow"
+  >
+    显示
+  </a-button>
+</template>
 
 <style lang="less" scoped></style>
 <!-- #endregion snippet -->

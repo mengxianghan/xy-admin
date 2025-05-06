@@ -4,16 +4,16 @@ import { request } from '@/utils'
 export const getDynamicList = () => request.basic.get('/dynamic')
 
 // 获取分页列表
-export const getPageList = (params) => request.basic.get('/data', params, { enableAbortController: false })
+export const getPageList = params => request.basic.get('/data', params, { enableAbortController: false })
 // 删除
 export const del = () => request.basic.delete(`/data`)
 // 创建
-export const create = (params) => request.basic.post('/data', params)
+export const create = params => request.basic.post('/data', params)
 // 更新
 export const update = (_, params) => request.basic.put(`/data`, params)
 
 // 获取地区
-export const getRegion = (params) => request.basic.get('/region', params)
+export const getRegion = params => request.basic.get('/region', params)
 
 // 获取选项列表
-export const getOptions = (params) => request.basic.get('/common/options', params, { enableAbortController: false })
+export const getOptions = params => request.basic.get('/common/options', params, { enableAbortController: false })

@@ -49,7 +49,7 @@ server {
         # 用于配合 browserHistory 使用
         try_files $uri $uri/ /index.html;
 
-        # 如果有资源，建议使用 https + http2，配合按需加载可以获得更好的体验 
+        # 如果有资源，建议使用 https + http2，配合按需加载可以获得更好的体验
         # rewrite ^/(.*)$ https://preview.pro.loacg.com/$1 permanent;
 
     }
@@ -61,7 +61,7 @@ server {
     }
 }
 server {
-  # 如果有资源，建议使用 https + http2，配合按需加载可以获得更好的体验 
+  # 如果有资源，建议使用 https + http2，配合按需加载可以获得更好的体验
   listen 443 ssl http2 default_server;
 
   # 证书的公私钥

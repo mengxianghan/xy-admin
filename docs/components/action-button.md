@@ -14,8 +14,8 @@
 
 ### Props
 
-| 参数       | 说明      | 类型        | 默认值     |
-|----------|---------|-----------|---------|
-| tag      | 标签      | `string`  | `span`  |
+| 参数     | 说明           | 类型      | 默认值  |
+| -------- | -------------- | --------- | ------- |
+| tag      | 标签           | `string`  | `span`  |
 | divider  | 是否显示分割线 | `boolean` | `true`  |
-| disabled | 禁用      | `boolean` | `false` |
+| disabled | 禁用           | `boolean` | `false` |

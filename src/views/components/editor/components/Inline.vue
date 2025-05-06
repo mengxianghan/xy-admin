@@ -4,17 +4,17 @@
 </demo>
 
 <!-- #region snippet -->
-<template>
-    <x-editor :option="option"></x-editor>
-</template>
-
 <script setup>
 import { ref } from 'vue'
 
 const option = ref({
-    inline: true,
+  inline: true,
 })
 </script>
+
+<template>
+  <x-editor :option="option" />
+</template>
 
 <style lang="less" scoped></style>
 <!-- #endregion snippet -->

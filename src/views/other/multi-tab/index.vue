@@ -1,46 +1,11 @@
-<template>
-    <div>
-        <a-card title="打开">
-            <a-space>
-                <a-button @click="handleOpen">打开欢迎页</a-button>
-            </a-space>
-        </a-card>
-        <a-card
-            class="mt-8-2"
-            title="刷新">
-            <a-space>
-                <a-button @click="handleReload">刷新当前</a-button>
-                <span>{{ date }}</span>
-            </a-space>
-        </a-card>
-        <a-card
-            class="mt-8-2"
-            title="关闭">
-            <a-space>
-                <a-button @click="handleClose">关闭当前</a-button>
-                <a-button @click="handleCloseOther">关闭其他</a-button>
-            </a-space>
-        </a-card>
-        <a-card
-            class="mt-8-2"
-            title="设置">
-            <a-space>
-                <a-input v-model:value="title"></a-input>
-                <a-button @click="handleSetTitle">设置标题</a-button>
-                <a-button @click="handleRevertTitle">还原</a-button>
-            </a-space>
-        </a-card>
-    </div>
-</template>
-
 <script setup>
+import { useMultiTab } from '@/hooks'
 import dayjs from 'dayjs'
 import { onMounted, ref } from 'vue'
 import { useRouter } from 'vue-router'
-import { useMultiTab } from '@/hooks'
 
 defineOptions({
-    name: 'otherMultiTab',
+  name: 'OtherMultiTab',
 })
 
 const router = useRouter()
@@ -49,50 +14,100 @@ const date = ref('')
 const title = ref('自定义名称')
 
 onMounted(() => {
-    date.value = dayjs().format('YYYY-MM-DD HH:mm:ss')
+  date.value = dayjs().format('YYYY-MM-DD HH:mm:ss')
 })
 
 /**
  * 打开欢迎页
  */
 function handleOpen() {
-    router.push({ name: 'welcome' })
+  router.push({ name: 'welcome' })
 }
 
 /**
  * 刷新当前
  */
 function handleReload() {
-    reload()
+  reload()
 }
 
 /**
  * 关闭
  */
 function handleClose() {
-    close()
+  close()
 }
 
 /**
  * 关闭其他
  */
 function handleCloseOther() {
-    closeOther()
+  closeOther()
 }
 
 /**
  * 设置标题
  */
 function handleSetTitle() {
-    setTitle(title.value)
+  setTitle(title.value)
 }
 
 /**
  * 还原标题
  */
 function handleRevertTitle() {
-    setTitle(router.currentRoute.value.meta?.title)
+  setTitle(router.currentRoute.value.meta?.title)
 }
 </script>
+
+<template>
+  <div>
+    <a-card title="打开">
+      <a-space>
+        <a-button @click="handleOpen">
+          打开欢迎页
+        </a-button>
+      </a-space>
+    </a-card>
+    <a-card
+      class="mt-8-2"
+      title="刷新"
+    >
+      <a-space>
+        <a-button @click="handleReload">
+          刷新当前
+        </a-button>
+        <span>{{ date }}</span>
+      </a-space>
+    </a-card>
+    <a-card
+      class="mt-8-2"
+      title="关闭"
+    >
+      <a-space>
+        <a-button @click="handleClose">
+          关闭当前
+        </a-button>
+        <a-button @click="handleCloseOther">
+          关闭其他
+        </a-button>
+      </a-space>
+    </a-card>
+    <a-card
+      class="mt-8-2"
+      title="设置"
+    >
+      <a-space>
+        <a-input v-model:value="title" />
+        <a-button @click="handleSetTitle">
+          设置标题
+        </a-button>
+        <a-button @click="handleRevertTitle">
+          还原
+        </a-button>
+      </a-space>
+    </a-card>
+  </div>
+</template>
 
 <style lang="less" scoped></style>

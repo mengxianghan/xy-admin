@@ -4,11 +4,11 @@
 </demo>
 
 <!-- #region snippet -->
-<template>
-    <x-editor></x-editor>
-</template>
-
 <script setup></script>
+
+<template>
+  <x-editor />
+</template>
 
 <style lang="less" scoped></style>
 <!-- #endregion snippet -->

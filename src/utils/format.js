@@ -15,8 +15,9 @@ export const formatDateTime = (dateTime, def = null) => (dateTime ? dayjs(dateTi
  * @param def
  * @return {string}
  */
-export const formatStartTimeOfDay = (dateTime, def = null) =>
-    dateTime ? dayjs(dateTime).startOf('day').format('YYYY-MM-DD HH:mm:ss') : def
+export function formatStartTimeOfDay(dateTime, def = null) {
+  return dateTime ? dayjs(dateTime).startOf('day').format('YYYY-MM-DD HH:mm:ss') : def
+}
 
 /**
  * 格式化一天的结束时间
@@ -24,8 +25,9 @@ export const formatStartTimeOfDay = (dateTime, def = null) =>
  * @param def
  * @return {string}
  */
-export const formatEndTimeOfDay = (dateTime, def = null) =>
-    dateTime ? dayjs(dateTime).endOf('day').format('YYYY-MM-DD HH:mm:ss') : def
+export function formatEndTimeOfDay(dateTime, def = null) {
+  return dateTime ? dayjs(dateTime).endOf('day').format('YYYY-MM-DD HH:mm:ss') : def
+}
 
 /**
  * 格式化字段，无数据是返回自定义空值
@@ -37,8 +39,8 @@ export const formatField = (data, def = '-') => data ?? def
 
 /**
  * 格式化时间区间
- * @param {array} keys
- * @param {array} values
+ * @param {Array} keys
+ * @param {Array} values
  * @return {{}}
  */
 export const formatRangeTime = (keys, values) => zipObject(keys, values, [formatStartTimeOfDay, formatEndTimeOfDay])

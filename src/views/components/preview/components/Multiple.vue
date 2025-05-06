@@ -4,29 +4,30 @@
 </demo>
 
 <!-- #region snippet -->
-<template>
-    <a-button
-        type="primary"
-        @click="handlePreview">
-        预览
-    </a-button>
-</template>
-
 <script setup>
 import { Preview } from '@/components'
 
 function handlePreview() {
-    Preview({
-        current: 1,
-        urls: [
-            'http://cdn.xuanyunet.com/test/1.jpeg',
-            'http://cdn.xuanyunet.com/test/2.jpeg',
-            'http://cdn.xuanyunet.com/test/3.jpeg',
-            'http://cdn.xuanyunet.com/test/4.jpeg',
-        ],
-    })
+  Preview({
+    current: 1,
+    urls: [
+      'http://cdn.xuanyunet.com/test/1.jpeg',
+      'http://cdn.xuanyunet.com/test/2.jpeg',
+      'http://cdn.xuanyunet.com/test/3.jpeg',
+      'http://cdn.xuanyunet.com/test/4.jpeg',
+    ],
+  })
 }
 </script>
+
+<template>
+  <a-button
+    type="primary"
+    @click="handlePreview"
+  >
+    预览
+  </a-button>
+</template>
 
 <style lang="less" scoped></style>
 <!-- #endregion snippet -->

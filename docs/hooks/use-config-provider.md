@@ -7,18 +7,17 @@
 ### 基础用法
 
 ```vue
+<script setup>
+import { useConfigProvider } from '@/hooks'
+
+const { configProviderAttrs } = useConfigProvider()
+</script>
 
 <template>
-    <a-config-provider v-bind="configProviderAttrs">
-        <div></div>
-    </a-config-provider>
+  <a-config-provider v-bind="configProviderAttrs">
+    <div />
+  </a-config-provider>
 </template>
-
-<script setup>
-    import { useConfigProvider } from '@/hooks'
-
-    const { configProviderAttrs } = useConfigProvider()
-</script>
 
 <style lang="less" scoped></style>
 ```
@@ -27,8 +26,6 @@
 
 ### 返回值
 
-| 参数                  | 说明                                                                                     | 类型                    |
-|---------------------|----------------------------------------------------------------------------------------|-----------------------|
+| 参数                | 说明                                                                                               | 类型                  |
+| ------------------- | -------------------------------------------------------------------------------------------------- | --------------------- |
 | configProviderAttrs | 配置信息，详见：[ConfigProvider 全局配置](https://www.antdv.com/components/config-provider-cn#api) | `ConfigProviderAttrs` |
-
-

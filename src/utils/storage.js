@@ -1,30 +1,30 @@
-import Storage from 'xy-storage'
 import { config } from '@/config'
+import Storage from 'xy-storage'
 
 const options = {
-    namespace: config('storage.namespace'),
-    attrs: {
-        domain: config('storage.domain'),
-    },
+  namespace: config('storage.namespace'),
+  attrs: {
+    domain: config('storage.domain'),
+  },
 }
 
 export const local = new Storage({
-    ...options,
-    name: 'local',
+  ...options,
+  name: 'local',
 })
 
 export const session = new Storage({
-    ...options,
-    name: 'session',
+  ...options,
+  name: 'session',
 })
 
 export const cookie = new Storage({
-    ...options,
-    name: 'cookie',
+  ...options,
+  name: 'cookie',
 })
 
 export default {
-    local,
-    session,
-    cookie,
+  local,
+  session,
+  cookie,
 }

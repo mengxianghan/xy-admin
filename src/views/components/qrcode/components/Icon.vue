@@ -4,19 +4,20 @@
 </demo>
 
 <!-- #region snippet -->
-<template>
-    <x-qrcode
-        :icon="assets('logo.svg')"
-        :value="text"
-        icon-background-color="#fff"></x-qrcode>
-</template>
-
 <script setup>
-import { ref } from 'vue'
 import { assets } from '@/utils'
+import { ref } from 'vue'
 
 const text = ref('http://xy-admin.xuanyunet.com')
 </script>
+
+<template>
+  <x-qrcode
+    :icon="assets('logo.svg')"
+    :value="text"
+    icon-background-color="#fff"
+  />
+</template>
 
 <style lang="less" scoped></style>
 <!-- #endregion snippet -->

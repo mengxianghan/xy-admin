@@ -4,41 +4,44 @@
 </demo>
 
 <!-- #region snippet -->
-<template>
-    <a-space>
-        <a-button
-            type="primary"
-            @click="handleShow({ size: 'large' })">
-            大尺寸
-        </a-button>
-        <a-button
-            type="primary"
-            @click="handleShow()">
-            默认尺寸
-        </a-button>
-        <a-button
-            type="primary"
-            @click="handleShow({ size: 'small' })">
-            小尺寸
-        </a-button>
-    </a-space>
-</template>
-
 <script setup>
 import { Loading } from '@/components'
 
 defineOptions({
-    name: 'GlobalSize',
+  name: 'GlobalSize',
 })
 
 function handleShow(option = {}) {
-    Loading(option)
+  Loading(option)
 
-    setTimeout(() => {
-        Loading.destroy()
-    }, 2000)
+  setTimeout(() => {
+    Loading.destroy()
+  }, 2000)
 }
 </script>
+
+<template>
+  <a-space>
+    <a-button
+      type="primary"
+      @click="handleShow({ size: 'large' })"
+    >
+      大尺寸
+    </a-button>
+    <a-button
+      type="primary"
+      @click="handleShow()"
+    >
+      默认尺寸
+    </a-button>
+    <a-button
+      type="primary"
+      @click="handleShow({ size: 'small' })"
+    >
+      小尺寸
+    </a-button>
+  </a-space>
+</template>
 
 <style lang="less" scoped></style>
 <!-- #endregion snippet -->

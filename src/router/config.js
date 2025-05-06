@@ -11,12 +11,12 @@ export const whiteList = ['login', 'logout', '404']
  * @type {{redirect: string, path: string, hidden: boolean}}
  */
 export const notFoundRoute = {
-    path: '/:pathMatch(.*)*',
-    redirect: '/exception/404',
-    meta: {
-        isLogin: false,
-        isMenu: false,
-    },
+  path: '/:pathMatch(.*)*',
+  redirect: '/exception/404',
+  meta: {
+    isLogin: false,
+    isMenu: false,
+  },
 }
 
 /**
@@ -25,18 +25,18 @@ export const notFoundRoute = {
  * @type {*[]}
  */
 export const constantRoutes = [
-    {
-        path: '/base',
-        component: layouts.UserLayout,
-        children: [
-            {
-                path: '/login',
-                name: 'login',
-                component: () => import('@/views/login/index.vue'),
-                meta: {
-                    title: '登录',
-                },
-            },
-        ],
-    },
+  {
+    path: '/base',
+    component: layouts.UserLayout,
+    children: [
+      {
+        path: '/login',
+        name: 'login',
+        component: () => import('@/views/login/index.vue'),
+        meta: {
+          title: '登录',
+        },
+      },
+    ],
+  },
 ]

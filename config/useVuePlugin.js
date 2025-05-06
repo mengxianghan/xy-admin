@@ -1,5 +1,5 @@
 import vue from '@vitejs/plugin-vue'
 
 export default () => {
-    return vue()
+  return vue()
 }
