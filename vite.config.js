@@ -3,7 +3,6 @@ import process from 'node:process'
 import { defineConfig, loadEnv } from 'vite'
 import useCompressPlugin from './config/useCompressPlugin'
 import useDemoPlugin from './config/useDemoPlugin'
-import useEslintPlugin from './config/useEslintPlugin'
 import useProgressPlugin from './config/useProgressPlugin'
 import useServer from './config/useServer'
 import useVisualizerPlugin from './config/useVisualizerPlugin'
@@ -60,7 +59,6 @@ export default ({ mode }) => {
       useProgressPlugin(),
       useCompressPlugin(),
       useVisualizerPlugin(),
-      useEslintPlugin(),
       useDemoPlugin(),
     ],
     server: useServer(),
