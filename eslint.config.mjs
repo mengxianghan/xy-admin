@@ -41,6 +41,7 @@ export default antfu({
         },
       },
     ],
+    // 'vue/component-definition-name-casing': 'off',
     'regexp/no-unused-capturing-group': 'off',
     'jsdoc/require-returns-description': 'off',
     'jsdoc/check-param-names': 'off',

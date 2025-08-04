@@ -4,7 +4,6 @@ import { storeToRefs } from 'pinia'
 import { computed } from 'vue'
 import useAppStore from '../../store/modules/app'
 import IframeView from './IframeView.vue'
-import LayoutTransition from './LayoutTransition.vue'
 
 defineOptions({
   name: 'BasicContent',
@@ -23,13 +22,11 @@ const cpKeepAlive = computed(() => multiTabStore.keepAlive)
   <a-layout-content class="basic-content">
     <router-view v-slot="{ Component, route }">
       <keep-alive :include="cpCacheList">
-        <layout-transition>
-          <component
-            :is="Component"
-            v-if="cpKeepAlive"
-            :key="route.name"
-          />
-        </layout-transition>
+        <component
+          :is="Component"
+          v-if="cpKeepAlive"
+          :key="route.name"
+        />
       </keep-alive>
     </router-view>
     <iframe-view />

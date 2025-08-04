@@ -10,7 +10,7 @@
     "build:prod": "vite build --mode prod",
     "preview": "pnpm run build:prod && vite preview",
     "report": "vite build --mode prod",
-    "lint": "eslint",
+    "lint": "eslint .",
     "prepare": "husky install",
     "docs:dev": "vitepress dev docs",
     "docs:build": "vitepress build docs",
@@ -79,7 +79,7 @@
   },
   "lint-staged": {
     "src/(**/)?*.{js,vue}": [
-      "pnpm run lint"
+      "pnpm lint"
     ]
   }
 }
