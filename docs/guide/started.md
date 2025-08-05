@@ -134,9 +134,9 @@ npm run build:prod
    :::
 
 2. 删除 `src/components/DemoBox` 目录
-3. 删除 `vite.config.js` 第 `10`、`63` 行
+3. 删除 `vite.config.js` 第 `5`、`62` 行
    ::: code-group
-   <<< @/../vite.config.js{10,63}
+   <<< @/../vite.config.js{5,62}
    :::
 
 4. 卸载 `@vue/compiler-sfc` 依赖
@@ -145,7 +145,7 @@ npm run build:prod
 
 1. 删除 `/docs` 目录
 2. 卸载 `vitepress` 依赖
-3. 删除 `package.json` 第 `16-18` 行
+3. 删除 `package.json` 第 `15-17` 行
    ::: code-group
-   <<< @/../package.json{16-18}
+   <<< @/../package.json{15-17}
    :::
