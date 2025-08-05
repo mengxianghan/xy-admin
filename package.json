@@ -11,7 +11,7 @@
     "preview": "pnpm run build:prod && vite preview",
     "report": "vite build --mode prod",
     "lint": "eslint .",
-    "prepare": "husky install",
+    "prepare": "husky || true",
     "docs:dev": "vitepress dev docs",
     "docs:build": "vitepress build docs",
     "docs:preview": "vitepress build docs && vitepress preview docs"
@@ -27,7 +27,7 @@
     "axios": "^1.11.0",
     "cropperjs": "^1.6.2",
     "dayjs": "^1.11.13",
-    "echarts": "^5.6.0",
+    "echarts": "^6.0.0",
     "filesize": "^11.0.2",
     "filesize-parser": "^1.5.1",
     "highlight.js": "^11.11.1",
