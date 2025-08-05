@@ -1,7 +1,7 @@
 {
   "name": "xy-admin",
   "type": "module",
-  "version": "2.10.1",
+  "version": "2.10.2",
   "private": true,
   "scripts": {
     "dev": "vite",
