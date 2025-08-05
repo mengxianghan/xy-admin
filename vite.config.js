@@ -22,7 +22,6 @@ export default ({ mode }) => {
       rollupOptions: {
         output: {
           manualChunks: {
-            'tinymce': ['tinymce'],
             'echarts': ['echarts'],
             'lodash-es': ['lodash-es'],
             'ant-design-vue': ['ant-design-vue'],
