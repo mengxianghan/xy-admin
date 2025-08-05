@@ -11,7 +11,7 @@
 
 #### ⛱️ 线上预览
 
-- 线上预览 <a href="http://xy-admin.pages.dev" target="_blank">http://xy-admin.pages.dev</a>
+- 线上预览 <a href="http://xy-admin.xuanyunet.com" target="_blank">http://xy-admin.xuanyunet.com</a>
 
 #### ✨ 特点
 
@@ -60,9 +60,7 @@ npm run build:prod
 #### 💯 学习交流
 
 微信号：meng_xianghan
+
 或使用微信扫以下二维码加我为好友
+
 <img src="http://cdn.xuanyunet.com/images/wechat-qrcode.jpg" width="200" />
-
-#### ❤️ 感谢
-
-<img src="https://resources.jetbrains.com/storage/products/company/brand/logos/jb_beam.svg" alt="JetBrains Logo (Main) logo." height="100">
