@@ -1,6 +1,6 @@
 <script setup>
-import { formatUnits } from '@/components/utils'
 import { computed, reactive, ref } from 'vue'
+import { formatUnits } from '@/components/utils'
 import { directionEnum } from './config'
 
 defineOptions({

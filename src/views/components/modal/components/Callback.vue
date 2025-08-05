@@ -5,8 +5,8 @@
 
 <!-- #region snippet -->
 <script setup>
-import { useModal } from '@/hooks'
 import { Modal } from 'ant-design-vue'
+import { useModal } from '@/hooks'
 
 const { modal, openModal, closeModal } = useModal({
   beforeOpen: (done) => {

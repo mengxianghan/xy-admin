@@ -12,8 +12,8 @@ const props = defineProps({
   reference: { type: Object, required: true },
   options: { type: Object },
   content: { type: [String, Number, Object], default: '' },
-  delayHide: { type: Function, default: () => {}, required: true },
-  clearHideTimer: { type: Function, default: () => {}, required: true },
+  delayHide: { type: Function, default: () => {}, required: false },
+  clearHideTimer: { type: Function, default: () => {} },
 })
 
 const popoverRef = ref(null)

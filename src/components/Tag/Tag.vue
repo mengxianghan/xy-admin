@@ -1,7 +1,7 @@
 <script setup>
-import { useColors } from '@/hooks'
 import { theme } from 'ant-design-vue'
 import { computed, useAttrs } from 'vue'
+import { useColors } from '@/hooks'
 
 defineOptions({
   name: 'XTag',

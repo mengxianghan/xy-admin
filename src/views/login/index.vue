@@ -1,11 +1,11 @@
 <script setup>
-import { config } from '@/config'
-import { useForm } from '@/hooks'
-import { useUserStore } from '@/store'
 import { LockOutlined, MobileOutlined, UserOutlined } from '@ant-design/icons-vue'
 import { message } from 'ant-design-vue'
 import { computed, onMounted, ref } from 'vue'
 import { useRoute } from 'vue-router'
+import { config } from '@/config'
+import { useForm } from '@/hooks'
+import { useUserStore } from '@/store'
 
 defineOptions({
   name: 'Login',

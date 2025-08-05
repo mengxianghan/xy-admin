@@ -1,6 +1,6 @@
 <script setup>
-import { useForm } from '@/hooks'
 import { InfoCircleOutlined } from '@ant-design/icons-vue'
+import { useForm } from '@/hooks'
 
 defineOptions({
   name: 'FormBasic',

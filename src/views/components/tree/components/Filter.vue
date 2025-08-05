@@ -5,9 +5,9 @@
 
 <!-- #region snippet -->
 <script setup>
+import { ref } from 'vue'
 import { Tree as XTree } from '@/components/index.js'
 import { tree2list } from '@/utils'
-import { ref } from 'vue'
 
 const keyword = ref('')
 const keepChildNodes = ref(false)

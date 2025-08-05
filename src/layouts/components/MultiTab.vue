@@ -1,11 +1,11 @@
 <script setup>
-import { useMultiTab } from '@/hooks'
-import { useAppStore, useMultiTabStore } from '@/store'
 import { CloseOutlined, ReloadOutlined } from '@ant-design/icons-vue'
 import { storeToRefs } from 'pinia'
 import Sortable from 'sortablejs'
 import { computed, nextTick, onMounted, ref } from 'vue'
 import { useRouter } from 'vue-router'
+import { useMultiTab } from '@/hooks'
+import { useAppStore, useMultiTabStore } from '@/store'
 
 defineOptions({
   name: 'MultiTab',

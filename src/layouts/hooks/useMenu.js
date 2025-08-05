@@ -1,9 +1,9 @@
-import { useAppStore, useRouterStore } from '@/store'
 import { find, get, head, omit } from 'lodash-es'
 import { storeToRefs } from 'pinia'
-
 import { ref, watch } from 'vue'
+
 import { useRoute, useRouter } from 'vue-router'
+import { useAppStore, useRouterStore } from '@/store'
 import { getFirstValidRoute } from '../../router/util'
 
 export default () => {

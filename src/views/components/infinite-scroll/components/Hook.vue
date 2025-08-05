@@ -5,8 +5,8 @@
 
 <!-- #region snippet -->
 <script setup>
-import { useInfiniteScroll } from '@/components/InfiniteScroll'
 import { onMounted, ref } from 'vue'
+import { useInfiniteScroll } from '@/components/InfiniteScroll'
 
 const infiniteRef = ref()
 const count = ref(0)

@@ -5,9 +5,9 @@
 
 <!-- #region snippet -->
 <script setup>
-import { assets } from '@/utils'
 import { message } from 'ant-design-vue'
 import { ref } from 'vue'
+import { assets } from '@/utils'
 
 const cropperRef = ref()
 

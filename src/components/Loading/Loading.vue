@@ -1,7 +1,7 @@
 <script setup>
-import { isString } from '@/utils'
 import { Spin } from 'ant-design-vue'
 import { computed } from 'vue'
+import { isString } from '@/utils'
 
 defineOptions({
   name: 'XLoading',

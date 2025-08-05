@@ -1,5 +1,5 @@
-import { config } from '@/config'
 import Storage from 'xy-storage'
+import { config } from '@/config'
 
 const options = {
   namespace: config('storage.namespace'),

@@ -51,7 +51,7 @@ export function mapping({ data = [], fieldNames = {}, expand = {}, treeFieldName
           }
         }
       }
-      else if (filedValue instanceof Function) {
+      else if (typeof filedValue === 'function') {
         // 函数
         temp[filedKey] = filedValue(item, index, array, [...path, item])
       }

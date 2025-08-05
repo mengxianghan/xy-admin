@@ -1,12 +1,12 @@
 <script setup>
-import apis from '@/apis'
-import { config } from '@/config'
-import { usePagination } from '@/hooks'
-import { useAppStore } from '@/store'
 import { MoreOutlined, PlusOutlined } from '@ant-design/icons-vue'
 import { Empty, message, Modal } from 'ant-design-vue'
 import { find, get, head } from 'lodash-es'
 import { ref, watch } from 'vue'
+import apis from '@/apis'
+import { config } from '@/config'
+import { usePagination } from '@/hooks'
+import { useAppStore } from '@/store'
 import EditDictDialog from './EditDictDialog.vue'
 
 const props = defineProps({

@@ -1,9 +1,9 @@
 <script setup>
-import { useAppStore } from '@/store'
 import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons-vue'
 import { theme as antTheme } from 'ant-design-vue'
 import { storeToRefs } from 'pinia'
 import { computed, useSlots } from 'vue'
+import { useAppStore } from '@/store'
 
 defineOptions({
   name: 'BasicSide',

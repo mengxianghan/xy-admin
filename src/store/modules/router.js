@@ -1,3 +1,4 @@
+import { defineStore } from 'pinia'
 import apis from '@/apis'
 import { config } from '@/config'
 import router from '@/router'
@@ -5,7 +6,6 @@ import { notFoundRoute } from '@/router/config'
 import routes from '@/router/routes'
 import { formatRoutes, generateMenuList, generateRoutes, getFirstValidRoute } from '@/router/util'
 import { findTree } from '@/utils'
-import { defineStore } from 'pinia'
 
 const useRouterStore = defineStore('router', {
   state: () => ({

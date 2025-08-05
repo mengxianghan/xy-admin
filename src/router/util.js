@@ -1,6 +1,6 @@
+import { filter, find, findIndex, omit } from 'lodash-es'
 import * as layouts from '@/layouts'
 import { isFunction } from '@/utils'
-import { filter, find, findIndex, omit } from 'lodash-es'
 
 /**
  * 格式化路由

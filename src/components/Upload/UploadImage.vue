@@ -1,5 +1,4 @@
 <script setup>
-import { deepMerge } from '@/utils'
 import { DeleteOutlined, EyeOutlined, PlusOutlined } from '@ant-design/icons-vue'
 import { Form, message } from 'ant-design-vue'
 import { filesize } from 'filesize'
@@ -8,6 +7,7 @@ import { findIndex, includes, some } from 'lodash-es'
 import { nanoid } from 'nanoid'
 import Sortable from 'sortablejs'
 import { computed, onMounted, ref, watch } from 'vue'
+import { deepMerge } from '@/utils'
 import CropperDialog from '../Cropper/CropperDialog.vue'
 import { Preview } from '../Preview'
 import { STATUS_ENUM } from './config'
@@ -207,7 +207,7 @@ function handleCancel({ key }) {
  * 上传前
  */
 function onBeforeUpload(file) {
-  const maxFileSize = props.maxSize instanceof Number ? props.maxSize : filesizeParser(props.maxSize)
+  const maxFileSize = typeof props.maxSize === 'number' ? props.maxSize : filesizeParser(props.maxSize)
   const checkFileSize = file?.size < maxFileSize
   if (!checkFileSize) {
     message.warning(`已忽略超过 ${filesize(maxFileSize)} 的文件`)

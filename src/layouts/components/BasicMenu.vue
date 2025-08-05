@@ -1,10 +1,10 @@
 <script setup>
-import { useAppStore } from '@/store'
-import { mapping } from '@/utils'
 import { Badge } from 'ant-design-vue'
 import { storeToRefs } from 'pinia'
 import { computed, h, onMounted, ref, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
+import { useAppStore } from '@/store'
+import { mapping } from '@/utils'
 
 defineOptions({
   name: 'BasicMenu',

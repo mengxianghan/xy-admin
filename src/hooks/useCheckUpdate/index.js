@@ -1,7 +1,7 @@
-import { config } from '@/config'
 import { Button, notification } from 'ant-design-vue'
 import { createVersionPolling } from 'version-polling'
 import { h } from 'vue'
+import { config } from '@/config'
 
 export default () => {
   createVersionPolling({

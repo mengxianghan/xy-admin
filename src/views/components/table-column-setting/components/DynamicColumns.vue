@@ -5,9 +5,9 @@
 
 <!-- #region snippet -->
 <script setup>
-import { TableColumnSetting as XTableColumnSetting, Toolbar as XToolbar } from '@/components'
 import { DownOutlined, SettingOutlined, SmileOutlined } from '@ant-design/icons-vue'
 import { ref } from 'vue'
+import { TableColumnSetting as XTableColumnSetting, Toolbar as XToolbar } from '@/components'
 
 const columns = ref([
   {

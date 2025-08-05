@@ -1,8 +1,4 @@
 <script setup>
-import apis from '@/apis'
-import { TableColumnSetting as XTableColumnSetting } from '@/components'
-import { config } from '@/config'
-import { usePagination } from '@/hooks'
 import {
   ColumnHeightOutlined,
   DownOutlined,
@@ -15,6 +11,10 @@ import {
 } from '@ant-design/icons-vue'
 import { message, Modal } from 'ant-design-vue'
 import { ref } from 'vue'
+import apis from '@/apis'
+import { TableColumnSetting as XTableColumnSetting } from '@/components'
+import { config } from '@/config'
+import { usePagination } from '@/hooks'
 import EditDialog from './components/EditDialog.vue'
 
 defineOptions({

@@ -1,6 +1,6 @@
-import { config } from '@/config'
-
 import { createRouter, createWebHashHistory, createWebHistory } from 'vue-router'
+
+import { config } from '@/config'
 import { constantRoutes } from './config'
 
 const router = createRouter({

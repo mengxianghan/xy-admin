@@ -1,5 +1,5 @@
-import { setStyle } from '@/components/utils'
 import { createVNode, render } from 'vue'
+import { setStyle } from '@/components/utils'
 import LoadingConstructor from './Loading.vue'
 
 function show(el, binding) {

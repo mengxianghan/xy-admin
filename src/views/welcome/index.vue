@@ -1,10 +1,10 @@
 <script setup>
+import { storeToRefs } from 'pinia'
 import apis from '@/apis'
 import { config } from '@/config'
 import usePagination from '@/hooks/usePagination'
 import { useUserStore } from '@/store'
 import { assets } from '@/utils'
-import { storeToRefs } from 'pinia'
 
 defineOptions({
   name: 'Welcome',

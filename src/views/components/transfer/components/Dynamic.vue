@@ -5,11 +5,11 @@
 
 <!-- #region snippet -->
 <script setup>
+import { ref } from 'vue'
 import apis from '@/apis'
 import { Transfer as XTransfer } from '@/components'
 import { config } from '@/config'
 import { usePagination } from '@/hooks'
-import { ref } from 'vue'
 
 const selectedRows = ref([])
 const selectedKeys = ref([])

@@ -1,7 +1,7 @@
 <script setup>
-import { useMultiTabStore } from '@/store'
 import { storeToRefs } from 'pinia'
 import { computed } from 'vue'
+import { useMultiTabStore } from '@/store'
 import useAppStore from '../../store/modules/app'
 import IframeView from './IframeView.vue'
 

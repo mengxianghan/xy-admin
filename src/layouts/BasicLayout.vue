@@ -1,7 +1,7 @@
 <script setup>
-import { useAppStore } from '@/store'
 import { storeToRefs } from 'pinia'
 import { ref } from 'vue'
+import { useAppStore } from '@/store'
 import BasicContent from './components/BasicContent.vue'
 import BasicHeader from './components/BasicHeader.vue'
 import BasicMenu from './components/BasicMenu.vue'

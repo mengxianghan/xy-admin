@@ -1,7 +1,7 @@
 <script setup>
+import { computed, ref, useAttrs, useSlots, watch } from 'vue'
 import { getSlotProps } from '@/components/utils'
 import { filterTree } from '@/utils'
-import { computed, ref, useAttrs, useSlots, watch } from 'vue'
 
 defineOptions({
   name: 'XTree',

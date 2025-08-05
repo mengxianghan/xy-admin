@@ -5,10 +5,10 @@
 
 <!-- #region snippet -->
 <script setup>
-import { Loading } from '@/components'
 import { LoadingOutlined } from '@ant-design/icons-vue'
 import { message } from 'ant-design-vue'
 import { h } from 'vue'
+import { Loading } from '@/components'
 
 defineOptions({
   name: 'GlobalCustom',

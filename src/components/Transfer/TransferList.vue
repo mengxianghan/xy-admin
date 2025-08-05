@@ -1,9 +1,9 @@
 <script setup>
-import { getSlotProps } from '@/components/utils'
 import { HomeOutlined, SearchOutlined } from '@ant-design/icons-vue'
 import { Empty } from 'ant-design-vue'
 import { every, pick } from 'lodash-es'
 import { computed, isVNode, nextTick, onMounted, ref, useSlots, watchEffect } from 'vue'
+import { getSlotProps } from '@/components/utils'
 import { DIRECTION_ENUM } from './config'
 import { useTransferInject, useTransferListProvide } from './context'
 import TransferListItem from './TransferListItem.vue'

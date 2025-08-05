@@ -1,7 +1,7 @@
 <script setup>
-import { useAppStore } from '@/store'
 import { storeToRefs } from 'pinia'
 import { ref } from 'vue'
+import { useAppStore } from '@/store'
 import LayoutRadio from './LayoutRadio.vue'
 
 const appStore = useAppStore()

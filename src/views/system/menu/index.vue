@@ -1,11 +1,11 @@
 <script setup>
+import { EllipsisOutlined, PlusOutlined } from '@ant-design/icons-vue'
+import { message, Modal } from 'ant-design-vue'
+import { ref } from 'vue'
 import apis from '@/apis'
 import { config } from '@/config'
 import { menuTypeEnum } from '@/enums/system'
 import { usePagination } from '@/hooks'
-import { EllipsisOutlined, PlusOutlined } from '@ant-design/icons-vue'
-import { message, Modal } from 'ant-design-vue'
-import { ref } from 'vue'
 
 import EditDialog from './components/EditDialog.vue'
 

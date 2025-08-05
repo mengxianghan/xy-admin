@@ -5,8 +5,8 @@
 
 <!-- #region snippet -->
 <script setup>
-import { assets } from '@/utils'
 import { ref } from 'vue'
+import { assets } from '@/utils'
 
 const cropperRef = ref()
 

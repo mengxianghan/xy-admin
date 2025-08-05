@@ -1,7 +1,7 @@
 <script setup>
-import { getSlotProps } from '@/components/utils'
 import { FormItem as AFormItem } from 'ant-design-vue'
 import { useSlots } from 'vue'
+import { getSlotProps } from '@/components/utils'
 
 defineOptions({
   name: 'XFilterItem',

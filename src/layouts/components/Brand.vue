@@ -1,8 +1,8 @@
 <script setup>
-import { config } from '@/config'
-import { useAppStore } from '@/store'
 import { storeToRefs } from 'pinia'
 import { computed } from 'vue'
+import { config } from '@/config'
+import { useAppStore } from '@/store'
 
 defineOptions({
   name: 'Brand',

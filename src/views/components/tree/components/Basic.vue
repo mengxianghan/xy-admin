@@ -5,8 +5,8 @@
 
 <!-- #region snippet -->
 <script setup>
-import { Tree as XTree } from '@/components/index.js'
 import { ref } from 'vue'
+import { Tree as XTree } from '@/components/index.js'
 
 const defaultExpandAll = ref(false)
 const blockNode = ref(false)

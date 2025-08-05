@@ -1,7 +1,7 @@
 <script setup>
-import { useModal } from '@/hooks'
-
 import { ref } from 'vue'
+
+import { useModal } from '@/hooks'
 import Cropper from './Cropper.vue'
 
 defineOptions({

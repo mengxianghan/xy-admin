@@ -1,8 +1,8 @@
 <script setup>
+import { DownloadOutlined, EditOutlined, EllipsisOutlined, ShareAltOutlined } from '@ant-design/icons-vue'
 import apis from '@/apis'
 import { config } from '@/config'
 import { usePagination } from '@/hooks'
-import { DownloadOutlined, EditOutlined, EllipsisOutlined, ShareAltOutlined } from '@ant-design/icons-vue'
 import PageHeader from '../components/PageHeader.vue'
 
 defineOptions({

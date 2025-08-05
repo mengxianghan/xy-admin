@@ -26,7 +26,7 @@ defineOptions({
           <a-select />
         </a-form-item>
         <a-form-item label="所在省市">
-          <x-region />
+          <x-cascader />
         </a-form-item>
         <a-form-item label="街道地址">
           <a-input />

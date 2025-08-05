@@ -1,9 +1,9 @@
 <script setup>
-import { config } from '@/config'
-import { findTree } from '@/utils'
 import { Form, message } from 'ant-design-vue'
 import { isEqual, isFunction, last, pick } from 'lodash-es'
 import { computed, onMounted, ref, useSlots, watch } from 'vue'
+import { config } from '@/config'
+import { findTree } from '@/utils'
 import { getSlotProps } from '../utils'
 
 defineOptions({

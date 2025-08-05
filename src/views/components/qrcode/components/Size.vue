@@ -5,9 +5,9 @@
 
 <!-- #region snippet -->
 <script setup>
-import { assets } from '@/utils'
 import { MinusOutlined, PlusOutlined } from '@ant-design/icons-vue'
 import { ref } from 'vue'
+import { assets } from '@/utils'
 
 const text = ref('http://xy-admin.xuanyunet.com')
 const size = ref(160)

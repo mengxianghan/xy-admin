@@ -1,8 +1,8 @@
-import { config } from '@/config'
-import { useUserStore } from '@/store'
 import { message, notification } from 'ant-design-vue'
 import jschardet from 'jschardet'
 import XYHttp from 'xy-http'
+import { config } from '@/config'
+import { useUserStore } from '@/store'
 
 const MSG_ERROR_KEY = Symbol('GLOBAL_ERROR')
 

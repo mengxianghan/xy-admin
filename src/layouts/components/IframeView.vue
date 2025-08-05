@@ -1,8 +1,8 @@
 <script setup>
-import { useMultiTabStore } from '@/store'
 import { computed } from 'vue'
-
 import { useRoute } from 'vue-router'
+
+import { useMultiTabStore } from '@/store'
 
 defineOptions({
   name: 'IframeView',

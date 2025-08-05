@@ -1,8 +1,8 @@
 <script setup>
+import { EditOutlined, EllipsisOutlined, LinkOutlined, PlusOutlined, SettingOutlined } from '@ant-design/icons-vue'
 import apis from '@/apis'
 import { config } from '@/config'
 import { usePagination } from '@/hooks'
-import { EditOutlined, EllipsisOutlined, LinkOutlined, PlusOutlined, SettingOutlined } from '@ant-design/icons-vue'
 
 defineOptions({
   name: 'ListCard',

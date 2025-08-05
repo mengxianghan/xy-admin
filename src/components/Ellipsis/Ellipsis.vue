@@ -1,6 +1,6 @@
 <script setup>
-import { isEmpty } from '@/utils'
 import { computed, nextTick, onMounted, onUpdated, ref, useSlots } from 'vue'
+import { isEmpty } from '@/utils'
 
 defineOptions({
   name: 'XEllipsis',

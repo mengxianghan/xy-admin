@@ -1,6 +1,6 @@
+import { defineStore } from 'pinia'
 import { config } from '@/config'
 import { storage } from '@/utils'
-import { defineStore } from 'pinia'
 import useRouterStore from './router'
 
 const defaultConfig = {

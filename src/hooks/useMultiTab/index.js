@@ -1,8 +1,8 @@
-import { useMultiTabStore } from '@/store'
 import { cloneDeep } from 'lodash-es'
 import { nextTick } from 'vue'
-
 import { useRouter } from 'vue-router'
+
+import { useMultiTabStore } from '@/store'
 
 export default () => {
   const multiTabStore = useMultiTabStore()

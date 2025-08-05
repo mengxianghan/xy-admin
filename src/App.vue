@@ -1,6 +1,6 @@
 <script setup>
-import { useConfigProvider } from '@/hooks'
 import dayjs from 'dayjs'
+import { useConfigProvider } from '@/hooks'
 import 'dayjs/locale/zh-cn'
 
 dayjs.locale('zh-cn')
