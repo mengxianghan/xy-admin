@@ -10,7 +10,7 @@ export function getContentStyle(token, styles = '') {
             font-size: 14px;
             font-weight: 400;
             margin: 0;
-            padding: 4px 11px !important;
+            padding: 8px 11px !important;
             line-height: ${token.lineHeight};
             color: ${token.colorText};
         }

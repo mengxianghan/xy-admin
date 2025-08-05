@@ -10,38 +10,11 @@ defineOptions({
 })
 
 const props = defineProps({
-  modelValue: {
-    type: String,
-    default: '',
-  },
-  /**
-   * 配置
-   */
-  option: {
-    type: Object,
-    default: () => ({}),
-  },
-  /**
-   * 高，默认：300
-   */
-  height: {
-    type: Number,
-    default: 300,
-  },
-  /**
-   * 占位文本
-   */
-  placeholder: {
-    type: String,
-    default: '',
-  },
-  /**
-   * 禁用，默认：false
-   */
-  disabled: {
-    type: Boolean,
-    default: false,
-  },
+  modelValue: { type: String, default: '' },
+  option: { type: Object, default: () => ({}) },
+  height: { type: Number, default: 300 },
+  placeholder: { type: String, default: '' },
+  disabled: { type: Boolean, default: false },
 })
 
 const emit = defineEmits(['update:modelValue', 'initialized'])
@@ -51,11 +24,12 @@ const { token } = theme.useToken()
 const spinning = ref(true)
 const content = ref('')
 const opts = {
-  language: 'zh-Hans',
+  language: 'zh_CN',
   height: 480,
   branding: false,
   resize: false,
   promotion: false,
+  highlight_on_focus: false,
   content_style: getContentStyle(token.value, props.option.content_style),
   ...omit(props.option, ['content_style']),
 }
@@ -79,7 +53,6 @@ watch(
 
 onMounted(() => {
   content.value = props.modelValue
-  tinymce.init({})
 })
 
 /**
@@ -104,6 +77,8 @@ function onInit(e) {
           :disabled="disabled"
           :init="opts"
           :placeholder="placeholder"
+          license-key="gpl"
+          tinymce-script-src="/libs/tinymce/tinymce.min.js"
           v-bind="$attrs"
           @init="onInit"
         />
@@ -113,25 +88,28 @@ function onInit(e) {
 </template>
 
 <style lang="less">
-@import './index.less';
+@import 'index';
 </style>
 
 <style lang="less" scoped>
 .x-editor {
-  &__content {
-    min-height: 32px;
-
+  .x-editor__content {
     .mce-content-body {
-      margin: 0;
-      border-radius: @border-radius;
       border: @color-border solid 1px;
+      border-radius: @border-radius;
+      min-height: 32px;
+      padding: 4px 11px !important;
       outline: none;
-      padding: 4px 11px;
-    }
-  }
+      transition: all @motion-duration-mid;
 
-  textarea {
-    display: none;
+      &:hover {
+        border-color: @color-primary;
+      }
+
+      &.mce-edit-focus {
+        box-shadow: 0 0 0 2px color(~`colorPalette('@{color-primary}', 1) `);
+      }
+    }
   }
 }
 </style>
