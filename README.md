@@ -1,5 +1,5 @@
 <div align="center">
-<img src="https://xy-admin.pages.dev/images/logo.svg" alt="logo" height="80">
+<img src="https://xy-admin.xuanyunet.com/images/logo.svg" alt="logo" height="80">
 
 # XYAdmin
 
@@ -11,7 +11,7 @@
 
 #### ⛱️ 线上预览
 
-- 线上预览 <a href="http://xy-admin.xuanyunet.com" target="_blank">http://xy-admin.xuanyunet.com</a>
+- 线上预览 <a href="https://xy-admin.xuanyunet.com" target="_blank">https://xy-admin.xuanyunet.com</a>
 
 #### ✨ 特点
 
@@ -63,4 +63,4 @@ npm run build:prod
 
 或使用微信扫以下二维码加我为好友
 
-<img src="http://cdn.xuanyunet.com/images/wechat-qrcode.jpg" width="200" />
+<img src="https://xy-admin.xuanyunet.com/images/wechat-qrcode.jpg" width="200" />
